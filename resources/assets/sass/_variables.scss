@@ -1,0 +1,184 @@
+
+// Body
+$body-bg: #f5f8fa;
+
+// Borders
+$laravel-border-color: darken($body-bg, 10%);
+$list-group-border: $laravel-border-color;
+$navbar-default-border: $laravel-border-color;
+$panel-default-border: $laravel-border-color;
+$panel-inner-border: $laravel-border-color;
+
+// Brands
+$brand-primary: #3097D1;
+$brand-info: #8eb4cb;
+$brand-success: #2ab27b;
+$brand-warning: #cbb956;
+$brand-danger: #bf5329;
+
+// Typography
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$font-family-sans-serif: "Raleway", sans-serif;
+$font-size-base: 14px;
+$line-height-base: 1.6;
+$text-color: #636b6f;
+
+// Navbar
+$navbar-default-bg: #fff;
+
+// Buttons
+$btn-default-color: $text-color;
+
+// Inputs
+$input-border: lighten($text-color, 40%);
+$input-border-focus: lighten($brand-primary, 25%);
+$input-color-placeholder: lighten($text-color, 30%);
+
+// Panels
+$panel-default-heading-bg: #fff;
+
+// font montserrat
+.font-montserrat{
+  font-family: 'Montserrat', sans-serif;
+}
+// Divider
+.divider{
+  height: 1px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+  //--Default
+//--spacer
+.padding-side-10{
+  padding: 0 10px;
+}
+.padding-side-20{
+  padding: 0 20px;
+}
+
+.margin-right-0{
+  margin-right: 0 !important;
+}
+.margin-bottom-0{
+  margin-bottom: 0 !important;
+}
+.margin-top-5{
+  margin-top: 5px;
+}
+.margin-top-7{
+  margin-top: 7px;
+}
+.margin-top-10{
+  margin-top: 10px;
+}
+.margin-top-20{
+  margin-top: 20px;
+}
+.margin-top-15{
+  margin-top: 15px;
+}
+.margin-top-20{
+  margin-top: 20px;
+}
+//--font
+.text-10{
+  font-size: 10px;
+}
+.text-11{
+  font-size: 11px;
+}
+.text-12{
+  font-size: 12px;
+}
+.text-13{
+  font-size: 13px;
+}
+.text-14{
+  font-size: 14px;
+}
+.text-15{
+  font-size: 15px;
+}
+.text-16{
+  font-size: 16px;
+}
+.text-17{
+  font-size: 17px;
+}
+.text-18{
+  font-size: 18px;
+}
+.text-19{
+  font-size: 19px;
+}
+.text-20{
+  font-size: 20px;
+}
+.text-21{
+  font-size: 21px;
+}
+.text-22{
+  font-size: 22px;
+}
+.text-23{
+  font-size: 23px;
+}
+.text-24{
+  font-size: 24px;
+}
+.text-25{
+  font-size: 25px;
+}
+.text-26{
+  font-size: 26px;
+}
+.text-27{
+  font-size: 27px;
+}
+.text-28{
+  font-size: 28px;
+}
+.text-29{
+  font-size: 29px;
+}
+.text-30{
+  font-size: 30px;
+}
+.text-40{
+  font-size: 40px;
+}
+.text-50{
+  font-size: 50px;
+}
+.text-60{
+  font-size: 60px;
+}
+.text-70{
+  font-size: 70px;
+}
+.text-80{
+  font-size: 80px;
+}
+//--Color
+.text-green-goto{
+  color: #7F8429;
+}
+.text-orange-goto{
+  color: #e09e37;
+}
+.text-grey-goto{
+  color: #333333;
+}
+.text-white{
+  color: white;
+}
+//--bg
+.bg-green-goto{
+  background: #7F8429;
+}
+.bg-orange-goto{
+  background: #e09e37;
+}
+.bg-grey-goto{
+  background: #333333;
+}
