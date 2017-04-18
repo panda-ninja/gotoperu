@@ -2,5 +2,6 @@
   "/js/app.js": "/js/app.js",
   "/css/app.css": "/css/app.css",
   "/css/admin/admin.css": "/css/admin/admin.css",
-  "/css/font-awesome.css": "/css/font-awesome.css"
+  "/css/font-awesome.css": "/css/font-awesome.css",
+  "/js/admin/plugins.js": "/js/admin/plugins.js"
 }

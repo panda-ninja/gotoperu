@@ -17,6 +17,14 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/admin.scss', 'public/css/admin')
     .sass('resources/assets/sass/fonts-awesome/font-awesome.scss', 'public/css/');
 
+//---js admin
+mix.scripts([
+    'resources/assets/js/vendors/jquery-ui.js',
+    'resources/assets/js/vendors/function-admin.js',
+    'resources/assets/js/vendors/function.js',
+], 'public/js/admin/plugins.js');
+
+//---js web
 
 if (mix.config.inProduction) {
     mix.version();
