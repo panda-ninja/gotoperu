@@ -1,5 +1,6 @@
 /**
  * Created by Sigma on 12/04/2017.
+<<<<<<< HEAD
  */
 //sortable itinerary
 $(function () {
@@ -12,3 +13,4 @@ $(function () {
 });
 
 //-- FREDDY
+

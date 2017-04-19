@@ -18707,16 +18707,15 @@ var widgetsTooltip = $.ui.tooltip;
 /**
  * Created by Sigma on 12/04/2017.
  */
-
-/**
- * Created by Sigma on 12/04/2017.
- */
 //sortable itinerary
 $(function () {
-    $(".grid .grid-lobo").sortable({
+    $(".grid").sortable({
         tolerance: 'pointer',
         revert: 'invalid',
-        placeholder: 'placeholder',
+        placeholder: 'well placeholder',
         forceHelperSize: true
     });
 });
+/**
+ * Created by Sigma on 12/04/2017.
+ */
