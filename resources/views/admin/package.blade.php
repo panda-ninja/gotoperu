@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <label for="txt_day">Email address</label>
+                <label for="txt_day">Duracion</label>
                 <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days">
             </div>
         </div>
@@ -47,6 +47,7 @@
     </div>
 
     <div class="row">
+
         <div class="col-md-3">
             <div class="checkbox">
                 <label>
