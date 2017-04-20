@@ -10,7 +10,7 @@ class M_Servicio extends Model
     //
     protected $table = "m_servicios";
 
-    public function servicios()
+    public function servicio_itinerario_servicios()
     {
         return $this->hasMany(M_ItinerarioServicio::class, 'm_servicios_id');
     }
