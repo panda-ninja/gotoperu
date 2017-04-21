@@ -16,4 +16,8 @@ class P_Itinerario extends Model
     {
         return $this->hasMany(P_ItinerarioDestino::class,'p_itinerario_id');
     }
+    public function serivicios()
+    {
+        return $this->hasMany(P_ItinerarioServicios::class,'p_itinerario_id');
+    }
 }

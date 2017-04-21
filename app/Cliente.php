@@ -29,7 +29,7 @@ class Cliente extends Authenticatable
 
     public function cliente_cotizaciones()
     {
-        return $this->hasMany(ClienteCotizacion::class, 'clientes_id');
+        return $this->hasMany(CotizacionesCliente::class, 'clientes_id');
     }
 
 }

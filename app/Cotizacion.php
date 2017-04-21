@@ -17,28 +17,28 @@ class Cotizacion extends Model
 //        return $this->belongsTo(Cliente::class, 'clientes_id');
 //    }
 
-//    public function paquete_personalizados()
-//    {
-//        return $this->belongsTo(PaquetePersonalizado::class, 'paquete_personalizados_id');
-//    }
+    public function pagos()
+    {
+        return $this->hasMany(CotizacionesPagos::class, 'cotizaciones_id');
+    }
 
     public function users()
     {
         return $this->belongsTo(User::class, 'users_id');
     }
-
-    public function pagos()
-    {
-        return $this->hasMany(Pago::class, 'cotizaciones_id');
-    }
-
+//
+//    public function pagos()
+//    {
+//        return $this->hasMany(Pago::class, 'cotizaciones_id');
+//    }
+//
     public function paquete_cotizaciones()
     {
-        return $this->hasMany(PaqueteCotizacion::class, 'cotizaciones_id');
+        return $this->hasMany(PaqueteCotizaciones::class, 'cotizaciones_id');
     }
 
-    public function cliente_cotizaciones()
+    public function cotizaciones_cliente()
     {
-        return $this->hasMany(ClienteCotizacion::class, 'cotizaciones_id');
+        return $this->hasMany(CotizacionesCliente::class, 'cotizaciones_id');
     }
 }

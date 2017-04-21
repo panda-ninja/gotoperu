@@ -19,3 +19,7 @@ Route::get('admin/package', [
     'uses' => 'PackageController@create',
     'as' => 'package_create_path',
 ]);
+Route::post('admin/new-package', [
+    'uses' => 'PackageController@new',
+    'as' => 'package_new_path',
+]);
