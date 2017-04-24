@@ -19,3 +19,15 @@ Route::get('admin/package', [
     'uses' => 'PackageController@create',
     'as' => 'package_create_path',
 ]);
+Route::get('admin/catalog', [
+    'uses' => 'PackageController@catalog',
+    'as' => 'catalog_show_path',
+]);
+Route::get('admin/qoute', [
+    'uses' => 'QouteController@index',
+    'as' => 'qoute_show_path',
+]);
+Route::get('admin/qoute/proposal/{id}', [
+    'uses' => 'QouteController@proposal',
+    'as' => 'qoute_proposal_path',
+]);

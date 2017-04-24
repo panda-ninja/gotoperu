@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PackageController extends Controller
+class QouteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,12 +13,12 @@ class PackageController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.qoute');
     }
 
-    public function catalog()
+    public function proposal()
     {
-        return view('admin.catalog');
+        return view('admin.quotes-pdf');
     }
 
     /**
@@ -28,7 +28,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.package');
+        //
     }
 
     /**

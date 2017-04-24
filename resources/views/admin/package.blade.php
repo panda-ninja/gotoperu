@@ -17,12 +17,6 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <label for="txt_day">Email address</label>
-                <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days">
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
                 <label for="txt_code">Code</label>
                 <input type="text" class="form-control" id="txt_code" name="txt_code" placeholder="Code">
             </div>
@@ -33,9 +27,15 @@
                 <input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="Title">
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txt_day">Days</label>
+                <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days">
+            </div>
+        </div>
         <div class="col-md-12">
             <label for="txta_description">Description</label>
-            <textarea class="form-control" id="txta_description" name="txta_description" rows="3"></textarea>
+            <textarea class="form-control resizable" id="txta_description" name="txta_description" rows="3"></textarea>
         </div>
     </div>
 
@@ -416,7 +416,7 @@ A prepaid cellphone for extended Programs</textarea>
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-condensed table-bordered font-montserrat">
+            <table class="table table-condensed font-montserrat">
                 <caption class="text-right"><b>Price per night</b></caption>
                 <thead>
                 <tr class="bg-grey-goto-light text-white">
@@ -593,7 +593,7 @@ A prepaid cellphone for extended Programs</textarea>
             </div>
         </div>
         <div class="col-md-12">
-            <table class="table table-condensed table-bordered font-montserrat">
+            <table class="table table-condensed font-montserrat">
                 <caption class="text-right"><b>Total price for Packages</b></caption>
                 <thead>
                 <tr class="bg-grey-goto text-white">
