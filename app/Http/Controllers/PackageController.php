@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Destino;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -23,7 +24,8 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.package');
+        $destinos=M_Destino::get();
+        return view('admin.package',['destinos'=>$destinos]);
     }
 
     /**

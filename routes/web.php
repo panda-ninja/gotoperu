@@ -23,3 +23,7 @@ Route::post('admin/new-package', [
     'uses' => 'PackageController@new',
     'as' => 'package_new_path',
 ]);
+Route::post('/admin/mostrar_itinerario', [
+    'uses' => 'ItinerariController@show_Itineraries',
+    'as' => 'package_new_path',
+]);
