@@ -109,16 +109,46 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2" style="position: relative">
-            {{----}}
-            {{--<div class="aZo">--}}
-                {{--<img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">--}}
-                {{--<div class="aSI">--}}
-                    {{--<div class="aSJ" style="border-color: #fb4c2f"></div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            <iframe src="http://docs.google.com/gview?url={{asset('pdf/proposals_1.pdf')}}&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>
+        {{--<div class="col-md-4" style="position: relative">--}}
+            {{--<iframe src="https://docs.google.com/viewerng/viewer?url=http://travel.gotoperu.travel/pdf/proposals_1.pdf&embedded=true" width="100%" height="420px" frameborder="0" style="margin: 0px;"></iframe>--}}
+        {{--</div>--}}
+        <div class="col-md-3">
+            <div class="portada-pdf">
+                <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
+                <div class="box-dowload">
+                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> GTP900-A.jpg</b>
+                    <a href="{{asset('pdf/proposals_1.pdf')}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="box-letter-proposal text-center">
+                    A
+                </div>
+            </div>
         </div>
+        <div class="col-md-3">
+            <div class="portada-pdf">
+                <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
+                <div class="box-dowload">
+                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> GTP900-B.jpg</b>
+                    <a href="{{asset('pdf/proposals_1.pdf')}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="box-letter-proposal text-center">
+                    B
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="portada-pdf">
+                <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
+                <div class="box-dowload">
+                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> GTP900-C.jpg</b>
+                    <a href="{{asset('pdf/proposals_1.pdf')}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="box-letter-proposal text-center">
+                    C
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
