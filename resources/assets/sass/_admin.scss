@@ -166,6 +166,31 @@ body {
   right: -40px;
   top:50%;
 }
-/* ----- v CAN BE DELETED v ----- */
-
-
+/* ----- PDF ----- */
+.aZo {
+  display: block;
+  float: left;
+  margin: 0 0 16px 16px;
+  height: 120px;
+  width: 180px;
+  position: relative;
+}
+.aSI {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+  height: 20px;
+  width: 20px;
+  border-right: solid 20px transparent;
+}
+.aSI .aSJ {
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 0;
+  right: -20px;
+  border-width: 10px;
+  border-style: solid;
+  z-index: 3;
+}

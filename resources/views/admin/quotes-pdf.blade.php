@@ -109,15 +109,15 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2">
-            <i class="fa fa-file-pdf-o fa-5x" aria-hidden="true"></i>
-       
-                    <iframe
-                            src="{{asset("img/proposals_1.pdf")}}&embedded=true"
-                            style="width:600px; height:500px;"
-                            frameborder="0">
-                    </iframe>
-
+        <div class="col-md-2" style="position: relative">
+            {{----}}
+            {{--<div class="aZo">--}}
+                {{--<img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">--}}
+                {{--<div class="aSI">--}}
+                    {{--<div class="aSJ" style="border-color: #fb4c2f"></div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            <iframe src="http://docs.google.com/gview?url={{asset('pdf/proposals_1.pdf')}}&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>
         </div>
     </div>
 
