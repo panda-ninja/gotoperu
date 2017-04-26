@@ -52,7 +52,7 @@
                 <div class="col-md-3">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="destinos" value="{{$destino->id}}" onclick="mostrarItinerarios()">
+                            <input type="checkbox" name="destinos" value="{{$destino->destino}}" onclick="mostrarItinerarios()">
                             {{$destino->destino}}
                         </label>
                     </div>
@@ -69,7 +69,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="grid">
+                <div class="grid" id="Lista_itinerario_g">
                     <div class="box-sortable margin-bottom-10">
                         <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <b>Dia 1:</b> Peru full day
@@ -197,14 +197,14 @@
                 </div>
             </div>
             <div class="col-md-1 ">
-                <a href="" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                <a href="#!" class="btn btn-primary" onclick="Pasar_datos()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
             </div>
             <div class="col-md-5">
                 <div id="lista_itinerarios">
-                    <div class="row">
+                    <div class="row hide">
                         <b class="font-montserrat text-orange-goto">LIMA</b>
                     </div>
-                    <div class="row margin-bottom-5">
+                    <div class="hide row margin-bottom-5">
                         <div class="input-group">
                       <span class="input-group-addon">
                           <input type="checkbox" aria-label="...">
@@ -218,47 +218,6 @@
                         </div><!-- /input-group -->
                         <div class="collapse clearfix" id="collapseExample3">
                             <div class="col-md-12 well margin-top-5">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci fugit, ipsam numquam odit qui ratione rerum suscipit ullam voluptatibus? Beatae, eius error expedita qui quo suscipit tempore voluptatibus! Deserunt!
-                                <h5><b>Services</b></h5>
-                                <table class="table table-condensed table-striped">
-                                    <thead>
-                                    <tr class="bg-grey-goto text-white">
-                                        <th colspan="2">Concepts</th>
-                                        <th>Prices</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Transfer</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                        <td>1299.00</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Transfer</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                        <td>1299.00</td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row margin-bottom-5">
-                        <div class="input-group">
-                      <span class="input-group-addon">
-                          <input type="checkbox" aria-label="...">
-                      </span>
-
-                            <input type="text" class="form-control" aria-label="..." value="Lima City Tours" readonly>
-
-                            <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample4"><b>$399.00</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
-                        </span>
-                        </div><!-- /input-group -->
-                        <div class="collapse clearfix" id="collapseExample4">
-                            <div class="col-md-12 well">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci fugit, ipsam numquam odit qui ratione rerum suscipit ullam voluptatibus? Beatae, eius error expedita qui quo suscipit tempore voluptatibus! Deserunt!
                                 <h5><b>Services</b></h5>
                                 <table class="table table-condensed table-striped">

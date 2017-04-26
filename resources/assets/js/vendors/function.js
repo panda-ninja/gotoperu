@@ -23,6 +23,11 @@ function mostrarItinerarios() {
     });
 
     destinos=destinos.substring(0,destinos.length-1);
+    $("#lista_itinerarios").html('<div class="progress">'+
+        '<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">'+
+        '<span class="sr-only">45% Complete</span>'+
+        '</div>'+
+        '</div>');
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('[name="_token"]').val()
@@ -32,6 +37,83 @@ function mostrarItinerarios() {
         $("#lista_itinerarios").html(data);
 
     }).fail(function (data) {
+        $("#lista_itinerarios").html('');
         console.log('error: '+data);
     });
+}
+var total_Itinerarios=0;
+function Pasar_datos(){
+    var itinerario='';
+    $("input[name=itinerarios]").each(function (index) {
+        if($(this).is(':checked')){
+            total_Itinerarios++;
+            itinerario=$(this).val().split('_');
+            var servicios=itinerario.split('*');
+            var iti_temp='';
+            $('#Lista_itinerario_g').prepend('');
+                iti_temp+='<div class="box-sortable margin-bottom-10">'+
+                '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">'+
+                '<b>Dia '+total_Itinerarios+':</b> '+itinerario[1]+
+            '</a>'+
+        '<span class="label label-success pull-right">($'+itinerario[3]+'.00)</span>'+
+            '<div class="collapse clearfix" id="collapseExample">'+
+                '<div class="col-md-12">'+itinerario[2]+
+            '<h5><b>Services</b></h5>'+
+            '<table class="table table-condensed table-striped">'+
+                '<thead>'+
+                '<tr class="bg-grey-goto text-white">'+
+                '<th colspan="2">Concepts</th>'+
+                '<th>Prices</th>'+
+                '<th></th>'+
+                '</tr>'+
+                '</thead>'+
+                '<tbody>'+
+                '<tr>';
+                $.each( servicios, function( key, value ) {
+                    var serv=value.split('/');
+                    iti_temp+='<td>'+serv[0]+'</td>'+
+                                '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
+                                '<td>'+serv[1]+'</td>';
+                });
+
+
+                iti_temp+'<td>'+
+            '<a href="" class="text-16 text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'+
+                '</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<td class="" colspan="4">'+
+                '<a href="#add-services1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
+                '<div class="collapse" id="add-services1">'+
+                '<div class="row margin-top-10">'+
+                '<div class="col-md-6">'+
+                '<div class="form-group">'+
+                '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-md-4 row">'+
+                '<div class="form-group">'+
+                '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-md-2">'+
+                '<div class="form-group">'+
+                '<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</td>'+
+                '</tr>'+
+                '</tbody>'+
+                '</table>'+
+                '</div>'+
+                '</div>'+
+                '</div>';
+
+
+            destinos+=$(this).val()+'_';
+        }
+    });
+
 }
