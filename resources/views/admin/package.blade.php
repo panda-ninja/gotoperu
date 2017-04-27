@@ -70,125 +70,125 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="grid" id="Lista_itinerario_g">
-                    <div class="box-sortable margin-bottom-10">
-                        <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            <b>Dia 1:</b> Peru full day
-                        </a>
+                    {{--<div class="box-sortable margin-bottom-10">--}}
+                        {{--<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">--}}
+                            {{--<b>Dia 1:</b> Peru full day--}}
+                        {{--</a>--}}
                         {{--<span class="pull-right">($1299.00)</span>--}}
-                        <span class="label label-success pull-right">($1299.00)</span>
-                        <div class="collapse clearfix" id="collapseExample">
-                            <div class="col-md-12">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci fugit, ipsam numquam odit qui ratione rerum suscipit ullam voluptatibus? Beatae, eius error expedita qui quo suscipit tempore voluptatibus! Deserunt!
-                                <h5><b>Services</b></h5>
-                                <table class="table table-condensed table-striped">
-                                    <thead>
-                                    <tr class="bg-grey-goto text-white">
-                                        <th colspan="2">Concepts</th>
-                                        <th>Prices</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Transfer</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                        <td>1299.00</td>
-                                        <td>
-                                            <a href="" class="text-16 text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
+                        {{--<span class="label label-success pull-right">($1299.00)</span>--}}
+                        {{--<div class="collapse clearfix" id="collapseExample">--}}
+                            {{--<div class="col-md-12">--}}
+                                {{--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci fugit, ipsam numquam odit qui ratione rerum suscipit ullam voluptatibus? Beatae, eius error expedita qui quo suscipit tempore voluptatibus! Deserunt!--}}
+                                {{--<h5><b>Services</b></h5>--}}
+                                {{--<table class="table table-condensed table-striped">--}}
+                                    {{--<thead>--}}
+                                    {{--<tr class="bg-grey-goto text-white">--}}
+                                        {{--<th colspan="2">Concepts</th>--}}
+                                        {{--<th>Prices</th>--}}
+                                        {{--<th></th>--}}
+                                    {{--</tr>--}}
+                                    {{--</thead>--}}
+                                    {{--<tbody>--}}
+                                    {{--<tr>--}}
+                                        {{--<td>Transfer</td>--}}
+                                        {{--<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>--}}
+                                        {{--<td>1299.00</td>--}}
+                                        {{--<td>--}}
+                                            {{--<a href="" class="text-16 text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
 
-                                    <tr>
-                                        <td class="" colspan="4">
-                                            <a href="#add-services1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                    {{--<tr>--}}
+                                        {{--<td class="" colspan="4">--}}
+                                            {{--<a href="#add-services1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>--}}
 
-                                            <div class="collapse" id="add-services1">
-                                                <div class="row margin-top-10">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 row">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{--<div class="collapse" id="add-services1">--}}
+                                                {{--<div class="row margin-top-10">--}}
+                                                    {{--<div class="col-md-6">--}}
+                                                        {{--<div class="form-group">--}}
+                                                            {{--<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="col-md-4 row">--}}
+                                                        {{--<div class="form-group">--}}
+                                                            {{--<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="col-md-2">--}}
+                                                        {{--<div class="form-group">--}}
+                                                            {{--<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
 
-                                        </td>
-                                    </tr>
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-sortable margin-bottom-10">
-                        <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-                            <b>Dia 2:</b> Peru full day
-                        </a>
-                        <span class="label label-success pull-right">($1899.00)</span>
-                        <div class="collapse clearfix" id="collapseExample2">
-                            <div class="col-md-12">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aperiam, consectetur cum dicta distinctio eligendi libero, magnam minus nemo nisi nulla pariatur quod? At aut distinctio maxime optio suscipit?
-                                <h5><b>Services</b></h5>
-                                <table class="table table-condensed table-striped">
-                                    <thead>
-                                    <tr class="bg-grey-goto text-white">
-                                        <th colspan="2">Concepts</th>
-                                        <th>Prices</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Transfer</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                        <td>1299.00</td>
-                                        <td>
-                                            <a href="" class="text-16 text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
+                                    {{--</tbody>--}}
+                                {{--</table>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="box-sortable margin-bottom-10">--}}
+                        {{--<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">--}}
+                            {{--<b>Dia 2:</b> Peru full day--}}
+                        {{--</a>--}}
+                        {{--<span class="label label-success pull-right">($1899.00)</span>--}}
+                        {{--<div class="collapse clearfix" id="collapseExample2">--}}
+                            {{--<div class="col-md-12">--}}
+                                {{--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aperiam, consectetur cum dicta distinctio eligendi libero, magnam minus nemo nisi nulla pariatur quod? At aut distinctio maxime optio suscipit?--}}
+                                {{--<h5><b>Services</b></h5>--}}
+                                {{--<table class="table table-condensed table-striped">--}}
+                                    {{--<thead>--}}
+                                    {{--<tr class="bg-grey-goto text-white">--}}
+                                        {{--<th colspan="2">Concepts</th>--}}
+                                        {{--<th>Prices</th>--}}
+                                        {{--<th></th>--}}
+                                    {{--</tr>--}}
+                                    {{--</thead>--}}
+                                    {{--<tbody>--}}
+                                    {{--<tr>--}}
+                                        {{--<td>Transfer</td>--}}
+                                        {{--<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>--}}
+                                        {{--<td>1299.00</td>--}}
+                                        {{--<td>--}}
+                                            {{--<a href="" class="text-16 text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
 
-                                    <tr>
-                                        <td class="" colspan="3">
-                                            <a href="#add-services2" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                    {{--<tr>--}}
+                                        {{--<td class="" colspan="3">--}}
+                                            {{--<a href="#add-services2" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>--}}
 
-                                            <div class="collapse" id="add-services2">
-                                                <div class="row margin-top-10">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 row">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{--<div class="collapse" id="add-services2">--}}
+                                                {{--<div class="row margin-top-10">--}}
+                                                    {{--<div class="col-md-6">--}}
+                                                        {{--<div class="form-group">--}}
+                                                            {{--<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="col-md-4 row">--}}
+                                                        {{--<div class="form-group">--}}
+                                                            {{--<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="col-md-2">--}}
+                                                        {{--<div class="form-group">--}}
+                                                            {{--<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
 
-                                        </td>
-                                    </tr>
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                                    {{--</tbody>--}}
+                                {{--</table>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">

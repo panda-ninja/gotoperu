@@ -26,20 +26,20 @@ class ItinerariController extends Controller
             $cadena.='<div class="row margin-bottom-5">
                         <div class="input-group">
                       <span class="input-group-addon">';
-                        $servicios='';
+                        $servicios1='';
                         $precio_iti=0;
                         foreach($itinerario->itinerario_itinerario_servicios as $servicios){
                             $precio_iti+=$servicios->itinerario_servicios_servicio->precio;
-                            $servicios.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio.'*';
+                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio.'*';
                         }
-                        $servicios=substr($servicios,0,strlen($servicios)-1);
-              $cadena.='<input type="checkbox" aria-label="..." name="itinerarios" value="'.$itinerario->id.'_'.$itinerario->titulo.'_'.$itinerario->descripcion.'_'.$precio_iti.'_'.$servicios.'">
+                        $servicios1=substr($servicios1,0,strlen($servicios1)-1);
+              $cadena.='<input type="checkbox" aria-label="..." name="itinerarios" value="'.$itinerario->id.'_'.$itinerario->titulo.'_'.$itinerario->descripcion.'_'.$precio_iti.'_'.$servicios1.'">
                       </span>
 
                             <input type="text" class="form-control" aria-label="..." value="'.$itinerario->titulo.'" readonly>
 
                             <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_'.$itinerario->id.'"><b>$'.$itinerario->precio.'</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+                            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_'.$itinerario->id.'"><b>$'.$precio_iti.'</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
                         </span>
                         </div><!-- /input-group -->
                         <div class="collapse clearfix" id="collapse_'.$itinerario->id.'">

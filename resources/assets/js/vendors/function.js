@@ -48,16 +48,16 @@ function Pasar_datos(){
         if($(this).is(':checked')){
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
-            var servicios=itinerario.split('*');
+            var servicios=itinerario[4].split('*');
             var iti_temp='';
-            $('#Lista_itinerario_g').prepend('');
                 iti_temp+='<div class="box-sortable margin-bottom-10">'+
-                '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">'+
+                '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
                 '<b>Dia '+total_Itinerarios+':</b> '+itinerario[1]+
             '</a>'+
         '<span class="label label-success pull-right">($'+itinerario[3]+'.00)</span>'+
-            '<div class="collapse clearfix" id="collapseExample">'+
-                '<div class="col-md-12">'+itinerario[2]+
+            '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
+                '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
+                    itinerario[2]+
             '<h5><b>Services</b></h5>'+
             '<table class="table table-condensed table-striped">'+
                 '<thead>'+
@@ -67,24 +67,23 @@ function Pasar_datos(){
                 '<th></th>'+
                 '</tr>'+
                 '</thead>'+
-                '<tbody>'+
-                '<tr>';
-                $.each( servicios, function( key, value ) {
+                '<tbody>';
+                var servicios_='';
+                $.each(servicios, function( key, value ) {
                     var serv=value.split('/');
-                    iti_temp+='<td>'+serv[0]+'</td>'+
+                    iti_temp+='<tr><td><input type="hidden" name="iti_servicios_'+itinerario[0]+'" value="'+value+'">'+serv[0]+'</td>'+
                                 '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
-                                '<td>'+serv[1]+'</td>';
+                                '<td>'+serv[1]+'</td>'+
+                                '<td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>'+
+                            '</tr>';
                 });
+                // console.log('servicios:');
 
-
-                iti_temp+'<td>'+
-            '<a href="" class="text-16 text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'+
-                '</td>'+
-                '</tr>'+
+            iti_temp+=''+
                 '<tr>'+
                 '<td class="" colspan="4">'+
-                '<a href="#add-services1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
-                '<div class="collapse" id="add-services1">'+
+                '<a href="#add-services'+itinerario[0]+'" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
+                '<div class="collapse" id="add-services'+itinerario[0]+'">'+
                 '<div class="row margin-top-10">'+
                 '<div class="col-md-6">'+
                 '<div class="form-group">'+
@@ -111,8 +110,9 @@ function Pasar_datos(){
                 '</div>'+
                 '</div>';
 
-
-            destinos+=$(this).val()+'_';
+            $('#Lista_itinerario_g').add(iti_temp);
+            iti_temp='';
+            // destinos+=$(this).val()+'_';
         }
     });
 
