@@ -18768,14 +18768,14 @@ function Pasar_datos(){
             itinerario=$(this).val().split('_');
             var servicios=itinerario[4].split('*');
             var iti_temp='';
-
                 iti_temp+='<div class="box-sortable margin-bottom-10">'+
-                '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">'+
+                '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
                 '<b>Dia '+total_Itinerarios+':</b> '+itinerario[1]+
             '</a>'+
         '<span class="label label-success pull-right">($'+itinerario[3]+'.00)</span>'+
-            '<div class="collapse clearfix" id="collapseExample">'+
-                '<div class="col-md-12">'+itinerario[2]+
+            '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
+                '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
+                    itinerario[2]+
             '<h5><b>Services</b></h5>'+
             '<table class="table table-condensed table-striped">'+
                 '<thead>'+
@@ -18786,12 +18786,13 @@ function Pasar_datos(){
                 '</tr>'+
                 '</thead>'+
                 '<tbody>';
+                var servicios_='';
                 $.each(servicios, function( key, value ) {
                     var serv=value.split('/');
-                    iti_temp+='<tr><td>'+serv[0]+'</td>'+
+                    iti_temp+='<tr><td><input type="hidden" name="iti_servicios_'+itinerario[0]+'" value="'+value+'">'+serv[0]+'</td>'+
                                 '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
                                 '<td>'+serv[1]+'</td>'+
-                                '<td><a href="" class="text-16 text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>'+
+                                '<td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>'+
                             '</tr>';
                 });
                 // console.log('servicios:');
@@ -18827,10 +18828,94 @@ function Pasar_datos(){
                 '</div>'+
                 '</div>';
 
-            $('#Lista_itinerario_g').prepend(iti_temp);
+            $('#Lista_itinerario_g').append(iti_temp);
             iti_temp='';
             // destinos+=$(this).val()+'_';
         }
     });
+}
 
+function cambiar_profit(tipo){
+    var totalItinerario=parseInt($('#totalItinerario').val());
+    var nroDiasItinerario=parseInt($('#txt_day').val());
+    nroDiasItinerario=nroDiasItinerario-1;
+    // console.log('totalItinerario:'+totalItinerario);
+    // console.log('nroDiasItinerario:'+nroDiasItinerario);
+
+    var profit_0=$('#profit_0').val();
+    var profit_2=$('#profit_2').val();
+    var profit_3=$('#profit_3').val();
+    var profit_4=$('#profit_4').val();
+    var profit_5=$('#profit_5').val();
+
+    if(tipo==2){
+        var vt2=totalItinerario+(nroDiasItinerario*parseInt($('#amount_t2').val()));
+        $('#amount_t2_c').val(vt2);
+        vt2=Math.ceil(vt2+((vt2*profit_2)*0.01));
+        $('#amount_t2_v').val(vt2);
+
+        var vd2=totalItinerario+(nroDiasItinerario*parseInt($('#amount_d2').val()));
+        $('#amount_d2_c').val(vd2);
+        vd2=Math.ceil(vd2+((vd2*profit_2)*0.01));
+        $('#amount_d2_v').val(vd2);
+
+        var vs2=totalItinerario+(nroDiasItinerario*parseInt($('#amount_s2').val()));
+        $('#amount_s2_c').val(vs2);
+        vs2=Math.ceil(vs2+((vs2*profit_2)*0.01));
+        $('#amount_s2_v').val(vs2);
+    }
+    if(tipo==3){
+        var vt3=totalItinerario+(nroDiasItinerario*parseInt($('#amount_t3').val()));
+        $('#amount_t3_c').val(vt3);
+        vt3=Math.ceil(vt3+((vt3*profit_3)*0.01));
+        $('#amount_t3_v').val(vt3);
+
+        var vd3=totalItinerario+(nroDiasItinerario*parseInt($('#amount_d3').val()));
+        $('#amount_d3_c').val(vd3);
+        vd3=Math.ceil(vd3+((vd3*profit_3)*0.01));
+        $('#amount_d3_v').val(vd3);
+
+        var vs3=totalItinerario+(nroDiasItinerario*parseInt($('#amount_s3').val()));
+        $('#amount_s3_c').val(vs3);
+        vs3=Math.ceil(vs3+((vs3*profit_3)*0.01));
+        $('#amount_s3_v').val(vs3);
+    }
+    if(tipo==4){
+        var vt4=totalItinerario+(nroDiasItinerario*parseInt($('#amount_t4').val()));
+        $('#amount_s4_c').val(vt4);
+        vt4=Math.ceil(vt4+((vt4*profit_4)*0.01));
+        $('#amount_t4_v').val(vt4);
+
+        var vd4=totalItinerario+(nroDiasItinerario*parseInt($('#amount_d4').val()));
+        $('#amount_d4_c').val(vd4);
+        vd4=Math.ceil(vd4+((vd4*profit_4)*0.01));
+        $('#amount_d4_v').val(vd4);
+
+        var vs4=totalItinerario+(nroDiasItinerario*parseInt($('#amount_s4').val()));
+        $('#amount_s4_c').val(vs4);
+        vs4=Math.ceil(vs4+((vs4*profit_4)*0.01));
+        $('#amount_s4_v').val(vs4);
+    }
+    if(tipo==5){
+        var vt5=totalItinerario+(nroDiasItinerario*parseInt($('#amount_t5').val()));
+        $('#amount_t5_c').val(vt5);
+        vt5=Math.ceil(vt5+((vt5*profit_5)*0.01));
+        $('#amount_t5_v').val(vt5);
+
+        var vd5=totalItinerario+(nroDiasItinerario*parseInt($('#amount_d5').val()));
+        $('#amount_d5_c').val(vd5);
+        vd5=Math.ceil(vd5+((vd5*profit_5)*0.01));
+        $('#amount_d5_v').val(vd5);
+
+        var vs5=totalItinerario+(nroDiasItinerario*parseInt($('#amount_s5').val()));
+        $('#amount_s5_c').val(vs5);
+        vs5=Math.ceil(vs5+((vs5*profit_5)*0.01));
+        $('#amount_s5_v').val(vs5);
+    }
+}
+function cambiar_profit_total() {
+    cambiar_profit(2);
+    cambiar_profit(3);
+    cambiar_profit(4);
+    cambiar_profit(5);
 }

@@ -27,3 +27,7 @@ Route::post('/admin/mostrar_itinerario', [
     'uses' => 'ItinerariController@show_Itineraries',
     'as' => 'package_new_path',
 ]);
+Route::post('/admin/guardar-paquete', [
+    'uses' => 'PackageController@store',
+    'as' => 'package_save_path',
+]);
