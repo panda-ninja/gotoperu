@@ -78,6 +78,31 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   padding: 0 20px;
 }
 
+.padding-5{
+  padding: 5px;
+}
+.padding-10{
+  padding: 10px;
+}
+.padding-15{
+  padding: 15px;
+}
+.padding-20{
+  padding: 20px;
+}
+.padding-25{
+  padding: 25px;
+}
+.padding-30{
+  padding: 30px;
+}
+
+.no-margin{
+  margin: 0 !important;
+}
+.no-padding{
+  padding: 0 !important;
+}
 .margin-right-0{
   margin-right: 0 !important;
 }
@@ -214,8 +239,14 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 .text-grey-goto{
   color: #333333;
 }
+.text-grey-goto-light{
+  color: #adadad;
+}
 .text-white{
   color: white;
+}
+.text-pink-goto{
+  color: #e91e63 ;
 }
 //--bg
 .bg-green-goto{

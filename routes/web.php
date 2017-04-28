@@ -31,3 +31,7 @@ Route::get('admin/qoute/proposal/{id}', [
     'uses' => 'QouteController@proposal',
     'as' => 'qoute_proposal_path',
 ]);
+Route::get('admin/qoute/proposal/options/{id}', [
+    'uses' => 'QouteController@options',
+    'as' => 'qoute_options_path',
+]);

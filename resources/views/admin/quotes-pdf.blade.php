@@ -157,7 +157,7 @@
             <button type="button" class="btn btn-lg btn-default pull-left" data-toggle="modal" data-target="#catalog-right">
                 From Catalog
             </button>
-            <button type="submit" class="btn btn-lg btn-danger pull-right">Send <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+            <a href="{{route('qoute_options_path', 1)}}" class="btn btn-lg btn-danger pull-right">Detailed <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
         </div>
     </div>
 

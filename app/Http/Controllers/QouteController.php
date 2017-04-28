@@ -13,12 +13,16 @@ class QouteController extends Controller
      */
     public function index()
     {
-        return view('admin.qoute');
+        return view('admin.quotes');
     }
 
     public function proposal()
     {
         return view('admin.quotes-pdf');
+    }
+    public function options()
+    {
+        return view('admin.quotes-option');
     }
 
     /**
