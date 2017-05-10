@@ -31,3 +31,20 @@ Route::post('/admin/guardar-paquete', [
     'uses' => 'PackageController@store',
     'as' => 'package_save_path',
 ]);
+Route::get('/admin/destination', [
+    'uses' => 'DestinationController@index',
+    'as' => 'destination_index_path',
+]);
+Route::post('/admin/destination', [
+    'uses' => 'DestinationController@store',
+    'as' => 'destination_save_path',
+]);
+Route::post('/admin/destination/delete', [
+    'uses' => 'DestinationController@delete',
+    'as' => 'destination_delete_path',
+]);
+Route::post('/admin/destination/edit', [
+    'uses' => 'DestinationController@edit',
+    'as' => 'destination_edit_path',
+]);
+

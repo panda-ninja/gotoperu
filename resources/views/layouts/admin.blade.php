@@ -10,7 +10,12 @@
     <link rel="stylesheet" href="{{mix("css/admin/admin.css")}}">
     {{--fonts--}}
     <link rel="stylesheet" href="{{mix("css/font-awesome.css")}}">
-
+    <link rel="stylesheet" href="{{mix("css/admin/sweetalert2.min.css")}}">
+    @yield('archivos-css')
+    {{--scripts--}}
+    <script src="{{asset("js/app.js")}}"></script>
+    <script src="{{asset("js/admin/plugins.js")}}"></script>
+    @yield('archivos-js')
 </head>
 <body>
 <nav class="navbar navbar-fixed-top bg-grey-goto">
@@ -98,15 +103,16 @@
                 <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i> Reservas</a></li>
                 <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i> Trafico</a></li>
             </ul>
+            <ul class="nav nav-sidebar">
+                <li class="padding-side-20 bg-green-goto text-white text-20">Database</li>
+                <li><a href="{{route('destination_index_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Destination</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i> Services</a></li>
+            </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             @yield('content')
         </div>
     </div>
 </div>
-
-{{--scripts--}}
-<script src="{{asset("js/app.js")}}"></script>
-<script src="{{asset("js/admin/plugins.js")}}"></script>
 </body>
 </html>
