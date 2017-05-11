@@ -13,6 +13,44 @@
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>
+            <div class="divider margin-bottom-20"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txt_code">Code</label>
+                <input type="text" class="form-control" id="txt_code" name="txt_code" placeholder="Code">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="txt_title">Title</label>
+                <input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="Title">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txt_day">Days</label>
+                <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label for="txta_description">Description</label>
+            <textarea class="form-control resizable" id="txta_description" name="txta_description" rows="3"></textarea>
+        </div>
+    </div>
+
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">2</span> Destinations</h4>
+            <div class="divider margin-bottom-20"></div>
+        </div>
+    </div>
 
         <div class="row">
             <div class="col-md-3">
@@ -305,6 +343,7 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered font-montserrat">
@@ -333,6 +372,35 @@
                                     <input type="number" class="form-control text-right" id="amount_t2" name="amount_t2" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="0">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
+=======
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed font-montserrat">
+                <caption class="text-right"><b>Price per night</b></caption>
+                <thead>
+                <tr class="bg-grey-goto-light text-white">
+                    <th class="text-center">Hotels</th>
+                    <th class="text-center">2 Stars</th>
+                    <th class="text-center">3 Stars</th>
+                    <th class="text-center">4 Stars</th>
+                    <th class="text-center">5 Stars</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <div class="form-group margin-bottom-0">
+                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="number" class="form-control text-right" id="exampleInputAmount" placeholder="Amount">
+                                {{--<div class="input-group-addon">.00</div>--}}
+>>>>>>> origin/master
                             </div>
                         </td>
                         <td>
@@ -483,6 +551,7 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered font-montserrat">
                     <caption class="text-right"><b>Categories for stars</b></caption>
@@ -508,6 +577,35 @@
                                     <input type="number" class="form-control text-right" id="profit_2" name="profit_2" placeholder="Percent" onchange="cambiar_profit(2)" value="40" min="0">
                                     <div class="input-group-addon">%</div>
                                 </div>
+=======
+        </div>
+        <div class="col-md-12">
+            <table class="table table-condensed font-montserrat">
+                <caption class="text-right"><b>Total price for Packages</b></caption>
+                <thead>
+                <tr class="bg-grey-goto text-white">
+                    <th class="text-center">GTP500</th>
+                    <th class="text-center">2 Stars</th>
+                    <th class="text-center">3 Stars</th>
+                    <th class="text-center">4 Stars</th>
+                    <th class="text-center">5 Stars</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <div class="form-group margin-bottom-0">
+                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="number" class="form-control text-right" id="exampleInputAmount" placeholder="Amount">
+                                {{--<div class="input-group-addon">.00</div>--}}
+>>>>>>> origin/master
                             </div>
                         </td>
                         <td>

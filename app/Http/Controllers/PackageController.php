@@ -19,6 +19,11 @@ class PackageController extends Controller
         //--
     }
 
+    public function catalog()
+    {
+        return view('admin.catalog');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

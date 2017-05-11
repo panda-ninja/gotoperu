@@ -26,6 +26,8 @@ mix.copy('node_modules/sweetalert2/src/sweetalert2.js', 'resources/assets/js/ven
 //---js admin
 mix.scripts([
     'resources/assets/js/vendors/jquery-ui.js',
+    'resources/assets/js/vendors/owl.carousel.js',
+    //Customized
     'resources/assets/js/vendors/function-admin.js',
     'resources/assets/js/vendors/sweetalert2.js',
     // 'resources/assets/js/vendors/jquery.dataTables.js',
