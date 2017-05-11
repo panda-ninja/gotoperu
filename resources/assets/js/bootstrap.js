@@ -8,8 +8,9 @@ window._ = require('lodash');
  */
 
 window.$ = window.jQuery = require('jquery');
-// require( 'datatables.net-bs' )( window, $ );
-// require('bootstrap-sass');
+// var $ = require( 'jquery' );
+// require( 'datatables.net-bs4' )( $ );
+require('bootstrap-sass');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
