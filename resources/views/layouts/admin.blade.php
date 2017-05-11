@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{mix("css/admin/admin.css")}}">
     {{--fonts--}}
     <link rel="stylesheet" href="{{mix("css/font-awesome.css")}}">
-    <link rel="stylesheet" href="{{mix("css/admin/sweetalert2.min.css")}}">
+    {{--<link rel="stylesheet" href="{{mix("css/admin/sweetalert2.min.css")}}">--}}
     @yield('archivos-css')
     {{--scripts--}}
     <script src="{{asset("js/app.js")}}"></script>

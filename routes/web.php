@@ -47,4 +47,8 @@ Route::post('/admin/destination/edit', [
     'uses' => 'DestinationController@edit',
     'as' => 'destination_edit_path',
 ]);
+Route::get('storage/destination/{filename}', [
+    'uses' => 'DestinationController@getDestinarionImageName',
+    'as' => 'destination_image_path'
+]);
 

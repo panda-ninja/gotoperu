@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\M_Destino;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 
 class DestinationController extends Controller
@@ -77,5 +78,15 @@ class DestinationController extends Controller
         $destinos=M_Destino::get();
         return view('admin.database.destination',['destinos'=>$destinos]);
     }
-
+    public function getDestinarionImageName($filename){
+//        return Storage::setVisibility($filename, 'public');
+//        Storage::getVisibility($filename);
+//        return $filename;
+        $file = Storage::disk('destination')->get($filename);
+        return new Response($file, 200);
+    }
+    public function getItineraryImage($filename){
+        $file = Storage::disk('destination')->get($filename);
+        return new Response($file, 200);
+    }
 }

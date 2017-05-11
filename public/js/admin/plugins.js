@@ -18716,7 +18716,1140 @@ $(function () {
         forceHelperSize: true
     });
 });
-!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):e.Sweetalert2=t()}(this,function(){"use strict";var e={title:"",titleText:"",text:"",html:"",type:null,customClass:"",target:"body",animation:!0,allowOutsideClick:!0,allowEscapeKey:!0,allowEnterKey:!0,showConfirmButton:!0,showCancelButton:!1,preConfirm:null,confirmButtonText:"OK",confirmButtonColor:"#3085d6",confirmButtonClass:null,cancelButtonText:"Cancel",cancelButtonColor:"#aaa",cancelButtonClass:null,buttonsStyling:!0,reverseButtons:!1,focusCancel:!1,showCloseButton:!1,showLoaderOnConfirm:!1,imageUrl:null,imageWidth:null,imageHeight:null,imageClass:null,timer:null,width:500,padding:20,background:"#fff",input:null,inputPlaceholder:"",inputValue:"",inputOptions:{},inputAutoTrim:!0,inputClass:null,inputAttributes:{},inputValidator:null,progressSteps:[],currentProgressStep:null,progressStepsDistance:"40px",onOpen:null,onClose:null},t=function(e){var t={};for(var n in e)t[e[n]]="swal2-"+e[n];return t},n=t(["container","shown","iosfix","modal","overlay","fade","show","hide","noanimation","close","title","content","buttonswrapper","confirm","cancel","icon","image","input","file","range","select","radio","checkbox","textarea","inputerror","validationerror","progresssteps","activeprogressstep","progresscircle","progressline","loading","styled"]),o=t(["success","warning","info","question","error"]),r=function(e,t){e=String(e).replace(/[^0-9a-f]/gi,""),e.length<6&&(e=e[0]+e[0]+e[1]+e[1]+e[2]+e[2]),t=t||0;for(var n="#",o=0;o<3;o++){var r=parseInt(e.substr(2*o,2),16);r=Math.round(Math.min(Math.max(0,r+r*t),255)).toString(16),n+=("00"+r).substr(r.length)}return n},i=function(e){var t=[];for(var n in e)t.indexOf(e[n])===-1&&t.push(e[n]);return t},a={previousWindowKeyDown:null,previousActiveElement:null,previousBodyPadding:null},l=function(e){if("undefined"==typeof document)return void console.error("SweetAlert2 requires document to initialize");var t=document.createElement("div");t.className=n.container,t.innerHTML=s;var o=document.querySelector(e.target);o||(console.warn("SweetAlert2: Can't find the target \""+e.target+'"'),o=document.body),o.appendChild(t);var r=c(),i=A(r,n.input),a=A(r,n.file),l=r.querySelector("."+n.range+" input"),u=r.querySelector("."+n.range+" output"),d=A(r,n.select),p=r.querySelector("."+n.checkbox+" input"),f=A(r,n.textarea);return i.oninput=function(){J.resetValidationError()},i.onkeydown=function(t){setTimeout(function(){13===t.keyCode&&e.allowEnterKey&&(t.stopPropagation(),J.clickConfirm())},0)},a.onchange=function(){J.resetValidationError()},l.oninput=function(){J.resetValidationError(),u.value=l.value},l.onchange=function(){J.resetValidationError(),l.previousSibling.value=l.value},d.onchange=function(){J.resetValidationError()},p.onchange=function(){J.resetValidationError()},f.oninput=function(){J.resetValidationError()},r},s=('\n <div role="dialog" aria-labelledby="'+n.title+'" aria-describedby="'+n.content+'" class="'+n.modal+'" tabindex="-1">\n   <ul class="'+n.progresssteps+'"></ul>\n   <div class="'+n.icon+" "+o.error+'">\n     <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span>\n   </div>\n   <div class="'+n.icon+" "+o.question+'">?</div>\n   <div class="'+n.icon+" "+o.warning+'">!</div>\n   <div class="'+n.icon+" "+o.info+'">i</div>\n   <div class="'+n.icon+" "+o.success+'">\n     <div class="swal2-success-circular-line-left"></div>\n     <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>\n     <div class="swal2-success-ring"></div> <div class="swal2-success-fix"></div>\n     <div class="swal2-success-circular-line-right"></div>\n   </div>\n   <img class="'+n.image+'">\n   <h2 class="'+n.title+'" id="'+n.title+'"></h2>\n   <div id="'+n.content+'" class="'+n.content+'"></div>\n   <input class="'+n.input+'">\n   <input type="file" class="'+n.file+'">\n   <div class="'+n.range+'">\n     <output></output>\n     <input type="range">\n   </div>\n   <select class="'+n.select+'"></select>\n   <div class="'+n.radio+'"></div>\n   <label for="'+n.checkbox+'" class="'+n.checkbox+'">\n     <input type="checkbox">\n   </label>\n   <textarea class="'+n.textarea+'"></textarea>\n   <div class="'+n.validationerror+'"></div>\n   <div class="'+n.buttonswrapper+'">\n     <button type="button" class="'+n.confirm+'">OK</button>\n     <button type="button" class="'+n.cancel+'">Cancel</button>\n   </div>\n   <button type="button" class="'+n.close+'" aria-label="Close this dialog">&times;</button>\n </div>\n').replace(/(^|\n)\s*/g,""),u=function(){return document.body.querySelector("."+n.container)},c=function(){return u()?u().querySelector("."+n.modal):null},d=function(){return c().querySelectorAll("."+n.icon)},p=function(e){return u()?u().querySelector("."+e):null},f=function(){return p(n.title)},m=function(){return p(n.content)},v=function(){return p(n.image)},h=function(){return p(n.buttonswrapper)},g=function(){return p(n.progresssteps)},y=function(){return p(n.validationerror)},b=function(){return p(n.confirm)},w=function(){return p(n.cancel)},C=function(){return p(n.close)},k=function(e){var t=[b(),w()];e&&t.reverse();var n=t.concat(Array.prototype.slice.call(c().querySelectorAll('button, input:not([type=hidden]), textarea, select, a, *[tabindex]:not([tabindex="-1"])')));return i(n)},x=function(e,t){return!!e.classList&&e.classList.contains(t)},S=function(e){if(e.focus(),"file"!==e.type){var t=e.value;e.value="",e.value=t}},E=function(e,t){if(e&&t){t.split(/\s+/).filter(Boolean).forEach(function(t){e.classList.add(t)})}},B=function(e,t){if(e&&t){t.split(/\s+/).filter(Boolean).forEach(function(t){e.classList.remove(t)})}},A=function(e,t){for(var n=0;n<e.childNodes.length;n++)if(x(e.childNodes[n],t))return e.childNodes[n]},P=function(e,t){t||(t="block"),e.style.opacity="",e.style.display=t},T=function(e){e.style.opacity="",e.style.display="none"},L=function(e){for(;e.firstChild;)e.removeChild(e.firstChild)},M=function(e){return e.offsetWidth||e.offsetHeight||e.getClientRects().length},q=function(e,t){e.style.removeProperty?e.style.removeProperty(t):e.style.removeAttribute(t)},V=function(e){if(!M(e))return!1;if("function"==typeof MouseEvent){var t=new MouseEvent("click",{view:window,bubbles:!1,cancelable:!0});e.dispatchEvent(t)}else if(document.createEvent){var n=document.createEvent("MouseEvents");n.initEvent("click",!1,!1),e.dispatchEvent(n)}else document.createEventObject?e.fireEvent("onclick"):"function"==typeof e.onclick&&e.onclick()},O=function(){var e=document.createElement("div"),t={WebkitAnimation:"webkitAnimationEnd",OAnimation:"oAnimationEnd oanimationend",msAnimation:"MSAnimationEnd",animation:"animationend"};for(var n in t)if(t.hasOwnProperty(n)&&void 0!==e.style[n])return t[n];return!1}(),H=function(){if(window.onkeydown=a.previousWindowKeyDown,a.previousActiveElement&&a.previousActiveElement.focus){var e=window.scrollX,t=window.scrollY;a.previousActiveElement.focus(),e&&t&&window.scrollTo(e,t)}},N=function(){if("ontouchstart"in window||navigator.msMaxTouchPoints)return 0;var e=document.createElement("div");e.style.width="50px",e.style.height="50px",e.style.overflow="scroll",document.body.appendChild(e);var t=e.offsetWidth-e.clientWidth;return document.body.removeChild(e),t},I=function(e,t){var n=void 0;return function(){var o=function(){n=null,e()};clearTimeout(n),n=setTimeout(o,t)}},j="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},K=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},D=K({},e),W=[],U=void 0,R=function(t){var r=c()||l(t);for(var i in t)e.hasOwnProperty(i)||"extraParams"===i||console.warn('SweetAlert2: Unknown parameter "'+i+'"');r.style.width="number"==typeof t.width?t.width+"px":t.width,r.style.padding=t.padding+"px",r.style.background=t.background;for(var a=r.querySelectorAll("[class^=swal2-success-circular-line], .swal2-success-fix"),s=0;s<a.length;s++)a[s].style.background=t.background;var u=f(),p=m(),y=h(),k=b(),x=w(),S=C();if(t.titleText?u.innerText=t.titleText:u.innerHTML=t.title.split("\n").join("<br>"),t.text||t.html){if("object"===j(t.html))if(p.innerHTML="",0 in t.html)for(var A=0;A in t.html;A++)p.appendChild(t.html[A].cloneNode(!0));else p.appendChild(t.html.cloneNode(!0));else t.html?p.innerHTML=t.html:t.text&&(p.textContent=t.text);P(p)}else T(p);t.showCloseButton?P(S):T(S),r.className=n.modal,t.customClass&&E(r,t.customClass);var M=g(),V=parseInt(null===t.currentProgressStep?J.getQueueStep():t.currentProgressStep,10);t.progressSteps.length?(P(M),L(M),V>=t.progressSteps.length&&console.warn("SweetAlert2: Invalid currentProgressStep parameter, it should be less than progressSteps.length (currentProgressStep like JS arrays starts from 0)"),t.progressSteps.forEach(function(e,o){var r=document.createElement("li");if(E(r,n.progresscircle),r.innerHTML=e,o===V&&E(r,n.activeprogressstep),M.appendChild(r),o!==t.progressSteps.length-1){var i=document.createElement("li");E(i,n.progressline),i.style.width=t.progressStepsDistance,M.appendChild(i)}})):T(M);for(var O=d(),H=0;H<O.length;H++)T(O[H]);if(t.type){var N=!1;for(var I in o)if(t.type===I){N=!0;break}if(!N)return console.error("SweetAlert2: Unknown alert type: "+t.type),!1;var K=r.querySelector("."+n.icon+"."+o[t.type]);if(P(K),t.animation)switch(t.type){case"success":E(K,"swal2-animate-success-icon"),E(K.querySelector(".swal2-success-line-tip"),"swal2-animate-success-line-tip"),E(K.querySelector(".swal2-success-line-long"),"swal2-animate-success-line-long");break;case"error":E(K,"swal2-animate-error-icon"),E(K.querySelector(".swal2-x-mark"),"swal2-animate-x-mark")}}var D=v();t.imageUrl?(D.setAttribute("src",t.imageUrl),P(D),t.imageWidth?D.setAttribute("width",t.imageWidth):D.removeAttribute("width"),t.imageHeight?D.setAttribute("height",t.imageHeight):D.removeAttribute("height"),D.className=n.image,t.imageClass&&E(D,t.imageClass)):T(D),t.showCancelButton?x.style.display="inline-block":T(x),t.showConfirmButton?q(k,"display"):T(k),t.showConfirmButton||t.showCancelButton?P(y):T(y),k.innerHTML=t.confirmButtonText,x.innerHTML=t.cancelButtonText,t.buttonsStyling&&(k.style.backgroundColor=t.confirmButtonColor,x.style.backgroundColor=t.cancelButtonColor),k.className=n.confirm,E(k,t.confirmButtonClass),x.className=n.cancel,E(x,t.cancelButtonClass),t.buttonsStyling?(E(k,n.styled),E(x,n.styled)):(B(k,n.styled),B(x,n.styled),k.style.backgroundColor=k.style.borderLeftColor=k.style.borderRightColor="",x.style.backgroundColor=x.style.borderLeftColor=x.style.borderRightColor=""),t.animation===!0?B(r,n.noanimation):E(r,n.noanimation)},z=function(e,t){var o=u(),r=c();e?(E(r,n.show),E(o,n.fade),B(r,n.hide)):B(r,n.fade),P(r),o.style.overflowY="hidden",O&&!x(r,n.noanimation)?r.addEventListener(O,function e(){r.removeEventListener(O,e),o.style.overflowY="auto"}):o.style.overflowY="auto",E(document.documentElement,n.shown),E(document.body,n.shown),E(o,n.shown),Q(),Z(),a.previousActiveElement=document.activeElement,null!==t&&"function"==typeof t&&setTimeout(function(){t(r)})},Q=function(){null===a.previousBodyPadding&&document.body.scrollHeight>window.innerHeight&&(a.previousBodyPadding=document.body.style.paddingRight,document.body.style.paddingRight=N()+"px")},Y=function(){null!==a.previousBodyPadding&&(document.body.style.paddingRight=a.previousBodyPadding,a.previousBodyPadding=null)},Z=function(){if(/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream&&!x(document.body,n.iosfix)){var e=document.body.scrollTop;document.body.style.top=e*-1+"px",E(document.body,n.iosfix)}},$=function(){if(x(document.body,n.iosfix)){var e=parseInt(document.body.style.top,10);B(document.body,n.iosfix),document.body.style.top="",document.body.scrollTop=e*-1}},J=function e(){for(var t=arguments.length,o=Array(t),i=0;i<t;i++)o[i]=arguments[i];if(void 0===o[0])return console.error("SweetAlert2 expects at least 1 attribute!"),!1;var l=K({},D);switch(j(o[0])){case"string":l.title=o[0],l.html=o[1],l.type=o[2];break;case"object":K(l,o[0]),l.extraParams=o[0].extraParams,"email"===l.input&&null===l.inputValidator&&(l.inputValidator=function(e){return new Promise(function(t,n){/^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(e)?t():n("Invalid email address")})}),"url"===l.input&&null===l.inputValidator&&(l.inputValidator=function(e){return new Promise(function(t,n){/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/.test(e)?t():n("Invalid URL")})});break;default:return console.error('SweetAlert2: Unexpected type of argument! Expected "string" or "object", got '+j(o[0])),!1}R(l);var s=u(),d=c();return new Promise(function(t,o){l.timer&&(d.timeout=setTimeout(function(){e.closeModal(l.onClose),o("timer")},l.timer));var i=function(e){if(!(e=e||l.input))return null;switch(e){case"select":case"textarea":case"file":return A(d,n[e]);case"checkbox":return d.querySelector("."+n.checkbox+" input");case"radio":return d.querySelector("."+n.radio+" input:checked")||d.querySelector("."+n.radio+" input:first-child");case"range":return d.querySelector("."+n.range+" input");default:return A(d,n.input)}},p=function(){var e=i();if(!e)return null;switch(l.input){case"checkbox":return e.checked?1:0;case"radio":return e.checked?e.value:null;case"file":return e.files.length?e.files[0]:null;default:return l.inputAutoTrim?e.value.trim():e.value}};l.input&&setTimeout(function(){var e=i();e&&S(e)},0);for(var x=function(n){l.showLoaderOnConfirm&&e.showLoading(),l.preConfirm?l.preConfirm(n,l.extraParams).then(function(o){e.closeModal(l.onClose),t(o||n)},function(t){e.hideLoading(),t&&e.showValidationError(t)}):(e.closeModal(l.onClose),t(n))},L=function(t){var n=t||window.event,i=n.target||n.srcElement,a=b(),s=w(),u=a&&(a===i||a.contains(i)),c=s&&(s===i||s.contains(i));switch(n.type){case"mouseover":case"mouseup":l.buttonsStyling&&(u?a.style.backgroundColor=r(l.confirmButtonColor,-.1):c&&(s.style.backgroundColor=r(l.cancelButtonColor,-.1)));break;case"mouseout":l.buttonsStyling&&(u?a.style.backgroundColor=l.confirmButtonColor:c&&(s.style.backgroundColor=l.cancelButtonColor));break;case"mousedown":l.buttonsStyling&&(u?a.style.backgroundColor=r(l.confirmButtonColor,-.2):c&&(s.style.backgroundColor=r(l.cancelButtonColor,-.2)));break;case"click":if(u&&e.isVisible())if(e.disableButtons(),l.input){var d=p();l.inputValidator?(e.disableInput(),l.inputValidator(d,l.extraParams).then(function(){e.enableButtons(),e.enableInput(),x(d)},function(t){e.enableButtons(),e.enableInput(),t&&e.showValidationError(t)})):x(d)}else x(!0);else c&&e.isVisible()&&(e.disableButtons(),e.closeModal(l.onClose),o("cancel"))}},q=d.querySelectorAll("button"),O=0;O<q.length;O++)q[O].onclick=L,q[O].onmouseover=L,q[O].onmouseout=L,q[O].onmousedown=L;C().onclick=function(){e.closeModal(l.onClose),o("close")},s.onclick=function(t){t.target===s&&l.allowOutsideClick&&(e.closeModal(l.onClose),o("overlay"))};var H=h(),N=b(),K=w();l.reverseButtons?N.parentNode.insertBefore(K,N):N.parentNode.insertBefore(N,K);var D=function(e,t){for(var n=k(l.focusCancel),o=0;o<n.length;o++){e+=t,e===n.length?e=0:e===-1&&(e=n.length-1);var r=n[e];if(M(r))return r.focus()}},W=function(t){var n=t||window.event,r=n.keyCode||n.which;if([9,13,32,27,37,38,39,40].indexOf(r)!==-1){for(var i=n.target||n.srcElement,a=k(l.focusCancel),s=-1,u=0;u<a.length;u++)if(i===a[u]){s=u;break}9===r?(n.shiftKey?D(s,-1):D(s,1),n.stopPropagation(),n.preventDefault()):37===r||38===r||39===r||40===r?document.activeElement===N&&M(K)?K.focus():document.activeElement===K&&M(N)&&N.focus():13===r||32===r?s===-1&&l.allowEnterKey&&(V(l.focusCancel?K:N),n.stopPropagation(),n.preventDefault()):27===r&&l.allowEscapeKey===!0&&(e.closeModal(l.onClose),o("esc"))}};a.previousWindowKeyDown=window.onkeydown,window.onkeydown=W,l.buttonsStyling&&(N.style.borderLeftColor=l.confirmButtonColor,N.style.borderRightColor=l.confirmButtonColor),e.showLoading=e.enableLoading=function(){P(H),P(N,"inline-block"),E(H,n.loading),E(d,n.loading),N.disabled=!0,K.disabled=!0},e.hideLoading=e.disableLoading=function(){l.showConfirmButton||(T(N),l.showCancelButton||T(h())),B(H,n.loading),B(d,n.loading),N.disabled=!1,K.disabled=!1},e.getTitle=function(){return f()},e.getContent=function(){return m()},e.getInput=function(){return i()},e.getImage=function(){return v()},e.getButtonsWrapper=function(){return h()},e.getConfirmButton=function(){return b()},e.getCancelButton=function(){return w()},e.enableButtons=function(){N.disabled=!1,K.disabled=!1},e.disableButtons=function(){N.disabled=!0,K.disabled=!0},e.enableConfirmButton=function(){N.disabled=!1},e.disableConfirmButton=function(){N.disabled=!0},e.enableInput=function(){var e=i();if(!e)return!1;if("radio"===e.type)for(var t=e.parentNode.parentNode,n=t.querySelectorAll("input"),o=0;o<n.length;o++)n[o].disabled=!1;else e.disabled=!1},e.disableInput=function(){var e=i();if(!e)return!1;if(e&&"radio"===e.type)for(var t=e.parentNode.parentNode,n=t.querySelectorAll("input"),o=0;o<n.length;o++)n[o].disabled=!0;else e.disabled=!0},e.recalculateHeight=I(function(){var e=c();if(e){var t=e.style.display;e.style.minHeight="",P(e),e.style.minHeight=e.scrollHeight+1+"px",e.style.display=t}},50),e.showValidationError=function(e){var t=y();t.innerHTML=e,P(t);var o=i();o&&(S(o),E(o,n.inputerror))},e.resetValidationError=function(){var t=y();T(t),e.recalculateHeight();var o=i();o&&B(o,n.inputerror)},e.getProgressSteps=function(){return l.progressSteps},e.setProgressSteps=function(e){l.progressSteps=e,R(l)},e.showProgressSteps=function(){P(g())},e.hideProgressSteps=function(){T(g())},e.enableButtons(),e.hideLoading(),e.resetValidationError();for(var Q=["input","file","range","select","radio","checkbox","textarea"],Y=void 0,Z=0;Z<Q.length;Z++){var $=n[Q[Z]],J=A(d,$);if(Y=i(Q[Z])){for(var X in Y.attributes)if(Y.attributes.hasOwnProperty(X)){var _=Y.attributes[X].name;"type"!==_&&"value"!==_&&Y.removeAttribute(_)}for(var F in l.inputAttributes)Y.setAttribute(F,l.inputAttributes[F])}J.className=$,l.inputClass&&E(J,l.inputClass),T(J)}var G=void 0;switch(l.input){case"text":case"email":case"password":case"number":case"tel":case"url":Y=A(d,n.input),Y.value=l.inputValue,Y.placeholder=l.inputPlaceholder,Y.type=l.input,P(Y);break;case"file":Y=A(d,n.file),Y.placeholder=l.inputPlaceholder,Y.type=l.input,P(Y);break;case"range":var ee=A(d,n.range),te=ee.querySelector("input"),ne=ee.querySelector("output");te.value=l.inputValue,te.type=l.input,ne.value=l.inputValue,P(ee);break;case"select":var oe=A(d,n.select);if(oe.innerHTML="",l.inputPlaceholder){var re=document.createElement("option");re.innerHTML=l.inputPlaceholder,re.value="",re.disabled=!0,re.selected=!0,oe.appendChild(re)}G=function(e){for(var t in e){var n=document.createElement("option");n.value=t,n.innerHTML=e[t],l.inputValue===t&&(n.selected=!0),oe.appendChild(n)}P(oe),oe.focus()};break;case"radio":var ie=A(d,n.radio);ie.innerHTML="",G=function(e){for(var t in e){var o=document.createElement("input"),r=document.createElement("label"),i=document.createElement("span");o.type="radio",o.name=n.radio,o.value=t,l.inputValue===t&&(o.checked=!0),i.innerHTML=e[t],r.appendChild(o),r.appendChild(i),r.for=o.id,ie.appendChild(r)}P(ie);var a=ie.querySelectorAll("input");a.length&&a[0].focus()};break;case"checkbox":var ae=A(d,n.checkbox),le=i("checkbox");le.type="checkbox",le.value=1,le.id=n.checkbox,le.checked=Boolean(l.inputValue);var se=ae.getElementsByTagName("span");se.length&&ae.removeChild(se[0]),se=document.createElement("span"),se.innerHTML=l.inputPlaceholder,ae.appendChild(se),P(ae);break;case"textarea":var ue=A(d,n.textarea);ue.value=l.inputValue,ue.placeholder=l.inputPlaceholder,P(ue);break;case null:break;default:console.error('SweetAlert2: Unexpected type of input! Expected "text", "email", "password", "number", "tel", "select", "radio", "checkbox", "textarea", "file" or "url", got "'+l.input+'"')}"select"!==l.input&&"radio"!==l.input||(l.inputOptions instanceof Promise?(e.showLoading(),l.inputOptions.then(function(t){e.hideLoading(),G(t)})):"object"===j(l.inputOptions)?G(l.inputOptions):console.error("SweetAlert2: Unexpected type of inputOptions! Expected object or Promise, got "+j(l.inputOptions))),z(l.animation,l.onOpen),l.allowEnterKey?D(-1,1):document.activeElement&&document.activeElement.blur(),u().scrollTop=0,"undefined"==typeof MutationObserver||U||(U=new MutationObserver(e.recalculateHeight),U.observe(d,{childList:!0,characterData:!0,subtree:!0}))})};return J.isVisible=function(){return!!c()},J.queue=function(e){W=e;var t=function(){W=[],document.body.removeAttribute("data-swal2-queue-step")},n=[];return new Promise(function(e,o){!function r(i,a){i<W.length?(document.body.setAttribute("data-swal2-queue-step",i),J(W[i]).then(function(e){n.push(e),r(i+1,a)},function(e){t(),o(e)})):(t(),e(n))}(0)})},J.getQueueStep=function(){return document.body.getAttribute("data-swal2-queue-step")},J.insertQueueStep=function(e,t){return t&&t<W.length?W.splice(t,0,e):W.push(e)},J.deleteQueueStep=function(e){void 0!==W[e]&&W.splice(e,1)},J.close=J.closeModal=function(e){var t=u(),o=c();if(o){B(o,n.show),E(o,n.hide),clearTimeout(o.timeout),H();var r=function(){t.parentNode&&t.parentNode.removeChild(t),B(document.documentElement,n.shown),B(document.body,n.shown),Y(),$()};O&&!x(o,n.noanimation)?o.addEventListener(O,function e(){o.removeEventListener(O,e),x(o,n.hide)&&r()}):r(),null!==e&&"function"==typeof e&&setTimeout(function(){e(o)})}},J.clickConfirm=function(){return b().click()},J.clickCancel=function(){return w().click()},J.setDefaults=function(t){if(!t||"object"!==(void 0===t?"undefined":j(t)))return console.error("SweetAlert2: the argument for setDefaults() is required and has to be a object");for(var n in t)e.hasOwnProperty(n)||"extraParams"===n||(console.warn('SweetAlert2: Unknown parameter "'+n+'"'),delete t[n]);K(D,t)},J.resetDefaults=function(){D=K({},e)},J.noop=function(){},J.version="6.6.2",J.default=J,J}),window.Sweetalert2&&(window.sweetAlert=window.swal=window.Sweetalert2);
+import defaultParams from './utils/params.js'
+import { swalClasses, iconTypes } from './utils/classes.js'
+import { colorLuminance } from './utils/utils.js'
+import * as dom from './utils/dom.js'
+
+let modalParams = Object.assign({}, defaultParams)
+let queue = []
+let swal2Observer
+
+/*
+ * Set type, text and actions on modal
+ */
+const setParameters = (params) => {
+  const modal = dom.getModal() || dom.init(params)
+
+  for (let param in params) {
+    if (!defaultParams.hasOwnProperty(param) && param !== 'extraParams') {
+      console.warn(`SweetAlert2: Unknown parameter "${param}"`)
+    }
+  }
+
+  // Set modal width
+  modal.style.width = (typeof params.width === 'number') ? params.width + 'px' : params.width
+
+  modal.style.padding = params.padding + 'px'
+  modal.style.background = params.background
+  const successIconParts = modal.querySelectorAll('[class^=swal2-success-circular-line], .swal2-success-fix')
+  for (let i = 0; i < successIconParts.length; i++) {
+    successIconParts[i].style.background = params.background
+  }
+
+  const title = dom.getTitle()
+  const content = dom.getContent()
+  const buttonsWrapper = dom.getButtonsWrapper()
+  const confirmButton = dom.getConfirmButton()
+  const cancelButton = dom.getCancelButton()
+  const closeButton = dom.getCloseButton()
+
+  // Title
+  if (params.titleText) {
+    title.innerText = params.titleText
+  } else {
+    title.innerHTML = params.title.split('\n').join('<br>')
+  }
+
+  // Content
+  if (params.text || params.html) {
+    if (typeof params.html === 'object') {
+      content.innerHTML = ''
+      if (0 in params.html) {
+        for (let i = 0; i in params.html; i++) {
+          content.appendChild(params.html[i].cloneNode(true))
+        }
+      } else {
+        content.appendChild(params.html.cloneNode(true))
+      }
+    } else if (params.html) {
+      content.innerHTML = params.html
+    } else if (params.text) {
+      content.textContent = params.text
+    }
+    dom.show(content)
+  } else {
+    dom.hide(content)
+  }
+
+  // Close button
+  if (params.showCloseButton) {
+    dom.show(closeButton)
+  } else {
+    dom.hide(closeButton)
+  }
+
+  // Custom Class
+  modal.className = swalClasses.modal
+  if (params.customClass) {
+    dom.addClass(modal, params.customClass)
+  }
+
+  // Progress steps
+  let progressStepsContainer = dom.getProgressSteps()
+  let currentProgressStep = parseInt(params.currentProgressStep === null ? sweetAlert.getQueueStep() : params.currentProgressStep, 10)
+  if (params.progressSteps.length) {
+    dom.show(progressStepsContainer)
+    dom.empty(progressStepsContainer)
+    if (currentProgressStep >= params.progressSteps.length) {
+      console.warn(
+        'SweetAlert2: Invalid currentProgressStep parameter, it should be less than progressSteps.length ' +
+        '(currentProgressStep like JS arrays starts from 0)'
+      )
+    }
+    params.progressSteps.forEach((step, index) => {
+      let circle = document.createElement('li')
+      dom.addClass(circle, swalClasses.progresscircle)
+      circle.innerHTML = step
+      if (index === currentProgressStep) {
+        dom.addClass(circle, swalClasses.activeprogressstep)
+      }
+      progressStepsContainer.appendChild(circle)
+      if (index !== params.progressSteps.length - 1) {
+        let line = document.createElement('li')
+        dom.addClass(line, swalClasses.progressline)
+        line.style.width = params.progressStepsDistance
+        progressStepsContainer.appendChild(line)
+      }
+    })
+  } else {
+    dom.hide(progressStepsContainer)
+  }
+
+  // Icon
+  const icons = dom.getIcons()
+  for (let i = 0; i < icons.length; i++) {
+    dom.hide(icons[i])
+  }
+  if (params.type) {
+    let validType = false
+    for (let iconType in iconTypes) {
+      if (params.type === iconType) {
+        validType = true
+        break
+      }
+    }
+    if (!validType) {
+      console.error(`SweetAlert2: Unknown alert type: ${params.type}`)
+      return false
+    }
+    const icon = modal.querySelector(`.${swalClasses.icon}.${iconTypes[params.type]}`)
+    dom.show(icon)
+
+    // Animate icon
+    if (params.animation) {
+      switch (params.type) {
+        case 'success':
+          dom.addClass(icon, 'swal2-animate-success-icon')
+          dom.addClass(icon.querySelector('.swal2-success-line-tip'), 'swal2-animate-success-line-tip')
+          dom.addClass(icon.querySelector('.swal2-success-line-long'), 'swal2-animate-success-line-long')
+          break
+        case 'error':
+          dom.addClass(icon, 'swal2-animate-error-icon')
+          dom.addClass(icon.querySelector('.swal2-x-mark'), 'swal2-animate-x-mark')
+          break
+        default:
+          break
+      }
+    }
+  }
+
+  // Custom image
+  const image = dom.getImage()
+  if (params.imageUrl) {
+    image.setAttribute('src', params.imageUrl)
+    dom.show(image)
+
+    if (params.imageWidth) {
+      image.setAttribute('width', params.imageWidth)
+    } else {
+      image.removeAttribute('width')
+    }
+
+    if (params.imageHeight) {
+      image.setAttribute('height', params.imageHeight)
+    } else {
+      image.removeAttribute('height')
+    }
+
+    image.className = swalClasses.image
+    if (params.imageClass) {
+      dom.addClass(image, params.imageClass)
+    }
+  } else {
+    dom.hide(image)
+  }
+
+  // Cancel button
+  if (params.showCancelButton) {
+    cancelButton.style.display = 'inline-block'
+  } else {
+    dom.hide(cancelButton)
+  }
+
+  // Confirm button
+  if (params.showConfirmButton) {
+    dom.removeStyleProperty(confirmButton, 'display')
+  } else {
+    dom.hide(confirmButton)
+  }
+
+  // Buttons wrapper
+  if (!params.showConfirmButton && !params.showCancelButton) {
+    dom.hide(buttonsWrapper)
+  } else {
+    dom.show(buttonsWrapper)
+  }
+
+  // Edit text on cancel and confirm buttons
+  confirmButton.innerHTML = params.confirmButtonText
+  cancelButton.innerHTML = params.cancelButtonText
+
+  // Set buttons to selected background colors
+  if (params.buttonsStyling) {
+    confirmButton.style.backgroundColor = params.confirmButtonColor
+    cancelButton.style.backgroundColor = params.cancelButtonColor
+  }
+
+  // Add buttons custom classes
+  confirmButton.className = swalClasses.confirm
+  dom.addClass(confirmButton, params.confirmButtonClass)
+  cancelButton.className = swalClasses.cancel
+  dom.addClass(cancelButton, params.cancelButtonClass)
+
+  // Buttons styling
+  if (params.buttonsStyling) {
+    dom.addClass(confirmButton, swalClasses.styled)
+    dom.addClass(cancelButton, swalClasses.styled)
+  } else {
+    dom.removeClass(confirmButton, swalClasses.styled)
+    dom.removeClass(cancelButton, swalClasses.styled)
+
+    confirmButton.style.backgroundColor = confirmButton.style.borderLeftColor = confirmButton.style.borderRightColor = ''
+    cancelButton.style.backgroundColor = cancelButton.style.borderLeftColor = cancelButton.style.borderRightColor = ''
+  }
+
+  // CSS animation
+  if (params.animation === true) {
+    dom.removeClass(modal, swalClasses.noanimation)
+  } else {
+    dom.addClass(modal, swalClasses.noanimation)
+  }
+}
+
+/*
+ * Animations
+ */
+const openModal = (animation, onComplete) => {
+  const container = dom.getContainer()
+  const modal = dom.getModal()
+
+  if (animation) {
+    dom.addClass(modal, swalClasses.show)
+    dom.addClass(container, swalClasses.fade)
+    dom.removeClass(modal, swalClasses.hide)
+  } else {
+    dom.removeClass(modal, swalClasses.fade)
+  }
+  dom.show(modal)
+
+  // scrolling is 'hidden' until animation is done, after that 'auto'
+  container.style.overflowY = 'hidden'
+  if (dom.animationEndEvent && !dom.hasClass(modal, swalClasses.noanimation)) {
+    modal.addEventListener(dom.animationEndEvent, function swalCloseEventFinished () {
+      modal.removeEventListener(dom.animationEndEvent, swalCloseEventFinished)
+      container.style.overflowY = 'auto'
+    })
+  } else {
+    container.style.overflowY = 'auto'
+  }
+
+  dom.addClass(document.documentElement, swalClasses.shown)
+  dom.addClass(document.body, swalClasses.shown)
+  dom.addClass(container, swalClasses.shown)
+  fixScrollbar()
+  iOSfix()
+  dom.states.previousActiveElement = document.activeElement
+  if (onComplete !== null && typeof onComplete === 'function') {
+    setTimeout(function () {
+      onComplete(modal)
+    })
+  }
+}
+
+const fixScrollbar = () => {
+  // for queues, do not do this more than once
+  if (dom.states.previousBodyPadding !== null) {
+    return
+  }
+  // if the body has overflow
+  if (document.body.scrollHeight > window.innerHeight) {
+    // add padding so the content doesn't shift after removal of scrollbar
+    dom.states.previousBodyPadding = document.body.style.paddingRight
+    document.body.style.paddingRight = dom.measureScrollbar() + 'px'
+  }
+}
+
+const undoScrollbar = () => {
+  if (dom.states.previousBodyPadding !== null) {
+    document.body.style.paddingRight = dom.states.previousBodyPadding
+    dom.states.previousBodyPadding = null
+  }
+}
+
+// Fix iOS scrolling http://stackoverflow.com/q/39626302/1331425
+const iOSfix = () => {
+  const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+  if (iOS && !dom.hasClass(document.body, swalClasses.iosfix)) {
+    const offset = document.body.scrollTop
+    document.body.style.top = (offset * -1) + 'px'
+    dom.addClass(document.body, swalClasses.iosfix)
+  }
+}
+
+const undoIOSfix = () => {
+  if (dom.hasClass(document.body, swalClasses.iosfix)) {
+    const offset = parseInt(document.body.style.top, 10)
+    dom.removeClass(document.body, swalClasses.iosfix)
+    document.body.style.top = ''
+    document.body.scrollTop = (offset * -1)
+  }
+}
+
+// SweetAlert entry point
+const sweetAlert = (...args) => {
+  if (args[0] === undefined) {
+    console.error('SweetAlert2 expects at least 1 attribute!')
+    return false
+  }
+
+  let params = Object.assign({}, modalParams)
+
+  switch (typeof args[0]) {
+    case 'string':
+      [params.title, params.html, params.type] = args
+      break
+
+    case 'object':
+      Object.assign(params, args[0])
+      params.extraParams = args[0].extraParams
+
+      if (params.input === 'email' && params.inputValidator === null) {
+        params.inputValidator = (email) => {
+          return new Promise((resolve, reject) => {
+            const emailRegex = /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+            if (emailRegex.test(email)) {
+              resolve()
+            } else {
+              reject('Invalid email address')
+            }
+          })
+        }
+      }
+
+      if (params.input === 'url' && params.inputValidator === null) {
+        params.inputValidator = (url) => {
+          return new Promise((resolve, reject) => {
+            const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
+            if (urlRegex.test(url)) {
+              resolve()
+            } else {
+              reject('Invalid URL')
+            }
+          })
+        }
+      }
+      break
+
+    default:
+      console.error('SweetAlert2: Unexpected type of argument! Expected "string" or "object", got ' + typeof args[0])
+      return false
+  }
+
+  setParameters(params)
+
+  const container = dom.getContainer()
+  const modal = dom.getModal()
+
+  return new Promise((resolve, reject) => {
+    // Close on timer
+    if (params.timer) {
+      modal.timeout = setTimeout(() => {
+        sweetAlert.closeModal(params.onClose)
+        reject('timer')
+      }, params.timer)
+    }
+
+    // Get input element by specified type or, if type isn't specified, by params.input
+    const getInput = (inputType) => {
+      inputType = inputType || params.input
+      if (!inputType) {
+        return null
+      }
+      switch (inputType) {
+        case 'select':
+        case 'textarea':
+        case 'file':
+          return dom.getChildByClass(modal, swalClasses[inputType])
+        case 'checkbox':
+          return modal.querySelector(`.${swalClasses.checkbox} input`)
+        case 'radio':
+          return modal.querySelector(`.${swalClasses.radio} input:checked`) ||
+            modal.querySelector(`.${swalClasses.radio} input:first-child`)
+        case 'range':
+          return modal.querySelector(`.${swalClasses.range} input`)
+        default:
+          return dom.getChildByClass(modal, swalClasses.input)
+      }
+    }
+
+    // Get the value of the modal input
+    const getInputValue = () => {
+      const input = getInput()
+      if (!input) {
+        return null
+      }
+      switch (params.input) {
+        case 'checkbox':
+          return input.checked ? 1 : 0
+        case 'radio':
+          return input.checked ? input.value : null
+        case 'file':
+          return input.files.length ? input.files[0] : null
+        default:
+          return params.inputAutoTrim ? input.value.trim() : input.value
+      }
+    }
+
+    // input autofocus
+    if (params.input) {
+      setTimeout(() => {
+        const input = getInput()
+        if (input) {
+          dom.focusInput(input)
+        }
+      }, 0)
+    }
+
+    const confirm = (value) => {
+      if (params.showLoaderOnConfirm) {
+        sweetAlert.showLoading()
+      }
+
+      if (params.preConfirm) {
+        params.preConfirm(value, params.extraParams).then(
+          (preConfirmValue) => {
+            sweetAlert.closeModal(params.onClose)
+            resolve(preConfirmValue || value)
+          },
+          (error) => {
+            sweetAlert.hideLoading()
+            if (error) {
+              sweetAlert.showValidationError(error)
+            }
+          }
+        )
+      } else {
+        sweetAlert.closeModal(params.onClose)
+        resolve(value)
+      }
+    }
+
+    // Mouse interactions
+    const onButtonEvent = (event) => {
+      const e = event || window.event
+      const target = e.target || e.srcElement
+      const confirmButton = dom.getConfirmButton()
+      const cancelButton = dom.getCancelButton()
+      const targetedConfirm = confirmButton && (confirmButton === target || confirmButton.contains(target))
+      const targetedCancel = cancelButton && (cancelButton === target || cancelButton.contains(target))
+
+      switch (e.type) {
+        case 'mouseover':
+        case 'mouseup':
+          if (params.buttonsStyling) {
+            if (targetedConfirm) {
+              confirmButton.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.1)
+            } else if (targetedCancel) {
+              cancelButton.style.backgroundColor = colorLuminance(params.cancelButtonColor, -0.1)
+            }
+          }
+          break
+        case 'mouseout':
+          if (params.buttonsStyling) {
+            if (targetedConfirm) {
+              confirmButton.style.backgroundColor = params.confirmButtonColor
+            } else if (targetedCancel) {
+              cancelButton.style.backgroundColor = params.cancelButtonColor
+            }
+          }
+          break
+        case 'mousedown':
+          if (params.buttonsStyling) {
+            if (targetedConfirm) {
+              confirmButton.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.2)
+            } else if (targetedCancel) {
+              cancelButton.style.backgroundColor = colorLuminance(params.cancelButtonColor, -0.2)
+            }
+          }
+          break
+        case 'click':
+          // Clicked 'confirm'
+          if (targetedConfirm && sweetAlert.isVisible()) {
+            sweetAlert.disableButtons()
+            if (params.input) {
+              const inputValue = getInputValue()
+
+              if (params.inputValidator) {
+                sweetAlert.disableInput()
+                params.inputValidator(inputValue, params.extraParams).then(
+                  () => {
+                    sweetAlert.enableButtons()
+                    sweetAlert.enableInput()
+                    confirm(inputValue)
+                  },
+                  (error) => {
+                    sweetAlert.enableButtons()
+                    sweetAlert.enableInput()
+                    if (error) {
+                      sweetAlert.showValidationError(error)
+                    }
+                  }
+                )
+              } else {
+                confirm(inputValue)
+              }
+            } else {
+              confirm(true)
+            }
+
+          // Clicked 'cancel'
+          } else if (targetedCancel && sweetAlert.isVisible()) {
+            sweetAlert.disableButtons()
+            sweetAlert.closeModal(params.onClose)
+            reject('cancel')
+          }
+          break
+        default:
+      }
+    }
+
+    const buttons = modal.querySelectorAll('button')
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].onclick = onButtonEvent
+      buttons[i].onmouseover = onButtonEvent
+      buttons[i].onmouseout = onButtonEvent
+      buttons[i].onmousedown = onButtonEvent
+    }
+
+    // Closing modal by close button
+    dom.getCloseButton().onclick = () => {
+      sweetAlert.closeModal(params.onClose)
+      reject('close')
+    }
+
+    // Closing modal by overlay click
+    container.onclick = (e) => {
+      if (e.target !== container) {
+        return
+      }
+      if (params.allowOutsideClick) {
+        sweetAlert.closeModal(params.onClose)
+        reject('overlay')
+      }
+    }
+
+    const buttonsWrapper = dom.getButtonsWrapper()
+    const confirmButton = dom.getConfirmButton()
+    const cancelButton = dom.getCancelButton()
+
+    // Reverse buttons (Confirm on the right side)
+    if (params.reverseButtons) {
+      confirmButton.parentNode.insertBefore(cancelButton, confirmButton)
+    } else {
+      confirmButton.parentNode.insertBefore(confirmButton, cancelButton)
+    }
+
+    // Focus handling
+    const setFocus = (index, increment) => {
+      const focusableElements = dom.getFocusableElements(params.focusCancel)
+      // search for visible elements and select the next possible match
+      for (let i = 0; i < focusableElements.length; i++) {
+        index = index + increment
+
+        // rollover to first item
+        if (index === focusableElements.length) {
+          index = 0
+
+        // go to last item
+        } else if (index === -1) {
+          index = focusableElements.length - 1
+        }
+
+        // determine if element is visible
+        const el = focusableElements[index]
+        if (dom.isVisible(el)) {
+          return el.focus()
+        }
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      const e = event || window.event
+      const keyCode = e.keyCode || e.which
+
+      if ([9, 13, 32, 27, 37, 38, 39, 40].indexOf(keyCode) === -1) {
+        // Don't do work on keys we don't care about.
+        return
+      }
+
+      const targetElement = e.target || e.srcElement
+
+      const focusableElements = dom.getFocusableElements(params.focusCancel)
+      let btnIndex = -1 // Find the button - note, this is a nodelist, not an array.
+      for (let i = 0; i < focusableElements.length; i++) {
+        if (targetElement === focusableElements[i]) {
+          btnIndex = i
+          break
+        }
+      }
+
+      // TAB
+      if (keyCode === 9) {
+        if (!e.shiftKey) {
+          // Cycle to the next button
+          setFocus(btnIndex, 1)
+        } else {
+          // Cycle to the prev button
+          setFocus(btnIndex, -1)
+        }
+        e.stopPropagation()
+        e.preventDefault()
+
+      // ARROWS - switch focus between buttons
+      } else if (keyCode === 37 || keyCode === 38 || keyCode === 39 || keyCode === 40) {
+        // focus Cancel button if Confirm button is currently focused
+        if (document.activeElement === confirmButton && dom.isVisible(cancelButton)) {
+          cancelButton.focus()
+        // and vice versa
+        } else if (document.activeElement === cancelButton && dom.isVisible(confirmButton)) {
+          confirmButton.focus()
+        }
+
+      // ENTER/SPACE
+      } else if (keyCode === 13 || keyCode === 32) {
+        if (btnIndex === -1 && params.allowEnterKey) {
+          // ENTER/SPACE clicked outside of a button.
+          if (params.focusCancel) {
+            dom.fireClick(cancelButton, e)
+          } else {
+            dom.fireClick(confirmButton, e)
+          }
+          e.stopPropagation()
+          e.preventDefault()
+        }
+
+      // ESC
+      } else if (keyCode === 27 && params.allowEscapeKey === true) {
+        sweetAlert.closeModal(params.onClose)
+        reject('esc')
+      }
+    }
+
+    dom.states.previousWindowKeyDown = window.onkeydown
+    window.onkeydown = handleKeyDown
+
+    // Loading state
+    if (params.buttonsStyling) {
+      confirmButton.style.borderLeftColor = params.confirmButtonColor
+      confirmButton.style.borderRightColor = params.confirmButtonColor
+    }
+
+    /**
+     * Show spinner instead of Confirm button and disable Cancel button
+     */
+    sweetAlert.showLoading = sweetAlert.enableLoading = () => {
+      dom.show(buttonsWrapper)
+      dom.show(confirmButton, 'inline-block')
+      dom.addClass(buttonsWrapper, swalClasses.loading)
+      dom.addClass(modal, swalClasses.loading)
+      confirmButton.disabled = true
+      cancelButton.disabled = true
+    }
+
+    /**
+     * Show spinner instead of Confirm button and disable Cancel button
+     */
+    sweetAlert.hideLoading = sweetAlert.disableLoading = () => {
+      if (!params.showConfirmButton) {
+        dom.hide(confirmButton)
+        if (!params.showCancelButton) {
+          dom.hide(dom.getButtonsWrapper())
+        }
+      }
+      dom.removeClass(buttonsWrapper, swalClasses.loading)
+      dom.removeClass(modal, swalClasses.loading)
+      confirmButton.disabled = false
+      cancelButton.disabled = false
+    }
+
+    sweetAlert.getTitle = () => dom.getTitle()
+    sweetAlert.getContent = () => dom.getContent()
+    sweetAlert.getInput = () => getInput()
+    sweetAlert.getImage = () => dom.getImage()
+    sweetAlert.getButtonsWrapper = () => dom.getButtonsWrapper()
+    sweetAlert.getConfirmButton = () => dom.getConfirmButton()
+    sweetAlert.getCancelButton = () => dom.getCancelButton()
+
+    sweetAlert.enableButtons = () => {
+      confirmButton.disabled = false
+      cancelButton.disabled = false
+    }
+
+    sweetAlert.disableButtons = () => {
+      confirmButton.disabled = true
+      cancelButton.disabled = true
+    }
+
+    sweetAlert.enableConfirmButton = () => {
+      confirmButton.disabled = false
+    }
+
+    sweetAlert.disableConfirmButton = () => {
+      confirmButton.disabled = true
+    }
+
+    sweetAlert.enableInput = () => {
+      const input = getInput()
+      if (!input) {
+        return false
+      }
+      if (input.type === 'radio') {
+        const radiosContainer = input.parentNode.parentNode
+        const radios = radiosContainer.querySelectorAll('input')
+        for (let i = 0; i < radios.length; i++) {
+          radios[i].disabled = false
+        }
+      } else {
+        input.disabled = false
+      }
+    }
+
+    sweetAlert.disableInput = () => {
+      const input = getInput()
+      if (!input) {
+        return false
+      }
+      if (input && input.type === 'radio') {
+        const radiosContainer = input.parentNode.parentNode
+        const radios = radiosContainer.querySelectorAll('input')
+        for (let i = 0; i < radios.length; i++) {
+          radios[i].disabled = true
+        }
+      } else {
+        input.disabled = true
+      }
+    }
+
+    // Set modal min-height to disable scrolling inside the modal
+    sweetAlert.recalculateHeight = dom.debounce(() => {
+      const modal = dom.getModal()
+      if (!modal) {
+        return
+      }
+      const prevState = modal.style.display
+      modal.style.minHeight = ''
+      dom.show(modal)
+      modal.style.minHeight = (modal.scrollHeight + 1) + 'px'
+      modal.style.display = prevState
+    }, 50)
+
+    // Show block with validation error
+    sweetAlert.showValidationError = (error) => {
+      const validationError = dom.getValidationError()
+      validationError.innerHTML = error
+      dom.show(validationError)
+
+      const input = getInput()
+      if (input) {
+        dom.focusInput(input)
+        dom.addClass(input, swalClasses.inputerror)
+      }
+    }
+
+    // Hide block with validation error
+    sweetAlert.resetValidationError = () => {
+      const validationError = dom.getValidationError()
+      dom.hide(validationError)
+      sweetAlert.recalculateHeight()
+
+      const input = getInput()
+      if (input) {
+        dom.removeClass(input, swalClasses.inputerror)
+      }
+    }
+
+    sweetAlert.getProgressSteps = () => {
+      return params.progressSteps
+    }
+
+    sweetAlert.setProgressSteps = (progressSteps) => {
+      params.progressSteps = progressSteps
+      setParameters(params)
+    }
+
+    sweetAlert.showProgressSteps = () => {
+      dom.show(dom.getProgressSteps())
+    }
+
+    sweetAlert.hideProgressSteps = () => {
+      dom.hide(dom.getProgressSteps())
+    }
+
+    sweetAlert.enableButtons()
+    sweetAlert.hideLoading()
+    sweetAlert.resetValidationError()
+
+    // inputs
+    const inputTypes = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea']
+    let input
+    for (let i = 0; i < inputTypes.length; i++) {
+      const inputClass = swalClasses[inputTypes[i]]
+      const inputContainer = dom.getChildByClass(modal, inputClass)
+      input = getInput(inputTypes[i])
+
+      // set attributes
+      if (input) {
+        for (let j in input.attributes) {
+          if (input.attributes.hasOwnProperty(j)) {
+            const attrName = input.attributes[j].name
+            if (attrName !== 'type' && attrName !== 'value') {
+              input.removeAttribute(attrName)
+            }
+          }
+        }
+        for (let attr in params.inputAttributes) {
+          input.setAttribute(attr, params.inputAttributes[attr])
+        }
+      }
+
+      // set class
+      inputContainer.className = inputClass
+      if (params.inputClass) {
+        dom.addClass(inputContainer, params.inputClass)
+      }
+
+      dom.hide(inputContainer)
+    }
+
+    let populateInputOptions
+    switch (params.input) {
+      case 'text':
+      case 'email':
+      case 'password':
+      case 'number':
+      case 'tel':
+      case 'url':
+        input = dom.getChildByClass(modal, swalClasses.input)
+        input.value = params.inputValue
+        input.placeholder = params.inputPlaceholder
+        input.type = params.input
+        dom.show(input)
+        break
+      case 'file':
+        input = dom.getChildByClass(modal, swalClasses.file)
+        input.placeholder = params.inputPlaceholder
+        input.type = params.input
+        dom.show(input)
+        break
+      case 'range':
+        const range = dom.getChildByClass(modal, swalClasses.range)
+        const rangeInput = range.querySelector('input')
+        const rangeOutput = range.querySelector('output')
+        rangeInput.value = params.inputValue
+        rangeInput.type = params.input
+        rangeOutput.value = params.inputValue
+        dom.show(range)
+        break
+      case 'select':
+        const select = dom.getChildByClass(modal, swalClasses.select)
+        select.innerHTML = ''
+        if (params.inputPlaceholder) {
+          const placeholder = document.createElement('option')
+          placeholder.innerHTML = params.inputPlaceholder
+          placeholder.value = ''
+          placeholder.disabled = true
+          placeholder.selected = true
+          select.appendChild(placeholder)
+        }
+        populateInputOptions = (inputOptions) => {
+          for (let optionValue in inputOptions) {
+            const option = document.createElement('option')
+            option.value = optionValue
+            option.innerHTML = inputOptions[optionValue]
+            if (params.inputValue === optionValue) {
+              option.selected = true
+            }
+            select.appendChild(option)
+          }
+          dom.show(select)
+          select.focus()
+        }
+        break
+      case 'radio':
+        const radio = dom.getChildByClass(modal, swalClasses.radio)
+        radio.innerHTML = ''
+        populateInputOptions = (inputOptions) => {
+          for (let radioValue in inputOptions) {
+            const radioInput = document.createElement('input')
+            const radioLabel = document.createElement('label')
+            const radioLabelSpan = document.createElement('span')
+            radioInput.type = 'radio'
+            radioInput.name = swalClasses.radio
+            radioInput.value = radioValue
+            if (params.inputValue === radioValue) {
+              radioInput.checked = true
+            }
+            radioLabelSpan.innerHTML = inputOptions[radioValue]
+            radioLabel.appendChild(radioInput)
+            radioLabel.appendChild(radioLabelSpan)
+            radioLabel.for = radioInput.id
+            radio.appendChild(radioLabel)
+          }
+          dom.show(radio)
+          const radios = radio.querySelectorAll('input')
+          if (radios.length) {
+            radios[0].focus()
+          }
+        }
+        break
+      case 'checkbox':
+        const checkbox = dom.getChildByClass(modal, swalClasses.checkbox)
+        const checkboxInput = getInput('checkbox')
+        checkboxInput.type = 'checkbox'
+        checkboxInput.value = 1
+        checkboxInput.id = swalClasses.checkbox
+        checkboxInput.checked = Boolean(params.inputValue)
+        let label = checkbox.getElementsByTagName('span')
+        if (label.length) {
+          checkbox.removeChild(label[0])
+        }
+        label = document.createElement('span')
+        label.innerHTML = params.inputPlaceholder
+        checkbox.appendChild(label)
+        dom.show(checkbox)
+        break
+      case 'textarea':
+        const textarea = dom.getChildByClass(modal, swalClasses.textarea)
+        textarea.value = params.inputValue
+        textarea.placeholder = params.inputPlaceholder
+        dom.show(textarea)
+        break
+      case null:
+        break
+      default:
+        console.error(`SweetAlert2: Unexpected type of input! Expected "text", "email", "password", "number", "tel", "select", "radio", "checkbox", "textarea", "file" or "url", got "${params.input}"`)
+        break
+    }
+
+    if (params.input === 'select' || params.input === 'radio') {
+      if (params.inputOptions instanceof Promise) {
+        sweetAlert.showLoading()
+        params.inputOptions.then((inputOptions) => {
+          sweetAlert.hideLoading()
+          populateInputOptions(inputOptions)
+        })
+      } else if (typeof params.inputOptions === 'object') {
+        populateInputOptions(params.inputOptions)
+      } else {
+        console.error('SweetAlert2: Unexpected type of inputOptions! Expected object or Promise, got ' + typeof params.inputOptions)
+      }
+    }
+
+    openModal(params.animation, params.onOpen)
+
+    // Focus the first element (input or button)
+    if (params.allowEnterKey) {
+      setFocus(-1, 1)
+    } else {
+      if (document.activeElement) {
+        document.activeElement.blur()
+      }
+    }
+
+    // fix scroll
+    dom.getContainer().scrollTop = 0
+
+    // Observe changes inside the modal and adjust height
+    if (typeof MutationObserver !== 'undefined' && !swal2Observer) {
+      swal2Observer = new MutationObserver(sweetAlert.recalculateHeight)
+      swal2Observer.observe(modal, {childList: true, characterData: true, subtree: true})
+    }
+  })
+}
+
+/*
+ * Global function to determine if swal2 modal is shown
+ */
+sweetAlert.isVisible = () => {
+  return !!dom.getModal()
+}
+
+/*
+ * Global function for chaining sweetAlert modals
+ */
+sweetAlert.queue = (steps) => {
+  queue = steps
+  const resetQueue = () => {
+    queue = []
+    document.body.removeAttribute('data-swal2-queue-step')
+  }
+  let queueResult = []
+  return new Promise((resolve, reject) => {
+    (function step (i, callback) {
+      if (i < queue.length) {
+        document.body.setAttribute('data-swal2-queue-step', i)
+
+        sweetAlert(queue[i]).then(
+          (result) => {
+            queueResult.push(result)
+            step(i + 1, callback)
+          },
+          (dismiss) => {
+            resetQueue()
+            reject(dismiss)
+          }
+        )
+      } else {
+        resetQueue()
+        resolve(queueResult)
+      }
+    })(0)
+  })
+}
+
+/*
+ * Global function for getting the index of current modal in queue
+ */
+sweetAlert.getQueueStep = () => document.body.getAttribute('data-swal2-queue-step')
+
+/*
+ * Global function for inserting a modal to the queue
+ */
+sweetAlert.insertQueueStep = (step, index) => {
+  if (index && index < queue.length) {
+    return queue.splice(index, 0, step)
+  }
+  return queue.push(step)
+}
+
+/*
+ * Global function for deleting a modal from the queue
+ */
+sweetAlert.deleteQueueStep = (index) => {
+  if (typeof queue[index] !== 'undefined') {
+    queue.splice(index, 1)
+  }
+}
+
+/*
+ * Global function to close sweetAlert
+ */
+sweetAlert.close = sweetAlert.closeModal = (onComplete) => {
+  const container = dom.getContainer()
+  const modal = dom.getModal()
+  if (!modal) {
+    return
+  }
+  dom.removeClass(modal, swalClasses.show)
+  dom.addClass(modal, swalClasses.hide)
+  clearTimeout(modal.timeout)
+
+  dom.resetPrevState()
+
+  const removeModalAndResetState = () => {
+    if (container.parentNode) {
+      container.parentNode.removeChild(container)
+    }
+    dom.removeClass(document.documentElement, swalClasses.shown)
+    dom.removeClass(document.body, swalClasses.shown)
+    undoScrollbar()
+    undoIOSfix()
+  }
+
+  // If animation is supported, animate
+  if (dom.animationEndEvent && !dom.hasClass(modal, swalClasses.noanimation)) {
+    modal.addEventListener(dom.animationEndEvent, function swalCloseEventFinished () {
+      modal.removeEventListener(dom.animationEndEvent, swalCloseEventFinished)
+      if (dom.hasClass(modal, swalClasses.hide)) {
+        removeModalAndResetState()
+      }
+    })
+  } else {
+    // Otherwise, remove immediately
+    removeModalAndResetState()
+  }
+  if (onComplete !== null && typeof onComplete === 'function') {
+    setTimeout(function () {
+      onComplete(modal)
+    })
+  }
+}
+
+/*
+ * Global function to click 'Confirm' button
+ */
+sweetAlert.clickConfirm = () => dom.getConfirmButton().click()
+
+/*
+ * Global function to click 'Cancel' button
+ */
+sweetAlert.clickCancel = () => dom.getCancelButton().click()
+
+/**
+ * Set default params for each popup
+ * @param {Object} userParams
+ */
+sweetAlert.setDefaults = (userParams) => {
+  if (!userParams || typeof userParams !== 'object') {
+    return console.error('SweetAlert2: the argument for setDefaults() is required and has to be a object')
+  }
+
+  for (let param in userParams) {
+    if (!defaultParams.hasOwnProperty(param) && param !== 'extraParams') {
+      console.warn(`SweetAlert2: Unknown parameter "${param}"`)
+      delete userParams[param]
+    }
+  }
+
+  Object.assign(modalParams, userParams)
+}
+
+/**
+ * Reset default params for each popup
+ */
+sweetAlert.resetDefaults = () => {
+  modalParams = Object.assign({}, defaultParams)
+}
+
+sweetAlert.noop = () => { }
+
+sweetAlert.version = ''
+
+sweetAlert.default = sweetAlert
+
+export default sweetAlert
+
 /**
  * Created by Sigma on 12/04/2017.
 <<<<<<< HEAD
