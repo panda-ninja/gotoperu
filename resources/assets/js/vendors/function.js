@@ -208,7 +208,7 @@ function cambiar_profit_total() {
 
 /*== functions for destinations*/
 function eliminar_destino(id,destino) {
-    alert('holaaa');
+    // alert('holaaa');
     // swal({
     //     title: 'MENSAJE DEL SISTEMA',
     //     text: "¿Estas seguro de eliminar el destino "+destino+"?",
@@ -218,19 +218,19 @@ function eliminar_destino(id,destino) {
     //     cancelButtonColor: '#d33',
     //     confirmButtonText: 'Yes'
     // }).then(function () {
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('[name="_token"]').val()
-    //         }
-    //     });
-    //     $.post('/admin/destination/delete', 'id='+id, function(data) {
-    //         if(data==1){
-    //             // $("#lista_destinos_"+id).remove();
-    //             $("#lista_destinos_"+id).fadeOut( "slow");
-    //         }
-    //     }).fail(function (data) {
-    //
-    //     });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/destination/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#lista_destinos_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
     //
     // })
 }
