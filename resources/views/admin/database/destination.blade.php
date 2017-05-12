@@ -171,7 +171,7 @@
                         <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$destino->id}}">
                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="eliminar_destino({{$destino->id}},'{{$destino->destino}}')">
+                        <button type="button" class="btn btn-danger" onclick="eliminar_destino('{{$destino->id}}','{{$destino->destino}}')">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                     </td>

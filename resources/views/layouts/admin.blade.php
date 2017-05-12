@@ -13,9 +13,10 @@
     {{--<link rel="stylesheet" href="{{mix("css/admin/sweetalert2.min.css")}}">--}}
     @yield('archivos-css')
     {{--scripts--}}
-    @yield('archivos-js')
+
     <script src="{{asset("js/app.js")}}"></script>
     <script src="{{asset("js/admin/plugins.js")}}"></script>
+    @yield('archivos-js')
 
 </head>
 <body>
