@@ -1849,8 +1849,6 @@ window._ = __webpack_require__(34);
  */
 
 window.$ = window.jQuery = __webpack_require__(33);
-// var $ = require( 'jquery' );
-// require( 'datatables.net-bs4' )( $ );
 __webpack_require__(32);
 
 /**
