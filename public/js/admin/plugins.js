@@ -21992,7 +21992,28 @@ $(function () {
         forceHelperSize: true
     });
 });
-<<<<<<< HEAD
+
+$('.owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    responsiveClass: true,
+    responsive: {
+        0: {
+            items: 1,
+            nav: false
+        },
+        600: {
+            items: 3,
+            nav: false
+        },
+        1000: {
+            items: 3,
+            nav: false,
+            loop: false,
+            margin: 20
+        }
+    }
+})
 import defaultParams from './utils/params.js'
 import { swalClasses, iconTypes } from './utils/classes.js'
 import { colorLuminance } from './utils/utils.js'
@@ -23127,30 +23148,9 @@ sweetAlert.default = sweetAlert
 
 export default sweetAlert
 
-
-$('.owl-carousel').owlCarousel({
-    loop: true,
-    margin: 10,
-    responsiveClass: true,
-    responsive: {
-        0: {
-            items: 1,
-            nav: false
-        },
-        600: {
-            items: 3,
-            nav: false
-        },
-        1000: {
-            items: 3,
-            nav: false,
-            loop: false,
-            margin: 20
-        }
-    }
-})
 /**
  * Created by Sigma on 12/04/2017.
+<<<<<<< HEAD
  */
 //sortable itinerary
 $(function () {
