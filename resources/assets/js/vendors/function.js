@@ -209,15 +209,15 @@ function cambiar_profit_total() {
 /*== functions for destinations*/
 function eliminar_destino(id,destino) {
     // alert('holaaa');
-    // swal({
-    //     title: 'MENSAJE DEL SISTEMA',
-    //     text: "¿Estas seguro de eliminar el destino "+destino+"?",
-    //     type: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes'
-    // }).then(function () {
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el destino "+destino+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('[name="_token"]').val()
@@ -231,6 +231,43 @@ function eliminar_destino(id,destino) {
         }).fail(function (data) {
 
         });
-    //
-    // })
+
+    })
 }
+function escojerPos(pos) {
+    $("#posTipo").val(pos);
+}
+
+function eliminar_servicio(id,servicio) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el servicio "+servicio+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/services/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#lista_services_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+}
+function escojerPosEdit(pos,id) {
+    $("#posTipoEdit_"+id).val(pos);
+    // $("#posTipoEdit_id_"+id).val(id);
+
+}
+

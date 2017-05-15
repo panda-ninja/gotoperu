@@ -13,14 +13,15 @@ const { mix } = require('laravel-mix');
 
 //---mix copy
 // mix.copy('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css', 'resources/assets/sass/dataTables.bootstrap4.css');
+// mix.copy('node_modules/sweetalert2/dist/sweetalert2.css', 'resources/assets/sass/sweetalert2.css');
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/admin.scss', 'public/css/admin')
-    .sass('resources/assets/sass/fonts-awesome/font-awesome.scss', 'public/css/');
-    // .sass('resources/assets/sass/dataTables.bootstrap4.css', 'public/css/admin');
+    .sass('resources/assets/sass/fonts-awesome/font-awesome.scss', 'public/css/')
+    // .sass('resources/assets/sass/sweetalert2.css', 'public/css/admin');
 
 //---mix cpy
-mix.copy('node_modules/sweetalert2/src/sweetalert2.js', 'resources/assets/js/vendors/sweetalert2.js');
+// mix.copy('node_modules/sweetalert2/dist/sweetalert2.js', 'resources/assets/js/vendors/sweetalert2.js');
 // mix.copy('node_modules/datatables.net/js/jquery.dataTables.js', 'resources/assets/js/vendors/jquery.dataTables.js');
 // mix.copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'resources/assets/js/vendors/dataTables.bootstrap.js');
 //---js admin
@@ -29,7 +30,7 @@ mix.scripts([
     'resources/assets/js/vendors/owl.carousel.js',
     //Customized
     'resources/assets/js/vendors/function-admin.js',
-    'resources/assets/js/vendors/sweetalert2.js',
+    // 'resources/assets/js/vendors/sweetalert2.js',
     // 'resources/assets/js/vendors/jquery.dataTables.js',
     // 'resources/assets/js/vendors/dataTables.bootstrap.js',
     'resources/assets/js/vendors/function.js',

@@ -68,3 +68,21 @@ Route::get('admin/qoute/proposal/options/{id}', [
     'uses' => 'QouteController@options',
     'as' => 'qoute_options_path',
 ]);
+
+/*== routes for services*/
+Route::get('/admin/services', [
+    'uses' => 'ServicesController@index',
+    'as' => 'service_index_path',
+]);
+Route::post('/admin/services', [
+    'uses' => 'ServicesController@store',
+    'as' => 'service_save_path',
+]);
+Route::post('/admin/services/edit', [
+    'uses' => 'ServicesController@edit',
+    'as' => 'service_edit_path',
+]);
+Route::post('/admin/services/delete', [
+    'uses' => 'ServicesController@delete',
+    'as' => 'service_delete_path',
+]);
