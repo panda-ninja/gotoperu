@@ -86,3 +86,20 @@ Route::post('/admin/services/delete', [
     'uses' => 'ServicesController@delete',
     'as' => 'service_delete_path',
 ]);
+/*== routes for costs*/
+Route::get('/admin/costs', [
+    'uses' => 'CostController@index',
+    'as' => 'costs_index_path',
+]);
+Route::post('/admin/costs', [
+    'uses' => 'CostController@store',
+    'as' => 'costs_save_path',
+]);
+Route::post('/admin/costs/edit', [
+    'uses' => 'CostController@edit',
+    'as' => 'costs_edit_path',
+]);
+Route::post('/admin/costs/delete', [
+    'uses' => 'CostController@delete',
+    'as' => 'costs_delete_path',
+]);
