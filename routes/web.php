@@ -103,3 +103,8 @@ Route::post('/admin/costs/delete', [
     'uses' => 'CostController@delete',
     'as' => 'costs_delete_path',
 ]);
+
+Route::get('buscar-proveedor', [
+    'uses' => 'ProveedorController@autocomplete',
+    'as' => 'buscar_proveedor_path',
+]);

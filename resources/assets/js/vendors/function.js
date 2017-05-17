@@ -268,6 +268,35 @@ function eliminar_servicio(id,servicio) {
 function escojerPosEdit(pos,id) {
     $("#posTipoEdit_"+id).val(pos);
     // $("#posTipoEdit_id_"+id).val(id);
+}
+function eliminar_producto(id,servicio) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el producto "+servicio+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/costs/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#lista_services_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
 
+        });
+
+    })
 }
 
+function escojerPosEdit_cost(id,pos){
+    $("#posTipoEditcost_"+id).val(pos);
+}
