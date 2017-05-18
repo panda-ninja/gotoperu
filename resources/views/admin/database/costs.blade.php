@@ -21,22 +21,13 @@
         </ol>
     </div>
     <div class="row margin-top-20">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_cost">
+        <a type="button" class="btn btn-primary" onclick="mostrar_new_cost()">
             New <i class="fa fa-plus-circle" aria-hidden="true"></i>
-        </button>
+        </a>
+        <div class="margin-top-20 panel panel-default panel-floating panel-floating-inline hide" id="modal_new_cost">
+                        <div class="panel-body">
+                        <form  action="{{route('costs_save_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
 
-        <!-- Modal -->
-        <div class="modal fade bd-example-modal-lg" id="modal_new_cost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <form action="{{route('costs_save_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">New Cost</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
                         <?php
                         $tipoServicio[0]='HOTELS';
                         $tipoServicio[1]='TOURS';
@@ -46,7 +37,6 @@
                         $tipoServicio[5]='FOOD';
                         $tipoServicio[6]='OTHERS';
                         ?>
-                        <div class="modal-body">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
                                 <li><a data-toggle="tab" href="#{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
@@ -80,9 +70,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider">
+                                            </div>
+                                            <div class="col-md-3 margin-top-25 ">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -126,9 +121,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_1" name="txt_provider_1" placeholder="Provider">
+                                            </div>
+                                            <div class="col-md-3 margin-top-25 ">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('1')">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -173,9 +173,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_2" name="txt_provider_2" placeholder="Provider">
+                                            </div>
+                                            <div class="col-md-3 margin-top-25 ">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('2')">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -219,9 +224,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_3" name="txt_provider_3" placeholder="Provider">
+                                            </div>
+                                            <div class="col-md-3 margin-top-25 ">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('3')">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -264,9 +274,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_4" name="txt_provider_4" placeholder="Provider">
+                                            </div>
+                                            <div class="col-md-3 margin-top-25 ">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('4')">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -310,9 +325,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_5" name="txt_provider_5" placeholder="Provider">
+                                            </div>
+                                            <div class="col-md-3 margin-top-25 ">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('5')">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -352,9 +372,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_6" name="txt_provider_6" placeholder="Provider">
+                                            </div>
+                                            <div class="col-md-3 margin-top-25 ">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('6')">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -380,11 +405,114 @@
                                 </div>
                             </div>
 
+                            {{csrf_field()}}
+                            <input type="hidden" name="posTipo" id="posTipo" value="0">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
 
+                    </form>
+                    </div>
+                    </div>
+
+        {{-- primer popup --}}
+        <div class="modal fade bd-example-modal-lg" id="modal_new_provider" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form action="{{route('provider_new_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New provider</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Servicio</label>
+                                                <select class="form-control" id="txt_grupo" name="txt_grupo">
+                                                    @foreach($tipoServicio as $tipoServicio_)
+                                                        <option value="{{$tipoServicio_}}">{{$tipoServicio_}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Location</label>
+                                                <select class="form-control" id="txt_localizacion" name="txt_localizacion">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Ruc</label>
+                                                <input type="text" class="form-control" id="txt_ruc" name="txt_ruc" placeholder="Ruc">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_type">Razon social</label>
+                                                <input type="text" class="form-control" id="txt_razon_social" name="txt_razon_social" placeholder="Razon social">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_precio">Direccion</label>
+                                                <input type="text" class="form-control" id="txt_direccion" name="txt_direccion" placeholder="Direccion">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_product">Telefono</label>
+                                                <input type="text" class="form-control" id="txt_telefono" name="txt_telefono" placeholder="Telefono">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_code">Celular</label>
+                                                <input type="text" class="form-control" id="txt_celular" name="txt_celular" placeholder="Celular">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_price">Email</label>
+                                                <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_price">Reservas Contacto</label>
+                                                <input type="text" class="form-control" id="txt_r_nombres" name="txt_r_nombres" placeholder="Nombres, apellidos">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_price">Reservas Tel/Cel</label>
+                                                <input type="text" class="form-control" id="txt_r_telefono" name="txt_r_telefono" placeholder="Tel. o Cel.">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_price">Contabilidad Contacto</label>
+                                                <input type="text" class="form-control" id="txt_c_nombres" name="txt_c_nombres" placeholder="Nombres, apellidos">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_price">Contabilidad Tel/Cel</label>
+                                                <input type="text" class="form-control" id="txt_c_telefono" name="txt_c_telefono" placeholder="Tel. o Cel.">
+                                            </div>
+                                        </div>
+                                        <div id="rpt" class="col-ms-12"></div>
+                                    </div>
                         </div>
                         <div class="modal-footer">
                             {{csrf_field()}}
-                            <input type="hidden" name="posTipo" id="posTipo" value="0">
+                            <input type="hidden" name="grupo_provider" id="grupo_provider" value="0">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
@@ -392,6 +520,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <div class="row margin-top-20">
         <div class="col-lg-12">

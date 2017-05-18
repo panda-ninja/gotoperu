@@ -300,3 +300,59 @@ function eliminar_producto(id,servicio) {
 function escojerPosEdit_cost(id,pos){
     $("#posTipoEditcost_"+id).val(pos);
 }
+var desicion=0;
+function mostrar_new_cost() {
+    console.log('mostrando datos');
+    if(desicion==0){
+        desicion=1;
+        $("#modal_new_cost").removeClass('hide');
+        $("#modal_new_cost").fadeIn( "slow");
+    }
+    else if(desicion==1){
+        desicion=0;
+        $("#modal_new_cost").addClass('hide');
+        $("#modal_new_cost").fadeOut( "slow");
+    }
+}
+function pasar_pos_provider(pos) {
+    $("#grupo_provider").val(pos);
+}
+$(document).ready(function(){
+    $("#service_save_id").submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr("action"),//action del formulario, ej:
+        //http://localhost/mi_proyecto/mi_controlador/mi_funcion
+        type: $(this).attr("method"),//el método post o get del formulario
+        data: $(this).serialize(),//obtenemos todos los datos del formulario
+        error: function(){
+            //si hay un error mostramos un mensaje
+            $("#rpt").html('' +
+                '<div class="alert alert-danger">'+
+                '<strong>Danger!</strong> Error al guardar los datos del proveedor,vuelva a intentarlo'+
+                '</div>');
+        },
+        success:function(data){
+            //hacemos algo cuando finalice
+            var rpt=data.split('_');
+            console.log(data);
+            if(rpt[0]==1) {
+                // $("#response").html(data[1]);
+                var $pos=$("#grupo_provider").val();
+
+                $("#txt_provider_"+$pos).val(rpt[1]+' '+rpt[2]);
+                $("#rpt").html('' +
+                    '<div class="alert alert-success">'+
+                    '<strong>Success!</strong> Datos guardados,puede seguir con el proceso por favor cierre el popup'+
+                    '</div>');
+            }
+            else{
+                $("#response").html(data);
+            }
+
+        }
+    });
+});
+
+
+});

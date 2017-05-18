@@ -108,3 +108,7 @@ Route::get('buscar-proveedor', [
     'uses' => 'ProveedorController@autocomplete',
     'as' => 'buscar_proveedor_path',
 ]);
+Route::post('/admin/provider', [
+    'uses' => 'ProveedorController@store',
+    'as' => 'provider_new_path',
+]);
