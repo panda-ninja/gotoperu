@@ -22333,38 +22333,62 @@ function mostrar_new_cost() {
 function pasar_pos_provider(pos) {
     $("#grupo_provider").val(pos);
 }
-$("#service_save_id").submit(function(e){
-    e.preventDefault();
-    $.ajax({
-        url: $(this).attr("action"),//action del formulario, ej:
-        //http://localhost/mi_proyecto/mi_controlador/mi_funcion
-        type: $(this).attr("method"),//el método post o get del formulario
-        data: $(this).serialize(),//obtenemos todos los datos del formulario
-        error: function(){
-            //si hay un error mostramos un mensaje
-            $("#rpt").html('' +
-                '<div class="alert alert-danger">'+
-                '<strong>Danger!</strong> Error al guardar los datos del proveedor,vuelva a intentarlo'+
-                '</div>');
-        },
-        success:function(data){
-            //hacemos algo cuando finalice
-            var rpt=data.split('_');
-            console.log(data);
-            if(rpt[0]==1) {
-                // $("#response").html(data[1]);
-                var $pos=$("#grupo_provider").val();
 
-                $("#txt_provider_"+$pos).val(rpt[1]+' '+rpt[2]);
+function envia(){
+
+        console.log('holaaaaaaaaaaaa');
+        $.ajaxSetup({
+            header:$('meta[name="_token"]').attr('content')
+        });
+        var txt_grupo=$('#txt_grupo').val();
+        var txt_localizacion=$('#txt_localizacion').val();
+        var txt_ruc=$('#txt_ruc').val();
+        var txt_razon_social=$('#txt_razon_social').val();
+        var txt_direccion=$('#txt_direccion').val();
+        var txt_telefono=$('#txt_telefono').val();
+        var txt_celular=$('#txt_celular').val();
+        var txt_email=$('#txt_email').val();
+        var txt_r_nombres=$('#txt_r_nombres').val();
+        var txt_r_telefono=$('#txt_r_telefono').val();
+        var txt_c_nombres=$('#txt_c_nombres').val();
+        var txt_c_telefono=$('#txt_c_telefono').val();
+
+        $.ajax({
+            url: '/admin/provider',//$(this).attr("action"),//action del formulario, ej:
+            //http://localhost/mi_proyecto/mi_controlador/mi_funcion
+            type: 'post',//$(this).attr("method"),//el método post o get del formulario
+            data: $('#service_save_id').serialize()+'&txt_grupo='+txt_grupo+'&txt_localizacion='+txt_localizacion+'&txt_ruc='+txt_ruc+'&txt_razon_social='+txt_razon_social+
+            '&txt_direccion='+txt_direccion+'&txt_telefono='+txt_telefono+'&txt_celular='+txt_celular+'&txt_email='+txt_email+'&txt_r_nombres='+txt_r_nombres+
+            '&txt_r_telefono='+txt_r_telefono+'&txt_c_nombres='+txt_c_nombres+'&txt_c_telefono='+txt_c_telefono,//obtenemos todos los datos del formulario
+            success: function (data) {
+                //hacemos algo cuando finalice
+                var rpt = data.split('_');
+                console.log(data);
+                if (rpt[0] == 1) {
+                    // $("#response").html(data[1]);
+                    var $pos = $("#grupo_provider").val();
+
+                    $("#txt_provider_" + $pos).val(rpt[1] + ' ' + rpt[2]);
+                    $("#rpt").html('' +
+                        '<div class="alert alert-success">' +
+                        '<strong>Success!</strong> Datos guardados,puede seguir con el proceso por favor cierre el popup' +
+                        '</div>');
+                }
+                else {
+                    $("#rpt").html('' +
+                        '<div class="alert alert-error">' +
+                        '<strong>Error!</strong> error al guardar al proveedor' +
+                        '</div>');
+                    // $("#response").html(data);
+                }
+
+            },
+            error: function () {
+                //si hay un error mostramos un mensaje
                 $("#rpt").html('' +
-                    '<div class="alert alert-success">'+
-                    '<strong>Success!</strong> Datos guardados,puede seguir con el proceso por favor cierre el popup'+
+                    '<div class="alert alert-danger">' +
+                    '<strong>Danger!</strong> Error al guardar los datos del proveedor,vuelva a intentarlo' +
                     '</div>');
             }
-            else{
-                $("#response").html(data);
-            }
-
-        }
-    });
-});
+        });
+}
