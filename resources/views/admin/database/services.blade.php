@@ -32,13 +32,13 @@
                             </button>
                         </div>
                         <?php
-                        $tipoServicio[0]='TRANSPORT1';
-                        $tipoServicio[1]='TRANSPORT2';
-                        $tipoServicio[2]='TRANSPORT3';
-                        $tipoServicio[3]='TRANSPORT4';
-                        $tipoServicio[4]='TRANSPORT5';
-                        $tipoServicio[5]='TRANSPORT6';
-
+                        $tipoServicio[0]='HOTELS';
+                        $tipoServicio[1]='TOURS';
+                        $tipoServicio[2]='TRANSPORTATION';
+                        $tipoServicio[3]='GUIDES_ASSIST';
+                        $tipoServicio[4]='ENTRANCES';
+                        $tipoServicio[5]='FOOD';
+                        $tipoServicio[6]='OTHERS';
                         ?>
                         <div class="modal-body">
                             <ul class="nav nav-tabs">

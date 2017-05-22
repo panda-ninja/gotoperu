@@ -46,14 +46,19 @@
                                 <li><a data-toggle="tab" href="#{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
                                 <li><a data-toggle="tab" href="#{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
                             </ul>
-
                             <div class="tab-content">
                                 <div id="{{$tipoServicio[0]}}" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">
+                                                {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                                <select class="form-control" id="txt_localizacion_0" name="txt_localizacion_0">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
+
                                                 <input type="hidden" name="tipoServicio_0" id="tipoServicio_0" value="{{$tipoServicio[0]}}">
                                             </div>
                                         </div>
@@ -106,7 +111,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <input type="text" class="form-control" id="txt_localizacion_1" name="txt_localizacion_1" placeholder="Location">
+                                                {{--<input type="text" class="form-control" id="txt_localizacion_1" name="txt_localizacion_1" placeholder="Location">--}}
+                                                <select class="form-control" id="txt_localizacion_1" name="txt_localizacion_1">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <input type="hidden" name="tipoServicio_1" id="tipoServicio_1" value="{{$tipoServicio[1]}}">
                                             </div>
                                         </div>
@@ -157,7 +167,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <input type="text" class="form-control" id="txt_localizacion_2" name="txt_localizacion_2" placeholder="Location">
+                                                {{--<input type="text" class="form-control" id="txt_localizacion_2" name="txt_localizacion_2" placeholder="Location">--}}
+                                                <select class="form-control" id="txt_localizacion_2" name="txt_localizacion_2">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <input type="hidden" name="tipoServicio_2" id="tipoServicio_2" value="{{$tipoServicio[2]}}">
                                             </div>
                                         </div>
@@ -209,7 +224,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <input type="text" class="form-control" id="txt_localizacion_3" name="txt_localizacion_3" placeholder="Location">
+                                                {{--<input type="text" class="form-control" id="txt_localizacion_3" name="txt_localizacion_3" placeholder="Location">--}}
+                                                <select class="form-control" id="txt_localizacion_3" name="txt_localizacion_3">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <input type="hidden" name="tipoServicio_3" id="tipoServicio_3" value="{{$tipoServicio[3]}}">
                                             </div>
                                         </div>
@@ -260,7 +280,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <input type="text" class="form-control" id="txt_localizacion_4" name="txt_localizacion_4" placeholder="Location">
+                                                {{--<input type="text" class="form-control" id="txt_localizacion_4" name="txt_localizacion_4" placeholder="Location">--}}
+                                                <select class="form-control" id="txt_localizacion_4" name="txt_localizacion_4">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <input type="hidden" name="tipoServicio_4" id="tipoServicio_4" value="{{$tipoServicio[4]}}">
                                             </div>
                                         </div>
@@ -310,7 +335,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <input type="text" class="form-control" id="txt_localizacion_5" name="txt_localizacion_5" placeholder="Location">
+                                                {{--<input type="text" class="form-control" id="txt_localizacion_5" name="txt_localizacion_5" placeholder="Location">--}}
+                                                <select class="form-control" id="txt_localizacion_5" name="txt_localizacion_5">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <input type="hidden" name="tipoServicio_5" id="tipoServicio_5" value="{{$tipoServicio[5]}}">
                                             </div>
                                         </div>
@@ -361,7 +391,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <input type="text" class="form-control" id="txt_localizacion_6" name="txt_localizacion_6" placeholder="Location">
+                                                {{--<input type="text" class="form-control" id="txt_localizacion_6" name="txt_localizacion_6" placeholder="Location">--}}
+                                                <select class="form-control" id="txt_localizacion_6" name="txt_localizacion_6">
+                                                    @foreach($destinations as $destination)
+                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <input type="hidden" name="tipoServicio_6" id="tipoServicio_6" value="{{$tipoServicio[6]}}">
                                             </div>
                                         </div>

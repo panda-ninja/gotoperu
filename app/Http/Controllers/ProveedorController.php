@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Destino;
 use App\Proveedor;
 use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
 {
     //
+    public function index()
+    {
+        $destinations=M_Destino::get();
+        $providers=Proveedor::get();
+        return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers]);
+    }
     public function autocomplete(Request $request)
     {
         if ($request->ajax()) {
@@ -73,5 +80,95 @@ class ProveedorController extends Controller
 //            return response()->json('hola', 200);
         }
     }
+    public function store_new(Request $request){
+        $tipoServicio[0]='HOTELS';
+        $tipoServicio[1]='TOURS';
+        $tipoServicio[2]='TRANSPORTATION';
+        $tipoServicio[3]='GUIDES_ASSIST';
+        $tipoServicio[4]='ENTRANCES';
+        $tipoServicio[5]='FOOD';
+        $tipoServicio[6]='OTHERS';
+        $nro_grupo=$request->input('posTipo');
+        $txt_grupo=$tipoServicio[$nro_grupo];
+        $txt_grupo_cod=substr($txt_grupo,0,1);
+        $txt_localizacion=$request->input('txt_localizacion_'.$nro_grupo);
+        $txt_localizacion_cod=substr($txt_localizacion,0,1);
+        $txt_ruc=$request->input('txt_ruc_'.$nro_grupo);
+        $txt_razon_social=strtoupper($request->input('txt_razon_social_'.$nro_grupo));
+        $txt_direccion=$request->input('txt_direccion_'.$nro_grupo);
+        $txt_telefono=$request->input('txt_telefono_'.$nro_grupo);
+        $txt_celular=$request->input('txt_celular_'.$nro_grupo);
+        $txt_email=$request->input('txt_email_'.$nro_grupo);
+        $txt_r_nombres=strtoupper($request->input('txt_r_nombres_'.$nro_grupo));
+        $txt_r_telefono=$request->input('txt_r_telefono_'.$nro_grupo);
+        $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'.$nro_grupo));
+        $txt_c_telefono=$request->input('txt_c_telefono_'.$nro_grupo);
+        $proveedor=new Proveedor();
+        $proveedor->ruc=$txt_ruc;
+        $proveedor->razon_social=$txt_razon_social;
+        $proveedor->direccion=$txt_direccion;
+        $proveedor->telefono=$txt_telefono;
+        $proveedor->celular=$txt_celular;
+        $proveedor->email=$txt_email;
+        $proveedor->r_nombres=$txt_r_nombres;
+        $proveedor->r_telefono=$txt_r_telefono;
+        $proveedor->c_nombres=$txt_c_nombres;
+        $proveedor->c_telefono=$txt_c_telefono;
+        $proveedor->localizacion=$txt_localizacion;
+        $proveedor->grupo=$txt_grupo;
+        if($proveedor->save()){
+            $proveedor->codigo=$txt_grupo_cod.$txt_localizacion_cod.$proveedor->id;
+            $proveedor->save();
+            $destinations=M_Destino::get();
+            $providers=Proveedor::get();
+            return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers]);
+        }
+    }
+    public function edit(Request $request){
+        $tipoServicio[0]='HOTELS';
+        $tipoServicio[1]='TOURS';
+        $tipoServicio[2]='TRANSPORTATION';
+        $tipoServicio[3]='GUIDES_ASSIST';
+        $tipoServicio[4]='ENTRANCES';
+        $tipoServicio[5]='FOOD';
+        $tipoServicio[6]='OTHERS';
 
+        $id=$request->input('id');
+        $nro_grupo=$request->input('posTipoEditcost_'.$id);
+        $txt_grupo=$tipoServicio[$nro_grupo];
+        $txt_grupo_cod=substr($txt_grupo,0,1);
+        $txt_localizacion=$request->input('txt_localizacion_'.$nro_grupo);
+        $txt_localizacion_cod=substr($txt_localizacion,0,1);
+        $txt_ruc=$request->input('txt_ruc_'.$nro_grupo);
+        $txt_razon_social=strtoupper($request->input('txt_razon_social_'.$nro_grupo));
+        $txt_direccion=$request->input('txt_direccion_'.$nro_grupo);
+        $txt_telefono=$request->input('txt_telefono_'.$nro_grupo);
+        $txt_celular=$request->input('txt_celular_'.$nro_grupo);
+        $txt_email=$request->input('txt_email_'.$nro_grupo);
+        $txt_r_nombres=strtoupper($request->input('txt_r_nombres_'.$nro_grupo));
+        $txt_r_telefono=$request->input('txt_r_telefono_'.$nro_grupo);
+        $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'.$nro_grupo));
+        $txt_c_telefono=$request->input('txt_c_telefono_'.$nro_grupo);
+
+        $proveedor=Proveedor::findOrFail($id);
+        $proveedor->ruc=$txt_ruc;
+        $proveedor->razon_social=$txt_razon_social;
+        $proveedor->direccion=$txt_direccion;
+        $proveedor->telefono=$txt_telefono;
+        $proveedor->celular=$txt_celular;
+        $proveedor->email=$txt_email;
+        $proveedor->r_nombres=$txt_r_nombres;
+        $proveedor->r_telefono=$txt_r_telefono;
+        $proveedor->c_nombres=$txt_c_nombres;
+        $proveedor->c_telefono=$txt_c_telefono;
+        $proveedor->localizacion=$txt_localizacion;
+        $proveedor->grupo=$txt_grupo;
+        if($proveedor->save()){
+            $proveedor->codigo=$txt_grupo_cod.$txt_localizacion_cod.$proveedor->id;
+            $proveedor->save();
+            $destinations=M_Destino::get();
+            $providers=Proveedor::get();
+            return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers]);
+        }
+    }
 }
