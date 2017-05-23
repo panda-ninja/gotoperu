@@ -555,7 +555,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="row margin-top-20">
         <div class="col-lg-12">
@@ -941,7 +940,6 @@
                                         $act_menu4='hide';
                                         $act_menu5='hide';
                                         $act_menu6='hide';
-
                                         $act_tabmenu0='';
                                         $act_tabmenu1='';
                                         $act_tabmenu2='';
@@ -949,34 +947,41 @@
                                         $act_tabmenu4='';
                                         $act_tabmenu5='';
                                         $act_tabmenu6='';
-
+                                        $pos=0;
                                         if($tipoServicio[0]==$producto->grupo){
                                             $act_menu0='active';
                                             $act_tabmenu0='in active';
+                                            $pos=0;
                                             }
                                         if($tipoServicio[1]==$producto->grupo){
                                             $act_menu1='active';
                                             $act_tabmenu1='in active';
+                                            $pos=1;
                                         }
                                         if($tipoServicio[2]==$producto->grupo){
                                             $act_menu2='active';
                                             $act_tabmenu2='in active';
+                                            $pos=1;
                                         }
                                         if($tipoServicio[3]==$producto->grupo){
                                             $act_menu3='active';
                                             $act_tabmenu3='in active';
+                                            $pos=3;
                                         }
                                         if($tipoServicio[4]==$producto->grupo){
                                             $act_menu4='active';
                                             $act_tabmenu4='in active';
+                                            $pos=4;
                                         }
                                         if($tipoServicio[5]==$producto->grupo){
                                             $act_menu5='active';
                                             $act_tabmenu5='in active';
+                                            $pos=5;
                                         }
                                         if($tipoServicio[6]==$producto->grupo){
                                             $act_menu6='active';
                                             $act_tabmenu6='in active';
+                                            $pos=6;
                                         }
                                         ?>
                                         <div class="modal-body">
@@ -995,7 +1000,11 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
-                                                                <input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location" value="<?php if($tipoServicio[0]==$producto->grupo) echo $producto->localizacion;?>">
+                                                                <select class="form-control" id="txt_localizacion_0" name="txt_localizacion_0">
+                                                                    @foreach($destinations as $destination)
+                                                                        <option value="{{$destination->destino}}" <?php if($tipoServicio[0]==$producto->grupo){if($producto->localizacion==$destination->destino) echo 'selected';}?>>{{$destination->destino}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="hidden" name="tipoServicio_0" id="tipoServicio_0" value="{{$tipoServicio[0]}}">
                                                             </div>
                                                         </div>
@@ -1043,7 +1052,11 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
-                                                                <input type="text" class="form-control" id="txt_localizacion_1" name="txt_localizacion_1" placeholder="Location" value="<?php if($tipoServicio[1]==$producto->grupo) echo $producto->localizacion;?>">
+                                                                <select class="form-control" id="txt_localizacion_1" name="txt_localizacion_1">
+                                                                    @foreach($destinations as $destination)
+                                                                        <option value="{{$destination->destino}}" <?php if($tipoServicio[1]==$producto->grupo){if($producto->localizacion==$destination->destino) echo 'selected';}?>>{{$destination->destino}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="hidden" name="tipoServicio_1" id="tipoServicio_1" value="{{$tipoServicio[1]}}">
                                                             </div>
                                                         </div>
@@ -1091,7 +1104,11 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
-                                                                <input type="text" class="form-control" id="txt_localizacion_2" name="txt_localizacion_2" placeholder="Location" value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->localizacion;?>">
+                                                                <select class="form-control" id="txt_localizacion_2" name="txt_localizacion_2">
+                                                                    @foreach($destinations as $destination)
+                                                                        <option value="{{$destination->destino}}" <?php if($tipoServicio[2]==$producto->grupo){if($producto->localizacion==$destination->destino) echo 'selected';}?>>{{$destination->destino}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="hidden" name="tipoServicio_2" id="tipoServicio_2" value="{{$tipoServicio[2]}}">
                                                             </div>
                                                         </div>
@@ -1139,7 +1156,11 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
-                                                                <input type="text" class="form-control" id="txt_localizacion_3" name="txt_localizacion_3" placeholder="Location" value="<?php if($tipoServicio[3]==$producto->grupo) echo $producto->localizacion;?>">
+                                                                <select class="form-control" id="txt_localizacion_3" name="txt_localizacion_3">
+                                                                    @foreach($destinations as $destination)
+                                                                        <option value="{{$destination->destino}}" <?php if($tipoServicio[3]==$producto->grupo){if($producto->localizacion==$destination->destino) echo 'selected';}?>>{{$destination->destino}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="hidden" name="tipoServicio_3" id="tipoServicio_3" value="{{$tipoServicio[3]}}">
                                                             </div>
                                                         </div>
@@ -1187,7 +1208,11 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
-                                                                <input type="text" class="form-control" id="txt_localizacion_4" name="txt_localizacion_4" placeholder="Location" value="<?php if($tipoServicio[4]==$producto->grupo) echo $producto->localizacion;?>">
+                                                                <select class="form-control" id="txt_localizacion_4" name="txt_localizacion_4">
+                                                                    @foreach($destinations as $destination)
+                                                                        <option value="{{$destination->destino}}" <?php if($tipoServicio[4]==$producto->grupo){if($producto->localizacion==$destination->destino) echo 'selected';}?>>{{$destination->destino}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="hidden" name="tipoServicio_4" id="tipoServicio_4" value="{{$tipoServicio[4]}}">
                                                             </div>
                                                         </div>
@@ -1235,7 +1260,11 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
-                                                                <input type="text" class="form-control" id="txt_localizacion_5" name="txt_localizacion_5" placeholder="Location" value="<?php if($tipoServicio[5]==$producto->grupo) echo $producto->localizacion;?>">
+                                                                <select class="form-control" id="txt_localizacion_5" name="txt_localizacion_5">
+                                                                    @foreach($destinations as $destination)
+                                                                        <option value="{{$destination->destino}}" <?php if($tipoServicio[5]==$producto->grupo){if($producto->localizacion==$destination->destino) echo 'selected';}?>>{{$destination->destino}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="hidden" name="tipoServicio_5" id="tipoServicio_5" value="{{$tipoServicio[5]}}">
                                                             </div>
                                                         </div>
@@ -1283,7 +1312,11 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
-                                                                <input type="text" class="form-control" id="txt_localizacion_6" name="txt_localizacion_6" placeholder="Location" value="<?php if($tipoServicio[6]==$producto->grupo) echo $producto->localizacion;?>">
+                                                                <select class="form-control" id="txt_localizacion_6" name="txt_localizacion_6">
+                                                                    @foreach($destinations as $destination)
+                                                                        <option value="{{$destination->destino}}" <?php if($tipoServicio[6]==$producto->grupo){if($producto->localizacion==$destination->destino) echo 'selected';}?>>{{$destination->destino}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <input type="hidden" name="tipoServicio_6" id="tipoServicio_6" value="{{$tipoServicio[6]}}">
                                                             </div>
                                                         </div>
@@ -1327,12 +1360,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                         <div class="modal-footer">
                                             {{csrf_field()}}
-                                            <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                            <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos}}">
                                             <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Save changes</button>
