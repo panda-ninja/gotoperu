@@ -395,7 +395,7 @@ function eliminar_provider(id,servicio) {
         $.post('/admin/provider/delete', 'id='+id, function(data) {
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
-                $("#lista_provider"+id).fadeOut( "slow");
+                $("#lista_provider_"+id).fadeOut( "slow");
             }
             else if(data==2){
                 swal(
