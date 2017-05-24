@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\M_Destino;
+use App\M_Producto;
 use App\Proveedor;
 use Illuminate\Http\Request;
 
@@ -169,6 +170,20 @@ class ProveedorController extends Controller
             $destinations=M_Destino::get();
             $providers=Proveedor::get();
             return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers]);
+        }
+    }
+    public function delete(Request $request){
+        $id=$request->input('id');
+        $producto=Proveedor::FindOrFail($id);
+        $producto_pro=M_Producto::where('proveedor_id',$id)->get();
+        if(count($producto_pro)==0){
+            if($producto->delete())
+                return 1;
+            else
+                return 0;
+        }
+        else{
+            return 2;
         }
     }
 }

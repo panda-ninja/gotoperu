@@ -125,3 +125,7 @@ Route::post('/admin/provider/edit', [
     'uses' => 'ProveedorController@edit',
     'as' => 'provider_edit_path',
 ]);
+Route::post('/admin/provider/delete', [
+    'uses' => 'ProveedorController@delete',
+    'as' => 'provider_delete_path',
+]);
