@@ -129,3 +129,9 @@ Route::post('/admin/provider/delete', [
     'uses' => 'ProveedorController@delete',
     'as' => 'provider_delete_path',
 ]);
+
+/*== rutas para itinerarios*/
+Route::get('/admin/itinerary',[
+    'uses' => 'ItinerariController@index',
+    'as' => 'itinerari_index_path',
+]);

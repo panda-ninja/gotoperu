@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Destino;
 use App\M_Itinerario;
 use App\M_ItinerarioDestino;
+use App\M_Servicio;
 use Illuminate\Http\Request;
 
 class ItinerariController extends Controller
 {
     //
+    public function index()
+    {
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services]);
+    }
+
     public function show_Itineraries(Request $request){
         $destinos=($request->input('destinos'));
         $destinos=explode('_',$destinos);
