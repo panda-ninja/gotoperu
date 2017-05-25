@@ -24,7 +24,7 @@
         <div class="modal fade bd-example-modal-lg" id="modal_new_destination" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
+                    <form action="{{route('itinerary_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">New itinerary</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -58,7 +58,7 @@
                                 <div class="col-md-3">
                                     <div class="checkbox11">
                                         <label>
-                                            <input type="checkbox" name="destinos" value="{{$destino->destino}}">
+                                            <input type="checkbox" name="destinos[]" value="{{$destino->id}}">
                                             {{$destino->destino}}
                                         </label>
                                     </div>
@@ -92,7 +92,7 @@
                                             <div class="col-md-4">
                                                 <div class="checkbox11">
                                                     <label>
-                                                        <input type="checkbox" name="servicos" value="{{$service->nombre}}">
+                                                        <input type="checkbox" name="servicios[]" value="{{$service->id}}">
                                                         {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                     </label>
                                                 </div>
@@ -106,7 +106,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" name="servicos" value="{{$service->nombre}}">
+                                                            <input type="checkbox" name="servicios[]" value="{{$service->id}}">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -120,7 +120,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" name="servicos" value="{{$service->nombre}}">
+                                                            <input type="checkbox" name="servicios[]" value="{{$service->id}}">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -135,7 +135,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" name="servicos" value="{{$service->nombre}}">
+                                                            <input type="checkbox" name="servicios[]" value="{{$service->id}}">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -150,7 +150,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" name="servicos" value="{{$service->nombre}}">
+                                                            <input type="checkbox" name="servicios[]" value="{{$service->id}}">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -165,7 +165,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" name="servicos" value="{{$service->nombre}}">
+                                                            <input type="checkbox" name="servicios[]" value="{{$service->id}}">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -180,7 +180,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" name="servicos" value="{{$service->nombre}}">
+                                                            <input type="checkbox" name="servicios[]" value="{{$service->id}}">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>

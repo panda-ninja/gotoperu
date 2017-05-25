@@ -135,3 +135,7 @@ Route::get('/admin/itinerary',[
     'uses' => 'ItinerariController@index',
     'as' => 'itinerari_index_path',
 ]);
+Route::post('/admin/itinerary',[
+    'uses' => 'ItinerariController@store',
+    'as' => 'itinerary_save_path',
+]);
