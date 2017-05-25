@@ -202,7 +202,51 @@
         </div>
     </div>
     <div class="row margin-top-20">
-
+        <table id="example" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Destinos</th>
+                <th>Servicios</th>
+                <th>Costo</th>
+                <th>Operaciones</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Destinos</th>
+                <th>Servicios</th>
+                <th>Costo</th>
+                <th>Operaciones</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            @foreach($itinerarios as $itinerario)
+                <tr id="lista_destinos_{{$itinerario->id}}">
+                    <td>{{$itinerario->titulo}}</td>
+                    <td>{{$itinerario->descripcion}}</td>
+                    <td>
+                        @foreach($itinerario->destinos as $destinos)
+                            <label for="">{{$destinos->destino}}</label>
+                        @endforeach
+                    </td>
+                    <td>{{$itinerario->descripcion}}</td>
+                    <td>{{$itinerario->descripcion}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$destino->id}}">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="eliminar_destino('{{$destino->id}}','{{$destino->destino}}')">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
     <script>
         $(document).ready(function() {

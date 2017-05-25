@@ -16,7 +16,8 @@ class ItinerariController extends Controller
     {
         $destinations=M_Destino::get();
         $services=M_Servicio::get();
-        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services]);
+        $itinerarios=M_Itinerario::get();
+        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios]);
     }
 
     public function show_Itineraries(Request $request){
@@ -119,6 +120,7 @@ class ItinerariController extends Controller
             }
             $destinations=M_Destino::get();
             $services=M_Servicio::get();
-            return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services]);
+            $itinerarios=M_Itinerario::get();
+            return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios]);
     }
 }
