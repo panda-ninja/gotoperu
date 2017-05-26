@@ -22455,8 +22455,21 @@ function eliminar_itinerario(id,servicio) {
                 // )
             }
         }).fail(function (data) {
-
         });
-
     })
+}
+
+function sumar_servicios(){
+    var total_ci=0;
+    $("input[class='servicios1']").each(function (index) {
+        if($(this).is(':checked')){
+            var dato=$(this).val();
+            var dato1=dato.split('_');
+            console.log(dato1[1]);
+            total_ci+=parseInt(dato1[1]);
+            console.log($(this).val());
+        }
+    });
+    console.log('total:'+total_ci);
+    $('#total_ci').html(total_ci);
 }

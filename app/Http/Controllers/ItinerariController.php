@@ -107,7 +107,7 @@ class ItinerariController extends Controller
                 $itinerario_destino->save();
             }
             foreach ($servicios as $servicio){
-                $m_servicio=M_Servicio::FindOrFail($servicio);
+                $m_servicio=M_Servicio::FindOrFail(explode('_',$servicio)[0]);
                 $itinerario_servicio=new M_ItinerarioServicio();
                 $itinerario_servicio->m_servicios_id=$m_servicio->id;
                 $itinerario_servicio->m_itinerario_id=$itinerario->id;
