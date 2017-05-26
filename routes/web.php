@@ -139,3 +139,12 @@ Route::post('/admin/itinerary',[
     'uses' => 'ItinerariController@store',
     'as' => 'itinerary_save_path',
 ]);
+Route::post('/admin/itinerary/edit',[
+    'uses' => 'ItinerariController@edit',
+    'as' => 'itinerary_edit_path',
+]);
+
+Route::post('/admin/itinerary/delete',[
+    'uses' => 'ItinerariController@delete',
+    'as' => 'itinerary_delete_path',
+]);

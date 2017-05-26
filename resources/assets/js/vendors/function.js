@@ -410,3 +410,47 @@ function eliminar_provider(id,servicio) {
 
     })
 }
+function eliminar_itinerario(id,servicio) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el itinerario "+servicio+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/itinerary/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#lista_itinerary_"+id).fadeOut( "slow");
+            }
+            else if(data==2){
+                // swal(
+                //     'Porque no puedo borar?',
+                //     'El proveedor tiene costos asociados, vaya al modulo "Costs" y borre todos los registros asociados al proveedor.',
+                //     'warning'
+                // )
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+}
+
+function sumar_servicios(){
+    var total_ci=0;
+    $("input[name=servicios]").each(function (index) {
+        if($(this).is(':checked')){
+            total_ci+=parseInt($(this).val());
+        }
+    });
+    $('#total_ci').html(total_ci);
+}
