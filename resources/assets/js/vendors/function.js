@@ -445,7 +445,8 @@ function eliminar_itinerario(id,servicio) {
 
 function sumar_servicios(nroclase){
     var total_ci=0;
-    $("input[class='servicios']").each(function (index) {
+    var clase_='servicios'+nroclase;
+    $("input[class=clase_]").each(function (index) {
         if($(this).is(':checked')){
             var dato=$(this).val();
             var dato1=dato.split('_');
@@ -455,5 +456,5 @@ function sumar_servicios(nroclase){
         }
     });
     // console.log('total:'+total_ci);
-    $('#total_ci').html(total_ci);
+    $('#total_ci'+nroclase).html(total_ci);
 }

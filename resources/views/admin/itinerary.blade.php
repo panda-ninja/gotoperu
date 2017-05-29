@@ -34,9 +34,19 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="txt_titulo">Titulo</label>
-                                        <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="txt_titulo">Titulo</label>
+                                                <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="txt_imagen">Imagen</label>
+                                                <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -92,7 +102,7 @@
                                             <div class="col-md-4">
                                                 <div class="checkbox11">
                                                     <label>
-                                                        <input type="checkbox" class="servicios1" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios()">
+                                                        <input type="checkbox" class="servicios0" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
                                                         {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                     </label>
                                                 </div>
@@ -106,7 +116,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios1" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios()">
+                                                            <input type="checkbox" class="servicios0" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -120,7 +130,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios1" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios()">
+                                                            <input type="checkbox" class="servicios0" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -135,7 +145,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios1" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios()">
+                                                            <input type="checkbox" class="servicios0" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -150,7 +160,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios1" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios()">
+                                                            <input type="checkbox" class="servicios0" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -165,7 +175,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios1" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios()">
+                                                            <input type="checkbox" class="servicios0" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -180,7 +190,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios1" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios()">
+                                                            <input type="checkbox" class="servicios0" name="servicios[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -192,11 +202,17 @@
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="text-green-goto">Total $<span id="total_ci_0"></span></label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
                             {{csrf_field()}}
-                            <label class="text-green-goto">$<span id="total_ci"></span></label>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
+                            </div>
                     </form>
                 </div>
             </div>
@@ -231,11 +247,25 @@
                     <td>{{$itinerario->descripcion}}</td>
                     <td>
                         @foreach($itinerario->destinos as $destinos)
-                            <label for="">{{$destinos->destino}}</label>
+                            <label for="" class="text-10 text-orange-goto">{{$destinos->destino}},</label>
                         @endforeach
                     </td>
-                    <td>{{$itinerario->descripcion}}</td>
-                    <td>{{$itinerario->descripcion}}</td>
+                    <td>
+                        @foreach($itinerario->itinerario_itinerario_servicios as $it_iti_servicio)
+                            <p class="text-11">{{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                        @endforeach
+                    </td>
+                    <td>
+                        <?php
+                        $total_recio_venta=0;
+                        ?>
+                        @foreach($itinerario->itinerario_itinerario_servicios as $it_iti_servicio)
+                                <?php
+                                $total_recio_venta+=$it_iti_servicio->itinerario_servicios_servicio->precio_venta;
+                                ?>
+                        @endforeach
+                            <label for="" class="text-16 text-green-goto">${{$total_recio_venta}}</label>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_itinerario_{{$itinerario->id}}">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -334,7 +364,7 @@
                                                             <div class="col-md-4">
                                                                 <div class="checkbox11">
                                                                     <label>
-                                                                        <input type="checkbox" name="servicios[]" value="{{$service->id}}" <?php echo $estado;  ?>>
+                                                                        <input type="checkbox" class="servicios{{$itinerario->id}}" name="servicios{{$itinerario->id}}[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})">
                                                                         {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                     </label>
                                                                 </div>
@@ -356,7 +386,7 @@
                                                         <div class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" name="servicios[]" value="{{$service->id}}" <?php echo $estado;  ?>>
+                                                                    <input type="checkbox" class="servicios{{$itinerario->id}}" name="servicios{{$itinerario->id}}[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})">
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -378,7 +408,7 @@
                                                         <div class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" name="servicios[]" value="{{$service->id}}" <?php echo $estado;  ?>>
+                                                                    <input type="checkbox" class="servicios{{$itinerario->id}}" name="servicios{{$itinerario->id}}[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})">
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -401,7 +431,7 @@
                                                         <div class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" name="servicios[]" value="{{$service->id}}" <?php echo $estado;  ?>>
+                                                                    <input type="checkbox" class="servicios{{$itinerario->id}}" name="servicios{{$itinerario->id}}[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})">
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -424,7 +454,7 @@
                                                         <div class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" name="servicios[]" value="{{$service->id}}" <?php echo $estado;  ?>>
+                                                                    <input type="checkbox" class="servicios{{$itinerario->id}}" name="servicios{{$itinerario->id}}[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})">
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -447,7 +477,7 @@
                                                         <div class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" name="servicios[]" value="{{$service->id}}" <?php echo $estado;  ?>>
+                                                                    <input type="checkbox" class="servicios{{$itinerario->id}}" name="servicios{{$itinerario->id}}[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})">
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -470,7 +500,7 @@
                                                         <div class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" name="servicios[]" value="{{$service->id}}" <?php echo $estado;  ?>>
+                                                                    <input type="checkbox" class="servicios{{$itinerario->id}}" name="servicios{{$itinerario->id}}[]" value="{{$service->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})">
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -482,12 +512,17 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label class="text-green-goto">Total $<span id="total_ci_{{$itinerario->id}}"></span></label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
                                     {{csrf_field()}}
                                     <input type="hidden" name="itinerario_id" id="itinerario_id" value="{{$itinerario->id}}">
-
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
                             </form>
                         </div>
