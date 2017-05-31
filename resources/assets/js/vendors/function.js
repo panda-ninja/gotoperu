@@ -443,18 +443,19 @@ function eliminar_itinerario(id,servicio) {
     })
 }
 
-function sumar_servicios(nroclase){
+function sumar_servicios(grupo){
     var total_ci=0;
-    var clase_='servicios'+nroclase;
-    $("input[class=clase_]").each(function (index) {
+    $("input[class='servicios']").each(function (index) {
         if($(this).is(':checked')){
             var dato=$(this).val();
             var dato1=dato.split('_');
-            // console.log(dato1[1]);
-            total_ci+=parseInt(dato1[1]);
-            // console.log($(this).val());
+            console.log(dato1[1]);
+            if(dato1[0]==grupo) {
+                total_ci += parseInt(dato1[1]);
+            }
+            console.log($(this).val());
         }
     });
-    // console.log('total:'+total_ci);
-    $('#total_ci'+nroclase).html(total_ci);
+     console.log('total:'+total_ci);
+    $('#total_ci_'+grupo).html(total_ci);
 }
