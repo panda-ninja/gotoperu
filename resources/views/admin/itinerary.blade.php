@@ -102,7 +102,7 @@
                                             <div class="col-md-4">
                                                 <div class="checkbox11">
                                                     <label>
-                                                        <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
+                                                        <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
                                                         {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                     </label>
                                                 </div>
@@ -116,7 +116,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -130,7 +130,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -145,7 +145,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -160,7 +160,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -175,7 +175,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -190,7 +190,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
