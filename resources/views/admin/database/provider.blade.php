@@ -31,7 +31,9 @@
             $tipoServicio[3]='GUIDES_ASSIST';
             $tipoServicio[4]='ENTRANCES';
             $tipoServicio[5]='FOOD';
-            $tipoServicio[6]='OTHERS';
+            $tipoServicio[6]='TRAINS';
+            $tipoServicio[7]='FOOD';
+            $tipoServicio[8]='OTHERS';
         ?>
 
         {{-- primer popup --}}

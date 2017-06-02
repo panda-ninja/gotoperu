@@ -183,6 +183,7 @@
                                                     <option value="AUTO">AUTO</option>
                                                     <option value="SUBARU">SUBARU</option>
                                                     <option value="VAN">VAN</option>
+                                                    <option value="H1">H1</option>
                                                     <option value="SPRINTER">SPRINTER</option>
 
                                                 </select>
@@ -908,10 +909,10 @@
                                                                 <label for="txt_type">Type</label>
                                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
                                                                 <select class="form-control" id="txt_type_0" name="txt_type_0">
-                                                                    <option value="2 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
-                                                                    <option value="3 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
-                                                                    <option value="4 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
-                                                                    <option value="5 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
+                                                                    <option value="2 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
+                                                                    <option value="3 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
+                                                                    <option value="4 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
+                                                                    <option value="5 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -960,10 +961,10 @@
                                                                 <label for="txt_type">Type</label>
                                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
                                                                 <select class="form-control" id="txt_type_1" name="txt_type_1">
-                                                                    <option value="2 STARS" <?php if($tipoServicio[1]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
-                                                                    <option value="3 STARS" <?php if($tipoServicio[1]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
-                                                                    <option value="4 STARS" <?php if($tipoServicio[1]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
-                                                                    <option value="5 STARS" <?php if($tipoServicio[1]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
+                                                                    <option value="2 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
+                                                                    <option value="3 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
+                                                                    <option value="4 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
+                                                                    <option value="5 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -1012,10 +1013,10 @@
                                                                 <label for="txt_type">Type</label>
                                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
                                                                 <select class="form-control" id="txt_type_2" name="txt_type_2">
-                                                                    <option value="2 STARS" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
-                                                                    <option value="3 STARS" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
-                                                                    <option value="4 STARS" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
-                                                                    <option value="5 STARS" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
+                                                                    <option value="2 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
+                                                                    <option value="3 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
+                                                                    <option value="4 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
+                                                                    <option value="5 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -1889,7 +1890,9 @@
                                                             {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
                                                             <select class="form-control" id="txt_type_2" name="txt_type_2">
                                                                 <option value="AUTO" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='AUTO') echo 'selected';}?>>AUTO</option>
+                                                                <option value="SUBARU" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='SUBARU') echo 'selected';}?>>SUBARU</option>
                                                                 <option value="VAN" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='VAN') echo 'selected';}?>>VAN</option>
+                                                                <option value="H1" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='H1') echo 'selected';}?>>H1</option>
                                                                 <option value="SPRINTER" <?php if($tipoServicio[2]==$producto->grupo){if($producto->tipo_producto=='SPRINTER') echo 'selected';}?>>SPRINTER</option>
                                                             </select>
                                                         </div>
