@@ -449,112 +449,6 @@
                     </div>
                     </div>
 
-        {{-- primer popup --}}
-        <div class="modal fade bd-example-modal-lg" id="modal_new_provider" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <form  id="service_save_id"  method="post">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">New provider</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Servicio</label>
-                                                <select class="form-control" id="txt_grupo" name="txt_grupo">
-                                                    @foreach($tipoServicio as $tipoServicio_)
-                                                        <option value="{{$tipoServicio_}}">{{$tipoServicio_}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion" name="txt_localizacion">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc" name="txt_ruc" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social" name="txt_razon_social" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion" name="txt_direccion" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono" name="txt_telefono" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular" name="txt_celular" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres" name="txt_r_nombres" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono" name="txt_r_telefono" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres" name="txt_c_nombres" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono" name="txt_c_telefono" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div id="rpt" class="col-ms-12"></div>
-                                    </div>
-                        </div>
-                        <div class="modal-footer">
-                            {{csrf_field()}}
-                            <input type="hidden" name="grupo_provider" id="grupo_provider" value="0">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="envia()">Save changes</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="row margin-top-20">
         <div class="col-lg-12">
@@ -961,7 +855,7 @@
                                         if($tipoServicio[2]==$producto->grupo){
                                             $act_menu2='active';
                                             $act_tabmenu2='in active';
-                                            $pos=1;
+                                            $pos=2;
                                         }
                                         if($tipoServicio[3]==$producto->grupo){
                                             $act_menu3='active';
@@ -1405,33 +1299,41 @@
                                     $act_tabmenu5='';
                                     $act_tabmenu6='';
 
+                                    $pos=0;
                                     if($tipoServicio[0]==$producto->grupo){
                                         $act_menu0='active';
                                         $act_tabmenu0='in active';
+                                        $pos=0;
                                     }
                                     if($tipoServicio[1]==$producto->grupo){
                                         $act_menu1='active';
                                         $act_tabmenu1='in active';
+                                        $pos=1;
                                     }
                                     if($tipoServicio[2]==$producto->grupo){
                                         $act_menu2='active';
                                         $act_tabmenu2='in active';
+                                        $pos=2;
                                     }
                                     if($tipoServicio[3]==$producto->grupo){
                                         $act_menu3='active';
                                         $act_tabmenu3='in active';
+                                        $pos=3;
                                     }
                                     if($tipoServicio[4]==$producto->grupo){
                                         $act_menu4='active';
                                         $act_tabmenu4='in active';
+                                        $pos=4;
                                     }
                                     if($tipoServicio[5]==$producto->grupo){
                                         $act_menu5='active';
                                         $act_tabmenu5='in active';
+                                        $pos=5;
                                     }
                                     if($tipoServicio[6]==$producto->grupo){
                                         $act_menu6='active';
                                         $act_tabmenu6='in active';
+                                        $pos=6;
                                     }
                                     ?>
                                     <div class="modal-body">
@@ -1785,7 +1687,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos}}">
                                         <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -1827,33 +1729,41 @@
                                     $act_tabmenu5='';
                                     $act_tabmenu6='';
 
+                                    $pos=0;
                                     if($tipoServicio[0]==$producto->grupo){
                                         $act_menu0='active';
                                         $act_tabmenu0='in active';
+                                        $pos=0;
                                     }
                                     if($tipoServicio[1]==$producto->grupo){
                                         $act_menu1='active';
                                         $act_tabmenu1='in active';
+                                        $pos=1;
                                     }
                                     if($tipoServicio[2]==$producto->grupo){
                                         $act_menu2='active';
                                         $act_tabmenu2='in active';
+                                        $pos=2;
                                     }
                                     if($tipoServicio[3]==$producto->grupo){
                                         $act_menu3='active';
                                         $act_tabmenu3='in active';
+                                        $pos=3;
                                     }
                                     if($tipoServicio[4]==$producto->grupo){
                                         $act_menu4='active';
                                         $act_tabmenu4='in active';
+                                        $pos=4;
                                     }
                                     if($tipoServicio[5]==$producto->grupo){
                                         $act_menu5='active';
                                         $act_tabmenu5='in active';
+                                        $pos=5;
                                     }
                                     if($tipoServicio[6]==$producto->grupo){
                                         $act_menu6='active';
                                         $act_tabmenu6='in active';
+                                        $pos=6;
                                     }
                                     ?>
                                     <div class="modal-body">
@@ -2208,7 +2118,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos}}">
                                         <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -2250,33 +2160,41 @@
                                     $act_tabmenu5='';
                                     $act_tabmenu6='';
 
+                                    $pos=0;
                                     if($tipoServicio[0]==$producto->grupo){
                                         $act_menu0='active';
                                         $act_tabmenu0='in active';
+                                        $pos=0;
                                     }
                                     if($tipoServicio[1]==$producto->grupo){
                                         $act_menu1='active';
                                         $act_tabmenu1='in active';
+                                        $pos=1;
                                     }
                                     if($tipoServicio[2]==$producto->grupo){
                                         $act_menu2='active';
                                         $act_tabmenu2='in active';
+                                        $pos=2;
                                     }
                                     if($tipoServicio[3]==$producto->grupo){
                                         $act_menu3='active';
                                         $act_tabmenu3='in active';
+                                        $pos=3;
                                     }
                                     if($tipoServicio[4]==$producto->grupo){
                                         $act_menu4='active';
                                         $act_tabmenu4='in active';
+                                        $pos=4;
                                     }
                                     if($tipoServicio[5]==$producto->grupo){
                                         $act_menu5='active';
                                         $act_tabmenu5='in active';
+                                        $pos=5;
                                     }
                                     if($tipoServicio[6]==$producto->grupo){
                                         $act_menu6='active';
                                         $act_tabmenu6='in active';
+                                        $pos=6;
                                     }
                                     ?>
                                     <div class="modal-body">
@@ -2631,7 +2549,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos}}">
                                         <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -2673,33 +2591,41 @@
                                     $act_tabmenu5='';
                                     $act_tabmenu6='';
 
+                                    $pos=0;
                                     if($tipoServicio[0]==$producto->grupo){
                                         $act_menu0='active';
                                         $act_tabmenu0='in active';
+                                        $pos=0;
                                     }
                                     if($tipoServicio[1]==$producto->grupo){
                                         $act_menu1='active';
                                         $act_tabmenu1='in active';
+                                        $pos=1;
                                     }
                                     if($tipoServicio[2]==$producto->grupo){
                                         $act_menu2='active';
                                         $act_tabmenu2='in active';
+                                        $pos=2;
                                     }
                                     if($tipoServicio[3]==$producto->grupo){
                                         $act_menu3='active';
                                         $act_tabmenu3='in active';
+                                        $pos=3;
                                     }
                                     if($tipoServicio[4]==$producto->grupo){
                                         $act_menu4='active';
                                         $act_tabmenu4='in active';
+                                        $pos=4;
                                     }
                                     if($tipoServicio[5]==$producto->grupo){
                                         $act_menu5='active';
                                         $act_tabmenu5='in active';
+                                        $pos=5;
                                     }
                                     if($tipoServicio[6]==$producto->grupo){
                                         $act_menu6='active';
                                         $act_tabmenu6='in active';
+                                        $pos=6;
                                     }
                                     ?>
                                     <div class="modal-body">
@@ -3053,7 +2979,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos}}">
                                         <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -3095,33 +3021,41 @@
                                     $act_tabmenu5='';
                                     $act_tabmenu6='';
 
+                                    $pos=0;
                                     if($tipoServicio[0]==$producto->grupo){
                                         $act_menu0='active';
                                         $act_tabmenu0='in active';
+                                        $pos=0;
                                     }
                                     if($tipoServicio[1]==$producto->grupo){
                                         $act_menu1='active';
                                         $act_tabmenu1='in active';
+                                        $pos=1;
                                     }
                                     if($tipoServicio[2]==$producto->grupo){
                                         $act_menu2='active';
                                         $act_tabmenu2='in active';
+                                        $pos=2;
                                     }
                                     if($tipoServicio[3]==$producto->grupo){
                                         $act_menu3='active';
                                         $act_tabmenu3='in active';
+                                        $pos=3;
                                     }
                                     if($tipoServicio[4]==$producto->grupo){
                                         $act_menu4='active';
                                         $act_tabmenu4='in active';
+                                        $pos=4;
                                     }
                                     if($tipoServicio[5]==$producto->grupo){
                                         $act_menu5='active';
                                         $act_tabmenu5='in active';
+                                        $pos=5;
                                     }
                                     if($tipoServicio[6]==$producto->grupo){
                                         $act_menu6='active';
                                         $act_tabmenu6='in active';
+                                        $pos=6;
                                     }
                                     ?>
                                     <div class="modal-body">
@@ -3475,7 +3409,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos}}">
                                         <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -3517,33 +3451,41 @@
                                     $act_tabmenu5='';
                                     $act_tabmenu6='';
 
+                                    $pos=0;
                                     if($tipoServicio[0]==$producto->grupo){
                                         $act_menu0='active';
                                         $act_tabmenu0='in active';
+                                        $pos=0;
                                     }
                                     if($tipoServicio[1]==$producto->grupo){
                                         $act_menu1='active';
                                         $act_tabmenu1='in active';
+                                        $pos=1;
                                     }
                                     if($tipoServicio[2]==$producto->grupo){
                                         $act_menu2='active';
                                         $act_tabmenu2='in active';
+                                        $pos=2;
                                     }
                                     if($tipoServicio[3]==$producto->grupo){
                                         $act_menu3='active';
                                         $act_tabmenu3='in active';
+                                        $pos=3;
                                     }
                                     if($tipoServicio[4]==$producto->grupo){
                                         $act_menu4='active';
                                         $act_tabmenu4='in active';
+                                        $pos=4;
                                     }
                                     if($tipoServicio[5]==$producto->grupo){
                                         $act_menu5='active';
                                         $act_tabmenu5='in active';
+                                        $pos=5;
                                     }
                                     if($tipoServicio[6]==$producto->grupo){
                                         $act_menu6='active';
                                         $act_tabmenu6='in active';
+                                        $pos=6;
                                     }
                                     ?>
                                     <div class="modal-body">
@@ -3894,7 +3836,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                        <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos}}">
                                         <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
