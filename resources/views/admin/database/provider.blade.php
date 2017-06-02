@@ -47,7 +47,7 @@
                         </div>
                         <div class="modal-body">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#t_{{$tipoServicio[0]}}">{{$tipoServicio[0]}}</a></li>
+                                <li class="active"><a data-toggle="tab" href="#t_{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
                                 <li><a data-toggle="tab" href="#t_{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
                                 <li><a data-toggle="tab" href="#t_{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
                                 <li><a data-toggle="tab" href="#t_{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
@@ -593,12 +593,12 @@
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#tl_{{$tipoServicio[0]}}">{{$tipoServicio[0]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
+                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[1]}}" >{{$tipoServicio[1]}}</a></li>
+                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[2]}}" >{{$tipoServicio[2]}}</a></li>
+                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[3]}}" >{{$tipoServicio[3]}}</a></li>
+                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[4]}}" >{{$tipoServicio[4]}}</a></li>
+                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[5]}}" >{{$tipoServicio[5]}}</a></li>
+                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[6]}}" >{{$tipoServicio[6]}}</a></li>
             </ul>
             <div class="tab-content">
                 <div id="tl_{{$tipoServicio[0]}}" class="tab-pane fade in active">

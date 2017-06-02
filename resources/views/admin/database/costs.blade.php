@@ -181,6 +181,7 @@
                                                 <label for="txt_type">Type</label>
                                                 <select class="form-control" id="txt_type_2" name="txt_type_2">
                                                     <option value="AUTO">AUTO</option>
+                                                    <option value="SUBARU">SUBARU</option>
                                                     <option value="VAN">VAN</option>
                                                     <option value="SPRINTER">SPRINTER</option>
 
