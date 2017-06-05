@@ -583,7 +583,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_6" name="txt_localizacion_6">
+                                                <select class="form-control" id="txt_localizacion_7" name="txt_localizacion_7">
                                                     @foreach($destinations as $destination)
                                                         <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                                     @endforeach
@@ -593,61 +593,61 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_6" name="txt_ruc_6" placeholder="Ruc">
+                                                <input type="text" class="form-control" id="txt_ruc_7" name="txt_ruc_7" placeholder="Ruc">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_6" name="txt_razon_social_6" placeholder="Razon social">
+                                                <input type="text" class="form-control" id="txt_razon_social_7" name="txt_razon_social_7" placeholder="Razon social">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_6" name="txt_direccion_6" placeholder="Direccion">
+                                                <input type="text" class="form-control" id="txt_direccion_7" name="txt_direccion_7" placeholder="Direccion">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_6" name="txt_telefono_6" placeholder="Telefono">
+                                                <input type="text" class="form-control" id="txt_telefono_7" name="txt_telefono_7" placeholder="Telefono">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_6" name="txt_celular_6" placeholder="Celular">
+                                                <input type="text" class="form-control" id="txt_celular_7" name="txt_celular_7" placeholder="Celular">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_6" name="txt_email_6" placeholder="Email">
+                                                <input type="email" class="form-control" id="txt_email_7" name="txt_email_7" placeholder="Email">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_6" name="txt_r_nombres_6" placeholder="Nombres, apellidos">
+                                                <input type="text" class="form-control" id="txt_r_nombres_7" name="txt_r_nombres_7" placeholder="Nombres, apellidos">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_6" name="txt_r_telefono_6" placeholder="Tel. o Cel.">
+                                                <input type="text" class="form-control" id="txt_r_telefono_7" name="txt_r_telefono_7" placeholder="Tel. o Cel.">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_6" name="txt_c_nombres_6" placeholder="Nombres, apellidos">
+                                                <input type="text" class="form-control" id="txt_c_nombres_7" name="txt_c_nombres_7" placeholder="Nombres, apellidos">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_6" name="txt_c_telefono_6" placeholder="Tel. o Cel.">
+                                                <input type="text" class="form-control" id="txt_c_telefono_7" name="txt_c_telefono_7" placeholder="Tel. o Cel.">
                                             </div>
                                         </div>
                                     </div>
@@ -657,7 +657,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_6" name="txt_localizacion_6">
+                                                <select class="form-control" id="txt_localizacion_8" name="txt_localizacion_8">
                                                     @foreach($destinations as $destination)
                                                         <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                                     @endforeach
@@ -667,31 +667,31 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_6" name="txt_ruc_6" placeholder="Ruc">
+                                                <input type="text" class="form-control" id="txt_ruc_8" name="txt_ruc_8" placeholder="Ruc">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_6" name="txt_razon_social_6" placeholder="Razon social">
+                                                <input type="text" class="form-control" id="txt_razon_social_8" name="txt_razon_social_8" placeholder="Razon social">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_6" name="txt_direccion_6" placeholder="Direccion">
+                                                <input type="text" class="form-control" id="txt_direccion_8" name="txt_direccion_8" placeholder="Direccion">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_6" name="txt_telefono_6" placeholder="Telefono">
+                                                <input type="text" class="form-control" id="txt_telefono_8" name="txt_telefono_8" placeholder="Telefono">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_6" name="txt_celular_6" placeholder="Celular">
+                                                <input type="text" class="form-control" id="txt_celular_8" name="txt_celular_8" placeholder="Celular">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -703,25 +703,25 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_6" name="txt_r_nombres_6" placeholder="Nombres, apellidos">
+                                                <input type="text" class="form-control" id="txt_r_nombres_8" name="txt_r_nombres_8" placeholder="Nombres, apellidos">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_6" name="txt_r_telefono_6" placeholder="Tel. o Cel.">
+                                                <input type="text" class="form-control" id="txt_r_telefono_8" name="txt_r_telefono_8" placeholder="Tel. o Cel.">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_6" name="txt_c_nombres_6" placeholder="Nombres, apellidos">
+                                                <input type="text" class="form-control" id="txt_c_nombres_8" name="txt_c_nombres_8" placeholder="Nombres, apellidos">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_6" name="txt_c_telefono_6" placeholder="Tel. o Cel.">
+                                                <input type="text" class="form-control" id="txt_c_telefono_8" name="txt_c_telefono_8" placeholder="Tel. o Cel.">
                                             </div>
                                         </div>
                                     </div>
@@ -1170,7 +1170,7 @@
                 </div>
                 <div id="tl_{{$tipoServicio[7]}}" class="tab-pane fade">
                     <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[6]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                        <table id="tb_{{$tipoServicio[7]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Location</th>
@@ -1201,7 +1201,7 @@
                             </tfoot>
                             <tbody>
                             @foreach($providers as $provider)
-                                @if($tipoServicio[6]==$provider->grupo)
+                                @if($tipoServicio[7]==$provider->grupo)
                                     <tr id="lista_provider_{{$provider->id}}">
                                         <td>{{$provider->localizacion}}</td>
                                         <td>{{$provider->codigo}}</td>
@@ -1229,7 +1229,7 @@
                 </div>
                 <div id="tl_{{$tipoServicio[8]}}" class="tab-pane fade">
                     <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[6]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                        <table id="tb_{{$tipoServicio[8]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Location</th>
@@ -1260,7 +1260,7 @@
                             </tfoot>
                             <tbody>
                             @foreach($providers as $provider)
-                                @if($tipoServicio[6]==$provider->grupo)
+                                @if($tipoServicio[8]==$provider->grupo)
                                     <tr id="lista_provider_{{$provider->id}}">
                                         <td>{{$provider->localizacion}}</td>
                                         <td>{{$provider->codigo}}</td>
@@ -2092,6 +2092,8 @@
             $('#tb_GUIDES_ASSIST').DataTable();
             $('#tb_ENTRANCES').DataTable();
             $('#tb_FOOD').DataTable();
+            $('#tb_TRAINS').DataTable();
+            $('#tb_TRAVELS').DataTable();
             $('#tb_OTHERS').DataTable();
         } );
 

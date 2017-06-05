@@ -16,7 +16,7 @@
     </div>
     <div class="row margin-top-20">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary hide data-toggle="modal" data-target="#modal_new_destination">
+        <button type="button" class="btn btn-primary hide" data-toggle="modal" data-target="#modal_new_destination">
             New <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </button>
 
@@ -38,7 +38,9 @@
                         $tipoServicio[3]='GUIDES_ASSIST';
                         $tipoServicio[4]='ENTRANCES';
                         $tipoServicio[5]='FOOD';
-                        $tipoServicio[6]='OTHERS';
+                        $tipoServicio[6]='TRAINS';
+                        $tipoServicio[7]='TRAVELS';
+                        $tipoServicio[8]='OTHERS';
                         ?>
                         <div class="modal-body">
                             <ul class="nav nav-tabs">
@@ -48,6 +50,9 @@
                                 <li><a data-toggle="tab" href="#{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
                                 <li><a data-toggle="tab" href="#{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
                                 <li><a data-toggle="tab" href="#{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
+                                <li><a data-toggle="tab" href="#{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
+                                <li><a data-toggle="tab" href="#{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
+                                <li><a data-toggle="tab" href="#{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -213,6 +218,9 @@
             <li><a data-toggle="tab" href="#t_{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
             <li><a data-toggle="tab" href="#t_{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
             <li><a data-toggle="tab" href="#t_{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
+            <li><a data-toggle="tab" href="#t_{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
+            <li><a data-toggle="tab" href="#t_{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
+
         </ul>
 
         <div class="tab-content margin-top-20">
@@ -445,6 +453,72 @@
                 </table>
 
             </div>
+            <div id="t_{{$tipoServicio[7]}}" class="tab-pane fade">
+                <table id="tb_{{$tipoServicio[7]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Localizacion</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Localizacion</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($servicios as $servicio)
+                        @if($servicio->grupo==$tipoServicio[7])
+                            <tr id="lista_services_{{$servicio->id}}">
+                                <td>{{$servicio->localizacion}}</td>
+                                <td>{{$servicio->codigo}}</td>
+                                <td>{{$servicio->nombre}}</td>
+                                <td>${{$servicio->precio_venta}}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+            <div id="t_{{$tipoServicio[8]}}" class="tab-pane fade">
+                <table id="tb_{{$tipoServicio[8]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Localizacion</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Localizacion</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($servicios as $servicio)
+                        @if($servicio->grupo==$tipoServicio[8])
+                            <tr id="lista_services_{{$servicio->id}}">
+                                <td>{{$servicio->localizacion}}</td>
+                                <td>{{$servicio->codigo}}</td>
+                                <td>{{$servicio->nombre}}</td>
+                                <td>${{$servicio->precio_venta}}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
     <script>
@@ -456,6 +530,9 @@
             $('#tb_{{$tipoServicio[4]}}').DataTable();
             $('#tb_{{$tipoServicio[5]}}').DataTable();
             $('#tb_{{$tipoServicio[6]}}').DataTable();
+            $('#tb_{{$tipoServicio[7]}}').DataTable();
+            $('#tb_{{$tipoServicio[8]}}').DataTable();
+
         } );
     </script>
 @stop

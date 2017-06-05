@@ -67,8 +67,8 @@
                                 @foreach($destinations as $destino)
                                 <div class="col-md-3">
                                     <div class="checkbox11">
-                                        <label>
-                                            <input type="checkbox" name="destinos[]" value="{{$destino->id}}">
+                                        <label class="text-green-goto">
+                                            <input class="grupo" type="checkbox" name="destinos[]" value="{{$destino->id}}_{{$destino->destino}}" onchange="filtrar_grupos()">
                                             {{$destino->destino}}
                                         </label>
                                     </div>
@@ -83,7 +83,9 @@
                                 $tipoServicio[3]='GUIDES_ASSIST';
                                 $tipoServicio[4]='ENTRANCES';
                                 $tipoServicio[5]='FOOD';
-                                $tipoServicio[6]='OTHERS';
+                                $tipoServicio[6]='TRAINS';
+                                $tipoServicio[7]='TRAVELS';
+                                $tipoServicio[8]='OTHERS';
                                 ?>
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#t_{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
@@ -93,16 +95,18 @@
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
+                                    <li><a data-toggle="tab" href="#t_{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
+                                    <li><a data-toggle="tab" href="#t_{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
                                 </ul>
 
                                 <div class="tab-content margin-top-20">
                                     <div id="t_{{$tipoServicio[0]}}" class="tab-pane fade in active">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[0])
-                                            <div class="col-md-4">
+                                            <div id="service_{{$service->id}}" class="col-md-4 hide">
                                                 <div class="checkbox11">
                                                     <label>
-                                                        <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
+                                                        <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
                                                         {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                     </label>
                                                 </div>
@@ -113,10 +117,10 @@
                                     <div id="t_{{$tipoServicio[1]}}" class="tab-pane fade">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[1])
-                                                <div class="col-md-4">
+                                                <div  id="service_{{$service->id}}" class="col-md-4 hide">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -127,10 +131,10 @@
                                     <div id="t_{{$tipoServicio[2]}}" class="tab-pane fade">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[2])
-                                                <div class="col-md-4">
+                                                <div id="service_{{$service->id}}"  class="col-md-4 hide">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -142,10 +146,10 @@
                                     <div id="t_{{$tipoServicio[3]}}" class="tab-pane fade">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[3])
-                                                <div class="col-md-4">
+                                                <div id="service_{{$service->id}}"  class="col-md-4 hide">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -157,10 +161,10 @@
                                     <div id="t_{{$tipoServicio[4]}}" class="tab-pane fade">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[4])
-                                                <div class="col-md-4">
+                                                <div id="service_{{$service->id}}"  class="col-md-4 hide">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -172,10 +176,10 @@
                                     <div id="t_{{$tipoServicio[5]}}" class="tab-pane fade">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[5])
-                                                <div class="col-md-4">
+                                                <div id="service_{{$service->id}}"  class="col-md-4 hide">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -187,10 +191,38 @@
                                     <div id="t_{{$tipoServicio[6]}}" class="tab-pane fade">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[6])
-                                                <div class="col-md-4">
+                                                <div id="service_{{$service->id}}"  class="col-md-4 hide">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}" onchange="sumar_servicios(0)">
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
+                                                            {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <div id="t_{{$tipoServicio[7]}}" class="tab-pane fade">
+                                        @foreach($services as $service)
+                                            @if($service->grupo==$tipoServicio[7])
+                                                <div id="service_{{$service->id}}"  class="col-md-4 hide">
+                                                    <div class="checkbox11">
+                                                        <label>
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
+                                                            {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <div id="t_{{$tipoServicio[8]}}" class="tab-pane fade">
+                                        @foreach($services as $service)
+                                            @if($service->grupo==$tipoServicio[8])
+                                                <div id="service_{{$service->id}}"  class="col-md-4 hide">
+                                                    <div class="checkbox11">
+                                                        <label>
+                                                            <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
                                                             {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                         </label>
                                                     </div>
@@ -324,7 +356,7 @@
                                                 <div class="col-md-3">
                                                     <div class="checkbox11">
                                                         <label>
-                                                            <input type="checkbox" name="destinos[]" value="{{$destino->id}}" <?php echo $estado;  ?>>
+                                                            <input class="grupo_edit" type="checkbox" name="destinos[]" value="{{$destino->id}}_{{$destino->destino}}_{{$itinerario->id}}" onchange="filtrar_grupos_edit({{$itinerario->id}})" <?php echo $estado;  ?>>
                                                             {{$destino->destino}}
                                                         </label>
                                                     </div>
@@ -339,7 +371,9 @@
                                         $tipoServicio[3]='GUIDES_ASSIST';
                                         $tipoServicio[4]='ENTRANCES';
                                         $tipoServicio[5]='FOOD';
-                                        $tipoServicio[6]='OTHERS';
+                                        $tipoServicio[6]='TRAINS';
+                                        $tipoServicio[7]='TRAVELS';
+                                        $tipoServicio[8]='OTHERS';
                                         $total_pre_ven_edit=0;
                                         ?>
                                         <ul class="nav nav-tabs">
@@ -350,6 +384,8 @@
                                             <li><a data-toggle="tab" href="#et_{{$tipoServicio[4]}}_{{$itinerario->id}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
                                             <li><a data-toggle="tab" href="#et_{{$tipoServicio[5]}}_{{$itinerario->id}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
                                             <li><a data-toggle="tab" href="#et_{{$tipoServicio[6]}}_{{$itinerario->id}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
+                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[7]}}_{{$itinerario->id}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
+                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[8]}}_{{$itinerario->id}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
                                         </ul>
 
                                         <div class="tab-content margin-top-20">
@@ -363,10 +399,10 @@
                                                                 <?php $total_pre_ven_edit+=$service->precio_venta;?>
                                                             @endif
                                                         @endforeach
-                                                            <div class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                                 <div class="checkbox11">
                                                                     <label>
-                                                                        <input type="checkbox" class="servicios" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})" {{$estado}}>
+                                                                        <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
                                                                         {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                     </label>
                                                                 </div>
@@ -386,10 +422,10 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div class="col-md-4">
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})" {{$estado}}>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -409,10 +445,10 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div class="col-md-4">
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})" {{$estado}}>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -433,10 +469,10 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div class="col-md-4">
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})" {{$estado}}>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -457,10 +493,10 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div class="col-md-4">
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})" {{$estado}}>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -481,10 +517,10 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div class="col-md-4">
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})" {{$estado}}>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -505,10 +541,10 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div class="col-md-4">
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}" onchange="sumar_servicios({{$itinerario->id}})" {{$estado}}>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
                                                                     {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
                                                                 </label>
                                                             </div>
@@ -517,6 +553,55 @@
                                                     @endif
                                                 @endforeach
                                             </div>
+                                            <div id="et_{{$tipoServicio[7]}}_{{$itinerario->id}}" class="tab-pane fade">
+                                                @foreach($services as $service)
+                                                    <?php $estado=''?>
+                                                    @if($service->grupo==$tipoServicio[7])
+                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
+
+                                                            @if($service_id->m_servicios_id==$service->id)
+                                                                <?php $estado='checked'?>
+                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                            @endif
+
+                                                        @endforeach
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div class="checkbox11">
+                                                                <label>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                            <div id="et_{{$tipoServicio[8]}}_{{$itinerario->id}}" class="tab-pane fade">
+                                                @foreach($services as $service)
+                                                    <?php $estado=''?>
+                                                    @if($service->grupo==$tipoServicio[8])
+                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
+
+                                                            @if($service_id->m_servicios_id==$service->id)
+                                                                <?php $estado='checked'?>
+                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                            @endif
+
+                                                        @endforeach
+                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div class="checkbox11">
+                                                                <label>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

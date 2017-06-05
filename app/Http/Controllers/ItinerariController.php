@@ -93,7 +93,8 @@ class ItinerariController extends Controller
             $itinerario->save();
 
             foreach ($destinos as $destino){
-                $m_destino=M_Destino::FindOrFail($destino);
+                $dato=explode('_',$destino);
+                $m_destino=M_Destino::FindOrFail($dato[0]);
                 $itinerario_destino=new M_ItinerarioDestino();
                 $itinerario_destino->codigo=$m_destino->codigo;
                 $itinerario_destino->destino=$m_destino->destino;
@@ -135,7 +136,8 @@ class ItinerariController extends Controller
         $itinerario->save();
         M_ItinerarioDestino::where('m_itinerario_id',$txt_id)->delete();
         foreach ($destinos as $destino){
-            $m_destino=M_Destino::FindOrFail($destino);
+            $dato=explode('_',$destino);
+            $m_destino=M_Destino::FindOrFail($dato[0]);
             $itinerario_destino=new M_ItinerarioDestino();
             $itinerario_destino->codigo=$m_destino->codigo;
             $itinerario_destino->destino=$m_destino->destino;

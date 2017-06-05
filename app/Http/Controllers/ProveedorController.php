@@ -88,7 +88,9 @@ class ProveedorController extends Controller
         $tipoServicio[3]='GUIDES_ASSIST';
         $tipoServicio[4]='ENTRANCES';
         $tipoServicio[5]='FOOD';
-        $tipoServicio[6]='OTHERS';
+        $tipoServicio[6]='TRAINS';
+        $tipoServicio[7]='TRAVELS';
+        $tipoServicio[8]='OTHERS';
         $nro_grupo=$request->input('posTipo');
         $txt_grupo=$tipoServicio[$nro_grupo];
         $txt_grupo_cod=substr($txt_grupo,0,1);
@@ -132,7 +134,9 @@ class ProveedorController extends Controller
         $tipoServicio[3]='GUIDES_ASSIST';
         $tipoServicio[4]='ENTRANCES';
         $tipoServicio[5]='FOOD';
-        $tipoServicio[6]='OTHERS';
+        $tipoServicio[6]='TRAINS';
+        $tipoServicio[7]='TRAVELS';
+        $tipoServicio[8]='OTHERS';
 
         $id=$request->input('id');
         $nro_grupo=$request->input('posTipoEditcost_'.$id);

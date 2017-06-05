@@ -459,3 +459,87 @@ function sumar_servicios(grupo){
      console.log('total:'+total_ci);
     $('#total_ci_'+grupo).html(total_ci);
 }
+
+function  filtrar_grupos(){
+
+    $("input[class='servicios']").each(function (index1) {
+        var dato3 = $(this).val();
+        var servicio3 = dato3.split('_');
+        var esta=0;
+        $("input[class='grupo']").each(function (index) {
+            if($(this).is(':checked')) {
+                var dato = $(this).val();
+                var destino1 = dato.split('_');
+                if(destino1[1] == servicio3[3]) {
+                    esta=1;
+                }
+            }
+        });
+        if(esta==1) {
+            $('#service_'+servicio3[2]).removeClass("hide");
+            $('#service_'+servicio3[2]).fadeIn("slow");
+
+        }
+        else {
+            $(this).prop("checked", "");
+            $('#service_'+servicio3[2]).fadeOut("slow");
+        }
+    });
+
+    $("input[class='servicios']").each(function (index2) {
+        var dato3 = $(this).val();
+        var servicio3 = dato3.split('_');
+        sumar_servicios(servicio3[0]);
+    });
+}
+
+function sumar_servicios_edit(grupo){
+    var total_ci=0;
+    $("input[class='servicios_edit']").each(function (index) {
+        if($(this).is(':checked')){
+            var dato=$(this).val();
+            var dato1=dato.split('_');
+            console.log(dato1[1]);
+            if(dato1[0]==grupo) {
+                total_ci += parseInt(dato1[1]);
+            }
+            console.log($(this).val());
+        }
+    });
+    console.log('total:'+total_ci);
+    $('#total_ci_'+grupo).html(total_ci);
+}
+function  filtrar_grupos_edit(itinerario){
+
+    $("input[class='servicios_edit']").each(function (index1) {
+        var dato3 = $(this).val();
+        var servicio3 = dato3.split('_');
+        if(servicio3[0]==itinerario){
+            var esta=0;
+            $("input[class='grupo_edit']").each(function (index) {
+                if($(this).is(':checked')) {
+                    var dato = $(this).val();
+                    var destino1 = dato.split('_');
+                    if(destino1[1] == servicio3[3]) {
+                        esta=1;
+                    }
+                }
+            });
+            if(esta==1) {
+                $('#service_edit_'+servicio3[2]).removeClass("hide");
+                $('#service_edit_'+servicio3[2]).fadeIn("slow");
+
+            }
+            else {
+                $(this).prop("checked", "");
+                $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
+            }
+        }
+    });
+
+    $("input[class='servicios_edit']").each(function (index2) {
+        var dato3 = $(this).val();
+        var servicio3 = dato3.split('_');
+        sumar_servicios_edit(servicio3[0]);
+    });
+}
