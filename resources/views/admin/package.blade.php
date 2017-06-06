@@ -51,8 +51,8 @@
             @foreach($destinos as $destino)
                 <div class="col-md-3">
                     <div class="checkbox1">
-                        <label>
-                            <input class="destinos text-green-goto" type="checkbox" name="destinos" value="{{$destino->destino}}" onchange="filtrar_itinerarios()">
+                        <label class=" text-green-goto">
+                            <input class="destinospack" type="checkbox" name="destinos" value="{{$destino->destino}}" onchange="filtrar_itinerarios()">
                             {{$destino->destino}}
                         </label>
                     </div>
@@ -219,7 +219,7 @@
 
                                 @foreach($itinerario->destinos as $destino)
                                 <?php
-                                        $destinos_iti.=$destino.'*';
+                                        $destinos_iti.=$destino->destino.'*';
                                 ?>
                                 @endforeach
                                 <?php

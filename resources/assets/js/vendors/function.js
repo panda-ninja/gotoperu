@@ -49,17 +49,17 @@ function Pasar_datos(){
         if($(this).is(':checked')){
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
-            Itis_precio+=parseInt(itinerario[3]);
-            var servicios=itinerario[4].split('*');
+            Itis_precio+=parseInt(itinerario[4]);
+            var servicios=itinerario[5].split('*');
             var iti_temp='';
                 iti_temp+='<div class="box-sortable margin-bottom-10">'+
                 '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
-                '<b>Dia '+total_Itinerarios+':</b> '+itinerario[1]+
+                '<b>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
             '</a>'+
-        '<span class="label label-success pull-right">($'+itinerario[3]+'.00)</span>'+
+        '<span class="label label-success pull-right">($'+itinerario[4]+'.00)</span>'+
             '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
                 '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
-                    itinerario[2]+
+                    itinerario[3]+
             '<h5><b>Services</b></h5>'+
             '<table class="table table-condensed table-striped">'+
                 '<thead>'+
@@ -555,11 +555,13 @@ function  filtrar_itinerarios(){
         var destinos=destino[1].split('*');
         // if(destino[0]==itinerario){
             var esta=0;
-            $("input[class='destinos']").each(function (index) {
+            console.log('entrando a los destinos');
+            $("input[class='destinospack']").each(function (index) {
                 if($(this).is(':checked')) {
                     var destino = $(this).val();
                     console.log('preguntando si esta:'+destino);
-                    if($.inArray(destino,destinos)>0) {
+                    console.log('respuesta:'+$.inArray(destino,destinos));
+                    if($.inArray(destino,destinos)>=0) {
                         esta=1;
                         console.log('si esta:'+destino);
                     }
