@@ -22465,14 +22465,14 @@ function sumar_servicios(grupo){
         if($(this).is(':checked')){
             var dato=$(this).val();
             var dato1=dato.split('_');
-            console.log(dato1[1]);
+            // console.log(dato1[1]);
             if(dato1[0]==grupo) {
                 total_ci += parseInt(dato1[1]);
             }
-            console.log($(this).val());
+            // console.log($(this).val());
         }
     });
-     console.log('total:'+total_ci);
+     // console.log('total:'+total_ci);
     $('#total_ci_'+grupo).html(total_ci);
 }
 
@@ -22515,14 +22515,14 @@ function sumar_servicios_edit(grupo){
         if($(this).is(':checked')){
             var dato=$(this).val();
             var dato1=dato.split('_');
-            console.log(dato1[1]);
+            // console.log(dato1[1]);
             if(dato1[0]==grupo) {
                 total_ci += parseInt(dato1[1]);
             }
-            console.log($(this).val());
+            // console.log($(this).val());
         }
     });
-    console.log('total:'+total_ci);
+    // console.log('total:'+total_ci);
     $('#total_ci_'+grupo).html(total_ci);
 }
 function  filtrar_grupos_edit(itinerario){
@@ -22536,19 +22536,23 @@ function  filtrar_grupos_edit(itinerario){
                 if($(this).is(':checked')) {
                     var dato = $(this).val();
                     var destino1 = dato.split('_');
-                    if(destino1[1] == servicio3[3]) {
-                        esta=1;
+                    if(destino1[2] == itinerario) {
+                        if(destino1[1] == servicio3[3]) {
+                            esta=1;
+                            // console.log('si esta:'+destino1[1]+'=='+servicio3[3]);
+                        }
                     }
                 }
             });
             if(esta==1) {
-                $('#service_edit_'+servicio3[2]).removeClass("hide");
-                $('#service_edit_'+servicio3[2]).fadeIn("slow");
-
+                $('#service_edit_'+itinerario+'_'+servicio3[2]).removeClass("hide");
+                $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeIn("slow");
+                // console.log('no borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
             else {
                 $(this).prop("checked", "");
                 $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
+                // console.log('borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
         }
     });
@@ -22558,4 +22562,41 @@ function  filtrar_grupos_edit(itinerario){
         var servicio3 = dato3.split('_');
         sumar_servicios_edit(servicio3[0]);
     });
+}
+function  filtrar_itinerarios(){
+
+    $("input[class='itinerario']").each(function (index1) {
+        var destino1 = $(this).val();
+        var destino = destino1.split('_');
+        var destinos=destino[1].split('*');
+        // if(destino[0]==itinerario){
+            var esta=0;
+            $("input[class='destinos']").each(function (index) {
+                if($(this).is(':checked')) {
+                    var destino = $(this).val();
+                    console.log('preguntando si esta:'+destino);
+                    if($.inArray(destino,destinos)>0) {
+                        esta=1;
+                        console.log('si esta:'+destino);
+                    }
+                }
+            });
+            if(esta==1) {
+                $('#itinerario'+destino[0]).removeClass("hide");
+                $('#itinerario'+destino[0]).fadeIn("slow");
+                console.log('no borrando:'+'#itinerario'+destino[0]);
+            }
+            else {
+                $(this).prop("checked", "");
+                $('#itinerario'+destino[0]).fadeOut("slow");
+                console.log('borrando:'+'#itinerario'+destino[0]);
+            }
+        // }
+    });
+
+    // $("input[class='servicios_edit']").each(function (index2) {
+    //     var dato3 = $(this).val();
+    //     var servicio3 = dato3.split('_');
+    //     sumar_servicios_edit(servicio3[0]);
+    // });
 }

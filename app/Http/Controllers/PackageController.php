@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\M_Destino;
+use App\M_Itinerario;
 use App\P_Paquete;
 use App\P_PaquetePrecio;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class PackageController extends Controller
     public function create()
     {
         $destinos=M_Destino::get();
-        return view('admin.package',['destinos'=>$destinos]);
+        $itinerarios=M_Itinerario::get();
+        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios]);
     }
 
     /**

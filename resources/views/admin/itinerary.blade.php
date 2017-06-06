@@ -325,9 +325,21 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="txt_titulo">Titulo</label>
-                                                <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo" value="{{$itinerario->titulo}}">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="txt_titulo">Titulo</label>
+                                                        <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo" value="{{$itinerario->titulo}}">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="txt_imagen">Imagen</label>
+                                                        <img src="" alt="" width="100" height="100">
+                                                        <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -422,7 +434,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -445,7 +457,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -469,7 +481,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -493,7 +505,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -517,7 +529,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -541,7 +553,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -565,7 +577,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -589,7 +601,7 @@
                                                             @endif
 
                                                         @endforeach
-                                                        <div id="service_edit_{{$service->id}}" class="col-md-4">
+                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
                                                             <div class="checkbox11">
                                                                 <label>
                                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -601,7 +613,6 @@
                                                     @endif
                                                 @endforeach
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

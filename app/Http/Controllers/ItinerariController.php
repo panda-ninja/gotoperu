@@ -127,8 +127,7 @@ class ItinerariController extends Controller
         $txt_titulo=strtoupper($request->input('txt_titulo'));
         $txt_descripcion=$request->input('txt_descripcion');
         $destinos=$request->input('destinos');
-        $servicios=$request->input('servicios');
-
+        $servicios=$request->input('servicios'.$txt_id);
 
         $itinerario=M_Itinerario::FindOrFail($txt_id);
         $itinerario->titulo=$txt_titulo;
@@ -153,7 +152,8 @@ class ItinerariController extends Controller
 
         M_ItinerarioServicio::where('m_itinerario_id',$txt_id)->delete();
         foreach ($servicios as $servicio){
-            $m_servicio=M_Servicio::FindOrFail($servicio);
+            $dato=explode('_',$servicio);
+            $m_servicio=M_Servicio::FindOrFail($dato[2]);
             $itinerario_servicio=new M_ItinerarioServicio();
             $itinerario_servicio->m_servicios_id=$m_servicio->id;
             $itinerario_servicio->m_itinerario_id=$itinerario->id;
