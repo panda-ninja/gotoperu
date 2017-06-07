@@ -213,7 +213,7 @@
                                 @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
                                     <?php
                                         $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                        $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio.'*';
+                                        $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'*';
                                     ?>
                                 @endforeach
 
