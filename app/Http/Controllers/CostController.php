@@ -72,7 +72,7 @@ class CostController extends Controller
             $producto->precio_costo = $txt_price;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
-            $servicio=M_Servicio::where('codigo',$txt_code)->get();
+            $servicio=M_Servicio::where('codigo',$txt_code)->OrWhere('nombre',$txt_product)->get();
             if(count($servicio)==0){
                 $new_sericio=new M_Servicio();
                 $new_sericio->codigo=$txt_code;
@@ -84,7 +84,7 @@ class CostController extends Controller
                 $new_sericio->save();
             }
             else{
-                $lista_costos=M_Producto::where('codigo',$txt_code)->get();
+                $lista_costos=M_Producto::where('codigo',$txt_code)->OrWhere('nombre',$txt_product)->get();
                 $costo_max=0;
                 foreach ($lista_costos as $costo){
                     if($costo->precio_costo>$costo_max)
@@ -153,6 +153,33 @@ class CostController extends Controller
             $producto->precio_costo = $price;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
+
+            $servicio=M_Servicio::where('codigo',$producto_code)->OrWhere('nombre',$producto_nombre)->get();
+            if(count($servicio)==0){
+                $new_sericio=new M_Servicio();
+                $new_sericio->codigo=$producto_code;
+                $new_sericio->localizacion=$localizacion;
+                $new_sericio->grupo=$grupo;
+                $new_sericio->tipoServicio=$type;
+                $new_sericio->nombre=$producto_nombre;
+                $new_sericio->precio_venta=$price;
+                $new_sericio->save();
+            }
+            else{
+                $lista_costos=M_Producto::where('codigo',$producto_code)->OrWhere('nombre',$producto_nombre)->get();
+                $costo_max=0;
+                foreach ($lista_costos as $costo){
+                    if($costo->precio_costo>$costo_max)
+                        $costo_max=$costo->precio_costo;
+                }
+                if($price>$costo_max)
+                    $costo_max=$price;
+                foreach ($servicio as $servicio1){
+                    $servicio1->precio_venta=$costo_max;
+                    $servicio1->save();
+                }
+            }
+
             $valor='';
             $productos_hotels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','HOTELS');}])->get();
             $productos_tours=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TOURS');}])->get();
