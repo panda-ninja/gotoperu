@@ -87,10 +87,12 @@ class ItinerariController extends Controller
             $txt_descripcion=$request->input('txt_descripcion');
             $destinos=$request->input('destinos');
             $servicios=$request->input('servicios');
-            $itinerario=new M_Itinerario();
+        $precio_iti=$request->input('precio_itinerario');
+        $itinerario=new M_Itinerario();
             $itinerario->titulo=$txt_titulo;
             $itinerario->descripcion=$txt_descripcion;
-            $itinerario->save();
+            $itinerario->precio=$precio_iti;
+        $itinerario->save();
 
             foreach ($destinos as $destino){
                 $dato=explode('_',$destino);
@@ -107,6 +109,7 @@ class ItinerariController extends Controller
                 $itinerario_destino->m_itinerario_id=$itinerario->id;
                 $itinerario_destino->save();
             }
+
             foreach ($servicios as $servicio){
                 $dato=explode('_',$servicio);
 //                dd($dato);
@@ -128,10 +131,11 @@ class ItinerariController extends Controller
         $txt_descripcion=$request->input('txt_descripcion');
         $destinos=$request->input('destinos');
         $servicios=$request->input('servicios'.$txt_id);
-
+        $precio_iti=$request->input('precio_itinerario');
         $itinerario=M_Itinerario::FindOrFail($txt_id);
         $itinerario->titulo=$txt_titulo;
         $itinerario->descripcion=$txt_descripcion;
+        $itinerario->precio=$precio_iti;
         $itinerario->save();
         M_ItinerarioDestino::where('m_itinerario_id',$txt_id)->delete();
         foreach ($destinos as $destino){

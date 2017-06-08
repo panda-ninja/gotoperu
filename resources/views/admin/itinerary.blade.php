@@ -244,6 +244,7 @@
                                 </div>
                             </div>
                             {{csrf_field()}}
+                            <input type="hidden" name="precio_itinerario" id="precio_itinerario_0" value="0">
                             </div>
                     </form>
                 </div>
@@ -627,6 +628,7 @@
                                         </div>
                                     </div>
                                     {{csrf_field()}}
+                                    <input type="hidden" name="precio_itinerario" id="precio_itinerario" value="{{$total_pre_ven_edit}}">
                                     <input type="hidden" name="itinerario_id" id="itinerario_id" value="{{$itinerario->id}}">
                                 </div>
                             </form>

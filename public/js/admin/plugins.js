@@ -22058,22 +22058,30 @@ function mostrarItinerarios() {
     });
 }
 var total_Itinerarios=0;
+var Itis_precio=0;
 function Pasar_datos(){
     var itinerario='';
-    var Itis_precio=0;
+
     $("input[name=itinerarios]").each(function (index) {
         if($(this).is(':checked')){
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
             Itis_precio+=parseInt(itinerario[4]);
+            console.log('cost: '+Itis_precio);
             var servicios=itinerario[5].split('*');
             var iti_temp='';
-                iti_temp+='<div class="box-sortable margin-bottom-10">'+
+                iti_temp+='<div id="itis_'+itinerario[0]+'" class="box-sortable margin-bottom-10">'+
+                '<input type="hidden" name="itinerarios_[]" id="itinerarios_'+itinerario[0]+'" value="'+itinerario[0]+'">'+
                 '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
                 '<b>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
             '</a>'+
+        '<span class="label pull-right">' +
+            '<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('+itinerario[0]+')">' +
+                '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
+            '</a>'+
+        '</span>'+
         '<span class="label label-success pull-right">($'+itinerario[4]+'.00)</span>'+
-            '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
+                    '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
                 '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
                     itinerario[3]+
             '<h5><b>Services</b></h5>'+
@@ -22135,6 +22143,8 @@ function Pasar_datos(){
         }
     });
     $('#totalItinerario').val(Itis_precio);
+    $('#totalItinerario_front').html(Itis_precio);
+
 }
 
 function cambiar_profit(tipo){
@@ -22474,6 +22484,8 @@ function sumar_servicios(grupo){
     });
      // console.log('total:'+total_ci);
     $('#total_ci_'+grupo).html(total_ci);
+    $('#precio_itinerario_'+grupo).val(total_ci);
+
 }
 
 function  filtrar_grupos(){
@@ -22524,6 +22536,8 @@ function sumar_servicios_edit(grupo){
     });
     // console.log('total:'+total_ci);
     $('#total_ci_'+grupo).html(total_ci);
+    $('#precio_itinerario_'+grupo).val(total_ci);
+
 }
 function  filtrar_grupos_edit(itinerario){
 
@@ -22601,4 +22615,35 @@ function  filtrar_itinerarios(){
     //     var servicio3 = dato3.split('_');
     //     sumar_servicios_edit(servicio3[0]);
     // });
+}
+
+function eliminar_iti(id){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el itinerario?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $('#itis_'+id).fadeOut();
+        $('#itis_'+id).remove();
+    })
+
+}
+
+function calcular_utilidad(){
+    var $totalItinerario=$('#totalItinerario').val();
+    var $txt_day=$('#txt_day').val();
+    var $txt_utilidad=$('#txt_utilidad').val();
+    var $preciox_n_dias=$totalItinerario*($txt_day-1);
+    console.log('preciox_n_dias='+$preciox_n_dias);
+    var $utilidad1=parseFloat($txt_utilidad)*parseFloat(0.01);
+    console.log('utilidad '+$txt_utilidad+' %='+$utilidad1);
+
+    var $preciox_n_dias_venta=$preciox_n_dias+Math.round($preciox_n_dias*$utilidad1);
+    $('#totalItinerario_venta').val($preciox_n_dias_venta);
+    console.log('precio venta='+$preciox_n_dias_venta);
+
 }
