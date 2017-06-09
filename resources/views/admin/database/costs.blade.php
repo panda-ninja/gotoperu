@@ -1491,7 +1491,7 @@
                                                     <div class="col-md-4">
                                                         <div class="checkbox11">
                                                             <label class="text-green-goto">
-                                                                <input  type="checkbox" name="txt_price_chb_2" id="txt_price_chb_2" value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->precio_grupo;?>">
+                                                                <input  type="checkbox" name="txt_price_chb_2" id="txt_price_chb_2" value="<?php if($tipoServicio[2]==$producto->grupo)  if($producto->precio_grupo==1) echo 'checked';?>">
                                                                 El precio es por grupo
                                                             </label>
                                                         </div>
@@ -1645,7 +1645,7 @@
                                                     <div class="col-md-4">
                                                         <div class="checkbox11">
                                                             <label class="text-green-goto">
-                                                                <input  type="checkbox" name="txt_price_chb_3" id="txt_price_chb_3" value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->precio_grupo;?>">
+                                                                <input  type="checkbox" name="txt_price_chb_3" id="txt_price_chb_3" value="<?php if($tipoServicio[2]==$producto->grupo)  if($producto->precio_grupo==1) echo 'checked';?>">
                                                                 El precio es por grupo
                                                             </label>
                                                         </div>
@@ -2396,7 +2396,7 @@
                                                     <div class="col-md-4">
                                                         <div class="checkbox11">
                                                             <label class="text-green-goto">
-                                                                <input  type="checkbox" name="txt_price_chb_8" id="txt_price_chb_8" value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->precio_grupo;?>">
+                                                                <input  type="checkbox" name="txt_price_chb_8" id="txt_price_chb_8" value="<?php if($tipoServicio[2]==$producto->grupo) if($producto->precio_grupo==1) echo 'checked';?>">
                                                                 El precio es por grupo
                                                             </label>
                                                         </div>
