@@ -222,7 +222,14 @@
                                                 <input type="text" class="form-control" id="txt_price_2" name="txt_price_2" placeholder="Price">
                                             </div>
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <div class="checkbox11">
+                                                <label class="text-green-goto">
+                                                    <input  type="checkbox" name="txt_price_chb_2" id="txt_price_chb_2">
+                                                    El precio es por grupo
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="{{$tipoServicio[3]}}" class="tab-pane fade">
@@ -278,7 +285,14 @@
                                                 <input type="text" class="form-control" id="txt_price_3" name="txt_price_3" placeholder="Price">
                                             </div>
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <div class="checkbox11">
+                                                <label class="text-green-goto">
+                                                    <input  type="checkbox" name="txt_price_chb_3" id="txt_price_chb_3">
+                                                    El precio es por grupo
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="{{$tipoServicio[4]}}" class="tab-pane fade">
@@ -556,7 +570,14 @@
                                                 <input type="text" class="form-control" id="txt_price_8" name="txt_price_8" placeholder="Price">
                                             </div>
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <div class="checkbox11">
+                                                <label class="text-green-goto">
+                                                    <input  type="checkbox" name="txt_price_chb_8" id="txt_price_chb_8">
+                                                    El precio es por grupo
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1467,7 +1488,14 @@
                                                             <input type="text" class="form-control" id="txt_price_2" name="txt_price_2" placeholder="Price"  value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->precio_costo;?>">
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-md-4">
+                                                        <div class="checkbox11">
+                                                            <label class="text-green-goto">
+                                                                <input  type="checkbox" name="txt_price_chb_2" id="txt_price_chb_2" value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->precio_grupo;?>">
+                                                                El precio es por grupo
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1614,7 +1642,14 @@
                                                             <input type="text" class="form-control" id="txt_price_3" name="txt_price_3" placeholder="Price"  value="<?php if($tipoServicio[3]==$producto->grupo) echo $producto->precio_costo;?>">
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-md-4">
+                                                        <div class="checkbox11">
+                                                            <label class="text-green-goto">
+                                                                <input  type="checkbox" name="txt_price_chb_3" id="txt_price_chb_3" value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->precio_grupo;?>">
+                                                                El precio es por grupo
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2358,7 +2393,14 @@
                                                             <input type="text" class="form-control" id="txt_price_8" name="txt_price_8" placeholder="Price"  value="<?php if($tipoServicio[8]==$producto->grupo) echo $producto->precio_costo;?>">
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-md-4">
+                                                        <div class="checkbox11">
+                                                            <label class="text-green-goto">
+                                                                <input  type="checkbox" name="txt_price_chb_8" id="txt_price_chb_8" value="<?php if($tipoServicio[2]==$producto->grupo) echo $producto->precio_grupo;?>">
+                                                                El precio es por grupo
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

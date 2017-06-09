@@ -49,7 +49,12 @@ class CostController extends Controller
         $product='txt_product_'.$posTipo;
         $code='txt_code_'.$posTipo;
         $price='txt_price_'.$posTipo;
-
+        $price_chb='txt_price_chb_'.$posTipo;
+        $txt_price_chb=$request->input($price_chb);
+        if($txt_price_chb=='on')
+            $txt_price_chb=1;
+        else
+            $txt_price_chb=0;
         $txt_localizacion=strtoupper($request->input($localizacion));
         $txt_type=$request->input($type);
         $txt_provider=explode(' ',$request->input($provider));
@@ -70,6 +75,7 @@ class CostController extends Controller
             $producto->nombre = $txt_product;
             $producto->descripcion = '';
             $producto->precio_costo = $txt_price;
+            $producto->precio_grupo = $txt_price_chb;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
             $servicio=M_Servicio::where('codigo',$txt_code)->OrWhere('nombre',$txt_product)->get();
@@ -81,6 +87,7 @@ class CostController extends Controller
                 $new_sericio->tipoServicio=$tipoServicio[$posTipo];
                 $new_sericio->nombre=$txt_product;
                 $new_sericio->precio_venta=$txt_price;
+                $new_sericio->precio_grupo = $txt_price_chb;
                 $new_sericio->save();
             }
             else{
@@ -136,6 +143,12 @@ class CostController extends Controller
         $producto_nombre=strtoupper($request->input('txt_product_'.$posTipo));
         $producto_code=strtoupper($request->input('txt_code_'.$posTipo));
         $price=strtoupper($request->input('txt_price_'.$posTipo));
+        $price_chb='txt_price_chb_'.$posTipo;
+        $txt_price_chb=$request->input($price_chb);
+        if($txt_price_chb=='on')
+            $txt_price_chb=1;
+        else
+            $txt_price_chb=0;
 
         $proveedor=Proveedor::where('codigo',$provider[0])->get();
         if(count($proveedor)>0) {
@@ -151,6 +164,7 @@ class CostController extends Controller
             $producto->nombre = $producto_nombre;
 //            $producto->descripcion = '';
             $producto->precio_costo = $price;
+            $producto->precio_grupo = $txt_price_chb;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
 
@@ -163,6 +177,7 @@ class CostController extends Controller
                 $new_sericio->tipoServicio=$type;
                 $new_sericio->nombre=$producto_nombre;
                 $new_sericio->precio_venta=$price;
+                $new_sericio->precio_grupo = $txt_price_chb;
                 $new_sericio->save();
             }
             else{
