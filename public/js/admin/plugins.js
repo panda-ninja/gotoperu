@@ -22064,6 +22064,7 @@ function Pasar_datos(){
 
     $("input[name=itinerarios]").each(function (index) {
         if($(this).is(':checked')){
+            $(this).prop("checked", "");
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
             Itis_precio+=parseInt(itinerario[4]);
@@ -22638,12 +22639,12 @@ function calcular_utilidad(){
     var $txt_day=$('#txt_day').val();
     var $txt_utilidad=$('#txt_utilidad').val();
     var $preciox_n_dias=$totalItinerario*($txt_day-1);
-    console.log('preciox_n_dias='+$preciox_n_dias);
+    // console.log('preciox_n_dias='+$preciox_n_dias);
     var $utilidad1=parseFloat($txt_utilidad)*parseFloat(0.01);
-    console.log('utilidad '+$txt_utilidad+' %='+$utilidad1);
+    // console.log('utilidad '+$txt_utilidad+' %='+$utilidad1);
 
     var $preciox_n_dias_venta=$preciox_n_dias+Math.round($preciox_n_dias*$utilidad1);
     $('#totalItinerario_venta').val($preciox_n_dias_venta);
-    console.log('precio venta='+$preciox_n_dias_venta);
+    // console.log('precio venta='+$preciox_n_dias_venta);
 
 }

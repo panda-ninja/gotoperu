@@ -90,8 +90,10 @@
                                 ?>
                                 @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
                                     <?php
-                                        $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                        $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'*';
+                                        if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
+                                            $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
+                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'*';
+                                        }
                                     ?>
                                 @endforeach
                                 @foreach($itinerario->destinos as $destino)
@@ -233,13 +235,13 @@
                 </div>
             </div>
         </div>
-        <div class="row margin-top-20 hide">
+        <div class="row margin-top-20 ">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">5</span> Hotels</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-        <div class="row hide">
+        <div class="row ">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered font-montserrat">
                     <caption class="text-right"><b>Price per night</b></caption>
@@ -398,14 +400,14 @@
                 </table>
             </div>
         </div>
-        <div class="row margin-top-20 hide">
+        <div class="row margin-top-20 ">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">6</span> Package Price</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-        <div class="row hide">
-            <div class="col-md-3 hide">
+        <div class="row ">
+            <div class="col-md-3 ">
                 <div class="form-group margin-bottom-0">
                     <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                     <div class="input-group">

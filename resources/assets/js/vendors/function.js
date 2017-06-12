@@ -48,6 +48,7 @@ function Pasar_datos(){
 
     $("input[name=itinerarios]").each(function (index) {
         if($(this).is(':checked')){
+            $(this).prop("checked", "");
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
             Itis_precio+=parseInt(itinerario[4]);

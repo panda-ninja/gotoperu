@@ -79,6 +79,18 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_type">Accommodation</label>
+                                                {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
+                                                <select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_0">
+                                                    <option value="S">SIMPLE</option>
+                                                    <option value="D">DOBLE</option>
+                                                    <option value="M">MATRIMONIAL</option>
+                                                    <option value="T">TRIPLE</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
                                                 <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider">
@@ -1158,10 +1170,22 @@
                                                                 <label for="txt_type">Type</label>
                                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
                                                                 <select class="form-control" id="txt_type_0" name="txt_type_0">
-                                                                    <option value="2 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
-                                                                    <option value="3 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
-                                                                    <option value="4 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
-                                                                    <option value="5 STARS" <?php if($tipoServicio[3]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
+                                                                    <option value="2 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='2 STARS') echo 'selected';}?>>2 STARS</option>
+                                                                    <option value="3 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='3 STARS') echo 'selected';}?>>3 STARS</option>
+                                                                    <option value="4 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='4 STARS') echo 'selected';}?>>4 STARS</option>
+                                                                    <option value="5 STARS" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='5 STARS') echo 'selected';}?>>5 STARS</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="txt_type">Accommodation</label>
+                                                                {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
+                                                                <select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_0">
+                                                                    <option value="S" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='S') echo 'selected';}?>>SIMPLE</option>
+                                                                    <option value="D" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='D') echo 'selected';}?>>DOUBLE</option>
+                                                                    <option value="M" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='M') echo 'selected';}?>>MATRIMONIAL</option>
+                                                                    <option value="T" <?php if($tipoServicio[0]==$producto->grupo){if($producto->tipo_producto=='T') echo 'selected';}?>>TRIPLE</option>
                                                                 </select>
                                                             </div>
                                                         </div>

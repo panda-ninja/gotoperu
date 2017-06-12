@@ -50,11 +50,20 @@ class CostController extends Controller
         $code='txt_code_'.$posTipo;
         $price='txt_price_'.$posTipo;
         $price_chb='txt_price_chb_'.$posTipo;
+        $acomodacion='txt_acomodacion_'.$posTipo;
+
         $txt_price_chb=$request->input($price_chb);
         if($txt_price_chb=='on')
             $txt_price_chb=1;
         else
             $txt_price_chb=0;
+
+        $txt_acomodacion=$request->input($acomodacion);
+        if(strlen($txt_acomodacion)>0)
+            $txt_acomodacion=$txt_acomodacion;
+        else
+            $txt_acomodacion='';
+
         $txt_localizacion=strtoupper($request->input($localizacion));
         $txt_type=$request->input($type);
         $txt_provider=explode(' ',$request->input($provider));
@@ -75,6 +84,7 @@ class CostController extends Controller
             $producto->nombre = $txt_product;
             $producto->descripcion = '';
             $producto->precio_costo = $txt_price;
+            $producto->acomodacion = $txt_acomodacion;
             $producto->precio_grupo = $txt_price_chb;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
@@ -88,6 +98,7 @@ class CostController extends Controller
                 $new_sericio->nombre=$txt_product;
                 $new_sericio->precio_venta=$txt_price;
                 $new_sericio->precio_grupo = $txt_price_chb;
+                $new_sericio->acomodacion = $txt_acomodacion;
                 $new_sericio->save();
             }
             else{
@@ -145,10 +156,18 @@ class CostController extends Controller
         $price=strtoupper($request->input('txt_price_'.$posTipo));
         $price_chb='txt_price_chb_'.$posTipo;
         $txt_price_chb=$request->input($price_chb);
+        $acomodacion='txt_acomodacion_'.$posTipo;
+
         if($txt_price_chb=='on')
             $txt_price_chb=1;
         else
             $txt_price_chb=0;
+
+        $txt_acomodacion=$request->input($acomodacion);
+        if(strlen($txt_acomodacion)>0)
+            $txt_acomodacion=$txt_acomodacion;
+        else
+            $txt_acomodacion='';
 
         $proveedor=Proveedor::where('codigo',$provider[0])->get();
         if(count($proveedor)>0) {
@@ -164,6 +183,7 @@ class CostController extends Controller
             $producto->nombre = $producto_nombre;
 //            $producto->descripcion = '';
             $producto->precio_costo = $price;
+            $producto->acomodacion = $txt_acomodacion;
             $producto->precio_grupo = $txt_price_chb;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
@@ -178,6 +198,7 @@ class CostController extends Controller
                 $new_sericio->nombre=$producto_nombre;
                 $new_sericio->precio_venta=$price;
                 $new_sericio->precio_grupo = $txt_price_chb;
+                $new_sericio->acomodacion = $txt_acomodacion;
                 $new_sericio->save();
             }
             else{
