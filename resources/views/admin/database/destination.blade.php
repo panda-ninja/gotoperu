@@ -40,7 +40,7 @@
                                             <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Codigo">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 ">
                                         <div class="form-group">
                                             <label for="txt_destino">Destino</label>
                                             <input type="text" class="form-control" id="txt_destino" name="txt_destino" placeholder="Destino">
@@ -60,7 +60,7 @@
                                             <input type="text" class="form-control" id="txt_pais" name="txt_pais" placeholder="Pais" VALUE="PERÚ">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 hide">
                                         <div class="form-group">
                                             <label for="txt_region">Region</label>
                                             <select class="custom-select form-control" id="txt_region" name="txt_region" >
@@ -220,7 +220,7 @@
                                                 <input type="text" class="form-control" id="txt_pais" name="txt_pais" placeholder="Pais"  value="{{$destino->pais}}">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 hide">
                                             <div class="form-group">
                                                 <label for="txt_region">Region</label>
                                                 <select class="custom-select form-control" id="txt_region" name="txt_region" >

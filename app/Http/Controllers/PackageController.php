@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\M_Destino;
 use App\M_Itinerario;
+use App\M_Servicio;
 use App\P_Itinerario;
 use App\P_ItinerarioDestino;
 use App\P_ItinerarioServicios;
@@ -37,7 +38,9 @@ class PackageController extends Controller
     {
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
-        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios]);
+        $m_servicios=M_Servicio::get();
+//        dd($servicios);
+        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
     }
 
     /**
