@@ -888,7 +888,7 @@
         </div>
         <div class="row margin-top-20">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">5</span> Prices</h4>
+                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">6</span> Prices</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
@@ -899,17 +899,17 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="txt_day">Total costo</label>
+                        <label for="txt_day">Total costo(without hotel)</label>
                         <input type="number" class="form-control" id="totalItinerario" name="totalItinerario" min="0" value="0" readonly>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 hide">
                     <div class="form-group">
                         <label for="txt_day">Utilidad</label>
                         <input type="number" class="form-control" id="txt_utilidad" name="txt_utilidad" min="0" value="0" onchange="calcular_utilidad()">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 hide">
                     <div class="form-group">
                         <label for="txt_day">Total venta</label>
                         <input type="number" class="form-control" id="totalItinerario_venta" name="totalItinerario_venta" min="0" value="0" readonly>
