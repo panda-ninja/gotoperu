@@ -615,7 +615,6 @@ function eliminar_iti(id){
         $('#itis_'+id).fadeOut();
         $('#itis_'+id).remove();
     })
-
 }
 
 function calcular_utilidad(){
@@ -630,5 +629,4 @@ function calcular_utilidad(){
     var $preciox_n_dias_venta=$preciox_n_dias+Math.round($preciox_n_dias*$utilidad1);
     $('#totalItinerario_venta').val($preciox_n_dias_venta);
     // console.log('precio venta='+$preciox_n_dias_venta);
-
 }
