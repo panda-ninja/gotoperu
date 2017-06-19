@@ -630,3 +630,42 @@ function calcular_utilidad(){
     $('#totalItinerario_venta').val($preciox_n_dias_venta);
     // console.log('precio venta='+$preciox_n_dias_venta);
 }
+function eliminar_categoria1(id,categoria) {
+    // alert('holaaa:'+id+'_'+categoria);
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar la categoria "+categoria+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/categories/delete', 'id='+id, function(data) {
+            if(data==1){
+                $("#lista_categoria_"+id).remove();
+                $("#lista_categoria_"+id).fadeOut( "slow");
+                swal(
+                    'Mensaje del sistema',
+                    'Se borro la categoria '+categoria,
+                    'success'
+                )
+            }
+            if(data==0){
+                swal(
+                    'Porque no puedo borrar?',
+                    'Algo salio mal, vuelva a intentarlo mas tarde',
+                    'warning'
+                )
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+}

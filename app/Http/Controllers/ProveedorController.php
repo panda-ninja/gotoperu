@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Category;
 use App\M_Destino;
 use App\M_Producto;
 use App\Proveedor;
@@ -14,7 +15,8 @@ class ProveedorController extends Controller
     {
         $destinations=M_Destino::get();
         $providers=Proveedor::get();
-        return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers]);
+        $categorias=M_Category::get();
+        return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers,'categorias'=>$categorias]);
     }
     public function autocomplete(Request $request)
     {

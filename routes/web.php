@@ -148,3 +148,19 @@ Route::post('/admin/itinerary/delete',[
     'uses' => 'ItinerariController@delete',
     'as' => 'itinerary_delete_path',
 ]);
+Route::get('/admin/categories',[
+    'uses' => 'CategoryController@show',
+    'as' => 'category_index_path',
+]);
+Route::post('/admin/categories/new',[
+    'uses' => 'CategoryController@store',
+    'as' => 'category_save_path',
+]);
+Route::post('/admin/categories/edit',[
+    'uses' => 'CategoryController@edit',
+    'as' => 'category_edit_path',
+]);
+Route::post('/admin/categories/delete',[
+    'uses' => 'CategoryController@delete',
+    'as' => 'Category_delete_path',
+]);

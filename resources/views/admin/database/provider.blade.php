@@ -24,16 +24,21 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider">
             New <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </button>
+        @foreach($categorias as $categoria)
+            <?php
+                $tipoServicio[]=$categoria->nombre;
+            ?>
+        @endforeach
         <?php
-            $tipoServicio[0]='HOTELS';
-            $tipoServicio[1]='TOURS';
-            $tipoServicio[2]='TRANSPORTATION';
-            $tipoServicio[3]='GUIDES_ASSIST';
-            $tipoServicio[4]='ENTRANCES';
-            $tipoServicio[5]='FOOD';
-            $tipoServicio[6]='TRAINS';
-            $tipoServicio[7]='TRAVELS';
-            $tipoServicio[8]='OTHERS';
+//            $tipoServicio[0]='HOTELS';
+//            $tipoServicio[1]='TOURS';
+//            $tipoServicio[2]='TRANSPORTATION';
+//            $tipoServicio[3]='GUIDES_ASSIST';
+//            $tipoServicio[4]='ENTRANCES';
+//            $tipoServicio[5]='FOOD';
+//            $tipoServicio[6]='TRAINS';
+//            $tipoServicio[7]='TRAVELS';
+//            $tipoServicio[8]='OTHERS';
         ?>
 
         {{-- primer popup --}}
