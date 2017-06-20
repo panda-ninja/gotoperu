@@ -29,23 +29,12 @@
                 $tipoServicio[]=$categoria->nombre;
             ?>
         @endforeach
-        <?php
-//            $tipoServicio[0]='HOTELS';
-//            $tipoServicio[1]='TOURS';
-//            $tipoServicio[2]='TRANSPORTATION';
-//            $tipoServicio[3]='GUIDES_ASSIST';
-//            $tipoServicio[4]='ENTRANCES';
-//            $tipoServicio[5]='FOOD';
-//            $tipoServicio[6]='TRAINS';
-//            $tipoServicio[7]='TRAVELS';
-//            $tipoServicio[8]='OTHERS';
-        ?>
 
         {{-- primer popup --}}
         <div class="modal fade bd-example-modal-lg" id="modal_new_provider" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form  id="service_save_id"  method="post" enctype="multipart/form-data" action="{{route('provider_new_path')}}">
+                    <form  id="service_save_id" method="post" enctype="multipart/form-data" action="{{route('provider_new_path')}}">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">New provider</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -54,23 +43,43 @@
                         </div>
                         <div class="modal-body">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#t_{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
-                                <li><a data-toggle="tab" href="#t_{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
+                                <?php
+                                $pos=0;
+                                ?>
+                                @foreach($tipoServicio as $tipoServicio_)
+                                        <?php
+                                        $activo='';
+                                        if($pos==0)
+                                            $activo='active';
+                                        ?>
+                                        <li class="{{$activo}}"><a data-toggle="tab" href="#t_{{$tipoServicio_}}" onclick="escojerPos({{$pos++}})">{{$tipoServicio_}}</a></li>
+                                @endforeach
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#t_{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>--}}
                             </ul>
                             <div class="tab-content">
-                                <div id="t_{{$tipoServicio[0]}}" class="tab-pane fade in active">
+                                <?php
+                                $in_pos=0;
+                                ?>
+                                @foreach($tipoServicio as $tipoServicio_)
+                                    <?php
+                                    $in_activo='';
+                                    if($in_pos==0)
+                                        $in_activo='in active';
+                                    ?>
+                                    <div id="t_{{$tipoServicio_}}" class="tab-pane fade {{$in_activo}}">
                                     <div class="row margin-top-20">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_0" name="txt_localizacion_0">
+                                                <select class="form-control" id="txt_localizacion_{{$in_pos}}" name="txt_localizacion_{{$in_pos}}">
                                                     @foreach($destinations as $destination)
                                                         <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                                     @endforeach
@@ -80,659 +89,67 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_0" name="txt_ruc_0" placeholder="Ruc">
+                                                <input type="text" class="form-control" id="txt_ruc_{{$in_pos}}" name="txt_ruc_{{$in_pos}}" placeholder="Ruc">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_0" name="txt_razon_social_0" placeholder="Razon social">
+                                                <input type="text" class="form-control" id="txt_razon_social_{{$in_pos}}" name="txt_razon_social_{{$in_pos}}" placeholder="Razon social">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_0" name="txt_direccion_0" placeholder="Direccion">
+                                                <input type="text" class="form-control" id="txt_direccion_{{$in_pos}}" name="txt_direccion_{{$in_pos}}" placeholder="Direccion">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_0" name="txt_telefono_0" placeholder="Telefono">
+                                                <input type="text" class="form-control" id="txt_telefono_{{$in_pos}}" name="txt_telefono_{{$in_pos}}" placeholder="Telefono">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_0" name="txt_celular_0" placeholder="Celular">
+                                                <input type="text" class="form-control" id="txt_celular_{{$in_pos}}" name="txt_celular_{{$in_pos}}" placeholder="Celular">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_0" name="txt_email_0" placeholder="Email">
+                                                <input type="email" class="form-control" id="txt_email_{{$in_pos}}" name="txt_email_{{$in_pos}}" placeholder="Email">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_0" name="txt_r_nombres_0" placeholder="Nombres, apellidos">
+                                                <input type="text" class="form-control" id="txt_r_nombres_{{$in_pos}}" name="txt_r_nombres_{{$in_pos}}" placeholder="Nombres, apellidos">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_0" name="txt_r_telefono_0" placeholder="Tel. o Cel.">
+                                                <input type="text" class="form-control" id="txt_r_telefono_{{$in_pos}}" name="txt_r_telefono_{{$in_pos}}" placeholder="Tel. o Cel.">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_0" name="txt_c_nombres_0" placeholder="Nombres, apellidos">
+                                                <input type="text" class="form-control" id="txt_c_nombres_{{$in_pos}}" name="txt_c_nombres_{{$in_pos}}" placeholder="Nombres, apellidos">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_0" name="txt_c_telefono_0" placeholder="Tel. o Cel.">
+                                                <input type="text" class="form-control" id="txt_c_telefono_{{$in_pos}}" name="txt_c_telefono_{{$in_pos}}" placeholder="Tel. o Cel.">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="t_{{$tipoServicio[1]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_1" name="txt_localizacion_1">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_1" name="txt_ruc_1" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_1" name="txt_razon_social_1" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_1" name="txt_direccion_1" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_1" name="txt_telefono_1" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_1" name="txt_celular_1" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_1" name="txt_email_1" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_1" name="txt_r_nombres_1" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_1" name="txt_r_telefono_1" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_1" name="txt_c_nombres_1" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_1" name="txt_c_telefono_1" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="t_{{$tipoServicio[2]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_2" name="txt_localizacion_2">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_2" name="txt_ruc_2" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_2" name="txt_razon_social_2" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_2" name="txt_direccion_2" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_2" name="txt_telefono_2" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_2" name="txt_celular_2" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_2" name="txt_email_2" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_2" name="txt_r_nombres_2" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_2" name="txt_r_telefono_2" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_2" name="txt_c_nombres_2" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_2" name="txt_c_telefono_2" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="t_{{$tipoServicio[3]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_3" name="txt_localizacion_3">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_3" name="txt_ruc_3" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_3" name="txt_razon_social_3" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_3" name="txt_direccion_3" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_3" name="txt_telefono_3" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_3" name="txt_celular_3" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_3" name="txt_email_3" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_3" name="txt_r_nombres_3" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_3" name="txt_r_telefono_3" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_3" name="txt_c_nombres_3" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_3" name="txt_c_telefono_3" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="t_{{$tipoServicio[4]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_4" name="txt_localizacion_4">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_4" name="txt_ruc_4" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_4" name="txt_razon_social_4" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_4" name="txt_direccion_4" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_4" name="txt_telefono_4" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_4" name="txt_celular_4" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_4" name="txt_email_4" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_4" name="txt_r_nombres_4" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_4" name="txt_r_telefono_4" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_4" name="txt_c_nombres_4" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_4" name="txt_c_telefono_4" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="t_{{$tipoServicio[5]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_5" name="txt_localizacion_5">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_5" name="txt_ruc_5" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_5" name="txt_razon_social_5" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_5" name="txt_direccion_5" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_5" name="txt_telefono_5" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_5" name="txt_celular_5" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_5" name="txt_email_5" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_5" name="txt_r_nombres_5" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_5" name="txt_r_telefono_5" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_5" name="txt_c_nombres_5" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_5" name="txt_c_telefono_5" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="t_{{$tipoServicio[6]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_6" name="txt_localizacion_6">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_6" name="txt_ruc_6" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_6" name="txt_razon_social_6" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_6" name="txt_direccion_6" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_6" name="txt_telefono_6" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_6" name="txt_celular_6" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_6" name="txt_email_6" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_6" name="txt_r_nombres_6" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_6" name="txt_r_telefono_6" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_6" name="txt_c_nombres_6" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_6" name="txt_c_telefono_6" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="t_{{$tipoServicio[7]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_7" name="txt_localizacion_7">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_7" name="txt_ruc_7" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_7" name="txt_razon_social_7" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_7" name="txt_direccion_7" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_7" name="txt_telefono_7" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_7" name="txt_celular_7" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_7" name="txt_email_7" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_7" name="txt_r_nombres_7" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_7" name="txt_r_telefono_7" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_7" name="txt_c_nombres_7" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_7" name="txt_c_telefono_7" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="t_{{$tipoServicio[8]}}" class="tab-pane fade">
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_8" name="txt_localizacion_8">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Ruc</label>
-                                                <input type="text" class="form-control" id="txt_ruc_8" name="txt_ruc_8" placeholder="Ruc">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Razon social</label>
-                                                <input type="text" class="form-control" id="txt_razon_social_8" name="txt_razon_social_8" placeholder="Razon social">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Direccion</label>
-                                                <input type="text" class="form-control" id="txt_direccion_8" name="txt_direccion_8" placeholder="Direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Telefono</label>
-                                                <input type="text" class="form-control" id="txt_telefono_8" name="txt_telefono_8" placeholder="Telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Celular</label>
-                                                <input type="text" class="form-control" id="txt_celular_8" name="txt_celular_8" placeholder="Celular">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Email</label>
-                                                <input type="email" class="form-control" id="txt_email_6" name="txt_email_6" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Contacto</label>
-                                                <input type="text" class="form-control" id="txt_r_nombres_8" name="txt_r_nombres_8" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Reservas Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_r_telefono_8" name="txt_r_telefono_8" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Contacto</label>
-                                                <input type="text" class="form-control" id="txt_c_nombres_8" name="txt_c_nombres_8" placeholder="Nombres, apellidos">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Contabilidad Tel/Cel</label>
-                                                <input type="text" class="form-control" id="txt_c_telefono_8" name="txt_c_telefono_8" placeholder="Tel. o Cel.">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-
                         </div>
                         <div class="modal-footer">
                             {{csrf_field()}}
@@ -749,548 +166,104 @@
     <div class="row margin-top-20">
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tl_{{$tipoServicio[0]}}">{{$tipoServicio[0]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[1]}}" >{{$tipoServicio[1]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[2]}}" >{{$tipoServicio[2]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[3]}}" >{{$tipoServicio[3]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[4]}}" >{{$tipoServicio[4]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[5]}}" >{{$tipoServicio[5]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[6]}}" >{{$tipoServicio[6]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[7]}}" >{{$tipoServicio[7]}}</a></li>
-                <li><a data-toggle="tab" href="#tl_{{$tipoServicio[8]}}" >{{$tipoServicio[8]}}</a></li>
+                <?php
+                $pos=0;
+                ?>
+                @foreach($tipoServicio as $tipoServicio_)
+                    <?php
+                    $activo='';
+                    if($pos==0)
+                        $activo='active';
+                    ?>
+                    <li class="{{$activo}}"><a data-toggle="tab" href="#tl_{{$tipoServicio_}}">{{$tipoServicio_}}</a></li>
+                <?php
+                    $pos++;
+                ?>
+                @endforeach
+                {{--<li class="active"><a data-toggle="tab" href="#tl_{{$tipoServicio[0]}}">{{$tipoServicio[0]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[1]}}" >{{$tipoServicio[1]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[2]}}" >{{$tipoServicio[2]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[3]}}" >{{$tipoServicio[3]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[4]}}" >{{$tipoServicio[4]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[5]}}" >{{$tipoServicio[5]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[6]}}" >{{$tipoServicio[6]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[7]}}" >{{$tipoServicio[7]}}</a></li>--}}
+                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[8]}}" >{{$tipoServicio[8]}}</a></li>--}}
             </ul>
             <div class="tab-content">
-                <div id="tl_{{$tipoServicio[0]}}" class="tab-pane fade in active">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[0]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[0]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
+                <?php
+                $in_pos=0;
+                ?>
+                @foreach($tipoServicio as $tipoServicio_)
+                    <?php
+                    $in_activo='';
+                    if($in_pos==0)
+                        $in_activo='in active';
+                    ?>
+                    <div id="tl_{{$tipoServicio_}}" class="tab-pane fade {{$in_activo}}">
+                            <div class="margin-top-20">
+                                <table id="tb_{{$tipoServicio_}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Location</th>
+                                        <th>Codigo</th>
+                                        <th>Ruc</th>
+                                        <th>Razon social</th>
+                                        <th>Direccion</th>
+                                        <th>Tel./Cel.</th>
+                                        <th>Email</th>
+                                        <th>Reservas</th>
+                                        <th>Contabilidad</th>
+                                        <th>Operations</th>
                                     </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[1]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[1]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[1]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Location</th>
+                                        <th>Codigo</th>
+                                        <th>Ruc</th>
+                                        <th>Razon social</th>
+                                        <th>Direccion</th>
+                                        <th>Tel./Cel.</th>
+                                        <th>Email</th>
+                                        <th>Reservas</th>
+                                        <th>Contabilidad</th>
+                                        <th>Operations</th>
                                     </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[2]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[2]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[2]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[3]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[3]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[3]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[4]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[4]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[4]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[5]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[5]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[5]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[6]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[6]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[6]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[7]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[7]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[7]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="tl_{{$tipoServicio[8]}}" class="tab-pane fade">
-                    <div class="margin-top-20">
-                        <table id="tb_{{$tipoServicio[8]}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Location</th>
-                                <th>Codigo</th>
-                                <th>Ruc</th>
-                                <th>Razon social</th>
-                                <th>Direccion</th>
-                                <th>Tel./Cel.</th>
-                                <th>Email</th>
-                                <th>Reservas</th>
-                                <th>Contabilidad</th>
-                                <th>Operations</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            @foreach($providers as $provider)
-                                @if($tipoServicio[8]==$provider->grupo)
-                                    <tr id="lista_provider_{{$provider->id}}">
-                                        <td>{{$provider->localizacion}}</td>
-                                        <td>{{$provider->codigo}}</td>
-                                        <td>{{$provider->ruc}}</td>
-                                        <td>{{$provider->razon_social}}</td>
-                                        <td>{{$provider->direccion}}</td>
-                                        <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                        <td>{{$provider->email}}</td>
-                                        <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                        <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                    </tfoot>
+                                    <tbody>
+                                    @foreach($providers as $provider)
+                                        @if($tipoServicio_==$provider->grupo)
+                                            <tr id="lista_provider_{{$provider->id}}">
+                                                <td>{{$provider->localizacion}}</td>
+                                                <td>{{$provider->codigo}}</td>
+                                                <td>{{$provider->ruc}}</td>
+                                                <td>{{$provider->razon_social}}</td>
+                                                <td>{{$provider->direccion}}</td>
+                                                <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
+                                                <td>{{$provider->email}}</td>
+                                                <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
+                                                <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger" onclick="eliminar_provider('{{$provider->id}}','{{$provider->razon_social}}')">
+                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    <?php
+                    $in_pos++;
+                    ?>
+                @endforeach
+
             </div>
         @foreach($providers as $provider)
             {{--@if($provider->grupo==$tipoServicio[0])--}}
@@ -1325,7 +298,6 @@
                                     $act_tabmenu6='';
                                     $act_tabmenu7='';
                                     $act_tabmenu8='';
-
                                     $pos=0;
                                     if($tipoServicio[0]==$provider->grupo){
                                         $pos=0;
@@ -1375,15 +347,32 @@
                                     ?>
                                     <div class="modal-body">
                                         <ul class="nav nav-tabs">
-                                            <li class="<?php echo $act_menu0;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[0]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','0')">{{$tipoServicio[0]}}</a></li>
-                                            <li class="<?php echo $act_menu1;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[1]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','1')">{{$tipoServicio[1]}}</a></li>
-                                            <li class="<?php echo $act_menu2;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[2]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','2')">{{$tipoServicio[2]}}</a></li>
-                                            <li class="<?php echo $act_menu3;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[3]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','3')">{{$tipoServicio[3]}}</a></li>
-                                            <li class="<?php echo $act_menu4;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[4]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','4')">{{$tipoServicio[4]}}</a></li>
-                                            <li class="<?php echo $act_menu5;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[5]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','5')">{{$tipoServicio[5]}}</a></li>
-                                            <li class="<?php echo $act_menu6;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[6]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','6')">{{$tipoServicio[6]}}</a></li>
-                                            <li class="<?php echo $act_menu7;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[7]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','7')">{{$tipoServicio[7]}}</a></li>
-                                            <li class="<?php echo $act_menu8;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[8]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','8')">{{$tipoServicio[8]}}</a></li>
+                                            <?php
+                                            $pos=0;
+                                            ?>
+                                            @foreach($tipoServicio as $tipoServicio_)
+                                                <?php
+                                                $act_activo='';
+                                                if($tipoServicio_==$provider->grupo){
+                                                    $act_activo='active';
+                                                ?>
+
+                                                    <li class="<?php echo $act_activo;?>"><a data-toggle="tab" href="#e_{{$tipoServicio_}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','0')">{{$tipoServicio_}}</a></li>
+
+                                                <?php
+                                                $pos++;
+                                                ?>
+                                            @endforeach
+
+
+                                            {{--<li class="<?php echo $act_menu1;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[1]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','1')">{{$tipoServicio[1]}}</a></li>--}}
+                                            {{--<li class="<?php echo $act_menu2;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[2]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','2')">{{$tipoServicio[2]}}</a></li>--}}
+                                            {{--<li class="<?php echo $act_menu3;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[3]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','3')">{{$tipoServicio[3]}}</a></li>--}}
+                                            {{--<li class="<?php echo $act_menu4;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[4]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','4')">{{$tipoServicio[4]}}</a></li>--}}
+                                            {{--<li class="<?php echo $act_menu5;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[5]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','5')">{{$tipoServicio[5]}}</a></li>--}}
+                                            {{--<li class="<?php echo $act_menu6;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[6]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','6')">{{$tipoServicio[6]}}</a></li>--}}
+                                            {{--<li class="<?php echo $act_menu7;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[7]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','7')">{{$tipoServicio[7]}}</a></li>--}}
+                                            {{--<li class="<?php echo $act_menu8;?>"><a data-toggle="tab" href="#e_{{$tipoServicio[8]}}_{{$provider->id}}" onclick="escojerPosEdit_cost('{{$provider->id}}','8')">{{$tipoServicio[8]}}</a></li>--}}
                                         </ul>
                                         <div class="tab-content">
                                             <div id="e_{{$tipoServicio[0]}}_{{$provider->id}}" class="tab-pane fade <?php echo $act_tabmenu0;?>">
