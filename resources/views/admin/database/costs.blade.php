@@ -27,30 +27,121 @@
         <div class="margin-top-20 panel panel-default panel-floating panel-floating-inline hide" id="modal_new_cost">
                         <div class="panel-body">
                         <form  action="{{route('costs_save_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
+                        @foreach($categorias as $categoria)
+                            <?php
+                                $tipoServicio[]=$categoria->nombre;
+                            ?>
+                        @endforeach
 
-                        <?php
-                        $tipoServicio[0]='HOTELS';
-                        $tipoServicio[1]='TOURS';
-                        $tipoServicio[2]='TRANSPORTATION';
-                        $tipoServicio[3]='GUIDES_ASSIST';
-                        $tipoServicio[4]='ENTRANCES';
-                        $tipoServicio[5]='FOOD';
-                        $tipoServicio[6]='TRAINS';
-                        $tipoServicio[7]='TRAVELS';
-                        $tipoServicio[8]='OTHERS';
-                        ?>
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
+                                <?php
+                                $pos=0;
+                                $activo_='';
+                                ?>
+                                @foreach($categorias as $categoria)
+                                    @if($pos==0)
+                                        <?php
+                                        $activo_='active';
+                                        ?>
+                                    @endif
+                                    <li class="{{$activo_}}"><a data-toggle="tab" href="#{{$categoria->nombre}}" onclick="escojerPos(1)">{{$categoria->nombre}}</a></li>
+                                        <?php
+                                        $pos++;
+                                        ?>
+                                    @endforeach
+                                {{--<li class="active"><a data-toggle="tab" href="#{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>--}}
+                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>--}}
                             </ul>
                             <div class="tab-content">
+                                <?php
+                                $pos=0;
+                                $activo='';
+                                ?>
+                                @foreach($categorias as $categoria)
+                                    @if($pos==0)
+                                        <?php
+                                            $activo='in active';
+                                        ?>
+                                    @endif
+                                    <div id="{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_codigo">Location</label>
+                                                        {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                                        <select class="form-control" id="txt_localizacion_0" name="txt_localizacion_0">
+                                                            @foreach($destinations as $destination)
+                                                                <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                            @endforeach
+                                                        </select>
+
+                                                        <input type="hidden" name="tipoServicio_0" id="tipoServicio_0" value="{{$categoria->nombre}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_type">Type</label>
+                                                        {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
+                                                        <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                            <option value="2 STARS">2 STARS</option>
+                                                            <option value="3 STARS">3 STARS</option>
+                                                            <option value="4 STARS">4 STARS</option>
+                                                            <option value="5 STARS">5 STARS</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_type">Accommodation</label>
+                                                        {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
+                                                        <select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_0">
+                                                            <option value="S">SIMPLE</option>
+                                                            <option value="D">DOBLE</option>
+                                                            <option value="M">MATRIMONIAL</option>
+                                                            <option value="T">TRIPLE</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col-md-9">
+                                                        <label for="txt_precio">Provider</label>
+                                                        <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider">
+                                                    </div>
+                                                    <div class="col-md-3 margin-top-25 ">
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
+                                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_product">Product</label>
+                                                        <input type="text" class="form-control" id="txt_product_0" name="txt_product_0" placeholder="Product">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_code">Code product</label>
+                                                        <input type="text" class="form-control" id="txt_code_0" name="txt_code_0" placeholder="Code product">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_price">Price</label>
+                                                        <input type="text" class="form-control" id="txt_price_0" name="txt_price_0" placeholder="Price">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                @endforeach
                                 <div id="{{$tipoServicio[0]}}" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-4">

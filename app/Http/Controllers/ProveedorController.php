@@ -84,15 +84,11 @@ class ProveedorController extends Controller
         }
     }
     public function store_new(Request $request){
-        $tipoServicio[0]='HOTELS';
-        $tipoServicio[1]='TOURS';
-        $tipoServicio[2]='TRANSPORTATION';
-        $tipoServicio[3]='GUIDES_ASSIST';
-        $tipoServicio[4]='ENTRANCES';
-        $tipoServicio[5]='FOOD';
-        $tipoServicio[6]='TRAINS';
-        $tipoServicio[7]='TRAVELS';
-        $tipoServicio[8]='OTHERS';
+
+        $categorias=M_Category::get();
+        foreach($categorias as $categoria){
+            $tipoServicio[]=$categoria->nombre;
+        }
         $nro_grupo=$request->input('posTipo');
         $txt_grupo=$tipoServicio[$nro_grupo];
         $txt_grupo_cod=substr($txt_grupo,0,1);
@@ -126,36 +122,29 @@ class ProveedorController extends Controller
             $proveedor->save();
             $destinations=M_Destino::get();
             $providers=Proveedor::get();
-            return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers]);
+            $categorias=M_Category::get();
+            return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers,'categorias'=>$categorias]);
         }
     }
     public function edit(Request $request){
-        $tipoServicio[0]='HOTELS';
-        $tipoServicio[1]='TOURS';
-        $tipoServicio[2]='TRANSPORTATION';
-        $tipoServicio[3]='GUIDES_ASSIST';
-        $tipoServicio[4]='ENTRANCES';
-        $tipoServicio[5]='FOOD';
-        $tipoServicio[6]='TRAINS';
-        $tipoServicio[7]='TRAVELS';
-        $tipoServicio[8]='OTHERS';
+
 
         $id=$request->input('id');
-        $nro_grupo=$request->input('posTipoEditcost_'.$id);
-        $txt_grupo=$tipoServicio[$nro_grupo];
-        $txt_grupo_cod=substr($txt_grupo,0,1);
-        $txt_localizacion=$request->input('txt_localizacion_'.$nro_grupo);
+        $grupo=$request->input('posTipoEditcost_'.$id);
+//        $txt_grupo=$tipoServicio[$nro_grupo];
+        $txt_grupo_cod=substr($grupo,0,1);
+        $txt_localizacion=$request->input('txt_localizacion_');
         $txt_localizacion_cod=substr($txt_localizacion,0,1);
-        $txt_ruc=$request->input('txt_ruc_'.$nro_grupo);
-        $txt_razon_social=strtoupper($request->input('txt_razon_social_'.$nro_grupo));
-        $txt_direccion=$request->input('txt_direccion_'.$nro_grupo);
-        $txt_telefono=$request->input('txt_telefono_'.$nro_grupo);
-        $txt_celular=$request->input('txt_celular_'.$nro_grupo);
-        $txt_email=$request->input('txt_email_'.$nro_grupo);
-        $txt_r_nombres=strtoupper($request->input('txt_r_nombres_'.$nro_grupo));
-        $txt_r_telefono=$request->input('txt_r_telefono_'.$nro_grupo);
-        $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'.$nro_grupo));
-        $txt_c_telefono=$request->input('txt_c_telefono_'.$nro_grupo);
+        $txt_ruc=$request->input('txt_ruc_');
+        $txt_razon_social=strtoupper($request->input('txt_razon_social_'));
+        $txt_direccion=$request->input('txt_direccion_');
+        $txt_telefono=$request->input('txt_telefono_');
+        $txt_celular=$request->input('txt_celular_');
+        $txt_email=$request->input('txt_email_');
+        $txt_r_nombres=strtoupper($request->input('txt_r_nombres_'));
+        $txt_r_telefono=$request->input('txt_r_telefono_');
+        $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'));
+        $txt_c_telefono=$request->input('txt_c_telefono_');
 
         $proveedor=Proveedor::findOrFail($id);
         $proveedor->ruc=$txt_ruc;
@@ -169,13 +158,13 @@ class ProveedorController extends Controller
         $proveedor->c_nombres=$txt_c_nombres;
         $proveedor->c_telefono=$txt_c_telefono;
         $proveedor->localizacion=$txt_localizacion;
-        $proveedor->grupo=$txt_grupo;
         if($proveedor->save()){
             $proveedor->codigo=$txt_grupo_cod.$txt_localizacion_cod.$proveedor->id;
             $proveedor->save();
             $destinations=M_Destino::get();
             $providers=Proveedor::get();
-            return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers]);
+            $categorias=M_Category::get();
+            return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers,'categorias'=>$categorias]);
         }
     }
     public function delete(Request $request){

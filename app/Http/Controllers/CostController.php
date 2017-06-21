@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Category;
 use App\M_Destino;
 use App\M_Producto;
 use App\M_Servicio;
@@ -25,12 +26,16 @@ class CostController extends Controller
         $productos_travels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAVELS');}])->get();
         $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
         $destinations=M_Destino::get();
+        $categorias=M_Category::get();
+        $productos=Proveedor::with(['productos'])->get();
 //        dd($productos_hotels);
         return view('admin.database.costs',['productos_hotels'=>$productos_hotels,
             'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
             'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,
             'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
-            'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,'destinations'=>$destinations]);
+            'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
+            'destinations'=>$destinations,'categorias'=>$categorias,
+            'productos'=>$productos]);
     }
     public function store(Request $request){
         $tipoServicio[0]='HOTELS';
