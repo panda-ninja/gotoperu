@@ -91,7 +91,7 @@ class ProveedorController extends Controller
         }
         $nro_grupo=$request->input('posTipo');
         $txt_grupo=$tipoServicio[$nro_grupo];
-        $txt_grupo_cod=substr($txt_grupo,0,1);
+        $txt_grupo_cod=substr($txt_grupo,0,2);
         $txt_localizacion=$request->input('txt_localizacion_'.$nro_grupo);
         $txt_localizacion_cod=substr($txt_localizacion,0,1);
         $txt_ruc=$request->input('txt_ruc_'.$nro_grupo);
@@ -118,7 +118,7 @@ class ProveedorController extends Controller
         $proveedor->localizacion=$txt_localizacion;
         $proveedor->grupo=$txt_grupo;
         if($proveedor->save()){
-            $proveedor->codigo=$txt_grupo_cod.$txt_localizacion_cod.$proveedor->id;
+            $proveedor->codigo=$txt_grupo_cod.$proveedor->id;
             $proveedor->save();
             $destinations=M_Destino::get();
             $providers=Proveedor::get();
@@ -132,7 +132,7 @@ class ProveedorController extends Controller
         $id=$request->input('id');
         $grupo=$request->input('posTipoEditcost_'.$id);
 //        $txt_grupo=$tipoServicio[$nro_grupo];
-        $txt_grupo_cod=substr($grupo,0,1);
+        $txt_grupo_cod=substr($grupo,0,2);
         $txt_localizacion=$request->input('txt_localizacion_');
         $txt_localizacion_cod=substr($txt_localizacion,0,1);
         $txt_ruc=$request->input('txt_ruc_');
@@ -158,9 +158,9 @@ class ProveedorController extends Controller
         $proveedor->c_nombres=$txt_c_nombres;
         $proveedor->c_telefono=$txt_c_telefono;
         $proveedor->localizacion=$txt_localizacion;
+//        $proveedor->codigo=$txt_grupo_cod.$proveedor->id;
         if($proveedor->save()){
-            $proveedor->codigo=$txt_grupo_cod.$txt_localizacion_cod.$proveedor->id;
-            $proveedor->save();
+            $proveedor->codigo=$txt_grupo_cod.$id;
             $destinations=M_Destino::get();
             $providers=Proveedor::get();
             $categorias=M_Category::get();

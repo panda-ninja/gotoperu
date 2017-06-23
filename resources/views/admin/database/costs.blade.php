@@ -36,36 +36,31 @@
                             <ul class="nav nav-tabs">
                                 <?php
                                 $pos=0;
-                                $activo_='';
                                 ?>
                                 @foreach($categorias as $categoria)
+                                    <?php
+                                        $activo_='';
+                                    ?>
                                     @if($pos==0)
                                         <?php
                                         $activo_='active';
                                         ?>
                                     @endif
-                                    <li class="{{$activo_}}"><a data-toggle="tab" href="#{{$categoria->nombre}}" onclick="escojerPos(1)">{{$categoria->nombre}}</a></li>
+                                    <li class="{{$activo_}}"><a data-toggle="tab" href="#{{$categoria->nombre}}" onclick="escojerPos({{$pos}})">{{$categoria->nombre}}</a></li>
                                         <?php
                                         $pos++;
                                         ?>
-                                    @endforeach
-                                {{--<li class="active"><a data-toggle="tab" href="#{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>--}}
-                                {{--<li><a data-toggle="tab" href="#{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>--}}
-                            </ul>
+                                @endforeach
+                                </ul>
                             <div class="tab-content">
                                 <?php
                                 $pos=0;
-                                $activo='';
                                 ?>
                                 @foreach($categorias as $categoria)
-                                    @if($pos==0)
+                                        <?php
+                                        $activo='';
+                                        ?>
+                                        @if($pos==0)
                                         <?php
                                             $activo='in active';
                                         ?>
@@ -89,14 +84,72 @@
                                                     <div class="form-group">
                                                         <label for="txt_type">Type</label>
                                                         {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
-                                                        <select class="form-control" id="txt_type_0" name="txt_type_0">
-                                                            <option value="2 STARS">2 STARS</option>
-                                                            <option value="3 STARS">3 STARS</option>
-                                                            <option value="4 STARS">4 STARS</option>
-                                                            <option value="5 STARS">5 STARS</option>
-                                                        </select>
+
+                                                        @if($categoria->nombre=='HOTELS')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="2 STARS">2 STARS</option>
+                                                                <option value="3 STARS">3 STARS</option>
+                                                                <option value="4 STARS">4 STARS</option>
+                                                                <option value="5 STARS">5 STARS</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='TOURS')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="GROUP">GROUP</option>
+                                                                <option value="PRIVATE">PRIVATE</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='TRANSPORTATION')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="AUTO">AUTO</option>
+                                                                <option value="SUBARU">SUBARU</option>
+                                                                <option value="VAN">VAN</option>
+                                                                <option value="H1">H1</option>
+                                                                <option value="SPRINTER">SPRINTER</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='GUIDES_ASSIST')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="GUIDE">GUIDE</option>
+                                                                <option value="TRANSFER">TRANSFER</option>
+                                                                <option value="ASSISTANCE">ASSISTANCE</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='ENTRANCES')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="EXTRANJERO">EXTRANJERO</option>
+                                                                <option value="NATIONAL">NATIONAL</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='FOOD')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="LUNCH">LUNCH</option>
+                                                                <option value="DINNER">DINNER</option>
+                                                                <option value="BOX LUNCH">BOX LUNCH</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='TRAINS')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="EXPEDITION">EXPEDITION</option>
+                                                                <option value="VISITADOME">VISITADOME</option>
+                                                                <option value="HIRAN BINGHAN">BOX LUNCH</option>
+                                                                <option value="EJECUTIVO">EJECUTIVO</option>
+                                                                <option value="PRIMERA CLASE">PRIMERA CLASE</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='FLIGHTS')
+                                                            <select class="form-control" id="txt_type_0" name="txt_type_0">
+                                                                <option value="NATIONAL">NATIONAL</option>
+                                                                <option value="INTERNATIONAL">INTERNATIONAL</option>
+                                                            </select>
+                                                        @endif
+                                                        @if($categoria->nombre=='OTHERS')
+                                                            <input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">
+                                                        @endif
+
                                                     </div>
                                                 </div>
+                                                @if($categoria->nombre=='HOTELS')
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="txt_type">Accommodation</label>
@@ -109,6 +162,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                @endif
                                                 <div class="col-md-4">
                                                     <div class="form-group col-md-9">
                                                         <label for="txt_precio">Provider</label>
@@ -141,548 +195,551 @@
 
                                             </div>
                                         </div>
+                                <?php
+                                $pos++;
+                                ?>
                                 @endforeach
-                                <div id="{{$tipoServicio[0]}}" class="tab-pane fade in active">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                {{--<div id="{{$tipoServicio[0]}}" class="tab-pane fade in active">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_0" name="txt_localizacion_0">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
+                                                {{--<select class="form-control" id="txt_localizacion_0" name="txt_localizacion_0">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
 
-                                                <input type="hidden" name="tipoServicio_0" id="tipoServicio_0" value="{{$tipoServicio[0]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
+                                                {{--<input type="hidden" name="tipoServicio_0" id="tipoServicio_0" value="{{$tipoServicio[0]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
-                                                <select class="form-control" id="txt_type_0" name="txt_type_0">
-                                                    <option value="2 STARS">2 STARS</option>
-                                                    <option value="3 STARS">3 STARS</option>
-                                                    <option value="4 STARS">4 STARS</option>
-                                                    <option value="5 STARS">5 STARS</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Accommodation</label>
+                                                {{--<select class="form-control" id="txt_type_0" name="txt_type_0">--}}
+                                                    {{--<option value="2 STARS">2 STARS</option>--}}
+                                                    {{--<option value="3 STARS">3 STARS</option>--}}
+                                                    {{--<option value="4 STARS">4 STARS</option>--}}
+                                                    {{--<option value="5 STARS">5 STARS</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Accommodation</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
-                                                <select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_0">
-                                                    <option value="S">SIMPLE</option>
-                                                    <option value="D">DOBLE</option>
-                                                    <option value="M">MATRIMONIAL</option>
-                                                    <option value="T">TRIPLE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_0" name="txt_product_0" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_0" name="txt_code_0" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_0" name="txt_price_0" placeholder="Price">
-                                            </div>
-                                        </div>
+                                                {{--<select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_0">--}}
+                                                    {{--<option value="S">SIMPLE</option>--}}
+                                                    {{--<option value="D">DOBLE</option>--}}
+                                                    {{--<option value="M">MATRIMONIAL</option>--}}
+                                                    {{--<option value="T">TRIPLE</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_0" name="txt_product_0" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_0" name="txt_code_0" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_0" name="txt_price_0" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[1]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[1]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_1" name="txt_localizacion_1" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_1" name="txt_localizacion_1">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_1" id="tipoServicio_1" value="{{$tipoServicio[1]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
-                                                <select class="form-control" id="txt_type_1" name="txt_type_1">
-                                                    <option value="GROUP">GROUP</option>
-                                                    <option value="PRIVATE">PRIVATE</option>
-                                                </select>
+                                                {{--<select class="form-control" id="txt_localizacion_1" name="txt_localizacion_1">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_1" id="tipoServicio_1" value="{{$tipoServicio[1]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
+                                                {{--<select class="form-control" id="txt_type_1" name="txt_type_1">--}}
+                                                    {{--<option value="GROUP">GROUP</option>--}}
+                                                    {{--<option value="PRIVATE">PRIVATE</option>--}}
+                                                {{--</select>--}}
 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_1" name="txt_provider_1" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('1')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_1" name="txt_product_1" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_1" name="txt_code_1" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_1" name="txt_price_1" placeholder="Price">
-                                            </div>
-                                        </div>
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_1" name="txt_provider_1" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('1')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_1" name="txt_product_1" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_1" name="txt_code_1" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_1" name="txt_price_1" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[2]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[2]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_2" name="txt_localizacion_2" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_2" name="txt_localizacion_2">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_2" id="tipoServicio_2" value="{{$tipoServicio[2]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
-                                                <select class="form-control" id="txt_type_2" name="txt_type_2">
-                                                    <option value="AUTO">AUTO</option>
-                                                    <option value="SUBARU">SUBARU</option>
-                                                    <option value="VAN">VAN</option>
-                                                    <option value="H1">H1</option>
-                                                    <option value="SPRINTER">SPRINTER</option>
+                                                {{--<select class="form-control" id="txt_localizacion_2" name="txt_localizacion_2">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_2" id="tipoServicio_2" value="{{$tipoServicio[2]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
+                                                {{--<select class="form-control" id="txt_type_2" name="txt_type_2">--}}
+                                                    {{--<option value="AUTO">AUTO</option>--}}
+                                                    {{--<option value="SUBARU">SUBARU</option>--}}
+                                                    {{--<option value="VAN">VAN</option>--}}
+                                                    {{--<option value="H1">H1</option>--}}
+                                                    {{--<option value="SPRINTER">SPRINTER</option>--}}
 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_2" name="txt_provider_2" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('2')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_2" name="txt_product_2" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_2" name="txt_code_2" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_2" name="txt_price_2" placeholder="Price">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="checkbox11">
-                                                <label class="text-green-goto">
-                                                    <input  type="checkbox" name="txt_price_chb_2" id="txt_price_chb_2">
-                                                    El precio es por grupo
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[3]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_2" name="txt_provider_2" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('2')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_2" name="txt_product_2" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_2" name="txt_code_2" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_2" name="txt_price_2" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="checkbox11">--}}
+                                                {{--<label class="text-green-goto">--}}
+                                                    {{--<input  type="checkbox" name="txt_price_chb_2" id="txt_price_chb_2">--}}
+                                                    {{--El precio es por grupo--}}
+                                                {{--</label>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[3]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_3" name="txt_localizacion_3" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_3" name="txt_localizacion_3">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_3" id="tipoServicio_3" value="{{$tipoServicio[3]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
-                                                <select class="form-control" id="txt_type_3" name="txt_type_3">
-                                                    <option value="GUIDE">GUIDE</option>
-                                                    <option value="TRANSFER">TRANSFER</option>
-                                                    <option value="ASSISTANCE">ASSISTANCE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_3" name="txt_provider_3" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('3')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_3" name="txt_product_3" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_3" name="txt_code_3" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_3" name="txt_price_3" placeholder="Price">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="checkbox11">
-                                                <label class="text-green-goto">
-                                                    <input  type="checkbox" name="txt_price_chb_3" id="txt_price_chb_3">
-                                                    El precio es por grupo
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[4]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                                {{--<select class="form-control" id="txt_localizacion_3" name="txt_localizacion_3">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_3" id="tipoServicio_3" value="{{$tipoServicio[3]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
+                                                {{--<select class="form-control" id="txt_type_3" name="txt_type_3">--}}
+                                                    {{--<option value="GUIDE">GUIDE</option>--}}
+                                                    {{--<option value="TRANSFER">TRANSFER</option>--}}
+                                                    {{--<option value="ASSISTANCE">ASSISTANCE</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_3" name="txt_provider_3" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('3')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_3" name="txt_product_3" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_3" name="txt_code_3" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_3" name="txt_price_3" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="checkbox11">--}}
+                                                {{--<label class="text-green-goto">--}}
+                                                    {{--<input  type="checkbox" name="txt_price_chb_3" id="txt_price_chb_3">--}}
+                                                    {{--El precio es por grupo--}}
+                                                {{--</label>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[4]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_4" name="txt_localizacion_4" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_4" name="txt_localizacion_4">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_4" id="tipoServicio_4" value="{{$tipoServicio[4]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
-                                                <select class="form-control" id="txt_type_4" name="txt_type_4">
-                                                    <option value="EXTRANJERO">EXTRANJERO</option>
-                                                    <option value="NATIONAL">NATIONAL</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_4" name="txt_provider_4" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('4')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_4" name="txt_product_4" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_4" name="txt_code_4" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_4" name="txt_price_4" placeholder="Price">
-                                            </div>
-                                        </div>
+                                                {{--<select class="form-control" id="txt_localizacion_4" name="txt_localizacion_4">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_4" id="tipoServicio_4" value="{{$tipoServicio[4]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
+                                                {{--<select class="form-control" id="txt_type_4" name="txt_type_4">--}}
+                                                    {{--<option value="EXTRANJERO">EXTRANJERO</option>--}}
+                                                    {{--<option value="NATIONAL">NATIONAL</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_4" name="txt_provider_4" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('4')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_4" name="txt_product_4" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_4" name="txt_code_4" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_4" name="txt_price_4" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[5]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[5]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_5" name="txt_localizacion_5" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_5" name="txt_localizacion_5">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_5" id="tipoServicio_5" value="{{$tipoServicio[5]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
-                                                <select class="form-control" id="txt_type_5" name="txt_type_5">
-                                                    <option value="LUNCH">LUNCH</option>
-                                                    <option value="DINNER">DINNER</option>
-                                                    <option value="BOX LUNCH">BOX LUNCH</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_5" name="txt_provider_5" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('5')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_5" name="txt_product_5" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_5" name="txt_code_5" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_5" name="txt_price_5" placeholder="Price">
-                                            </div>
-                                        </div>
+                                                {{--<select class="form-control" id="txt_localizacion_5" name="txt_localizacion_5">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_5" id="tipoServicio_5" value="{{$tipoServicio[5]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
+                                                {{--<select class="form-control" id="txt_type_5" name="txt_type_5">--}}
+                                                    {{--<option value="LUNCH">LUNCH</option>--}}
+                                                    {{--<option value="DINNER">DINNER</option>--}}
+                                                    {{--<option value="BOX LUNCH">BOX LUNCH</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_5" name="txt_provider_5" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('5')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_5" name="txt_product_5" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_5" name="txt_code_5" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_5" name="txt_price_5" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[6]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[6]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_6" name="txt_localizacion_6" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_6" name="txt_localizacion_6">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_6" id="tipoServicio_6" value="{{$tipoServicio[6]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
+                                                {{--<select class="form-control" id="txt_localizacion_6" name="txt_localizacion_6">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_6" id="tipoServicio_6" value="{{$tipoServicio[6]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_type_6" name="txt_type_6" placeholder="Type">--}}
-                                                <select class="form-control" id="txt_type_6" name="txt_type_6">
-                                                    <option value="EXPEDITION">EXPEDITION</option>
-                                                    <option value="VISITADOME">VISITADOME</option>
-                                                    <option value="HIRAN BINGHAN">HIRAN BINGHAN</option>
-                                                    <option value="EJECUTIVO">EJECUTIVO</option>
-                                                    <option value="PRIMERA CLASE">PRIMERA CLASE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_6" name="txt_provider_6" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('6')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_6" name="txt_product_6" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_6" name="txt_code_6" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_6" name="txt_price_6" placeholder="Price">
-                                            </div>
-                                        </div>
+                                                {{--<select class="form-control" id="txt_type_6" name="txt_type_6">--}}
+                                                    {{--<option value="EXPEDITION">EXPEDITION</option>--}}
+                                                    {{--<option value="VISITADOME">VISITADOME</option>--}}
+                                                    {{--<option value="HIRAN BINGHAN">HIRAN BINGHAN</option>--}}
+                                                    {{--<option value="EJECUTIVO">EJECUTIVO</option>--}}
+                                                    {{--<option value="PRIMERA CLASE">PRIMERA CLASE</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_6" name="txt_provider_6" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('6')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_6" name="txt_product_6" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_6" name="txt_code_6" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_6" name="txt_price_6" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[7]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[7]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_6" name="txt_localizacion_6" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_7" name="txt_localizacion_7">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_7" id="tipoServicio_7" value="{{$tipoServicio[7]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
+                                                {{--<select class="form-control" id="txt_localizacion_7" name="txt_localizacion_7">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_7" id="tipoServicio_7" value="{{$tipoServicio[7]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_type_6" name="txt_type_6" placeholder="Type">--}}
-                                                <select class="form-control" id="txt_type_7" name="txt_type_7">
-                                                    <option value="NATIONAL">NATIONAL</option>
-                                                    <option value="INTERNATIONAL">INTERNATIONAL</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_7" name="txt_provider_7" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('7')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_7" name="txt_product_7" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_7" name="txt_code_7" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_7" name="txt_price_7" placeholder="Price">
-                                            </div>
-                                        </div>
+                                                {{--<select class="form-control" id="txt_type_7" name="txt_type_7">--}}
+                                                    {{--<option value="NATIONAL">NATIONAL</option>--}}
+                                                    {{--<option value="INTERNATIONAL">INTERNATIONAL</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_7" name="txt_provider_7" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('7')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_7" name="txt_product_7" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_7" name="txt_code_7" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_7" name="txt_price_7" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[8]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Location</label>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="{{$tipoServicio[8]}}" class="tab-pane fade">--}}
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_codigo">Location</label>--}}
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_6" name="txt_localizacion_6" placeholder="Location">--}}
-                                                <select class="form-control" id="txt_localizacion_8" name="txt_localizacion_8">
-                                                    @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" name="tipoServicio_8" id="tipoServicio_8" value="{{$tipoServicio[8]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_type">Type</label>
-                                                <input type="text" class="form-control" id="txt_type_8" name="txt_type_8" placeholder="Type">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col-md-9">
-                                                <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_8" name="txt_provider_8" placeholder="Provider">
-                                            </div>
-                                            <div class="col-md-3 margin-top-25 ">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('8')">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_product">Product</label>
-                                                <input type="text" class="form-control" id="txt_product_8" name="txt_product_8" placeholder="Product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_code">Code product</label>
-                                                <input type="text" class="form-control" id="txt_code_8" name="txt_code_8" placeholder="Code product">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_8" name="txt_price_8" placeholder="Price">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="checkbox11">
-                                                <label class="text-green-goto">
-                                                    <input  type="checkbox" name="txt_price_chb_8" id="txt_price_chb_8">
-                                                    El precio es por grupo
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                {{--<select class="form-control" id="txt_localizacion_8" name="txt_localizacion_8">--}}
+                                                    {{--@foreach($destinations as $destination)--}}
+                                                        {{--<option value="{{$destination->destino}}">{{$destination->destino}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                                {{--<input type="hidden" name="tipoServicio_8" id="tipoServicio_8" value="{{$tipoServicio[8]}}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_type">Type</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_type_8" name="txt_type_8" placeholder="Type">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group col-md-9">--}}
+                                                {{--<label for="txt_precio">Provider</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_provider_8" name="txt_provider_8" placeholder="Provider">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-3 margin-top-25 ">--}}
+                                                {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('8')">--}}
+                                                    {{--<i class="fa fa-plus-circle" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_product">Product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_product_8" name="txt_product_8" placeholder="Product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_code">Code product</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_code_8" name="txt_code_8" placeholder="Code product">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="txt_price">Price</label>--}}
+                                                {{--<input type="text" class="form-control" id="txt_price_8" name="txt_price_8" placeholder="Price">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="checkbox11">--}}
+                                                {{--<label class="text-green-goto">--}}
+                                                    {{--<input  type="checkbox" name="txt_price_chb_8" id="txt_price_chb_8">--}}
+                                                    {{--El precio es por grupo--}}
+                                                {{--</label>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                             {{csrf_field()}}
                             <input type="hidden" name="posTipo" id="posTipo" value="0">

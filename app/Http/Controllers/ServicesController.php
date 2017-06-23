@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Category;
 use App\M_Servicio;
+use App\M_Destino;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
@@ -11,29 +13,48 @@ class ServicesController extends Controller
 {
     //
     public function index(){
+        $destinations=M_Destino::get();
         $servicios=M_Servicio::get();
-        return view('admin.database.services',['servicios'=>$servicios]);
+        $categorias=M_Category::get();
+        return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
     }
     public function store(Request $request){
-        $posTipo=$request->input('posTipo');
-        $codigo='txt_codigo_'.$posTipo;
-        $nombre='txt_nombre_'.$posTipo;
-        $tipo='tipoServicio_'.$posTipo;
-        $precio='txt_precio_'.$posTipo;
+        $categorias=M_Category::get();
 
-        $txt_codigo=strtoupper($request->input($codigo));
-        $txt_nombre=strtoupper($request->input($nombre));
-        $txt_tipo=$request->input($tipo);
-        $txt_precio=$request->input($precio);
+        foreach ($categorias as $categoria){
+            $cate[]=$categoria->nombre;
+        }
+        $posTipo=$request->input('posTipo');
+        $txt_localizacion=$request->input('txt_localizacion_'.$posTipo);
+        $txt_type=$request->input('txt_type_'.$posTipo);
+        $txt_acomodacion=$request->input('txt_acomodacion_'.$posTipo);
+        $txt_product=$request->input('txt_product_'.$posTipo);
+        $txt_price=$request->input('txt_price_'.$posTipo);
 
         $destino=new M_Servicio();
-        $destino->codigo=$txt_codigo;
-        $destino->nombre=$txt_nombre;
-        $destino->tipoServicio=$txt_tipo;
-        $destino->precio=$txt_precio;
-        $destino->save();
-        $servicios=M_Servicio::get();
-        return view('admin.database.services',['servicios'=>$servicios]);
+        $destino->grupo=$cate[$posTipo];
+        $destino->localizacion=$txt_localizacion;
+        $destino->tipo_servicio=$txt_type;
+        $destino->acomodacion=$txt_acomodacion;
+        $destino->nombre=$txt_product;
+        $destino->precio_venta=$txt_price;
+        $found_destino=M_Servicio::where('nombre',$txt_product)->get();
+        if(count($found_destino)==0)
+        {
+            $destino->save();
+            $destino->codigo=$destino->id;
+            $destino->save();
+            $destinations=M_Destino::get();
+            $servicios=M_Servicio::get();
+            $categorias=M_Category::get();
+            return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
+        }
+        else{
+            $destinations=M_Destino::get();
+            $servicios=M_Servicio::get();
+            $categorias=M_Category::get();
+            return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
+        }
     }
     public function delete(Request $request){
         $id=$request->input('id');

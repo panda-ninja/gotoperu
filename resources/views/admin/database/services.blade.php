@@ -16,7 +16,7 @@
     </div>
     <div class="row margin-top-20">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary hide" data-toggle="modal" data-target="#modal_new_destination">
+        <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#modal_new_destination">
             New <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </button>
 
@@ -31,169 +31,164 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <?php
-                        $tipoServicio[0]='HOTELS';
-                        $tipoServicio[1]='TOURS';
-                        $tipoServicio[2]='TRANSPORTATION';
-                        $tipoServicio[3]='GUIDES_ASSIST';
-                        $tipoServicio[4]='ENTRANCES';
-                        $tipoServicio[5]='FOOD';
-                        $tipoServicio[6]='TRAINS';
-                        $tipoServicio[7]='TRAVELS';
-                        $tipoServicio[8]='OTHERS';
-                        ?>
+
                         <div class="modal-body">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[5]}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[6]}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[7]}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
-                                <li><a data-toggle="tab" href="#{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
-                            </ul>
-
+                                <?php
+                                $pos=0;
+                                ?>
+                                @foreach($categorias as $categoria)
+                                    <?php
+                                    $active='';
+                                    $tipoServicio[]=$categoria->nombre;
+                                    if($pos==0){
+                                        $active='active';
+                                    }
+                                    ?>
+                                    <li class="{{$active}}"><a data-toggle="tab" href="#{{$categoria->nombre}}" onclick="escojerPos({{$pos}})">{{$categoria->nombre}}</a></li>
+                                    <?php
+                                        $pos++;
+                                    ?>
+                                @endforeach
+                             </ul>
                             <div class="tab-content">
-                                <div id="{{$tipoServicio[0]}}" class="tab-pane fade in active">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Codigo</label>
-                                                <input type="text" class="form-control" id="txt_codigo_0" name="txt_codigo_0" placeholder="Codigo">
-                                                <input type="hidden" name="tipoServicio_0" id="tipoServicio_0" value="{{$tipoServicio[0]}}">
+                                <?php
+                                $pos=0;
+                                ?>
+                                @foreach($categorias as $categoria)
+                                    <?php
+                                    $activo='';
+                                    ?>
+                                    @if($pos==0)
+                                        <?php
+                                        $activo='in active';
+                                        ?>
+                                    @endif
+                                    <div id="{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_codigo">Location</label>
+                                                    {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                                    <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
+                                                        @foreach($destinations as $destination)
+                                                            <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                    <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="txt_nombre_0" name="txt_nombre_0" placeholder="Nombre">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_type">Type</label>
+                                                    {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
+
+                                                    @if($categoria->nombre=='HOTELS')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="2 STARS">2 STARS</option>
+                                                            <option value="3 STARS">3 STARS</option>
+                                                            <option value="4 STARS">4 STARS</option>
+                                                            <option value="5 STARS">5 STARS</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='TOURS')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="GROUP">GROUP</option>
+                                                            <option value="PRIVATE">PRIVATE</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='MOVILID')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="AUTO">AUTO</option>
+                                                            <option value="SUBARU">SUBARU</option>
+                                                            <option value="VAN">VAN</option>
+                                                            <option value="H1">H1</option>
+                                                            <option value="SPRINTER">SPRINTER</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='REPRESENT')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="GUIDE">GUIDE</option>
+                                                            <option value="TRANSFER">TRANSFER</option>
+                                                            <option value="ASSISTANCE">ASSISTANCE</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='ENTRANCES')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="EXTRANJERO">EXTRANJERO</option>
+                                                            <option value="NATIONAL">NATIONAL</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='FOOD')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="LUNCH">LUNCH</option>
+                                                            <option value="DINNER">DINNER</option>
+                                                            <option value="BOX LUNCH">BOX LUNCH</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='TRAINS')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="EXPEDITION">EXPEDITION</option>
+                                                            <option value="VISITADOME">VISITADOME</option>
+                                                            <option value="HIRAN BINGHAN">BOX LUNCH</option>
+                                                            <option value="EJECUTIVO">EJECUTIVO</option>
+                                                            <option value="PRIMERA CLASE">PRIMERA CLASE</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='FLIGHTS')
+                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                            <option value="NATIONAL">NATIONAL</option>
+                                                            <option value="INTERNATIONAL">INTERNATIONAL</option>
+                                                        </select>
+                                                    @endif
+                                                    @if($categoria->nombre=='OTHERS')
+                                                        <input type="text" class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}" placeholder="Type">
+                                                    @endif
+
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Precio</label>
-                                                <input type="number" class="form-control" id="txt_precio_0" name="txt_precio_0" placeholder="Precio">
+                                            @if($categoria->nombre=='HOTELS')
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_type">Accommodation</label>
+                                                        {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
+                                                        <select class="form-control" id="txt_acomodacion_{{$pos}}" name="txt_acomodacion_{{$pos}}">
+                                                            <option value="S">SIMPLE</option>
+                                                            <option value="D">DOBLE</option>
+                                                            <option value="M">MATRIMONIAL</option>
+                                                            <option value="T">TRIPLE</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_product">Product</label>
+                                                    <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[1]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Codigo</label>
-                                                <input type="text" class="form-control" id="txt_codigo_1" name="txt_codigo_1" placeholder="Codigo">
-                                                <input type="hidden" name="tipoServicio_1" id="tipoServicio_1" value="{{$tipoServicio[1]}}">
+                                            <div class="col-md-4 hide">
+                                                <div class="form-group">
+                                                    <label for="txt_code">Code product</label>
+                                                    <input type="text" class="form-control" id="txt_code_{{$pos}}" name="txt_code_{{$pos}}" placeholder="Code product">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="txt_nombre_1" name="txt_nombre_1" placeholder="Nombre">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_price">Price</label>
+                                                    <input type="text" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Precio</label>
-                                                <input type="number" class="form-control" id="txt_precio_1" name="txt_precio_1" placeholder="Precio">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[2]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Codigo</label>
-                                                <input type="text" class="form-control" id="txt_codigo_2" name="txt_codigo_2" placeholder="Codigo">
-                                                <input type="hidden" name="tipoServicio_2" id="tipoServicio_2" value="{{$tipoServicio[2]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="txt_nombre_2" name="txt_nombre_2" placeholder="Nombre">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Precio</label>
-                                                <input type="number" class="form-control" id="txt_precio_2" name="txt_precio_2" placeholder="Precio">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[3]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Codigo</label>
-                                                <input type="text" class="form-control" id="txt_codigo_3" name="txt_codigo_3" placeholder="Codigo">
-                                                <input type="hidden" name="tipoServicio_3" id="tipoServicio_3" value="{{$tipoServicio[3]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="txt_nombre_3" name="txt_nombre_3" placeholder="Nombre">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Precio</label>
-                                                <input type="number" class="form-control" id="txt_precio_3" name="txt_precio_3" placeholder="Precio">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[4]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Codigo</label>
-                                                <input type="text" class="form-control" id="txt_codigo_4" name="txt_codigo_4" placeholder="Codigo">
-                                                <input type="hidden" name="tipoServicio_4" id="tipoServicio_4" value="{{$tipoServicio[4]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="txt_nombre_4" name="txt_nombre_4" placeholder="Nombre">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Precio</label>
-                                                <input type="number" class="form-control" id="txt_precio_4" name="txt_precio_4" placeholder="Precio">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="{{$tipoServicio[5]}}" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_codigo">Codigo</label>
-                                                <input type="text" class="form-control" id="txt_codigo_5" name="txt_codigo_5" placeholder="Codigo">
-                                                <input type="hidden" name="tipoServicio_5" id="tipoServicio_5" value="{{$tipoServicio[5]}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="txt_nombre_5" name="txt_nombre_5" placeholder="Nombre">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="txt_precio">Precio</label>
-                                                <input type="number" class="form-control" id="txt_precio_5" name="txt_precio_5" placeholder="Precio">
-                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
+                                    <?php
+                                    $pos++;
+                                    ?>
+                                @endforeach
+
                             </div>
 
 
@@ -232,6 +227,7 @@
                         <th>Codigo</th>
                         <th>Nombre</th>
                         <th>Precio</th>
+                        <th>Operaciones</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -240,6 +236,7 @@
                         <th>Codigo</th>
                         <th>Nombre</th>
                         <th>Precio</th>
+                        <th>Operaciones</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -250,6 +247,14 @@
                             <td>{{$servicio->codigo}}</td>
                             <td>{{$servicio->nombre}}</td>
                             <td>${{$servicio->precio_venta}}</td>
+                            <td>
+                                <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$servicio->id}}">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->id}}','{{$servicio->nombre}}')">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </button>
+                            </td>
                         </tr>
                         @endif
                     @endforeach
