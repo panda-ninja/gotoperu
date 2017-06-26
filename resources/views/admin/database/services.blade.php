@@ -286,7 +286,6 @@
         </div>
     </div>
     @foreach($servicios as $servicio)
-        @if($servicio->grupo==$categoria->nombre)
             <div class="modal fade bd-example-modal-lg" id="modal_edit_destination_{{$servicio->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -338,7 +337,7 @@
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
                                                 <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
                                                     @foreach($destinations as $destination)
-                                                        <option value="{{$destination->destino}}" @if()@endif>{{$destination->destino}}</option>
+                                                        <option value="{{$destination->destino}}" @if($servicio->localizacion==$destination->destino) <?php echo 'seleted' ?> @endif>{{$destination->destino}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -469,7 +468,7 @@
             </div>
         </div>
     </div>
-        @endif
+
     @endforeach
     <script>
         $(document).ready(function() {
