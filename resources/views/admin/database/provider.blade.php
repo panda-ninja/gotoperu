@@ -62,12 +62,18 @@
                                 ?>
                                 @foreach($tipoServicio as $tipoServicio_)
                                     <?php
-                                    $in_activo='';
+                                        $in_activo='';
                                     if($in_pos==0)
                                         $in_activo='in active';
                                     ?>
                                     <div id="t_{{$tipoServicio_}}" class="tab-pane fade {{$in_activo}}">
                                         <div class="row margin-top-20">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_codigo">Codigo</label>
+                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{substr($tipoServicio_,0,2)}}{{($providers->last()->id)+1}}" readonly>
+                                                </div>
+                                            </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_codigo">Location</label>
@@ -175,15 +181,6 @@
                     $pos++;
                 ?>
                 @endforeach
-                {{--<li class="active"><a data-toggle="tab" href="#tl_{{$tipoServicio[0]}}">{{$tipoServicio[0]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[1]}}" >{{$tipoServicio[1]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[2]}}" >{{$tipoServicio[2]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[3]}}" >{{$tipoServicio[3]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[4]}}" >{{$tipoServicio[4]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[5]}}" >{{$tipoServicio[5]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[6]}}" >{{$tipoServicio[6]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[7]}}" >{{$tipoServicio[7]}}</a></li>--}}
-                {{--<li><a data-toggle="tab" href="#tl_{{$tipoServicio[8]}}" >{{$tipoServicio[8]}}</a></li>--}}
             </ul>
             <div class="tab-content">
                 <?php
@@ -201,7 +198,7 @@
                                     <thead>
                                     <tr>
                                         {{--<th>Location</th>--}}
-                                        {{--<th>Codigo</th>--}}
+                                        <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         {{--<th>Direccion</th>--}}
@@ -215,7 +212,7 @@
                                     <tfoot>
                                     <tr>
                                         {{--<th>Location</th>--}}
-                                        {{--<th>Codigo</th>--}}
+                                        <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         {{--<th>Direccion</th>--}}
@@ -231,7 +228,7 @@
                                         @if($tipoServicio_==$provider->grupo)
                                             <tr id="lista_provider_{{$provider->id}}">
                                                 {{--<td>{{$provider->localizacion}}</td>--}}
-                                                {{--<td>{{$provider->codigo}}</td>--}}
+                                                <td>{{$provider->codigo}}</td>
                                                 <td>{{$provider->ruc}}</td>
                                                 <td>{{$provider->razon_social}}</td>
                                                 {{--<td>{{$provider->direccion}}</td>--}}
@@ -305,6 +302,12 @@
                                                 ?>
                                                 <div id="e_{{$tipoServicio_}}_{{$provider->id}}" class="tab-pane fade <?php echo $in_act_activo;?>">
                                                         <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="txt_codigo">Codigo</label>
+                                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{($provider->codigo)}}" readonly>
+                                                                </div>
+                                                            </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="txt_codigo">Location</label>
