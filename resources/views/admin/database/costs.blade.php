@@ -54,13 +54,13 @@
                                 </ul>
                             <div class="tab-content">
                                 <?php
-                                $pos=0;
+                                $pos0=0;
                                 ?>
                                 @foreach($categorias as $categoria)
                                         <?php
                                         $activo='';
                                         ?>
-                                        @if($pos==0)
+                                        @if($pos0==0)
                                         <?php
                                             $activo='in active';
                                         ?>
@@ -166,7 +166,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group col-md-9">
                                                         <label for="txt_precio">Provider</label>
-                                                        <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider">
+                                                        <input type="text" class="form-control" id="txt_provider_{{$pos0}}" name="txt_provider_0" placeholder="Provider">
                                                     </div>
                                                     <div class="col-md-3 margin-top-25 ">
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
@@ -196,7 +196,7 @@
                                             </div>
                                         </div>
                                 <?php
-                                $pos++;
+                                $pos0++;
                                 ?>
                                 @endforeach
                                 {{--<div id="{{$tipoServicio[0]}}" class="tab-pane fade in active">--}}
@@ -1340,7 +1340,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_precio">Provider</label>
-                                                                <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider" value="<?php if($tipoServicio[0]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                                <input type="text" class="form-control" id="txt_provider_0_" name="txt_provider_0_" placeholder="Provider" value="<?php if($tipoServicio[0]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -1488,7 +1488,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_1" name="txt_provider_1" placeholder="Provider" value="<?php if($tipoServicio[1]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                            <input type="text" class="form-control" id="txt_provider_1_" name="txt_provider_1" placeholder="Provider" value="<?php if($tipoServicio[1]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -1639,7 +1639,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_2" name="txt_provider_2" placeholder="Provider" value="<?php if($tipoServicio[2]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                            <input type="text" class="form-control" id="txt_provider_2_" name="txt_provider_2" placeholder="Provider" value="<?php if($tipoServicio[2]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -1793,7 +1793,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_3" name="txt_provider_3" placeholder="Provider" value="<?php if($tipoServicio[3]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                            <input type="text" class="form-control" id="txt_provider_3_" name="txt_provider_3" placeholder="Provider" value="<?php if($tipoServicio[3]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -1948,7 +1948,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_4" name="txt_provider_4" placeholder="Provider" value="<?php if($tipoServicio[4]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                            <input type="text" class="form-control" id="txt_provider_4_" name="txt_provider_4" placeholder="Provider" value="<?php if($tipoServicio[4]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -2098,7 +2098,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_5" name="txt_provider_5" placeholder="Provider" value="<?php if($tipoServicio[5]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                            <input type="text" class="form-control" id="txt_provider_5_" name="txt_provider_5" placeholder="Provider" value="<?php if($tipoServicio[5]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -2251,7 +2251,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_precio">Provider</label>
-                                                                <input type="text" class="form-control" id="txt_provider_6" name="txt_provider_6" placeholder="Provider" value="<?php if($tipoServicio[6]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                                <input type="text" class="form-control" id="txt_provider_6_" name="txt_provider_6" placeholder="Provider" value="<?php if($tipoServicio[6]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -2399,7 +2399,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_precio">Provider</label>
-                                                                <input type="text" class="form-control" id="txt_provider_7" name="txt_provider_7" placeholder="Provider" value="<?php if($tipoServicio[7]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                                <input type="text" class="form-control" id="txt_provider_7_" name="txt_provider_7" placeholder="Provider" value="<?php if($tipoServicio[7]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -2544,7 +2544,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_8" name="txt_provider_8" placeholder="Provider" value="<?php if($tipoServicio[8]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
+                                                            <input type="text" class="form-control" id="txt_provider_8_" name="txt_provider_8" placeholder="Provider" value="<?php if($tipoServicio[8]==$producto->grupo) echo $proveedor->codigo.' '.$proveedor->razon_social;?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -2610,66 +2610,73 @@
         } );
         $(function () {
             $('#txt_provider_0').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','HOTELS')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_0').val(ui.item.value);
                 }
             });
             $('#txt_provider_1').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','1')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_1').val(ui.item.value);
                 }
             });
             $('#txt_provider_2').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','2')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_2').val(ui.item.value);
                 }
             });
             $('#txt_provider_3').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','3')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_3').val(ui.item.value);
                 }
             });
             $('#txt_provider_4').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','4')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_4').val(ui.item.value);
                 }
             });
             $('#txt_provider_5').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','5')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_5').val(ui.item.value);
                 }
             });
             $('#txt_provider_6').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','6')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_6').val(ui.item.value);
                 }
             });
             $('#txt_provider_7').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','7')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_7').val(ui.item.value);
                 }
             });
             $('#txt_provider_8').autocomplete({
-                source: '{{route('buscar_proveedor_path')}}',
+                source: '{{route('buscar_proveedor_path','8')}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_8').val(ui.item.value);
+                }
+            });
+            $('#txt_product_0').autocomplete({
+                source: '{{route('buscar_product_path')}}',
+                minLength: 3,
+                select:function(event,ui){
+                    $('#txt_product_0').val(ui.item.value);
                 }
             });
         });
