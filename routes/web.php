@@ -164,7 +164,7 @@ Route::post('/admin/categories/delete',[
     'uses' => 'CategoryController@delete',
     'as' => 'Category_delete_path',
 ]);
-Route::get('buscar-product', [
-    'uses' => 'ProductController@autocomplete',
-    'as' => 'buscar_product_path',
+Route::get('buscar-product/{id}', [
+    'uses' => 'ServicesController@autocomplete',
+    'as' => 'buscar_service_path',
 ]);
