@@ -99,7 +99,7 @@
                                                                 <option value="PRIVATE">PRIVATE</option>
                                                             </select>
                                                         @endif
-                                                        @if($categoria->nombre=='TRANSPORTATION')
+                                                        @if($categoria->nombre=='MOVILID')
                                                             <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                 <option value="AUTO">AUTO</option>
                                                                 <option value="SUBARU">SUBARU</option>
@@ -108,7 +108,7 @@
                                                                 <option value="SPRINTER">SPRINTER</option>
                                                             </select>
                                                         @endif
-                                                        @if($categoria->nombre=='GUIDES_ASSIST')
+                                                        @if($categoria->nombre=='REPRESENT')
                                                             <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                 <option value="GUIDE">GUIDE</option>
                                                                 <option value="TRANSFER">TRANSFER</option>
@@ -180,7 +180,7 @@
                                                         <input type="text" class="form-control" id="txt_product_{{$pos0}}" name="txt_product_0" placeholder="Product">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 hide">
                                                     <div class="form-group">
                                                         <label for="txt_code">Code product</label>
                                                         <input type="text" class="form-control" id="txt_code_0" name="txt_code_0" placeholder="Code product">
@@ -2057,7 +2057,14 @@
     </div>
 
     <script>
+        var loca='';
         $(document).ready(function() {
+            var loca='';
+            $("select[name=txt_localizacion_0]").change(function(){
+                alert($('select[name=txt_localizacion_0]').val());
+                loca=$('select[name=txt_localizacion_0]').val();
+                //$('input[name=valor1]').val($(this).val());
+            });
             $('#tb_HOTELS').DataTable();
             $('#tb_TOURS').DataTable();
             $('#tb_MOVILID').DataTable();
@@ -2069,64 +2076,66 @@
             $('#tb_OTHERS').DataTable();
         } );
         $(function () {
+
             $('#txt_provider_0').autocomplete({
-                source: '{{route('buscar_proveedor_path','HOTELS')}}',
+
+                source: '{{route('buscar_proveedor_path','HOTELS',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_0').val(ui.item.value);
                 }
             });
             $('#txt_provider_1').autocomplete({
-                source: '{{route('buscar_proveedor_path','TOURS')}}',
+                source: '{{route('buscar_proveedor_path','TOURS',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_1').val(ui.item.value);
                 }
             });
             $('#txt_provider_2').autocomplete({
-                source: '{{route('buscar_proveedor_path','MOVILID')}}',
+                source: '{{route('buscar_proveedor_path','MOVILID',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_2').val(ui.item.value);
                 }
             });
             $('#txt_provider_3').autocomplete({
-                source: '{{route('buscar_proveedor_path','REPRESENT')}}',
+                source: '{{route('buscar_proveedor_path','REPRESENT',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_3').val(ui.item.value);
                 }
             });
             $('#txt_provider_4').autocomplete({
-                source: '{{route('buscar_proveedor_path','ENTRANCES')}}',
+                source: '{{route('buscar_proveedor_path','ENTRANCES',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_4').val(ui.item.value);
                 }
             });
             $('#txt_provider_5').autocomplete({
-                source: '{{route('buscar_proveedor_path','FOOD')}}',
+                source: '{{route('buscar_proveedor_path','FOOD',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_5').val(ui.item.value);
                 }
             });
             $('#txt_provider_6').autocomplete({
-                source: '{{route('buscar_proveedor_path','TRAINS')}}',
+                source: '{{route('buscar_proveedor_path','TRAINS',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_6').val(ui.item.value);
                 }
             });
             $('#txt_provider_7').autocomplete({
-                source: '{{route('buscar_proveedor_path','FLIGHTS')}}',
+                source: '{{route('buscar_proveedor_path','FLIGHTS',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_7').val(ui.item.value);
                 }
             });
             $('#txt_provider_8').autocomplete({
-                source: '{{route('buscar_proveedor_path','OTHERS')}}',
+                source: '{{route('buscar_proveedor_path','OTHERS',loca)}}',
                 minLength: 1,
                 select:function(event,ui){
                     $('#txt_provider_8').val(ui.item.value);

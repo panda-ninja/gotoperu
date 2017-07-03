@@ -19,8 +19,9 @@ class ProveedorController extends Controller
         $categorias=M_Category::get();
         return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers,'categorias'=>$categorias]);
     }
-    public function autocomplete($clave)
+    public function autocomplete($clave,$loca)
     {
+        dd($loca);
 //        if ($request->ajax()) {
             $term = Input::get('term');
 //            $rs =strtoupper($request->get('txt_provider_0'));
