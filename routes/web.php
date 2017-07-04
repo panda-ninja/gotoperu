@@ -105,7 +105,7 @@ Route::post('/admin/costs/delete', [
 ]);
 
 /*== rutas para proveedores*/
-Route::get('buscar-proveedor/{id}/{id2}', [
+Route::any('admin/buscar-proveedor/', [
     'uses' => 'ProveedorController@autocomplete',
     'as' => 'buscar_proveedor_path',
 ]);
@@ -164,7 +164,7 @@ Route::post('/admin/categories/delete',[
     'uses' => 'CategoryController@delete',
     'as' => 'Category_delete_path',
 ]);
-Route::get('buscar-product/{id}', [
+Route::get('admin/buscar-product/', [
     'uses' => 'ServicesController@autocomplete',
     'as' => 'buscar_service_path',
 ]);

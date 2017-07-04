@@ -19,16 +19,20 @@ class ProveedorController extends Controller
         $categorias=M_Category::get();
         return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers,'categorias'=>$categorias]);
     }
-    public function autocomplete($clave,$loca)
+    public function autocomplete()
     {
-        dd($loca);
+        $clave='';
+//        dd($clave);
 //        if ($request->ajax()) {
             $term = Input::get('term');
+            $localizacion = Input::get('localizacion');
+            $grupo= Input::get('grupo');
+
+
 //            $rs =strtoupper($request->get('txt_provider_0'));
             $results = null;
             $results = [];
-            $proveedor = Proveedor::Where('grupo',$clave)
-                ->where('codigo', 'like', '%' . $term . '%')
+            $proveedor = Proveedor::where('codigo', 'like', '%' . $term . '%')
                 ->orWhere('razon_social', 'like', '%' . $term . '%')
                 ->get();
 
@@ -40,12 +44,15 @@ class ProveedorController extends Controller
             foreach ($proveedor as $query) {
 //                $rpt1=strpos($query->codigo,$term);
 //                $rpt2=strpos($query->razon_social,$term);
-//                if(!$rpt1||!$rpt2)
-                    $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->razon_social];
+                if($grupo==$query->grupo){
+                    if($localizacion==$query->localizacion)
+                        $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->razon_social.' '.$query->grupo.' '.$query->localizacion];
+                }
             }
             return response()->json($results);
 //            $rs1=[];
-//            $rs1[]=$clave;
+//            $rs1[]=$localizacion;
+//            $rs1[]=$grupo;
 //            $rs1[]=$term;
 //            return response()->json($rs1);
 //        }

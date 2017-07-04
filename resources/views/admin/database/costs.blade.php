@@ -2052,17 +2052,20 @@
                     </div>
                 @endforeach
             @endforeach
-
+            <input type="hidden" id="localizacion" name="localizacion" value="CUSCO">
+            <?php
+            $loc='gfgd';
+            ?>
         </div>
     </div>
-
+    <script type="text/javascript">
+    var valpasa='';
+    </script>
     <script>
-        var loca='';
         $(document).ready(function() {
-            var loca='';
             $("select[name=txt_localizacion_0]").change(function(){
-                alert($('select[name=txt_localizacion_0]').val());
-                loca=$('select[name=txt_localizacion_0]').val();
+                $('#loca').val($('select[name=txt_localizacion_0]').val());
+//                valpasa=$('#loca').val();
                 //$('input[name=valor1]').val($(this).val());
             });
             $('#tb_HOTELS').DataTable();
@@ -2076,71 +2079,51 @@
             $('#tb_OTHERS').DataTable();
         } );
         $(function () {
+            <?php
+                $i=0;
+            ?>
+            @foreach($tipoServicio as $tipoServicio_)
+            $('#txt_provider_{{$i++}}').autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "buscar-proveedor",
+                        dataType: "json",
+                        data: {
+                            term : request.term,
+                            localizacion : $("#localizacion").val(),
+                            grupo : '{{$tipoServicio_}}'
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+            @endforeach
 
-            $('#txt_provider_0').autocomplete({
-
-                source: '{{route('buscar_proveedor_path','HOTELS',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_0').val(ui.item.value);
-                }
+            <?php
+                $i=0;
+            ?>
+            @foreach($tipoServicio as $tipoServicio_)
+            $('#txt_product_{{$i++}}').autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "buscar-product",
+                        dataType: "json",
+                        data: {
+                            term : request.term,
+                            localizacion : $("#localizacion").val(),
+                            grupo : '{{$tipoServicio_}}'
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 1
             });
-            $('#txt_provider_1').autocomplete({
-                source: '{{route('buscar_proveedor_path','TOURS',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_1').val(ui.item.value);
-                }
-            });
-            $('#txt_provider_2').autocomplete({
-                source: '{{route('buscar_proveedor_path','MOVILID',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_2').val(ui.item.value);
-                }
-            });
-            $('#txt_provider_3').autocomplete({
-                source: '{{route('buscar_proveedor_path','REPRESENT',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_3').val(ui.item.value);
-                }
-            });
-            $('#txt_provider_4').autocomplete({
-                source: '{{route('buscar_proveedor_path','ENTRANCES',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_4').val(ui.item.value);
-                }
-            });
-            $('#txt_provider_5').autocomplete({
-                source: '{{route('buscar_proveedor_path','FOOD',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_5').val(ui.item.value);
-                }
-            });
-            $('#txt_provider_6').autocomplete({
-                source: '{{route('buscar_proveedor_path','TRAINS',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_6').val(ui.item.value);
-                }
-            });
-            $('#txt_provider_7').autocomplete({
-                source: '{{route('buscar_proveedor_path','FLIGHTS',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_7').val(ui.item.value);
-                }
-            });
-            $('#txt_provider_8').autocomplete({
-                source: '{{route('buscar_proveedor_path','OTHERS',loca)}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_provider_8').val(ui.item.value);
-                }
-            });
+            @endforeach
             $('#txt_product_0').autocomplete({
                 source: '{{route('buscar_service_path','HOTELS')}}',
                 minLength: 1,
@@ -2148,62 +2131,7 @@
                     $('#txt_product_0').val(ui.item.value);
                 }
             });
-            $('#txt_product_1').autocomplete({
-                source: '{{route('buscar_service_path','TOURS')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_1').val(ui.item.value);
-                }
-            });
-            $('#txt_product_2').autocomplete({
-                source: '{{route('buscar_service_path','MOVILID')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_2').val(ui.item.value);
-                }
-            });
-            $('#txt_product_3').autocomplete({
-                source: '{{route('buscar_service_path','REPRESENT')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_3').val(ui.item.value);
-                }
-            });
-            $('#txt_product_4').autocomplete({
-                source: '{{route('buscar_service_path','ENTRANCES')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_4').val(ui.item.value);
-                }
-            });
-            $('#txt_product_5').autocomplete({
-                source: '{{route('buscar_service_path','FOOD')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_5').val(ui.item.value);
-                }
-            });
-            $('#txt_product_6').autocomplete({
-                source: '{{route('buscar_service_path','TRAINS')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_6').val(ui.item.value);
-                }
-            });
-            $('#txt_product_7').autocomplete({
-                source: '{{route('buscar_service_path','FLIGHTS')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_7').val(ui.item.value);
-                }
-            });
-            $('#txt_product_8').autocomplete({
-                source: '{{route('buscar_service_path','OTHERS')}}',
-                minLength: 1,
-                select:function(event,ui){
-                    $('#txt_product_8').val(ui.item.value);
-                }
-            });
+
         });
     </script>
 @stop
