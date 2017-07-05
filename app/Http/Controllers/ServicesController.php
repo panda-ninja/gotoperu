@@ -87,35 +87,22 @@ class ServicesController extends Controller
         $categorias=M_Category::get();
         return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
     }
-    public function autocomplete($clave)
+    public function autocomplete()
     {
-//        if ($request->ajax()) {
         $term = Input::get('term');
-//            $rs =strtoupper($request->get('txt_provider_0'));
+        $localizacion = Input::get('localizacion');
+        $grupo= Input::get('grupo');
         $results = null;
         $results = [];
-        $proveedor = M_Servicio::Where('grupo',$clave)
-            ->where('nombre', 'like', '%' . $term . '%')
-            ->orWhere('codigo', 'like', '%' . $term . '%')
+        $proveedor = M_Servicio::where('codigo', 'like', '%' . $term . '%')
+            ->orWhere('nombre', 'like', '%' . $term . '%')
             ->get();
-
-//            $queries = DB::table('users')
-//                ->where('first_name', 'LIKE', '%'.$term.'%')
-//                ->orWhere('last_name', 'LIKE', '%'.$term.'%')
-//                ->take(5)->get();
-
         foreach ($proveedor as $query) {
-//                $rpt1=strpos($query->codigo,$term);
-//                $rpt2=strpos($query->razon_social,$term);
-//                if(!$rpt1||!$rpt2)
-            $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre.' -> '.$query->localizacion];
+          if($grupo==$query->grupo){
+                if($localizacion==$query->localizacion)
+                    $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre];
+            }
         }
         return response()->json($results);
-//            $rs1=[];
-//            $rs1[]=$clave;
-//            $rs1[]=$term;
-//            return response()->json($rs1);
-//        }
-
     }
 }

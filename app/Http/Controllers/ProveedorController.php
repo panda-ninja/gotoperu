@@ -46,7 +46,7 @@ class ProveedorController extends Controller
 //                $rpt2=strpos($query->razon_social,$term);
                 if($grupo==$query->grupo){
                     if($localizacion==$query->localizacion)
-                        $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->razon_social.' '.$query->grupo.' '.$query->localizacion];
+                        $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->razon_social];
                 }
             }
             return response()->json($results);

@@ -38,27 +38,24 @@ class CostController extends Controller
             'productos'=>$productos]);
     }
     public function store(Request $request){
-        $tipoServicio[0]='HOTELS';
-        $tipoServicio[1]='TOURS';
-        $tipoServicio[2]='TRANSPORTATION';
-        $tipoServicio[3]='GUIDES_ASSIST';
-        $tipoServicio[4]='ENTRANCES';
-        $tipoServicio[5]='FOOD';
-        $tipoServicio[6]='TRAINS';
-        $tipoServicio[7]='TRAVELS';
-        $tipoServicio[8]='OTHERS';
+        $categorias=M_Category::get();
+        foreach($categorias as $categoria){
+            $tipoServicio[]=$categoria->nombre;
+        }
+
         $posTipo=$request->input('posTipo');
+//        $posTipo=0;
         $localizacion='txt_localizacion_'.$posTipo;
         $type='txt_type_'.$posTipo;
         $provider='txt_provider_'.$posTipo;
         $product='txt_product_'.$posTipo;
         $code='txt_code_'.$posTipo;
         $price='txt_price_'.$posTipo;
-        $price_chb='txt_price_chb_'.$posTipo;
         $acomodacion='txt_acomodacion_'.$posTipo;
+        $tipo_grupo='txt_tipo_grupo_'.$posTipo;
+        $txt_tipo_grupo=$request->input($tipo_grupo);
 
-        $txt_price_chb=$request->input($price_chb);
-        if($txt_price_chb=='on')
+        if($txt_tipo_grupo=='Absoluto')
             $txt_price_chb=1;
         else
             $txt_price_chb=0;
@@ -75,7 +72,9 @@ class CostController extends Controller
         $txt_product=strtoupper($request->input($product));
         $txt_code=strtoupper($request->input($code));
         $txt_price=$request->input($price);
+
         $proveedor=Proveedor::where('codigo',$txt_provider[0])->get();
+//        dd($proveedor);
         if(count($proveedor)>0) {
             $proveedor_id=0;
             foreach ($proveedor as $pro){
@@ -93,33 +92,7 @@ class CostController extends Controller
             $producto->precio_grupo = $txt_price_chb;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
-            $servicio=M_Servicio::where('codigo',$txt_code)->OrWhere('nombre',$txt_product)->get();
-            if(count($servicio)==0){
-                $new_sericio=new M_Servicio();
-                $new_sericio->codigo=$txt_code;
-                $new_sericio->localizacion=$txt_localizacion;
-                $new_sericio->grupo=$tipoServicio[$posTipo];
-                $new_sericio->tipoServicio=$tipoServicio[$posTipo];
-                $new_sericio->nombre=$txt_product;
-                $new_sericio->precio_venta=$txt_price;
-                $new_sericio->precio_grupo = $txt_price_chb;
-                $new_sericio->acomodacion = $txt_acomodacion;
-                $new_sericio->save();
-            }
-            else{
-                $lista_costos=M_Producto::where('codigo',$txt_code)->OrWhere('nombre',$txt_product)->get();
-                $costo_max=0;
-                foreach ($lista_costos as $costo){
-                    if($costo->precio_costo>$costo_max)
-                        $costo_max=$costo->precio_costo;
-                }
-                if($txt_price>$costo_max)
-                    $costo_max=$txt_price;
-                foreach ($servicio as $servicio1){
-                    $servicio1->precio_venta=$costo_max;
-                    $servicio1->save();
-                }
-            }
+
             $valor='';
             $productos_hotels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','HOTELS');}])->get();
             $productos_tours=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TOURS');}])->get();
@@ -131,12 +104,16 @@ class CostController extends Controller
             $productos_travels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAVELS');}])->get();
             $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
             $destinations=M_Destino::get();
+            $categorias=M_Category::get();
+            $productos=Proveedor::with(['productos'])->get();
 //        dd($productos_hotels);
             return view('admin.database.costs',['productos_hotels'=>$productos_hotels,
                 'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
                 'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,
                 'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
-                'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,'destinations'=>$destinations]);
+                'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
+                'destinations'=>$destinations,'categorias'=>$categorias,
+                'productos'=>$productos]);
         }
 
     }
