@@ -187,7 +187,22 @@
                                                     <input type="text" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price">
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class=" text-green-goto">
+                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                            Precio es absoluto
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class=" text-green-goto">
+                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                            Precio es individual
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <?php
@@ -458,7 +473,37 @@
                                                 <input type="text" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price"  value="{{$servicio->precio_venta}}">
                                             </div>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                @if($servicio->precio_grupo==1)
+                                                    <div class="col-md-6">
+                                                        <label class=" text-green-goto">
+                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                            Precio es absoluto
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class=" text-green-goto">
+                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                            Precio es individual
+                                                        </label>
+                                                    </div>
+                                                @else
+                                                    <div class="col-md-6">
+                                                        <label class=" text-green-goto">
+                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                            Precio es absoluto
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class=" text-green-goto">
+                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                            Precio es individual
+                                                        </label>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <?php

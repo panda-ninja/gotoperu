@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Category;
 use App\M_Destino;
 use App\M_Itinerario;
 use App\M_ItinerarioDestino;
@@ -17,7 +18,8 @@ class ItinerariController extends Controller
         $destinations=M_Destino::get();
         $services=M_Servicio::get();
         $itinerarios=M_Itinerario::get();
-        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios]);
+        $categorias=M_Category::get();
+        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
 
     public function show_Itineraries(Request $request){

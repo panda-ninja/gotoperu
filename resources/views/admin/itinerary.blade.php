@@ -76,20 +76,14 @@
                                 @endforeach
                             </div>
                             <div class="row margin-top-20">
-                                <?php
-                                $tipoServicio[0]='HOTELS';
-                                $tipoServicio[1]='TOURS';
-                                $tipoServicio[2]='TRANSPORTATION';
-                                $tipoServicio[3]='GUIDES_ASSIST';
-                                $tipoServicio[4]='ENTRANCES';
-                                $tipoServicio[5]='FOOD';
-                                $tipoServicio[6]='TRAINS';
-                                $tipoServicio[7]='TRAVELS';
-                                $tipoServicio[8]='OTHERS';
-                                ?>
+                                @foreach($categorias as $categoria)
+                                    <?php
+                                    $tipoServicio[]=$categoria->nombre;
+                                    ?>
+                                @endforeach
+
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#t_{{$tipoServicio[0]}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
-                                    <li><a data-toggle="tab" href="#t_{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#t_{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[2]}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[3]}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[4]}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
@@ -99,21 +93,21 @@
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
                                 </ul>
                                 <div class="tab-content margin-top-20">
-                                    <div id="t_{{$tipoServicio[0]}}" class="tab-pane fade in active">
-                                        @foreach($services as $service)
-                                            @if($service->grupo==$tipoServicio[0])
-                                            <div id="service_{{$service->id}}" class="col-md-4 hide">
-                                                <div class="checkbox11">
-                                                    <label>
-                                                        <input type="checkbox" class="servicios" name="servicios[]" value="0_{{0}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
-                                                        {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{0.00}} p.p</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div id="t_{{$tipoServicio[1]}}" class="tab-pane fade">
+                                    {{--<div id="t_{{$tipoServicio[0]}}" class="tab-pane fade in active">--}}
+                                        {{--@foreach($services as $service)--}}
+                                            {{--@if($service->grupo==$tipoServicio[0])--}}
+                                            {{--<div id="service_{{$service->id}}" class="col-md-4 hide">--}}
+                                                {{--<div class="checkbox11">--}}
+                                                    {{--<label>--}}
+                                                        {{--<input type="checkbox" class="servicios" name="servicios[]" value="0_{{0}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">--}}
+                                                        {{--{{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{0.00}} p.p</span>--}}
+                                                    {{--</label>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--@endif--}}
+                                        {{--@endforeach--}}
+                                    {{--</div>--}}
+                                    <div id="t_{{$tipoServicio[1]}}" class="tab-pane fade in active">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[1])
                                                 <div  id="service_{{$service->id}}" class="col-md-4 hide">
@@ -378,21 +372,17 @@
                                         @endforeach
                                     </div>
                                     <div class="row margin-top-20">
+                                        @foreach($categorias as $categoria)
+                                            <?php
+                                            $tipoServicio[]=$categoria->nombre;
+                                            ?>
+                                        @endforeach
                                         <?php
-                                        $tipoServicio[0]='HOTELS';
-                                        $tipoServicio[1]='TOURS';
-                                        $tipoServicio[2]='TRANSPORTATION';
-                                        $tipoServicio[3]='GUIDES_ASSIST';
-                                        $tipoServicio[4]='ENTRANCES';
-                                        $tipoServicio[5]='FOOD';
-                                        $tipoServicio[6]='TRAINS';
-                                        $tipoServicio[7]='TRAVELS';
-                                        $tipoServicio[8]='OTHERS';
                                         $total_pre_ven_edit=0;
                                         ?>
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a data-toggle="tab" href="#et_{{$tipoServicio[0]}}_{{$itinerario->id}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[1]}}_{{$itinerario->id}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
+                                            <li class="hide"><a data-toggle="tab" href="#et_{{$tipoServicio[0]}}_{{$itinerario->id}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
+                                            <li class="active"><a data-toggle="tab" href="#et_{{$tipoServicio[1]}}_{{$itinerario->id}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
                                             <li><a data-toggle="tab" href="#et_{{$tipoServicio[2]}}_{{$itinerario->id}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
                                             <li><a data-toggle="tab" href="#et_{{$tipoServicio[3]}}_{{$itinerario->id}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
                                             <li><a data-toggle="tab" href="#et_{{$tipoServicio[4]}}_{{$itinerario->id}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>

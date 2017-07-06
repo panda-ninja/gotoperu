@@ -192,7 +192,7 @@
                                                         <input type="text" class="form-control" id="txt_price_0" name="txt_price_{{$pos0}}" placeholder="Price">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 hide">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label class=" text-green-goto">
@@ -345,7 +345,7 @@
                                                             <div class="form-group">
                                                                 <label for="txt_codigo">Location</label>
                                                                 {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                                <select class="form-control" id="etxt_localizacion_{{$pos0}}" name="txt_localizacion_{{$pos0}}">
+                                                                <select class="form-control" id="etxt_localizacion_{{$pos0}}" name="txt_localizacion_0">
                                                                     @foreach($destinations as $destination)
                                                                         <option value="{{$destination->destino}}" @if($destination->destino==$producto->localizacion) {{'selected'}} @endif>{{$destination->destino}}</option>
                                                                     @endforeach
@@ -360,7 +360,7 @@
                                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
 
                                                                 @if($producto->grupo=='HOTELS')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="2 STARS" @if($producto->tipo_producto=='2 STARS') {{'selected'}} @endif>2 STARS</option>
                                                                         <option value="3 STARS" @if($producto->tipo_producto=='3 STARS') {{'selected'}} @endif>3 STARS</option>
                                                                         <option value="4 STARS" @if($producto->tipo_producto=='4 STARS') {{'selected'}} @endif>4 STARS</option>
@@ -368,13 +368,13 @@
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='TOURS')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="GROUP" @if($producto->tipo_producto=='GROUP') {{'selected'}} @endif>GROUP</option>
                                                                         <option value="PRIVATE" @if($producto->tipo_producto=='PRIVATE') {{'selected'}} @endif>PRIVATE</option>
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='MOVILID')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="AUTO" @if($producto->tipo_producto=='AUTO') {{'selected'}} @endif>AUTO</option>
                                                                         <option value="SUBARU" @if($producto->tipo_producto=='SUBARU') {{'selected'}} @endif>SUBARU</option>
                                                                         <option value="VAN" @if($producto->tipo_producto=='VAN') {{'selected'}} @endif>VAN</option>
@@ -383,27 +383,27 @@
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='REPRESENT')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="GUIDE" @if($producto->tipo_producto=='GUIDE') {{'selected'}} @endif>GUIDE</option>
                                                                         <option value="TRANSFER" @if($producto->tipo_producto=='TRANSFER') {{'selected'}} @endif>TRANSFER</option>
                                                                         <option value="ASSISTANCE" @if($producto->tipo_producto=='ASSISTANCE') {{'selected'}} @endif>ASSISTANCE</option>
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='ENTRANCES')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="EXTRANJERO" @if($producto->tipo_producto=='EXTRANJERO') {{'selected'}} @endif>EXTRANJERO</option>
                                                                         <option value="NATIONAL" @if($producto->tipo_producto=='NATIONAL') {{'selected'}} @endif>NATIONAL</option>
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='FOOD')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="LUNCH" @if($producto->tipo_producto=='LUNCH') {{'selected'}} @endif>LUNCH</option>
                                                                         <option value="DINNER" @if($producto->tipo_producto=='DINNER') {{'selected'}} @endif>DINNER</option>
                                                                         <option value="BOX LUNCH" @if($producto->tipo_producto=='BOX LUNCH') {{'selected'}} @endif>BOX LUNCH</option>
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='TRAINS')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="EXPEDITION" @if($producto->tipo_producto=='EXPEDITION') {{'selected'}} @endif>EXPEDITION</option>
                                                                         <option value="VISITADOME" @if($producto->tipo_producto=='VISITADOME') {{'selected'}} @endif>VISITADOME</option>
                                                                         <option value="HIRAN BINGHAN" @if($producto->tipo_producto=='HIRAN BINGHAN') {{'selected'}} @endif>BOX LUNCH</option>
@@ -412,13 +412,13 @@
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='FLIGHTS')
-                                                                    <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="NATIONAL" @if($producto->tipo_producto=='NATIONAL') {{'selected'}} @endif>NATIONAL</option>
                                                                         <option value="INTERNATIONAL" @if($producto->tipo_producto=='INTERNATIONAL') {{'selected'}} @endif>INTERNATIONAL</option>
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='OTHERS')
-                                                                    <input type="text" class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}" placeholder="Type" value="{{$producto->tipo_producto}}">
+                                                                    <input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type" value="{{$producto->tipo_producto}}">
                                                                 @endif
 
                                                             </div>
@@ -428,7 +428,7 @@
                                                                 <div class="form-group">
                                                                     <label for="txt_type">Accommodation</label>
                                                                     {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
-                                                                    <select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_{{$pos0}}">
+                                                                    <select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_0">
                                                                         <option value="S" @if($producto->acomodacion=='S') {{'selected'}} @endif>SIMPLE</option>
                                                                         <option value="D" @if($producto->acomodacion=='D') {{'selected'}} @endif>DOBLE</option>
                                                                         <option value="M" @if($producto->acomodacion=='M') {{'selected'}} @endif>MATRIMONIAL</option>
@@ -440,7 +440,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group col-md-9">
                                                                 <label for="txt_precio">Provider</label>
-                                                                <input type="text" class="form-control" id="e_txt_provider_{{$pos0}}" name="txt_provider_{{$pos0}}" placeholder="Provider" value="{{$proveedor->codigo.' '.$proveedor->razon_social}}">
+                                                                <input type="text" class="form-control" id="e_txt_provider_{{$pos0}}" name="txt_provider_0" placeholder="Provider" value="{{$proveedor->codigo.' '.$proveedor->razon_social}}">
                                                             </div>
                                                             <div class="col-md-3 margin-top-25 ">
                                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
@@ -451,19 +451,19 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_product">Product</label>
-                                                                <input type="text" class="form-control" id="e_txt_product_{{$pos0}}" name="txt_product_{{$pos0}}" placeholder="Product" value="{{$producto->codigo.' '.$producto->nombre}}">
+                                                                <input type="text" class="form-control" id="e_txt_product_{{$pos0}}" name="txt_product_0" placeholder="Product" value="{{$producto->codigo.' '.$producto->nombre}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 hide">
                                                             <div class="form-group">
                                                                 <label for="txt_code">Code product</label>
-                                                                <input type="text" class="form-control" id="txt_code_0" name="txt_code_{{$pos0}}" placeholder="Code product" value="{{$producto->codigo}}">
+                                                                <input type="text" class="form-control" id="txt_code_0" name="txt_code_0" placeholder="Code product" value="{{$producto->codigo}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="txt_price">Price</label>
-                                                                <input type="text" class="form-control" id="txt_price_0" name="txt_price_{{$pos0}}" placeholder="Price" value="{{$producto->precio_costo}}">
+                                                                <input type="text" class="form-control" id="txt_price_0" name="txt_price_0" placeholder="Price" value="{{$producto->precio_costo}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 hide">
@@ -504,22 +504,22 @@
                 @endforeach
             @endforeach
 
-            <input type="text" id="localizacion1_0" name="localizacion1_0" value="CUSCO">
-            <input type="text" id="localizacion1_1" name="localizacion1_1" value="CUSCO">
-            <input type="text" id="localizacion1_2" name="localizacion1_2" value="CUSCO">
-            <input type="text" id="localizacion1_3" name="localizacion1_3" value="CUSCO">
-            <input type="text" id="localizacion1_4" name="localizacion1_4" value="CUSCO">
-            <input type="text" id="localizacion1_5" name="localizacion1_5" value="CUSCO">
-            <input type="text" id="localizacion1_6" name="localizacion1_6" value="CUSCO">
-            <input type="text" id="localizacion1_7" name="localizacion1_7" value="CUSCO">
-            <input type="text" id="localizacion1_8" name="localizacion1_8" value="CUSCO">
+            <input type="hidden" id="localizacion1_0" name="localizacion1_0" value="CUSCO">
+            <input type="hidden" id="localizacion1_1" name="localizacion1_1" value="CUSCO">
+            <input type="hidden" id="localizacion1_2" name="localizacion1_2" value="CUSCO">
+            <input type="hidden" id="localizacion1_3" name="localizacion1_3" value="CUSCO">
+            <input type="hidden" id="localizacion1_4" name="localizacion1_4" value="CUSCO">
+            <input type="hidden" id="localizacion1_5" name="localizacion1_5" value="CUSCO">
+            <input type="hidden" id="localizacion1_6" name="localizacion1_6" value="CUSCO">
+            <input type="hidden" id="localizacion1_7" name="localizacion1_7" value="CUSCO">
+            <input type="hidden" id="localizacion1_8" name="localizacion1_8" value="CUSCO">
             <?php
             $pos0=0;
             ?>
 
             @foreach($productos as $proveedor)
                 @foreach($proveedor->productos  as $producto)
-                    <input type="text" id="e_localizacion_{{$pos0}}" value="CUSCO">
+                    <input type="hidden" id="e_localizacion_{{$pos0}}" value="CUSCO">
                     <?php
                     $pos0++;
                     ?>
@@ -527,9 +527,7 @@
             @endforeach
         </div>
     </div>
-    <script type="text/javascript">
-    var valpasa='';
-    </script>
+
     <script>
         $(document).ready(function() {
             <?php
@@ -569,7 +567,7 @@
             <?php
                 $i=0;
             ?>
-            @foreach($tipoServicio as $tipoServicio_)
+        @foreach($tipoServicio as $tipoServicio_)
             $('#txt_provider_{{$i}}').autocomplete({
                 source: function(request, response) {
                     $.ajax({
@@ -590,23 +588,22 @@
             <?php
                 $i++;
             ?>
-            @endforeach
+        @endforeach
 
-            <?php
-            $pos0=0;
-            ?>
-
-            @foreach($productos as $proveedor)
-                @foreach($proveedor->productos  as $producto)
-                $('#e_txt_provider_{{$pos0}}').autocomplete({
+        <?php
+        $pos10=0;
+        ?>
+        @foreach($productos as $proveedor1)
+            @foreach($proveedor1->productos  as $producto1)
+            $('#e_txt_provider_{{$pos10}}').autocomplete({
                 source: function(request, response) {
                     $.ajax({
                         url: "buscar-proveedor",
                         dataType: "json",
                         data: {
                             term : request.term,
-                            localizacion : $("#e_localizacion_{{$pos0}}").val(),
-                            grupo : '{{$producto->grupo}}'
+                            localizacion : $("#e_localizacion_{{$pos10}}").val(),
+                            grupo : '{{$producto1->grupo}}'
                         },
                         success: function(data) {
                             response(data);
@@ -616,7 +613,7 @@
                 minLength: 1
             });
             <?php
-                $pos0++;
+                $pos10++;
             ?>
             @endforeach
         @endforeach
@@ -625,7 +622,7 @@
             $i=0;
         ?>
         @foreach($tipoServicio as $tipoServicio_)
-$('#txt_product_{{$i}}').autocomplete({
+            $('#txt_product_{{$i}}').autocomplete({
                 source: function(request, response) {
                     $.ajax({
                         url: "buscar-product",
@@ -643,9 +640,36 @@ $('#txt_product_{{$i}}').autocomplete({
                 minLength: 1
             });
             <?php
-            $i++;
+                $i++;
+            ?>
+        @endforeach
+        <?php
+        $pos10=0;
+        ?>
+        @foreach($productos as $proveedor1)
+            @foreach($proveedor1->productos  as $producto1)
+            $('#e_txt_product_{{$pos10}}').autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "buscar-product",
+                        dataType: "json",
+                        data: {
+                            term : request.term,
+                            localizacion : $("#e_localizacion_{{$pos10}}").val(),
+                            grupo : '{{$producto1->grupo}}'
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+            <?php
+            $pos10++;
             ?>
             @endforeach
+        @endforeach
         });
     </script>
 @stop

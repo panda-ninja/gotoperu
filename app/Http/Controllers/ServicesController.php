@@ -31,7 +31,7 @@ class ServicesController extends Controller
         $txt_acomodacion=$request->input('txt_acomodacion_'.$posTipo);
         $txt_product=$request->input('txt_product_'.$posTipo);
         $txt_price=$request->input('txt_price_'.$posTipo);
-
+        $txt_tipo_grupo=$request->input('txt_tipo_grupo_'.$posTipo);
         $destino=new M_Servicio();
         $destino->grupo=$cate[$posTipo];
         $destino->localizacion=$txt_localizacion;
@@ -39,6 +39,10 @@ class ServicesController extends Controller
         $destino->acomodacion=$txt_acomodacion;
         $destino->nombre=$txt_product;
         $destino->precio_venta=$txt_price;
+        if($txt_tipo_grupo=='Absoluto')
+            $destino->precio_grupo=1;
+        elseif($txt_tipo_grupo=='Individual')
+            $destino->precio_grupo=0;
         $found_destino=M_Servicio::where('nombre',$txt_product)->get();
         if(count($found_destino)==0)
         {
@@ -65,6 +69,7 @@ class ServicesController extends Controller
         else
             return 0;
     }
+
     public function edit(Request $request){
         $id=$request->input('id');
         $posTipo=$request->input('posTipo');
@@ -73,7 +78,7 @@ class ServicesController extends Controller
         $txt_acomodacion=$request->input('txt_acomodacion_'.$posTipo);
         $txt_product=$request->input('txt_product_'.$posTipo);
         $txt_price=$request->input('txt_price_'.$posTipo);
-
+        $txt_tipo_grupo=$request->input('txt_tipo_grupo_'.$posTipo);
 
         $destino=M_Servicio::FindOrFail($id);
         $destino->localizacion=$txt_localizacion;
@@ -81,6 +86,10 @@ class ServicesController extends Controller
         $destino->acomodacion=$txt_acomodacion;
         $destino->nombre=$txt_product;
         $destino->precio_venta=$txt_price;
+        if($txt_tipo_grupo=='Absoluto')
+            $destino->precio_grupo=1;
+        elseif($txt_tipo_grupo=='Individual')
+            $destino->precio_grupo=0;
         $destino->save();
         $destinations=M_Destino::get();
         $servicios=M_Servicio::get();
@@ -99,9 +108,13 @@ class ServicesController extends Controller
             ->get();
         foreach ($proveedor as $query) {
           if($grupo==$query->grupo){
-                if($localizacion==$query->localizacion)
-                    $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre];
+            if($localizacion==$query->localizacion){
+                $pre='Invididual';
+                if($query->precio_grupo==1)
+                    $pre='Absoluto';
+                $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre.'->con precio '.$pre];
             }
+          }
         }
         return response()->json($results);
     }

@@ -69,27 +69,34 @@ class CostController extends Controller
         $txt_localizacion=strtoupper($request->input($localizacion));
         $txt_type=$request->input($type);
         $txt_provider=explode(' ',$request->input($provider));
-        $txt_product=strtoupper($request->input($product));
-        $txt_code=strtoupper($request->input($code));
+        $txt_product=explode(' ',strtoupper($request->input($product)));
+        $txt_code=$txt_product[0];
         $txt_price=$request->input($price);
 
         $proveedor=Proveedor::where('codigo',$txt_provider[0])->get();
+        $prod=M_Servicio::where('codigo',$txt_product[0])->get();
 //        dd($proveedor);
         if(count($proveedor)>0) {
             $proveedor_id=0;
             foreach ($proveedor as $pro){
                 $proveedor_id=$pro->id;
             }
+            $prod__precio_g=0;
+            $prod_nombre='';
+            foreach ($prod as $pro){
+                $prod__precio_g=$pro->precio_grupo;
+                $prod_nombre=$pro->nombre;
+            }
             $producto = new M_Producto();
             $producto->codigo = $txt_code;
             $producto->grupo = $tipoServicio[$posTipo];
             $producto->localizacion = $txt_localizacion;
             $producto->tipo_producto = $txt_type;
-            $producto->nombre = $txt_product;
+            $producto->nombre = $prod_nombre;
             $producto->descripcion = '';
             $producto->precio_costo = $txt_price;
             $producto->acomodacion = $txt_acomodacion;
-            $producto->precio_grupo = $txt_price_chb;
+            $producto->precio_grupo = $prod__precio_g;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
 
@@ -126,21 +133,25 @@ class CostController extends Controller
             return 0;
     }
     public function edit(Request $request){
+        $categorias=M_Category::get();
+        foreach($categorias as $categoria){
+            $tipoServicio[]=$categoria->nombre;
+        }
 
+//        $posTipo=$request->input('posTipo');
         $id=$request->input('id');
-        $posTipo=$request->input('posTipoEditcost_'.$id);
-        $localizacion=strtoupper($request->input('txt_localizacion_'.$posTipo));
-        $grupo=strtoupper($request->input('tipoServicio_'.$posTipo));
-        $type=strtoupper($request->input('txt_type_'.$posTipo));
-        $provider=explode(' ',$request->input('txt_provider_'.$posTipo));
-        $producto_nombre=strtoupper($request->input('txt_product_'.$posTipo));
-        $producto_code=strtoupper($request->input('txt_code_'.$posTipo));
-        $price=strtoupper($request->input('txt_price_'.$posTipo));
-        $price_chb='txt_price_chb_'.$posTipo;
-        $txt_price_chb=$request->input($price_chb);
+        $posTipo=0;
+        $localizacion='txt_localizacion_'.$posTipo;
+        $type='txt_type_'.$posTipo;
+        $provider='txt_provider_'.$posTipo;
+        $product='txt_product_'.$posTipo;
+        $code='txt_code_'.$posTipo;
+        $price='txt_price_'.$posTipo;
         $acomodacion='txt_acomodacion_'.$posTipo;
+        $tipo_grupo='txt_tipo_grupo_'.$posTipo;
+        $txt_tipo_grupo=$request->input($tipo_grupo);
 
-        if($txt_price_chb=='on')
+        if($txt_tipo_grupo=='Absoluto')
             $txt_price_chb=1;
         else
             $txt_price_chb=0;
@@ -151,52 +162,40 @@ class CostController extends Controller
         else
             $txt_acomodacion='';
 
-        $proveedor=Proveedor::where('codigo',$provider[0])->get();
+        $txt_localizacion=strtoupper($request->input($localizacion));
+        $txt_type=$request->input($type);
+        $txt_provider=explode(' ',$request->input($provider));
+        $txt_product=explode(' ',strtoupper($request->input($product)));
+        $txt_code=$txt_product[0];
+        $txt_price=$request->input($price);
+
+        $proveedor=Proveedor::where('codigo',$txt_provider[0])->get();
+        $prod=M_Servicio::where('codigo',$txt_product[0])->get();
+
+//        dd($proveedor);
         if(count($proveedor)>0) {
             $proveedor_id=0;
             foreach ($proveedor as $pro){
                 $proveedor_id=$pro->id;
             }
+            $prod__precio_g=0;
+            $prod_nombre='';
+            foreach ($prod as $pro){
+                $prod__precio_g=$pro->precio_grupo;
+                $prod_nombre=$pro->nombre;
+            }
             $producto = M_Producto::FindOrFail($id);
-            $producto->codigo = $producto_code;
-            $producto->grupo = $grupo;
-            $producto->localizacion = $localizacion;
-            $producto->tipo_producto = $type;
-            $producto->nombre = $producto_nombre;
-//            $producto->descripcion = '';
-            $producto->precio_costo = $price;
+            $producto->codigo = $txt_code;
+            $producto->grupo = $tipoServicio[$posTipo];
+            $producto->localizacion = $txt_localizacion;
+            $producto->tipo_producto = $txt_type;
+            $producto->nombre = $prod_nombre;
+            $producto->descripcion = '';
+            $producto->precio_costo = $txt_price;
             $producto->acomodacion = $txt_acomodacion;
-            $producto->precio_grupo = $txt_price_chb;
+            $producto->precio_grupo = $prod__precio_g;
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
-
-            $servicio=M_Servicio::where('codigo',$producto_code)->OrWhere('nombre',$producto_nombre)->get();
-            if(count($servicio)==0){
-                $new_sericio=new M_Servicio();
-                $new_sericio->codigo=$producto_code;
-                $new_sericio->localizacion=$localizacion;
-                $new_sericio->grupo=$grupo;
-                $new_sericio->tipoServicio=$type;
-                $new_sericio->nombre=$producto_nombre;
-                $new_sericio->precio_venta=$price;
-                $new_sericio->precio_grupo = $txt_price_chb;
-                $new_sericio->acomodacion = $txt_acomodacion;
-                $new_sericio->save();
-            }
-            else{
-                $lista_costos=M_Producto::where('codigo',$producto_code)->OrWhere('nombre',$producto_nombre)->get();
-                $costo_max=0;
-                foreach ($lista_costos as $costo){
-                    if($costo->precio_costo>$costo_max)
-                        $costo_max=$costo->precio_costo;
-                }
-                if($price>$costo_max)
-                    $costo_max=$price;
-                foreach ($servicio as $servicio1){
-                    $servicio1->precio_venta=$costo_max;
-                    $servicio1->save();
-                }
-            }
 
             $valor='';
             $productos_hotels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','HOTELS');}])->get();
@@ -209,12 +208,16 @@ class CostController extends Controller
             $productos_travels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAVELS');}])->get();
             $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
             $destinations=M_Destino::get();
+            $categorias=M_Category::get();
+            $productos=Proveedor::with(['productos'])->get();
 //        dd($productos_hotels);
             return view('admin.database.costs',['productos_hotels'=>$productos_hotels,
                 'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
                 'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,
                 'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
-                'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,'destinations'=>$destinations]);
+                'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
+                'destinations'=>$destinations,'categorias'=>$categorias,
+                'productos'=>$productos]);
         }
     }
 }
