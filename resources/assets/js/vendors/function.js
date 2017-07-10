@@ -52,7 +52,7 @@ function Pasar_datos(){
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
             Itis_precio+=parseInt(itinerario[4]);
-            console.log('cost: '+Itis_precio);
+            // console.log('cost: '+Itis_precio);
             var servicios=itinerario[5].split('*');
             var iti_temp='';
                 iti_temp+='<div id="itis_'+itinerario[0]+'" class="box-sortable margin-bottom-10">'+

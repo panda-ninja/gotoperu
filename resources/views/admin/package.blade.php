@@ -92,7 +92,7 @@
                                     <?php
                                         if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                             $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'*';
+                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'/'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                         }
                                     ?>
                                 @endforeach

@@ -124,7 +124,8 @@ class ItinerariController extends Controller
             $destinations=M_Destino::get();
             $services=M_Servicio::get();
             $itinerarios=M_Itinerario::get();
-            return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios]);
+            $categorias=M_Category::get();
+            return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
     public function edit(Request $request){
 
@@ -168,7 +169,8 @@ class ItinerariController extends Controller
         $destinations=M_Destino::get();
         $services=M_Servicio::get();
         $itinerarios=M_Itinerario::get();
-        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios]);
+        $categorias=M_Category::get();
+        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
     public function delete(Request $request){
         $id=$request->input('id');
