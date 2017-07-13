@@ -61,18 +61,24 @@ class PackageController extends Controller
 //        $destinos=$request->input('destinos[]');
         $totalItinerario=$request->input('totalItinerario');
         $itinerarios_=$request->input('itinerarios_');
-        $utilidad=$request->input('txt_utilidad');
-        $preciox_n_dias_venta=$request->input('totalItinerario_venta');
+//        $utilidad=$request->input('txt_utilidad');
+//        $preciox_n_dias_venta=$request->input('totalItinerario_venta');
 //
-//        $amount_t3=$request->input('amount_t3');
-//        $amount_d3=$request->input('amount_d3');
-//        $amount_s3=$request->input('amount_s3');
-//        $amount_t4=$request->input('amount_t4');
-//        $amount_d4=$request->input('amount_d4');
-//        $amount_s4=$request->input('amount_s4');
-//        $amount_t5=$request->input('amount_t5');
-//        $amount_d5=$request->input('amount_d5');
-//        $amount_s5=$request->input('amount_s5');
+        $amount_t2=$request->input('amount_t2');
+        $amount_d2=$request->input('amount_d2');
+        $amount_s2=$request->input('amount_s2');
+
+        $amount_t3=$request->input('amount_t3');
+        $amount_d3=$request->input('amount_d3');
+        $amount_s3=$request->input('amount_s3');
+
+        $amount_t4=$request->input('amount_t4');
+        $amount_d4=$request->input('amount_d4');
+        $amount_s4=$request->input('amount_s4');
+
+        $amount_t5=$request->input('amount_t5');
+        $amount_d5=$request->input('amount_d5');
+        $amount_s5=$request->input('amount_s5');
 //
 //        $profit_2=$request->input('profit_2');
 //        $profit_3=$request->input('profit_3');
@@ -88,29 +94,71 @@ class PackageController extends Controller
         $paquete->descripcion=$txta_description;
         $paquete->incluye=$txta_include;
         $paquete->noincluye=$txta_notinclude;
-        $paquete->utilidad=$utilidad;
+//        $paquete->utilidad=$utilidad;
         $paquete->estado=1;
         $paquete->preciocosto=$totalItinerario;
 //        $preciox_n_dias=$totalItinerario*($txt_day-1);
 //        $preciox_n_dias_venta=$preciox_n_dias+ceil($preciox_n_dias*0.40);
 
-        $paquete->precio_venta=$preciox_n_dias_venta;
+//        $paquete->precio_venta=$preciox_n_dias_venta;
         $paquete->save();
 
-//        $paquete_precio=new P_PaquetePrecio();
-//        $paquete_precio->estrella=2;
-//        $paquete_precio->precio_s=$amount_s2;
-//        $paquete_precio->personas_s=1;
-//        $paquete_precio->precio_m=$amount_d2;
-//        $paquete_precio->personas_m=1;
-//        $paquete_precio->precio_d=$amount_d2;
-//        $paquete_precio->personas_s=1;
-//        $paquete_precio->precio_t=$amount_t2;
-//        $paquete_precio->personas_t=1;
-//        $paquete_precio->estado=1;
-//        $paquete_precio->utilida=$profit_2;
-//        $paquete_precio->p_paquete_id=$paquete->id;
-//        $paquete_precio->save();
+        $paquete_precio2=new P_PaquetePrecio();
+        $paquete_precio2->estrellas=2;
+        $paquete_precio2->precio_s=$amount_s2;
+        $paquete_precio2->personas_s=1;
+        $paquete_precio2->precio_m=$amount_d2;
+        $paquete_precio2->personas_m=1;
+        $paquete_precio2->precio_d=$amount_d2;
+        $paquete_precio2->personas_d=1;
+        $paquete_precio2->precio_t=$amount_t2;
+        $paquete_precio2->personas_t=1;
+        $paquete_precio2->estado=1;
+        $paquete_precio2->p_paquete_id=$paquete->id;
+        $paquete_precio2->save();
+
+        $paquete_precio3=new P_PaquetePrecio();
+        $paquete_precio3->estrellas=3;
+        $paquete_precio3->precio_s=$amount_s3;
+        $paquete_precio3->personas_s=1;
+        $paquete_precio3->precio_m=$amount_d3;
+        $paquete_precio3->personas_m=1;
+        $paquete_precio3->precio_d=$amount_d3;
+        $paquete_precio3->personas_d=1;
+        $paquete_precio3->precio_t=$amount_t3;
+        $paquete_precio3->personas_t=1;
+        $paquete_precio3->estado=1;
+        $paquete_precio3->p_paquete_id=$paquete->id;
+        $paquete_precio3->save();
+
+        $paquete_precio4=new P_PaquetePrecio();
+        $paquete_precio4->estrellas=4;
+        $paquete_precio4->precio_s=$amount_s4;
+        $paquete_precio4->personas_s=1;
+        $paquete_precio4->precio_m=$amount_d4;
+        $paquete_precio4->personas_m=1;
+        $paquete_precio4->precio_d=$amount_d4;
+        $paquete_precio4->personas_d=1;
+        $paquete_precio4->precio_t=$amount_t4;
+        $paquete_precio4->personas_t=1;
+        $paquete_precio4->estado=1;
+        $paquete_precio4->p_paquete_id=$paquete->id;
+        $paquete_precio4->save();
+
+        $paquete_precio5=new P_PaquetePrecio();
+        $paquete_precio5->estrellas=5;
+        $paquete_precio5->precio_s=$amount_s5;
+        $paquete_precio5->personas_s=1;
+        $paquete_precio5->precio_m=$amount_d5;
+        $paquete_precio5->personas_m=1;
+        $paquete_precio5->precio_d=$amount_d5;
+        $paquete_precio5->personas_d=1;
+        $paquete_precio5->precio_t=$amount_t5;
+        $paquete_precio5->personas_t=1;
+        $paquete_precio5->estado=1;
+        $paquete_precio5->p_paquete_id=$paquete->id;
+        $paquete_precio5->save();
+
         $dia=0;
         foreach ($itinerarios_ as $itinerario_id){
             $dia++;
@@ -136,21 +184,28 @@ class PackageController extends Controller
                 $p_destinos->p_itinerario_id=$p_itinerario->id;
                 $p_destinos->save();
             }
-
+            $st=0;
             foreach($m_itineario->itinerario_itinerario_servicios as $servicios){
                 $p_servicio=new P_ItinerarioServicios();
                 $p_servicio->nombre=$servicios->itinerario_servicios_servicio->nombre;
                 $p_servicio->observacion='';
-                $p_servicio->precio=$servicios->itinerario_servicios_servicio->precio_venta;
+                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+                    $p_servicio->precio=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
+                else
+                    $p_servicio->precio=$servicios->itinerario_servicios_servicio->precio_venta;
+                $st+=$p_servicio->precio;
                 $p_servicio->p_itinerario_id=$p_itinerario->id;
                 $p_servicio->save();
             }
-
+            $p_itinerario->precio=$st;
+            $p_itinerario->save();
 
         }
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
-        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios]);
+        $m_servicios=M_Servicio::get();
+//        dd($servicios);
+        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
     }
 
     /**

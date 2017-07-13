@@ -91,8 +91,15 @@
                                 @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
                                     <?php
                                         if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
-                                            $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'/'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                            if($servicios->itinerario_servicios_servicio->precio_grupo==1){
+                                                $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
+                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'/'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                            }
+                                            else{
+                                                $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
+                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'/'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+
+                                            }
                                         }
                                     ?>
                                 @endforeach
@@ -129,7 +136,13 @@
                                     <tr>
                                         <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
                                         <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                        <td>{{$servicios->itinerario_servicios_servicio->precio_venta}}</td>
+                                        <td>
+                                            @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+                                                {{ceil($servicios->itinerario_servicios_servicio->precio_venta/2)}}
+                                            @else
+                                                {{$servicios->itinerario_servicios_servicio->precio_venta}}
+                                            @endif
+                                        </td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -303,7 +316,7 @@
                     @endif
                     @if($servicio->tipo_servicio=="3 STARS" &&$servicio->acomodacion=="T" )
                     <?php
-                    $amount_t2=$servicio->precio_venta;
+                    $amount_t3=$servicio->precio_venta;
                     ?>
                     @endif
 

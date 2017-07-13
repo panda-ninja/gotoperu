@@ -22083,10 +22083,9 @@ function Pasar_datos(){
             $.each(servicios, function( key, value ) {
                 var serv=value.split('/');
                 var val_p_g=parseInt(serv[1]);
-                if(serv[2]==1)
-                    val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
-                precio_grupo+=val_p_g;
-
+                // if(serv[2]==1)
+                //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
+                // precio_grupo+=val_p_g;
             });
             var iti_temp='';
                 iti_temp+='<div id="itis_'+itinerario[0]+'" class="box-sortable margin-bottom-10">'+
@@ -22099,7 +22098,7 @@ function Pasar_datos(){
                 '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
             '</a>'+
         '</span>'+
-        '<span class="label label-success pull-right">($'+precio_grupo+'.00)</span>'+
+        '<span class="label label-success pull-right">(cc$'+itinerario[4]+'.00)</span>'+
                     '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
                 '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
                     itinerario[3]+
@@ -22117,8 +22116,8 @@ function Pasar_datos(){
                 $.each(servicios, function( key, value ) {
                     var serv=value.split('/');
                     var val_p_g=serv[1];
-                    if(serv[2]==1)
-                        val_p_g=Math.ceil(serv[1]/nroPasajeros);
+                    // if(serv[2]==1)
+                    //     val_p_g=Math.ceil(serv[1]/nroPasajeros);
                     iti_temp+='<tr><td><input type="hidden" name="iti_servicios_'+itinerario[0]+'" value="'+value+'">'+serv[0]+'</td>'+
                                 '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
                                 '<td>'+val_p_g+'</td>'+
