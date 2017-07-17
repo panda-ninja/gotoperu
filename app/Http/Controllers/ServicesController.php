@@ -35,7 +35,7 @@ class ServicesController extends Controller
         $destino=new M_Servicio();
         $destino->grupo=$cate[$posTipo];
         $destino->localizacion=$txt_localizacion;
-        $destino->tipo_servicio=$txt_type;
+        $destino->tipoServicio=$txt_type;
         $destino->acomodacion=$txt_acomodacion;
         $destino->nombre=$txt_product;
         $destino->precio_venta=$txt_price;
@@ -82,7 +82,7 @@ class ServicesController extends Controller
 
         $destino=M_Servicio::FindOrFail($id);
         $destino->localizacion=$txt_localizacion;
-        $destino->tipo_servicio=$txt_type;
+        $destino->tipoServicio=$txt_type;
         $destino->acomodacion=$txt_acomodacion;
         $destino->nombre=$txt_product;
         $destino->precio_venta=$txt_price;
