@@ -23,7 +23,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="txt_day">Duracion</label>
-                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="0" onchange="cambiar_profit_total()">
+                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="0" onchange="calcular_resumen()">
                 </div>
             </div>
 
@@ -278,85 +278,85 @@
                 $amount_t5=0;
                 ?>
                 @foreach($m_servicios as $servicio)
-                    @if($servicio->tipo_servicio=="2 STARS" &&$servicio->acomodacion=="S" )
+                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="S" )
                     <?php
                     $amount_s2=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="2 STARS" &&$servicio->acomodacion=="D" )
+                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="D" )
                     <?php
                     $amount_d2=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="2 STARS" &&$servicio->acomodacion=="M" )
+                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="M" )
                     <?php
                     $amount_m2=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="2 STARS" &&$servicio->acomodacion=="T" )
+                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="T" )
                     <?php
                     $amount_t2=$servicio->precio_venta;
                     ?>
                     @endif
 
-                    @if($servicio->tipo_servicio=="3 STARS" &&$servicio->acomodacion=="S" )
+                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="S" )
                     <?php
                     $amount_s3=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="3 STARS" &&$servicio->acomodacion=="D" )
+                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="D" )
                     <?php
                     $amount_d3=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="3 STARS" &&$servicio->acomodacion=="M" )
+                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="M" )
                     <?php
                     $amount_m3=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="3 STARS" &&$servicio->acomodacion=="T" )
+                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="T" )
                     <?php
                     $amount_t3=$servicio->precio_venta;
                     ?>
                     @endif
 
-                    @if($servicio->tipo_servicio=="4 STARS" &&$servicio->acomodacion=="S" )
+                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="S" )
                     <?php
                     $amount_s4=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="4 STARS" &&$servicio->acomodacion=="D" )
+                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="D" )
                     <?php
                     $amount_d4=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="4 STARS" &&$servicio->acomodacion=="M" )
+                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="M" )
                     <?php
                     $amount_m4=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="4 STARS" &&$servicio->acomodacion=="T" )
+                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="T" )
                     <?php
                     $amount_t4=$servicio->precio_venta;
                     ?>
                     @endif
 
-                    @if($servicio->tipo_servicio=="5 STARS" &&$servicio->acomodacion=="S" )
+                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="S" )
                     <?php
                     $amount_s5=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="5 STARS" &&$servicio->acomodacion=="D" )
+                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="D" )
                     <?php
                     $amount_d5=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="5 STARS" &&$servicio->acomodacion=="M" )
+                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="M" )
                     <?php
                     $amount_m5=$servicio->precio_venta;
                     ?>
                     @endif
-                    @if($servicio->tipo_servicio=="5 STARS" &&$servicio->acomodacion=="T" )
+                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="T" )
                     <?php
                     $amount_t5=$servicio->precio_venta;
                     ?>
@@ -386,7 +386,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_t2" name="amount_t2" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="{{$amount_t2}}">
+                                    <input type="number" class="form-control text-right" id="amount_t2" name="amount_t2" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_t2}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -396,7 +396,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_t3" name="amount_t3" placeholder="Amount" onchange="cambiar_profit(3)" min="0" value="{{$amount_t3}}">
+                                    <input type="number" class="form-control text-right" id="amount_t3" name="amount_t3" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_t3}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -406,7 +406,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_t4" name="amount_t4" placeholder="Amount" onchange="cambiar_profit(4)" min="0" value="{{$amount_t4}}">
+                                    <input type="number" class="form-control text-right" id="amount_t4" name="amount_t4" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_t4}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -416,54 +416,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_t5" name="amount_t5" placeholder="Amount" onchange="cambiar_profit(5)" min="0" value="{{$amount_t5}}">
-                                    {{--<div class="input-group-addon">.00</div>--}}
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td class="col-md-2">
-                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
-                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
-                        </td>
-                        <td>
-                            <div class="form-group margin-bottom-0">
-                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_d2" name="amount_d2" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="{{$amount_d2}}">
-                                    {{--<div class="input-group-addon">.00</div>--}}
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group margin-bottom-0">
-                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_d3" name="amount_d3" placeholder="Amount" onchange="cambiar_profit(3)" min="0" value="{{$amount_d3}}">
-                                    {{--<div class="input-group-addon">.00</div>--}}
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group margin-bottom-0">
-                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_d4" name="amount_d4" placeholder="Amount" onchange="cambiar_profit(4)" min="0" value="{{$amount_d4}}">
-                                    {{--<div class="input-group-addon">.00</div>--}}
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group margin-bottom-0">
-                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_d5" name="amount_d5" placeholder="Amount" onchange="cambiar_profit(5)" min="0" value="{{$amount_d5}}">
+                                    <input type="number" class="form-control text-right" id="amount_t5" name="amount_t5" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_t5}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -473,13 +426,14 @@
                     <tr>
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
                         <td>
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_s2" name="amount_s2" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="{{$amount_s2}}">
+                                    <input type="number" class="form-control text-right" id="amount_d2" name="amount_d2" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_d2}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -489,7 +443,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_s3" name="amount_s3" placeholder="Amount" onchange="cambiar_profit(3)" min="0" value="{{$amount_s3}}">
+                                    <input type="number" class="form-control text-right" id="amount_d3" name="amount_d3" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_d3}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -499,7 +453,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_s4" name="amount_s4" placeholder="Amount" onchange="cambiar_profit(4)" min="0" value="{{$amount_s4}}">
+                                    <input type="number" class="form-control text-right" id="amount_d4" name="amount_d4" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_d4}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -509,7 +463,53 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="number" class="form-control text-right" id="amount_s5" name="amount_s5" placeholder="Amount" onchange="cambiar_profit(5)" min="0" value="{{$amount_s5}}">
+                                    <input type="number" class="form-control text-right" id="amount_d5" name="amount_d5" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_d5}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s2" name="amount_s2" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_s2}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s3" name="amount_s3" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_s3}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s4" name="amount_s4" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_s4}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s5" name="amount_s5" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_s5}}">
                                     {{--<div class="input-group-addon">.00</div>--}}
                                 </div>
                             </div>
@@ -559,7 +559,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">Profit</div>
-                                    <input type="number" class="form-control text-right" id="profit_2" name="profit_2" placeholder="Percent" onchange="cambiar_profit(2)" value="40" min="0">
+                                    <input type="number" class="form-control text-right" id="profit_2" name="profit_2" placeholder="Percent" onchange="calcular_resumen()" value="40" min="0">
                                     <div class="input-group-addon">%</div>
                                 </div>
                             </div>
@@ -569,7 +569,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">Profit</div>
-                                    <input type="number" class="form-control text-right" id="profit_3" name="profit_3" placeholder="Percent" onchange="cambiar_profit(3)" value="40" min="0">
+                                    <input type="number" class="form-control text-right" id="profit_3" name="profit_3" placeholder="Percent" onchange="calcular_resumen()" value="40" min="0">
                                     <div class="input-group-addon">%</div>
                                 </div>
                             </div>
@@ -579,7 +579,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">Profit</div>
-                                    <input type="number" class="form-control text-right" id="profit_4" name="profit_4" placeholder="Percent" onchange="cambiar_profit(4)" value="40" min="0">
+                                    <input type="number" class="form-control text-right" id="profit_4" name="profit_4" placeholder="Percent" onchange="calcular_resumen()" value="40" min="0">
                                     <div class="input-group-addon">%</div>
                                 </div>
                             </div>
@@ -589,7 +589,7 @@
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">Profit</div>
-                                    <input type="number" class="form-control text-right" id="profit_5" name="profit_5" placeholder="Percent" onchange="cambiar_profit(5)" value="40" min="0">
+                                    <input type="number" class="form-control text-right" id="profit_5" name="profit_5" placeholder="Percent" onchange="calcular_resumen()" value="40" min="0">
                                     <div class="input-group-addon">%</div>
                                 </div>
                             </div>
@@ -901,11 +901,170 @@
         </div>
         <div class="row margin-top-20">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">6</span> Prices</h4>
+                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">6</span> Resumen</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row ">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered font-montserrat">
+                    <caption class="text-right"><b>Todos los precios tienen un 40% de utilidad y son para dos personas</b></caption>
+                    <thead>
+                    <tr class="bg-grey-goto-light text-white">
+                        <th class="text-center">Hotels</th>
+                        <th class="text-center">2 Stars</th>
+                        <th class="text-center">3 Stars</th>
+                        <th class="text-center">4 Stars</th>
+                        <th class="text-center">5 Stars</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="col-md-2">
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_t2_u" name="amount_t2_u" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="{{$amount_t2}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_t3_u" name="amount_t3_u" placeholder="Amount" onchange="cambiar_profit(3)" min="0" value="{{$amount_t3}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_t4_u" name="amount_t4_u" placeholder="Amount" onchange="cambiar_profit(4)" min="0" value="{{$amount_t4}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_t5_u" name="amount_t5_u" placeholder="Amount" onchange="cambiar_profit(5)" min="0" value="{{$amount_t5}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_d2_u" name="amount_d2_u" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="{{$amount_d2}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_d3_u" name="amount_d3_u" placeholder="Amount" onchange="cambiar_profit(3)" min="0" value="{{$amount_d3}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_d4_u" name="amount_d4_u" placeholder="Amount" onchange="cambiar_profit(4)" min="0" value="{{$amount_d4}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_d5_u" name="amount_d5_u" placeholder="Amount" onchange="cambiar_profit(5)" min="0" value="{{$amount_d5}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">
+                            <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s2_u" name="amount_s2_u" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="{{$amount_s2}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s3_u" name="amount_s3_u" placeholder="Amount" onchange="cambiar_profit(3)" min="0" value="{{$amount_s3}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s4_u" name="amount_s4_u" placeholder="Amount" onchange="cambiar_profit(4)" min="0" value="{{$amount_s4}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_s5_u" name="amount_s5_u" placeholder="Amount" onchange="cambiar_profit(5)" min="0" value="{{$amount_s5}}" readonly="readonly">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row hide">
             <div class="col-md-12">
                 <div class="text-center">
 

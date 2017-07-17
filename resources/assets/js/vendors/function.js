@@ -150,6 +150,7 @@ function Pasar_datos(){
     $('#totalItinerario').val(Itis_precio);
     $('#totalItinerario_front').html(Itis_precio);
 
+    calcular_resumen();
 }
 
 function cambiar_profit(tipo){
@@ -639,7 +640,7 @@ function eliminar_iti(id){
 
 function calcular_utilidad(){
     var $totalItinerario=$('#totalItinerario').val();
-    var $txt_day=$('#txt_day').val();
+    var $txt_day=Math.ceil($('#txt_day').val()-1);
     var $txt_utilidad=$('#txt_utilidad').val();
     var $preciox_n_dias=$totalItinerario*($txt_day-1);
     // console.log('preciox_n_dias='+$preciox_n_dias);
@@ -688,4 +689,74 @@ function eliminar_categoria1(id,categoria) {
         });
 
     })
+}
+
+function calcular_resumen(){
+    var utilidad=1.40;
+    var costo_itinerario=$("#totalItinerario").val();
+    var txt_day=Math.ceil($('#txt_day').val()-1);
+
+    var amount_s2=$("#amount_s2").val();
+    var amount_d2=$("#amount_d2").val();
+    var amount_t2=$("#amount_t2").val();
+
+    var amount_s3=$("#amount_s3").val();
+    var amount_d3=$("#amount_d3").val();
+    var amount_t3=$("#amount_t3").val();
+
+    var amount_s4=$("#amount_s4").val();
+    var amount_d4=$("#amount_d4").val();
+    var amount_t4=$("#amount_t4").val();
+
+    var amount_s5=$("#amount_s5").val();
+    var amount_d5=$("#amount_d5").val();
+    var amount_t5=$("#amount_t5").val();
+
+    console.log('_costo_itinerario:'+costo_itinerario+'_amount_s2:'+amount_s2+'_txt_day:'+txt_day+'_nroPasajeros:'+nroPasajeros);
+    var amount_s2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    console.log('sin utilidad'+amount_s2_u);
+    amount_s2_u=Math.ceil(amount_s2_u*utilidad);
+    console.log('con utilidad'+amount_s2_u);
+
+    var amount_d2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_d2_u=Math.ceil(amount_d2_u*utilidad);
+    var amount_t2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_t2_u=Math.ceil(amount_t2_u*utilidad);
+
+    var amount_s3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_s3_u=Math.ceil(amount_s3_u*utilidad);
+    var amount_d3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_d3_u=Math.ceil(amount_d3_u*utilidad);
+    var amount_t3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_t3_u=Math.ceil(amount_t3_u*utilidad);
+
+    var amount_s4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_s4_u=Math.ceil(amount_s4_u*utilidad);
+    var amount_d4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_d4_u=Math.ceil(amount_d4_u*utilidad);
+    var amount_t4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_t4_u=Math.ceil(amount_t4_u*utilidad);
+
+    var amount_s5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_s5_u=Math.ceil(amount_s5_u*utilidad);
+    var amount_d5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_d5_u=Math.ceil(amount_d5_u*utilidad);
+    var amount_t5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    amount_t5_u=Math.ceil(amount_t5_u*utilidad);
+
+    $("#amount_s2_u").val(amount_s2_u);
+    $("#amount_d2_u").val(amount_d2_u);
+    $("#amount_t2_u").val(amount_t2_u);
+
+    $("#amount_s3_u").val(amount_s3_u);
+    $("#amount_d3_u").val(amount_d3_u);
+    $("#amount_t3_u").val(amount_t3_u);
+
+    $("#amount_s4_u").val(amount_s4_u);
+    $("#amount_d4_u").val(amount_d4_u);
+    $("#amount_t4_u").val(amount_t4_u);
+
+    $("#amount_s5_u").val(amount_s5_u);
+    $("#amount_d5_u").val(amount_d5_u);
+    $("#amount_t5_u").val(amount_t5_u);
 }

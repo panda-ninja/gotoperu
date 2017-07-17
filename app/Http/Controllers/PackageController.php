@@ -94,7 +94,7 @@ class PackageController extends Controller
         $paquete->descripcion=$txta_description;
         $paquete->incluye=$txta_include;
         $paquete->noincluye=$txta_notinclude;
-//        $paquete->utilidad=$utilidad;
+        $paquete->utilidad=40;
         $paquete->estado=1;
         $paquete->preciocosto=$totalItinerario;
 //        $preciox_n_dias=$totalItinerario*($txt_day-1);
