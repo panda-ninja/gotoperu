@@ -43,8 +43,8 @@ class ServicesController extends Controller
             $destino->precio_grupo=1;
         elseif($txt_tipo_grupo=='Individual')
             $destino->precio_grupo=0;
-        $found_destino=M_Servicio::where('nombre',$txt_product)->get();
-        if(count($found_destino)==0)
+//        $found_destino=M_Servicio::where('nombre',$txt_product)->get();
+//        if(count($found_destino)==0)
         {
             $destino->save();
             $destino->codigo=$destino->id;
@@ -54,12 +54,12 @@ class ServicesController extends Controller
             $categorias=M_Category::get();
             return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
         }
-        else{
-            $destinations=M_Destino::get();
-            $servicios=M_Servicio::get();
-            $categorias=M_Category::get();
-            return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
-        }
+//        else{
+//            $destinations=M_Destino::get();
+//            $servicios=M_Servicio::get();
+//            $categorias=M_Category::get();
+//            return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
+//        }
     }
     public function delete(Request $request){
         $id=$request->input('id');
