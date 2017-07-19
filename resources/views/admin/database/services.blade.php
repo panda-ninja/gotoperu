@@ -194,7 +194,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_price">Price</label>
-                                                    <input type="text" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price">
+                                                    <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price" min="0">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -484,7 +484,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_price">Price</label>
-                                                <input type="text" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price"  value="{{$servicio->precio_venta}}">
+                                                <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price"  value="{{$servicio->precio_venta}}" min="0">
                                             </div>
                                         </div>
                                         <div class="col-md-6">

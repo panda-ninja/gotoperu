@@ -193,7 +193,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="txt_price">Price</label>
-                                                        <input type="text" class="form-control" id="txt_price_0" name="txt_price_{{$pos0}}" placeholder="Price">
+                                                        <input type="number" class="form-control" id="txt_price_0" name="txt_price_{{$pos0}}" placeholder="Price" min="0.00" step="0.01">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 hide">
