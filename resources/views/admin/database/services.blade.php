@@ -11,7 +11,7 @@
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li>Database</li>
-            <li class="active">Services</li>
+            <li class="active">Products</li>
         </ol>
     </div>
     <div class="row margin-top-20">
@@ -164,6 +164,11 @@
                                                             <option value="D">DOBLE</option>
                                                             <option value="M">MATRIMONIAL</option>
                                                             <option value="T">TRIPLE</option>
+                                                            <option value="SS">SUPERIOR SIMPLE</option>
+                                                            <option value="SD">SUPERIOR DOBLE</option>
+                                                            <option value="SU">SUITE</option>
+                                                            <option value="JS">JR. SUITE</option>
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -450,6 +455,10 @@
                                                         <option value="D" @if($servicio->acomodacion=="D") selected @endif>DOBLE</option>
                                                         <option value="M" @if($servicio->acomodacion=="M") selected @endif>MATRIMONIAL</option>
                                                         <option value="T" @if($servicio->acomodacion=="T") selected @endif>TRIPLE</option>
+                                                        <option value="SS" @if($servicio->acomodacion=="SS") selected @endif>SUPERIOR SIMPLE</option>
+                                                        <option value="SD" @if($servicio->acomodacion=="SD") selected @endif>SUPERIOR DOBLE</option>
+                                                        <option value="SU" @if($servicio->acomodacion=="SU") selected @endif>SUITE</option>
+                                                        <option value="JS" @if($servicio->acomodacion=="JR") selected @endif>JR. SUITE</option>
                                                     </select>
                                                 </div>
                                             </div>

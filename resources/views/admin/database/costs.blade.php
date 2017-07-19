@@ -17,7 +17,7 @@
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li>Database</li>
-            <li class="active">Cost</li>
+            <li class="active">Costs</li>
         </ol>
     </div>
     <div class="row margin-top-20">
@@ -159,6 +159,10 @@
                                                             <option value="D">DOBLE</option>
                                                             <option value="M">MATRIMONIAL</option>
                                                             <option value="T">TRIPLE</option>
+                                                            <option value="SS">SUPERIOR SIMPLE</option>
+                                                            <option value="SD">SUPERIOR DOBLE</option>
+                                                            <option value="SU">SUITE</option>
+                                                            <option value="JS">JR. SUITE</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -433,6 +437,10 @@
                                                                         <option value="D" @if($producto->acomodacion=='D') {{'selected'}} @endif>DOBLE</option>
                                                                         <option value="M" @if($producto->acomodacion=='M') {{'selected'}} @endif>MATRIMONIAL</option>
                                                                         <option value="T" @if($producto->acomodacion=='T') {{'selected'}} @endif>TRIPLE</option>
+                                                                        <option value="SS" @if($producto->acomodacion=="SS")  {{'selected'}} @endif>SUPERIOR SIMPLE</option>
+                                                                        <option value="SD" @if($producto->acomodacion=="SD")  {{'selected'}} @endif>SUPERIOR DOBLE</option>
+                                                                        <option value="SU" @if($producto->acomodacion=="SU")  {{'selected'}} @endif>SUITE</option>
+                                                                        <option value="JS" @if($producto->acomodacion=="JR")  {{'selected'}} @endif>JR. SUITE</option>
                                                                     </select>
                                                                 </div>
                                                             </div>

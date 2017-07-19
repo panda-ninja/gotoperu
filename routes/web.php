@@ -70,15 +70,15 @@ Route::get('admin/qoute/proposal/options/{id}', [
 ]);
 
 /*== routes for services*/
-Route::get('/admin/services', [
+Route::get('/admin/products', [
     'uses' => 'ServicesController@index',
     'as' => 'service_index_path',
 ]);
-Route::post('/admin/services', [
+Route::post('/admin/products', [
     'uses' => 'ServicesController@store',
     'as' => 'service_save_path',
 ]);
-Route::post('/admin/services/edit', [
+Route::post('/admin/products/edit', [
     'uses' => 'ServicesController@edit',
     'as' => 'service_edit_path',
 ]);
