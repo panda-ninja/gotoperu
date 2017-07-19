@@ -71,7 +71,12 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_codigo">Codigo</label>
-                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{substr($tipoServicio_,0,2)}}{{($providers->last()->id)+1}}" readonly>
+                                                    <?php
+                                                    $auto=1;
+                                                    if(count($providers)>0)
+                                                        $auto=($providers->last()->id)+1;
+                                                    ?>
+                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{substr($tipoServicio_,0,2)}}{{$auto}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">

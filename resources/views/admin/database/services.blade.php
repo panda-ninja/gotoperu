@@ -69,7 +69,12 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_codigo">Codigo</label>
-                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{($servicios->last()->id)+1}}" readonly>
+                                                    <?php
+                                                    $auto=1;
+                                                    if(count($servicios)>0)
+                                                        $auto=($servicios->last()->id)+1;
+                                                    ?>
+                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{$auto}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
