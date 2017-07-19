@@ -273,6 +273,7 @@
                             <tr>
                                 <th>Codigo</th>
                                 <th>Localizacion</th>
+                                <th>Tipo</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Operaciones</th>
@@ -282,6 +283,7 @@
                             <tr>
                                 <th>Codigo</th>
                                 <th>Localizacion</th>
+                                <th>Tipo</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Operaciones</th>
@@ -293,6 +295,7 @@
                                     <tr id="lista_services_{{$servicio->id}}">
                                         <td class="text-green-goto">{{$servicio->codigo}}</td>
                                         <td>{{$servicio->localizacion}}</td>
+                                        <td>{{$servicio->tipoServicio}}</td>
                                         <td>{{$servicio->nombre}}</td>
                                         <td>${{$servicio->precio_venta}}</td>
                                         <td>
