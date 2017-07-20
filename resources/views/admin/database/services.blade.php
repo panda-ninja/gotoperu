@@ -292,10 +292,54 @@
                             <tbody>
                             @foreach($servicios as $servicio)
                                 @if($servicio->grupo==$categoria->nombre)
+                                    <?php
+                                    $acom='';
+                                    ?>
+                                    @if($servicio->acomodacion=='S')
+                                    <?php
+                                        $acom='SIMPLE';
+                                    ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='D')
+                                        <?php
+                                        $acom='DOBLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='T')
+                                        <?php
+                                        $acom='TRIPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='M')
+                                        <?php
+                                        $acom='MATRIMONIAL';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SS')
+                                        <?php
+                                        $acom='SUPERIOR SIMPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SD')
+                                        <?php
+                                        $acom='SUPERIOR DOBLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SU')
+                                        <?php
+                                        $acom='SUITE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='JR')
+                                        <?php
+                                        $acom='JR. SUITE';
+                                        ?>
+                                    @endif
+
                                     <tr id="lista_services_{{$servicio->id}}">
                                         <td class="text-green-goto">{{$servicio->codigo}}</td>
                                         <td>{{$servicio->localizacion}}</td>
-                                        <td>{{$servicio->tipoServicio}}</td>
+                                        <td>{{$servicio->tipoServicio}} {{$acom}}</td>
                                         <td>{{$servicio->nombre}}</td>
                                         <td>${{$servicio->precio_venta}}</td>
                                         <td>

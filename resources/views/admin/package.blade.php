@@ -23,7 +23,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="txt_day">Duracion</label>
-                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="0" onchange="calcular_resumen()">
+                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="2" onchange="calcular_resumen()">
                 </div>
             </div>
 
@@ -905,7 +905,7 @@
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-        <div class="row ">
+        <div class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered font-montserrat">
                     <caption class="text-right"><b>Todos los precios tienen un 40% de utilidad y son para dos personas</b></caption>
@@ -1064,6 +1064,127 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b class="font-montserrat text-pink-goto">
+                    {{--<span class="label bg-orange-goto">1</span>--}}
+                    Precio 3 estrellas</b>
+                <table class="table table-condensed font-montserrat">
+                    {{--<caption>table title and/or explanatory text</caption>--}}
+                    <thead>
+                    <tr>
+                        <th><b class="text-grey-goto-light">Per Person</b></th>
+                        <th></th>
+                        <th class="text-right col-md-2"><b class="text-pink-goto text-20">Price</b></th>
+                        <th class="text-right col-md-2"><b class="text-danger text-20">Cost</b></th>
+                        <th class="text-right col-md-2"><b class="text-success text-20">Profit</b></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_t3_a_v"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_t3_a"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_t3_a_p"></span>.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_m3_a_v"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_m3_a"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_m3_a_p"></span>.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_d3_a_v"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_d3_a"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_d3_a_p"></span>.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_s3_a_v"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_s3_a"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_s3_a_p"></span>.00</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="text-right">
+                            <b class="text-20 text-pink-goto">100%</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-20 text-danger"><span id="porc_cost">60</span>%</b>
+                        </td>
+                        <td class="text-right">
+                            {{--<div>--}}
+                            {{--<input type="number" class="form-control text-right" min="0" max="99" step="1">--}}
+                            {{--</div>--}}
+                            <div class="input-group has-success">
+                                <input type="number" id="profitt_3" name="profitt_3" class="form-control input-porcent text-right" value="40" onchange="calcular_resumen()">
+                                <span class="input-group-addon input-" id="basic-addon2">%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
         <div class="row hide">
             <div class="col-md-12">
                 <div class="text-center">

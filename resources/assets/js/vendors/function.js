@@ -78,11 +78,11 @@ function Pasar_datos(){
                 '<b>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
             '</a>'+
         '<span class="label pull-right">' +
-            '<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('+itinerario[0]+')">' +
+            '<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('+itinerario[0]+','+itinerario[4]+')">' +
                 '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
             '</a>'+
         '</span>'+
-        '<span class="label label-success pull-right">(cc$'+itinerario[4]+'.00)</span>'+
+        '<span class="label label-success pull-right">($'+itinerario[4]+'.00)</span>'+
                     '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
                 '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
                     itinerario[3]+
@@ -462,6 +462,7 @@ function eliminar_itinerario(id,servicio) {
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
                 $("#lista_itinerary_"+id).fadeOut( "slow");
+
             }
             else if(data==2){
                 // swal(
@@ -623,7 +624,7 @@ function  filtrar_itinerarios(){
     // });
 }
 
-function eliminar_iti(id){
+function eliminar_iti(id,valor){
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de eliminar el itinerario?",
@@ -635,6 +636,10 @@ function eliminar_iti(id){
     }).then(function () {
         $('#itis_'+id).fadeOut();
         $('#itis_'+id).remove();
+        Itis_precio=Itis_precio-valor;
+        $('#totalItinerario').val(Itis_precio);
+        $('#totalItinerario_front').html(Itis_precio);
+        calcular_resumen();
     })
 }
 
@@ -691,72 +696,209 @@ function eliminar_categoria1(id,categoria) {
     })
 }
 
-function calcular_resumen(){
-    var utilidad=1.40;
-    var costo_itinerario=$("#totalItinerario").val();
-    var txt_day=Math.ceil($('#txt_day').val()-1);
+function calcular_resumen() {
+    var utilidad = parseFloat(parseFloat($("#profitt_3").val())*0.01);
+    var cost_por=parseFloat(1-utilidad.toFixed(2))*100;
+    $("#porc_cost").html(cost_por.toFixed(2));
+    console.log(utilidad);
+    var costo_itinerario = $("#totalItinerario").val();
+    var txt_day = Math.ceil($('#txt_day').val() - 1);
 
-    var amount_s2=$("#amount_s2").val();
-    var amount_d2=$("#amount_d2").val();
-    var amount_t2=$("#amount_t2").val();
+    var amount_s2 = $("#amount_s2").val();
+    var amount_d2 = Math.ceil(Math.ceil($("#amount_d2").val()) / 2);
+    var amount_t2 = Math.ceil(Math.ceil($("#amount_t2").val()) / 3);
 
-    var amount_s3=$("#amount_s3").val();
-    var amount_d3=$("#amount_d3").val();
-    var amount_t3=$("#amount_t3").val();
+    var amount_s3 = $("#amount_s3").val();
+    var amount_d3 = Math.ceil(Math.ceil($("#amount_d3").val()) / 2);
+    var amount_t3 = Math.ceil(Math.ceil($("#amount_t3").val()) / 3);
 
-    var amount_s4=$("#amount_s4").val();
-    var amount_d4=$("#amount_d4").val();
-    var amount_t4=$("#amount_t4").val();
+    var amount_s4 = $("#amount_s4").val();
+    var amount_d4 = Math.ceil(Math.ceil($("#amount_d4").val()) / 2);
+    var amount_t4 = Math.ceil(Math.ceil($("#amount_t4").val()) / 3);
 
-    var amount_s5=$("#amount_s5").val();
-    var amount_d5=$("#amount_d5").val();
-    var amount_t5=$("#amount_t5").val();
+    var amount_s5 = $("#amount_s5").val();
+    var amount_d5 = Math.ceil(Math.ceil($("#amount_d5").val()) / 2);
+    var amount_t5 = Math.ceil(Math.ceil($("#amount_t5").val()) / 3);
 
-    console.log('_costo_itinerario:'+costo_itinerario+'_amount_s2:'+amount_s2+'_txt_day:'+txt_day+'_nroPasajeros:'+nroPasajeros);
-    var amount_s2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    console.log('sin utilidad'+amount_s2_u);
-    amount_s2_u=Math.ceil(amount_s2_u*utilidad);
-    console.log('con utilidad'+amount_s2_u);
 
-    var amount_d2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_d2_u=Math.ceil(amount_d2_u*utilidad);
-    var amount_t2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_t2_u=Math.ceil(amount_t2_u*utilidad);
+    var amount_s2_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s2);
+    var amount_d2_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d2);
+    var amount_t2_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t2);
+    var amount_s3_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s3);
+    var amount_d3_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d3);
+    var amount_t3_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t3);
+    var amount_s4_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s4);
+    var amount_d4_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d4);
+    var amount_t4_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t4);
+    var amount_s5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s5);
+    var amount_d5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d5);
+    var amount_t5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t5);
 
-    var amount_s3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_s3_u=Math.ceil(amount_s3_u*utilidad);
-    var amount_d3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_d3_u=Math.ceil(amount_d3_u*utilidad);
-    var amount_t3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_t3_u=Math.ceil(amount_t3_u*utilidad);
 
-    var amount_s4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_s4_u=Math.ceil(amount_s4_u*utilidad);
-    var amount_d4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_d4_u=Math.ceil(amount_d4_u*utilidad);
-    var amount_t4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_t4_u=Math.ceil(amount_t4_u*utilidad);
+    // console.log('_costo_itinerario:'+costo_itinerario+'_amount_s2:'+amount_s2+'_txt_day:'+txt_day+'_nroPasajeros:'+nroPasajeros);
+    // var amount_s2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    var amount_s2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s2) * Math.ceil(txt_day)));
+    var amount_s2_u_pro = Math.ceil(amount_s2_u * utilidad);
+    var amount_s2_u_pri = Math.ceil(amount_s2_u + amount_s2_u_pro);
 
-    var amount_s5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_s5_u=Math.ceil(amount_s5_u*utilidad);
-    var amount_d5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_d5_u=Math.ceil(amount_d5_u*utilidad);
-    var amount_t5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    amount_t5_u=Math.ceil(amount_t5_u*utilidad);
+    var amount_d2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d2) * Math.ceil(txt_day)));
+    var amount_d2_u_pro = Math.ceil(amount_d2_u * utilidad);
+    var amount_d2_u_pri = Math.ceil(amount_d2_u + amount_d2_u_pro);
 
-    $("#amount_s2_u").val(amount_s2_u);
-    $("#amount_d2_u").val(amount_d2_u);
-    $("#amount_t2_u").val(amount_t2_u);
+    var amount_t2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t2) * Math.ceil(txt_day)));
+    var amount_t2_u_pro = Math.ceil(amount_t2_u * utilidad);
+    var amount_t2_u_pri = Math.ceil(amount_t2_u + amount_t2_u_pro);
 
-    $("#amount_s3_u").val(amount_s3_u);
-    $("#amount_d3_u").val(amount_d3_u);
-    $("#amount_t3_u").val(amount_t3_u);
+    var amount_s3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s3) * Math.ceil(txt_day)));
+    var amount_s3_u_pro = Math.ceil(amount_s3_u * utilidad);
+    var amount_s3_u_pri = Math.ceil(amount_s3_u + amount_s3_u_pro);
 
-    $("#amount_s4_u").val(amount_s4_u);
-    $("#amount_d4_u").val(amount_d4_u);
-    $("#amount_t4_u").val(amount_t4_u);
+    var amount_d3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d3) * Math.ceil(txt_day)));
+    var amount_d3_u_pro = Math.ceil(amount_d3_u * utilidad);
+    var amount_d3_u_pri = Math.ceil(amount_d3_u + amount_d3_u_pro);
 
-    $("#amount_s5_u").val(amount_s5_u);
-    $("#amount_d5_u").val(amount_d5_u);
-    $("#amount_t5_u").val(amount_t5_u);
+    var amount_t3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t3) * Math.ceil(txt_day)));
+    var amount_t3_u_pro = Math.ceil(amount_t3_u * utilidad);
+    var amount_t3_u_pri = Math.ceil(amount_t3_u + amount_t3_u_pro);
+
+    var amount_s4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s4) * Math.ceil(txt_day)));
+    var amount_s4_u_pro = Math.ceil(amount_s4_u * utilidad);
+    var amount_s4_u_pri = Math.ceil(amount_s4_u + amount_s4_u_pro);
+
+    var amount_d4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d4) * Math.ceil(txt_day)));
+    var amount_d4_u_pro = Math.ceil(amount_d4_u * utilidad);
+    var amount_d4_u_pri = Math.ceil(amount_d4_u + amount_d4_u_pro);
+
+    var amount_t4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t4) * Math.ceil(txt_day)));
+    var amount_t4_u_pro = Math.ceil(amount_t4_u * utilidad);
+    var amount_t4_u_pri = Math.ceil(amount_t4_u + amount_t4_u_pro);
+
+    var amount_s5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s5) * Math.ceil(txt_day)));
+    var amount_s5_u_pro = Math.ceil(amount_s5_u * utilidad);
+    var amount_s5_u_pri = Math.ceil(amount_s5_u + amount_s5_u_pro);
+
+    var amount_d5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d5) * Math.ceil(txt_day)));
+    var amount_d5_u_pro = Math.ceil(amount_d5_u * utilidad);
+    var amount_d5_u_pri = Math.ceil(amount_d5_u + amount_d5_u_pro);
+
+    var amount_t5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t5) * Math.ceil(txt_day)));
+    var amount_t5_u_pro = Math.ceil(amount_t5_u * utilidad);
+    var amount_t5_u_pri = Math.ceil(amount_t5_u + amount_t5_u_pro);
+    // console.log('con utilidad'+amount_s2_u);
+    //
+    // var amount_d2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_d2_u=Math.ceil(amount_d2_u*utilidad);
+    // var amount_t2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_t2_u=Math.ceil(amount_t2_u*utilidad);
+    //
+    // var amount_s3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_s3_u=Math.ceil(amount_s3_u*utilidad);
+    // var amount_d3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_d3_u=Math.ceil(amount_d3_u*utilidad);
+    // var amount_t3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_t3_u=Math.ceil(amount_t3_u*utilidad);
+    //
+    // var amount_s4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_s4_u=Math.ceil(amount_s4_u*utilidad);
+    // var amount_d4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_d4_u=Math.ceil(amount_d4_u*utilidad);
+    // var amount_t4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_t4_u=Math.ceil(amount_t4_u*utilidad);
+    //
+    // var amount_s5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_s5_u=Math.ceil(amount_s5_u*utilidad);
+    // var amount_d5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_d5_u=Math.ceil(amount_d5_u*utilidad);
+    // var amount_t5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
+    // amount_t5_u=Math.ceil(amount_t5_u*utilidad);
+    console.log('amount_s2_u:' + amount_s2_u);
+    $("#amount_s2_a").html(amount_s2_u);
+    $("#amount_s2_a_p").html(amount_s2_u_pro);
+    $("#amount_s2_a_v").html(amount_s2_u_pri);
+
+    $("#amount_d2_a").html(amount_d2_u);
+    $("#amount_d2_a_p").html(amount_d2_u_pro);
+    $("#amount_d2_a_v").html(amount_d2_u_pri);
+
+    $("#amount_m2_a").html(amount_d2_u);
+    $("#amount_m2_a_p").html(amount_d2_u_pro);
+    $("#amount_m2_a_v").html(amount_d2_u_pri);
+
+    $("#amount_t2_a").html(amount_t2_u);
+    $("#amount_t2_a_p").html(amount_t2_u_pro);
+    $("#amount_t2_a_v").html(amount_t2_u_pri);
+
+    console.log('amount_s3_u:' + amount_s3_u);
+    $("#amount_s3_a").html(amount_s3_u);
+    $("#amount_s3_a_p").html(amount_s3_u_pro);
+    $("#amount_s3_a_v").html(amount_s3_u_pri);
+
+    $("#amount_d3_a").html(amount_d3_u);
+    $("#amount_d3_a_p").html(amount_d3_u_pro);
+    $("#amount_d3_a_v").html(amount_d3_u_pri);
+
+    $("#amount_m3_a").html(amount_d3_u);
+    $("#amount_m3_a_p").html(amount_d2_u_pro);
+    $("#amount_m3_a_v").html(amount_d2_u_pri);
+
+    $("#amount_t3_a").html(amount_t3_u);
+    $("#amount_t3_a_p").html(amount_t3_u_pro);
+    $("#amount_t3_a_v").html(amount_t3_u_pri);
+
+    console.log('amount_s4_u:'+amount_s4_u);
+    $("#amount_s4_a").html(amount_s4_u);
+    $("#amount_s4_a_p").html(amount_s4_u_pro);
+    $("#amount_s4_a_v").html(amount_s4_u_pri);
+
+    $("#amount_d4_a").html(amount_d4_u);
+    $("#amount_d4_a_p").html(amount_d4_u_pro);
+    $("#amount_d4_a_v").html(amount_d4_u_pri);
+
+    $("#amount_m4_a").html(amount_d4_u);
+    $("#amount_m4_a_p").html(amount_d4_u_pro);
+    $("#amount_m4_a_v").html(amount_d4_u_pri);
+
+    $("#amount_t4_a").html(amount_t4_u);
+    $("#amount_t4_a_p").html(amount_t4_u_pro);
+    $("#amount_t4_a_v").html(amount_t4_u_pri);
+
+    console.log('amount_s5_u:'+amount_s5_u);
+    $("#amount_s5_a").html(amount_s5_u);
+    $("#amount_s5_a_p").html(amount_s5_u_pro);
+    $("#amount_s5_a_v").html(amount_s5_u_pri);
+
+    $("#amount_d5_a").html(amount_d5_u);
+    $("#amount_d5_a_p").html(amount_d5_u_pro);
+    $("#amount_d5_a_v").html(amount_d5_u_pri);
+
+    $("#amount_m5_a").html(amount_d2_u);
+    $("#amount_m5_a_p").html(amount_d2_u_pro);
+    $("#amount_m5_a_v").html(amount_d2_u_pri);
+
+    $("#amount_t5_a").html(amount_t5_u);
+    $("#amount_t5_a_p").html(amount_t5_u_pro);
+    $("#amount_t5_a_v").html(amount_t5_u_pri);
+
+
+    // console.log('amount_s3_u:'+amount_s3_u);
+    // $("#amount_s3_u").val(amount_s3_u);
+    // $("#amount_s3_a").html(amount_s3_u);
+    //
+    // $("#amount_d3_u").val(amount_d3_u);
+    // $("#amount_d3_a").html(amount_d3_u);
+    //
+    // $("#amount_m3_u").val(amount_d3_u);
+    // $("#amount_m3_a").html(amount_d3_u);
+    //
+    // $("#amount_t3_u").val(amount_t3_u);
+    // $("#amount_t3_a").html(amount_t3_u);
+    //
+    //
+    // $("#amount_s4_u").val(amount_s4_u);
+    // $("#amount_d4_u").val(amount_d4_u);
+    // $("#amount_t4_u").val(amount_t4_u);
+    //
+    // $("#amount_s5_u").val(amount_s5_u);
+    // $("#amount_d5_u").val(amount_d5_u);
+    // $("#amount_t5_u").val(amount_t5_u);
 }
