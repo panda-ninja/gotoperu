@@ -22854,8 +22854,8 @@ function calcular_resumen() {
     $("#amount_d3_a_v").html(amount_d3_u_pri);
 
     $("#amount_m3_a").html(amount_d3_u);
-    $("#amount_m3_a_p").html(amount_d2_u_pro);
-    $("#amount_m3_a_v").html(amount_d2_u_pri);
+    $("#amount_m3_a_p").html(amount_d3_u_pro);
+    $("#amount_m3_a_v").html(amount_d3_u_pri);
 
     $("#amount_t3_a").html(amount_t3_u);
     $("#amount_t3_a_p").html(amount_t3_u_pro);
@@ -22917,4 +22917,66 @@ function calcular_resumen() {
     // $("#amount_s5_u").val(amount_s5_u);
     // $("#amount_d5_u").val(amount_d5_u);
     // $("#amount_t5_u").val(amount_t5_u);
+}
+
+function filtrar_estrellas(){
+    if( $('#strellas_2').prop('checked') ) {
+        $('#precio_2').fadeIn();
+        $('#precio_2_t').fadeIn();
+        $('#precio_t_2').fadeIn();
+        $('#precio_d_2').fadeIn();
+        $('#precio_s_2').fadeIn();
+    }
+    else{
+        $('#precio_2').fadeOut();
+        $('#precio_2_t').fadeOut();
+        $('#precio_t_2').fadeOut();
+        $('#precio_d_2').fadeOut();
+        $('#precio_s_2').fadeOut();
+    }
+
+    if( $('#strellas_3').prop('checked') ) {
+        $('#precio_3').fadeIn();
+        $('#precio_3_t').fadeIn();
+        $('#precio_t_3').fadeIn();
+        $('#precio_d_3').fadeIn();
+        $('#precio_s_3').fadeIn();
+    }
+    else{
+        $('#precio_3').fadeOut();
+        $('#precio_3_t').fadeOut();
+        $('#precio_t_3').fadeOut();
+        $('#precio_d_3').fadeOut();
+        $('#precio_s_3').fadeOut();
+    }
+
+    if( $('#strellas_4').prop('checked') ) {
+        $('#precio_4').fadeIn();
+        $('#precio_4_t').fadeIn();
+        $('#precio_t_4').fadeIn();
+        $('#precio_d_4').fadeIn();
+        $('#precio_s_4').fadeIn();
+    }
+    else{
+        $('#precio_4').fadeOut();
+        $('#precio_4_t').fadeOut();
+        $('#precio_t_4').fadeOut();
+        $('#precio_d_4').fadeOut();
+        $('#precio_s_4').fadeOut();
+    }
+
+    if( $('#strellas_5').prop('checked') ) {
+        $('#precio_5').fadeIn();
+        $('#precio_5_t').fadeIn();
+        $('#precio_t_5').fadeIn();
+        $('#precio_d_5').fadeIn();
+        $('#precio_s_5').fadeIn();
+    }
+    else{
+        $('#precio_5').fadeOut();
+        $('#precio_5_t').fadeOut();
+        $('#precio_t_5').fadeOut();
+        $('#precio_d_5').fadeOut();
+        $('#precio_s_5').fadeOut();
+    }
 }

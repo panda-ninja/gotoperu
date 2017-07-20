@@ -15,18 +15,52 @@
         </div>
         <div class="row">
             <div class="col-md-3">
+                <div class="checkbox1">
+                    <label class=" text-green-goto">
+                        <input class="destinospack" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas()">
+                        2 STARS
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="checkbox1">
+                    <label class=" text-green-goto">
+                        <input class="destinospack" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas()">
+                        3 STARS
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="checkbox1">
+                    <label class=" text-green-goto">
+                        <input class="destinospack" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas()">
+                        4 STARS
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="checkbox1">
+                    <label class=" text-green-goto">
+                        <input class="destinospack" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas()">
+                        5 STARS
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-top-20">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="txt_code">Code</label>
                     <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="txt_day">Duracion</label>
                     <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="2" onchange="calcular_resumen()">
                 </div>
             </div>
-
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="txt_title">Title</label>
@@ -368,10 +402,10 @@
                     <thead>
                     <tr class="bg-grey-goto-light text-white">
                         <th class="text-center">Hotels</th>
-                        <th class="text-center">2 Stars</th>
-                        <th class="text-center">3 Stars</th>
-                        <th class="text-center">4 Stars</th>
-                        <th class="text-center">5 Stars</th>
+                        <th id="precio_2_t" class="text-center">2 Stars</th>
+                        <th id="precio_3_t" class="text-center">3 Stars</th>
+                        <th id="precio_4_t" class="text-center">4 Stars</th>
+                        <th id="precio_5_t" class="text-center">5 Stars</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -381,7 +415,7 @@
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
-                        <td>
+                        <td id="precio_t_2">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -391,7 +425,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_t_3">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -401,7 +435,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_t_4">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -411,7 +445,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_t_5">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -428,7 +462,7 @@
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
-                        <td>
+                        <td id="precio_d_2">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -438,7 +472,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_d_3">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -448,7 +482,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_d_4">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -458,7 +492,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td  id="precio_d_5">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -474,7 +508,7 @@
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
-                        <td>
+                        <td id="precio_s_2">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -484,7 +518,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_s_3">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -494,7 +528,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_s_4">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -504,7 +538,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td id="precio_s_5">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -605,7 +639,7 @@
                     <thead>
                     <tr class="bg-grey-goto text-white">
                         <th class="text-center">Price Cost</th>
-                        <th class="text-center">2 Stars</th>
+                        <th class="text-center">2 Starss</th>
                         <th class="text-center">3 Stars</th>
                         <th class="text-center">4 Stars</th>
                         <th class="text-center">5 Stars</th>
@@ -747,10 +781,10 @@
                     <thead>
                     <tr class="bg-grey-goto text-white">
                         <th class="text-center">Price Venta</th>
-                        <th class="text-center">2 Stars</th>
-                        <th class="text-center">3 Stars</th>
-                        <th class="text-center">4 Stars</th>
-                        <th class="text-center">5 Stars</th>
+                        <th  class="text-center">2 Stars</th>
+                        <th  class="text-center">3 Stars</th>
+                        <th  class="text-center">4 Stars</th>
+                        <th  class="text-center">5 Stars</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -760,7 +794,7 @@
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
-                        <td>
+                        <td id="precio_2_v">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -912,10 +946,10 @@
                     <thead>
                     <tr class="bg-grey-goto-light text-white">
                         <th class="text-center">Hotels</th>
-                        <th class="text-center">2 Stars</th>
-                        <th class="text-center">3 Stars</th>
+                        <th  class="text-center">2 Stars</th>
+                        <th  class="text-center">3 Stars</th>
                         <th class="text-center">4 Stars</th>
-                        <th class="text-center">5 Stars</th>
+                        <th  class="text-center">5 Stars</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -925,7 +959,7 @@
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
-                        <td>
+                        <td id="precio_2_v">
                             <div class="form-group margin-bottom-0">
                                 <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                 <div class="input-group">
@@ -1064,7 +1098,7 @@
                 </table>
             </div>
         </div>
-        <div class="row">
+        <div id="precio_3" class="row">
             <div class="col-md-12">
                 <b class="font-montserrat text-pink-goto">
                     {{--<span class="label bg-orange-goto">1</span>--}}
@@ -1075,9 +1109,9 @@
                     <tr>
                         <th><b class="text-grey-goto-light">Per Person</b></th>
                         <th></th>
-                        <th class="text-right col-md-2"><b class="text-pink-goto text-20">Price</b></th>
                         <th class="text-right col-md-2"><b class="text-danger text-20">Cost</b></th>
                         <th class="text-right col-md-2"><b class="text-success text-20">Profit</b></th>
+                        <th class="text-right col-md-2"><b class="text-pink-goto text-20">Price</b></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1093,13 +1127,13 @@
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
                         </td>
                         <td class="text-right">
-                            <b class="text-16">$ <span id="amount_t3_a_v"></span>.00</b>
-                        </td>
-                        <td class="text-right">
                             <b class="text-16">$ <span id="amount_t3_a"></span>.00</b>
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_t3_a_p"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_t3_a_v"></span>.00</b>
                         </td>
                     </tr>
                     <tr>
@@ -1111,13 +1145,13 @@
                             <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
                         </td>
                         <td class="text-right">
-                            <b class="text-16">$ <span id="amount_m3_a_v"></span>.00</b>
-                        </td>
-                        <td class="text-right">
                             <b class="text-16">$ <span id="amount_m3_a"></span>.00</b>
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_m3_a_p"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_m3_a_v"></span>.00</b>
                         </td>
                     </tr>
                     <tr>
@@ -1130,13 +1164,13 @@
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
                         </td>
                         <td class="text-right">
-                            <b class="text-16">$ <span id="amount_d3_a_v"></span>.00</b>
-                        </td>
-                        <td class="text-right">
                             <b class="text-16">$ <span id="amount_d3_a"></span>.00</b>
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_d3_a_p"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_d3_a_v"></span>.00</b>
                         </td>
                     </tr>
                     <tr>
@@ -1146,14 +1180,15 @@
                         <td>
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
                         </td>
-                        <td class="text-right">
-                            <b class="text-16">$ <span id="amount_s3_a_v"></span>.00</b>
-                        </td>
+
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_s3_a"></span>.00</b>
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_s3_a_p"></span>.00</b>
+                        </td>
+                        <td class="text-right">
+                            <b class="text-16">$ <span id="amount_s3_a_v"></span>.00</b>
                         </td>
                     </tr>
                     <tr>
