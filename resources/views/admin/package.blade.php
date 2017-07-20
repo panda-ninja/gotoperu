@@ -905,7 +905,7 @@
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row hide">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered font-montserrat">
                     <caption class="text-right"><b>Todos los precios tienen un 40% de utilidad y son para dos personas</b></caption>
@@ -1083,8 +1083,8 @@
                     <tbody>
                     <tr>
                         <td>
-                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
-                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
                         <td>
@@ -1104,7 +1104,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
                         <td>
@@ -1122,7 +1122,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
                         <td>
@@ -1217,4 +1217,9 @@
             </div>
         </div>
     </form>
+    <script>
+        $(document).ready(function() {
+            calcular_resumen();
+        } );
+    </script>
 @stop
