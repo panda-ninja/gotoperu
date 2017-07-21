@@ -22063,7 +22063,7 @@ var nroPasajeros=2
 function Pasar_datos(){
     var itinerario='';
 
-    $("input[name=itinerarios]").each(function (index) {
+    $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
             $(this).prop("checked", "");
             total_Itinerarios++;
@@ -22081,7 +22081,7 @@ function Pasar_datos(){
             // console.log('cost: '+Itis_precio);
             var servicios=itinerario[5].split('*');
             $.each(servicios, function( key, value ) {
-                var serv=value.split('/');
+                var serv=value.split('//');
                 var val_p_g=parseInt(serv[1]);
                 // if(serv[2]==1)
                 //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
@@ -22114,7 +22114,7 @@ function Pasar_datos(){
                 '<tbody>';
                 var servicios_='';
                 $.each(servicios, function( key, value ) {
-                    var serv=value.split('/');
+                    var serv=value.split('//');
                     var val_p_g=serv[1];
                     // if(serv[2]==1)
                     //     val_p_g=Math.ceil(serv[1]/nroPasajeros);
@@ -23032,4 +23032,7 @@ function filtrar_estrellas(){
         $('#precio_s_5').addClass('hide');
         $('#precio_s_5').fadeOut();
     }
+}
+function ordenar_itinerarios(){
+alert('presionaste onblur');
 }

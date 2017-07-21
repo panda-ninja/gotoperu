@@ -99,7 +99,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="grid" id="Lista_itinerario_g">
+                <div class="grid" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios()">
 
                 </div>
                 <div class="row">
@@ -127,11 +127,11 @@
                                         if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                             if($servicios->itinerario_servicios_servicio->precio_grupo==1){
                                                 $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
-                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'/'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                             }
                                             else{
                                                 $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'/'.$servicios->itinerario_servicios_servicio->precio_venta.'/'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
 
                                             }
                                         }
