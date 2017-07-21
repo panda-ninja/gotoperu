@@ -697,10 +697,23 @@ function eliminar_categoria1(id,categoria) {
 }
 
 function calcular_resumen() {
-    var utilidad = parseFloat(parseFloat($("#profitt_3").val())*0.01);
-    var cost_por=parseFloat(1-utilidad.toFixed(2))*100;
-    $("#porc_cost").html(cost_por.toFixed(2));
-    console.log(utilidad);
+    var utilidad_2 = parseFloat(parseFloat($("#profitt_2").val())*0.01);
+    var utilidad_3 = parseFloat(parseFloat($("#profitt_3").val())*0.01);
+    var utilidad_4 = parseFloat(parseFloat($("#profitt_4").val())*0.01);
+    var utilidad_5 = parseFloat(parseFloat($("#profitt_5").val())*0.01);
+
+    var cost_por_2=parseFloat(1-utilidad_2.toFixed(2))*100;
+    var cost_por_3=parseFloat(1-utilidad_3.toFixed(2))*100;
+    var cost_por_4=parseFloat(1-utilidad_4.toFixed(2))*100;
+    var cost_por_5=parseFloat(1-utilidad_5.toFixed(2))*100;
+
+    $("#porc_cost_2").html(cost_por_2.toFixed(2));
+    $("#porc_cost_3").html(cost_por_3.toFixed(2));
+    $("#porc_cost_4").html(cost_por_4.toFixed(2));
+    $("#porc_cost_5").html(cost_por_5.toFixed(2));
+
+
+    console.log(utilidad_3);
     var costo_itinerario = $("#totalItinerario").val();
     var txt_day = Math.ceil($('#txt_day').val() - 1);
 
@@ -738,51 +751,51 @@ function calcular_resumen() {
     // console.log('_costo_itinerario:'+costo_itinerario+'_amount_s2:'+amount_s2+'_txt_day:'+txt_day+'_nroPasajeros:'+nroPasajeros);
     // var amount_s2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
     var amount_s2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s2) * Math.ceil(txt_day)));
-    var amount_s2_u_pro = Math.ceil(amount_s2_u * utilidad);
+    var amount_s2_u_pro = Math.ceil(amount_s2_u * utilidad_2);
     var amount_s2_u_pri = Math.ceil(amount_s2_u + amount_s2_u_pro);
 
     var amount_d2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d2) * Math.ceil(txt_day)));
-    var amount_d2_u_pro = Math.ceil(amount_d2_u * utilidad);
+    var amount_d2_u_pro = Math.ceil(amount_d2_u * utilidad_2);
     var amount_d2_u_pri = Math.ceil(amount_d2_u + amount_d2_u_pro);
 
     var amount_t2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t2) * Math.ceil(txt_day)));
-    var amount_t2_u_pro = Math.ceil(amount_t2_u * utilidad);
+    var amount_t2_u_pro = Math.ceil(amount_t2_u * utilidad_2);
     var amount_t2_u_pri = Math.ceil(amount_t2_u + amount_t2_u_pro);
 
     var amount_s3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s3) * Math.ceil(txt_day)));
-    var amount_s3_u_pro = Math.ceil(amount_s3_u * utilidad);
+    var amount_s3_u_pro = Math.ceil(amount_s3_u * utilidad_3);
     var amount_s3_u_pri = Math.ceil(amount_s3_u + amount_s3_u_pro);
 
     var amount_d3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d3) * Math.ceil(txt_day)));
-    var amount_d3_u_pro = Math.ceil(amount_d3_u * utilidad);
+    var amount_d3_u_pro = Math.ceil(amount_d3_u * utilidad_3);
     var amount_d3_u_pri = Math.ceil(amount_d3_u + amount_d3_u_pro);
 
     var amount_t3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t3) * Math.ceil(txt_day)));
-    var amount_t3_u_pro = Math.ceil(amount_t3_u * utilidad);
+    var amount_t3_u_pro = Math.ceil(amount_t3_u * utilidad_3);
     var amount_t3_u_pri = Math.ceil(amount_t3_u + amount_t3_u_pro);
 
     var amount_s4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s4) * Math.ceil(txt_day)));
-    var amount_s4_u_pro = Math.ceil(amount_s4_u * utilidad);
+    var amount_s4_u_pro = Math.ceil(amount_s4_u * utilidad_4);
     var amount_s4_u_pri = Math.ceil(amount_s4_u + amount_s4_u_pro);
 
     var amount_d4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d4) * Math.ceil(txt_day)));
-    var amount_d4_u_pro = Math.ceil(amount_d4_u * utilidad);
+    var amount_d4_u_pro = Math.ceil(amount_d4_u * utilidad_4);
     var amount_d4_u_pri = Math.ceil(amount_d4_u + amount_d4_u_pro);
 
     var amount_t4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t4) * Math.ceil(txt_day)));
-    var amount_t4_u_pro = Math.ceil(amount_t4_u * utilidad);
+    var amount_t4_u_pro = Math.ceil(amount_t4_u * utilidad_4);
     var amount_t4_u_pri = Math.ceil(amount_t4_u + amount_t4_u_pro);
 
     var amount_s5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s5) * Math.ceil(txt_day)));
-    var amount_s5_u_pro = Math.ceil(amount_s5_u * utilidad);
+    var amount_s5_u_pro = Math.ceil(amount_s5_u * utilidad_5);
     var amount_s5_u_pri = Math.ceil(amount_s5_u + amount_s5_u_pro);
 
     var amount_d5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d5) * Math.ceil(txt_day)));
-    var amount_d5_u_pro = Math.ceil(amount_d5_u * utilidad);
+    var amount_d5_u_pro = Math.ceil(amount_d5_u * utilidad_5);
     var amount_d5_u_pri = Math.ceil(amount_d5_u + amount_d5_u_pro);
 
     var amount_t5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t5) * Math.ceil(txt_day)));
-    var amount_t5_u_pro = Math.ceil(amount_t5_u * utilidad);
+    var amount_t5_u_pro = Math.ceil(amount_t5_u * utilidad_5);
     var amount_t5_u_pri = Math.ceil(amount_t5_u + amount_t5_u_pro);
     // console.log('con utilidad'+amount_s2_u);
     //
@@ -905,62 +918,102 @@ function calcular_resumen() {
 
 function filtrar_estrellas(){
     if( $('#strellas_2').prop('checked') ) {
+        $('#precio_2').removeClass('hide');
         $('#precio_2').fadeIn();
+        $('#precio_2_t').removeClass('hide');
         $('#precio_2_t').fadeIn();
+        $('#precio_t_2').removeClass('hide');
         $('#precio_t_2').fadeIn();
+        $('#precio_d_2').removeClass('hide');
         $('#precio_d_2').fadeIn();
+        $('#precio_s_2').removeClass('hide');
         $('#precio_s_2').fadeIn();
     }
     else{
+        $('#precio_2').addClass('hide');
         $('#precio_2').fadeOut();
+        $('#precio_2_t').addClass('hide');
         $('#precio_2_t').fadeOut();
+        $('#precio_t_2').addClass('hide');
         $('#precio_t_2').fadeOut();
+        $('#precio_d_2').addClass('hide');
         $('#precio_d_2').fadeOut();
+        $('#precio_s_2').addClass('hide');
         $('#precio_s_2').fadeOut();
     }
 
     if( $('#strellas_3').prop('checked') ) {
+        $('#precio_3').removeClass('hide');
         $('#precio_3').fadeIn();
+        $('#precio_3_t').removeClass('hide');
         $('#precio_3_t').fadeIn();
+        $('#precio_t_3').removeClass('hide');
         $('#precio_t_3').fadeIn();
+        $('#precio_d_3').removeClass('hide');
         $('#precio_d_3').fadeIn();
+        $('#precio_s_3').removeClass('hide');
         $('#precio_s_3').fadeIn();
     }
     else{
+        $('#precio_3').addClass('hide');
         $('#precio_3').fadeOut();
+        $('#precio_3_t').addClass('hide');
         $('#precio_3_t').fadeOut();
+        $('#precio_t_3').addClass('hide');
         $('#precio_t_3').fadeOut();
+        $('#precio_d_3').addClass('hide');
         $('#precio_d_3').fadeOut();
+        $('#precio_s_3').addClass('hide');
         $('#precio_s_3').fadeOut();
     }
 
     if( $('#strellas_4').prop('checked') ) {
+        $('#precio_4').removeClass('hide');
         $('#precio_4').fadeIn();
+        $('#precio_4_t').removeClass('hide');
         $('#precio_4_t').fadeIn();
+        $('#precio_t_4').removeClass('hide');
         $('#precio_t_4').fadeIn();
+        $('#precio_d_4').removeClass('hide');
         $('#precio_d_4').fadeIn();
+        $('#precio_s_4').removeClass('hide');
         $('#precio_s_4').fadeIn();
     }
     else{
+        $('#precio_4').addClass('hide');
         $('#precio_4').fadeOut();
+        $('#precio_4_t').addClass('hide');
         $('#precio_4_t').fadeOut();
+        $('#precio_t_4').addClass('hide');
         $('#precio_t_4').fadeOut();
+        $('#precio_d_4').addClass('hide');
         $('#precio_d_4').fadeOut();
+        $('#precio_s_4').addClass('hide');
         $('#precio_s_4').fadeOut();
     }
 
     if( $('#strellas_5').prop('checked') ) {
+        $('#precio_5').removeClass('hide');
         $('#precio_5').fadeIn();
+        $('#precio_5_t').removeClass('hide');
         $('#precio_5_t').fadeIn();
+        $('#precio_t_5').removeClass('hide');
         $('#precio_t_5').fadeIn();
+        $('#precio_d_5').removeClass('hide');
         $('#precio_d_5').fadeIn();
+        $('#precio_s_5').removeClass('hide');
         $('#precio_s_5').fadeIn();
     }
     else{
+        $('#precio_5').addClass('hide');
         $('#precio_5').fadeOut();
+        $('#precio_5_t').addClass('hide');
         $('#precio_5_t').fadeOut();
+        $('#precio_t_5').addClass('hide');
         $('#precio_t_5').fadeOut();
+        $('#precio_d_5').addClass('hide');
         $('#precio_d_5').fadeOut();
+        $('#precio_s_5').addClass('hide');
         $('#precio_s_5').fadeOut();
     }
 }
