@@ -268,6 +268,28 @@
                     ?>
                 @endif
                     <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
+                        <div class="col-lg-12">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="txt_codigo">Filtrar por Localizacion</label>
+                                    <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
+                                        @foreach($destinations as $destination)
+                                            <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="txt_codigo">Filtrar por tipo</label>
+                                    <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
+                                        @foreach($destinations as $destination)
+                                            <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                             <thead>
                             <tr>

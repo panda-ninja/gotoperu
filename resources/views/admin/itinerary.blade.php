@@ -10,8 +10,8 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li>Sales</li>
-            <li class="active">Itinerary</li>
+            <li>Inventory</li>
+            <li class="active">Day by Day</li>
         </ol>
     </div>
     <div class="row margin-top-20">
@@ -26,7 +26,7 @@
                 <div class="modal-content">
                     <form action="{{route('itinerary_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">New itinerary</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">New Day by Day</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -380,7 +380,7 @@
                         <div class="modal-content">
                             <form action="{{route('itinerary_edit_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">New itinerary</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Day by Day</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

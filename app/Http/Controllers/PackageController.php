@@ -63,7 +63,15 @@ class PackageController extends Controller
         $itinerarios_=$request->input('itinerarios_');
 //        $utilidad=$request->input('txt_utilidad');
 //        $preciox_n_dias_venta=$request->input('totalItinerario_venta');
-//
+
+
+        $strellas_2=$request->input('strellas_2');
+        $strellas_3=$request->input('strellas_3');
+        $strellas_4=$request->input('strellas_4');
+        $strellas_5=$request->input('strellas_5');
+
+//        dd('2:'.$strellas_2.' 3:'.$strellas_3.' 4:'.$strellas_4.' 5:'.$strellas_5);
+
         $amount_t2=$request->input('amount_t2');
         $amount_d2=$request->input('amount_d2');
         $amount_s2=$request->input('amount_s2');
@@ -80,10 +88,10 @@ class PackageController extends Controller
         $amount_d5=$request->input('amount_d5');
         $amount_s5=$request->input('amount_s5');
 //
-//        $profit_2=$request->input('profit_2');
-//        $profit_3=$request->input('profit_3');
-//        $profit_4=$request->input('profit_4');
-//        $profit_5=$request->input('profit_5');
+        $profit_2=$request->input('profitt_2');
+        $profit_3=$request->input('profitt_3');
+        $profit_4=$request->input('profitt_4');
+        $profit_5=$request->input('profitt_5');
 //
 //        $profit_2=$request->input('profit_2');
 
@@ -113,7 +121,11 @@ class PackageController extends Controller
         $paquete_precio2->personas_d=1;
         $paquete_precio2->precio_t=$amount_t2;
         $paquete_precio2->personas_t=1;
-        $paquete_precio2->estado=1;
+        if($strellas_2==2)
+            $paquete_precio2->estado=1;
+        else
+            $paquete_precio2->estado=0;
+        $paquete_precio2->utilidad=$profit_2;
         $paquete_precio2->p_paquete_id=$paquete->id;
         $paquete_precio2->save();
 
@@ -127,7 +139,11 @@ class PackageController extends Controller
         $paquete_precio3->personas_d=1;
         $paquete_precio3->precio_t=$amount_t3;
         $paquete_precio3->personas_t=1;
-        $paquete_precio3->estado=1;
+        if($strellas_3==3)
+            $paquete_precio3->estado=1;
+        else
+            $paquete_precio3->estado=0;
+        $paquete_precio3->utilidad=$profit_3;
         $paquete_precio3->p_paquete_id=$paquete->id;
         $paquete_precio3->save();
 
@@ -141,7 +157,11 @@ class PackageController extends Controller
         $paquete_precio4->personas_d=1;
         $paquete_precio4->precio_t=$amount_t4;
         $paquete_precio4->personas_t=1;
-        $paquete_precio4->estado=1;
+        if($strellas_4==4)
+            $paquete_precio4->estado=1;
+        else
+            $paquete_precio4->estado=0;
+        $paquete_precio4->utilidad=$profit_4;
         $paquete_precio4->p_paquete_id=$paquete->id;
         $paquete_precio4->save();
 
@@ -155,7 +175,11 @@ class PackageController extends Controller
         $paquete_precio5->personas_d=1;
         $paquete_precio5->precio_t=$amount_t5;
         $paquete_precio5->personas_t=1;
-        $paquete_precio5->estado=1;
+        if($strellas_5==5)
+            $paquete_precio5->estado=1;
+        else
+            $paquete_precio5->estado=0;
+        $paquete_precio5->utilidad=$profit_5;
         $paquete_precio5->p_paquete_id=$paquete->id;
         $paquete_precio5->save();
 
