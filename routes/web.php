@@ -168,3 +168,8 @@ Route::get('admin/buscar-product/', [
     'uses' => 'ServicesController@autocomplete',
     'as' => 'buscar_service_path',
 ]);
+
+Route::get('admin/quotes/new/', [
+    'uses' => 'QouteController@new',
+    'as' => 'quotes_new_path',
+]);

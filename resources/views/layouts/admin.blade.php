@@ -98,6 +98,10 @@
                 <li ><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expidia</a></li>
                 <li class="hide"><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Catalog</a></li>
                 <li class="divider"></li>
+                <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Quotes</b></li>
+                <li class="divider"></li>
+                <li><a href="{{route("quotes_new_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> New</a></li>
+                <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Current</a></li>
                 <li class="divider"></li>
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Packages</b></li>
                 <li class="divider"></li>

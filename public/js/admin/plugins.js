@@ -23034,5 +23034,32 @@ function filtrar_estrellas(){
     }
 }
 function ordenar_itinerarios(){
-alert('presionaste onblur');
+// alert('presionaste onblur');
+}
+
+function filtrar_mo_lista(cat){
+    // var filtrotito=$('#filtro_localizacion_'+cat).val();
+    //
+    // $("#tb_"+cat+" tbody tr").each(function (index)
+    // {
+    //     $(this).children("td").each(function (index2)
+    //     {
+    //         // if(index2==1){
+    //         //     var loca=$(this).text();
+    //         //     if(loca!=filtrotito){
+    //         //         $('#')
+    //         //     }
+    //         // }
+    //         switch (index2)
+    //         {
+    //             case 0: console.log($(this).text());
+    //                 break;
+    //             case 1: console.log($(this).text());
+    //                 break;
+    //             case 2: console.log($(this).text());
+    //                 break;
+    //         }
+    //         // $(this).css("background-color", "#ECF8E0");
+    //     })
+    // })
 }

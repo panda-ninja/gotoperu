@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\M_Destino;
+use App\M_Itinerario;
+use App\M_Servicio;
 use Illuminate\Http\Request;
 
 class QouteController extends Controller
@@ -89,5 +92,14 @@ class QouteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function new()
+    {
+        $destinos=M_Destino::get();
+        $itinerarios=M_Itinerario::get();
+        $m_servicios=M_Servicio::get();
+//        dd($servicios);
+        return view('admin.quotes-new',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
     }
 }

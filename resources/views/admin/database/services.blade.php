@@ -272,7 +272,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="txt_codigo">Filtrar por Localizacion</label>
-                                    <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
+                                    <select class="form-control" id="filtro_localizacion_{{$categoria->nombre}}" name="filtro_localizacion_{{$categoria->nombre}}" on onchange="filtrar_mo_lista('{{$categoria->nombre}}')">
                                         @foreach($destinations as $destination)
                                             <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                         @endforeach
@@ -360,7 +360,7 @@
 
                                     <tr id="lista_services_{{$servicio->id}}">
                                         <td class="text-green-goto">{{$servicio->codigo}}</td>
-                                        <td>{{$servicio->localizacion}}</td>
+                                        <td class="lista_mo">{{$servicio->localizacion}}</td>
                                         <td>{{$servicio->tipoServicio}} {{$acom}}</td>
                                         <td>{{$servicio->nombre}}</td>
                                         <td>${{$servicio->precio_venta}}</td>
