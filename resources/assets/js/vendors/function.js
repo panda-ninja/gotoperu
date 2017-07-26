@@ -113,7 +113,11 @@ function Pasar_datos(){
             iti_temp+=''+
                 '<tr>'+
                 '<td class="" colspan="4">'+
-                '<a href="#add-services'+itinerario[0]+'" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
+                '<a class="hide" href="#add-services'+itinerario[0]+'" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
+                '<div class="col-md-12">'+
+                '<label for="txta_description">Sugerencias para los servicios</label>'+
+                '<textarea class="form-control" id="txt_sugerencia_'+itinerario[0]+'" name="txt_sugerencia[]" rows="3"></textarea>'+
+                '</div>'+
                 '<div class="collapse" id="add-services'+itinerario[0]+'">'+
                 '<div class="row margin-top-10">'+
                 '<div class="col-md-6">'+

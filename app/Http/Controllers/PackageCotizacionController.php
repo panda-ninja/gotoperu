@@ -2,55 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\M_Destino;
-use App\M_Itinerario;
-use App\M_Servicio;
-use App\P_Itinerario;
-use App\P_ItinerarioDestino;
-use App\P_ItinerarioServicios;
-use App\P_Paquete;
-use App\P_PaquetePrecio;
+use App\Cliente;
 use Illuminate\Http\Request;
 
-class PackageController extends Controller
+class PackageCotizacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //--
-    }
-
-    public function catalog()
-    {
-        return view('admin.catalog');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $destinos=M_Destino::get();
-        $itinerarios=M_Itinerario::get();
-        $m_servicios=M_Servicio::get();
-//        dd($servicios);
-        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //
     public function store(Request $request)
     {
+        //-- Datos del cliente
+        $cliente=new Cliente();
+        $cliente->nombres=strtoupper($request->input('txt_name'));
+        $cliente->email=$request->input('txt_email');
+        $cliente->nacionalidad=$request->input('txt_country');
+        $cliente->telefono=$request->input('txt_phone');
+        $cliente->save();
+
+
 
         $txt_day=strtoupper(($request->input('txt_day')));
         $txt_code=strtoupper(($request->input('txt_codigo')));
@@ -218,50 +186,5 @@ class PackageController extends Controller
         $itinerarios=M_Itinerario::get();
         $m_servicios=M_Servicio::get();
         return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

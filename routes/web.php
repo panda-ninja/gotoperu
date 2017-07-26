@@ -173,3 +173,8 @@ Route::get('admin/quotes/new/', [
     'uses' => 'QouteController@new',
     'as' => 'quotes_new_path',
 ]);
+
+Route::post('/admin/quotes/store', [
+    'uses' => 'PackageCotizacionController@store',
+    'as' => 'package_cotizacion_save_path',
+]);
