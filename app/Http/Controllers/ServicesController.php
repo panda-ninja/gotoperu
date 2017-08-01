@@ -32,6 +32,9 @@ class ServicesController extends Controller
         $txt_product=$request->input('txt_product_'.$posTipo);
         $txt_price=$request->input('txt_price_'.$posTipo);
         $txt_tipo_grupo=$request->input('txt_tipo_grupo_'.$posTipo);
+        $txt_salida=$request->input('txt_salida_'.$posTipo);
+        $txt_llegada=$request->input('txt_llegada_'.$posTipo);
+
         $destino=new M_Servicio();
         $destino->grupo=$cate[$posTipo];
         $destino->localizacion=$txt_localizacion;
@@ -39,6 +42,9 @@ class ServicesController extends Controller
         $destino->acomodacion=$txt_acomodacion;
         $destino->nombre=$txt_product;
         $destino->precio_venta=$txt_price;
+        $destino->salida=$txt_salida;
+        $destino->llegada=$txt_llegada;
+
         if($txt_tipo_grupo=='Absoluto')
             $destino->precio_grupo=1;
         elseif($txt_tipo_grupo=='Individual')
@@ -79,6 +85,8 @@ class ServicesController extends Controller
         $txt_product=$request->input('txt_product_'.$posTipo);
         $txt_price=$request->input('txt_price_'.$posTipo);
         $txt_tipo_grupo=$request->input('txt_tipo_grupo_'.$posTipo);
+        $txt_salida=$request->input('txt_salida_'.$posTipo);
+        $txt_llegada=$request->input('txt_llegada_'.$posTipo);
 
         $destino=M_Servicio::FindOrFail($id);
         $destino->localizacion=$txt_localizacion;
@@ -86,6 +94,8 @@ class ServicesController extends Controller
         $destino->acomodacion=$txt_acomodacion;
         $destino->nombre=$txt_product;
         $destino->precio_venta=$txt_price;
+        $destino->salida=$txt_salida;
+        $destino->llegada=$txt_llegada;
         if($txt_tipo_grupo=='Absoluto')
             $destino->precio_grupo=1;
         elseif($txt_tipo_grupo=='Individual')

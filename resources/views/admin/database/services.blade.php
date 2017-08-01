@@ -92,10 +92,11 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="txt_type">Type</label>
+                                                    {{--<label for="txt_type">Type</label>--}}
                                                     {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
 
                                                     @if($categoria->nombre=='HOTELS')
+                                                        <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="2 STARS">2 STARS</option>
                                                             <option value="3 STARS">3 STARS</option>
@@ -104,12 +105,14 @@
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='TOURS')
+                                                        <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="GROUP">GROUP</option>
                                                             <option value="PRIVATE">PRIVATE</option>
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='MOVILID')
+                                                        <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="AUTO">AUTO</option>
                                                             <option value="SUBARU">SUBARU</option>
@@ -119,6 +122,7 @@
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='REPRESENT')
+                                                        <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="GUIDE">GUIDE</option>
                                                             <option value="TRANSFER">TRANSFER</option>
@@ -126,12 +130,14 @@
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='ENTRANCES')
+                                                        <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="EXTRANJERO">EXTRANJERO</option>
                                                             <option value="NATIONAL">NATIONAL</option>
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='FOOD')
+                                                        <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="LUNCH">LUNCH</option>
                                                             <option value="DINNER">DINNER</option>
@@ -139,21 +145,33 @@
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='TRAINS')
+
+                                                        {{--<select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">--}}
+                                                            {{--<option value="EXPEDITION">EXPEDITION</option>--}}
+                                                            {{--<option value="VISITADOME">VISITADOME</option>--}}
+                                                            {{--<option value="HIRAN BINGHAN">BOX LUNCH</option>--}}
+                                                            {{--<option value="EJECUTIVO">EJECUTIVO</option>--}}
+                                                            {{--<option value="PRIMERA CLASE">PRIMERA CLASE</option>--}}
+                                                        {{--</select>--}}
+                                                        <label for="txt_type">Class</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="EXPEDITION">EXPEDITION</option>
                                                             <option value="VISITADOME">VISITADOME</option>
-                                                            <option value="HIRAN BINGHAN">BOX LUNCH</option>
                                                             <option value="EJECUTIVO">EJECUTIVO</option>
-                                                            <option value="PRIMERA CLASE">PRIMERA CLASE</option>
+                                                            <option value="FIRST CLASS">FIRST CLASS</option>
+                                                            <option value="HIRAN BINGHAN">HIRAN BINGHAN</option>
+                                                            <option value="PRESIDENTIAL">PRESIDENTIAL</option>
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='FLIGHTS')
+                                                        <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="NATIONAL">NATIONAL</option>
                                                             <option value="INTERNATIONAL">INTERNATIONAL</option>
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='OTHERS')
+                                                        <label for="txt_type">Type</label>
                                                         <input type="text" class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}" placeholder="Type">
                                                     @endif
 
@@ -181,8 +199,12 @@
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="txt_product">Product</label>
-                                                    <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
+                                                    @if($categoria->nombre=='TRAINS')
+                                                        <label for="txt_product">Ruta</label>
+                                                    @else
+                                                        <label for="txt_product">Product</label>
+                                                    @endif
+                                                        <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
                                                 </div>
                                             </div>
                                             <div class="col-md-4 hide">
@@ -191,6 +213,20 @@
                                                     <input type="text" class="form-control" id="txt_code_{{$pos}}" name="txt_code_{{$pos}}" placeholder="Code product">
                                                 </div>
                                             </div>
+                                            @if($categoria->nombre=='TRAINS')
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_price">Salida</label>
+                                                        <input type="text" class="form-control" id="txt_salida_{{$pos}}" name="txt_salida_{{$pos}}" placeholder="Salida">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_price">Llegada</label>
+                                                        <input type="text" class="form-control" id="txt_llegada_{{$pos}}" name="txt_llegada_{{$pos}}" placeholder="Llegada">
+                                                    </div>
+                                                </div>
+                                            @endif
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_price">Price</label>
@@ -295,8 +331,9 @@
                             <tr>
                                 <th>Codigo</th>
                                 <th>Localizacion</th>
-                                <th>Tipo</th>
-                                <th>Nombre</th>
+                                <th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>
+                                <th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>
+                                @if($categoria->nombre=='TRAINS') <th>Horario</th> @endif
                                 <th>Precio</th>
                                 <th>Operaciones</th>
                             </tr>
@@ -305,8 +342,9 @@
                             <tr>
                                 <th>Codigo</th>
                                 <th>Localizacion</th>
-                                <th>Tipo</th>
-                                <th>Nombre</th>
+                                <th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>
+                                <th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>
+                                @if($categoria->nombre=='TRAINS') <th>Horario</th> @endif
                                 <th>Precio</th>
                                 <th>Operaciones</th>
                             </tr>
@@ -363,6 +401,7 @@
                                         <td class="lista_mo">{{$servicio->localizacion}}</td>
                                         <td>{{$servicio->tipoServicio}} {{$acom}}</td>
                                         <td>{{$servicio->nombre}}</td>
+                                        @if($categoria->nombre=='TRAINS') <td>{{$servicio->salida}} - {{$servicio->llegada}}</td> @endif
                                         <td>${{$servicio->precio_venta}}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$servicio->id}}">
@@ -502,9 +541,10 @@
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                         <option value="EXPEDITION" @if($servicio->nombre=="EXPEDITION") selected @endif>EXPEDITION</option>
                                                         <option value="VISITADOME" @if($servicio->nombre=="VISITADOME") selected @endif>VISITADOME</option>
-                                                        <option value="HIRAN BINGHAN" @if($servicio->nombre=="HIRAN BINGHAN") selected @endif>BOX LUNCH</option>
                                                         <option value="EJECUTIVO" @if($servicio->nombre=="EJECUTIVO") selected @endif>EJECUTIVO</option>
-                                                        <option value="PRIMERA CLASE" @if($servicio->nombre=="PRIMERA CLASE") selected @endif>PRIMERA CLASE</option>
+                                                        <option value="FIRST CLASS" @if($servicio->nombre=="FIRST CLASS") selected @endif>PRIMERA CLASE</option>
+                                                        <option value="HIRAN BINGHAN" @if($servicio->nombre=="HIRAN BINGHAN") selected @endif>HIRAN BINGHAN</option>
+                                                        <option value="PRESIDENTIAL" @if($servicio->nombre=="PRESIDENTIAL") selected @endif>PRESIDENTIAL</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='FLIGHTS')
@@ -540,10 +580,28 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="txt_product">Product</label>
+                                                @if($categoria->nombre=='TRAINS')
+                                                    <label for="txt_product">Ruta</label>
+                                                @else
+                                                    <label for="txt_product">Product</label>
+                                                @endif
                                                 <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product" value="{{$servicio->nombre}}">
                                             </div>
                                         </div>
+                                        @if($categoria->nombre=='TRAINS')
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_price">Salida</label>
+                                                    <input type="text" class="form-control" id="txt_salida_{{$pos}}" name="txt_salida_{{$pos}}" placeholder="Salida"  value="{{$servicio->salida}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_price">Llegada</label>
+                                                    <input type="text" class="form-control" id="txt_llegada_{{$pos}}" name="txt_llegada_{{$pos}}" placeholder="Llegada"  value="{{$servicio->llegada}}">
+                                                </div>
+                                            </div>
+                                        @endif
                                         <div class="col-md-4 hide">
                                             <div class="form-group">
                                                 <label for="txt_code">Code product</label>
