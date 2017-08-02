@@ -170,7 +170,7 @@ Route::get('admin/buscar-product/', [
 ]);
 
 Route::get('admin/quotes/new/', [
-    'uses' => 'QouteController@new',
+    'uses' => 'QouteController@nuevo',
     'as' => 'quotes_new_path',
 ]);
 

@@ -94,7 +94,7 @@ class QouteController extends Controller
         //
     }
 
-    public function new()
+    public function nuevo()
     {
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
