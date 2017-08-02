@@ -119,6 +119,7 @@
                                                             <option value="VAN">VAN</option>
                                                             <option value="H1">H1</option>
                                                             <option value="SPRINTER">SPRINTER</option>
+                                                            <option value="BUS">BUS</option>
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='REPRESENT')
@@ -491,75 +492,85 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="txt_type">Type</label>
+
                                                 {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
 
                                                 @if($servicio->grupo=='HOTELS')
+                                                    <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="2 STARS" @if($servicio->nombre=="2 STARS") selected @endif>2 STARS</option>
-                                                        <option value="3 STARS" @if($servicio->nombre=="3 STARS") selected @endif>3 STARS</option>
-                                                        <option value="4 STARS" @if($servicio->nombre=="4 STARS") selected @endif>4 STARS</option>
-                                                        <option value="5 STARS" @if($servicio->nombre=="5 STARS") selected @endif>5 STARS</option>
+                                                        <option value="2 STARS" @if($servicio->tipoServicio=="2 STARS") selected @endif>2 STARS</option>
+                                                        <option value="3 STARS" @if($servicio->tipoServicio=="3 STARS") selected @endif>3 STARS</option>
+                                                        <option value="4 STARS" @if($servicio->tipoServicio=="4 STARS") selected @endif>4 STARS</option>
+                                                        <option value="5 STARS" @if($servicio->tipoServicio=="5 STARS") selected @endif>5 STARS</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='TOURS')
+                                                    <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="GROUP" @if($servicio->nombre=="GROUP") selected @endif>GROUP</option>
-                                                        <option value="PRIVATE"  @if($servicio->nombre=="PRIVATE") selected @endif>PRIVATE</option>
+                                                        <option value="GROUP" @if($servicio->tipoServicio=="GROUP") selected @endif>GROUP</option>
+                                                        <option value="PRIVATE"  @if($servicio->tipoServicio=="PRIVATE") selected @endif>PRIVATE</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='MOVILID')
+                                                    <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="AUTO" @if($servicio->nombre=="AUTO") selected @endif>AUTO</option>
-                                                        <option value="SUBARU" @if($servicio->nombre=="GROUP") selected @endif>SUBARU</option>
-                                                        <option value="VAN" @if($servicio->nombre=="VAN") selected @endif>VAN</option>
-                                                        <option value="H1" @if($servicio->nombre=="H1") selected @endif>H1</option>
-                                                        <option value="SPRINTER" @if($servicio->nombre=="SPRINTER") selected @endif>SPRINTER</option>
+                                                        <option value="AUTO" @if($servicio->tipoServicio=="AUTO") selected @endif>AUTO</option>
+                                                        <option value="SUBARU" @if($servicio->tipoServicio=="SUBARU") selected @endif>SUBARU</option>
+                                                        <option value="VAN" @if($servicio->tipoServicio=="VAN") selected @endif>VAN</option>
+                                                        <option value="H1" @if($servicio->tipoServicio=="H1") selected @endif>H1</option>
+                                                        <option value="SPRINTER" @if($servicio->tipoServicio=="SPRINTER") selected @endif>SPRINTER</option>
+                                                        <option value="BUS" @if($servicio->tipoServicio=="BUS") selected @endif>BUS</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='REPRESENT')
+                                                    <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="GUIDE" @if($servicio->nombre=="GUIDE") selected @endif>GUIDE</option>
-                                                        <option value="TRANSFER" @if($servicio->nombre=="TRANSFER") selected @endif>TRANSFER</option>
-                                                        <option value="ASSISTANCE" @if($servicio->nombre=="ASSISTANCE") selected @endif>ASSISTANCE</option>
+                                                        <option value="GUIDE" @if($servicio->tipoServicio=="GUIDE") selected @endif>GUIDE</option>
+                                                        <option value="TRANSFER" @if($servicio->tipoServicio=="TRANSFER") selected @endif>TRANSFER</option>
+                                                        <option value="ASSISTANCE" @if($servicio->tipoServicio=="ASSISTANCE") selected @endif>ASSISTANCE</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='ENTRANCES')
+                                                    <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="EXTRANJERO" @if($servicio->nombre=="EXTRANJERO") selected @endif>EXTRANJERO</option>
-                                                        <option value="NATIONAL" @if($servicio->nombre=="NATIONAL") selected @endif>NATIONAL</option>
+                                                        <option value="EXTRANJERO" @if($servicio->tipoServicio=="EXTRANJERO") selected @endif>EXTRANJERO</option>
+                                                        <option value="NATIONAL" @if($servicio->tipoServicio=="NATIONAL") selected @endif>NATIONAL</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='FOOD')
+                                                    <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="LUNCH" @if($servicio->nombre=="LUNCH") selected @endif>LUNCH</option>
-                                                        <option value="DINNER" @if($servicio->nombre=="DINNDER") selected @endif>DINNER</option>
-                                                        <option value="BOX LUNCH" @if($servicio->nombre=="BOX LUNCH") selected @endif>BOX LUNCH</option>
+                                                        <option value="LUNCH" @if($servicio->tipoServicio=="LUNCH") selected @endif>LUNCH</option>
+                                                        <option value="DINNER" @if($servicio->tipoServicio=="DINNDER") selected @endif>DINNER</option>
+                                                        <option value="BOX LUNCH" @if($servicio->tipoServicio=="BOX LUNCH") selected @endif>BOX LUNCH</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='TRAINS')
+                                                    <label for="txt_type">Class</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="EXPEDITION" @if($servicio->nombre=="EXPEDITION") selected @endif>EXPEDITION</option>
-                                                        <option value="VISITADOME" @if($servicio->nombre=="VISITADOME") selected @endif>VISITADOME</option>
-                                                        <option value="EJECUTIVO" @if($servicio->nombre=="EJECUTIVO") selected @endif>EJECUTIVO</option>
-                                                        <option value="FIRST CLASS" @if($servicio->nombre=="FIRST CLASS") selected @endif>PRIMERA CLASE</option>
-                                                        <option value="HIRAN BINGHAN" @if($servicio->nombre=="HIRAN BINGHAN") selected @endif>HIRAN BINGHAN</option>
-                                                        <option value="PRESIDENTIAL" @if($servicio->nombre=="PRESIDENTIAL") selected @endif>PRESIDENTIAL</option>
+                                                        <option value="EXPEDITION" @if($servicio->tipoServicio=="EXPEDITION") selected @endif>EXPEDITION</option>
+                                                        <option value="VISITADOME" @if($servicio->tipoServicio=="VISITADOME") selected @endif>VISITADOME</option>
+                                                        <option value="EJECUTIVO" @if($servicio->tipoServicio=="EJECUTIVO") selected @endif>EJECUTIVO</option>
+                                                        <option value="FIRST CLASS" @if($servicio->tipoServicio=="FIRST CLASS") selected @endif>PRIMERA CLASE</option>
+                                                        <option value="HIRAN BINGHAN" @if($servicio->tipoServicio=="HIRAN BINGHAN") selected @endif>HIRAN BINGHAN</option>
+                                                        <option value="PRESIDENTIAL" @if($servicio->tipoServicio=="PRESIDENTIAL") selected @endif>PRESIDENTIAL</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='FLIGHTS')
+                                                    <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                        <option value="NATIONAL" @if($servicio->nombre=="NATIONAL") selected @endif>NATIONAL</option>
-                                                        <option value="INTERNATIONAL" @if($servicio->nombre=="INTERNATIONAL") selected @endif>INTERNATIONAL</option>
+                                                        <option value="NATIONAL" @if($servicio->tipoServicio=="NATIONAL") selected @endif>NATIONAL</option>
+                                                        <option value="INTERNATIONAL" @if($servicio->tipoServicio=="INTERNATIONAL") selected @endif>INTERNATIONAL</option>
                                                     </select>
                                                 @endif
                                                 @if($servicio->grupo=='OTHERS')
-                                                    <input type="text" class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}" placeholder="Type">
+                                                    <label for="txt_type">Type</label>
+                                                    <input type="text" class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}" placeholder="Type" value="{{$servicio->tipoServicio}}">
                                                 @endif
 
                                             </div>
                                         </div>
-                                        @if($categoria->nombre=='HOTELS')
+                                        @if($servicio->grupo=='HOTELS')
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_type">Accommodation</label>
@@ -580,7 +591,7 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                @if($categoria->nombre=='TRAINS')
+                                                @if($servicio->grupo=='TRAINS')
                                                     <label for="txt_product">Ruta</label>
                                                 @else
                                                     <label for="txt_product">Product</label>
@@ -588,7 +599,7 @@
                                                 <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product" value="{{$servicio->nombre}}">
                                             </div>
                                         </div>
-                                        @if($categoria->nombre=='TRAINS')
+                                        @if($servicio->grupo=='TRAINS')
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_price">Salida</label>
