@@ -3,8 +3,8 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li>Inventory</li>
-            <li class="active">Itineraries</li>
+            <li>Quotes</li>
+            <li class="active">New</li>
         </ol>
     </div>
     <form action="{{route('package_cotizacion_save_path')}}" method="post" id="package_new_path_id">
@@ -19,19 +19,19 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="txt_name">Name</label>
-                    <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Name">
+                    <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Name" >
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="txt_email">Email</label>
-                    <input type="text" class="form-control" id="txt_email" name="txt_email" placeholder="Email">
+                    <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="txt_country">Country</label>
-                    <input type="number" class="form-control" id="txt_country" name="txt_country" placeholder="Country">
+                    <input type="text" class="form-control" id="txt_country" name="txt_country" placeholder="Country">
                 </div>
             </div>
 
@@ -55,13 +55,13 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="txt_travellers">Travellers</label>
-                    <input type="text" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers">
+                    <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1">
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="txt_days">Days</label>
-                    <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days">
+                    <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1">
                 </div>
             </div>
             <div class="col-md-3">
@@ -153,6 +153,7 @@
         </div>
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
+                {{csrf_field()}}
                 <button type="submit" class="btn btn-lg btn-primary">Create package <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>

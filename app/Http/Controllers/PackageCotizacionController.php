@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
+use App\M_Destino;
+use App\M_Itinerario;
+use App\M_Servicio;
 use Illuminate\Http\Request;
 
 class PackageCotizacionController extends Controller
@@ -30,7 +33,8 @@ class PackageCotizacionController extends Controller
         $cotizacion->star_4=$request->input('strellas_4');
         $cotizacion->star_5=$request->input('strellas_5');
         $cotizacion->estado=1;
-        $cotizacion->users_id=auth()->guard('admin')->user()->id;
+//        $cotizacion->users_id=auth()->guard('admin')->user()->id;
+        $cotizacion->users_id=1;
         $cotizacion->save();
 
         $cotizacion_cliente=new CotizacionesCliente();
@@ -39,9 +43,6 @@ class PackageCotizacionController extends Controller
         $cotizacion_cliente->estado=1;
         $cotizacion_cliente->save();
 
-        $destinos=M_Destino::get();
-        $itinerarios=M_Itinerario::get();
-        $m_servicios=M_Servicio::get();
-        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
+        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion]);
     }
 }

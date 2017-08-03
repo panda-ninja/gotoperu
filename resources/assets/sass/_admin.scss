@@ -194,7 +194,16 @@ body {
   padding: 10px;
   line-height:25px;
 }
-
+.portada-pdf .box-dowload1{
+  position: absolute;
+  border-bottom: 2px solid green;
+  background: rgba(255,255,255,.8);
+  bottom: 0;
+  left: 0;
+  width:100%;
+  padding: 10px;
+  line-height:25px;
+}
 .portada-pdf .box-letter-proposal{
   position: absolute;
   top: 10%;
