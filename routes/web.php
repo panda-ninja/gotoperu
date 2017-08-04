@@ -168,13 +168,15 @@ Route::get('admin/buscar-product/', [
     'uses' => 'ServicesController@autocomplete',
     'as' => 'buscar_service_path',
 ]);
-
 Route::get('admin/quotes/new/', [
     'uses' => 'QouteController@nuevo',
     'as' => 'quotes_new_path',
 ]);
-
 Route::post('/admin/quotes/store', [
     'uses' => 'PackageCotizacionController@store',
     'as' => 'package_cotizacion_save_path',
+]);
+Route::any('/admin/quotes/proposal/{id}/{id2}', [
+    'uses' => 'PackageCotizacionController@options',
+    'as' => 'new_plan_path',
 ]);

@@ -85,6 +85,26 @@
                     @endif
                 </b>
             </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b>
+                    <?php
+                        $array_destinos='';
+                    ?>
+                    <span class="text-20 text-green-goto">on Detination : </span>
+                    @foreach($destinos as $destino)
+                        <?php
+                            $array_destinos.=$destino.'$';
+                        ?>
+                        <span class="text-orange-goto text-15">{{$destino}}</span> -
+                    @endforeach
+                    <?php
+                        $array_destinos= substr($array_destinos,0,strlen($array_destinos)-1) ;
+                    ?>
+                </b>
+            </div>
         </div>
         <div class="row margin-top-20">
         </div>
@@ -94,7 +114,7 @@
                     <img src="{{asset('img/portada/new-proposal.jpg')}}" alt="" class="img-responsive">
                     <div class="box-dowload1">
                         <b class="margin-top-5"><i class="fa fa-newspaper-o text-green-goto" aria-hidden="true"></i> New Package</b>
-                        <a href="#" class="pull-right btn btn-default btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                        <a href="{{route('new_plan_path',[$cotizacion->id,$array_destinos])}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                     </div>
                     <div class="box-letter-proposal text-center">
                         <span class="text-orange-goto">NEW</span>

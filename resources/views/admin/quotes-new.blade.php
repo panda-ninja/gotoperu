@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">2</span> </h4>
+                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">2</span> Details</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">3</span> Package</h4>
+                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">3</span> Categories</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
@@ -150,6 +150,25 @@
                 </div>
             </div>
 
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-md-12">
+                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">4</span> Destinations</h4>
+                <div class="divider margin-bottom-20"></div>
+            </div>
+        </div>
+        <div class="row">
+            {{csrf_field()}}
+            @foreach($destinos as $destino)
+                <div class="col-md-3">
+                    <div class="checkbox1">
+                        <label class=" text-green-goto">
+                            <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->destino}}">
+                            {{$destino->destino}}
+                        </label>
+                    </div>
+                </div>
+            @endforeach
         </div>
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
