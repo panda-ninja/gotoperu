@@ -48,8 +48,16 @@
             <div class="col-md-4">
                 <div class="text-20">
                     <b>
+                        <?php
+                        $cotizacion_;
+                        ?>
+                        @foreach($cotizacion as $cotizacion1)
+                            <?php
+                                $cotizacion_=$cotizacion1;
+                            ?>
+                        @endforeach
                         <span class="text-green-goto">Travellers:</span>
-                    @for($i=0;$i<$cotizacion->nropersonas;$i++)
+                    @for($i=0;$i<$cotizacion_->nropersonas;$i++)
                         <i class="fa fa-male" aria-hidden="true"></i>
                     @endfor
 
@@ -59,28 +67,28 @@
             <div class="col-md-2">
                 <b>
                     <span class="text-20 text-green-goto">Days : </span>
-                    <span class="text-20">{{$cotizacion->duracion}}</span>
+                    <span class="text-20">{{$cotizacion_->duracion}}</span>
                 </b>
             </div>
             <div class="col-md-3">
                 <b>
                     <span class="text-20 text-green-goto">Travel date : </span>
-                    <span class="text-20">{{$cotizacion->fecha}}</span>
+                    <span class="text-20">{{$cotizacion_->fecha}}</span>
                 </b>
             </div>
             <div class="col-md-3">
                 <b>
                     <span class="text-20 text-green-goto">for : </span>
-                    @if($cotizacion->star_2=='2')
+                    @if($cotizacion_->star_2=='2')
                         2 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span> /
                     @endif
-                    @if($cotizacion->star_3=='3')
+                    @if($cotizacion_->star_3=='3')
                         3 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span></i>/
                     @endif
-                    @if($cotizacion->star_4=='4')
+                    @if($cotizacion_->star_4=='4')
                         4 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span></i>/
                     @endif
-                    @if($cotizacion->star_5=='5')
+                    @if($cotizacion_->star_5=='5')
                         5 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span></i>
                     @endif
                 </b>
@@ -109,18 +117,44 @@
         <div class="row margin-top-20">
         </div>
         <div id="list-package"  class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 margin-top-10">
                 <div class="portada-pdf">
                     <img src="{{asset('img/portada/new-proposal.jpg')}}" alt="" class="img-responsive">
-                    <div class="box-dowload1">
-                        <b class="margin-top-5"><i class="fa fa-newspaper-o text-green-goto" aria-hidden="true"></i> New Package</b>
-                        <a href="{{route('new_plan_path',[$cotizacion->id,$array_destinos])}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                    <div class="box-dowload1 text-green-goto">
+                        <b class="margin-top-5 text-green-goto"><i class="fa fa-newspaper-o text-green-goto" aria-hidden="true"></i> New Package</b>
+                        <a href="{{route('new_plan_path',[$cotizacion_->id,$array_destinos])}}" class="pull-right btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                     </div>
                     <div class="box-letter-proposal text-center">
                         <span class="text-orange-goto">NEW</span>
                     </div>
                 </div>
             </div>
+            <?php
+            $planes[]='A';
+            $planes[]='B';
+            $planes[]='C';
+            $planes[]='D';
+            $planes[]='E';
+            $planes[]='F';
+            $pos_plan=0;
+            ?>
+            @foreach($cotizacion_ as $coti)
+                <div class="col-md-3 margin-top-10">
+                    <div class="portada-pdf">
+                        <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
+                        <div class="box-dowload">
+                            <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Proposal</b>
+                            <a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="box-letter-proposal text-center">
+                            <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                $pos_plan++;
+                ?>
+            @endforeach
             <div class="col-md-3 hide">
                 <div class="portada-pdf">
                     <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
@@ -150,7 +184,8 @@
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
                 {{csrf_field()}}
-                <button type="submit" class="btn btn-lg btn-primary">Create package <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cliente}}">
+                <button type="submit" class="btn btn-lg btn-primary">Send Quote <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>
     </form>

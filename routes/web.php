@@ -180,3 +180,7 @@ Route::any('/admin/quotes/proposal/{id}/{id2}', [
     'uses' => 'PackageCotizacionController@options',
     'as' => 'new_plan_path',
 ]);
+Route::post('/admin/guardar-cotizacion-paquete', [
+    'uses' => 'PackageCotizacionController@store_package',
+    'as' => 'cotizacion_package_save_path',
+]);
