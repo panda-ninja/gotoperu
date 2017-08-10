@@ -57,7 +57,8 @@
                             ?>
                         @endforeach
                         <span class="text-green-goto">Travellers:</span>
-                    @for($i=0;$i<$cotizacion_->nropersonas;$i++)
+                    {{dd($cotizacion_)}}
+                            @for($i=0;$i<$cotizacion_->nropersonas;$i++)
                         <i class="fa fa-male" aria-hidden="true"></i>
                     @endfor
 
@@ -129,6 +130,7 @@
                     </div>
                 </div>
             </div>
+            {{--<p>cotizacion_id:{{$cotizacion_->id}}</p>--}}
             <?php
             $planes[]='A';
             $planes[]='B';
@@ -143,7 +145,7 @@
                     <div class="portada-pdf">
                         <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                         <div class="box-dowload">
-                            <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Proposal</b>
+                            <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
                             <a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
                         </div>
                         <div class="box-letter-proposal text-center">

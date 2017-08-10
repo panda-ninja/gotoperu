@@ -42,7 +42,7 @@ class PackageCotizacionController extends Controller
 //        $cotizacion->users_id=auth()->guard('admin')->user()->id;
         $cotizacion->users_id=1;
         $cotizacion->save();
-
+        $cotizacionGet=Cotizacion::where('id',$cotizacion->id)->get();
         $cotizacion_cliente=new CotizacionesCliente();
         $cotizacion_cliente->cotizaciones_id=$cotizacion->id;
         $cotizacion_cliente->clientes_id=$cliente->id;
@@ -50,7 +50,7 @@ class PackageCotizacionController extends Controller
         $cotizacion_cliente->save();
         $destinos=$request->input('destinos');
 //        dd($destinos);
-        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos]);
+        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacionGet,'destinos'=>$destinos]);
     }
     public function options($cotizacion_id,$destinos1)
     {
