@@ -184,3 +184,8 @@ Route::post('/admin/guardar-cotizacion-paquete', [
     'uses' => 'PackageCotizacionController@store_package',
     'as' => 'cotizacion_package_save_path',
 ]);
+Route::post('/admin/send-cotizacion', [
+    'uses' => 'PackageCotizacionController@save_cotizacion',
+    'as' => 'package_cotizacion_send_path',
+]);
+

@@ -15,6 +15,7 @@ use App\P_PaquetePrecio;
 use App\PaqueteCotizaciones;
 use App\PaquetePrecio;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class PackageCotizacionController extends Controller
 {
@@ -38,11 +39,12 @@ class PackageCotizacionController extends Controller
         $cotizacion->star_3=$request->input('strellas_3');
         $cotizacion->star_4=$request->input('strellas_4');
         $cotizacion->star_5=$request->input('strellas_5');
-        $cotizacion->estado=1;
+        $cotizacion->estado=0;
 //        $cotizacion->users_id=auth()->guard('admin')->user()->id;
         $cotizacion->users_id=1;
         $cotizacion->save();
         $cotizacionGet=Cotizacion::where('id',$cotizacion->id)->get();
+//        dd($cotizacionGet);
         $cotizacion_cliente=new CotizacionesCliente();
         $cotizacion_cliente->cotizaciones_id=$cotizacion->id;
         $cotizacion_cliente->clientes_id=$cliente->id;
@@ -117,7 +119,7 @@ class PackageCotizacionController extends Controller
         $paquete->incluye=$txta_include;
         $paquete->noincluye=$txta_notinclude;
         $paquete->utilidad=40;
-        $paquete->estado=1;
+        $paquete->estado=0;
         $paquete->preciocosto=$totalItinerario;
         $paquete->cotizaciones_id=$cotizacion_id;
         $paquete->save();
@@ -250,6 +252,38 @@ class PackageCotizacionController extends Controller
 //        $itinerarios=M_Itinerario::get();
 //        $m_servicios=M_Servicio::get();
 //        return view('admin.quotes-package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'destinos1'=>$destinos1,'cotizacion'=>$cotizacion]);
+
+    }
+    public function save_cotizacion(Request $request)
+    {
+        $cotizacion_id=$request->input('cotizacion_id');
+        $cotizacion=Cotizacion::with('paquete_cotizaciones')->where('id',$cotizacion_id)->get();
+        $cotizacion_=null;
+        foreach ($cotizacion as $cotizacion1){
+            $cotizacion_=$cotizacion1;
+        }
+        if(count($cotizacion_->paquete_cotizaciones)>0){
+                $cotizacion2=Cotizacion::FindOrFail($cotizacion_id);
+                $cotizacion2->estado=1;
+                $cotizacion2->save();
+                foreach ($cotizacion_->paquete_cotizaciones as $paquete){
+                    $paquete_=PaqueteCotizaciones::FindOrFail($paquete->id);
+                    $paquete_->estado=1;
+                    $paquete_->save();
+                }
+                $destinos=M_Destino::get();
+                $itinerarios=M_Itinerario::get();
+                $m_servicios=M_Servicio::get();
+                return view('admin.quotes-new',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
+        }
+        else{
+            $cliente_id=$request->input('cliente_id');
+            $cliente=Cliente::FindOrFail($cliente_id);
+            $destinos=$request->input('destinos');
+            $cotizacion=Cotizacion::where('id',$cotizacion_id)->get();
+            return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos]);
+
+        }
 
     }
 }

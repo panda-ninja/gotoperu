@@ -7,7 +7,7 @@
             <li class="active">New</li>
         </ol>
     </div>
-    <form action="{{route('package_cotizacion_save_path')}}" method="post" id="package_new_path_id">
+    <form action="{{route('package_cotizacion_send_path')}}" method="post" id="package_new_path_id">
         <div class="row">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Client</h4>
@@ -57,7 +57,7 @@
                             ?>
                         @endforeach
                         <span class="text-green-goto">Travellers:</span>
-                    {{dd($cotizacion_)}}
+                    {{--{{dd($cotizacion_)}}--}}
                             @for($i=0;$i<$cotizacion_->nropersonas;$i++)
                         <i class="fa fa-male" aria-hidden="true"></i>
                     @endfor
@@ -140,7 +140,8 @@
             $planes[]='F';
             $pos_plan=0;
             ?>
-            @foreach($cotizacion_ as $coti)
+            {{--{{dd($cotizacion_)}}--}}
+            @foreach($cotizacion_->paquete_cotizaciones as $paquete)
                 <div class="col-md-3 margin-top-10">
                     <div class="portada-pdf">
                         <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
@@ -186,7 +187,11 @@
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
                 {{csrf_field()}}
-                <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cliente}}">
+                <input type="hidden" name="cotizacion_id" id="cotizacion_id" value="{{$cotizacion_->id}}">
+                <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cliente->id}}">
+                @foreach($destinos as $destino)
+                    <input type="hidden" name="destinos[]" id="destinos" value="{{$destino}}">
+                @endforeach
                 <button type="submit" class="btn btn-lg btn-primary">Send Quote <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>
