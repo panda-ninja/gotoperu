@@ -1646,7 +1646,7 @@
                 <input type="hidden" name="nro_personitas" id="nro_personitas" value="{{$cotizacion_->nropersonas}}">
                 <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cotizacion_->nropersonas}}">
 
-                <button type="submit" class="btn btn-lg btn-primary">Submit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <button type="submit" class="btn btn-lg btn-primary">Generar plan <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>
     </form>

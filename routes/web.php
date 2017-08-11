@@ -188,4 +188,15 @@ Route::post('/admin/send-cotizacion', [
     'uses' => 'PackageCotizacionController@save_cotizacion',
     'as' => 'package_cotizacion_send_path',
 ]);
-
+Route::get('/admin/current-quote', [
+    'uses' => 'PackageCotizacionController@current_cotizacion',
+    'as' => 'current-quote_path',
+]);
+Route::get('admin/buscar-cotizacion/', [
+    'uses' => 'PackageCotizacionController@autocomplete',
+    'as' => 'buscar_cotizacion_path',
+]);
+Route::post('admin/show-cotization/', [
+    'uses' => 'PackageCotizacionController@show_cotizacion',
+    'as' => 'cotizacion_show_path',
+]);

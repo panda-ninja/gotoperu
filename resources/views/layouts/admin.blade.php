@@ -101,22 +101,22 @@
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Quotes</b></li>
                 <li class="divider"></li>
                 <li><a href="{{route("quotes_new_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> New</a></li>
-                <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Current</a></li>
+                <li><a href="{{route("current-quote_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Current</a></li>
                 <li class="divider"></li>
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Sales</b></li>
                 <li class="divider"></li>
                 <li><a href="{{route("quotes_new_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Paxs</a></li>
                 <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Agences</a></li>
                 <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expedia</a></li>
-                {{--<li class="divider"></li>--}}
-                {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Packages</b></li>--}}
-                {{--<li class="divider"></li>--}}
-                {{--<li class="active"><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Itineraries</a></li>--}}
-                {{--<li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Catalog</a></li>--}}
-                {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Client</b></li>--}}
-                {{--<li class="divider"></li>--}}
-                {{--<li><a href="{{route("qoute_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> New</a></li>--}}
-                {{--<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i> Current</a></li>--}}
+                <li class="divider"></li>
+                <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Packages</b></li>
+                <li class="divider"></li>
+                <li class="active"><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Itineraries</a></li>
+                <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Catalog</a></li>
+                <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Client</b></li>
+                <li class="divider"></li>
+                <li><a href="{{route("qoute_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> New</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i> Current</a></li>
             </ul>
             <ul class="nav nav-sidebar hide">
                 <li class="padding-side-20 bg-green-goto text-white text-20">Operations</li>

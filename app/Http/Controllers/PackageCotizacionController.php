@@ -14,8 +14,10 @@ use App\M_Servicio;
 use App\P_PaquetePrecio;
 use App\PaqueteCotizaciones;
 use App\PaquetePrecio;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Mockery\Exception;
+use PhpParser\Node\Expr\Array_;
 
 class PackageCotizacionController extends Controller
 {
@@ -31,7 +33,11 @@ class PackageCotizacionController extends Controller
         $cliente->save();
 
         //-- Datos de la cotizacion
+        $date = date_create($request->input('txt_travel_date'));
+        $fecha=date_format($date, 'jS F Y');
         $cotizacion=new Cotizacion();
+        $cotizacion->nombre=strtoupper($request->input('txt_name')).' x'.$request->input('txt_travellers').' '.$fecha;
+//        dd($cotizacion->nombre);
         $cotizacion->nropersonas=$request->input('txt_travellers');
         $cotizacion->duracion=$request->input('txt_days');
         $cotizacion->fecha=$request->input('txt_travel_date');
@@ -284,6 +290,29 @@ class PackageCotizacionController extends Controller
             return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos]);
 
         }
+
+    }
+    public function current_cotizacion()
+    {
+
+        return view('admin.quotes-current',['cotizacion'=>null]);
+    }
+    public function autocomplete()
+    {
+        $term = Input::get('term');
+        $results = null;
+        $results = [];
+        $proveedor = Cotizacion::where('nombre', 'like', '%' . $term . '%')->get();
+        foreach ($proveedor as $query) {
+            $results[] = ['id' => $query->id, 'value' => $query->nombre];
+        }
+        return response()->json($results);
+    }
+    public function show_cotizacion( Request $request)
+    {
+        $txt_name=$request->input('txt_name');
+        $cotizacion=Cotizacion::where('nombre',$txt_name)->get();
+        return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
 
     }
 }
