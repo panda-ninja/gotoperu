@@ -200,7 +200,7 @@
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    @if($categoria->nombre=='TRAINS')
+                                                    @if($categoria->nombre=='TRAINS'||$categoria->nombre=='FLIGHTS')
                                                         <label for="txt_product">Ruta</label>
                                                     @else
                                                         <label for="txt_product">Product</label>
@@ -214,7 +214,7 @@
                                                     <input type="text" class="form-control" id="txt_code_{{$pos}}" name="txt_code_{{$pos}}" placeholder="Code product">
                                                 </div>
                                             </div>
-                                            @if($categoria->nombre=='TRAINS')
+                                            @if($categoria->nombre=='TRAINS'||$categoria->nombre=='FLIGHTS')
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="txt_price">Salida</label>
@@ -234,22 +234,168 @@
                                                     <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price" min="0">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class=" text-green-goto">
-                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
-                                                            Precio es absoluto
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class=" text-green-goto">
-                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
-                                                            Precio es individual
-                                                        </label>
+                                            @if($categoria->nombre=='HOTELS')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
+                                            @if($categoria->nombre=='TOURS')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($categoria->nombre=='MOVILID')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($categoria->nombre=='REPRESENT')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($categoria->nombre=='ENTRANCES')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" >
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($categoria->nombre=='FOOD')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" >
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($categoria->nombre=='TRAINS')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" >
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($categoria->nombre=='FLIGHTS')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" >
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($categoria->nombre=='OTHERS')
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" >
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <?php
@@ -591,7 +737,7 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                @if($servicio->grupo=='TRAINS')
+                                                @if($servicio->grupo=='TRAINS' || $servicio->grupo=='FLIGHTS')
                                                     <label for="txt_product">Ruta</label>
                                                 @else
                                                     <label for="txt_product">Product</label>
@@ -599,7 +745,7 @@
                                                 <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product" value="{{$servicio->nombre}}">
                                             </div>
                                         </div>
-                                        @if($servicio->grupo=='TRAINS')
+                                        @if($servicio->grupo=='TRAINS' || $servicio->grupo=='FLIGHTS')
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_price">Salida</label>
@@ -625,37 +771,303 @@
                                                 <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price"  value="{{$servicio->precio_venta}}" min="0">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                @if($servicio->precio_grupo==1)
-                                                    <div class="col-md-6">
-                                                        <label class=" text-green-goto">
-                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
-                                                            Precio es absoluto
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class=" text-green-goto">
-                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
-                                                            Precio es individual
-                                                        </label>
-                                                    </div>
-                                                @else
-                                                    <div class="col-md-6">
-                                                        <label class=" text-green-goto">
-                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
-                                                            Precio es absoluto
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class=" text-green-goto">
-                                                            <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
-                                                            Precio es individual
-                                                        </label>
-                                                    </div>
-                                                @endif
+                                        @if($servicio->grupo=='HOTELS')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
+                                        @if($servicio->grupo=='TOURS')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($servicio->grupo=='MOVILID')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($servicio->grupo=='REPRESENT')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($servicio->grupo=='ENTRANCES')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($servicio->grupo=='FOOD')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($servicio->grupo=='TRAINS')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($servicio->grupo=='FLIGHTS')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6 hide">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if($servicio->grupo=='OTHERS')
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    @if($servicio->precio_grupo==1)
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto">
+                                                                Precio es absoluto
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class=" text-green-goto">
+                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual" checked="checked">
+                                                                Precio es individual
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <?php

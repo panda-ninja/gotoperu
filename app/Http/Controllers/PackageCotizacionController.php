@@ -315,4 +315,10 @@ class PackageCotizacionController extends Controller
         return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
 
     }
+
+    public function show_paxs()
+    {
+        $destinos=M_Destino::get();
+        return view('admin.database.destination1',['destinos'=>$destinos]);
+    }
 }

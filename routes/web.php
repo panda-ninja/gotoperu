@@ -200,3 +200,7 @@ Route::post('admin/show-cotization/', [
     'uses' => 'PackageCotizacionController@show_cotizacion',
     'as' => 'cotizacion_show_path',
 ]);
+Route::get('admin/sales_paxs_path/', [
+    'uses' => 'PackageCotizacionController@show_paxs',
+    'as' => 'sales_paxs_path',
+]);
