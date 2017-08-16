@@ -200,3 +200,14 @@ Route::post('admin/show-cotization/', [
     'uses' => 'PackageCotizacionController@show_cotizacion',
     'as' => 'cotizacion_show_path',
 ]);
+
+//hidalgo
+//client
+Route::get('admin/pax/', [
+    'uses' => 'QouteController@pax',
+    'as' => 'pax_path',
+]);
+Route::get('admin/pax/{id}', [
+    'uses' => 'QouteController@paxshow',
+    'as' => 'pax_show_path',
+]);

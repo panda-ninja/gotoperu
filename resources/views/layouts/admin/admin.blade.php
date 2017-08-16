@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="{{mix("css/font-awesome.css")}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.css">
 
+    <script src="{{asset("js/app.js")}}"></script>
     @yield('archivos-css')
     {{--scripts--}}
-    <script src="{{asset("js/app.js")}}"></script>
     <script src="{{asset("https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.js")}}"></script>
-    <script src="{{asset("js/admin/plugins.js")}}"></script>
     @yield('archivos-js')
+    <script src="{{asset("js/admin/plugins.js")}}"></script>
 
 </head>
 <body>
@@ -105,7 +105,7 @@
                 <li class="divider"></li>
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Sales</b></li>
                 <li class="divider"></li>
-                <li><a href="{{route("quotes_new_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Paxs</a></li>
+                <li><a href="{{route("pax_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Paxs</a></li>
                 <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Agences</a></li>
                 <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expedia</a></li>
                 <li class="divider"></li>
@@ -138,6 +138,7 @@
     </div>
 </div>
 {{--scripts--}}
+
 <script>
     var jumboHeight = $('.jumbotron').outerHeight();
     function parallax(){
@@ -149,5 +150,6 @@
         parallax();
     });
 </script>
+
 </body>
 </html>

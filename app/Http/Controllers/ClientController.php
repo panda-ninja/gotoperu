@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
-use App\M_Destino;
-use App\M_Itinerario;
-use App\M_Servicio;
 use Illuminate\Http\Request;
 
-class QouteController extends Controller
+
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,33 +17,8 @@ class QouteController extends Controller
      */
     public function index()
     {
-        return view('admin.quotes');
-    }
-
-    public function proposal()
-    {
-        return view('admin.quotes-pdf');
-    }
-    public function options()
-    {
-        return view('admin.quotes-option');
-    }
-    public function pax()
-    {
-        $cotizacion = Cotizacion::with('cotizaciones_cliente')->get();
-//        $cotizacion = CotizacionesCliente::all();
-        $clients = Cliente::all();
-        return view('admin.quote-pax', ['cotizacion'=>$cotizacion, 'clients'=>$clients]);
-    }
-    public function paxshow($id)
-    {
-        $cotizacion = Cotizacion::with('cotizaciones_cliente')->where('id', $id)->get();
-//        dd($quote_client);
-        $clients = Cliente::all();
-        return view('admin.quote-pax-show', ['cotizacion'=>$cotizacion, 'clients'=>$clients]);
 
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -76,7 +49,7 @@ class QouteController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -111,14 +84,5 @@ class QouteController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function nuevo()
-    {
-        $destinos=M_Destino::get();
-        $itinerarios=M_Itinerario::get();
-        $m_servicios=M_Servicio::get();
-//        dd($servicios);
-        return view('admin.quotes-new',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
     }
 }

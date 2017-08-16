@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Cliente extends Authenticatable
 {
+    protected $table = "clientes";
     protected $fillable = [
         'id','nombres',
         'apellidos', 'email', 'password',
