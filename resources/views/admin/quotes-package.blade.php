@@ -670,7 +670,7 @@
                     <thead>
                     <tr class="bg-grey-goto text-white">
                         <th class="text-center">Price Cost</th>
-                        <th class="text-center">2 Starss</th>
+                        <th class="text-center">2 Stars</th>
                         <th class="text-center">3 Stars</th>
                         <th class="text-center">4 Stars</th>
                         <th class="text-center">5 Stars</th>
@@ -1167,7 +1167,7 @@
                             <b class="text-16">$ <span id="amount_t2_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1192,7 +1192,8 @@
                         </td>
                         <td>
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30"> /
+                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_d2_a"></span>.00</b>
@@ -1287,7 +1288,7 @@
                             <b class="text-16">$ <span id="amount_t3_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1312,7 +1313,8 @@
                         </td>
                         <td>
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30"> /
+                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_d3_a"></span>.00</b>
@@ -1408,7 +1410,7 @@
                             <b class="text-16">$ <span id="amount_t4_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1433,7 +1435,8 @@
                         </td>
                         <td>
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30"> /
+                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_d4_a"></span>.00</b>
@@ -1529,7 +1532,7 @@
                             <b class="text-16">$ <span id="amount_t5_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1554,7 +1557,8 @@
                         </td>
                         <td>
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30"> /
+                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_d5_a"></span>.00</b>
