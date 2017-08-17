@@ -399,8 +399,18 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="txt_imagen">Imagen</label>
-                                                        <img src="" alt="" width="100" height="100">
-                                                        <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
+                                                        @if (Storage::disk('itinerary')->has($itinerario->imagen))
+                                                            <picture>
+                                                                <img
+                                                                        src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}"  width="100" height="100">
+                                                            </picture>
+                                                            {{--<img src="{{ route('destination_image_path', ['filename' => $destino->imagen])}}" alt="" width="100px" height="100px">--}}
+                                                            {{--                                                    <input type="file" id="file" name="file" class="dropify" data-default-file="{{ route('admin_itinerary_image_path', ['filename' => $destino->imagen])}}"/>--}}
+                                                            <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
+                                                        @else
+                                                            <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>

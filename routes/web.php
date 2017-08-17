@@ -204,3 +204,19 @@ Route::get('admin/sales_paxs_path/', [
     'uses' => 'PackageCotizacionController@show_paxs',
     'as' => 'sales_paxs_path',
 ]);
+Route::post('admin/activar-package', [
+    'uses' => 'PackageCotizacionController@activar_package',
+    'as' => 'activar_package_path',
+]);
+Route::get('admin/quotes/{id}/pdf', [
+    'uses' => 'PackageCotizacionController@pdf',
+    'as' => 'quotes_pdf_path',
+]);
+//Route::get('storage/package-itinerary/{filename}', [
+//    'uses' => 'PackageCotizacionController@getItineraryImageName',
+//    'as' => 'package_itinerary_image_path'
+//]);
+Route::get('storage/itinerary/{filename}', [
+    'uses' => 'ItinerariController@getItineraryImageName',
+    'as' => 'itinerary_image_path'
+]);

@@ -148,7 +148,7 @@
                         <div class="box-dowload">
                             <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
                             <a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                            <a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                            {{--<a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>--}}
                         </div>
                         <div class="box-letter-proposal text-center">
                             <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>

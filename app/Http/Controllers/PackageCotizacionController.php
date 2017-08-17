@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use PhpParser\Node\Expr\Array_;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\Http\Response;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class PackageCotizacionController extends Controller
 {
@@ -202,12 +208,13 @@ class PackageCotizacionController extends Controller
         $paquete_precio5->paquete_cotizaciones_id=$paquete->id;
         $paquete_precio5->save();
         $dia=0;
+        $dia_texto=1;
         foreach ($itinerarios_ as $itinerario_id){
             $m_itineario=M_Itinerario::FindOrFail($itinerario_id);
             $p_itinerario=new ItinerarioCotizaciones();
             $p_itinerario->titulo=$m_itineario->titulo;
             $p_itinerario->descripcion=$m_itineario->titulo;
-            $p_itinerario->dias=$dia;
+            $p_itinerario->dias=$dia_texto;
             $p_itinerario->precio=$m_itineario->precio;
             $p_itinerario->imagen=$m_itineario->imagen;
             $p_itinerario->observaciones=$txt_sugerencia[$dia];
@@ -215,6 +222,7 @@ class PackageCotizacionController extends Controller
             $p_itinerario->paquete_cotizaciones_id=$paquete->id;
             $p_itinerario->save();
             $dia++;
+            $dia_texto++;
             foreach ($m_itineario->destinos as $m_destinos){
                 $p_destinos=new ItinerarioDestinos();
                 $p_destinos->codigo=$m_destinos->codigo;
@@ -320,5 +328,45 @@ class PackageCotizacionController extends Controller
     {
         $destinos=M_Destino::get();
         return view('admin.database.destination1',['destinos'=>$destinos]);
+    }
+    public function activar_package( Request $request)
+    {
+        $package_id=$request->input('paquete_id');
+        $cotizacion_id=$request->input('cotizacion_id');
+        $cotizacion1=Cotizacion::FindOrFail($cotizacion_id);
+        $cotizacion1->estado=2;
+        $cotizacion1->save();
+        $patCotizaciones=PaqueteCotizaciones::FindOrFail($package_id);
+        $patCotizaciones->estado=2;
+        $patCotizaciones->save();
+//        $txt_name=$request->input('coti_nombre');
+
+//        $cotizacion=Cotizacion::where('nombre',$txt_name)->get();
+//        return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
+        return 1;
+    }
+    public function pdf($id)
+    {
+        $paquetes = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+        foreach ($paquetes as $paquetes2){
+            $paquete = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+            $cotizacion = Cotizacion::where('id',$paquetes2->cotizaciones_id)->get();
+            $cotizacion1='';
+            foreach ($cotizacion as $cotizacion_){
+                $cotizacion1=$cotizacion_;
+            }
+            $ee=CotizacionesCliente::with('cliente')->get();
+//            dd($ee);
+            $pdf = \PDF::loadView('admin.pdf-proposal', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion])->setPaper('a4')->setWarnings(true);
+            return $pdf->download($cotizacion1->nombre.'.pdf');
+//            \File::delete('pdf/proposals_'.$id.'.pdf');
+        }
+    }
+    public function getItineraryImageName($filename){
+//        return Storage::setVisibility($filename, 'public');
+//        Storage::getVisibility($filename);
+//        return $filename;
+        $file = Storage::disk('itinerary')->get($filename);
+        return new Response($file, 200);
     }
 }

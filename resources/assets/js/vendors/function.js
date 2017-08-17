@@ -1051,3 +1051,61 @@ function filtrar_mo_lista(cat){
     //     })
     // })
 }
+
+function activarPlan(paquete_id,cotizacion,cotizacion_id,plan){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "Esta seguro de elejir este plan",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/activar-package', 'paquete_id='+paquete_id+'&cotizacion='+cotizacion+'&cotizacion_id='+cotizacion_id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                // $("#lista_itinerary_"+id).fadeOut( "slow");
+                // alert('se activo');
+                // $("input[class='planes']").each(function (index) {
+                //     $(this).prop('onclick',null).off('click');
+                //
+                // });
+                var $nro_planes=parseInt($('#nro_planes').val());
+                for(var $d=0;$d<$nro_planes;$d++){
+                    $('#plan_'+$d).prop('onclick',null);
+                    $('#plan_'+$d).unbind( "click" );
+                    // alert('plan_'+$d);
+                }
+
+                $('#plan_'+plan).removeClass('btn-danger');
+                $('#plan_'+plan).addClass('btn-success');
+
+            }
+            else if(data==2){
+                // swal(
+                //     'Porque no puedo borar?',
+                //     'El proveedor tiene costos asociados, vaya al modulo "Costs" y borre todos los registros asociados al proveedor.',
+                //     'warning'
+                // )
+            }
+        }).fail(function (data) {
+        });
+
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
+        }
+    })
+}
