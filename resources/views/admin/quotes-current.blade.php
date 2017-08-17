@@ -63,8 +63,9 @@
                                     <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                     <div class="box-dowload1">
                                         <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
+                                        <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                         <a href="#" class="pull-right btn btn-success btn-sm">
-                                            <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+                                            <i class="fa fa-toggle-on" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div class="box-letter-proposal text-center">
@@ -78,8 +79,9 @@
                                     <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                     <div class="box-dowload">
                                         <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
-                                            <button type="submit"  class="pull-right btn btn-danger btn-sm">
-                                                <i class="fa fa-toggle-off fa-2x" aria-hidden="true"></i>
+                                        <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                        <button type="submit"  class="pull-right btn btn-danger btn-sm">
+                                                <i class="fa fa-toggle-off" aria-hidden="true"></i>
                                             </button>
                                     </div>
                                     <div class="box-letter-proposal text-center">
@@ -96,8 +98,9 @@
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
                                     <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
+                                    <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="#" class="pull-right btn btn-success btn-sm">
-                                        <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+                                        <i class="fa fa-toggle-on" aria-hidden="true"></i>
                                     </a>
                                 </div>
                                 <div class="box-letter-proposal text-center">

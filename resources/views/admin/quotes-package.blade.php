@@ -154,8 +154,8 @@
                                     <?php
                                     if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                         if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                            $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
-                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                            $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas));
+                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas)).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                         }
                                         else{
                                             $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
@@ -1644,7 +1644,17 @@
             <div class="col-md-12 text-center">
                 <input type="hidden" name="cotizacion_id" id="cotizacion_id" value="{{$cotizacion_->id}}">
                 <input type="hidden" name="nro_personitas" id="nro_personitas" value="{{$cotizacion_->nropersonas}}">
-                <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cotizacion_->nropersonas}}">
+                <?php
+                $cliente_id=0;
+                ?>
+                @foreach($cotizacion_->cotizaciones_cliente as $cotizaciones_cliente1)
+                    @if($cotizaciones_cliente1->estado==1)
+                        <?php
+                        $cliente_id=$cotizaciones_cliente1->clientes_id;
+                        ?>
+                    @endif
+                @endforeach
+                <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cliente_id}}">
 
                 <button type="submit" class="btn btn-lg btn-primary">Generar plan <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>

@@ -19,7 +19,7 @@
 
         <div class="text-center">
             <h2><b>Package Travel: {{$paquete->titulo}}</b></h2>
-            <p><b>Package Code:</b> {{$paquete->codigo}} | <b>Package Duration:</b> {{$paquete->duracion}} | | <b>Numero de pasajeros:</b> {{$pasajeros}}</p>
+            <p><b>Package Code:</b> {{$paquete->codigo}} | <b>Package Duration:</b> {{$paquete->duracion}} | <b>Numero de pasajeros:</b> {{$pasajeros}}</p>
         </div>
         {{--<div>--}}
         {{--<p>{{$paquete->descripcion}}</p>--}}
@@ -50,24 +50,24 @@
                @endif
 
                 {{--<img src="{{asset('img/itinerary/'.str_replace(' ','-',$itinerario->titulo).'')}}.jpg" class="responsive-img" alt="">--}}
-                {{--<h4>Servicios:</h4>--}}
-                {{--<table class="table-price-accommodation margin-bottom-20">--}}
-                {{--<thead>--}}
-                {{--<tr>--}}
-                {{--<th data-field="id">Concepto</th>--}}
-                {{--<th data-field="name">Observaciones</th>--}}
-                {{--</tr>--}}
-                {{--</thead>--}}
+                <h4>Servicios:</h4>
+                <table class="table-price-accommodation margin-bottom-20">
+                <thead>
+                <tr>
+                <th data-field="id">Concepto</th>
+                <th data-field="name">Observaciones</th>
+                </tr>
+                </thead>
 
-                {{--<tbody>--}}
-                {{--@foreach($itinerario->orden_cotizaciones as $servicios)--}}
-                {{--<tr>--}}
-                {{--<td>{{$servicios->nombre}}</td>--}}
-                {{--<td>{{$servicios->observacion}}</td>--}}
-                {{--</tr>--}}
-                {{--@endforeach--}}
-                {{--</tbody>--}}
-                {{--</table>--}}
+                <tbody>
+                @foreach($itinerario->itinerario_servicios as $servicios)
+                <tr>
+                <td class="text-align-left">{{$servicios->nombre}}</td>
+                <td>{{$servicios->observacion}}</td>
+                </tr>
+                @endforeach
+                </tbody>
+                </table>
 
             @endforeach
         </div>
@@ -77,11 +77,11 @@
             @foreach($paquete->itinerario_cotizaciones as $itinerarios_destino)
                 @foreach($itinerarios_destino->itinerario_destinos as $destino)
 {{--                    <img src="{{asset('img/destinations/'.$destino->imagen.'')}}" class="margin-bottom-3" width="347" alt="">--}}
-                    @if (Storage::disk('destination')->has($destino->imagen))
-                            <img
-                                    src="{{route('destination_image_path', ['filename' => $destino->imagen])}}" class="margin-bottom-3" width="347" alt="">
-                    @endif
-                    <b class="text-destinations">{{ucwords(strtolower($destino->destino))}}</b>
+                    {{--@if (Storage::disk('destination')->has($destino->imagen))--}}
+                            {{--<img--}}
+                                    {{--src="{{route('destination_image_path', ['filename' => $destino->imagen])}}" class="margin-bottom-3" width="347" alt="">--}}
+                    {{--@endif--}}
+                    - {{$destino->destino}}<br>
                 @endforeach
             @endforeach
         </div>
@@ -98,8 +98,6 @@
                     @endphp
                 @endforeach
             @endforeach
-
-            <div><h2>total precio itinerario: {{$total}}</h2></div>
             @foreach($paquete->paquete_precios as $precio_paquete2)
                 @if($precio_paquete2->estado == 1)
 
@@ -120,7 +118,7 @@
                                             $total_costo = $precio_s + $total;
                                             $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                         @endphp
-                                        {{number_format($total_utilidad, 2, '.', '')}}
+                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 {{--<tr>--}}
@@ -138,11 +136,11 @@
                                     <td class="text-left"><b>Doble</b></td>
                                     <td class="text-right">
                                         @php
-                                            $precio_d = (($precio_paquete2->precio_d)* 1) * ($paquete->duracion - 1);
+                                            $precio_d = ceil(($precio_paquete2->precio_d)* (1/2)) * ($paquete->duracion - 1);
                                             $total_costo = $precio_d + $total;
                                             $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                         @endphp
-                                        {{number_format($total_utilidad, 2, '.', '')}}
+                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 {{--<tr>--}}
@@ -160,11 +158,11 @@
                                     <td class="text-left"><b>Matrimonial</b></td>
                                     <td class="text-right">
                                         @php
-                                            $precio_m = (($precio_paquete2->precio_m)* 1) * ($paquete->duracion - 1);
+                                            $precio_m = ceil(($precio_paquete2->precio_m)* (1/2)) * ($paquete->duracion - 1);
                                             $total_costo = $precio_m + $total;
                                             $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                         @endphp
-                                        {{number_format($total_utilidad, 2, '.', '')}}
+                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 {{--<tr>--}}
@@ -182,11 +180,11 @@
                                     <td class="text-left"><b>Triple</b></td>
                                     <td class="text-right">
                                         @php
-                                            $precio_t = (($precio_paquete2->precio_t)* 1) * ($paquete->duracion - 1);
+                                            $precio_t = ceil(($precio_paquete2->precio_t)* (1/3)) * ($paquete->duracion - 1);
                                             $total_costo = $precio_t + $total;
                                             $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                         @endphp
-                                        {{number_format($total_utilidad, 2, '.', '')}}
+                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 {{--<tr>--}}
