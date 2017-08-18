@@ -22,12 +22,14 @@
             <thead>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </tfoot>
@@ -46,10 +48,15 @@
                             @endif
                         @endforeach
                     </td>
+                    <td>{{$cotizacion_->updated_at}}</td>
                     <td>
                         <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
                     </td>
+
                 </tr>
             @endif
             @endforeach
@@ -66,12 +73,14 @@
             <thead>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </tfoot>
@@ -90,9 +99,13 @@
                                 @endif
                             @endforeach
                         </td>
+                        <td>{{$cotizacion_->updated_at}}</td>
                         <td>
                             <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
                         </td>
                     </tr>
                 @endif
@@ -110,12 +123,14 @@
             <thead>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </tfoot>
@@ -134,9 +149,13 @@
                                 @endif
                             @endforeach
                         </td>
+                        <td>{{$cotizacion_->updated_at}}</td>
                         <td>
                             <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
                         </td>
                     </tr>
                 @endif
@@ -154,12 +173,14 @@
             <thead>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th>Cliente</th>
+                <th>Update</th>
                 <th>Operaciones</th>
             </tr>
             </tfoot>
@@ -178,9 +199,13 @@
                                 @endif
                             @endforeach
                         </td>
+                        <td>{{$cotizacion_->updated_at}}</td>
                         <td>
                             <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
                         </td>
                     </tr>
                 @endif
@@ -189,6 +214,57 @@
             </tbody>
         </table>
     </div>
+
+    @foreach($cotizacion->sortByDesc('created_at') as $cotizacion_)
+        {{--@if($cotizacion_->posibilidad==75)--}}
+            <div class="modal fade bd-example-modal-lg" id="modal_probabilidad_{{$cotizacion_->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <form action="{{route('agregar_probabilidad_path')}}" method="post" id="destination_edit_id" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                    <?php
+                                    $date = date_create($cotizacion_->fecha);
+                                    $fecha=date_format($date, 'jS F Y');
+                                    ?>
+                                    @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
+                                        @if($cliente_coti->estado=='1')
+                                            {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}
+                                        @endif
+                                    @endforeach
+
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="txt_codigo">Posibilidad</label>
+                                            <input type="text" class="form-control" id="proba" name="proba" placeholder="Probabilidad">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                {{csrf_field()}}
+                                <input type="hidden" id="cotizacion_id" name="cotizacion_id"   value="{{$cotizacion_->id}}">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{--@endif--}}
+    @endforeach
+
+
     <script>
         $(document).ready(function() {
             $('#example75').DataTable();

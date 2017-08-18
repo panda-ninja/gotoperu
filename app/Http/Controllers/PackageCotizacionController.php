@@ -376,4 +376,14 @@ class PackageCotizacionController extends Controller
         $file = Storage::disk('itinerary')->get($filename);
         return new Response($file, 200);
     }
+    public function probabilidad( Request $request)
+    {
+        $cotizacion_id=$request->input('cotizacion_id');
+        $proba=$request->input('proba');
+        $coti1=Cotizacion::FindOrFail($cotizacion_id);
+        $coti1->posibilidad=$proba;
+        $coti1->save();
+        $cotizacion=Cotizacion::get();
+        return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
+    }
 }

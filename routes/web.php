@@ -224,3 +224,7 @@ Route::get('storage/itinerary/{filename}', [
     'uses' => 'ItinerariController@getItineraryImageName',
     'as' => 'itinerary_image_path'
 ]);
+Route::post('admin/current-quotes/probabilidad', [
+    'uses' => 'PackageCotizacionController@probabilidad',
+    'as' => 'agregar_probabilidad_path'
+]);
