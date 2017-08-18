@@ -302,8 +302,9 @@ class PackageCotizacionController extends Controller
     }
     public function current_cotizacion()
     {
+        $cotizacion=Cotizacion::get();
 
-        return view('admin.quotes-current',['cotizacion'=>null]);
+        return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
     }
     public function autocomplete()
     {
@@ -323,6 +324,12 @@ class PackageCotizacionController extends Controller
         return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
 
     }
+    public function show_cotizacion_id($cotizacion_id)
+    {
+        $cotizacion=Cotizacion::where('id',$cotizacion_id)->get();
+        return view('admin.quotes-current-details',['cotizacion'=>$cotizacion]);
+    }
+
 
     public function show_paxs()
     {
