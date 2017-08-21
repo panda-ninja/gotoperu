@@ -370,13 +370,10 @@ class PackageCotizacionController extends Controller
         }
     }
     public function getItineraryImageName($filename){
-//        return Storage::setVisibility($filename, 'public');
-//        Storage::getVisibility($filename);
-//        return $filename;
         $file = Storage::disk('itinerary')->get($filename);
         return new Response($file, 200);
     }
-    public function probabilidad( Request $request)
+    public function probabilidad(Request $request)
     {
         $cotizacion_id=$request->input('cotizacion_id');
         $proba=$request->input('proba');
@@ -386,4 +383,17 @@ class PackageCotizacionController extends Controller
         $cotizacion=Cotizacion::get();
         return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
     }
+    public function plan($id){
+        $paquetes = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+        foreach ($paquetes as $paquetes2){
+            $paquete = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+            $cotizacion = Cotizacion::where('id',$paquetes2->cotizaciones_id)->get();
+            $cotizacion1='';
+            foreach ($cotizacion as $cotizacion_){
+                $cotizacion1=$cotizacion_;
+            }
+            return view('admin.plan-details', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
+        }
+    }
+
 }

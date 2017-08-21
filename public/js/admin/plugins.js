@@ -23068,7 +23068,7 @@ function filtrar_mo_lista(cat){
     // })
 }
 
-function activarPlan(paquete_id,cotizacion,cotizacion_id,plan){
+function activarPlan(paquete_precio_id){
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "Esta seguro de elejir este plan",
@@ -23087,7 +23087,7 @@ function activarPlan(paquete_id,cotizacion,cotizacion_id,plan){
                 'X-CSRF-TOKEN': $('[name="_token"]').val()
             }
         });
-        $.post('/admin/activar-package', 'paquete_id='+paquete_id+'&cotizacion='+cotizacion+'&cotizacion_id='+cotizacion_id, function(data) {
+        $.post('/admin/activar-package', 'paquete_precio_id='+paquete_precio_id, function(data) {
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
                 // $("#lista_itinerary_"+id).fadeOut( "slow");
@@ -23124,4 +23124,17 @@ function activarPlan(paquete_id,cotizacion,cotizacion_id,plan){
 
         }
     })
+}
+
+function mostrar_categoria(){
+    var $categoria=$('#categoria').val();
+    var $travelers=$('#travelers').val();
+    console.log($categoria+'_'+$travelers);
+    $('#star_2').addClass('hide');
+    $('#star_3').addClass('hide');
+    $('#star_4').addClass('hide');
+    $('#star_5').addClass('hide');
+
+    $('#star_'+$categoria).removeClass('hide');
+
 }

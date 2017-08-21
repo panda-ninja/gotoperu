@@ -228,3 +228,8 @@ Route::post('admin/current-quotes/probabilidad', [
     'uses' => 'PackageCotizacionController@probabilidad',
     'as' => 'agregar_probabilidad_path'
 ]);
+Route::get('admin/current-quotes/plan/{id}', [
+    'uses' => 'PackageCotizacionController@plan',
+    'as' => 'mostar_planes_path'
+]);
+
