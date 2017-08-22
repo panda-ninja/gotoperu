@@ -125,14 +125,21 @@
 
                     @endif
                 @endif
-                <?php
-                $pos_plan++;
-                ?>
+
+                @php $servicio = 0; @endphp
+                @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
+                    @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
+                        @php
+                            $total = $orden_cotizaciones->precio + $servicio;
+                            $servicio = $total;
+                        @endphp
+                    @endforeach
+                @endforeach
 
                 <div class="modal fade bd-example-modal-lg" id="modal_planes_{{$paquete->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
-                            <form action="{{route('agregar_probabilidad_path')}}" method="post" id="destination_edit_id" enctype="multipart/form-data">
+                            <form action="{{route('escojer_precio_paquete_path')}}" method="post" id="destination_edit_id" enctype="multipart/form-data">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">
                                         <?php
@@ -182,15 +189,6 @@
                                             <button type="button" class="btn btn-primary" onclick="mostrar_categoria()">Show</button>
                                         </div>
                                     </div>
-                                    @php $servicio = 0; @endphp
-                                    @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
-                                        @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
-                                            @php
-                                                $total = $orden_cotizaciones->precio + $servicio;
-                                                $servicio = $total;
-                                            @endphp
-                                        @endforeach
-                                    @endforeach
                                     @foreach($paquete->paquete_precios as $precio_paquete2)
                                         @if($precio_paquete2->estado == 1)
                                             <div id="star_{{$precio_paquete2->estrellas}}" class="hide">
@@ -198,7 +196,7 @@
                                                 <table class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                                     <thead>
                                                     <tr>
-                                                        <th>Traveler</th>
+                                                        <th>Nro</th>
                                                         <th>Acomodacion</th>
                                                         <th class="text-right">Total ($)</th>
                                                     </tr>
@@ -212,7 +210,9 @@
                                                                     $total_costo = $precio_s + $total;
                                                                     $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                                                 @endphp
-                                                                {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                                                <span id="detalle_p_s_{{$precio_paquete2->estrellas}}"></span>
+                                                                <span class="hide" id="hp_s_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
+                                                                <span id="p_s_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
                                                             </td>
 
                                                         </tr>
@@ -223,7 +223,7 @@
                                                     @endif
                                                     @if($precio_paquete2->personas_d > 0)
                                                         <tr>
-                                                            <td ><input class="form-control" type="number" name="s_{{$precio_paquete2->estrellas}}" id="s_{{$precio_paquete2->estrellas}}" min="0"></td>
+                                                            <td ><input class="form-control" type="number" name="d_{{$precio_paquete2->estrellas}}" id="d_{{$precio_paquete2->estrellas}}" min="0"></td>
 
                                                             <td class="text-left"><b>Doble</b></td>
                                                             <td class="text-right">
@@ -232,7 +232,9 @@
                                                                     $total_costo = $precio_d + $total;
                                                                     $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                                                 @endphp
-                                                                {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                                                <span id="detalle_p_d_{{$precio_paquete2->estrellas}}"></span>
+                                                                <span class="hide" id="hp_d_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
+                                                                <span id="p_d_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
                                                             </td>
                                                         </tr>
                                                     @else
@@ -251,7 +253,9 @@
                                                                     $total_costo = $precio_m + $total;
                                                                     $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                                                 @endphp
-                                                                {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                                                <span id="detalle_p_m_{{$precio_paquete2->estrellas}}"></span>
+                                                                <span class="hide" id="hp_m_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
+                                                                <span id="p_m_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
                                                             </td>
                                                         </tr>
                                                     @else
@@ -261,7 +265,7 @@
                                                     @endif
                                                     @if($precio_paquete2->personas_t > 0)
                                                         <tr>
-                                                            <td><input class="form-control" type="number" name="s_{{$precio_paquete2->estrellas}}" id="s_{{$precio_paquete2->estrellas}}" min="0"></td>
+                                                            <td><input class="form-control" type="number" name="t_{{$precio_paquete2->estrellas}}" id="t_{{$precio_paquete2->estrellas}}" min="0"></td>
 
                                                             <td class="text-left"><b>Triple</b></td>
                                                             <td class="text-right">
@@ -270,7 +274,9 @@
                                                                     $total_costo = $precio_t + $total;
                                                                     $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
                                                                 @endphp
-                                                                {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                                                <span id="detalle_p_t_{{$precio_paquete2->estrellas}}"></span>
+                                                                <span class="hide" id="hp_t_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
+                                                                <span id="p_t_{{$precio_paquete2->estrellas}}">{{number_format(ceil($total_utilidad), 2, '.', '')}}</span>
                                                             </td>
                                                         </tr>
                                                     @else
@@ -280,6 +286,10 @@
                                                     @endif
                                                     </thead>
                                                 </table>
+                                                <div class="text-right">
+                                                    <b class="text-25">Precio del paquete: $<span id="total" class=" text-success"></span></b>
+                                                </div>
+                                                <input type="hidden" id="precio_paquete_id" name="precio_paquete_id_{{$precio_paquete2->estrellas}}"   value="{{$precio_paquete2->id}}">
                                             </div>
                                         @endif
                                     @endforeach
@@ -287,7 +297,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     {{csrf_field()}}
-                                    <input type="hidden" id="cotizacion_id" name="cotizacion_id"   value="{{$cotizacion_->id}}">
+                                    <input type="hidden" id="pos" name="pos" value="0">
+
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
@@ -295,6 +306,10 @@
                         </div>
                     </div>
                 </div>
+
+                    <?php
+                    $pos_plan++;
+                    ?>
                 {{--@endif--}}
             @endforeach
 

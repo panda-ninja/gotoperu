@@ -395,5 +395,42 @@ class PackageCotizacionController extends Controller
             return view('admin.plan-details', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
         }
     }
+    public function escojer_precio_paquete(Request $request){
+        $pos=$request->input('pos');
+        $s=$request->input('s_'.$pos);
+        $d=$request->input('d_'.$pos);
+        $m=$request->input('m_'.$pos);
+        $t=$request->input('t_'.$pos);
+        $precio_paquete_id=$request->input('precio_paquete_id_'.$pos);
+        dd($precio_paquete_id);
+        $paquetePrecio=PaquetePrecio::FindOrFail($precio_paquete_id);
+        $paquetesPrecio=PaquetePrecio::where('paquete_cotizaciones_id',$paquetePrecio->paquete_cotizaciones_id)->get();
+        foreach ($paquetesPrecio as $paquetePrecio_){
+            $paquetePrecio_temp=PaquetePrecio::FindOrFail($paquetePrecio_->id);
+            $paquetePrecio_temp->estado=1;
+            $paquetePrecio_temp->save();
+        }
+        $paquetePrecio->personas_s=$s;
+        $paquetePrecio->personas_d=$d;
+        $paquetePrecio->personas_m=$m;
+        $paquetePrecio->personas_t=$t;
+        $paquetePrecio->estado=2;
+        $paquetePrecio->save();
 
+        $paquete=PaqueteCotizaciones::where('id',$paquetePrecio->paquete_cotizaciones_id)->get();
+        foreach ($paquete as $paquete_){
+            $paquete1=PaqueteCotizaciones::FindOrFail($paquete_->id);
+            $paquete1->estado=2;
+            $paquete1->save();
+
+            $cotizaciones=Cotizacion::FindOrFail($paquete1->cotizaciones_id);
+            $cotizaciones->estado=2;
+            $cotizaciones->save();
+            $cotizacion=Cotizacion::where('id',$cotizaciones->id)->get();
+//            return view('admin.quotes-current-details',['cotizacion'=>$cotizacion]);
+            return route('cotizacion_id_show_path',[$cotizaciones->id]);
+        }
+
+
+    }
 }

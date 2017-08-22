@@ -232,4 +232,7 @@ Route::get('admin/current-quotes/plan/{id}', [
     'uses' => 'PackageCotizacionController@plan',
     'as' => 'mostar_planes_path'
 ]);
-
+Route::post('admin/current-quotes/plan/elegido', [
+    'uses' => 'PackageCotizacionController@escojer_precio_paquete',
+    'as' => 'escojer_precio_paquete_path'
+]);

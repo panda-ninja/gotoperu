@@ -23134,7 +23134,49 @@ function mostrar_categoria(){
     $('#star_3').addClass('hide');
     $('#star_4').addClass('hide');
     $('#star_5').addClass('hide');
-
     $('#star_'+$categoria).removeClass('hide');
+    $('#pos').val($categoria);
+    var s=0;
+    var d=0;
+    var m=0;
+    var t=0;
+    var nro=$travelers;
+    t=parseInt(nro/3);
+    nro=nro-(3*t);
+    d=parseInt(nro/2);
+    nro=nro-(2*d);
+    s=nro;
+
+    $('#s_'+$categoria).val(s);
+    $('#d_'+$categoria).val(d);
+    $('#m_'+$categoria).val(m);
+    $('#t_'+$categoria).val(t);
+    cambios_acom_precios($categoria);
+}
+function cambios_acom_precios($categoria){
+    var p_s=$('#hp_s_'+$categoria).html();
+    var p_d=$('#hp_d_'+$categoria).html();
+    var p_m=$('#hp_m_'+$categoria).html();
+    var p_t=$('#hp_t_'+$categoria).html();
+
+    var v_s=$('#s_'+$categoria).val();
+    var v_d=$('#d_'+$categoria).val();
+    var v_m=$('#m_'+$categoria).val();
+    var v_t=$('#t_'+$categoria).val();
+
+    console.log('s:'+v_s*p_s);
+    console.log('d:'+v_d*p_d);
+    console.log('m:'+v_m*p_m);
+    console.log('t:'+v_t*p_t);
+
+    $('#p_s_'+$categoria).html(v_s*p_s+'.00');
+    $('#p_d_'+$categoria).html(v_d*p_d*2+'.00');
+    $('#p_m_'+$categoria).html(v_m*p_m*2+'.00');
+    $('#p_t_'+$categoria).html(v_t*p_t*3+'.00');
+    $('#detalle_p_s_'+$categoria).html(v_s+' x $'+p_s+' x <i class="fa fa-male" aria-hidden="true"></i>=');
+    $('#detalle_p_d_'+$categoria).html(v_d+' x $'+p_d+' x <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i> person=');
+    $('#detalle_p_m_'+$categoria).html(v_m+' x $'+p_m+' x <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i> person=');
+    $('#detalle_p_t_'+$categoria).html(v_t+' x $'+p_t+' x <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i> person=');
+    $('#total').html(((v_s*p_s)+(v_d*p_d*2)+(v_m*p_m*2)+(v_t*p_t*3))+'.00');
 
 }
