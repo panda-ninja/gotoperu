@@ -123,7 +123,7 @@
                 <div class="checkbox1">
                     <label class=" text-unset">
                         <input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">
-                        <b class="text-20px"><i class="fa fa-male fa-2x" aria-hidden="true"></i></b>
+                        <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                     </label>
                 </div>
             </div>
@@ -131,7 +131,15 @@
                 <div class="checkbox1">
                     <label class=" text-unset">
                         <input class="destinospack" type="checkbox" name="acomodacion_d" id="acomodacion_d" value="2">
-                        <b class="text-20px"><i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i></b>
+                        <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox1">
+                    <label class=" text-unset">
+                        <input class="destinospack" type="checkbox" name="acomodacion_m" id="acomodacion_m" value="2">
+                        <b class="text-20px"><i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i></b>
                     </label>
                 </div>
             </div>
@@ -139,7 +147,7 @@
                 <div class="checkbox1">
                     <label class=" text-unset">
                         <input class="destinospack" type="checkbox" name="acomodacion_t" id="acomodacion_t" value="3">
-                        <b class="text-20px"><i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i></b>
+                        <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
 
                     </label>
                 </div>

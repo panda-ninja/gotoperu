@@ -63,26 +63,37 @@ class PackageCotizacionController extends Controller
         $cotizacion_cliente->estado=1;
         $cotizacion_cliente->save();
         $destinos=$request->input('destinos');
-        $acomodacion_s=$request->input('acomodacion_s');
-        $acomodacion_d=$request->input('acomodacion_d');
-        $acomodacion_t=$request->input('acomodacion_t');
+        $acomodacion_s=0;
+        if($request->input('acomodacion_s'))
+            $acomodacion_s=$request->input('acomodacion_s');
+
+        $acomodacion_d=0;
+        if($request->input('acomodacion_d'))
+            $acomodacion_d=$request->input('acomodacion_d');
+
+        $acomodacion_m=0;
+        if($request->input('acomodacion_m'))
+            $acomodacion_m=$request->input('acomodacion_m');
+
+        $acomodacion_t=0;
+        if($request->input('acomodacion_t'))
+            $acomodacion_t=$request->input('acomodacion_t');
 
 //        dd($destinos);
-        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacionGet,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_t'=>$acomodacion_t]);
+        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacionGet,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_m'=>$acomodacion_m,'acomodacion_t'=>$acomodacion_t]);
     }
-    public function options($cotizacion_id,$destinos1)
+    public function options($cotizacion_id,$destinos1,$acomodacion)
     {
-//        dd($cotizacion_id);
+//      dd($cotizacion_id);
         $destinos1=explode('$',$destinos1);
-//        dd($destinos);
+//      dd($destinos);
         $cotizacion=Cotizacion::with('cotizaciones_cliente')->where('id',$cotizacion_id)->get();
-//        dd($cotizacion);
-
+//      dd($cotizacion);
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
         $m_servicios=M_Servicio::get();
-//        dd($servicios);
-        return view('admin.quotes-package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'destinos1'=>$destinos1,'cotizacion'=>$cotizacion]);
+//      dd($servicios);
+        return view('admin.quotes-package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'destinos1'=>$destinos1,'cotizacion'=>$cotizacion,'acomodacion_'=>$acomodacion]);
     }
 
     public function store_package(Request $request)
@@ -126,6 +137,22 @@ class PackageCotizacionController extends Controller
         $profit_3=$request->input('profitt_3');
         $profit_4=$request->input('profitt_4');
         $profit_5=$request->input('profitt_5');
+        $acomodacion=$request->input('acomodacion');
+        $acomodacion=explode('_',$acomodacion);
+        $acomodacion_s=0;
+        $acomodacion_d=0;
+        $acomodacion_m=0;
+        $acomodacion_t=0;
+
+        if($acomodacion[0]==1)
+            $acomodacion_s=1;
+        if($acomodacion[1]==2)
+            $acomodacion_d=1;
+        if($acomodacion[2]==3)
+            $acomodacion_t=1;
+        if($acomodacion[3]==2)
+            $acomodacion_m=1;
+
 
         $paquete=new PaqueteCotizaciones();
         $paquete->codigo=$txt_code;
@@ -143,13 +170,13 @@ class PackageCotizacionController extends Controller
         $paquete_precio2=new PaquetePrecio();
         $paquete_precio2->estrellas=2;
         $paquete_precio2->precio_s=$amount_s2;
-        $paquete_precio2->personas_s=1;
+        $paquete_precio2->personas_s=$acomodacion_s;
         $paquete_precio2->precio_m=$amount_d2;
-        $paquete_precio2->personas_m=1;
+        $paquete_precio2->personas_m=$acomodacion_m;
         $paquete_precio2->precio_d=$amount_d2;
-        $paquete_precio2->personas_d=1;
+        $paquete_precio2->personas_d=$acomodacion_d;
         $paquete_precio2->precio_t=$amount_t2;
-        $paquete_precio2->personas_t=1;
+        $paquete_precio2->personas_t=$acomodacion_t;
         if($strellas_2==2)
             $paquete_precio2->estado=1;
         else
@@ -161,13 +188,13 @@ class PackageCotizacionController extends Controller
         $paquete_precio3=new PaquetePrecio();
         $paquete_precio3->estrellas=3;
         $paquete_precio3->precio_s=$amount_s3;
-        $paquete_precio3->personas_s=1;
+        $paquete_precio3->personas_s=$acomodacion_s;
         $paquete_precio3->precio_m=$amount_d3;
-        $paquete_precio3->personas_m=1;
+        $paquete_precio3->personas_m=$acomodacion_m;
         $paquete_precio3->precio_d=$amount_d3;
-        $paquete_precio3->personas_d=1;
+        $paquete_precio3->personas_d=$acomodacion_d;
         $paquete_precio3->precio_t=$amount_t3;
-        $paquete_precio3->personas_t=1;
+        $paquete_precio3->personas_t=$acomodacion_t;
         if($strellas_3==3)
             $paquete_precio3->estado=1;
         else
@@ -179,13 +206,13 @@ class PackageCotizacionController extends Controller
         $paquete_precio4=new PaquetePrecio();
         $paquete_precio4->estrellas=4;
         $paquete_precio4->precio_s=$amount_s4;
-        $paquete_precio4->personas_s=1;
+        $paquete_precio4->personas_s=$acomodacion_s;
         $paquete_precio4->precio_m=$amount_d4;
-        $paquete_precio4->personas_m=1;
+        $paquete_precio4->personas_m=$acomodacion_m;
         $paquete_precio4->precio_d=$amount_d4;
-        $paquete_precio4->personas_d=1;
+        $paquete_precio4->personas_d=$acomodacion_d;
         $paquete_precio4->precio_t=$amount_t4;
-        $paquete_precio4->personas_t=1;
+        $paquete_precio4->personas_t=$acomodacion_t;
         if($strellas_4==4)
             $paquete_precio4->estado=1;
         else
@@ -197,13 +224,13 @@ class PackageCotizacionController extends Controller
         $paquete_precio5=new PaquetePrecio();
         $paquete_precio5->estrellas=5;
         $paquete_precio5->precio_s=$amount_s5;
-        $paquete_precio5->personas_s=1;
+        $paquete_precio5->personas_s=$acomodacion_s;
         $paquete_precio5->precio_m=$amount_d5;
-        $paquete_precio5->personas_m=1;
+        $paquete_precio5->personas_m=$acomodacion_m;
         $paquete_precio5->precio_d=$amount_d5;
-        $paquete_precio5->personas_d=1;
+        $paquete_precio5->personas_d=$acomodacion_d;
         $paquete_precio5->precio_t=$amount_t5;
-        $paquete_precio5->personas_t=1;
+        $paquete_precio5->personas_t=$acomodacion_t;
         if($strellas_5==5)
             $paquete_precio5->estado=1;
         else

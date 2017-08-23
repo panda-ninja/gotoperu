@@ -94,7 +94,7 @@
                 </b>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-8">
                 <b>
                     <?php
                         $array_destinos='';
@@ -111,34 +111,21 @@
                     ?>
                 </b>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-12">
                 <b>
-                    @php
-                        $array_acomodacion='';
-                    @endphp
                     <span class="text-20 text-primary">and Acomodacion : </span>
                     @if($acomodacion_s=='1')
-                        @php
-                            $array_acomodacion.='1_';
-                        @endphp
-                        <i class="fa fa-male fa-2x" aria-hidden="true"></i> -
+                        <i class="fa fa-bed fa-2x" aria-hidden="true"></i> -
                     @endif
                     @if($acomodacion_d=='2')
-                        @php
-                        $array_acomodacion.='2_';
-                        @endphp
+                        <i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i> -
+                    @endif
+                    @if($acomodacion_m=='2')
                         <i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i> -
                     @endif
                     @if($acomodacion_t=='3')
-                        @php
-                        $array_acomodacion.='3_';
-                        @endphp
-                        <i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                        <i class="fa fa-bed fa-2x" aria-hidden="true"></i><i class="fa fa-bed fa-2x" aria-hidden="true"></i><i class="fa fa-bed fa-2x" aria-hidden="true"></i>
                     @endif
-                    <?php
-                        $array_acomodacion= substr($array_acomodacion,0,strlen($array_acomodacion)-1) ;
-                    ?>
-                    <input type="text" name="acomodacion" id="acomodacion" value="{{$array_acomodacion}}">
                 </b>
             </div>
         </div>
@@ -150,7 +137,7 @@
                     <img src="{{asset('img/portada/new-proposal.jpg')}}" alt="" class="img-responsive">
                     <div class="box-dowload1 text-green-goto">
                         <b class="margin-top-5 text-green-goto"><i class="fa fa-newspaper-o text-green-goto" aria-hidden="true"></i> New Package</b>
-                        <a href="{{route('new_plan_path',[$cotizacion_->id,$array_destinos])}}" class="pull-right btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                        <a href="{{route('new_plan_path',[$cotizacion_->id,$array_destinos,$acomodacion_s.'_'.$acomodacion_d.'_'.$acomodacion_t.'_'.$acomodacion_m])}}" class="pull-right btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                     </div>
                     <div class="box-letter-proposal text-center">
                         <span class="text-orange-goto">NEW</span>

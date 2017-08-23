@@ -176,7 +176,7 @@ Route::post('/admin/quotes/store', [
     'uses' => 'PackageCotizacionController@store',
     'as' => 'package_cotizacion_save_path',
 ]);
-Route::any('/admin/quotes/proposal/{id}/{id2}', [
+Route::any('/admin/quotes/proposal/{id}/{id2}/{id3}', [
     'uses' => 'PackageCotizacionController@options',
     'as' => 'new_plan_path',
 ]);
