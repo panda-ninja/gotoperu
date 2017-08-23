@@ -18,34 +18,33 @@
         <div class="row">
             <div class="col-md-4">
                 <b>
-                    <span class="text-20 text-green-goto">Name : </span>
+                    <span class="text-20 text-primary">Name : </span>
                     <span class="text-15">{{$cliente->nombres}}</span>
                 </b>
             </div>
             <div class="col-md-3">
                 <b>
-                    <span class="text-20 text-green-goto">Email : </span>
+                    <span class="text-20 text-primary">Email : </span>
                     <span class="text-15">{{$cliente->email}}</span>
                 </b>
             </div>
             <div class="col-md-3">
                 <b>
-                    <span class="text-20 text-green-goto">Country : </span>
+                    <span class="text-20 text-primary">Country : </span>
                     <span class="text-15">{{$cliente->nacionalidad}}</span>
                 </b>
             </div>
 
-            <div class="col-md-2">
-                    <b>
-                        <span class="text-20 text-green-goto">Phone : </span>
-                        <span class="text-15">{{$cliente->telefono}}</span>
-                    </b>
-            </div>
-        </div>
-        <div class="row margin-top-20">
+
         </div>
         <div class="row">
             <div class="col-md-4">
+                <b>
+                    <span class="text-20 text-primary">Phone : </span>
+                    <span class="text-15">{{$cliente->telefono}}</span>
+                </b>
+            </div>
+            <div class="col-md-3">
                 <div class="text-20">
                     <b>
                         <?php
@@ -56,7 +55,7 @@
                                 $cotizacion_=$cotizacion1;
                             ?>
                         @endforeach
-                        <span class="text-green-goto">Travellers:</span>
+                        <span class="text-primary">Travellers:</span>
                     {{--{{dd($cotizacion_)}}--}}
                             @for($i=0;$i<$cotizacion_->nropersonas;$i++)
                         <i class="fa fa-male" aria-hidden="true"></i>
@@ -67,42 +66,40 @@
             </div>
             <div class="col-md-2">
                 <b>
-                    <span class="text-20 text-green-goto">Days : </span>
+                    <span class="text-20 text-primary">Days : </span>
                     <span class="text-20">{{$cotizacion_->duracion}}</span>
                 </b>
             </div>
             <div class="col-md-3">
                 <b>
-                    <span class="text-20 text-green-goto">Travel date : </span>
+                    <span class="text-20 text-primary">Travel date : </span>
                     <span class="text-20">{{$cotizacion_->fecha}}</span>
                 </b>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <b>
-                    <span class="text-20 text-green-goto">for : </span>
+                    <span class="text-20 text-primary">for : </span>
                     @if($cotizacion_->star_2=='2')
-                        2 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span> /
+                        2 <span class="text-orange-goto text-20"><i class="fa fa-star-half-o" aria-hidden="true"></i></span> /
                     @endif
                     @if($cotizacion_->star_3=='3')
-                        3 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span></i>/
+                        3 <span class="text-orange-goto text-20"><i class="fa fa-star-half-o" aria-hidden="true"></i></span></i>/
                     @endif
                     @if($cotizacion_->star_4=='4')
-                        4 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span></i>/
+                        4 <span class="text-orange-goto text-20"><i class="fa fa-star-half-o" aria-hidden="true"></i></span></i>/
                     @endif
                     @if($cotizacion_->star_5=='5')
-                        5 <span class="text-orange-goto text-20"><i class="fa fa-star" aria-hidden="true"></i></span></i>
+                        5 <span class="text-orange-goto text-20"><i class="fa fa-star-half-o" aria-hidden="true"></i></span></i>
                     @endif
                 </b>
             </div>
 
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-3">
                 <b>
                     <?php
                         $array_destinos='';
                     ?>
-                    <span class="text-20 text-green-goto">on Detination : </span>
+                    <span class="text-20 text-primary">on Detination : </span>
                     @foreach($destinos as $destino)
                         <?php
                             $array_destinos.=$destino.'$';
@@ -112,6 +109,36 @@
                     <?php
                         $array_destinos= substr($array_destinos,0,strlen($array_destinos)-1) ;
                     ?>
+                </b>
+            </div>
+            <div class="col-md-3">
+                <b>
+                    @php
+                        $array_acomodacion='';
+                    @endphp
+                    <span class="text-20 text-primary">and Acomodacion : </span>
+                    @if($acomodacion_s=='1')
+                        @php
+                            $array_acomodacion.='1_';
+                        @endphp
+                        <i class="fa fa-male fa-2x" aria-hidden="true"></i> -
+                    @endif
+                    @if($acomodacion_d=='2')
+                        @php
+                        $array_acomodacion.='2_';
+                        @endphp
+                        <i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i> -
+                    @endif
+                    @if($acomodacion_t=='3')
+                        @php
+                        $array_acomodacion.='3_';
+                        @endphp
+                        <i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                    @endif
+                    <?php
+                        $array_acomodacion= substr($array_acomodacion,0,strlen($array_acomodacion)-1) ;
+                    ?>
+                    <input type="text" name="acomodacion" id="acomodacion" value="{{$array_acomodacion}}">
                 </b>
             </div>
         </div>

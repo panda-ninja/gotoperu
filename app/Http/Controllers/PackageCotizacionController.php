@@ -63,8 +63,12 @@ class PackageCotizacionController extends Controller
         $cotizacion_cliente->estado=1;
         $cotizacion_cliente->save();
         $destinos=$request->input('destinos');
+        $acomodacion_s=$request->input('acomodacion_s');
+        $acomodacion_d=$request->input('acomodacion_d');
+        $acomodacion_t=$request->input('acomodacion_t');
+
 //        dd($destinos);
-        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacionGet,'destinos'=>$destinos]);
+        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacionGet,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_t'=>$acomodacion_t]);
     }
     public function options($cotizacion_id,$destinos1)
     {
