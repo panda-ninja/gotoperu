@@ -11,6 +11,7 @@ use App\ItinerarioServicios;
 use App\M_Destino;
 use App\M_Itinerario;
 use App\M_Servicio;
+use App\P_Paquete;
 use App\P_PaquetePrecio;
 use App\PaqueteCotizaciones;
 use App\PaquetePrecio;
@@ -80,7 +81,11 @@ class PackageCotizacionController extends Controller
             $acomodacion_t=$request->input('acomodacion_t');
 
 //        dd($destinos);
-        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacionGet,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_m'=>$acomodacion_m,'acomodacion_t'=>$acomodacion_t]);
+
+        $p_paquete=P_Paquete::where('duracion',$request->input('txt_days'))->get();
+//        dd($p_paquete);
+
+        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacionGet,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_m'=>$acomodacion_m,'acomodacion_t'=>$acomodacion_t,'p_paquete'=>$p_paquete]);
     }
     public function options($cotizacion_id,$destinos1,$acomodacion)
     {
@@ -111,6 +116,7 @@ class PackageCotizacionController extends Controller
         $nro_personas=$request->input('nro_personitas');
         $cliente_id=$request->input('cliente_id');
 
+//        dd($itinerarios_);
 
         $strellas_2=$request->input('strellas_2');
         $strellas_3=$request->input('strellas_3');
@@ -240,11 +246,13 @@ class PackageCotizacionController extends Controller
         $paquete_precio5->save();
         $dia=0;
         $dia_texto=1;
+
         foreach ($itinerarios_ as $itinerario_id){
+//            dd('holaaaaaaa');
             $m_itineario=M_Itinerario::FindOrFail($itinerario_id);
             $p_itinerario=new ItinerarioCotizaciones();
             $p_itinerario->titulo=$m_itineario->titulo;
-            $p_itinerario->descripcion=$m_itineario->titulo;
+            $p_itinerario->descripcion=$m_itineario->descripcion;
             $p_itinerario->dias=$dia_texto;
             $p_itinerario->precio=$m_itineario->precio;
             $p_itinerario->imagen=$m_itineario->imagen;
@@ -286,12 +294,14 @@ class PackageCotizacionController extends Controller
             $p_itinerario->save();
 
         }
+
         $cliente=Cliente::FindOrFail($cliente_id);
         $destinos=$request->input('destinos');
         $cotizacion=Cotizacion::where('id',$cotizacion_id)->get();
 
-
-        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos]);
+        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day'))->get();
+//        dd($p_paquete);
+        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_m'=>$acomodacion_m,'acomodacion_t'=>$acomodacion_t,'p_paquete'=>$p_paquete]);
 
 //        $destinos=M_Destino::get();
 //        $itinerarios=M_Itinerario::get();
@@ -433,7 +443,7 @@ class PackageCotizacionController extends Controller
         $m=$request->input('m_'.$pos);
         $t=$request->input('t_'.$pos);
         $precio_paquete_id=$request->input('precio_paquete_id_'.$pos);
-        dd($precio_paquete_id);
+//        dd($precio_paquete_id);
         $paquetePrecio=PaquetePrecio::FindOrFail($precio_paquete_id);
         $paquetesPrecio=PaquetePrecio::where('paquete_cotizaciones_id',$paquetePrecio->paquete_cotizaciones_id)->get();
         foreach ($paquetesPrecio as $paquetePrecio_){
@@ -459,7 +469,7 @@ class PackageCotizacionController extends Controller
             $cotizaciones->save();
             $cotizacion=Cotizacion::where('id',$cotizaciones->id)->get();
 //            return view('admin.quotes-current-details',['cotizacion'=>$cotizacion]);
-            return route('cotizacion_id_show_path',[$cotizaciones->id]);
+            return redirect()->route('cotizacion_id_show_path',[$cotizaciones->id]);
         }
 
 

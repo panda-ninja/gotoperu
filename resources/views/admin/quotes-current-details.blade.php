@@ -56,18 +56,78 @@
                 ?>
             @endforeach
             @foreach($cotizacion_->paquete_cotizaciones as $paquete)
+
                 @if($cotizacion_->estado==2)
                     @if($paquete->estado==2)
+                        @php
+                            $sumatotal=0;
+                        @endphp
+                        @foreach($paquete->paquete_precios as $precio_paquete2)
+                            @if($precio_paquete2->estado == 2)
+                                @if($precio_paquete2->personas_s > 0)
+                                    @php
+                                        $precio_s = (($precio_paquete2->precio_s)* ($precio_paquete2->personas_s)*1) * ($paquete->duracion - 1);
+                                        $total_costo = $precio_s + $total;
+                                        $total_utilidad_s = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
+                                    @endphp
+                                @else
+                                    @php
+                                        $precio_s = 0;
+                                        $total_utilidad_s=0;
+                                    @endphp
+                                @endif
+                                @if($precio_paquete2->personas_d > 0)
+                                    @php
+                                        $precio_d = ceil(($precio_paquete2->precio_d)* ($precio_paquete2->personas_d)*2) * ($paquete->duracion - 1);
+                                        $total_costo = $precio_d + $total;
+                                        $total_utilidad_d = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
+                                    @endphp
+                                @else
+                                    @php
+                                        $precio_d = 0;
+                                        $total_utilidad_d=0;
+                                    @endphp
+                                @endif
+                                @if($precio_paquete2->personas_m > 0)
+                                    @php
+                                        $precio_m = ceil(($precio_paquete2->precio_d)* ($precio_paquete2->personas_m)*2) * ($paquete->duracion - 1);
+                                        $total_costo = $precio_m + $total;
+                                        $total_utilidad_m = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
+                                    @endphp
+                                @else
+                                    @php
+                                        $precio_m = 0;
+                                        $total_utilidad_m=0;
+                                    @endphp
+                                @endif
+                                @if($precio_paquete2->personas_t > 0)
+                                    @php
+                                        $precio_t = ceil(($precio_paquete2->precio_t)* ($precio_paquete2->personas_t)*3) * ($paquete->duracion - 1);
+                                        $total_costo = $precio_t + $total;
+                                        $total_utilidad_t = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
+                                    @endphp
+                                @else
+                                    @php
+                                        $precio_t = 0;
+                                        $total_utilidad_t=0;
+                                    @endphp
+                                @endif
+                            @endif
+                        @endforeach
+                        @php
+                            $sumatotal=$total_utilidad_s+$total_utilidad_d+$total_utilidad_m+$total_utilidad_t;
+                        @endphp
                         <div class="col-md-3 margin-top-10">
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
                                     <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                    <a href="#" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                 </div>
                                 <div class="box-letter-proposal text-center">
-                                    <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
+                                    <span class="text-orange-goto text-40">{{$planes[$pos_plan]}}</span>
+                                    <span class="text-orange-goto text-40">${{number_format(ceil($sumatotal), 2, '.', '')}}</span>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +155,7 @@
                                 <div class="box-dowload1">
                                     <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                    <a href="#" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -126,16 +186,16 @@
                     @endif
                 @endif
 
-                @php $servicio = 0; @endphp
-                @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
-                    @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
-                        @php
-                            $total = $orden_cotizaciones->precio + $servicio;
-                            $servicio = $total;
-                        @endphp
-                    @endforeach
-                @endforeach
 
+                    @php $servicio = 0; @endphp
+                    @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
+                        @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
+                            @php
+                                $total = $orden_cotizaciones->precio + $servicio;
+                                $servicio = $total;
+                            @endphp
+                        @endforeach
+                    @endforeach
                 <div class="modal fade bd-example-modal-lg" id="modal_planes_{{$paquete->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -287,7 +347,7 @@
                                                     </thead>
                                                 </table>
                                                 <div class="text-right">
-                                                    <b class="text-25">Precio del paquete: $<span id="total" class=" text-success"></span></b>
+                                                    <b class="text-25">Precio del paquete: $<span id="total_{{$precio_paquete2->estrellas}}" class=" text-success"></span></b>
                                                 </div>
                                                 <input type="hidden" id="precio_paquete_id" name="precio_paquete_id_{{$precio_paquete2->estrellas}}"   value="{{$precio_paquete2->id}}">
                                             </div>
