@@ -11,6 +11,8 @@ use App\ItinerarioServicios;
 use App\M_Destino;
 use App\M_Itinerario;
 use App\M_Servicio;
+use App\P_Itinerario;
+use App\P_ItinerarioServicios;
 use App\P_Paquete;
 use App\P_PaquetePrecio;
 use App\PaqueteCotizaciones;
@@ -474,4 +476,121 @@ class PackageCotizacionController extends Controller
 
 
     }
+    public function cargar_paquete_enlatados(Request $request){
+        $p_paquete_ids=$request->input('paquetes');
+        $p_cotizacion_id=$request->input('p_cotizacion_id');
+        $cotizaion=Cotizacion::FindOrFail($p_cotizacion_id);
+        $datos=$request->input('datos');
+
+        $datos=explode('_',$datos);
+        $acomodacion_s=$datos[1];
+        $acomodacion_d=$datos[2];
+        $acomodacion_t=$datos[3];
+        $acomodacion_m=$datos[4];
+        $destinos=explode('$',$datos[0]);
+
+        $estrella[2]=0;
+        $estrella[3]=0;
+        $estrella[4]=0;
+        $estrella[5]=0;
+
+        $estrella[2]=$cotizaion->star_2;
+        $estrella[3]=$cotizaion->star_3;
+        $estrella[4]=$cotizaion->star_4;
+        $estrella[5]=$cotizaion->star_5;
+
+        foreach ($p_paquete_ids as $p_paquete_id){
+            $p_paquete=P_Paquete::where('id',$p_paquete_id)->get();
+            foreach ($p_paquete as $p_paquete_){
+                //-- creamos el nuevo paquete para la cotizacion
+                $new_paquete=new PaqueteCotizaciones();
+                $new_paquete->codigo=$p_paquete_->codigo;
+                $new_paquete->titulo=$p_paquete_->titulo;
+                $new_paquete->duracion=$p_paquete_->duracion;
+                $new_paquete->preciocosto=$p_paquete_->preciocosto;
+                $new_paquete->utilidad=$p_paquete_->utilidad;
+                $new_paquete->precioventa=$p_paquete_->precioventa;
+                $new_paquete->descripcion=$p_paquete_->descripcion;
+                $new_paquete->incluye=$p_paquete_->incluye;
+                $new_paquete->noincluye=$p_paquete_->noincluye;
+                $new_paquete->opcional=$p_paquete_->opcional;
+                $new_paquete->imagen=$p_paquete_->imagen;
+                $new_paquete->posibilidad=$p_paquete_->posibilidad;
+                $new_paquete->estado=1;
+                $new_paquete->cotizaciones_id=$p_cotizacion_id;
+                $new_paquete->save();
+//                dd($new_paquete);
+                foreach ($p_paquete_->itinerarios as $p_itinerario){
+//                    dd($p_itinerario);
+//                    dd($new_paquete->id);
+                    $new_itinerario=new ItinerarioCotizaciones();
+                    $new_itinerario->titulo=$p_itinerario->titulo;
+                    $new_itinerario->descripcion=$p_itinerario->descripcion;
+                    $new_itinerario->dias=$p_itinerario->dias;
+                    $new_itinerario->fecha=$p_itinerario->fecha;
+                    $new_itinerario->precio=$p_itinerario->precio;
+                    $new_itinerario->imagen=$p_itinerario->imagen;
+                    $new_itinerario->estado=1;
+                    $new_itinerario->paquete_cotizaciones_id=$new_paquete->id;
+                    $new_itinerario->save();
+                    foreach ($p_itinerario->destinos as $p_destino){
+                        $new_destino=new ItinerarioDestinos();
+                        $new_destino->codigo=$p_destino->codigo;
+                        $new_destino->destino=$p_destino->destino;
+                        $new_destino->region=$p_destino->region;
+                        $new_destino->departamento=$p_destino->departamento;
+                        $new_destino->pais=$p_destino->pais;
+                        $new_destino->descripcion=$p_destino->descripcion;
+                        $new_destino->imagen=$p_destino->imagen;
+                        $new_destino->estado=1;
+                        $new_destino->itinerario_cotizaciones_id=$new_itinerario->id;
+                        $new_destino->save();
+                    }
+                    foreach ($p_itinerario->serivicios as $serivicio){
+                        $new_servicio=new ItinerarioServicios();
+                        $new_servicio->nombre=$serivicio->nombre;
+                        $new_servicio->observacion=$serivicio->observacion;
+                        if($serivicio->precio_grupo==1)
+                            $new_servicio->precio=ceil(($serivicio->precio*2)/$cotizaion->nropersonas);
+                        else
+                            $new_servicio->precio=($serivicio->precio*2);
+                        $new_servicio->itinerario_cotizaciones_id=$new_itinerario->id;
+//                        $new_servicio->user_id=auth()->guard('admin')->user()->id;
+                        $new_servicio->user_id=1;
+                        $new_servicio->save();
+                    }
+                }
+                foreach ($p_paquete_->precios as $precios){
+                    $new_paquete_precio=new PaquetePrecio();
+                    $new_paquete_precio->estrellas=$precios->estrellas;
+                    $new_paquete_precio->precio_s=$precios->precio_s;
+                    $new_paquete_precio->personas_s=$acomodacion_s;
+                    $new_paquete_precio->precio_d=$precios->precio_d;
+                    $new_paquete_precio->personas_d=$acomodacion_d;
+                    $new_paquete_precio->precio_m=$precios->precio_m;
+                    $new_paquete_precio->personas_m=$acomodacion_m;
+                    $new_paquete_precio->precio_t=$precios->precio_t;
+                    $new_paquete_precio->personas_t=$acomodacion_t;
+                    $new_paquete_precio->utilidad=$precios->utilidad;
+                    $new_paquete_precio->paquete_cotizaciones_id=$new_paquete->id;
+                    if($estrella[$precios->estrellas]==$precios->estrellas)
+                        if($precios->estado==1)
+                            $new_paquete_precio->estado=1;
+                        else
+                            $new_paquete_precio->estado=0;
+                    else
+                        $new_paquete_precio->estado=0;
+
+                    $new_paquete_precio->save();
+                }
+            }
+        }
+        $request->input('paquetes');
+        $cliente_id=$request->input('cliente_id_');
+        $cliente=Cliente::FindOrFail($cliente_id);
+        $cotizacion=Cotizacion::where('id',$p_cotizacion_id)->get();
+        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day_'))->get();
+        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_m'=>$acomodacion_m,'acomodacion_t'=>$acomodacion_t,'p_paquete'=>$p_paquete]);
+    }
+
 }

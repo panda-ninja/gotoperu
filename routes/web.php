@@ -236,3 +236,7 @@ Route::post('admin/current-quotes/plan/elegido', [
     'uses' => 'PackageCotizacionController@escojer_precio_paquete',
     'as' => 'escojer_precio_paquete_path'
 ]);
+Route::post('admin/current-quotes/enlatados', [
+    'uses' => 'PackageCotizacionController@cargar_paquete_enlatados',
+    'as' => 'crear_paquete_enlatados_path'
+]);

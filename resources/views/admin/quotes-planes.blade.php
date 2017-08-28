@@ -7,6 +7,125 @@
             <li class="active">New</li>
         </ol>
     </div>
+    <?php
+    $cotizacion_;
+    ?>
+    @foreach($cotizacion as $cotizacion1)
+        <?php
+        $cotizacion_=$cotizacion1;
+        ?>
+    @endforeach
+    <?php
+    $array_destinos1='';
+    ?>
+    @foreach($destinos as $destino)
+        <?php
+        $array_destinos1.=$destino.'$';
+        ?>
+    @endforeach
+    <?php
+        $array_destinos1= substr($array_destinos1,0,strlen($array_destinos1)-1) ;
+    ?>
+    <!-- Modal -->
+    <div class="modal left fade" id="catalog-right" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Catalog</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{route('crear_paquete_enlatados_path')}}" method="POST">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="itinerary-heading-1">
+                                    <h4 class="panel-title">
+                                        @php
+                                            $nro_destinos=0;
+                                        @endphp
+                                        @foreach($p_paquete as $p_paquete_)
+                                            @php
+                                                $hay_destinos=0;
+                                            @endphp
+                                            @foreach($destinos as $destino1)
+                                                @foreach($p_paquete_->itinerarios as $itinerarios)
+                                                    @foreach($itinerarios->destinos as $destino)
+
+                                                        @if($destino1==$destino->destino)
+                                                            @php
+                                                                $hay_destinos++;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                            @if($hay_destinos>0)
+                                                @php
+                                                    $nro_destinos++;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#itinerary-modal-1" aria-expanded="true" aria-controls="collapseOne">
+                                            <b>{{$cotizacion_->duracion}} DAYS</b> <span class="badge pull-right">{{$nro_destinos}}</span>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="itinerary-modal-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="itinerary-heading-1">
+                                    <div class="panel-body">
+                                        <div class="col-md-12">
+                                            <table class="table table-condensed table-striped margin-bottom-0 font-montserrat">
+                                                <tbody>
+                                                @foreach($p_paquete as $p_paquete_)
+                                                    @php
+                                                        $hay_destinos=0;
+                                                    @endphp
+                                                    @foreach($destinos as $destino1)
+                                                        @foreach($p_paquete_->itinerarios as $itinerarios)
+                                                            @foreach($itinerarios->destinos as $destino)
+                                                                @if($destino1==$destino->destino)
+                                                                    @php
+                                                                        $hay_destinos++;
+                                                                    @endphp
+                                                                @endif
+                                                            @endforeach
+                                                        @endforeach
+                                                    @endforeach
+                                                    @if($hay_destinos>0)
+                                                        <tr>
+                                                            <td>
+                                                                <label class="checkbox-inline">
+                                                                    <input type="checkbox" id="paquetes" name="paquetes[]" value="{{$p_paquete_->id}}"> <b>{{$p_paquete_->codigo}}</b> {{$p_paquete_->titulo}}
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="btn-right-fixed">
+                            {{csrf_field()}}
+                            <input type="text" name="p_cotizacion_id" value="{{$cotizacion_->id}}">
+                            <input type="text" name="datos" value="{{$array_destinos1.'_'.$acomodacion_s.'_'.$acomodacion_d.'_'.$acomodacion_t.'_'.$acomodacion_m}}">
+                            <input type="text" name="cliente_id_" value="{{$cliente->id}}">
+                            <input type="text" name="txt_day_" value="{{$cotizacion_->duracion}}">
+                            <button type="submit" class="btn btn-primary">add <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+            </div><!-- modal-content -->
+
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
     <form action="{{route('package_cotizacion_send_path')}}" method="post" id="package_new_path_id">
         <div class="row">
             <div class="col-md-12">
@@ -47,14 +166,7 @@
             <div class="col-md-3">
                 <div class="text-20">
                     <b>
-                        <?php
-                        $cotizacion_;
-                        ?>
-                        @foreach($cotizacion as $cotizacion1)
-                            <?php
-                                $cotizacion_=$cotizacion1;
-                            ?>
-                        @endforeach
+
                         <span class="text-primary">Travellers:</span>
                     {{--{{dd($cotizacion_)}}--}}
                             @for($i=0;$i<$cotizacion_->nropersonas;$i++)
@@ -147,109 +259,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal left fade" id="catalog-right" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
 
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel2">Catalog</h4>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="itinerary-heading-1">
-                                    <h4 class="panel-title">
-{{--                                        {{dd($destinos)}}--}}
-                                        @php
-                                            $nro_destinos=0;
-                                        @endphp
-                                        @foreach($p_paquete as $p_paquete_)
-                                            @php
-                                                $hay_destinos=0;
-                                            @endphp
-                                            @foreach($destinos as $destino1)
-                                                @foreach($p_paquete_->itinerarios as $itinerarios)
-                                                    @foreach($itinerarios->destinos as $destino)
-
-                                                        @if($destino1==$destino->destino)
-                                                            @php
-                                                                $hay_destinos++;
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
-                                                @endforeach
-                                            @endforeach
-                                            @if($hay_destinos>0)
-                                                @php
-                                                    $nro_destinos++;
-                                                @endphp
-                                            @endif
-                                        @endforeach
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#itinerary-modal-1" aria-expanded="true" aria-controls="collapseOne">
-                                            <b>{{$cotizacion_->duracion}} DAYS</b> <span class="badge pull-right">{{$nro_destinos}}</span>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="itinerary-modal-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="itinerary-heading-1">
-                                    <div class="panel-body">
-                                        <div class="col-md-12">
-                                            <table class="table table-condensed table-striped margin-bottom-0 font-montserrat">
-                                                <tbody>
-                                                @foreach($p_paquete as $p_paquete_)
-                                                    @php
-                                                        $hay_destinos=0;
-                                                    @endphp
-                                                    @foreach($destinos as $destino1)
-                                                        @foreach($p_paquete_->itinerarios as $itinerarios)
-                                                            @foreach($itinerarios->destinos as $destino)
-                                                                @if($destino1==$destino->destino)
-                                                                    @php
-                                                                        $hay_destinos++;
-                                                                    @endphp
-                                                                @endif
-                                                            @endforeach
-                                                        @endforeach
-                                                    @endforeach
-                                                    @if($hay_destinos>0)
-                                                    <tr>
-                                                        <td>
-                                                            <label class="checkbox-inline">
-                                                                <input type="checkbox" id="inlineCheckbox1" name="paquetes[]" value="option1"> <b>{{$p_paquete_->codigo}}</b> {{$p_paquete_->titulo}}
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    @endif
-                                                @endforeach
-                                                {{--<tr>--}}
-                                                    {{--<td>--}}
-                                                        {{--<label class="checkbox-inline">--}}
-                                                            {{--<input type="checkbox" id="inlineCheckbox1" value="option1"> <b>GTP500</b> Machu picchu & titicaca--}}
-                                                        {{--</label>--}}
-                                                    {{--</td>--}}
-
-                                                {{--</tr>--}}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="btn-right-fixed">
-                            <a href="{{route('qoute_proposal_path', 1)}}" class="btn btn-primary">add <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-
-                </div><!-- modal-content -->
-
-            </div><!-- modal-dialog -->
-        </div><!-- modal -->
 
         <div id="list-package"  class="row ">
             <div class="col-md-3 margin-top-10 hide">
@@ -294,14 +304,33 @@
                         <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                         <div class="box-dowload">
                             <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
-                            <a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                            {{--<a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>--}}
+                            {{csrf_field()}}
+                            <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                            <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
+                            {{--<button type="button" id="plan_{{$pos_plan}}"  class="planes pull-right btn btn-danger btn-sm" onclick="activarPlan('{{$paquete->id}}','{{$cotizacion_->nombre}}','{{$cotizacion_->id}}','{{$pos_plan}}')">--}}
+                            {{--<i class="fa fa-toggle-off" aria-hidden="true"></i>--}}
+                            {{--</button>--}}
                         </div>
                         <div class="box-letter-proposal text-center">
                             <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
                         </div>
                     </div>
                 </div>
+
+                {{--<div class="col-md-3 margin-top-10">--}}
+                    {{--<div class="portada-pdf">--}}
+                        {{--<img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">--}}
+                        {{--<div class="box-dowload">--}}
+                            {{--<b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>--}}
+                            {{--<a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>--}}
+                            {{--<a href="#" class="pull-right btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>--}}
+                        {{--</div>--}}
+                        {{--<div class="box-letter-proposal text-center">--}}
+                            {{--<span class="text-orange-goto">{{$planes[$pos_plan]}}</span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <?php
                 $pos_plan++;
                 ?>

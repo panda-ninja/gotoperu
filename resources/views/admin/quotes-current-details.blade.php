@@ -46,6 +46,18 @@
         $planes[]='D';
         $planes[]='E';
         $planes[]='F';
+        $planes[]='G';
+        $planes[]='H';
+        $planes[]='I';
+        $planes[]='K';
+        $planes[]='L';
+        $planes[]='M';
+        $planes[]='N';
+        $planes[]='O';
+        $planes[]='P';
+        $planes[]='Q';
+        $planes[]='R';
+        $planes[]='S';
         $pos_plan=0;
         $cotizacion_=null;
         ?>
@@ -55,14 +67,15 @@
                 $cotizacion_=$cotizacion1;
                 ?>
             @endforeach
-            @foreach($cotizacion_->paquete_cotizaciones as $paquete)
 
+            @foreach($cotizacion_->paquete_cotizaciones as $paquete)
                 @if($cotizacion_->estado==2)
                     @if($paquete->estado==2)
                         @php
                             $sumatotal=0;
                         @endphp
                         @foreach($paquete->paquete_precios as $precio_paquete2)
+
                             @if($precio_paquete2->estado == 2)
                                 @if($precio_paquete2->personas_s > 0)
                                     @php
