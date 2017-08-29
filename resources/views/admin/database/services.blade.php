@@ -86,15 +86,11 @@
                                                             <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                                         @endforeach
                                                     </select>
-
                                                     <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    {{--<label for="txt_type">Type</label>--}}
-                                                    {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
-
                                                     @if($categoria->nombre=='HOTELS')
                                                         <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
@@ -146,14 +142,6 @@
                                                         </select>
                                                     @endif
                                                     @if($categoria->nombre=='TRAINS')
-
-                                                        {{--<select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">--}}
-                                                            {{--<option value="EXPEDITION">EXPEDITION</option>--}}
-                                                            {{--<option value="VISITADOME">VISITADOME</option>--}}
-                                                            {{--<option value="HIRAN BINGHAN">BOX LUNCH</option>--}}
-                                                            {{--<option value="EJECUTIVO">EJECUTIVO</option>--}}
-                                                            {{--<option value="PRIMERA CLASE">PRIMERA CLASE</option>--}}
-                                                        {{--</select>--}}
                                                         <label for="txt_type">Class</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="EXPEDITION">EXPEDITION</option>
@@ -234,6 +222,20 @@
                                                     <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price" min="0">
                                                 </div>
                                             </div>
+                                            @if($categoria->nombre=='MOVILID')
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="txt_price">Min Personas</label>
+                                                        <input type="number" class="form-control" id="txt_min_personas_{{$pos}}" name="txt_min_personas_{{$pos}}" placeholder="Min" min="0">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="txt_price">Max Personas</label>
+                                                        <input type="number" class="form-control" id="txt_max_personas_{{$pos}}" name="txt_max_personas_{{$pos}}" placeholder="Min" min="0">
+                                                    </div>
+                                                </div>
+                                            @endif
                                             @if($categoria->nombre=='HOTELS')
                                                 <div class="col-md-6">
                                                     <div class="row">
@@ -771,6 +773,20 @@
                                                 <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price"  value="{{$servicio->precio_venta}}" min="0">
                                             </div>
                                         </div>
+                                        @if($servicio->grupo=='MOVILID')
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="txt_price">Min Personas</label>
+                                                    <input type="number" class="form-control" id="txt_min_personas_{{$pos}}" name="txt_min_personas_{{$pos}}" placeholder="Min" min="0" value="{{$servicio->min_personas}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="txt_price">Max Personas</label>
+                                                    <input type="number" class="form-control" id="txt_max_personas_{{$pos}}" name="txt_max_personas_{{$pos}}" placeholder="Min" min="0" value="{{$servicio->max_personas}}">
+                                                </div>
+                                            </div>
+                                        @endif
                                         @if($servicio->grupo=='HOTELS')
                                             <div class="col-md-6">
                                                 <div class="row">

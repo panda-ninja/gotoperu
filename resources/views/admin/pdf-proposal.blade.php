@@ -74,16 +74,35 @@
 
         <div>
             <h3><b>Destinos incluidos:</b></h3>
+            @php
+                $array_destinos[]=null
+            @endphp
             @foreach($paquete->itinerario_cotizaciones as $itinerarios_destino)
                 @foreach($itinerarios_destino->itinerario_destinos as $destino)
+                    @if(in_array($destino->destino,$array_destinos))
+                    @else
+                        @php
+                            $array_destinos[]=$destino->destino;
+                        @endphp
+                    @endif
+                @endforeach
+            @endforeach
+            @foreach($array_destinos as $destino)
+                @if($destino!=null)
+                    - {{$destino}}<br>
+                @endif
+            @endforeach
+
+            {{--@foreach($paquete->itinerario_cotizaciones as $itinerarios_destino)--}}
+                {{--@foreach($itinerarios_destino->itinerario_destinos as $destino)--}}
 {{--                    <img src="{{asset('img/destinations/'.$destino->imagen.'')}}" class="margin-bottom-3" width="347" alt="">--}}
                     {{--@if (Storage::disk('destination')->has($destino->imagen))--}}
                             {{--<img--}}
                                     {{--src="{{route('destination_image_path', ['filename' => $destino->imagen])}}" class="margin-bottom-3" width="347" alt="">--}}
                     {{--@endif--}}
-                    - {{$destino->destino}}<br>
-                @endforeach
-            @endforeach
+                    {{--- {{$destino->destino}}<br>--}}
+                {{--@endforeach--}}
+            {{--@endforeach--}}
         </div>
 
         <div>

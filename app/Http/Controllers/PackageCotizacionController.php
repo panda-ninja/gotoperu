@@ -550,10 +550,21 @@ class PackageCotizacionController extends Controller
                         $new_servicio=new ItinerarioServicios();
                         $new_servicio->nombre=$serivicio->nombre;
                         $new_servicio->observacion=$serivicio->observacion;
-                        if($serivicio->precio_grupo==1)
-                            $new_servicio->precio=ceil(($serivicio->precio*2)/$cotizaion->nropersonas);
-                        else
-                            $new_servicio->precio=($serivicio->precio*2);
+                        if($serivicio->precio_grupo==1) {
+                            $new_servicio->min_personas=$serivicio->min_personas;
+                            $new_servicio->max_personas=$serivicio->max_personas;
+                            $new_servicio->precio = round($serivicio->precio / $cotizaion->nropersonas,2);
+                            if($serivicio->min_personas<=$cotizaion->nropersonas && $cotizaion->nropersonas<=$serivicio->max_personas){
+                                $new_servicio->estado_error=0;
+                            }
+                            else{
+                                $new_servicio->mensaje_error='Borre este servicio, agrege uno de acuerdo a la cantidad({{$cotizaion->nropersonas}}) de pasajero';
+                                $new_servicio->estado_error=1;
+                            }
+                        }else{
+                            $new_servicio->estado_error=0;
+                            $new_servicio->precio = $serivicio->precio;
+                        }
                         $new_servicio->itinerario_cotizaciones_id=$new_itinerario->id;
 //                        $new_servicio->user_id=auth()->guard('admin')->user()->id;
                         $new_servicio->user_id=1;
@@ -592,5 +603,16 @@ class PackageCotizacionController extends Controller
         $p_paquete=P_Paquete::where('duracion',$request->input('txt_day_'))->get();
         return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_m'=>$acomodacion_m,'acomodacion_t'=>$acomodacion_t,'p_paquete'=>$p_paquete]);
     }
-
+    public function plan_newpackage($id){
+        $paquetes = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+        foreach ($paquetes as $paquetes2){
+            $paquete = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+            $cotizacion = Cotizacion::where('id',$paquetes2->cotizaciones_id)->get();
+            $cotizacion1='';
+            foreach ($cotizacion as $cotizacion_){
+                $cotizacion1=$cotizacion_;
+            }
+            return view('admin.new_plan-details', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
+        }
+    }
 }

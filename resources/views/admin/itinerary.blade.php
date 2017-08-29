@@ -81,6 +81,33 @@
                                     $tipoServicio[]=$categoria->nombre;
                                     ?>
                                 @endforeach
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_1" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(1)"><i class="fa fa-map-o fa-3x" aria-hidden="true"></i> {{$tipoServicio[1]}}</button>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_2" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(2)"><i class="fa fa-bus fa-3x" aria-hidden="true"></i> {{$tipoServicio[2]}}</button>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_3" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(3)"><i class="fa fa-exchange fa-3x" aria-hidden="true"></i> {{$tipoServicio[3]}}</button>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_4" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(4)"><i class="fa fa-ticket fa-3x" aria-hidden="true"></i> {{$tipoServicio[4]}}</button>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_5" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(5)"><i class="fa fa-cutlery fa-3x" aria-hidden="true"></i> {{$tipoServicio[5]}}</button>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_6" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(6)"><i class="fa fa-train fa-3x" aria-hidden="true"></i> {{$tipoServicio[6]}}</button>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_7" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(7)"><i class="fa fa-plane fa-3x" aria-hidden="true"></i> {{$tipoServicio[7]}}</button>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button id="filtro_8" class="btn btn-unset margin-top-10 margin-" type="button" onclick="escojerPos(8)"><i class="fa fa-question fa-3x" aria-hidden="true"></i> {{$tipoServicio[8]}}</button>--}}
+                                    {{--</div>--}}
+
+
+
 
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#t_{{$tipoServicio[1]}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
@@ -93,25 +120,11 @@
                                     <li><a data-toggle="tab" href="#t_{{$tipoServicio[8]}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
                                 </ul>
                                 <div class="tab-content margin-top-20">
-                                    {{--<div id="t_{{$tipoServicio[0]}}" class="tab-pane fade in active">--}}
-                                        {{--@foreach($services as $service)--}}
-                                            {{--@if($service->grupo==$tipoServicio[0])--}}
-                                            {{--<div id="service_{{$service->id}}" class="col-md-4 hide">--}}
-                                                {{--<div class="checkbox11">--}}
-                                                    {{--<label>--}}
-                                                        {{--<input type="checkbox" class="servicios" name="servicios[]" value="0_{{0}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">--}}
-                                                        {{--{{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{0.00}} p.p</span>--}}
-                                                    {{--</label>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                            {{--@endif--}}
-                                        {{--@endforeach--}}
-                                    {{--</div>--}}
                                     <div id="t_{{$tipoServicio[1]}}" class="tab-pane fade in active">
                                         @foreach($services as $service)
                                             @if($service->grupo==$tipoServicio[1])
                                                 <?php
-                                                $precio=$service->precio_venta;
+                                                    $precio=$service->precio_venta;
                                                 ?>
                                                 @if($service->precio_grupo==1)
                                                     <?php
@@ -137,14 +150,14 @@
                                                 ?>
                                                 @if($service->precio_grupo==1)
                                                     <?php
-                                                    $precio=ceil(ceil($service->precio_venta)/2);
+                                                    $precio=round((round($service->precio_venta)/2),2);
                                                     ?>
                                                 @endif
                                                 <div id="service_{{$service->id}}"  class="col-md-4 hide">
                                                     <div class="checkbox11">
                                                         <label>
                                                             <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$precio}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
-                                                            {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$precio}} p.p</span>
+                                                            {{$service->nombre}} <span class="text-12 bg-primary">{{$service->min_personas}}-{{$service->max_personas}} p </span> <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$precio}} p.p</span>
                                                         </label>
                                                     </div>
                                                 </div>

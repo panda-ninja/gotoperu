@@ -113,10 +113,10 @@
 
                         <div class="btn-right-fixed">
                             {{csrf_field()}}
-                            <input type="text" name="p_cotizacion_id" value="{{$cotizacion_->id}}">
-                            <input type="text" name="datos" value="{{$array_destinos1.'_'.$acomodacion_s.'_'.$acomodacion_d.'_'.$acomodacion_t.'_'.$acomodacion_m}}">
-                            <input type="text" name="cliente_id_" value="{{$cliente->id}}">
-                            <input type="text" name="txt_day_" value="{{$cotizacion_->duracion}}">
+                            <input type="hidden" name="p_cotizacion_id" value="{{$cotizacion_->id}}">
+                            <input type="hidden" name="cliente_id_" value="{{$cliente->id}}">
+                            <input type="hidden" name="datos" value="{{$array_destinos1.'_'.$acomodacion_s.'_'.$acomodacion_d.'_'.$acomodacion_t.'_'.$acomodacion_m}}">
+                            <input type="hidden" name="txt_day_" value="{{$cotizacion_->duracion}}">
                             <button type="submit" class="btn btn-primary">add <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                         </div>
                     </form>
@@ -306,7 +306,7 @@
                             <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
                             {{csrf_field()}}
                             <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
-                            <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="{{route('mostar_newpackage_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
                             {{--<button type="button" id="plan_{{$pos_plan}}"  class="planes pull-right btn btn-danger btn-sm" onclick="activarPlan('{{$paquete->id}}','{{$cotizacion_->nombre}}','{{$cotizacion_->id}}','{{$pos_plan}}')">--}}
                             {{--<i class="fa fa-toggle-off" aria-hidden="true"></i>--}}

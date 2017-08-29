@@ -240,3 +240,7 @@ Route::post('admin/current-quotes/enlatados', [
     'uses' => 'PackageCotizacionController@cargar_paquete_enlatados',
     'as' => 'crear_paquete_enlatados_path'
 ]);
+Route::get('admin/current-quotes/new-plan/{id}', [
+    'uses' => 'PackageCotizacionController@plan_newpackage',
+    'as' => 'mostar_newpackage_path'
+]);

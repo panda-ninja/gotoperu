@@ -173,11 +173,12 @@ class PackageController extends Controller
         $paquete_precio5->save();
         $dia=0;
         foreach ($itinerarios_ as $itinerario_id){
+            $dia_=$dia+1;
             $m_itineario=M_Itinerario::FindOrFail($itinerario_id);
             $p_itinerario=new P_Itinerario();
             $p_itinerario->titulo=$m_itineario->titulo;
             $p_itinerario->descripcion=$m_itineario->titulo;
-            $p_itinerario->dias=$dia;
+            $p_itinerario->dias=$dia_;
             $p_itinerario->precio=$m_itineario->precio;
             $p_itinerario->imagen=$m_itineario->imagen;
             $p_itinerario->sugerencia=$txt_sugerencia[$dia];
@@ -202,17 +203,20 @@ class PackageController extends Controller
                 $p_servicio=new P_ItinerarioServicios();
                 $p_servicio->nombre=$servicios->itinerario_servicios_servicio->nombre;
                 $p_servicio->observacion='';
-                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                    $p_servicio->precio=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
-                else
-                    $p_servicio->precio=$servicios->itinerario_servicios_servicio->precio_venta;
+                if($servicios->itinerario_servicios_servicio->precio_grupo==1) {
+                    $p_servicio->precio = round($servicios->itinerario_servicios_servicio->precio_venta / 2,2);
+                    $p_servicio->precio_grupo = 1;
+                }
+                else{
+                    $p_servicio->precio = $servicios->itinerario_servicios_servicio->precio_venta;
+                    $p_servicio->precio_grupo=0;
+                }
                 $st+=$p_servicio->precio;
                 $p_servicio->p_itinerario_id=$p_itinerario->id;
                 $p_servicio->save();
             }
             $p_itinerario->precio=$st;
             $p_itinerario->save();
-
         }
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
