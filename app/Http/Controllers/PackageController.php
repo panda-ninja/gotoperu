@@ -202,6 +202,8 @@ class PackageController extends Controller
             foreach($m_itineario->itinerario_itinerario_servicios as $servicios){
                 $p_servicio=new P_ItinerarioServicios();
                 $p_servicio->nombre=$servicios->itinerario_servicios_servicio->nombre;
+                $p_servicio->min_personas=$servicios->itinerario_servicios_servicio->min_personas;
+                $p_servicio->max_personas=$servicios->itinerario_servicios_servicio->max_personas;
                 $p_servicio->observacion='';
                 if($servicios->itinerario_servicios_servicio->precio_grupo==1) {
                     $p_servicio->precio = round($servicios->itinerario_servicios_servicio->precio_venta / 2,2);

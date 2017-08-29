@@ -147,19 +147,19 @@
                                             @endphp
                                             {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                         </td>
-                                        @if($paquete->estado==1)
-                                            @if($precio_paquete2->estado==2)
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-pencil-square-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @endif
-                                        @else
-                                            @if($precio_paquete2->estado==2)
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-window-close-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @endif
-                                        @endif
+                                        {{--@if($paquete->estado==1)--}}
+                                            {{--@if($precio_paquete2->estado==2)--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@else--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-pencil-square-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@endif--}}
+                                        {{--@else--}}
+                                            {{--@if($precio_paquete2->estado==2)--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@else--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-window-close-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@endif--}}
+                                        {{--@endif--}}
                                     </tr>
                                 @else
                                     @php
@@ -226,19 +226,19 @@
                                             @endphp
                                             {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                         </td>
-                                        @if($paquete->estado==1)
-                                            @if($precio_paquete2->estado==2)
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-pencil-square-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @endif
-                                        @else
-                                            @if($precio_paquete2->estado==2)
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-window-close-o fa-5x" aria-hidden="true"></i></a></td>
-                                            @endif
-                                        @endif
+                                        {{--@if($paquete->estado==1)--}}
+                                            {{--@if($precio_paquete2->estado==2)--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@else--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-pencil-square-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@endif--}}
+                                        {{--@else--}}
+                                            {{--@if($precio_paquete2->estado==2)--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@else--}}
+                                                {{--<td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-window-close-o fa-5x" aria-hidden="true"></i></a></td>--}}
+                                            {{--@endif--}}
+                                        {{--@endif--}}
                                     </tr>
                                 @else
                                     @php
