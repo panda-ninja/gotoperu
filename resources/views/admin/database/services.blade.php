@@ -111,7 +111,7 @@
                                                         <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                             <option value="AUTO">AUTO</option>
-                                                            <option value="SUBARU">SUBARU</option>
+                                                            <option value="SUV">SUV</option>
                                                             <option value="VAN">VAN</option>
                                                             <option value="H1">H1</option>
                                                             <option value="SPRINTER">SPRINTER</option>
@@ -663,7 +663,7 @@
                                                     <label for="txt_type">Type</label>
                                                     <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
                                                         <option value="AUTO" @if($servicio->tipoServicio=="AUTO") selected @endif>AUTO</option>
-                                                        <option value="SUBARU" @if($servicio->tipoServicio=="SUBARU") selected @endif>SUBARU</option>
+                                                        <option value="SUV" @if($servicio->tipoServicio=="SUV") selected @endif>SUV</option>
                                                         <option value="VAN" @if($servicio->tipoServicio=="VAN") selected @endif>VAN</option>
                                                         <option value="H1" @if($servicio->tipoServicio=="H1") selected @endif>H1</option>
                                                         <option value="SPRINTER" @if($servicio->tipoServicio=="SPRINTER") selected @endif>SPRINTER</option>
