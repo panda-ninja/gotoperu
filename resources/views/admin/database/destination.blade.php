@@ -52,8 +52,6 @@
                                             <input type="text" class="form-control" id="txt_descripcion" name="txt_descripcion" placeholder="Descripcion">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="txt_pais">Pais</label>
@@ -71,7 +69,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 hide">
                                         <div class="form-group">
                                             <label for="txt_departamento">Departamento</label>
                                             <select class="custom-select form-control" id="txt_departamento" name="txt_departamento" >
@@ -127,24 +125,20 @@
         <table id="example" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
             <thead>
             <tr>
+                <th>Pais</th>
                 <th>Codigo</th>
                 <th>Destino</th>
                 <th>Descripcion</th>
-                <th>Pais</th>
-                <th>Region</th>
-                <th>Departamento</th>
                 <th>Imagen</th>
                 <th>Operaciones</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
+                <th>Pais</th>
                 <th>Codigo</th>
                 <th>Destino</th>
                 <th>Descripcion</th>
-                <th>Pais</th>
-                <th>Region</th>
-                <th>Departamento</th>
                 <th>Imagen</th>
                 <th>Operaciones</th>
             </tr>
@@ -152,12 +146,11 @@
             <tbody>
             @foreach($destinos as $destino)
                 <tr id="lista_destinos_{{$destino->id}}">
+                    <td>{{$destino->pais}}</td>
                     <td>{{$destino->codigo}}</td>
                     <td>{{$destino->destino}}</td>
                     <td>{{$destino->descripcion}}</td>
-                    <td>{{$destino->pais}}</td>
-                    <td>{{$destino->region}}</td>
-                    <td>{{$destino->departamento}}</td>
+
                     <td>
                         @if (Storage::disk('destination')->has($destino->imagen))
                             <picture>
@@ -231,7 +224,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 hide">
                                             <div class="form-group">
                                                 <label for="txt_departamento">Departamento</label>
                                                 <select class="custom-select form-control" id="txt_departamento" name="txt_departamento" >

@@ -22286,8 +22286,21 @@ function eliminar_destino(id,destino) {
 
     })
 }
-function escojerPos(pos) {
+function escojerPos(pos,cate) {
     $("#posTipo").val(pos);
+    mostrar_pivot(cate);
+
+}
+function mostrar_pivot(cate){
+    $("#t_TOURS").addClass('hide');
+    $("#t_MOVILID").addClass('hide');
+    $("#t_REPRESENT").addClass('hide');
+    $("#t_ENTRANCES").addClass('hide');
+    $("#t_FOOD").addClass('hide');
+    $("#t_TRAINS").addClass('hide');
+    $("#t_FLIGHTS").addClass('hide');
+    $("#t_OTHERS").addClass('hide');
+    $("#t_"+cate).removeClass('hide');
 }
 
 function eliminar_servicio(id,servicio) {
