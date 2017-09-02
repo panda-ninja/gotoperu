@@ -97,7 +97,7 @@
                 <li class="bg-sub-title-aside"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i> Itineraries</a>
                     <ul class="padding-side-20 nav nav-sidebar margin-bottom-0">
                         <li class="padding-left-30 text-unset"><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> New</a></li>
-                        <li class="padding-left-30 text-unset"><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> List</a></li>
+                        <li class="padding-left-30 text-unset"><a href="{{route("show_itineraries_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> List</a></li>
                     </ul>
                 </li>
                 <li ><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expedia</a></li>

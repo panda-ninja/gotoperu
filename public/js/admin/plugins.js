@@ -22061,8 +22061,9 @@ var total_Itinerarios=0;
 var Itis_precio=0;
 var nroPasajeros=2
 function Pasar_datos(){
+    Itis_precio=parseFloat($('#totalItinerario').val());
+    total_Itinerarios=$('#nroItinerario').val();
     var itinerario='';
-
     $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
             $(this).prop("checked", "");
@@ -22169,7 +22170,7 @@ function Pasar_datos(){
     });
     $('#totalItinerario').val(Itis_precio);
     $('#totalItinerario_front').html(Itis_precio);
-
+    $('#nroItinerario').val(total_Itinerarios);
     calcular_resumen();
 }
 

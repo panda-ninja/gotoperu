@@ -4,10 +4,11 @@
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li>Inventory</li>
-            <li class="active">Itineraries</li>
+            <li>Itineraries</li>
+            <li class="active">Edit</li>
         </ol>
     </div>
-    <form action="{{route('package_save_path')}}" method="post" id="package_new_path_id">
+    <form action="{{route('package_edit_path')}}" method="post" id="package_new_path_id">
         <div class="row">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>
@@ -53,24 +54,24 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="txt_code">Code</label>
-                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code">
+                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code" value="{{$itinerary->codigo}}">
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="txt_day">Duracion</label>
-                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="2" onchange="calcular_resumen()">
+                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" onchange="calcular_resumen()"  value="{{$itinerary->duracion}}">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="txt_title">Title</label>
-                    <input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="Title">
+                    <input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="Title"  value="{{$itinerary->titulo}}">
                 </div>
             </div>
             <div class="col-md-12">
                 <label for="txta_description">Description</label>
-                <textarea class="form-control" id="txta_description" name="txta_description" rows="3"></textarea>
+                <textarea class="form-control" id="txta_description" name="txta_description" rows="3">{{$itinerary->descripcion}}</textarea>
             </div>
         </div>
         <div class="row margin-top-20">
@@ -81,15 +82,39 @@
         </div>
         <div class="row">
             {{csrf_field()}}
+            @php
+                $arra_destinos=array();
+            @endphp
+            @foreach($itinerary->itinerarios as $itinerario)
+                @foreach($itinerario->destinos as $destino)
+                    @php
+                        $arra_destinos[$destino->destino]=$destino->destino;
+                    @endphp
+                @endforeach
+            @endforeach
+
             @foreach($destinos as $destino)
-                <div class="col-md-3">
-                    <div class="checkbox1">
-                        <label class=" text-green-goto">
-                            <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->destino}}" onchange="filtrar_itinerarios()">
-                            {{$destino->destino}}
-                        </label>
-                    </div>
-                </div>
+                @foreach($arra_destinos as $destino_)
+                    @if($destino_==$destino->destino)
+                        <div class="col-md-3">
+                            <div class="checkbox1">
+                                <label class=" text-green-goto">
+                                    <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->destino}}" onchange="filtrar_itinerarios()" checked>
+                                    {{$destino->destino}}
+                                </label>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-3">
+                            <div class="checkbox1">
+                                <label class=" text-green-goto">
+                                    <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->destino}}" onchange="filtrar_itinerarios()">
+                                    {{$destino->destino}}
+                                </label>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             @endforeach
         </div>
         <div class="row margin-top-20">
@@ -101,11 +126,111 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="grid" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios()">
+                    @php
+                        $iti_precio=0;
+                        $nroItinerario=0;
+                    @endphp
+                    @foreach($itinerary->itinerarios as $itinerario)
+                        @php
+                            $iti_id=0;
+                        @endphp
+                        @foreach($itinerarios as $itinerario_)
+                            @if($itinerario->titulo==$itinerario_->titulo)
+                                @php
+                                    $iti_id=$itinerario_->id;
+                                @endphp
+                                @break
+                            @endif
+                        @endforeach
+                        @php
+                            $itinerario_total=0;
+                            $nroItinerario++;
+                        @endphp
+                        @foreach($itinerario->serivicios as $serivicios)
+                            @php
+                                $itinerario_total+=$serivicios->precio;
+                            @endphp
+                        @endforeach
+                        @php
+                            $iti_precio+=$itinerario_total;
+                        @endphp
+                    <div id="itis_{{$itinerario->id}}" class="box-sortable margin-bottom-10">
+                        <input type="hidden" name="itinerarios_[]" id="itinerarios_{{$iti_id}}" value="{{$iti_id}}">
+                        <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_{{$iti_id}}" aria-expanded="false" aria-controls="collapseExample">
+                            <b>Dia {{$itinerario->dias}}:</b> {{$itinerario->titulo}}
+                        </a>
+                        <span class="label pull-right">
+                            <a href="#!" class="text-16 text-danger" onclick="eliminar_iti('{{$iti_id}}','{{$itinerario->precio}}')">
+                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                            </a>
+                        </span>
+                        <span class="label label-success pull-right">($ {{$itinerario_total}})</span>
+                        <div class="collapse clearfix" id="collapseExample_{{$iti_id}}">
+                            <div class="col-md-12"><input type="hidden" name="itinerario" value="{{$iti_id}}">
+                                {{$itinerario->descripcion}}
+                                <h5><b>Services</b></h5>
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                    <tr class="bg-grey-goto text-white">
+                                        <th colspan="2">Concepts</th>
+                                        <th>Prices</th>
+                                        <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($itinerario->serivicios as $serivicios)
+                                        @php
+                                            $valu=$serivicios->nombre.'//'.$serivicios->precio.'//'.$serivicios->precio_grupo;
+                                        @endphp
+                                        <tr>
+                                            <td><input type="hidden" name="iti_servicios_{{$iti_id}}" value="{{$valu}}">{{$serivicios->nombre}}</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                            <td>{{$serivicios->precio}}</td>
+                                            <td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                    @endforeach
 
+                                    <tr>
+                                        <td class="" colspan="4">
+                                            <a class="hide" href="#add-services{{$iti_id}}" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                            <div class="col-md-12">
+                                                <label for="txta_description">Sugerencias para los servicios</label>
+                                                <textarea class="form-control" id="txt_sugerencia_{{$iti_id}}" name="txt_sugerencia[]" rows="3"></textarea>
+                                                </div>
+                                            <div class="collapse" id="add-services{{$iti_id}}">
+                                                <div class="row margin-top-10">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">
+                                                            </div>
+                                                        </div>
+                                                    <div class="col-md-4 row">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">
+                                                            </div>
+                                                        </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    @endforeach
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <b class="font-montserrat">COST WITHOUT HOTELS $ <label  id="totalItinerario_front">0</label>.00 P.P</b>
+                        <b class="font-montserrat">COST WITHOUT HOTELS $ <label  id="totalItinerario_front">{{$iti_precio}}</label> P.P</b>
                     </div>
                 </div>
             </div>
@@ -115,76 +240,159 @@
             <div class="col-md-5">
                 <div id="lista_itinerarios">
                     @foreach ($itinerarios as $itinerario)
-                    <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5 hide">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <?php
-                                $servicios1='';
-                                $precio_iti=0;
-                                $destinos_iti='';
-                                ?>
-                                @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
-                                    <?php
-                                        if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
-                                            if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                                $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
-                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
-                                            }
-                                            else{
-                                                $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                        @php
+                        $tiene_dest=0;
+                        @endphp
+                        @foreach ($itinerario->destinos as $destino_)
+                            @if(in_array($destino_->destino,$arra_destinos))
+                                @php
+                                    $tiene_dest++;
+                                @endphp
+                            @endif
+                        @endforeach
+                        @if($tiene_dest>0)
+                            <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5 ">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <?php
+                                        $servicios1='';
+                                        $precio_iti=0;
+                                        $destinos_iti='';
+                                        ?>
+                                        @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                            <?php
+                                            if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
+                                                if($servicios->itinerario_servicios_servicio->precio_grupo==1){
+                                                    $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
+                                                    $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                }
+                                                else{
+                                                    $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
+                                                    $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
 
+                                                }
                                             }
-                                        }
-                                    ?>
-                                @endforeach
-                                @foreach($itinerario->destinos as $destino)
-                                <?php
-                                        $destinos_iti.=$destino->destino.'*';
-                                ?>
-                                @endforeach
-                                <?php
-                                    $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
-                                    $servicios1=substr($servicios1,0,strlen($servicios1)-1);
-                                ?>
-                                <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
-                            </span>
-                            <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
+                                            ?>
+                                        @endforeach
+                                        @foreach($itinerario->destinos as $destino)
+                                            <?php
+                                            $destinos_iti.=$destino->destino.'*';
+                                            ?>
+                                        @endforeach
+                                        <?php
+                                        $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
+                                        $servicios1=substr($servicios1,0,strlen($servicios1)-1);
+                                        ?>
+                                        <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
+                                    </span>
+                                        <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
 
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$itinerario->id}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
-                            </span>
-                        </div>
-                        <div class="collapse clearfix" id="collapse_{{$itinerario->id}}">
-                            <div class="col-md-12 well margin-top-5">
-                                {{$itinerario->descripcion}}
-                                <h5><b>Services</b></h5>
-                                <table class="table table-condensed table-striped">
-                                    <thead>
-                                    <tr class="bg-grey-goto text-white">
-                                        <th colspan="2">Concepts</th>
-                                        <th>Prices</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
-                                    <tr>
-                                        <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                        <td>
-                                            @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                                                {{ceil($servicios->itinerario_servicios_servicio->precio_venta/2)}}
-                                            @else
-                                                {{$servicios->itinerario_servicios_servicio->precio_venta}}
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$itinerario->id}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+                                <div class="collapse clearfix" id="collapse_{{$itinerario->id}}">
+                                    <div class="col-md-12 well margin-top-5">
+                                        {{$itinerario->descripcion}}
+                                        <h5><b>Services</b></h5>
+                                        <table class="table table-condensed table-striped">
+                                            <thead>
+                                            <tr class="bg-grey-goto text-white">
+                                                <th colspan="2">Concepts</th>
+                                                <th>Prices</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                                <tr>
+                                                    <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
+                                                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                                    <td>
+                                                        @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+                                                            {{ceil($servicios->itinerario_servicios_servicio->precio_venta/2)}}
+                                                        @else
+                                                            {{$servicios->itinerario_servicios_servicio->precio_venta}}
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        @else
+                            <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5 hide">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <?php
+                                        $servicios1='';
+                                        $precio_iti=0;
+                                        $destinos_iti='';
+                                        ?>
+                                        @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                            <?php
+                                            if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
+                                                if($servicios->itinerario_servicios_servicio->precio_grupo==1){
+                                                    $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
+                                                    $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                }
+                                                else{
+                                                    $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
+                                                    $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+
+                                                }
+                                            }
+                                            ?>
+                                        @endforeach
+                                        @foreach($itinerario->destinos as $destino)
+                                            <?php
+                                            $destinos_iti.=$destino->destino.'*';
+                                            ?>
+                                        @endforeach
+                                        <?php
+                                        $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
+                                        $servicios1=substr($servicios1,0,strlen($servicios1)-1);
+                                        ?>
+                                        <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
+                                    </span>
+                                    <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$itinerario->id}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+                                <div class="collapse clearfix" id="collapse_{{$itinerario->id}}">
+                                    <div class="col-md-12 well margin-top-5">
+                                        {{$itinerario->descripcion}}
+                                        <h5><b>Services</b></h5>
+                                        <table class="table table-condensed table-striped">
+                                            <thead>
+                                            <tr class="bg-grey-goto text-white">
+                                                <th colspan="2">Concepts</th>
+                                                <th>Prices</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                                <tr>
+                                                    <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
+                                                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                                    <td>
+                                                        @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+                                                            {{ceil($servicios->itinerario_servicios_servicio->precio_venta/2)}}
+                                                        @else
+                                                            {{$servicios->itinerario_servicios_servicio->precio_venta}}
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                @endif
                     @endforeach
 
 
@@ -256,14 +464,7 @@
 
                 <div class="form-group">
                     <label for="txta_include">Include</label>
-                    <textarea class="form-control animated" id="txta_include" name="txta_include" rows="5">5 nights in Peru high quality Hotels
-    All tours stated in the itinerary with English-speaking guides
-    All transfers and entrance fees
-    All breakfasts
-    Private Airport Shuttle in & out
-    24/7 Assistance
-    Trains and buses
-    A prepaid cellphone for extended Programs</textarea>
+                    <textarea class="form-control animated" id="txta_include" name="txta_include" rows="5">{{$itinerary->include}}</textarea>
                 </div>
             </div>
             <div class="col-md-6">
@@ -279,7 +480,7 @@
 
                 <div class="form-group">
                     <label for="txta_notinclude">Not Include</label>
-                    <textarea class="form-control" id="txta_notinclude" name="txta_notinclude" rows="5"></textarea>
+                    <textarea class="form-control" id="txta_notinclude" name="txta_notinclude" rows="5">{{$itinerary->noinclude}}</textarea>
                 </div>
             </div>
         </div>
@@ -308,92 +509,42 @@
                 $amount_m5=0;
                 $amount_t5=0;
                 ?>
-                @foreach($m_servicios as $servicio)
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="S" )
-                    <?php
-                    $amount_s2=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="D" )
-                    <?php
-                    $amount_d2=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="M" )
-                    <?php
-                    $amount_m2=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="T" )
-                    <?php
-                    $amount_t2=$servicio->precio_venta;
-                    ?>
-                    @endif
-
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="S" )
-                    <?php
-                    $amount_s3=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="D" )
-                    <?php
-                    $amount_d3=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="M" )
-                    <?php
-                    $amount_m3=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="T" )
-                    <?php
-                    $amount_t3=$servicio->precio_venta;
-                    ?>
-                    @endif
-
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="S" )
-                    <?php
-                    $amount_s4=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="D" )
-                    <?php
-                    $amount_d4=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="M" )
-                    <?php
-                    $amount_m4=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="T" )
-                    <?php
-                    $amount_t4=$servicio->precio_venta;
-                    ?>
-                    @endif
-
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="S" )
-                    <?php
-                    $amount_s5=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="D" )
-                    <?php
-                    $amount_d5=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="M" )
-                    <?php
-                    $amount_m5=$servicio->precio_venta;
-                    ?>
-                    @endif
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="T" )
-                    <?php
-                    $amount_t5=$servicio->precio_venta;
-                    ?>
-                    @endif
+                @foreach($itinerary as $$itinerary)
+                    @foreach($itinerary->precios as $precio)
+                        @if($precio->estrellas=="2")
+                            <?php
+                            $amount_s2=$precio->precio_s;
+                            $amount_d2=$precio->precio_d;
+                            $amount_m2=$precio->precio_m;
+                            $amount_t2=$precio->precio_t;
+                            ?>
+                        @endif
+                        @if($precio->estrellas=="3")
+                            <?php
+                            $amount_s3=$precio->precio_s;
+                            $amount_d3=$precio->precio_d;
+                            $amount_m3=$precio->precio_m;
+                            $amount_t3=$precio->precio_t;
+                            ?>
+                        @endif
+                        @if($precio->estrellas=="4")
+                            <?php
+                            $amount_s4=$precio->precio_s;
+                            $amount_d4=$precio->precio_d;
+                            $amount_m4=$precio->precio_m;
+                            $amount_t4=$precio->precio_t;
+                            ?>
+                        @endif
+                        @if($precio->estrellas=="5")
+                            <?php
+                            $amount_s5=$precio->precio_s;
+                            $amount_d5=$precio->precio_d;
+                            $amount_m5=$precio->precio_m;
+                            $amount_t5=$precio->precio_t;
+                            ?>
+                        @endif
+                    @endforeach
                 @endforeach
-
                 <table class="table table-condensed table-bordered font-montserrat">
                     <caption class="text-right"><b>Price per night</b></caption>
                     <thead>
@@ -1582,7 +1733,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="txt_day">Total costo(without hotel)</label>
-                        <input type="number" class="form-control" id="totalItinerario" name="totalItinerario" min="0" value="0" readonly>
+                        <input type="number" class="form-control" id="totalItinerario" name="totalItinerario" min="0" value="{{$iti_precio}}" readonly>
                     </div>
                 </div>
                 <div class="col-md-3 hide">
@@ -1594,9 +1745,8 @@
                 <div class="col-md-3 hide">
                     <div class="form-group">
                         <label for="txt_day">Total venta</label>
-                        <input type="number" class="form-control" id="totalItinerario_venta" name="totalItinerario_venta" min="0" value="0" readonly>
-                        <input type="number" class="form-control" id="nroItinerario" name="nroItinerario" min="0" value="0">
-
+                        <input type="number" class="form-control" id="totalItinerario_venta" name="totalItinerario_venta" min="0" value="0">
+                        <input type="number" class="form-control" id="nroItinerario" name="nroItinerario" min="0" value="{{$nroItinerario}}">
                     </div>
                 </div>
             </div>
@@ -1604,7 +1754,7 @@
 
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-lg btn-primary">Submit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <button type="submit" class="btn btn-lg btn-warning">Edit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>
     </form>

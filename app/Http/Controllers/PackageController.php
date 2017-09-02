@@ -225,6 +225,19 @@ class PackageController extends Controller
         $m_servicios=M_Servicio::get();
         return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
     }
+    public function itineraries()
+    {
+        $itineraries=P_Paquete::get();
+        return view('admin.show-itineraries',['itineraries'=>$itineraries]);
+    }
+    public function show_itinerary($id)
+    {
+        $destinos=M_Destino::get();
+        $itinerarios=M_Itinerario::get();
+        $m_servicios=M_Servicio::get();
+        $itinerary=P_Paquete::FindOrFail($id);
+        return view('admin.show-itinerary',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
+    }
 
     /**
      * Display the specified resource.

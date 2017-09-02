@@ -244,3 +244,15 @@ Route::get('admin/current-quotes/new-plan/{id}', [
     'uses' => 'PackageCotizacionController@plan_newpackage',
     'as' => 'mostar_newpackage_path'
 ]);
+Route::get('admin/itineraries', [
+    'uses' => 'PackageController@itineraries',
+    'as' => 'show_itineraries_path'
+]);
+Route::get('admin/itinerary/show/{id}', [
+    'uses' => 'PackageController@show_itinerary',
+    'as' => 'show_itinerary_path'
+]);
+Route::post('admin/itinerary/edit/', [
+    'uses' => 'PackageController@itinerary_edit',
+    'as' => 'package_edit_path'
+]);
