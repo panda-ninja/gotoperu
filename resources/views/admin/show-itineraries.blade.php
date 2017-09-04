@@ -18,6 +18,7 @@
     <div class="row margin-top-20">
         </div>
     <div class="row margin-top-20">
+
         <table id="example" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -36,10 +37,10 @@
             </tr>
             </tfoot>
             <tbody>
-            @foreach($itineraries as $itinerary)
+            @foreach($itineraries->sortByDesc('fecha') as $itinerary)
                 <tr id="lista_destinos_{{$itinerary->id}}">
                     <td>{{$itinerary->codigo}}</td>
-                    <td><a href="{{route('show_itinerary_path',$itinerary->id)}}">{{$itinerary->titulo}} {{$itinerary->duracion}} DAYS</a></td>
+                    <td><a href="{{route('show_itinerary_path',$itinerary->id)}}">{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS</a></td>
                     <td>
                         @php
                         $arra_destinos=array();
@@ -57,9 +58,16 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$itinerary->id}}">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="eliminar_destino('{{$itinerary->id}}','{{$itinerary->titulo}}')">
+                        <a href="{{route('package_pdf_path',$itinerary->id)}}" type="button" class="btn btn-success">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{route('duplicate_package_path',$itinerary->id)}}" type="button" class="btn btn-primary">
+                            <i class="fa fa-files-o" aria-hidden="true"></i>
+                        </a>
+                        {{csrf_field()}}
+                        <button type="button" class="btn btn-danger" onclick="eliminar_paquete('{{$itinerary->id}}','{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS')">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                     </td>
@@ -67,123 +75,34 @@
             @endforeach
             </tbody>
         </table>
-    {{--@foreach($destinos as $destino)--}}
-        {{--<!-- Modal -->--}}
-            {{--<div class="modal fade bd-example-modal-lg" id="modal_edit_destination_{{$destino->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-                {{--<div class="modal-dialog modal-lg" role="document">--}}
-                    {{--<div class="modal-content">--}}
-                        {{--<form action="{{route('destination_edit_path')}}" method="post" id="destination_edit_id" enctype="multipart/form-data">--}}
-                            {{--<div class="modal-header">--}}
-                                {{--<h5 class="modal-title" id="exampleModalLabel">Edit destination</h5>--}}
-                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                                    {{--<span aria-hidden="true">&times;</span>--}}
-                                {{--</button>--}}
-                            {{--</div>--}}
-                            {{--<div class="modal-body">--}}
-
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-3">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="txt_codigo">Codigo</label>--}}
-                                            {{--<input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Codigo" value="{{$destino->codigo}}">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-3">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="txt_destino">Destino</label>--}}
-                                            {{--<input type="text" class="form-control" id="txt_destino" name="txt_destino" placeholder="Destino" value="{{$destino->destino}}">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="txt_descripcion">Descripcion</label>--}}
-                                            {{--<input type="text" class="form-control" id="txt_descripcion" name="txt_descripcion" placeholder="Descripcion" value="{{$destino->descripcion}}">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-3">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="txt_pais">Pais</label>--}}
-                                            {{--<input type="text" class="form-control" id="txt_pais" name="txt_pais" placeholder="Pais"  value="{{$destino->pais}}">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-3 hide">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="txt_region">Region</label>--}}
-                                            {{--<select class="custom-select form-control" id="txt_region" name="txt_region" >--}}
-                                                {{--<option selected>Abrir menu</option>--}}
-                                                {{--<option value="COSTA" @if($destino->region='COSTA') selected @endif>COSTA</option>--}}
-                                                {{--<option value="SIERRA" @if($destino->region='SIERRA') selected @endif>SIERRA</option>--}}
-                                                {{--<option value="SELVA" @if($destino->region='SELVA') selected @endif> SELVA</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-3">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="txt_departamento">Departamento</label>--}}
-                                            {{--<select class="custom-select form-control" id="txt_departamento" name="txt_departamento" >--}}
-                                                {{--<option disabled>Abrir menu</option>--}}
-                                                {{--<option value="AMAZONAS" @if($destino->region='AMAZONAS') selected @endif>AMAZONAS</option>--}}
-                                                {{--<option value="ANCASH" @if($destino->region='ANCASH') selected @endif>ANCASH</option>--}}
-                                                {{--<option value="APURIMAC" @if($destino->region='APURIMAC') selected @endif>APURIMAC</option>--}}
-                                                {{--<option value="AREQUIPA" @if($destino->region='AREQUIPA') selected @endif>AREQUIPA</option>--}}
-                                                {{--<option value="AYACUCHO" @if($destino->region='AYACUCHO') selected @endif>AYACUCHO</option>--}}
-                                                {{--<option value="CAJAMARCA" @if($destino->region='CAJAMARCA') selected @endif>CAJAMARCA</option>--}}
-                                                {{--<option value="CALLAO" @if($destino->region='CALLAO') selected @endif>CALLAO</option>--}}
-                                                {{--<option value="CUSCO" @if($destino->region='CUSCO') selected @endif>CUSCO</option>--}}
-                                                {{--<option value="HUANCAVELICA" @if($destino->region='HUANCAVELICA') selected @endif>HUANCAVELICA</option>--}}
-                                                {{--<option value="HUANUCO" @if($destino->region='HUANUCO') selected @endif>HUANUCO</option>--}}
-                                                {{--<option value="ICA" @if($destino->region='ICA') selected @endif>ICA</option>--}}
-                                                {{--<option value="JUNIN" @if($destino->region='JUNIN') selected @endif>JUNIN</option>--}}
-                                                {{--<option value="LA LIBERTAD" @if($destino->region='LA LIBERTAD') selected @endif>LA LIBERTAD</option>--}}
-                                                {{--<option value="LAMBAYEQUE" @if($destino->region='LAMBAYEQUE') selected @endif>LAMBAYEQUE</option>--}}
-                                                {{--<option value="LIMA" @if($destino->region='LIMA') selected @endif>LIMA</option>--}}
-                                                {{--<option value="LORETO" @if($destino->region='LORETO') selected @endif>LORETO</option>--}}
-                                                {{--<option value="MADRE DE DIOS" @if($destino->region='MADRE DE DIOS') selected @endif>MADRE DE DIOS</option>--}}
-                                                {{--<option value="MOQUEGUA" @if($destino->region='MOQUEGUA') selected @endif>MOQUEGUA</option>--}}
-                                                {{--<option value="PASCO" @if($destino->region='PASCO') selected @endif>PASCO</option>--}}
-                                                {{--<option value="PIURA" @if($destino->region='PIURA') selected @endif>PIURA</option>--}}
-                                                {{--<option value="PUNO" @if($destino->region='PUNO') selected @endif>PUNO</option>--}}
-                                                {{--<option value="SAN MARTIN" @if($destino->region='SAN MARTIN') selected @endif>SAN MARTIN</option>--}}
-                                                {{--<option value="TACNA" @if($destino->region='TACNA') selected @endif>TACNA</option>--}}
-                                                {{--<option value="TUMBES" @if($destino->region='TUMBES') selected @endif>TUMBES</option>--}}
-                                                {{--<option value="UCAYALI" @if($destino->region='UCAYALI') selected @endif>UCAYALI</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-3">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="txt_imagen">Imagen</label>--}}
-                                            {{--@if (Storage::disk('destination')->has($destino->imagen))--}}
-                                                {{--<picture>--}}
-                                                    {{--<img--}}
-                                                            {{--src="{{route('destination_image_path', ['filename' => $destino->imagen])}}" width="60px" height="60px"--}}
-                                                            {{--alt="">--}}
-                                                {{--</picture>--}}
-                                                {{--<img src="{{ route('destination_image_path', ['filename' => $destino->imagen])}}" alt="" width="100px" height="100px">--}}
-                                                {{--                                                    <input type="file" id="file" name="file" class="dropify" data-default-file="{{ route('admin_itinerary_image_path', ['filename' => $destino->imagen])}}"/>--}}
-                                                {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
-                                            {{--@else--}}
-                                                {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
-                                            {{--@endif--}}
-
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
-                            {{--</div>--}}
-                            {{--<div class="modal-footer">--}}
-                                {{--{{csrf_field()}}--}}
-                                {{--<input type="hidden" id="id" name="id"   value="{{$destino->id}}">--}}
-                                {{--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-                                {{--<button type="submit" class="btn btn-primary">Save changes</button>--}}
-                            {{--</div>--}}
-                        {{--</form>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--@endforeach--}}
+    @foreach($itineraries->sortByDesc('fecha') as $itinerary)
+        <!-- Modal -->
+            <div class="modal fade bd-example-modal-lg" id="modal_edit_destination_{{$itinerary->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-m" role="document">
+                    <div class="modal-content">
+                        <form action="{{route('destination_edit_path')}}" method="post" id="destination_edit_id" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Outline</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h2 class="text-center text-primary">{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS</h2>
+                                <ul class="list-group">
+                                @foreach($itinerary->itinerarios as $itinerario)
+                                    <li class="list-group-item"><b class="col-sm-2 text-primary">Dia :{{$itinerario->dias}}</b>{{$itinerario->titulo}}</li>
+                                @endforeach
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
     <script>
         $(document).ready(function() {

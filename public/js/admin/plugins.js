@@ -22059,7 +22059,7 @@ function mostrarItinerarios() {
 }
 var total_Itinerarios=0;
 var Itis_precio=0;
-var nroPasajeros=2
+var nroPasajeros=2;
 function Pasar_datos(){
     Itis_precio=parseFloat($('#totalItinerario').val());
     total_Itinerarios=$('#nroItinerario').val();
@@ -23074,7 +23074,11 @@ function filtrar_estrellas(){
     }
 }
 function ordenar_itinerarios(){
-// alert('presionaste onblur');
+    var nr=1;
+    $( ".lista_dias" ).each(function( index ) {
+        $( this ).html('Dia '+nr+':');
+        nr++;
+    });
 }
 
 function filtrar_mo_lista(cat){
@@ -23215,4 +23219,29 @@ function cambios_acom_precios($categoria){
     $('#detalle_p_t_'+$categoria).html(v_t+' x $'+p_t+' x <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i> =');
     $('#total_'+$categoria).html(((v_s*p_s)+(v_d*p_d*2)+(v_m*p_m*2)+(v_t*p_t*3))+'.00');
 
+}
+function eliminar_paquete(id,destino) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el paquete "+destino+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/package/delete', 'id='+id, function(data) {
+            if(data==1){
+                $("#lista_destinos_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+        });
+
+    })
 }

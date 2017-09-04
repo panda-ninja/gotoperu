@@ -256,3 +256,20 @@ Route::post('admin/itinerary/edit/', [
     'uses' => 'PackageController@itinerary_edit',
     'as' => 'package_edit_path'
 ]);
+Route::get('admin/itinerary/duplicate/{id}', [
+    'uses' => 'PackageController@duplicate_itinerary',
+    'as' => 'duplicate_package_path'
+]);
+Route::post('admin/itinerary/duplicate/', [
+    'uses' => 'PackageController@itinerary_duplicate',
+    'as' => 'package_duplicate_path'
+]);
+Route::post('/admin/package/delete', [
+    'uses' => 'PackageController@delete',
+    'as' => 'package_delete_path',
+]);
+
+Route::get('admin/package/{id}/pdf', [
+    'uses' => 'PackageController@pdf',
+    'as' => 'package_pdf_path',
+]);
