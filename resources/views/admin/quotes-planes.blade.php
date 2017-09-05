@@ -30,12 +30,10 @@
     <div class="modal left fade" id="catalog-right" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel2">Catalog</h4>
+                    <h4 class="modal-title text-primary" id="myModalLabel2">Catalog</h4>
                 </div>
-
                 <div class="modal-body">
                     <form action="{{route('crear_paquete_enlatados_path')}}" method="POST">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -44,29 +42,35 @@
                                     <h4 class="panel-title">
                                         @php
                                             $nro_destinos=0;
+                                        $array_destinos=array();
                                         @endphp
                                         @foreach($p_paquete as $p_paquete_)
                                             @php
                                                 $hay_destinos=0;
                                             @endphp
-                                            @foreach($destinos as $destino1)
-                                                @foreach($p_paquete_->itinerarios as $itinerarios)
-                                                    @foreach($itinerarios->destinos as $destino)
-
-                                                        @if($destino1==$destino->destino)
-                                                            @php
-                                                                $hay_destinos++;
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
+                                            @foreach($p_paquete_->itinerarios as $itinerarios)
+                                                @foreach($itinerarios->destinos as $destino)
+                                                    @php
+                                                        $array_destinos[$destino->destino]=$destino->destino;
+                                                    @endphp
                                                 @endforeach
                                             @endforeach
-                                            @if($hay_destinos>0)
+
+                                            @foreach($destinos as $destino1)
+                                                @if(in_array($destino1,$array_destinos))
+                                                    @php
+                                                        $hay_destinos++;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+
+                                            @if($hay_destinos==count($array_destinos))
                                                 @php
                                                     $nro_destinos++;
                                                 @endphp
                                             @endif
                                         @endforeach
+                                        {{--{{dd($array_destinos)}}--}}
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#itinerary-modal-1" aria-expanded="true" aria-controls="collapseOne">
                                             <b>{{$cotizacion_->duracion}} DAYS</b> <span class="badge pull-right">{{$nro_destinos}}</span>
                                         </a>
@@ -80,23 +84,30 @@
                                                 @foreach($p_paquete as $p_paquete_)
                                                     @php
                                                         $hay_destinos=0;
+                                                        $lista='';
                                                     @endphp
+                                                    @foreach($p_paquete_->itinerarios as $itinerario)
+                                                        @php
+                                                            $lista.="<p class=\"text-12 text-primary\"><b>Dia: ".$itinerario->dias."</b> ".$itinerario->titulo."</p>";
+                                                        @endphp
+                                                    @endforeach
                                                     @foreach($destinos as $destino1)
-                                                        @foreach($p_paquete_->itinerarios as $itinerarios)
-                                                            @foreach($itinerarios->destinos as $destino)
-                                                                @if($destino1==$destino->destino)
+                                                        {{--@foreach($p_paquete_->itinerarios as $itinerarios)--}}
+                                                            @foreach($array_destinos as $destino)
+                                                                @if($destino1==$destino)
                                                                     @php
                                                                         $hay_destinos++;
                                                                     @endphp
                                                                 @endif
                                                             @endforeach
-                                                        @endforeach
+                                                        {{--@endforeach--}}
                                                     @endforeach
-                                                    @if($hay_destinos>0)
+                                                    @if($hay_destinos==count($destinos))
                                                         <tr>
                                                             <td>
                                                                 <label class="checkbox-inline">
-                                                                    <input type="checkbox" id="paquetes" name="paquetes[]" value="{{$p_paquete_->id}}"> <b>{{$p_paquete_->codigo}}</b> {{$p_paquete_->titulo}}
+                                                                    <input type="checkbox" id="paquetes" name="paquetes[]" value="{{$p_paquete_->id}}">
+                                                                    <span id="propover_{{$p_paquete_->id}}" data-toggle="popover" title="Outline" data-content="{{$lista}}"><b>{{$p_paquete_->codigo}}</b> {{$p_paquete_->titulo}}</span>
                                                                 </label>
                                                             </td>
                                                         </tr>
@@ -230,10 +241,10 @@
                         <i class="fa fa-bed fa-2x" aria-hidden="true"></i> -
                     @endif
                     @if($acomodacion_d=='2')
-                        <i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i> -
+                        <i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i> -
                     @endif
                     @if($acomodacion_m=='2')
-                        <i class="fa fa-male fa-2x" aria-hidden="true"></i><i class="fa fa-male fa-2x" aria-hidden="true"></i> -
+                        <i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i> -
                     @endif
                     @if($acomodacion_t=='3')
                         <i class="fa fa-bed fa-2x" aria-hidden="true"></i><i class="fa fa-bed fa-2x" aria-hidden="true"></i><i class="fa fa-bed fa-2x" aria-hidden="true"></i>
@@ -370,12 +381,17 @@
                     <input type="hidden" name="destinos[]" id="destinos" value="{{$destino}}">
                 @endforeach
                 <button type="submit" class="btn btn-lg btn-success">Send Quote <i class="fa fa-send" aria-hidden="true"></i></button>
-            </div>
+                </div>
         </div>
     </form>
     <script>
         $(document).ready(function() {
             calcular_resumen();
+            @foreach($p_paquete as $p_paquete_)
+
+                $('#propover_{{$p_paquete_->id}}').popover({html: true, placement: "bottom", trigger: "hover"});
+            {{--$('#propover_{{$p_paquete_->id}}').popover({title: "Outline", content: "{{$lista}}",html: true, placement: "bottom", trigger: "hover"});--}}
+            @endforeach
         } );
     </script>
 @stop

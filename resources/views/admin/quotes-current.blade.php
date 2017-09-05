@@ -50,8 +50,8 @@
                         </td>
                         <td>{{$cotizacion_->updated_at}}</td>
                         <td>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>
@@ -101,8 +101,8 @@
                     </td>
                     <td>{{$cotizacion_->updated_at}}</td>
                     <td>
-                        <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                        {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                         <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </button>
@@ -152,8 +152,8 @@
                         </td>
                         <td>{{$cotizacion_->updated_at}}</td>
                         <td>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>
@@ -202,8 +202,8 @@
                         </td>
                         <td>{{$cotizacion_->updated_at}}</td>
                         <td>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>
@@ -252,8 +252,8 @@
                         </td>
                         <td>{{$cotizacion_->updated_at}}</td>
                         <td>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            <a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                            {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>

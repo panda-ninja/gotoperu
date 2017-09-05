@@ -119,7 +119,7 @@
                     {{--<img--}}
                     {{--src="{{route('destination_image_path', ['filename' => $destino->imagen])}}" class="margin-bottom-3" width="347" alt="">--}}
                     {{--@endif--}}
-                    <li>{{$destino->destino}}</li>
+                    {{--<li>{{$destino->destino}}</li>--}}
                 {{--@endforeach--}}
                 {{--</ul>--}}
             {{--@endforeach--}}
@@ -164,13 +164,13 @@
                                             @if($precio_paquete2->estado==2)
                                                 <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
                                             @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-pencil-square-o fa-5x" aria-hidden="true"></i></a></td>
+                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-clock-o fa-5x" aria-hidden="true"></i></a></td>
                                             @endif
                                         @else
                                             @if($precio_paquete2->estado==2)
                                                 <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
                                             @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-window-close-o fa-5x" aria-hidden="true"></i></a></td>
+                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-clock-o fa-5x" aria-hidden="true"></i></a></td>
                                             @endif
                                         @endif
                                     </tr>
@@ -280,13 +280,13 @@
                                             @if($precio_paquete2->estado==2)
                                                 <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
                                             @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-pencil-square-o fa-5x" aria-hidden="true"></i></a></td>
+                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-clock-o fa-5x" aria-hidden="true"></i></a></td>
                                             @endif
                                         @else
                                             @if($precio_paquete2->estado==2)
                                                 <td rowspan="3" class="text-center"><a href="#" class="text-success"><i class="fa fa-check-square-o fa-5x" aria-hidden="true"></i></a></td>
                                             @else
-                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-window-close-o fa-5x" aria-hidden="true"></i></a></td>
+                                                <td rowspan="3" class="text-center"><a href="#" class="text-muted"><i class="fa fa-clock-o fa.5x" aria-hidden="true"></i></a></td>
                                             @endif
                                         @endif
                                     </tr>
