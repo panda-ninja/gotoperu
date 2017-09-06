@@ -176,7 +176,7 @@ Route::post('/admin/quotes/store', [
     'uses' => 'PackageCotizacionController@store',
     'as' => 'package_cotizacion_save_path',
 ]);
-Route::any('/admin/quotes/proposal/{id}/{id2}', [
+Route::any('/admin/quotes/proposal/{id}/{id2}/{id3}', [
     'uses' => 'PackageCotizacionController@options',
     'as' => 'new_plan_path',
 ]);
@@ -200,6 +200,7 @@ Route::post('admin/show-cotization/', [
     'uses' => 'PackageCotizacionController@show_cotizacion',
     'as' => 'cotizacion_show_path',
 ]);
+
 
 //hidalgo
 //client
@@ -229,3 +230,77 @@ Route::get('admin/book/{id}', [
     'uses' => 'BookController@show',
     'as' => 'book_show_path',
 ]);
+
+Route::get('admin/show-cotization/{id}', [
+    'uses' => 'PackageCotizacionController@show_cotizacion_id',
+    'as' => 'cotizacion_id_show_path',
+]);
+Route::get('admin/sales_paxs_path/', [
+    'uses' => 'PackageCotizacionController@show_paxs',
+    'as' => 'sales_paxs_path',
+]);
+Route::post('admin/activar-package', [
+    'uses' => 'PackageCotizacionController@activar_package',
+    'as' => 'activar_package_path',
+]);
+Route::get('admin/quotes/{id}/pdf', [
+    'uses' => 'PackageCotizacionController@pdf',
+    'as' => 'quotes_pdf_path',
+]);
+//Route::get('storage/package-itinerary/{filename}', [
+//    'uses' => 'PackageCotizacionController@getItineraryImageName',
+//    'as' => 'package_itinerary_image_path'
+//]);
+Route::get('storage/itinerary/{filename}', [
+    'uses' => 'ItinerariController@getItineraryImageName',
+    'as' => 'itinerary_image_path'
+]);
+Route::post('admin/current-quotes/probabilidad', [
+    'uses' => 'PackageCotizacionController@probabilidad',
+    'as' => 'agregar_probabilidad_path'
+]);
+Route::get('admin/current-quotes/plan/{id}', [
+    'uses' => 'PackageCotizacionController@plan',
+    'as' => 'mostar_planes_path'
+]);
+Route::post('admin/current-quotes/plan/elegido', [
+    'uses' => 'PackageCotizacionController@escojer_precio_paquete',
+    'as' => 'escojer_precio_paquete_path'
+]);
+Route::post('admin/current-quotes/enlatados', [
+    'uses' => 'PackageCotizacionController@cargar_paquete_enlatados',
+    'as' => 'crear_paquete_enlatados_path'
+]);
+Route::get('admin/current-quotes/new-plan/{id}', [
+    'uses' => 'PackageCotizacionController@plan_newpackage',
+    'as' => 'mostar_newpackage_path'
+]);
+Route::get('admin/itineraries', [
+    'uses' => 'PackageController@itineraries',
+    'as' => 'show_itineraries_path'
+]);
+Route::get('admin/itinerary/show/{id}', [
+    'uses' => 'PackageController@show_itinerary',
+    'as' => 'show_itinerary_path'
+]);
+Route::post('admin/package/edit/', [
+    'uses' => 'PackageController@itinerary_edit',
+    'as' => 'package_edit_path'
+]);
+Route::get('admin/itinerary/duplicate/{id}', [
+    'uses' => 'PackageController@duplicate_itinerary',
+    'as' => 'duplicate_package_path'
+]);
+Route::post('admin/itinerary/duplicate/', [
+    'uses' => 'PackageController@itinerary_duplicate',
+    'as' => 'package_duplicate_path'
+]);
+Route::post('/admin/package/delete', [
+    'uses' => 'PackageController@delete',
+    'as' => 'package_delete_path',
+]);
+Route::get('admin/package/{id}/pdf', [
+    'uses' => 'PackageController@pdf',
+    'as' => 'package_pdf_path',
+]);
+

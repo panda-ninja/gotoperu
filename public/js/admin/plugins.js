@@ -22059,10 +22059,11 @@ function mostrarItinerarios() {
 }
 var total_Itinerarios=0;
 var Itis_precio=0;
-var nroPasajeros=2
+var nroPasajeros=2;
 function Pasar_datos(){
+    Itis_precio=parseFloat($('#totalItinerario').val());
+    total_Itinerarios=$('#nroItinerario').val();
     var itinerario='';
-
     $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
             $(this).prop("checked", "");
@@ -22169,7 +22170,7 @@ function Pasar_datos(){
     });
     $('#totalItinerario').val(Itis_precio);
     $('#totalItinerario_front').html(Itis_precio);
-
+    $('#nroItinerario').val(total_Itinerarios);
     calcular_resumen();
 }
 
@@ -22286,8 +22287,21 @@ function eliminar_destino(id,destino) {
 
     })
 }
-function escojerPos(pos) {
+function escojerPos(pos,cate) {
     $("#posTipo").val(pos);
+    mostrar_pivot(cate);
+
+}
+function mostrar_pivot(cate){
+    $("#t_TOURS").addClass('hide');
+    $("#t_MOVILID").addClass('hide');
+    $("#t_REPRESENT").addClass('hide');
+    $("#t_ENTRANCES").addClass('hide');
+    $("#t_FOOD").addClass('hide');
+    $("#t_TRAINS").addClass('hide');
+    $("#t_FLIGHTS").addClass('hide');
+    $("#t_OTHERS").addClass('hide');
+    $("#t_"+cate).removeClass('hide');
 }
 
 function eliminar_servicio(id,servicio) {
@@ -22710,9 +22724,7 @@ function eliminar_categoria1(id,categoria) {
                 )
             }
         }).fail(function (data) {
-
         });
-
     })
 }
 
@@ -22739,32 +22751,40 @@ function calcular_resumen() {
 
     var amount_s2 = $("#amount_s2").val();
     var amount_d2 = Math.ceil(Math.ceil($("#amount_d2").val()) / 2);
+    var amount_m2 = Math.ceil(Math.ceil($("#amount_m2").val()) / 2);
     var amount_t2 = Math.ceil(Math.ceil($("#amount_t2").val()) / 3);
 
     var amount_s3 = $("#amount_s3").val();
     var amount_d3 = Math.ceil(Math.ceil($("#amount_d3").val()) / 2);
+    var amount_m3 = Math.ceil(Math.ceil($("#amount_m3").val()) / 2);
     var amount_t3 = Math.ceil(Math.ceil($("#amount_t3").val()) / 3);
 
     var amount_s4 = $("#amount_s4").val();
     var amount_d4 = Math.ceil(Math.ceil($("#amount_d4").val()) / 2);
+    var amount_m4 = Math.ceil(Math.ceil($("#amount_m4").val()) / 2);
     var amount_t4 = Math.ceil(Math.ceil($("#amount_t4").val()) / 3);
 
     var amount_s5 = $("#amount_s5").val();
     var amount_d5 = Math.ceil(Math.ceil($("#amount_d5").val()) / 2);
+    var amount_m5 = Math.ceil(Math.ceil($("#amount_m5").val()) / 2);
     var amount_t5 = Math.ceil(Math.ceil($("#amount_t5").val()) / 3);
 
 
     var amount_s2_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s2);
     var amount_d2_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d2);
+    var amount_m2_u = Math.ceil(costo_itinerario) + Math.ceil(amount_m2);
     var amount_t2_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t2);
     var amount_s3_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s3);
     var amount_d3_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d3);
+    var amount_m3_u = Math.ceil(costo_itinerario) + Math.ceil(amount_m3);
     var amount_t3_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t3);
     var amount_s4_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s4);
     var amount_d4_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d4);
+    var amount_m4_u = Math.ceil(costo_itinerario) + Math.ceil(amount_m4);
     var amount_t4_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t4);
     var amount_s5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_s5);
     var amount_d5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_d5);
+    var amount_m5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_m5);
     var amount_t5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t5);
 
 
@@ -22778,6 +22798,10 @@ function calcular_resumen() {
     var amount_d2_u_pro = Math.ceil(amount_d2_u * utilidad_2);
     var amount_d2_u_pri = Math.ceil(amount_d2_u + amount_d2_u_pro);
 
+    var amount_m2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_m2) * Math.ceil(txt_day)));
+    var amount_m2_u_pro = Math.ceil(amount_m2_u * utilidad_2);
+    var amount_m2_u_pri = Math.ceil(amount_m2_u + amount_m2_u_pro);
+
     var amount_t2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t2) * Math.ceil(txt_day)));
     var amount_t2_u_pro = Math.ceil(amount_t2_u * utilidad_2);
     var amount_t2_u_pri = Math.ceil(amount_t2_u + amount_t2_u_pro);
@@ -22789,6 +22813,10 @@ function calcular_resumen() {
     var amount_d3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d3) * Math.ceil(txt_day)));
     var amount_d3_u_pro = Math.ceil(amount_d3_u * utilidad_3);
     var amount_d3_u_pri = Math.ceil(amount_d3_u + amount_d3_u_pro);
+
+    var amount_m3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_m3) * Math.ceil(txt_day)));
+    var amount_m3_u_pro = Math.ceil(amount_m3_u * utilidad_3);
+    var amount_m3_u_pri = Math.ceil(amount_m3_u + amount_m3_u_pro);
 
     var amount_t3_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t3) * Math.ceil(txt_day)));
     var amount_t3_u_pro = Math.ceil(amount_t3_u * utilidad_3);
@@ -22802,6 +22830,10 @@ function calcular_resumen() {
     var amount_d4_u_pro = Math.ceil(amount_d4_u * utilidad_4);
     var amount_d4_u_pri = Math.ceil(amount_d4_u + amount_d4_u_pro);
 
+    var amount_m4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_m4) * Math.ceil(txt_day)));
+    var amount_m4_u_pro = Math.ceil(amount_m4_u * utilidad_4);
+    var amount_m4_u_pri = Math.ceil(amount_m4_u + amount_m4_u_pro);
+
     var amount_t4_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t4) * Math.ceil(txt_day)));
     var amount_t4_u_pro = Math.ceil(amount_t4_u * utilidad_4);
     var amount_t4_u_pri = Math.ceil(amount_t4_u + amount_t4_u_pro);
@@ -22813,6 +22845,10 @@ function calcular_resumen() {
     var amount_d5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_d5) * Math.ceil(txt_day)));
     var amount_d5_u_pro = Math.ceil(amount_d5_u * utilidad_5);
     var amount_d5_u_pri = Math.ceil(amount_d5_u + amount_d5_u_pro);
+
+    var amount_m5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_m5) * Math.ceil(txt_day)));
+    var amount_m5_u_pro = Math.ceil(amount_m5_u * utilidad_5);
+    var amount_m5_u_pri = Math.ceil(amount_m5_u + amount_m5_u_pro);
 
     var amount_t5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t5) * Math.ceil(txt_day)));
     var amount_t5_u_pro = Math.ceil(amount_t5_u * utilidad_5);
@@ -22853,9 +22889,9 @@ function calcular_resumen() {
     $("#amount_d2_a_p").html(amount_d2_u_pro);
     $("#amount_d2_a_v").html(amount_d2_u_pri);
 
-    $("#amount_m2_a").html(amount_d2_u);
-    $("#amount_m2_a_p").html(amount_d2_u_pro);
-    $("#amount_m2_a_v").html(amount_d2_u_pri);
+    $("#amount_m2_a").html(amount_m2_u);
+    $("#amount_m2_a_p").html(amount_m2_u_pro);
+    $("#amount_m2_a_v").html(amount_m2_u_pri);
 
     $("#amount_t2_a").html(amount_t2_u);
     $("#amount_t2_a_p").html(amount_t2_u_pro);
@@ -22870,9 +22906,9 @@ function calcular_resumen() {
     $("#amount_d3_a_p").html(amount_d3_u_pro);
     $("#amount_d3_a_v").html(amount_d3_u_pri);
 
-    $("#amount_m3_a").html(amount_d3_u);
-    $("#amount_m3_a_p").html(amount_d3_u_pro);
-    $("#amount_m3_a_v").html(amount_d3_u_pri);
+    $("#amount_m3_a").html(amount_m3_u);
+    $("#amount_m3_a_p").html(amount_m3_u_pro);
+    $("#amount_m3_a_v").html(amount_m3_u_pri);
 
     $("#amount_t3_a").html(amount_t3_u);
     $("#amount_t3_a_p").html(amount_t3_u_pro);
@@ -22887,9 +22923,9 @@ function calcular_resumen() {
     $("#amount_d4_a_p").html(amount_d4_u_pro);
     $("#amount_d4_a_v").html(amount_d4_u_pri);
 
-    $("#amount_m4_a").html(amount_d4_u);
-    $("#amount_m4_a_p").html(amount_d4_u_pro);
-    $("#amount_m4_a_v").html(amount_d4_u_pri);
+    $("#amount_m4_a").html(amount_m4_u);
+    $("#amount_m4_a_p").html(amount_m4_u_pro);
+    $("#amount_m4_a_v").html(amount_m4_u_pri);
 
     $("#amount_t4_a").html(amount_t4_u);
     $("#amount_t4_a_p").html(amount_t4_u_pro);
@@ -22904,9 +22940,9 @@ function calcular_resumen() {
     $("#amount_d5_a_p").html(amount_d5_u_pro);
     $("#amount_d5_a_v").html(amount_d5_u_pri);
 
-    $("#amount_m5_a").html(amount_d2_u);
-    $("#amount_m5_a_p").html(amount_d2_u_pro);
-    $("#amount_m5_a_v").html(amount_d2_u_pri);
+    $("#amount_m5_a").html(amount_m5_u);
+    $("#amount_m5_a_p").html(amount_m5_u_pro);
+    $("#amount_m5_a_v").html(amount_m5_u_pri);
 
     $("#amount_t5_a").html(amount_t5_u);
     $("#amount_t5_a_p").html(amount_t5_u_pro);
@@ -23038,7 +23074,11 @@ function filtrar_estrellas(){
     }
 }
 function ordenar_itinerarios(){
-// alert('presionaste onblur');
+    var nr=1;
+    $( ".lista_dias" ).each(function( index ) {
+        $( this ).html('Dia '+nr+':');
+        nr++;
+    });
 }
 
 function filtrar_mo_lista(cat){
@@ -23066,4 +23106,142 @@ function filtrar_mo_lista(cat){
     //         // $(this).css("background-color", "#ECF8E0");
     //     })
     // })
+}
+
+function activarPlan(paquete_precio_id){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "Esta seguro de elejir este plan",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/activar-package', 'paquete_precio_id='+paquete_precio_id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                // $("#lista_itinerary_"+id).fadeOut( "slow");
+                // alert('se activo');
+                // $("input[class='planes']").each(function (index) {
+                //     $(this).prop('onclick',null).off('click');
+                //
+                // });
+                var $nro_planes=parseInt($('#nro_planes').val());
+                for(var $d=0;$d<$nro_planes;$d++){
+                    $('#plan_'+$d).prop('onclick',null);
+                    $('#plan_'+$d).unbind( "click" );
+                    // alert('plan_'+$d);
+                }
+
+                $('#plan_'+plan).removeClass('btn-danger');
+                $('#plan_'+plan).addClass('btn-success');
+
+            }
+            else if(data==2){
+                // swal(
+                //     'Porque no puedo borar?',
+                //     'El proveedor tiene costos asociados, vaya al modulo "Costs" y borre todos los registros asociados al proveedor.',
+                //     'warning'
+                // )
+            }
+        }).fail(function (data) {
+        });
+
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
+        }
+    })
+}
+
+function mostrar_categoria(){
+    var $categoria=$('#categoria').val();
+    var $travelers=$('#travelers').val();
+    console.log($categoria+'_'+$travelers);
+    $('#star_2').addClass('hide');
+    $('#star_3').addClass('hide');
+    $('#star_4').addClass('hide');
+    $('#star_5').addClass('hide');
+    $('#star_'+$categoria).removeClass('hide');
+    $('#pos').val($categoria);
+    var s=0;
+    var d=0;
+    var m=0;
+    var t=0;
+    var nro=$travelers;
+    t=parseInt(nro/3);
+    nro=nro-(3*t);
+    d=parseInt(nro/2);
+    nro=nro-(2*d);
+    s=nro;
+
+    $('#s_'+$categoria).val(s);
+    $('#d_'+$categoria).val(d);
+    $('#m_'+$categoria).val(m);
+    $('#t_'+$categoria).val(t);
+    cambios_acom_precios($categoria);
+}
+function cambios_acom_precios($categoria){
+    var p_s=$('#hp_s_'+$categoria).html();
+    var p_d=$('#hp_d_'+$categoria).html();
+    var p_m=$('#hp_m_'+$categoria).html();
+    var p_t=$('#hp_t_'+$categoria).html();
+
+    var v_s=$('#s_'+$categoria).val();
+    var v_d=$('#d_'+$categoria).val();
+    var v_m=$('#m_'+$categoria).val();
+    var v_t=$('#t_'+$categoria).val();
+
+    console.log('s:'+v_s*p_s);
+    console.log('d:'+v_d*p_d);
+    console.log('m:'+v_m*p_m);
+    console.log('t:'+v_t*p_t);
+
+    $('#p_s_'+$categoria).html(v_s*p_s+'.00');
+    $('#p_d_'+$categoria).html(v_d*p_d*2+'.00');
+    $('#p_m_'+$categoria).html(v_m*p_m*2+'.00');
+    $('#p_t_'+$categoria).html(v_t*p_t*3+'.00');
+    $('#detalle_p_s_'+$categoria).html(v_s+' x $'+p_s+' x <i class="fa fa-male" aria-hidden="true"></i> =');
+    $('#detalle_p_d_'+$categoria).html(v_d+' x $'+p_d+' x <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i> =');
+    $('#detalle_p_m_'+$categoria).html(v_m+' x $'+p_m+' x <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i> =');
+    $('#detalle_p_t_'+$categoria).html(v_t+' x $'+p_t+' x <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-male" aria-hidden="true"></i> =');
+    $('#total_'+$categoria).html(((v_s*p_s)+(v_d*p_d*2)+(v_m*p_m*2)+(v_t*p_t*3))+'.00');
+
+}
+function eliminar_paquete(id,destino) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el paquete "+destino+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/package/delete', 'id='+id, function(data) {
+            if(data==1){
+                $("#lista_destinos_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+        });
+
+    })
 }

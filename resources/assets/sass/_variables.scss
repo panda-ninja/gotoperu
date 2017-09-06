@@ -80,7 +80,6 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 .padding-side-20{
   padding: 0 20px;
 }
-
 .padding-5{
   padding: 5px;
 }
@@ -99,8 +98,14 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 .padding-30{
   padding: 30px;
 }
+
 .padding-left-10{
   padding-left: 10px;
+}
+
+
+.padding-left-30{
+  padding-left: 30px;
 }
 
 .no-margin{

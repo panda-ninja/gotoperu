@@ -14,11 +14,11 @@
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row hide">
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-green-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas()" checked>
                         2 STARS
                     </label>
                 </div>
@@ -26,7 +26,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-green-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas()" checked>
                         3 STARS
                     </label>
                 </div>
@@ -34,7 +34,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-green-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas()" checked>
                         4 STARS
                     </label>
                 </div>
@@ -42,7 +42,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-green-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas()" checked>
                         5 STARS
                     </label>
                 </div>
@@ -286,14 +286,10 @@
         <div class="row margin-top-20 ">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">5</span> Hotels</h4>
-                <div class="divider margin-bottom-20"></div>
             </div>
         </div>
         <div class="row ">
             <div class="col-md-12">
-                {{--@foreach($m_servicios as $serviciop)--}}
-                    {{--{{$serviciop}}--}}
-                {{--@endforeach--}}
                 <?php
                 $amount_s2=0;
                 $amount_d2=0;
@@ -1134,7 +1130,7 @@
                             <b class="text-16">$ <span id="amount_t2_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1254,7 +1250,7 @@
                             <b class="text-16">$ <span id="amount_t3_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1375,7 +1371,7 @@
                             <b class="text-16">$ <span id="amount_t4_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1496,7 +1492,7 @@
                             <b class="text-16">$ <span id="amount_t5_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1579,12 +1575,9 @@
                 </table>
             </div>
         </div>
-
-
         <div class="row hide">
             <div class="col-md-12">
                 <div class="text-center">
-
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
@@ -1602,6 +1595,8 @@
                     <div class="form-group">
                         <label for="txt_day">Total venta</label>
                         <input type="number" class="form-control" id="totalItinerario_venta" name="totalItinerario_venta" min="0" value="0" readonly>
+                        <input type="number" class="form-control" id="nroItinerario" name="nroItinerario" min="0" value="0">
+
                     </div>
                 </div>
             </div>
@@ -1615,6 +1610,7 @@
     </form>
     <script>
         $(document).ready(function() {
+            filtrar_estrellas();
             calcular_resumen();
         } );
     </script>

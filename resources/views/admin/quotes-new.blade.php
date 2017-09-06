@@ -10,7 +10,7 @@
     <form action="{{route('package_cotizacion_save_path')}}" method="post" id="package_new_path_id">
         <div class="row">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Client</h4>
+                <h4 class="font-montserrat text-primary"><span class="label bg-primary">1</span> Client</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">2</span> Details</h4>
+                <h4 class="font-montserrat text-primary"><span class="label bg-primary">2</span> Details</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
@@ -74,43 +74,85 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">3</span> Categories</h4>
+                <h4 class="font-montserrat text-primary"><span class="label bg-primary">3</span> Categories</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <div class="checkbox1">
-                    <label class=" text-green-goto">
+                    <label class=" text-orange-goto">
                         <input class="destinospack" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas()">
-                        2 STARS
+                        2 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="checkbox1">
-                    <label class=" text-green-goto">
+                    <label class=" text-orange-goto">
                         <input class="destinospack" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas()">
-                        3 STARS
+                        3 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="checkbox1">
-                    <label class=" text-green-goto">
+                    <label class=" text-orange-goto">
                         <input class="destinospack" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas()">
-                        4 STARS
+                        4 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="checkbox1">
-                    <label class=" text-green-goto">
+                    <label class=" text-orange-goto">
                         <input class="destinospack" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas()">
-                        5 STARS
+                        5 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="font-montserrat text-primary"><span class="label bg-primary">4</span> Acomodacion</h4>
+                <div class="divider margin-bottom-20"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="checkbox1">
+                    <label class=" text-unset">
+                        <input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">
+                        <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox1">
+                    <label class=" text-unset">
+                        <input class="destinospack" type="checkbox" name="acomodacion_d" id="acomodacion_d" value="2">
+                        <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox1">
+                    <label class=" text-unset">
+                        <input class="destinospack" type="checkbox" name="acomodacion_m" id="acomodacion_m" value="2">
+                        <b class="text-20px"><i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i></b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox1">
+                    <label class=" text-unset">
+                        <input class="destinospack" type="checkbox" name="acomodacion_t" id="acomodacion_t" value="3">
+                        <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
+
+                    </label>
+                </div>
+            </div>
+
         </div>
         <div id="list-package"  class="row hide">
             <div class="col-md-3">
@@ -149,11 +191,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="row margin-top-20">
             <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">4</span> Destinations</h4>
+                <h4 class="font-montserrat text-primary"><span class="label bg-primary">5</span> Destinations</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
@@ -162,7 +203,7 @@
             @foreach($destinos as $destino)
                 <div class="col-md-3">
                     <div class="checkbox1">
-                        <label class=" text-green-goto">
+                        <label class=" text-unset">
                             <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->destino}}">
                             {{$destino->destino}}
                         </label>

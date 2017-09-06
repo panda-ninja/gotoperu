@@ -154,8 +154,8 @@
                                     <?php
                                     if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                         if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                            $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
-                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                            $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas));
+                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas)).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                         }
                                         else{
                                             $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
@@ -428,7 +428,9 @@
                         ?>
                     @endif
                 @endforeach
-
+                <?php
+                $acomodacion=explode('_',$acomodacion_);
+                ?>
                 <table class="table table-condensed table-bordered font-montserrat">
                     <caption class="text-right"><b>Price per night</b></caption>
                     <thead>
@@ -443,7 +445,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr class="@if($acomodacion[2]!=3) hide @endif">
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
@@ -490,7 +492,52 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[3]!=2) hide @endif">
+                        <td class="col-md-2">
+                            <i class="fa fa-venus-mars fa-2x text-green-goto" aria-hidden="true"></i>
+                        </td>
+                        <td id="precio_d_2" class="@if($cotizacion_->star_2!=2) hide @endif">
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_m2" name="amount_m2" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_m2}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td id="precio_d_3" class="@if($cotizacion_->star_3!=3) hide @endif">
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_m3" name="amount_m3" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_m3}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td id="precio_d_4" class="@if($cotizacion_->star_4!=4) hide @endif">
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_m4" name="amount_m4" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_m4}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                        <td  id="precio_d_5" class="@if($cotizacion_->star_5!=5) hide @endif">
+                            <div class="form-group margin-bottom-0">
+                                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control text-right" id="amount_m5" name="amount_m5" placeholder="Amount" onchange="calcular_resumen()" min="0" value="{{$amount_m5}}">
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="@if($acomodacion[1]!=2) hide @endif">
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
@@ -536,7 +583,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[0]!=1) hide @endif">
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
@@ -670,7 +717,7 @@
                     <thead>
                     <tr class="bg-grey-goto text-white">
                         <th class="text-center">Price Cost</th>
-                        <th class="text-center">2 Starss</th>
+                        <th class="text-center">2 Stars</th>
                         <th class="text-center">3 Stars</th>
                         <th class="text-center">4 Stars</th>
                         <th class="text-center">5 Stars</th>
@@ -977,14 +1024,14 @@
                     <thead>
                     <tr class="bg-grey-goto-light text-white">
                         <th class="text-center">Hotels</th>
-                        <th  class="text-center">2 Stars</th>
-                        <th  class="text-center">3 Stars</th>
+                        <th class="text-center">2 Stars</th>
+                        <th class="text-center">3 Stars</th>
                         <th class="text-center">4 Stars</th>
-                        <th  class="text-center">5 Stars</th>
+                        <th class="text-center">5 Stars</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr class="@if($acomodacion[2]!=3) hide @endif">
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
@@ -1032,7 +1079,54 @@
                         </td>
 
                     </tr>
-                    <tr>
+                    {{--<tr class="@if($acomodacion[3]!=2) hide @endif">--}}
+                        {{--<td class="col-md-2">--}}
+                            {{--<i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>--}}
+                            {{--<i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>--}}
+                        {{--</td>--}}
+                        {{--<td>--}}
+                            {{--<div class="form-group margin-bottom-0">--}}
+                                {{--<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<div class="input-group-addon">$</div>--}}
+                                    {{--<input type="number" class="form-control text-right" id="amount_d2_u" name="amount_d2_u" placeholder="Amount" onchange="cambiar_profit(2)" min="0" value="{{$amount_d2}}" readonly="readonly">--}}
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</td>--}}
+                        {{--<td>--}}
+                            {{--<div class="form-group margin-bottom-0">--}}
+                                {{--<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<div class="input-group-addon">$</div>--}}
+                                    {{--<input type="number" class="form-control text-right" id="amount_d3_u" name="amount_d3_u" placeholder="Amount" onchange="cambiar_profit(3)" min="0" value="{{$amount_d3}}" readonly="readonly">--}}
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</td>--}}
+                        {{--<td>--}}
+                            {{--<div class="form-group margin-bottom-0">--}}
+                                {{--<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<div class="input-group-addon">$</div>--}}
+                                    {{--<input type="number" class="form-control text-right" id="amount_d4_u" name="amount_d4_u" placeholder="Amount" onchange="cambiar_profit(4)" min="0" value="{{$amount_d4}}" readonly="readonly">--}}
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</td>--}}
+                        {{--<td>--}}
+                            {{--<div class="form-group margin-bottom-0">--}}
+                                {{--<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<div class="input-group-addon">$</div>--}}
+                                    {{--<input type="number" class="form-control text-right" id="amount_d5_u" name="amount_d5_u" placeholder="Amount" onchange="cambiar_profit(5)" min="0" value="{{$amount_d5}}" readonly="readonly">--}}
+                                    {{--<div class="input-group-addon">.00</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</td>--}}
+
+                    {{--</tr>--}}
+                    <tr class="@if($acomodacion[1]!=2) hide @endif">
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
@@ -1079,7 +1173,7 @@
                         </td>
 
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[0]!=1) hide @endif">
                         <td class="col-md-2">
                             <i class="fa fa-bed fa-2x text-green-goto" aria-hidden="true"></i>
                         </td>
@@ -1146,7 +1240,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr class="@if($acomodacion[2]!=3) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
@@ -1167,7 +1261,7 @@
                             <b class="text-16">$ <span id="amount_t2_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[3]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1185,7 +1279,7 @@
                             <b class="text-16">$ <span id="amount_m2_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[1]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1204,7 +1298,7 @@
                             <b class="text-16">$ <span id="amount_d2_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[0]!=1) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
@@ -1266,7 +1360,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr class="@if($acomodacion[2]!=3) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
@@ -1287,7 +1381,7 @@
                             <b class="text-16">$ <span id="amount_t3_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[3]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1305,7 +1399,7 @@
                             <b class="text-16">$ <span id="amount_m3_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[1]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1324,7 +1418,7 @@
                             <b class="text-16">$ <span id="amount_d3_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[0]!=1) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
@@ -1387,7 +1481,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr class="@if($acomodacion[2]!=3) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
@@ -1408,7 +1502,7 @@
                             <b class="text-16">$ <span id="amount_t4_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[3]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1426,14 +1520,15 @@
                             <b class="text-16">$ <span id="amount_m4_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[1]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
                         <td>
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30"> /
+                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_d4_a"></span>.00</b>
@@ -1445,7 +1540,7 @@
                             <b class="text-16">$ <span id="amount_d4_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[0]!=1) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
@@ -1508,7 +1603,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr class="@if($acomodacion[2]!=3) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
@@ -1529,7 +1624,7 @@
                             <b class="text-16">$ <span id="amount_t5_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[3]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
@@ -1547,14 +1642,15 @@
                             <b class="text-16">$ <span id="amount_m5_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[1]!=2) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
                         <td>
                             <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30"> /
+                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
                         </td>
                         <td class="text-right">
                             <b class="text-16">$ <span id="amount_d5_a"></span>.00</b>
@@ -1566,7 +1662,7 @@
                             <b class="text-16">$ <span id="amount_d5_a_v"></span>.00</b>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="@if($acomodacion[0]!=1) hide @endif">
                         <td>
                             <i class="fa fa-male fa-2x" aria-hidden="true"></i>
                         </td>
@@ -1644,8 +1740,18 @@
             <div class="col-md-12 text-center">
                 <input type="hidden" name="cotizacion_id" id="cotizacion_id" value="{{$cotizacion_->id}}">
                 <input type="hidden" name="nro_personitas" id="nro_personitas" value="{{$cotizacion_->nropersonas}}">
-                <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cotizacion_->nropersonas}}">
-
+                <?php
+                $cliente_id=0;
+                ?>
+                @foreach($cotizacion_->cotizaciones_cliente as $cotizaciones_cliente1)
+                    @if($cotizaciones_cliente1->estado==1)
+                        <?php
+                        $cliente_id=$cotizaciones_cliente1->clientes_id;
+                        ?>
+                    @endif
+                @endforeach
+                <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cliente_id}}">
+                <input type="text" name="acomodacion" value="{{$acomodacion_}}">
                 <button type="submit" class="btn btn-lg btn-primary">Generar plan <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>

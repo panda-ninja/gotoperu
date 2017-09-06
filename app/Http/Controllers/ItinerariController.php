@@ -9,6 +9,9 @@ use App\M_ItinerarioDestino;
 use App\M_ItinerarioServicio;
 use App\M_Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\Response;
 
 class ItinerariController extends Controller
 {
@@ -90,12 +93,20 @@ class ItinerariController extends Controller
             $destinos=$request->input('destinos');
             $servicios=$request->input('servicios');
         $precio_iti=$request->input('precio_itinerario');
+        $txt_imagen=$request->file('txt_imagen');
+
         $itinerario=new M_Itinerario();
             $itinerario->titulo=$txt_titulo;
             $itinerario->descripcion=$txt_descripcion;
             $itinerario->precio=$precio_iti;
-        $itinerario->save();
-
+            $itinerario->imagen=$txt_imagen;
+            $itinerario->save();
+            if($txt_imagen){
+                $filename ='itinerary-'.$itinerario->id.'.jpg';
+                $itinerario->imagen=$filename;
+                $itinerario->save();
+                Storage::disk('itinerary')->put($filename,  File::get($txt_imagen));
+            }
             foreach ($destinos as $destino){
                 $dato=explode('_',$destino);
                 $m_destino=M_Destino::FindOrFail($dato[0]);
@@ -135,11 +146,18 @@ class ItinerariController extends Controller
         $destinos=$request->input('destinos');
         $servicios=$request->input('servicios'.$txt_id);
         $precio_iti=$request->input('precio_itinerario');
+        $txt_imagen=$request->file('txt_imagen');
         $itinerario=M_Itinerario::FindOrFail($txt_id);
         $itinerario->titulo=$txt_titulo;
         $itinerario->descripcion=$txt_descripcion;
         $itinerario->precio=$precio_iti;
         $itinerario->save();
+        if($txt_imagen){
+            $filename ='itinerary-'.$itinerario->id.'.jpg';
+            $itinerario->imagen=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagen));
+        }
         M_ItinerarioDestino::where('m_itinerario_id',$txt_id)->delete();
         foreach ($destinos as $destino){
             $dato=explode('_',$destino);
@@ -179,6 +197,17 @@ class ItinerariController extends Controller
             return 1;
         else
             return 0;
+    }
+    public function getItineraryImageName($filename){
+//        return Storage::setVisibility($filename, 'public');
+//        Storage::getVisibility($filename);
+//        return $filename;
+        $file = Storage::disk('itinerary')->get($filename);
+        return new Response($file, 200);
+    }
+    public function getItineraryImage($filename){
+        $file = Storage::disk('itinerary')->get($filename);
+        return new Response($file, 200);
     }
 }
 
