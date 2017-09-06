@@ -615,4 +615,9 @@ class PackageCotizacionController extends Controller
             return view('admin.new_plan-details', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
         }
     }
+    public function contabilidad()
+    {
+        return view('admin.contabilidad.categorizacion');
+    }
+
 }

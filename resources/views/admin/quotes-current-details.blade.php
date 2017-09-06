@@ -1,4 +1,4 @@
-@extends('.layouts.admin')
+@extends('.layouts.admin.admin')
 @section('archivos-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

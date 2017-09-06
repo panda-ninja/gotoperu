@@ -18,7 +18,37 @@
     <script src="{{asset("https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.js")}}"></script>
     @yield('archivos-js')
     <script src="{{asset("js/admin/plugins.js")}}"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
 
+//Better to construct options first and then pass it as a parameter
+            var options = {
+                title: {
+                    text: "Column Chart using jQuery Plugin"
+                },
+                animationEnabled: true,
+                data: [
+                    {
+                        type: "column", //change it to line, area, bar, pie, etc
+                        dataPoints: [
+                            { x: 10, y: 10 },
+                            { x: 20, y: 11 },
+                            { x: 30, y: 14 },
+                            { x: 40, y: 16 },
+                            { x: 50, y: 19 },
+                            { x: 60, y: 15 },
+                            { x: 70, y: 12 },
+                            { x: 80, y: 10 }
+                        ]
+                    }
+                ]
+            };
+
+            $("#chartContainer").CanvasJSChart(options);
+
+        }
+    </script>
 </head>
 <body>
 
@@ -39,7 +69,7 @@
                         <li class="padding-left-30 text-unset"><a href="{{route("show_itineraries_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> List</a></li>
                     </ul>
                 </li>
-                <li ><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expedia</a></li>
+                {{--<li ><a href="{{route("package_create_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expedia</a></li>--}}
                 <li class="hide"><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Catalog</a></li>
                 <li class="divider"></li>
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Quotes</b></li>
@@ -51,12 +81,12 @@
                 <li class="divider"></li>
 
                 <li><a href="{{route("pax_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Paxs</a></li>
-                <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Agences</a></li>
-
-                <li><a href="{{route("sales_paxs_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Paxs</a></li>
                 {{--<li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Agences</a></li>--}}
 
-                <li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expedia</a></li>
+                {{--<li><a href="{{route("sales_paxs_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Paxs</a></li>--}}
+                {{--<li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Agences</a></li>--}}
+
+                {{--<li><a href="{{route("catalog_show_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Expedia</a></li>--}}
                 {{--<li class="divider"></li>--}}
                 {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Packages</b></li>--}}
                 {{--<li class="divider"></li>--}}
