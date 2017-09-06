@@ -21,69 +21,8 @@
 
 </head>
 <body>
-<nav class="navbar navbar-fixed-top bg-grey-goto">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="nav-brand-goto margin-top-10" href="/">
-                <img alt="Brand" src="{{asset("img/logos/logo-gotoperu.png")}}" width="200">
-            </a>
-        </div>
-        <div class="collapse navbar-collapse">
 
-            <!-- Split button -->
-            <div class="btn-group margin-top-7 navbar-right margin-right-0">
-                <button type="button" class="btn btn-default"><img src="https://scontent.flim5-1.fna.fbcdn.net/v/t1.0-9/11219300_539606706191493_953162067565331778_n.jpg?oh=1e9c73929e406bf2b93275b010f287a0&oe=59957E5D" alt="" class="img-circle" width="20">
-                    Hidalgo Ch Ponce
-                </button>
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
-<nav class="navbar navbar-inverse navbar-fixed-top hide">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"> <img src="https://gotoperu.com/img/logos/logo-gotoperu.png" width="100" alt=""></a>
-            <!-- Split button -->
-            <div class="btn-group margin-top-7">
-                <button type="button" class="btn btn-default"><img src="https://scontent.flim5-1.fna.fbcdn.net/v/t1.0-9/11219300_539606706191493_953162067565331778_n.jpg?oh=1e9c73929e406bf2b93275b010f287a0&oe=59957E5D" alt="" class="img-circle" width="20">
-                    Hidalgo Ch Ponce
-                </button>
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"></a></li>
-            </ul>
-            {{--<form class="navbar-form navbar-right">--}}
-            {{--<input type="text" class="form-control" placeholder="Search...">--}}
-            {{--</form>--}}
-        </div>
-    </div>
-</nav>
+@include('layouts.admin.nav')
 
 <div class="container-fluid">
     <div class="row">
@@ -149,6 +88,93 @@
     $(window).scroll(function(e){
         parallax();
     });
+</script>
+
+<script>
+
+    function pagar(id){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+
+        $("#p_send_"+id).attr("disabled", true);
+
+        var s_fecha = $('#fecha_'+id).val();
+        var s_vencimiento = $('#vencimiento_'+id).val();
+        var s_medio = $('#medio_'+id).val();
+        var s_transaccion = $('#transaccion_'+id).val();
+        var s_monto = $('#monto_'+id).val();
+        var s_estado = $('#estado_'+id).val();
+        var s_cotizaciones = "{{$id_cot}}";
+
+
+        if (s_fecha.length == 0 ){
+            $('#fecha_'+id).css("border-bottom", "2px solid #FF0000");
+            var send = "false";
+        }else{
+            var send = "true";
+        }
+
+        if(send == "true"){
+            var datos = {
+
+                "txt_fecha" : s_fecha,
+                "txt_vencimiento" : s_vencimiento,
+                "txt_medio" : s_medio,
+                "txt_transaccion" : s_transaccion,
+                "txt_monto" : s_monto,
+                "txt_estado" : s_estado,
+                "txt_cotizaciones" : s_cotizaciones,
+
+            };
+
+            $.ajax({
+                data:  datos,
+                url:   "payment/update/"+id,
+                type:  'post',
+
+                beforeSend: function () {
+                    $('#p_send_'+id).removeClass('show');
+                    $("#p_send_"+id).addClass('hide');
+                    $("#loader2_"+id).removeClass('hide');
+                    $("#loader2_"+id).addClass('show');
+                },
+                success:  function (response) {
+//                    $('#p_form')[0].reset();
+                    $('#p_send_'+id).removeClass('show');
+                    $('#p_send_'+id).addClass('hide');
+                    $("#loader2_"+id).removeClass('show');
+                    $("#loader2_"+id).addClass('hide');
+
+                    $("#check-payment_"+id).removeClass('hide');
+                    $("#check-payment_"+id).addClass('show');
+
+                    $("#p_send_"+id).removeAttr("disabled");
+
+                    {{--var page = 'detail';--}}
+
+                    {{--var route = '{{route('pax_show_path', $pago->cotizaciones_id)}}';--}}
+                    {{--$.ajax({--}}
+                    {{--data: {page: page},--}}
+                    {{--url: route,--}}
+                    {{--type: 'GET',--}}
+                    {{--dataType: 'json',--}}
+                    {{--success: function(data){--}}
+                    {{--$(".content-pax").html(data);--}}
+
+                    {{--}--}}
+                    {{--});--}}
+
+                    {{--window.location = "{{route('pax_show_path', '6?page=detail')}}";--}}
+                }
+            });
+        } else{
+            $("#p_send_"+id).removeAttr("disabled");
+        }
+    }
+
 </script>
 
 </body>

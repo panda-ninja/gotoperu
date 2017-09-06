@@ -211,3 +211,21 @@ Route::get('admin/pax/{id}', [
     'uses' => 'QouteController@paxshow',
     'as' => 'pax_show_path',
 ]);
+Route::post('admin/pax/payment', [
+    'uses' => 'PaymentController@store',
+    'as' => 'payment_store_path',
+]);
+Route::post('admin/pax/payment/update/{id}', [
+    'uses' => 'PaymentController@update',
+    'as' => 'payment_update_path',
+]);
+
+//RESERVAS
+Route::get('admin/book', [
+    'uses' => 'BookController@index',
+    'as' => 'book_path',
+]);
+Route::get('admin/book/{id}', [
+    'uses' => 'BookController@show',
+    'as' => 'book_show_path',
+]);

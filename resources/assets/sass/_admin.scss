@@ -19,6 +19,7 @@ body {
 .nav-brand-goto{
   float: left;
 }
+
 /*
  * Sidebar
  */
@@ -425,3 +426,125 @@ body {
 .clickable {
   cursor: pointer;
 }
+//book
+.box-header-book{
+  //display: table-cell;
+  text-align: left;
+  color: #000;
+  padding: 6px 25px 6px 12px;
+  background-color: #f3f5f6;
+  background: url("../img/stage-arrow.png") no-repeat 100% 0,linear-gradient(#fff, #f3f5f6);
+  background-size: 20px 100%, 100% 100%;
+  border-right: 1px #c2c8cd solid;
+  line-height: 1.3em;
+  overflow: visible;
+  vertical-align: middle;
+
+}
+.border-right-0{
+  border-right: none !important;
+}
+.border-left-0{
+  border-left: 0 !important;
+}
+.box-header-book h4{
+  font-size: 16px;
+  //line-height: 21px;
+  font-weight: 600;
+  width: 100%;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.box-header-book span{
+  //position: absolute;
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  font-weight: lighter;
+}
+.box-list-book{
+  //display: table-cell;
+  border-right: 1px solid transparent;
+  border-color: #e0e4e7;
+  text-align: left;
+  background-color: transparent;
+  transition: background-color 0.05s ease-in-out;
+  min-height: 600px;
+}
+
+.content-list-book{
+  position: relative;
+  min-height: 50px;
+  border-bottom: 1px solid transparent;
+  background-color: #fff;
+  border-bottom-color: #e0e4e7;
+}
+.content-list-book-s{
+  //display: table-cell;
+  width: 100%;
+  //position: relative;
+  min-height: 50px;
+  margin: 0;
+  border: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.content-list-book a{
+  display: block;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  padding: 8px 25px 8px 12px;
+  text-decoration: none;
+  color: #26292c;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.content-list-book-s img{
+  height: 16px;
+  margin: 2px 8px 0 0;
+  border-radius: 50%;
+  vertical-align: top;
+}
+.content-list-book-s small{
+  font-size: 12px;
+  //line-height: 16px;
+  padding: 2px 0px;
+  color: #888e94;
+  text-overflow: ellipsis;
+  display: block;
+  transition: color 0.1s ease-in-out;
+  position: relative;
+}
+.content-list-book-s .icon{
+  position: absolute;
+  top: 45%;
+  right: 0;
+  margin: -8px 8px 0 0;
+  cursor: pointer;
+  cursor: hand;
+}
+.content-list-book-s .icon a{
+  color: #ffa500;
+  padding: 0 !important;
+}
+.content-list-book-s .icon a:hover{
+  color: #333333 !important;
+}
+
+.content-list-book-s .icon a.text-success{
+  color: #5cb85c;
+  padding: 0 !important;
+}
+

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
+use App\CotizacionesPagos;
 use App\M_Destino;
 use App\M_Itinerario;
 use App\M_Servicio;
+use App\PaqueteCotizaciones;
 use Illuminate\Http\Request;
 
 class QouteController extends Controller
@@ -37,12 +39,23 @@ class QouteController extends Controller
         $clients = Cliente::all();
         return view('admin.quote-pax', ['cotizacion'=>$cotizacion, 'clients'=>$clients]);
     }
-    public function paxshow($id)
+    public function paxshow(Request $request, $id)
     {
+
         $cotizacion = Cotizacion::with('cotizaciones_cliente')->where('id', $id)->get();
+        $pagos = CotizacionesPagos::where('cotizaciones_id', $id)->get();
+        $count_pagos = $pagos->count();
+//        dd($count_pagos)
 //        dd($quote_client);
         $clients = Cliente::all();
-        return view('admin.quote-pax-show', ['cotizacion'=>$cotizacion, 'clients'=>$clients]);
+        $paquete = PaqueteCotizaciones::where('cotizaciones_id', $id)->where('estado',2)->get();
+
+        if ($request->ajax()){
+            $url = explode('page=', $request->fullUrl())[1];
+            return response()->json(view('admin.pax.'.$url.'', ['cotizacion'=>$cotizacion, 'clients'=>$clients, 'paquete'=>$paquete, 'pagos'=>$pagos, 'count_pagos'=>$count_pagos, 'id_cot'=>$id])->render());
+        }
+
+        return view('admin.quote-pax-show', ['cotizacion'=>$cotizacion, 'clients'=>$clients, 'paquete'=>$paquete, 'pagos'=>$pagos, 'count_pagos'=>$count_pagos, 'id_cot'=>$id]);
 
     }
 

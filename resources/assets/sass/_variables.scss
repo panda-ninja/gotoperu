@@ -11,10 +11,10 @@ $panel-inner-border: $laravel-border-color;
 
 // Brands
 $brand-primary: #3097D1;
-$brand-info: #8eb4cb;
-$brand-success: #2ab27b;
-$brand-warning: #cbb956;
-$brand-danger: #bf5329;
+$brand-info: #5bc0de;
+$brand-success: #5cb85c;
+$brand-warning: #ffa500;
+$brand-danger: #d9534f;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
@@ -41,7 +41,7 @@ $panel-default-heading-bg: #fff;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-$state-success-text:             #008000 !default;
+$state-success-text:             #5cb85c !default;
 $state-success-bg:               #dff0d8 !default;
 $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
 
@@ -69,6 +69,9 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   overflow: hidden;
   background-color: #e5e5e5;
 }
+.text-success{
+
+}
   //--Default
 //--spacer
 .padding-side-10{
@@ -95,6 +98,9 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 }
 .padding-30{
   padding: 30px;
+}
+.padding-left-10{
+  padding-left: 10px;
 }
 
 .no-margin{
@@ -127,6 +133,10 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 }
 .margin-bottom-20{
   margin-bottom: 20px;
+}
+
+.margin-left-60{
+  margin-left: 60px !important;
 }
 
 .margin-top-5{
@@ -200,7 +210,7 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   font-size: 24px;
 }
 .text-25{
-  font-size: 25px;
+  font-size: 25px !important;
 }
 .text-26{
   font-size: 26px;

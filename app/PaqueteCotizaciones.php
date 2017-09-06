@@ -11,7 +11,7 @@ class PaqueteCotizaciones extends Model
 
     public function cotizaciones()
     {
-        return $this->belongsTo(PaqueteCotizaciones::class, 'cotizaciones_id');
+        return $this->belongsTo(Cotizacion::class, 'cotizaciones_id');
     }
     public function paquete_precios()
     {
