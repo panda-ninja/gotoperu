@@ -63,12 +63,24 @@
         ?>
         @if($cotizacion!=null)
             @foreach($cotizacion as $cotizacion1)
-                <?php
+                @php
                 $cotizacion_=$cotizacion1;
-                ?>
+                @endphp
             @endforeach
 
             @foreach($cotizacion_->paquete_cotizaciones as $paquete)
+                @php
+                    $total=0;
+                    $servicio = 0;
+                @endphp
+                @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
+                    @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
+                        @php
+                            $total = $orden_cotizaciones->precio + $servicio;
+                            $servicio = $total;
+                        @endphp
+                    @endforeach
+                @endforeach
                 @if($cotizacion_->estado==2)
                     @if($paquete->estado==2)
                         @php

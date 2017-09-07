@@ -1229,3 +1229,37 @@ function eliminar_paquete(id,destino) {
 
     })
 }
+function mostra_ventas(mes,cat){
+    if(cat=='c') {
+        $("#t_ene_c").addClass('hide');
+        $("#t_feb_c").addClass('hide');
+        $("#t_mar_c").addClass('hide');
+        $("#t_abr_c").addClass('hide');
+        $("#t_may_c").addClass('hide');
+        $("#t_jun_c").addClass('hide');
+        $("#t_jul_c").addClass('hide');
+        $("#t_ago_c").addClass('hide');
+        $("#t_set_c").addClass('hide');
+        $("#t_oct_c").addClass('hide');
+        $("#t_nov_c").addClass('hide');
+        $("#t_dic_c").addClass('hide');
+        $("#t_"+mes+"_"+cat).removeClass('hide');
+    }
+    else if(cat=='s') {
+        $("#t_ene_s").addClass('hide');
+        $("#t_feb_s").addClass('hide');
+        $("#t_mar_s").addClass('hide');
+        $("#t_abr_s").addClass('hide');
+        $("#t_may_s").addClass('hide');
+        $("#t_jun_s").addClass('hide');
+        $("#t_jul_s").addClass('hide');
+        $("#t_ago_s").addClass('hide');
+        $("#t_set_s").addClass('hide');
+        $("#t_oct_s").addClass('hide');
+        $("#t_nov_s").addClass('hide');
+        $("#t_dic_s").addClass('hide');
+        $("#t_"+mes+"_"+cat).removeClass('hide');
+    }
+
+
+}

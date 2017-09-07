@@ -554,4 +554,17 @@ body {
   //color:#3097d1;
   color: #d11949;
 }
-
+.barrasv {
+  width:4em;
+  text-shadow:#CCCCCC 0.1em 0.1em 0.1em;
+  border-radius:1px;
+  -moz-border-radius:1px;
+  -webkit-border-radius:1px;
+  margin-bottom:1px;
+}
+.barrasv:hover {
+  cursor: pointer;
+}
+.mes:hover {
+  cursor: pointer;
+}

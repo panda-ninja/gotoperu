@@ -617,7 +617,14 @@ class PackageCotizacionController extends Controller
     }
     public function contabilidad()
     {
-        return view('admin.contabilidad.categorizacion');
+//        año actual
+//        $cotizacion=Cotizacion::whereYear('updated_at',Date("Y"))->where('estado',2)->get();
+//        todos
+        $cotizacion=Cotizacion::where('estado',2)->where('categorizado',null)->get();
+        $cotizacion_cat=Cotizacion::whereYear('fecha',Date("Y"))->where('estado',2)->whereNotNull('categorizado')->get();
+//        dd($cotizacion_cat);
+//        dd($cotizacion);
+        return view('admin.contabilidad.categorizacion',['cotizacion'=>$cotizacion,'cotizacion_cat'=>$cotizacion_cat]);
     }
 
 }
