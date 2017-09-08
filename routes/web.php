@@ -303,7 +303,7 @@ Route::get('admin/package/{id}/pdf', [
     'uses' => 'PackageController@pdf',
     'as' => 'package_pdf_path',
 ]);
-Route::get('admin/contabilidad', [
+Route::get('admin/contabilidad/{id}', [
     'uses' => 'PackageCotizacionController@contabilidad',
     'as' => 'contabilidad_path',
 ]);

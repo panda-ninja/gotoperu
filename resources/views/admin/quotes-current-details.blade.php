@@ -249,6 +249,9 @@
                                             <div class="form-group">
                                                 <label for="txt_codigo">Category</label>
                                                 <select class="form-control" id="categoria" name="categoria">
+                                                    @php
+                                                        $array_acomodacion=array();
+                                                    @endphp
                                                     @if($cotizacion_->star_2==2)
                                                         <option value="2">2 STARS</option>
                                                     @endif
@@ -271,9 +274,15 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3 margin-top-25">
-                                            <button type="button" class="btn btn-primary" onclick="mostrar_categoria()">Show</button>
+                                            <button type="button" class="btn btn-primary" onclick="mostrar_categoria('{{$paquete->id}}')">Show</button>
                                         </div>
                                     </div>
+                                    @php
+                                        $array_2='';
+                                        $array_3='';
+                                        $array_4='';
+                                        $array_5='';
+                                    @endphp
                                     @foreach($paquete->paquete_precios as $precio_paquete2)
                                         @if($precio_paquete2->estado == 1)
                                             <div id="star_{{$precio_paquete2->estrellas}}" class="hide">
@@ -285,7 +294,28 @@
                                                         <th>Acomodacion</th>
                                                         <th class="text-right">Total ($)</th>
                                                     </tr>
+
                                                     @if($precio_paquete2->personas_s > 0)
+                                                        @if($precio_paquete2->estrellas==2)
+                                                            @php
+                                                                $array_2.='1_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==3)
+                                                            @php
+                                                                $array_3.='1_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==4)
+                                                            @php
+                                                                $array_4.='1_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==5)
+                                                            @php
+                                                                $array_5.='1_';
+                                                            @endphp
+                                                        @endif
                                                         <tr width="50px">
                                                             <td class="col-md-1"><input class="form-control" type="number" name="s_{{$precio_paquete2->estrellas}}" id="s_{{$precio_paquete2->estrellas}}" min="0"></td>
                                                             <td class="text-left"><b>Simple</b></td>
@@ -307,6 +337,26 @@
                                                         @endphp
                                                     @endif
                                                     @if($precio_paquete2->personas_d > 0)
+                                                        @if($precio_paquete2->estrellas==2)
+                                                            @php
+                                                                $array_2.='2_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==3)
+                                                            @php
+                                                                $array_3.='2_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==4)
+                                                            @php
+                                                                $array_4.='2_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==5)
+                                                            @php
+                                                                $array_5.='2_';
+                                                            @endphp
+                                                        @endif
                                                         <tr>
                                                             <td ><input class="form-control" type="number" name="d_{{$precio_paquete2->estrellas}}" id="d_{{$precio_paquete2->estrellas}}" min="0"></td>
 
@@ -328,6 +378,26 @@
                                                         @endphp
                                                     @endif
                                                     @if($precio_paquete2->personas_m > 0)
+                                                        @if($precio_paquete2->estrellas==2)
+                                                            @php
+                                                                $array_2.='4_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==3)
+                                                            @php
+                                                                $array_3.='4_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==4)
+                                                            @php
+                                                                $array_4.='4_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==5)
+                                                            @php
+                                                                $array_5.='4_';
+                                                            @endphp
+                                                        @endif
                                                         <tr>
                                                             <td ><input class="form-control" type="number" name="m_{{$precio_paquete2->estrellas}}" id="m_{{$precio_paquete2->estrellas}}" min="0"></td>
 
@@ -349,6 +419,26 @@
                                                         @endphp
                                                     @endif
                                                     @if($precio_paquete2->personas_t > 0)
+                                                        @if($precio_paquete2->estrellas==2)
+                                                            @php
+                                                                $array_2.='3_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==3)
+                                                            @php
+                                                                $array_3.='3_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==4)
+                                                            @php
+                                                                $array_4.='3_';
+                                                            @endphp
+                                                        @endif
+                                                        @if($precio_paquete2->estrellas==5)
+                                                            @php
+                                                                $array_5.='3_';
+                                                            @endphp
+                                                        @endif
                                                         <tr>
                                                             <td><input class="form-control" type="number" name="t_{{$precio_paquete2->estrellas}}" id="t_{{$precio_paquete2->estrellas}}" min="0"></td>
 
@@ -374,6 +464,8 @@
                                                 <div class="text-right">
                                                     <b class="text-25">Precio del paquete: $<span id="total_{{$precio_paquete2->estrellas}}" class=" text-success"></span></b>
                                                 </div>
+
+
                                                 <input type="hidden" id="precio_paquete_id" name="precio_paquete_id_{{$precio_paquete2->estrellas}}"   value="{{$precio_paquete2->id}}">
                                             </div>
                                         @endif
@@ -381,6 +473,10 @@
 
                                 </div>
                                 <div class="modal-footer">
+                                    <input type="text" name="plan_{{$paquete->id}}_2" id="plan_{{$paquete->id}}_2" value="{{$array_2}}">
+                                    <input type="text" name="plan_{{$paquete->id}}_3" id="plan_{{$paquete->id}}_3" value="{{$array_3}}">
+                                    <input type="text" name="plan_{{$paquete->id}}_4" id="plan_{{$paquete->id}}_4" value="{{$array_4}}">
+                                    <input type="text" name="plan_{{$paquete->id}}_5" id="plan_{{$paquete->id}}_5" value="{{$array_5}}">
                                     {{csrf_field()}}
                                     <input type="hidden" id="pos" name="pos" value="0">
 

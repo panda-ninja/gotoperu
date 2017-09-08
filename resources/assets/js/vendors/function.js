@@ -1150,7 +1150,7 @@ function activarPlan(paquete_precio_id){
     })
 }
 
-function mostrar_categoria(){
+function mostrar_categoria(plan_id){
     var $categoria=$('#categoria').val();
     var $travelers=$('#travelers').val();
     console.log($categoria+'_'+$travelers);
@@ -1165,28 +1165,62 @@ function mostrar_categoria(){
     var m=0;
     var t=0;
     var nro=$travelers;
-    t=parseInt(nro/3);
-    nro=nro-(3*t);
-    d=parseInt(nro/2);
-    nro=nro-(2*d);
-    s=nro;
+    var acomo_=$('#plan_'+plan_id+'_'+$categoria).val().split('_');
+    console.log('acom:'+acomo_);
+    if(existe_ar(3, acomo_ )) {
+        t = parseInt(nro / 3);
+        nro = nro - (3 * t);
+        console.log('si hat 3');
+    }
+    if(existe_ar(2, acomo_ )) {
+        d=parseInt(nro/2);
+        nro=nro-(2*d);
+        console.log('si hat 2');
+    }
+    if(existe_ar(1, acomo_ )) {
+        s=nro;
+        console.log('si hat 1');
+    }
+    console.log('s_:'+s);
+    console.log('d_:'+d);
+    console.log('m_:'+m);
+    console.log('t_:'+t);
 
     $('#s_'+$categoria).val(s);
     $('#d_'+$categoria).val(d);
     $('#m_'+$categoria).val(m);
     $('#t_'+$categoria).val(t);
-    cambios_acom_precios($categoria);
+    cambios_acom_precios($categoria,plan_id);
 }
-function cambios_acom_precios($categoria){
-    var p_s=$('#hp_s_'+$categoria).html();
-    var p_d=$('#hp_d_'+$categoria).html();
-    var p_m=$('#hp_m_'+$categoria).html();
-    var p_t=$('#hp_t_'+$categoria).html();
+function cambios_acom_precios($categoria,plan_id){
+    var acomo_=$('#plan_'+plan_id+'_'+$categoria).val().split('_');
+    var p_s=0;
+    var p_d=0;
+    var p_m=0;
+    var p_t=0;
 
-    var v_s=$('#s_'+$categoria).val();
-    var v_d=$('#d_'+$categoria).val();
-    var v_m=$('#m_'+$categoria).val();
-    var v_t=$('#t_'+$categoria).val();
+    var v_s=0;
+    var v_d=0;
+    var v_m=0;
+    var v_t=0;
+
+
+    if(existe_ar(1, acomo_ )) {
+        p_s=$('#hp_s_'+$categoria).html();
+        v_s=$('#s_'+$categoria).val();
+    }
+    if(existe_ar(2, acomo_ )) {
+        p_d=$('#hp_d_'+$categoria).html();
+        v_d=$('#d_'+$categoria).val();
+    }
+    if(existe_ar(4, acomo_ )) {
+        p_m=$('#hp_m_'+$categoria).html();
+        v_m=$('#m_'+$categoria).val();
+    }
+    if(existe_ar(3, acomo_ )) {
+        p_t=$('#hp_t_'+$categoria).html();
+        v_t=$('#t_'+$categoria).val();
+    }
 
     console.log('s:'+v_s*p_s);
     console.log('d:'+v_d*p_d);
@@ -1231,6 +1265,7 @@ function eliminar_paquete(id,destino) {
 }
 function mostra_ventas(mes,cat){
     if(cat=='c') {
+        var =$("#t_ene_c").html()
         $("#t_ene_c").addClass('hide');
         $("#t_feb_c").addClass('hide');
         $("#t_mar_c").addClass('hide');
@@ -1262,4 +1297,16 @@ function mostra_ventas(mes,cat){
     }
 
 
+}
+
+function existe_ar(valor,arreglo) {
+    var o=0;
+    var lon=arreglo.length;
+    var existe=false;
+    while(o<lon && !existe){
+        if(arreglo[o]==valor)
+            existe=true;
+        o++;
+    }
+    return existe;
 }

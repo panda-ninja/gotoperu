@@ -51,19 +51,74 @@
                             $arra_count_mes_s[$i]=0;
                         }
                     @endphp
+                    @php
+                        $total_utilidad=0;
+                    @endphp
                     @foreach($cotizacion_cat as $cotizacion_cat_)
+                        @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                            @if($paquete->estado==2)
+                                @php $servicio = 0; @endphp
+                                @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                    @foreach($itinerarios->itinerario_servicios as $servicios)
+                                        @php
+                                            $servicio+= $servicios->precio
+                                        @endphp
+                                    @endforeach
+                                @endforeach
+                                @foreach($paquete->paquete_precios as $precio)
+                                    @if($precio->estado==2)
+                                        @if($precio->personas_s > 0)
+                                            @php
+                                                $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                $total_costo_s = $precio_s + $servicio;
+                                                $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                            @endphp
+                                        @endif
+                                        @if($precio->personas_d > 0)
+                                            @php
+                                                $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                $total_costo_d = $precio_d + $servicio;
+                                                $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                            @endphp
+                                        @endif
+                                        @if($precio->personas_m > 0)
+                                            @php
+                                                $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                $total_costo_m = $precio_m + $servicio;
+                                                $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                            @endphp
+                                        @endif
+                                        @if($precio->personas_t > 0)
+                                            @php
+                                                $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                $total_costo_t = $precio_t + $servicio;
+                                                $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                            @endphp
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                        @php
+                            $total_utilidad=round($total_utilidad,2);
+                        @endphp
                         @if($cotizacion_cat_->categorizado=='C')
                             @php
                                 $fecha=explode('-',$cotizacion_cat_->fecha);
-                                $arra_count_mes_c[intval($fecha[1])]+=1;
+                                $arra_count_mes_c[intval($fecha[1])]+=$total_utilidad;
                             @endphp
                         @else
                             @php
                                 $fecha=explode('-',$cotizacion_cat_->fecha);
-                                $arra_count_mes_s[intval($fecha[1])]+=1;
+                                $arra_count_mes_s[intval($fecha[1])]+=$total_utilidad;
                             @endphp
                         @endif
+                        @php
+                            $total_utilidad=0;
+                        @endphp
                     @endforeach
+
+
                     @php
                         $d_ene=$arra_count_mes_c[1]+$arra_count_mes_s[1];
                         $ene_c=0;
@@ -230,25 +285,25 @@
                         </div>
                         <div class="panel-body">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></span>
-                                <span class="input-group-addon">{{Date("Y")}}</span>
-                                <span class="input-group-addon"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></span>
+                                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt-1])}}"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
+                                <span id="anio_s" class="input-group-addon">{{$fecha_pqt}}</span>
+                                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt+1])}}"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
                             </div>
                             <table align="center" cellpadding="0" cellspacing="0" border="0">
                                 <tbody align="center">
                                 <tr>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ene_c}}%</b></div><div class="barrasv btn-primary text-10" style="height:{{$ene_c_p}}px;" onclick="mostra_ventas('ene','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$feb_c}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$feb_c_p}}px;" onclick="mostra_ventas('feb','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$mar_c}}%</b></div><div class="barrasv btn-info text-10" style="height:{{$mar_c_p}}px;" onclick="mostra_ventas('mar','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$abr_c}}%</b></div><div class="barrasv btn-success text-10" style="height:{{$abr_c_p}}px;" onclick="mostra_ventas('abr','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$may_c}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$may_c_p}}px;" onclick="mostra_ventas('may','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jun_c}}%</b></div><div class="barrasv btn-info text-10" style="height:{{$jun_c_p}}px;" onclick="mostra_ventas('jun','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jul_c}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$jul_c_p}}px;" onclick="mostra_ventas('jul','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ago_c}}%</b></div><div class="barrasv btn-success text-10" style="height:{{$ago_c_p}}px;" onclick="mostra_ventas('ago','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$set_c}}%</b></div><div class="barrasv btn-primary text-10" style="height:{{$set_c_p}}px;" onclick="mostra_ventas('set','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$oct_c}}%</b></div><div class="barrasv btn-danger text-10" style="height:{{$oct_c_p}}px;" onclick="mostra_ventas('oct','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$nov_c}}%</b></div><div class="barrasv btn-success text-10" style="height:{{$nov_c_p}}px;" onclick="mostra_ventas('nov','c')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$dic_c}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$dic_c_p}}px;" onclick="mostra_ventas('dic','c')">$12145</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ene_c}}%</b></div><div id="p_ene_c" class="barrasv btn-primary text-10" style="height:{{$ene_c_p}}px;" onclick="mostra_ventas('ene','c')">${{$arra_count_mes_c[1]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$feb_c}}%</b></div><div id="p_feb_c" class="barrasv btn-warning text-10" style="height:{{$feb_c_p}}px;" onclick="mostra_ventas('feb','c')">${{$arra_count_mes_c[2]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$mar_c}}%</b></div><div id="p_mar_c" class="barrasv btn-info text-10" style="height:{{$mar_c_p}}px;" onclick="mostra_ventas('mar','c')">${{$arra_count_mes_c[3]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$abr_c}}%</b></div><div id="p_abr_c" class="barrasv btn-success text-10" style="height:{{$abr_c_p}}px;" onclick="mostra_ventas('abr','c')">${{$arra_count_mes_c[4]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$may_c}}%</b></div><div id="p_may_c" class="barrasv btn-warning text-10" style="height:{{$may_c_p}}px;" onclick="mostra_ventas('may','c')">${{$arra_count_mes_c[5]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jun_c}}%</b></div><div id="p_jun_c" class="barrasv btn-info text-10" style="height:{{$jun_c_p}}px;" onclick="mostra_ventas('jun','c')">${{$arra_count_mes_c[6]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jul_c}}%</b></div><div id="p_jul_c" class="barrasv btn-warning text-10" style="height:{{$jul_c_p}}px;" onclick="mostra_ventas('jul','c')">${{$arra_count_mes_c[7]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ago_c}}%</b></div><div id="p_ago_c" class="barrasv btn-success text-10" style="height:{{$ago_c_p}}px;" onclick="mostra_ventas('ago','c')">${{$arra_count_mes_c[8]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$set_c}}%</b></div><div id="p_set_c" class="barrasv btn-primary text-10" style="height:{{$set_c_p}}px;" onclick="mostra_ventas('set','c')">${{$arra_count_mes_c[9]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$oct_c}}%</b></div><div id="p_oct_c" class="barrasv btn-danger text-10" style="height:{{$oct_c_p}}px;" onclick="mostra_ventas('oct','c')">${{$arra_count_mes_c[10]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$nov_c}}%</b></div><div id="p_nov_c" class="barrasv btn-success text-10" style="height:{{$nov_c_p}}px;" onclick="mostra_ventas('nov','c')">${{$arra_count_mes_c[11]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$dic_c}}%</b></div><div id="p_dic_c" class="barrasv btn-warning text-10" style="height:{{$dic_c_p}}px;" onclick="mostra_ventas('dic','c')">${{$arra_count_mes_c[12]}}</div></td>
                                 </tr>
                                 <tr>
                                     <td><b class="mes" onclick="mostra_ventas('ene','c')">Ene</b></td>
@@ -267,8 +322,8 @@
                                 </tbody>
                             </table>
                             <div class="col-lg-12">
-                                <h3>Lista de paquetes <span class="text-primary">Enero {{Date("Y")}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">12145</b></h3>
                                 <div id="t_ene_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Enero {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[1]}}</b></h3>
                                     <table id="ene_c" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -290,10 +345,58 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==1)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
+
                                             @endif
                                         @endif
                                     @endforeach
@@ -301,6 +404,7 @@
                                 </table>
                                 </div>
                                 <div id="t_feb_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Febrero {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[2]}}</b></h3>
                                     <table id="feb_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -322,9 +426,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==2)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -333,6 +484,7 @@
                                 </table>
                                 </div>
                                 <div id="t_mar_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Marzo {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[3]}}</b></h3>
                                     <table id="mar_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -354,9 +506,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==3)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -365,6 +564,7 @@
                                 </table>
                                 </div>
                                 <div id="t_abr_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Abril {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[4]}}</b></h3>
                                     <table id="abr_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -386,9 +586,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==4)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -397,6 +644,7 @@
                                 </table>
                                 </div>
                                 <div id="t_mar_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Mayo {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[5]}}</b></h3>
                                     <table id="may_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -418,9 +666,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==5)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -429,6 +724,7 @@
                                 </table>
                                 </div>
                                 <div id="t_jun_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Junio {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[6]}}</b></h3>
                                     <table id="jun_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -450,9 +746,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==6)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -461,6 +804,7 @@
                                 </table>
                                 </div>
                                 <div id="t_jul_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Julio {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[7]}}</b></h3>
                                     <table id="jul_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -482,9 +826,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==7)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -493,6 +884,7 @@
                                 </table>
                                 </div>
                                 <div id="t_ago_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Agosto {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[8]}}</b></h3>
                                     <table id="ago_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -514,9 +906,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==8)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -525,6 +964,7 @@
                                 </table>
                                 </div>
                                 <div id="t_set_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Septiembre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[9]}}</b></h3>
                                     <table id="set_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -546,9 +986,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==9)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -557,6 +1044,7 @@
                                 </table>
                                 </div>
                                 <div id="t_oct_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Octubre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[10]}}</b></h3>
                                     <table id="oct_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -578,9 +1066,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==10)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -589,6 +1124,7 @@
                                 </table>
                                 </div>
                                 <div id="t_nov_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Noviembre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[11]}}</b></h3>
                                     <table id="nov_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -610,9 +1146,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==11)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -621,6 +1204,7 @@
                                 </table>
                                 </div>
                                 <div id="t_dic_c" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Diciembre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[12]}}</b></h3>
                                     <table id="dic_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -642,9 +1226,56 @@
                                                 $fecha=explode('-',$cotizacion_cat_->fecha);
                                             @endphp
                                             @if(intval($fecha[1])==12)
+                                                @php
+                                                    $total_utilidad=0;
+                                                @endphp
+                                                @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                    @if($paquete->estado==2)
+                                                        @php $servicio = 0; @endphp
+                                                        @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                            @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                @php
+                                                                    $servicio+= $servicios->precio
+                                                                @endphp
+                                                            @endforeach
+                                                        @endforeach
+                                                        @foreach($paquete->paquete_precios as $precio)
+                                                            @if($precio->estado==2)
+                                                                @if($precio->personas_s > 0)
+                                                                    @php
+                                                                        $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_s = $precio_s + $servicio;
+                                                                        $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_d > 0)
+                                                                    @php
+                                                                        $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_d = $precio_d + $servicio;
+                                                                        $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_m > 0)
+                                                                    @php
+                                                                        $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_m = $precio_m + $servicio;
+                                                                        $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                                @if($precio->personas_t > 0)
+                                                                    @php
+                                                                        $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                        $total_costo_t = $precio_t + $servicio;
+                                                                        $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
-                                                    <td><span class="badge text-right">$ 12345</span></td>
+                                                    <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
                                                 </tr>
                                             @endif
                                         @endif
@@ -667,118 +1298,1004 @@
                         </div>
                         <div class="panel-body">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></span>
-                                <span class="input-group-addon">{{Date("Y")}}</span>
-                                <span class="input-group-addon"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></span>
+                                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt-1])}}"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
+                                <span id="anio_c" class="input-group-addon">{{$fecha_pqt}}</span>
+                                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt+1])}}"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
                             </div>
                             <table align="center" cellpadding="0" cellspacing="0" border="0">
                                 <tbody align="center">
                                 <tr>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ene_s}}%</b></div><div class="barrasv btn-primary text-10" style="height:{{$ene_s_p}}px;" onclick="mostra_ventas('1','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$feb_s}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$feb_s_p}}px;" onclick="mostra_ventas('2','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$mar_s}}%</b></div><div class="barrasv btn-info text-10" style="height:{{$mar_s_p}}px;" onclick="mostra_ventas('3','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$abr_s}}%</b></div><div class="barrasv btn-success text-10" style="height:{{$abr_s_p}}px;" onclick="mostra_ventas('4','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$may_s}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$may_s_p}}px;" onclick="mostra_ventas('5','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jun_s}}%</b></div><div class="barrasv btn-info text-10" style="height:{{$jun_s_p}}px;" onclick="mostra_ventas('6','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jul_s}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$jul_s_p}}px;" onclick="mostra_ventas('7','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ago_s}}%</b></div><div class="barrasv btn-success text-10" style="height:{{$ago_s_p}}px;" onclick="mostra_ventas('8','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$set_s}}%</b></div><div class="barrasv btn-primary text-10" style="height:{{$set_s_p}}px;" onclick="mostra_ventas('9','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$oct_s}}%</b></div><div class="barrasv btn-danger text-10" style="height:{{$oct_s_p}}px;" onclick="mostra_ventas('10','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$nov_s}}%</b></div><div class="barrasv btn-success text-10" style="height:{{$nov_s_p}}px;" onclick="mostra_ventas('11','S')">$12145</div></td>
-                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$dic_s}}%</b></div><div class="barrasv btn-warning text-10" style="height:{{$dic_s_p}}px;" onclick="mostra_ventas('12','S')">$12145</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ene_s}}%</b></div><div id="p_ene_s" class="barrasv btn-primary text-10" style="height:{{$ene_s_p}}px;" onclick="mostra_ventas('ene','s')">${{$arra_count_mes_s[1]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$feb_s}}%</b></div><div id="p_feb_s" class="barrasv btn-warning text-10" style="height:{{$feb_s_p}}px;" onclick="mostra_ventas('feb','s')">${{$arra_count_mes_s[2]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$mar_s}}%</b></div><div id="p_mar_s" class="barrasv btn-info text-10" style="height:{{$mar_s_p}}px;" onclick="mostra_ventas('mar','s')">${{$arra_count_mes_s[3]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$abr_s}}%</b></div><div id="p_abr_s" class="barrasv btn-success text-10" style="height:{{$abr_s_p}}px;" onclick="mostra_ventas('abr','s')">${{$arra_count_mes_s[4]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$may_s}}%</b></div><div id="p_may_s" class="barrasv btn-warning text-10" style="height:{{$may_s_p}}px;" onclick="mostra_ventas('may','s')">${{$arra_count_mes_s[5]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jun_s}}%</b></div><div id="p_jun_s" class="barrasv btn-info text-10" style="height:{{$jun_s_p}}px;" onclick="mostra_ventas('jun','s')">${{$arra_count_mes_s[6]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$jul_s}}%</b></div><div id="p_jul_s" class="barrasv btn-warning text-10" style="height:{{$jul_s_p}}px;" onclick="mostra_ventas('jul','s')">${{$arra_count_mes_s[7]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$ago_s}}%</b></div><div id="p_ago_s" class="barrasv btn-success text-10" style="height:{{$ago_s_p}}px;" onclick="mostra_ventas('ago','s')">${{$arra_count_mes_s[8]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$set_s}}%</b></div><div id="p_set_s" class="barrasv btn-primary text-10" style="height:{{$set_s_p}}px;" onclick="mostra_ventas('set','s')">${{$arra_count_mes_s[9]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$oct_s}}%</b></div><div id="p_oct_s" class="barrasv btn-danger text-10" style="height:{{$oct_s_p}}px;" onclick="mostra_ventas('oct','s')">${{$arra_count_mes_s[10]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$nov_s}}%</b></div><div id="p_nov_s" class="barrasv btn-success text-10" style="height:{{$nov_s_p}}px;" onclick="mostra_ventas('nov','s')">${{$arra_count_mes_s[11]}}</div></td>
+                                    <td valign="bottom"><div style="vertical-align:text-top"><b>{{$dic_s}}%</b></div><div id="p_dic_s" class="barrasv btn-warning text-10" style="height:{{$dic_s_p}}px;" onclick="mostra_ventas('dic','s')">${{$arra_count_mes_s[12]}}</div></td>
                                 </tr>
                                 <tr>
-                                    <td><b class="mes" onclick="mostra_ventas('1','S')">Ene</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('2','S')">Feb</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('3','S')">Mar</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('4','S')">Abr</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('5','S')">May</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('6','S')">Jun</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('7','S')">Jul</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('8','S')">Ago</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('9','S')">Set</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('10','S')">Oct</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('11','S')">Nov</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('12','S')">Dic</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('ene','s')">Ene</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('feb','s')">Feb</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('mar','s')">Mar</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('abr','s')">Abr</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('may','s')">May</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('jun','s')">Jun</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('jul','s')">Jul</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('ago','s')">Ago</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('set','s')">Set</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('oct','s')">Oct</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('nov','s')">Nov</b></td>
+                                    <td><b class="mes" onclick="mostra_ventas('dic','s')">Dic</b></td>
                                 </tr>
                                 </tbody>
                             </table>
                             <div class="col-lg-12">
-                                <h3>Lista de paquetes <span class="text-primary">Enero {{Date("Y")}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">12145</b></h3>
-                                <table id="enero1" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                                    <thead>
-                                    <tr>
-                                        <th>Paquete</th>
-                                        <th>Detalles</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Juan peres x 4 Enero 2017</td>
-                                        <td><span class="badge">5</span><span class="badge text-right">$ 12345</span></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div id="t_ene_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Enero {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[1]}}</b></h3>
+                                    <table id="ene_s" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==1)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_feb_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Febrero {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[2]}}</b></h3>
+                                    <table id="feb_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==2)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_mar_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Marzo {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[3]}}</b></h3>
+                                    <table id="mar_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==3)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_abr_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Abril {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[4]}}</b></h3>
+                                    <table id="abr_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==4)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_may_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Mayo {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[5]}}</b></h3>
+                                    <table id="may_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==5)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_jun_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Junio {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[6]}}</b></h3>
+                                    <table id="jun_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==6)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_jul_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Julio {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[7]}}</b></h3>
+                                    <table id="jul_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==7)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_ago_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Agosto {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[8]}}</b></h3>
+                                    <table id="ago_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==8)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_set_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Septiembre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[9]}}</b></h3>
+                                    <table id="set_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==9)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_oct_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Octubre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[10]}}</b></h3>
+                                    <table id="oct_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==10)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_nov_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Noviembre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[11]}}</b></h3>
+                                    <table id="nov_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==11)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="t_dic_s" class="row hide">
+                                    <h3>Lista de paquetes <span class="text-primary">Diciembre {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_s[12]}}</b></h3>
+                                    <table id="dic_s" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Paquete</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cotizacion_cat as $cotizacion_cat_)
+                                            @if($cotizacion_cat_->categorizado=='S')
+                                                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                                                    @if($clientes->estado==1)
+                                                        @php
+                                                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->nombres;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @php
+                                                    $fecha=explode('-',$cotizacion_cat_->fecha);
+                                                @endphp
+                                                @if(intval($fecha[1])==12)
+                                                    @php
+                                                        $total_utilidad=0;
+                                                    @endphp
+                                                    @foreach($cotizacion_cat_->paquete_cotizaciones as $paquete)
+                                                        @if($paquete->estado==2)
+                                                            @php $servicio = 0; @endphp
+                                                            @foreach($paquete->itinerario_cotizaciones as $itinerarios)
+                                                                @foreach($itinerarios->itinerario_servicios as $servicios)
+                                                                    @php
+                                                                        $servicio+= $servicios->precio
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endforeach
+                                                            @foreach($paquete->paquete_precios as $precio)
+                                                                @if($precio->estado==2)
+                                                                    @if($precio->personas_s > 0)
+                                                                        @php
+                                                                            $precio_s = (($precio->precio_s)* 1) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_s = $precio_s + $servicio;
+                                                                            $total_utilidad += $total_costo_s + ($total_costo_s * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_d > 0)
+                                                                        @php
+                                                                            $precio_d = (($precio->precio_d)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_d = $precio_d + $servicio;
+                                                                            $total_utilidad += $total_costo_d + ($total_costo_d * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_m > 0)
+                                                                        @php
+                                                                            $precio_m = (($precio->precio_m)* 2) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_m = $precio_m + $servicio;
+                                                                            $total_utilidad += $total_costo_m + ($total_costo_m * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                    @if($precio->personas_t > 0)
+                                                                        @php
+                                                                            $precio_t = (($precio->precio_t)* 3) * ($cotizacion_cat_->duracion - 1);
+                                                                            $total_costo_t = $precio_t + $servicio;
+                                                                            $total_utilidad += $total_costo_t + ($total_costo_t * (($precio->utilidad)/100));
+                                                                        @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{$dato_cliente}} x {{$cotizacion_cat_->nropersonas}} {{date_format(date_create($cotizacion_cat_->fecha), 'l jS F Y')}}</td>
+                                                        <td><span class="badge text-right">$ {{$total_utilidad}}</span></td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
