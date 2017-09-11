@@ -307,4 +307,9 @@ Route::get('admin/contabilidad/{id}', [
     'uses' => 'PackageCotizacionController@contabilidad',
     'as' => 'contabilidad_path',
 ]);
+Route::post('/admin/venta/categorizar', [
+    'uses' => 'PackageCotizacionController@categorizar',
+    'as' => 'categorizar_path',
+]);
+
 

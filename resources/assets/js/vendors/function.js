@@ -1264,8 +1264,8 @@ function eliminar_paquete(id,destino) {
     })
 }
 function mostra_ventas(mes,cat){
-    if(cat=='c') {
-        var =$("#t_ene_c").html()
+    // if(cat=='c') {
+        // var =$("#t_ene_c").html()
         $("#t_ene_c").addClass('hide');
         $("#t_feb_c").addClass('hide');
         $("#t_mar_c").addClass('hide');
@@ -1278,9 +1278,34 @@ function mostra_ventas(mes,cat){
         $("#t_oct_c").addClass('hide');
         $("#t_nov_c").addClass('hide');
         $("#t_dic_c").addClass('hide');
-        $("#t_"+mes+"_"+cat).removeClass('hide');
-    }
-    else if(cat=='s') {
+        $("#t_"+mes+"_c").removeClass('hide');
+        $("#n_mes_ene_c").removeClass('text-primary');
+        $("#n_mes_ene_c").removeClass('text-uppercase');
+        $("#n_mes_feb_c").removeClass('text-primary');
+        $("#n_mes_feb_c").removeClass('text-uppercase');
+        $("#n_mes_mar_c").removeClass('text-primary');
+        $("#n_mes_mar_c").removeClass('text-uppercase');
+        $("#n_mes_abr_c").removeClass('text-primary');
+        $("#n_mes_abr_c").removeClass('text-uppercase');
+        $("#n_mes_may_c").removeClass('text-primary');
+        $("#n_mes_may_c").removeClass('text-uppercase');
+        $("#n_mes_jun_c").removeClass('text-primary');
+        $("#n_mes_jun_c").removeClass('text-uppercase');
+        $("#n_mes_jul_c").removeClass('text-primary');
+        $("#n_mes_jul_c").removeClass('text-uppercase');
+        $("#n_mes_ago_c").removeClass('text-primary');
+        $("#n_mes_ago_c").removeClass('text-uppercase');
+        $("#n_mes_set_c").removeClass('text-primary');
+        $("#n_mes_set_c").removeClass('text-uppercase');
+        $("#n_mes_oct_c").removeClass('text-primary');
+        $("#n_mes_oct_c").removeClass('text-uppercase');
+        $("#n_mes_nov_c").removeClass('text-primary');
+        $("#n_mes_nov_c").removeClass('text-uppercase');
+        $("#n_mes_dic_c").removeClass('text-primary');
+        $("#n_mes_dic_c").removeClass('text-uppercase');
+        $("#n_mes_"+mes+"_c").addClass('text-primary');
+        $("#n_mes_"+mes+"_c").addClass('text-uppercase');
+
         $("#t_ene_s").addClass('hide');
         $("#t_feb_s").addClass('hide');
         $("#t_mar_s").addClass('hide');
@@ -1293,8 +1318,37 @@ function mostra_ventas(mes,cat){
         $("#t_oct_s").addClass('hide');
         $("#t_nov_s").addClass('hide');
         $("#t_dic_s").addClass('hide');
-        $("#t_"+mes+"_"+cat).removeClass('hide');
-    }
+        $("#t_"+mes+"_s").removeClass('hide');
+        $("#n_mes_ene_s").removeClass('text-primary');
+        $("#n_mes_ene_s").removeClass('text-uppercase');
+        $("#n_mes_feb_s").removeClass('text-primary');
+        $("#n_mes_feb_s").removeClass('text-uppercase');
+        $("#n_mes_mar_s").removeClass('text-primary');
+        $("#n_mes_mar_s").removeClass('text-uppercase');
+        $("#n_mes_abr_s").removeClass('text-primary');
+        $("#n_mes_abr_s").removeClass('text-uppercase');
+        $("#n_mes_may_s").removeClass('text-primary');
+        $("#n_mes_may_s").removeClass('text-uppercase');
+        $("#n_mes_jun_s").removeClass('text-primary');
+        $("#n_mes_jun_s").removeClass('text-uppercase');
+        $("#n_mes_jul_s").removeClass('text-primary');
+        $("#n_mes_jul_s").removeClass('text-uppercase');
+        $("#n_mes_ago_s").removeClass('text-primary');
+        $("#n_mes_ago_s").removeClass('text-uppercase');
+        $("#n_mes_set_s").removeClass('text-primary');
+        $("#n_mes_set_s").removeClass('text-uppercase');
+        $("#n_mes_oct_s").removeClass('text-primary');
+        $("#n_mes_oct_s").removeClass('text-uppercase');
+        $("#n_mes_nov_s").removeClass('text-primary');
+        $("#n_mes_nov_s").removeClass('text-uppercase');
+        $("#n_mes_dic_s").removeClass('text-primary');
+        $("#n_mes_dic_s").removeClass('text-uppercase');
+        $("#n_mes_"+mes+"_s").addClass('text-primary');
+        $("#n_mes_"+mes+"_s").addClass('text-uppercase');
+
+
+
+    // }
 
 
 }
@@ -1309,4 +1363,40 @@ function existe_ar(valor,arreglo) {
         o++;
     }
     return existe;
+}
+
+function categorizar(id,cate) {
+    var anio=$('#anio_s').html();
+    var texto='';
+    if(cate=='C')
+        texto='¿Esta seguro de asignar factura para esta venta?';
+    else
+        texto='¿Esta seguro de no asignar factura para esta venta?';
+
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: texto,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/venta/categorizar', 'id='+id+'&&cate='+cate, function(data) {
+            // console.log(data);
+            if(data==1){
+                window.location.href = anio;
+                // $("#lista_destinos_"+id).remove();
+                // $("#lista_venta_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
 }

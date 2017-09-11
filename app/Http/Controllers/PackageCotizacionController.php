@@ -468,6 +468,7 @@ class PackageCotizacionController extends Controller
 
             $cotizaciones=Cotizacion::FindOrFail($paquete1->cotizaciones_id);
             $cotizaciones->estado=2;
+            $cotizaciones->categorizado='N';
             $cotizaciones->save();
             $cotizacion=Cotizacion::where('id',$cotizaciones->id)->get();
 //            return view('admin.quotes-current-details',['cotizacion'=>$cotizacion]);
@@ -617,11 +618,17 @@ class PackageCotizacionController extends Controller
     }
     public function contabilidad($fecha)
     {
+        $cotizacion=Cotizacion::where('estado',2)->where('categorizado','N')->get();
+        $cotizacion_cat=Cotizacion::whereYear('fecha',$fecha)->where('estado',2)
+            ->whereBetween('categorizado',['C','S'])->get();
+
+
 //        año actual
 //        $cotizacion=Cotizacion::whereYear('updated_at',Date("Y"))->where('estado',2)->get();
 //        todos
-        $cotizacion=Cotizacion::where('estado',2)->where('categorizado',null)->get();
-        $cotizacion_cat=Cotizacion::whereYear('fecha',$fecha)->where('estado',2)->whereNotNull('categorizado')->get();
+//        $cotizacion=Cotizacion::where('estado',2)->wherenot('categorizado',null)->get();
+//        $cotizacion_cat=Cotizacion::whereYear('fecha',$fecha)->where('estado',2)
+//            ->whereBetween('categorizado',['C','S'])->get();
 //        $cotizacion_cat=Cotizacion::whereYear('fecha',$fecha_c)->where('estado',2)->where('categorizado','C')->get();
 //        $cotizacion_cat_s=Cotizacion::whereYear('fecha',$fecha_s)->where('estado',2)->where('categorizado','S')->get();
 
@@ -629,5 +636,23 @@ class PackageCotizacionController extends Controller
 //        dd($cotizacion);
         return view('admin.contabilidad.categorizacion',['cotizacion'=>$cotizacion,'cotizacion_cat'=>$cotizacion_cat,'fecha_pqt'=>$fecha]);
     }
+    public function categorizar(Request $request)
+    {
+        $id = $request->input('id');
+        $categoria = $request->input('cate');
+        $cotizacion=Cotizacion::FindOrFail($id);
+        $cotizacion->categorizado=$categoria;
+//        $fecha=$request->input('fecha');
+//        $cotizacion=Cotizacion::where('estado',2)->where('categorizado',null)->get();
+//        $cotizacion_cat=Cotizacion::whereYear('fecha',$fecha)->where('estado',2)->whereNotNull('categorizado')->get();
 
+//        return redirect()->route('contabilidad_path',$fecha);
+//return 1;
+
+        if($cotizacion->save())
+            return 1;
+        else
+            return0;
+
+    }
 }

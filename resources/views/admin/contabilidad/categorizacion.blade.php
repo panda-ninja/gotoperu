@@ -28,13 +28,14 @@
                             @endphp
                         @endif
                     @endforeach
-                        <tr>
+                        {{csrf_field()}}
+                        <tr id="lista_venta_{{$cotizacion_->id}}">
                             <td class="col-lg-10">
                                 <span class="badge">New: {{date_format(date_create($cotizacion_->updated_at), 'Y-m-d H:i:s')}} </span> {{$dato_cliente}} x {{$cotizacion_->nropersonas}} {{date_format(date_create($cotizacion_->fecha), 'l jS F Y')}}
                             </td>
                             <td class="col-lg-2 text-right">
-                                <button type="button" class="btn btn-primary" onclick="categorizar('C')">C</button>
-                                <button type="button" class="btn btn-success" onclick="categorizar('S')">S</button>
+                                <button type="button" class="btn btn-primary" onclick="categorizar('{{$cotizacion_->id}}','C')">C</button>
+                                <button type="button" class="btn btn-success" onclick="categorizar('{{$cotizacion_->id}}','S')">S</button>
                             </td>
                         </tr>
                 @endforeach
@@ -306,18 +307,18 @@
                                     <td valign="bottom"><div style="vertical-align:text-top"><b>{{$dic_c}}%</b></div><div id="p_dic_c" class="barrasv btn-warning text-10" style="height:{{$dic_c_p}}px;" onclick="mostra_ventas('dic','c')">${{$arra_count_mes_c[12]}}</div></td>
                                 </tr>
                                 <tr>
-                                    <td><b class="mes" onclick="mostra_ventas('ene','c')">Ene</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('feb','c')">Feb</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('mar','c')">Mar</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('abr','c')">Abr</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('may','c')">May</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('jun','c')">Jun</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('jul','c')">Jul</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('ago','c')">Ago</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('set','c')">Set</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('oct','c')">Oct</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('nov','c')">Nov</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('dic','c')">Dic</b></td>
+                                    <td><b id="n_mes_ene_c" class="mes" onclick="mostra_ventas('ene','c')">Ene</b></td>
+                                    <td><b id="n_mes_feb_c" class="mes" onclick="mostra_ventas('feb','c')">Feb</b></td>
+                                    <td><b id="n_mes_mar_c" class="mes" onclick="mostra_ventas('mar','c')">Mar</b></td>
+                                    <td><b id="n_mes_abr_c" class="mes" onclick="mostra_ventas('abr','c')">Abr</b></td>
+                                    <td><b id="n_mes_may_c" class="mes" onclick="mostra_ventas('may','c')">May</b></td>
+                                    <td><b id="n_mes_jun_c" class="mes" onclick="mostra_ventas('jun','c')">Jun</b></td>
+                                    <td><b id="n_mes_jul_c" class="mes" onclick="mostra_ventas('jul','c')">Jul</b></td>
+                                    <td><b id="n_mes_ago_c" class="mes" onclick="mostra_ventas('ago','c')">Ago</b></td>
+                                    <td><b id="n_mes_set_c" class="mes" onclick="mostra_ventas('set','c')">Set</b></td>
+                                    <td><b id="n_mes_oct_c" class="mes" onclick="mostra_ventas('oct','c')">Oct</b></td>
+                                    <td><b id="n_mes_nov_c" class="mes" onclick="mostra_ventas('nov','c')">Nov</b></td>
+                                    <td><b id="n_mes_dic_c" class="mes" onclick="mostra_ventas('dic','c')">Dic</b></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -643,7 +644,7 @@
                                     </tbody>
                                 </table>
                                 </div>
-                                <div id="t_mar_c" class="row hide">
+                                <div id="t_may_c" class="row hide">
                                     <h3>Lista de paquetes <span class="text-primary">Mayo {{$fecha_pqt}}</span> <b class="text-success text-25">$</b><b class="text-success text-25">{{$arra_count_mes_c[5]}}</b></h3>
                                     <table id="may_c" class="table table-striped table-bordered table-responsive " cellspacing="0" width="100%">
                                     <thead>
@@ -1319,18 +1320,18 @@
                                     <td valign="bottom"><div style="vertical-align:text-top"><b>{{$dic_s}}%</b></div><div id="p_dic_s" class="barrasv btn-warning text-10" style="height:{{$dic_s_p}}px;" onclick="mostra_ventas('dic','s')">${{$arra_count_mes_s[12]}}</div></td>
                                 </tr>
                                 <tr>
-                                    <td><b class="mes" onclick="mostra_ventas('ene','s')">Ene</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('feb','s')">Feb</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('mar','s')">Mar</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('abr','s')">Abr</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('may','s')">May</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('jun','s')">Jun</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('jul','s')">Jul</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('ago','s')">Ago</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('set','s')">Set</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('oct','s')">Oct</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('nov','s')">Nov</b></td>
-                                    <td><b class="mes" onclick="mostra_ventas('dic','s')">Dic</b></td>
+                                    <td><b id="n_mes_ene_s" class="mes" onclick="mostra_ventas('ene','s')">Ene</b></td>
+                                    <td><b id="n_mes_feb_s" class="mes" onclick="mostra_ventas('feb','s')">Feb</b></td>
+                                    <td><b id="n_mes_mar_s" class="mes" onclick="mostra_ventas('mar','s')">Mar</b></td>
+                                    <td><b id="n_mes_abr_s" class="mes" onclick="mostra_ventas('abr','s')">Abr</b></td>
+                                    <td><b id="n_mes_may_s" class="mes" onclick="mostra_ventas('may','s')">May</b></td>
+                                    <td><b id="n_mes_jun_s" class="mes" onclick="mostra_ventas('jun','s')">Jun</b></td>
+                                    <td><b id="n_mes_jul_s" class="mes" onclick="mostra_ventas('jul','s')">Jul</b></td>
+                                    <td><b id="n_mes_ago_s" class="mes" onclick="mostra_ventas('ago','s')">Ago</b></td>
+                                    <td><b id="n_mes_set_s" class="mes" onclick="mostra_ventas('set','s')">Set</b></td>
+                                    <td><b id="n_mes_oct_s" class="mes" onclick="mostra_ventas('oct','s')">Oct</b></td>
+                                    <td><b id="n_mes_nov_s" class="mes" onclick="mostra_ventas('nov','s')">Nov</b></td>
+                                    <td><b id="n_mes_dic_s" class="mes" onclick="mostra_ventas('dic','s')">Dic</b></td>
                                 </tr>
                                 </tbody>
                             </table>

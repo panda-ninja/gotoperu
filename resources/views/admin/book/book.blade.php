@@ -25,18 +25,23 @@
 
     <div class="row">
         <div class="col-md-4 no-padding box-list-book">
-            @foreach($paquete_cotizacion as $paquete_cotizaciones)
-                @foreach($cot_cliente->where('cotizaciones_id', $paquete_cotizaciones->cotizaciones_id) as $cot_clientes)
-                    @foreach($cliente->where('id', $cot_clientes->clientes_id) as $clientes)
+            @foreach($cotizacion_cat->sortByDesc('fecha') as $cotizacion_cat_)
+                @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
+                    @if($clientes->estado==1)
+                        @php
+                            $dato_cliente=$clientes->cliente->nombres.' '.$clientes->cliente->apellidos;
+                        @endphp
+                    @endif
+                @endforeach
                     <div class="content-list-book">
                         <div class="content-list-book-s">
-                            <a href="{{route('book_show_path', $paquete_cotizaciones->id)}}">
+                            <a href="{{route('book_show_path', $cotizacion_cat_->id)}}">
                                 <strong>
                                     <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
-                                    {{ucwords(strtolower($clientes->nombres))}} X{{$paquete_cotizaciones->cotizaciones->nropersonas}}: {{$paquete_cotizaciones->cotizaciones->duracion}} days: {{strftime("%d %B, %Y", strtotime(str_replace('-','/', $paquete_cotizaciones->cotizaciones->fecha)))}}
+                                    {{ucwords(strtolower($dato_cliente))}} X{{$cotizacion_cat_->nropersonas}}: {{$cotizacion_cat_->duracion}} days: {{strftime("%d %B, %Y", strtotime(str_replace('-','/', $cotizacion_cat_->fecha)))}}
                                 </strong>
                                 <small>
-                                    {{$paquete_cotizaciones->cotizaciones->precioventa}}$
+                                    {{$cotizacion_cat_->precioventa}}$
                                 </small>
                             </a>
                             <div class="icon">
@@ -44,9 +49,29 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                @endforeach
             @endforeach
+            {{--@foreach($paquete_cotizacion as $paquete_cotizaciones)--}}
+                {{--@foreach($cot_cliente->where('cotizaciones_id', $paquete_cotizaciones->cotizaciones_id) as $cot_clientes)--}}
+                    {{--@foreach($cliente->where('id', $cot_clientes->clientes_id) as $clientes)--}}
+                    {{--<div class="content-list-book">--}}
+                        {{--<div class="content-list-book-s">--}}
+                            {{--<a href="{{route('book_show_path', $paquete_cotizaciones->id)}}">--}}
+                                {{--<strong>--}}
+                                    {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+                                    {{--{{ucwords(strtolower($clientes->nombres))}} X{{$paquete_cotizaciones->cotizaciones->nropersonas}}: {{$paquete_cotizaciones->cotizaciones->duracion}} days: {{strftime("%d %B, %Y", strtotime(str_replace('-','/', $paquete_cotizaciones->cotizaciones->fecha)))}}--}}
+                                {{--</strong>--}}
+                                {{--<small>--}}
+                                    {{--{{$paquete_cotizaciones->cotizaciones->precioventa}}$--}}
+                                {{--</small>--}}
+                            {{--</a>--}}
+                            {{--<div class="icon">--}}
+                                {{--<a href=""><i class="fa fa-warning"></i></a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--@endforeach--}}
+                {{--@endforeach--}}
+            {{--@endforeach--}}
         </div>
         <div class="col-md-4 no-padding box-list-book">
 

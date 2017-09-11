@@ -13,11 +13,19 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="panel-title pull-left" style="font-size:30px;">Hidalgo <small>hidlgo@gmail.com</small></h1>
-                            <b class="text-warning padding-left-10"> (X2)</b>
-                            <i class="fa fa-male fa-2x"></i>
-                            <i class="fa fa-male fa-2x"></i>
-
+{{--                            {{dd($cotizacion)}}--}}
+                            @foreach($cotizacion->cotizaciones_cliente as $clientes)
+                                @if($clientes->estado==1)
+                                    @foreach($clientes->cliente as $cliente1)
+                                        {{--{{dd($cliente1->nombres)}}--}}
+                                        {{--<h1 class="panel-title pull-left" style="font-size:30px;">Hidalgo <small>hidlgo@gmail.com</small></h1>--}}
+                                        {{--<h1 class="panel-title pull-left" style="font-size:30px;">{{$cliente->nombres}} {{$cliente->apellidos}} x {{$cotizacion->nropersonas}} {{date_format(date_create($cotizacion->fecha), ' l jS F Y')}}</h1>--}}
+                                        <b class="text-warning padding-left-10"> (X2)</b>
+                                        <i class="fa fa-male fa-2x"></i>
+                                        <i class="fa fa-male fa-2x"></i>
+                                    @endforeach
+                                @endif
+                            @endforeach
                             <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hidalgo esta activo"></i>
                             <div class="dropdown pull-right">
                                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

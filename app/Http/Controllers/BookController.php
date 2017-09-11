@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Cotizacion;
 use App\CotizacionesCliente;
 use App\PaqueteCotizaciones;
 use Illuminate\Http\Request;
@@ -19,7 +20,10 @@ class BookController extends Controller
         $paquete_cotizacion = PaqueteCotizaciones::where('estado', 2)->get();
         $cot_cliente = CotizacionesCliente::with('cliente')->where('estado', 1)->get();
         $cliente = Cliente::get();
-        return view('admin.book.book', ['paquete_cotizacion'=>$paquete_cotizacion, 'cot_cliente'=>$cot_cliente, 'cliente'=>$cliente]);
+
+        $cotizacion_cat=Cotizacion::where('estado',2)
+            ->whereBetween('categorizado',['C','S'])->get();
+        return view('admin.book.book', ['paquete_cotizacion'=>$paquete_cotizacion, 'cot_cliente'=>$cot_cliente, 'cliente'=>$cliente,'cotizacion_cat'=>$cotizacion_cat]);
     }
 
     /**
@@ -51,7 +55,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        return view('admin.book.services');
+        $cotizacion=Cotizacion::FindOrFail($id);
+        return view('admin.book.services',['cotizacion'=>$cotizacion]);
     }
 
     /**
