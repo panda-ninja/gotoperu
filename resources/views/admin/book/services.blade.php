@@ -132,73 +132,109 @@
                         </thead>
                         <tbody>
                         @foreach($cotizacion->paquete_cotizaciones as $paquete)
-                            @foreach($paquete->itinerario_cotizaciones as $itinerario)
-                                <tr>
-                                    <td rowspan="4"><b>Day {{$itinerario->dias}}</b></td>
-                                </tr>
-                                <tr>
-                                @foreach($itinerario->itinerario_servicios as $servicios)
-                                        <td>{{$servicios->nombre}}</td>
-                                        <td class="text-right">{{$servicios->precio}} $</td>
-                                        <td class="text-right">{{$servicios->precio_proveedor}} $</td>
-                                        <td></td>
-                                        <td>Romario</td>
-                                        <td><i class="fa fa-check fa-2x text-success"></i></td>
+                            @if($paquete->estado==2)
+                                @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                                    @php
+                                        $nro_servicios=0;
+                                    @endphp
+                                    @foreach($itinerario->itinerario_servicios as $servicios)
+                                        @if($servicios->itinerario_proveedor)
+                                            @foreach($servicios->itinerario_proveedor as $proveedor)
+                                                @php
+                                                    $nro_servicios++;
+                                                @endphp
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    <tr>
+                                        <td rowspan="{{$nro_servicios}}"><b class="text-primary">Day {{$itinerario->dias}}</b></td>
+                                    </tr>
+
+                                    @foreach($itinerario->itinerario_servicios as $servicios)
+                                        <tr>
+                                            <td></td>
+                                            <td>{{$servicios->nombre}}</td>
+                                            <td class="text-right"><p><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio}} $</p><p><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas}} $</p></td>
+                                            <td class="text-right">{{$servicios->precio_proveedor}} $</td>
+                                            <td>Code verificacion</td>
+                                            <td>
+                                            @if($servicios->itinerario_proveedor)
+                                                @foreach($servicios->itinerario_proveedor as $proveedor)
+                                                    {{$proveedor->razon_social}}
+                                                @endforeach
+                                            @else
+                                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal">
+                                                    Proveedor
+                                                    </button>
+                                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                                </div>
+                                                                <div class="modal-body clearfix">
+                                                                    <div class="col-md-4">
+                                                                        <h4>Transder</h4>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <h4>Hotels</h4>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <h4>Tours</h4>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <h4>Transder</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            @endif
+                                            </td>
+                                            <td>
+                                                @if($servicios->itinerario_proveedor)
+                                                    @foreach($servicios->itinerario_proveedor as $proveedor)
+                                                        <i class="fa fa-check fa-2x text-success"></i>
+                                                    @endforeach
+                                                @else
+                                                    <i class="fa fa-clock-o fa-2x text-unset"></i>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
                                 @endforeach
-                                </tr>
-                            @endforeach
+                            @endif
                         @endforeach
 
-                            <tr>
-                                <td rowspan="4"><b>Day 1</b></td>
-                            </tr>
-                            <tr>
-                                <td>Transfers</td>
-                                <td class="text-right">1322.00 $</td>
-                                <td class="text-right">1234.00 $</td>
-                                <td>dfhdklhj</td>
-                                <td>Romario</td>
-                                <td><i class="fa fa-check fa-2x text-success"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Transfers</td>
-                                <td class="text-right">1322.00 $</td>
-                                <td class="text-right">343.00 $</td>
-                                <td>dfhdklhj</td>
-                                <td>
+                            {{--<tr>--}}
+                                {{--<td rowspan="4"><b>Day 1</b></td>--}}
+                            {{--</tr>--}}
+                            {{--<tr>--}}
+                                {{--<td>Transfers</td>--}}
+                                {{--<td class="text-right">1322.00 $</td>--}}
+                                {{--<td class="text-right">1234.00 $</td>--}}
+                                {{--<td>dfhdklhj</td>--}}
+                                {{--<td>Romario</td>--}}
+                                {{--<td><i class="fa fa-check fa-2x text-success"></i></td>--}}
+                            {{--</tr>--}}
+                            {{--<tr>--}}
+                                {{--<td>Transfers</td>--}}
+                                {{--<td class="text-right">1322.00 $</td>--}}
+                                {{--<td class="text-right">343.00 $</td>--}}
+                                {{--<td>dfhdklhj</td>--}}
+                                {{--<td>--}}
                                     {{--<a href="" class="btn btn-sm btn-warning">Proveedor</a>--}}
-                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal">
-                                        Proveedor
-                                    </button>
-                                </td>
-                                <td><i class="fa fa-warning fa-2x text-warning"></i></td>
-                                <!-- Modal -->
-                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                            </div>
-                                            <div class="modal-body clearfix">
-                                                <div class="col-md-4">
-                                                    <h4>Transder</h4>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h4>Hotels</h4>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h4>Tours</h4>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h4>Transder</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {{--<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal">--}}
+                                        {{--Proveedor--}}
+                                    {{--</button>--}}
+                                {{--</td>--}}
+                                {{--<td><i class="fa fa-warning fa-2x text-warning"></i></td>--}}
+                                {{--<!-- Modal -->--}}
 
-                            </tr>
+
+                            {{--</tr>--}}
 
                         </tbody>
                         <tbody>
@@ -207,7 +243,7 @@
                                 <td colspan="2"><b>Total</b></td>
                                 <td class="text-right text-18 text-warning"><b>1322.00 $</b></td>
                                 <td class="text-right text-18 text-info"><b>343.00 $</b></td>
-                                
+
                             </tr>
 
                         </tbody>
