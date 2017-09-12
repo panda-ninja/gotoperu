@@ -13,4 +13,8 @@ class Proveedor extends Model
     {
         return $this->hasMany(M_Producto::class, 'proveedor_id');
     }
+    public function servicios()
+    {
+        return $this->hasMany(ItinerarioServicios::class, 'proveedor_id');
+    }
 }

@@ -12,4 +12,8 @@ class ItinerarioServicios extends Model
     {
         return $this->belongsTo(ItinerarioCotizaciones::class, 'itinerario_cotizaciones_id');
     }
+    public function itinerario_proveedor()
+    {
+        return $this->belongsTo(Proveedor::class, 'proveedor_id');
+    }
 }

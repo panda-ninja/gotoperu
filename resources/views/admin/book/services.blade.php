@@ -13,18 +13,57 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-{{--                            {{dd($cotizacion)}}--}}
-                            @foreach($cotizacion->cotizaciones_cliente as $clientes)
-                                @if($clientes->estado==1)
-                                    @foreach($clientes->cliente as $cliente1)
-                                        {{--{{dd($cliente1->nombres)}}--}}
+                                @foreach($cotizacion->cotizaciones_cliente as $clientes)
+                                    @if($clientes->estado==1)
                                         {{--<h1 class="panel-title pull-left" style="font-size:30px;">Hidalgo <small>hidlgo@gmail.com</small></h1>--}}
-                                        {{--<h1 class="panel-title pull-left" style="font-size:30px;">{{$cliente->nombres}} {{$cliente->apellidos}} x {{$cotizacion->nropersonas}} {{date_format(date_create($cotizacion->fecha), ' l jS F Y')}}</h1>--}}
-                                        <b class="text-warning padding-left-10"> (X2)</b>
-                                        <i class="fa fa-male fa-2x"></i>
-                                        <i class="fa fa-male fa-2x"></i>
-                                    @endforeach
-                                @endif
+                                        <h2 class="panel-title pull-left" style="font-size:30px;">{{$clientes->cliente->nombres}} {{$clientes->cliente->apellidos}} x {{$cotizacion->nropersonas}} {{date_format(date_create($cotizacion->fecha), ' l jS F Y')}}</h2>
+                                        <b class="text-warning padding-left-10"> (X{{$cotizacion->nropersonas}})</b>
+                                        @if($cotizacion->nropersonas==1)
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @elseif($cotizacion->nropersonas==2)
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @elseif($cotizacion->nropersonas==3)
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @elseif($cotizacion->nropersonas==4)
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @elseif($cotizacion->nropersonas==5)
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @elseif($cotizacion->nropersonas==6)
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @elseif($cotizacion->nropersonas==7)
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @elseif($cotizacion->nropersonas==8)
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @endif
+                                    @endif
                             @endforeach
                             <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hidalgo esta activo"></i>
                             <div class="dropdown pull-right">
@@ -52,7 +91,7 @@
 
                         <div class="col-md-12">
                             <span class="pull-left pax-nav">
-                                <b>Travel date: 23 Jan</b>
+                                <b>Travel date: no se</b>
                             </span>
                             <span class="pull-right">
                                 {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>--}}
@@ -92,6 +131,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($cotizacion->paquete_cotizaciones as $paquete)
+                            @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                                <tr>
+                                    <td rowspan="4"><b>Day {{$itinerario->dias}}</b></td>
+                                </tr>
+                                <tr>
+                                @foreach($itinerario->itinerario_servicios as $servicios)
+                                        <td>{{$servicios->nombre}}</td>
+                                        <td class="text-right">{{$servicios->precio}} $</td>
+                                        <td class="text-right">{{$servicios->precio_proveedor}} $</td>
+                                        <td></td>
+                                        <td>Romario</td>
+                                        <td><i class="fa fa-check fa-2x text-success"></i></td>
+                                @endforeach
+                                </tr>
+                            @endforeach
+                        @endforeach
+
                             <tr>
                                 <td rowspan="4"><b>Day 1</b></td>
                             </tr>
