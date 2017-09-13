@@ -127,7 +127,6 @@
                                 <th>Real Price</th>
                                 <th>Verification Code</th>
                                 <th>Provider</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -147,46 +146,83 @@
                                         @endif
                                     @endforeach
                                     <tr>
-                                        <td rowspan="{{$nro_servicios}}"><b class="text-primary">Day {{$itinerario->dias}}</b></td>
+                                        {{--<td rowspan="{{$nro_servicios}}"><b class="text-primary">Day {{$itinerario->dias}}</b></td>--}}
+                                        <td ><b class="text-primary">Day {{$itinerario->dias}}</b></td>
+                                        <td colspan="5"></td>
                                     </tr>
 
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
-                                            <td></td>
                                             <td>{{$servicios->nombre}}</td>
                                             <td class="text-right"><p><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio}} $</p><p><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas}} $</p></td>
                                             <td class="text-right">{{$servicios->precio_proveedor}} $</td>
                                             <td>Code verificacion</td>
                                             <td>
                                             @if($servicios->itinerario_proveedor)
-                                                @foreach($servicios->itinerario_proveedor as $proveedor)
-                                                    {{$proveedor->razon_social}}
-                                                @endforeach
+                                                {{$servicios->itinerario_proveedor->razon_social}}
+                                                    {{--@foreach($$proveedores as $proveedor_)--}}
+                                                    {{--{{dd($servicios_->itinerario_proveedor)}}--}}
+                                                    {{--@if($servicios->itinerario_proveedor->proveedor_id=$proveedor->id)--}}
+                                                        {{--{{$proveedor->razon_social}}--}}
+                                                    {{--@endif--}}
+                                                {{--@endforeach--}}
                                             @else
-                                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal">
+                                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
                                                     Proveedor
                                                     </button>
-                                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal fade" id="myModal_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
+                                                                <form action="{{route('asignar_proveedor_path')}}" method="post">
                                                                 <div class="modal-header">
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                     <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                                                                 </div>
                                                                 <div class="modal-body clearfix">
-                                                                    <div class="col-md-4">
-                                                                        <h4>Transder</h4>
+                                                                    <div class="col-md-12">
+                                                                        @if($servicios->servicio)
+                                                                            @foreach($productos as $producto)
+                                                                            @if($producto->m_servicios_id==$servicios->m_servicios_id)
+                                                                                @if($producto->precio_grupo==1)
+                                                                                    @php
+                                                                                        $valor=$cotizacion->nropersonas;
+                                                                                    @endphp
+                                                                                    @else
+                                                                                        @php
+                                                                                            $valor=1;
+                                                                                        @endphp
+                                                                                @endif
+                                                                                    @if(($servicios->precio*$valor) < $producto->precio_costo)
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="checkbox11">
+                                                                                            <label class="text-danger">
+                                                                                                <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$producto->precio_costo}}">
+                                                                                                {{$producto->precio_costo}} by <span class="text-primary">{{$producto->proveedor->razon_social}}</span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    @else
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="checkbox11">
+                                                                                            <label class="text-green-goto">
+                                                                                                <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$producto->precio_costo}}">
+                                                                                                {{$producto->precio_costo}} by <span class="text-primary">{{$producto->proveedor->razon_social}}</span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endif
+                                                                            @endif
+                                                                            @endforeach
+                                                                        @endif
                                                                     </div>
-                                                                    <div class="col-md-4">
-                                                                        <h4>Hotels</h4>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <h4>Tours</h4>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <h4>Transder</h4>
-                                                                    </div>
+
                                                                 </div>
+                                                                <div class="modal-footer">
+                                                                    {{csrf_field()}}
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -194,9 +230,7 @@
                                             </td>
                                             <td>
                                                 @if($servicios->itinerario_proveedor)
-                                                    @foreach($servicios->itinerario_proveedor as $proveedor)
                                                         <i class="fa fa-check fa-2x text-success"></i>
-                                                    @endforeach
                                                 @else
                                                     <i class="fa fa-clock-o fa-2x text-unset"></i>
                                                 @endif

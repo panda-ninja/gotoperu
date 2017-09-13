@@ -311,5 +311,9 @@ Route::post('/admin/venta/categorizar', [
     'uses' => 'PackageCotizacionController@categorizar',
     'as' => 'categorizar_path',
 ]);
+Route::post('/admin/book/id', [
+    'uses' => 'BookController@asignar_proveedor',
+    'as' => 'asignar_proveedor_path',
+]);
 
 

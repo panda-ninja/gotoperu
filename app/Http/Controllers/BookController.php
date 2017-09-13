@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
+use App\ItinerarioServicios;
+use App\M_Producto;
 use App\PaqueteCotizaciones;
+use App\Proveedor;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -56,7 +59,9 @@ class BookController extends Controller
     public function show($id)
     {
         $cotizacion=Cotizacion::FindOrFail($id);
-        return view('admin.book.services',['cotizacion'=>$cotizacion]);
+        $productos=M_Producto::get();
+        $proveedores=Proveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
     }
 
     /**
@@ -91,5 +96,20 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
+    }
+    function asignar_proveedor(Request $request){
+        $dat=$request->input('precio')[0];
+//        dd($dat);
+        $dato=explode('_',$dat);
+//        dd($dato);
+//        $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
+//        $itinerario->precio_proveedor=$dato[3];
+//        $itinerario->proveedor_id=$dato[2];
+//        $itinerario->save();
+
+        $cotizacion=Cotizacion::FindOrFail($dato[0]);
+        $productos=M_Producto::get();
+        $proveedores=Proveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
     }
 }
