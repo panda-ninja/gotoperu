@@ -127,6 +127,7 @@
                                 <th>Real Price</th>
                                 <th>Verification Code</th>
                                 <th>Provider</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,11 +149,12 @@
                                     <tr>
                                         {{--<td rowspan="{{$nro_servicios}}"><b class="text-primary">Day {{$itinerario->dias}}</b></td>--}}
                                         <td ><b class="text-primary">Day {{$itinerario->dias}}</b></td>
-                                        <td colspan="5"></td>
+                                        <td colspan="6"></td>
                                     </tr>
 
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
+                                            <td></td>
                                             <td>{{$servicios->nombre}}</td>
                                             <td class="text-right"><p><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio}} $</p><p><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas}} $</p></td>
                                             <td class="text-right">{{$servicios->precio_proveedor}} $</td>
