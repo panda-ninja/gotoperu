@@ -102,10 +102,10 @@ class BookController extends Controller
 //        dd($dat);
         $dato=explode('_',$dat);
 //        dd($dato);
-//        $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
-//        $itinerario->precio_proveedor=$dato[3];
-//        $itinerario->proveedor_id=$dato[2];
-//        $itinerario->save();
+        $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
+        $itinerario->precio_proveedor=$dato[3];
+        $itinerario->proveedor_id=$dato[2];
+        $itinerario->save();
 
         $cotizacion=Cotizacion::FindOrFail($dato[0]);
         $productos=M_Producto::get();

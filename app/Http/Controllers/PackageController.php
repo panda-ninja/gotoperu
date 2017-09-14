@@ -220,6 +220,8 @@ class PackageController extends Controller
                 }
                 $st+=$p_servicio->precio;
                 $p_servicio->p_itinerario_id=$p_itinerario->id;
+                $p_servicio->m_servicios_id=$servicios->itinerario_servicios_servicio->id;
+
                 $p_servicio->save();
             }
             $p_itinerario->precio=$st;
@@ -423,6 +425,7 @@ class PackageController extends Controller
                 }
                 $st+=$p_servicio->precio;
                 $p_servicio->p_itinerario_id=$p_itinerario->id;
+                $p_servicio->m_servicios_id = $servicios->itinerario_servicios_servicio->id;
                 $p_servicio->save();
             }
             $p_itinerario->precio=$st;
@@ -600,6 +603,7 @@ class PackageController extends Controller
                 }
                 $st+=$p_servicio->precio;
                 $p_servicio->p_itinerario_id=$p_itinerario->id;
+                $p_servicio->m_servicios_id = $servicios->itinerario_servicios_servicio->id;
                 $p_servicio->save();
             }
             $p_itinerario->precio=$st;

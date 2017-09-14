@@ -52,7 +52,7 @@
                                         if($pos==0)
                                             $activo='active';
                                         ?>
-                                        <li class="{{$activo}}"><a data-toggle="tab" href="#t_{{$tipoServicio_}}" onclick="escojerPos({{$pos++}})">{{$tipoServicio_}}</a></li>
+                                        <li class="{{$activo}}"><a data-toggle="tab" href="#t_{{$tipoServicio_}}" onclick="escojerPos({{$pos++}},'{{$tipoServicio_}}')">{{$tipoServicio_}}</a></li>
                                 @endforeach
 
                             </ul>

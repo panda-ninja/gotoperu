@@ -288,8 +288,10 @@ class PackageCotizacionController extends Controller
                 $st+=$p_servicio->precio;
                 $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
 //                $p_servicio->user_id=auth()->guard('admin')->user()->id;
+                $p_servicio->precio_grupo=$servicios->itinerario_servicios_servicio->precio_grupo;
                 $p_servicio->user_id=1;
                 $p_servicio->estado=1;
+                $p_servicio->m_servicios_id=$servicios->m_servicios_id;
                 $p_servicio->save();
             }
             $p_itinerario->precio=$st;
@@ -559,7 +561,7 @@ class PackageCotizacionController extends Controller
                                 $new_servicio->estado_error=0;
                             }
                             else{
-                                $new_servicio->mensaje_error='Borre este servicio, agrege uno de acuerdo a la cantidad({{$cotizaion->nropersonas}}) de pasajero';
+                                $new_servicio->mensaje_error='Borre este servicio, agrege uno de acuerdo a la cantidad('.$cotizaion->nropersonas.') de pasajero';
                                 $new_servicio->estado_error=1;
                             }
                         }else{
@@ -568,7 +570,9 @@ class PackageCotizacionController extends Controller
                         }
                         $new_servicio->itinerario_cotizaciones_id=$new_itinerario->id;
 //                        $new_servicio->user_id=auth()->guard('admin')->user()->id;
+                        $new_servicio->precio_grupo=$serivicio->precio_grupo;
                         $new_servicio->user_id=1;
+                        $new_servicio->m_servicios_id=$serivicio->m_servicios_id;
                         $new_servicio->save();
                     }
                 }
