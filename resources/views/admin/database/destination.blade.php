@@ -108,6 +108,7 @@
                                             <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
                                         </div>
                                     </div>
+
                                 </div>
 
                         </div>

@@ -36,7 +36,21 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="txt_nombre">Nombre</label>
-                                        <input type="text" class="form-control" id="txt_nombre" name="txt_nombre" placeholder="Nombre de la categoria">
+                                        <input type="text" class="form-control" id="txt_nombre" name="txt_nombre" placeholder="Nombre de la categoria" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label  for="txt_imagen">Periodo de pago</label>
+                                        <input class="form-control" type="number" name="periodo" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group margin-top-25">
+                                        <select class="custom-select form-control" id="tipo_periodo" name="tipo_periodo"  required>
+                                            <option value="Antes">Antes</option>
+                                            <option value="Despues">Despues</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -57,6 +71,7 @@
             <tr>
                 <th>#</th>
                 <th>Nombre</th>
+                <th>Periodo pago</th>
                 <th>Operaciones</th>
             </tr>
             </thead>
@@ -64,6 +79,7 @@
             <tr>
                 <th>#</th>
                 <th>Nombre</th>
+                <th>Periodo pago</th>
                 <th>Operaciones</th>
             </tr>
             </tfoot>
@@ -73,6 +89,7 @@
                 <tr id="lista_categoria_{{$categoria->id}}">
                     <td>{{$i++}}</td>
                     <td>{{$categoria->nombre}}</td>
+                    <td>{{$categoria->periodo}} {{$categoria->tipo_periodo}}</td>
                     <td>
                         <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_categoria_{{$categoria->id}}">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -104,6 +121,20 @@
                                         <div class="form-group">
                                             <label for="txt_nombre">Nombre</label>
                                             <input type="text" class="form-control" id="txt_nombre" name="txt_nombre" placeholder="Codigo" value="{{$categoria->nombre}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label  for="txt_imagen">Periodo de pago</label>
+                                            <input class="form-control" type="number" name="periodo" min="1"  value="{{$categoria->periodo}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group margin-top-25">
+                                            <select class="custom-select form-control" id="tipo_periodo" name="tipo_periodo" required>
+                                                <option @if($categoria->tipo_periodo=='Antes') {{selected}}@endif value="Antes">Antes</option>
+                                                <option @if($categoria->tipo_periodo=='Despues') {{selected}}@endif value="Despues">Despues</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

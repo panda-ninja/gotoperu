@@ -18,6 +18,7 @@
     <script src="{{asset("https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.js")}}"></script>
     @yield('archivos-js')
     <script src="{{asset("js/admin/plugins.js")}}"></script>
+
 </head>
 <body>
 
