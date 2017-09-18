@@ -91,24 +91,23 @@
                @endif
 
                 {{--<img src="{{asset('img/itinerary/'.str_replace(' ','-',$itinerario->titulo).'')}}.jpg" class="responsive-img" alt="">--}}
-                <h4>Servicios:</h4>
-                <table class="table-price-accommodation margin-bottom-20">
-                <thead>
-                <tr>
-                <th data-field="id">Concepto</th>
-                <th data-field="name">Observaciones</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                @foreach($itinerario->itinerario_servicios as $servicios)
-                <tr>
-                <td class="text-align-left">{{$servicios->nombre}}</td>
-                <td>{{$servicios->observacion}}</td>
-                </tr>
-                @endforeach
-                </tbody>
-                </table>
+                {{--<h4>Servicios:</h4>--}}
+                {{--<table class="table-price-accommodation margin-bottom-20">--}}
+                {{--<thead>--}}
+                {{--<tr>--}}
+                {{--<th data-field="id">Concepto</th>--}}
+                {{--<th data-field="name">Observaciones</th>--}}
+                {{--</tr>--}}
+                {{--</thead>--}}
+                {{--<tbody>--}}
+                {{--@foreach($itinerario->itinerario_servicios as $servicios)--}}
+                {{--<tr>--}}
+                {{--<td class="text-align-left">{{$servicios->nombre}}</td>--}}
+                {{--<td>{{$servicios->observacion}}</td>--}}
+                {{--</tr>--}}
+                {{--@endforeach--}}
+                {{--</tbody>--}}
+                {{--</table>--}}
 
             @endforeach
         </div>
