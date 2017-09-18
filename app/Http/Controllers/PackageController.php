@@ -56,7 +56,6 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-
         $txt_day=strtoupper(($request->input('txt_day')));
         $txt_code=strtoupper(($request->input('txt_codigo')));
         $txt_title=strtoupper(($request->input('txt_title')));
@@ -182,7 +181,7 @@ class PackageController extends Controller
             $m_itineario=M_Itinerario::FindOrFail($itinerario_id);
             $p_itinerario=new P_Itinerario();
             $p_itinerario->titulo=$m_itineario->titulo;
-            $p_itinerario->descripcion=$m_itineario->titulo;
+            $p_itinerario->descripcion=$m_itineario->descripcion;
             $p_itinerario->dias=$dia_;
             $p_itinerario->precio=$m_itineario->precio;
             $p_itinerario->imagen=$m_itineario->imagen;
