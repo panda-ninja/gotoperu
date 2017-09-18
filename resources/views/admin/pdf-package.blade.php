@@ -1,12 +1,23 @@
 @extends('layouts.quotes_pdf')
 
 @section('content')
+    @php
+        $datos_cliente='Traveller';
+    @endphp
     <div class="firstpage">
-        <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" class="responsive-img position-absolute" alt="">
+        <img src="{{asset('img/portada/proposal-pdf.jpg')}}" class="responsive-img position-absolute" alt="">
     </div>
+    <div class="bienvenida">
+        <h1>Dear {{$datos_cliente}}</h1>
+        <b class="text-justify text-white text-20">
+            Thank your for choosing GotoPeru! we have created the following travel plans for you to review. I hope you find everything to your satistaction and please remember that we can further customize any aspect of your itinerary.</b>
+    </div>
+    {{--<div class="firstpage">--}}
+        {{--<img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" class="responsive-img position-absolute" alt="">--}}
+    {{--</div>--}}
         <div class="text-center">
             <h2><b>Package Travel: {{$paquete->titulo}}</b></h2>
-            <p><b>Package Code:</b> {{$paquete->codigo}} | <b>Package Duration:</b> {{$paquete->duracion}} | <b>Numero de pasajeros:</b> 1</p>
+            <p><b>Package Code:</b> {{$paquete->codigo}} | <b>Travel Lenght:</b> {{$paquete->duracion}} | <b># Travellers:</b> 1</p>
         </div>
         <div>
             <h3>Outline</h3>
@@ -15,9 +26,9 @@
             @endforeach
         </div>
         <div>
-            <h3>Incluye</h3>
+            <h3>Included</h3>
             <p>{{$paquete->incluye}}</p>
-            <h3>No Incluye</h3>
+            <h3>Not Included</h3>
             <p>{{$paquete->noincluye}}</p>
         </div>
         <div>
@@ -29,29 +40,29 @@
                     <img
                             src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}" class="responsive-img" alt="">
                 @endif
-                <h4>Servicios:</h4>
-                <table class="table-price-accommodation margin-bottom-20">
-                    <thead>
-                    <tr>
-                        <th data-field="id">Concepto</th>
-                        <th data-field="name">Observaciones</th>
-                    </tr>
-                    </thead>
+                {{--<h4>Servicios:</h4>--}}
+                {{--<table class="table-price-accommodation margin-bottom-20">--}}
+                    {{--<thead>--}}
+                    {{--<tr>--}}
+                        {{--<th data-field="id">Concepto</th>--}}
+                        {{--<th data-field="name">Observaciones</th>--}}
+                    {{--</tr>--}}
+                    {{--</thead>--}}
 
-                    <tbody>
-                    @foreach($itinerario->serivicios as $servicios)
-                        <tr>
-                            <td class="text-align-left">{{$servicios->nombre}}</td>
-                            <td>{{$servicios->observacion}}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                    {{--<tbody>--}}
+                    {{--@foreach($itinerario->serivicios as $servicios)--}}
+                        {{--<tr>--}}
+                            {{--<td class="text-align-left">{{$servicios->nombre}}</td>--}}
+                            {{--<td>{{$servicios->observacion}}</td>--}}
+                        {{--</tr>--}}
+                    {{--@endforeach--}}
+                    {{--</tbody>--}}
+                {{--</table>--}}
 
             @endforeach
         </div>
         <div>
-            <h3><b>Destinos incluidos:</b></h3>
+            <h3><b>Destinations:</b></h3>
             @php
                 $array_destinos[]=null
             @endphp
@@ -83,8 +94,9 @@
             {{--@endforeach--}}
         </div>
         <div>
-            <h3><b>Precios:</b></h3>
-            <p>Los precios son por persona. La cotizacion fue realizado para <b class="blue-text">{{1}} person</b>.</p>
+            <h3><b>Price:</b></h3>
+            <p>The Prices are per person under USD $ dollars.
+                {{--<b class="blue-text">{{1}} person</b>.</p>--}}
             @php $servicio = 0; @endphp
             @foreach($paquete->itinerarios as $paquete_itinerario)
                 @foreach($paquete_itinerario->serivicios as $orden_cotizaciones)
@@ -97,11 +109,11 @@
             @foreach($paquete->precios as $precio_paquete2)
                 @if($precio_paquete2->estado == 1)
                     <div>
-                        <h5 class="no-margin"><b>CATEGORIA: {{$precio_paquete2->estrellas}} ESTRELLAS</b></h5>
+                        <h5 class="no-margin"><b>CATEGORY: {{$precio_paquete2->estrellas}} ESTRELLAS</b></h5>
                         <table class="table-price-accommodation margin-bottom-20">
                             <thead>
                             <tr>
-                                <th>Acomodacion</th>
+                                <th>Acomodation</th>
                                 <th class="text-right">Total ($)</th>
                             </tr>
                             @if($precio_paquete2->personas_s > 0)

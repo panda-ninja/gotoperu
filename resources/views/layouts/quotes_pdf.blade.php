@@ -15,7 +15,5 @@
     <p class="text-10 margin-top-20"><span>Go to Peru once in your lifetime !</span></p>
 </div>
 @yield('content')
-
-
 </body>
 </html>
