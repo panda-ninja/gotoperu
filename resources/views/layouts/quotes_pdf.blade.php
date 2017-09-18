@@ -10,8 +10,8 @@
 </head>
 <body>
 <div class="footer text-center text-12">
-    <p class="page">Página </p>
-    <p>GotoPeru.travel</p>
+    <p class="page">Páge </p>
+    <p>GotoPeru.com</p>
     <p class="text-10 margin-top-20"><span>Go to Peru once in your lifetime !</span></p>
 </div>
 @yield('content')

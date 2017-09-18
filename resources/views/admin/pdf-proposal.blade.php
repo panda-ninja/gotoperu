@@ -60,7 +60,7 @@
 
         <div class="text-center">
             <h2><b>Package Travel: {{$paquete->titulo}}</b></h2>
-            <p><b>Package Code:</b> {{$paquete->codigo}} | <b>Package Duration:</b> {{$paquete->duracion}} | <b>Numero de pasajeros:</b> {{$pasajeros}}</p>
+            <p><b>Package Code:</b> {{$paquete->codigo}} | <b>Travel Lenght:</b> {{$paquete->duracion}} | <b># Travellers:</b> {{$pasajeros}}</p>
         </div>
         {{--<div>--}}
         {{--<p>{{$paquete->descripcion}}</p>--}}
@@ -72,9 +72,9 @@
             @endforeach
         </div>
         <div>
-            <h3>Incluye</h3>
+            <h3>Included</h3>
             <p>{{$paquete->incluye}}</p>
-            <h3>No Incluye</h3>
+            <h3>Not Included</h3>
             <p>{{$paquete->noincluye}}</p>
             {{--<h3>Opcional</h3>--}}
             {{--<p>{{$paquete->opcional}}</p>--}}
@@ -113,7 +113,7 @@
         </div>
 
         <div>
-            <h3><b>Destinos incluidos:</b></h3>
+            <h3><b>Destinations:</b></h3>
             @php
                 $array_destinos[]=null
             @endphp
@@ -146,8 +146,9 @@
         </div>
 
         <div>
-            <h3><b>Precios:</b></h3>
-            <p>Los precios son por persona. La cotizacion fue realizado para <b class="blue-text">{{$pasajeros}} personas</b>.</p>
+            <h3><b>Price:</b></h3>
+            <p>The Prices are per person under USD $ dollars.
+                {{--<b class="blue-text hide">{{$pasajeros}} traveller</b>.</p>--}}
             @php $servicio = 0; @endphp
             @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
                 @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
@@ -161,11 +162,11 @@
                 @if($precio_paquete2->estado == 1)
 
                     <div>
-                        <h5 class="no-margin"><b>CATEGORIA: {{$precio_paquete2->estrellas}} ESTRELLAS</b></h5>
+                        <h5 class="no-margin"><b>CATEGORY: {{$precio_paquete2->estrellas}} STARS</b></h5>
                         <table class="table-price-accommodation margin-bottom-20">
                             <thead>
                             <tr>
-                                <th>Acomodacion</th>
+                                <th>Acomodation</th>
                                 <th class="text-right">Total ($)</th>
                             </tr>
                             @if($precio_paquete2->personas_s > 0)
