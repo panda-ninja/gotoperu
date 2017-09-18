@@ -1,18 +1,59 @@
 @extends('layouts.quotes_pdf')
 
 @section('content')
-    <div class="firstpage">
-        <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" class="responsive-img position-absolute" alt="">
-    </div>
+    @php
+    $datos_cliente='hola';
+    @endphp
+        @foreach($cotizacion as $cotizaciones)
+            @php $pasajeros = $cotizaciones->nropersonas; @endphp
+            @foreach($cotizaciones->cotizaciones_cliente as $cliente_cotizaciones)
+                @if($cliente_cotizaciones->estado == 1)
+                    @php
+                        $datos_cliente=$cliente_cotizaciones->cliente->nombres.', '.$cliente_cotizaciones->cliente->apellidos;
+                    @endphp
+                @endif
+            @endforeach
+        @endforeach
+        <div class="firstpage">
+            <img src="{{asset('img/portada/proposal-pdf.jpg')}}" class="responsive-img position-absolute" alt="">
+        </div>
+        <div class="bienvenida">
+            <h1>Dear {{$datos_cliente}}</h1>
+            <b class="text-justify text-white text-20">
+            Thank your for choosing GotoPeru! we have created the following travel plans for you to review. I hope you find everything to your satistaction and please remember that we can further customize any aspect of your itinerary.</b>
+        </div>
+        {{--<div class="pie">--}}
+            {{--<div class="col-lg-2">--}}
+                {{--<div class="row">--}}
+                    {{--<p class="text-grey-goto text-15">--}}
+                        {{--<span>Juan Perez</span><br>--}}
+                        {{--<span>TRAVEL ADVISOR</span>--}}
+                    {{--</p>--}}
+                    {{--<p class="text-grey-goto">--}}
+                        {{--<span>doriam@gotoperu.com</span><br>--}}
+                        {{--<span>(202) 996-3000</span>--}}
+                    {{--</p>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="cabecera_pdf">--}}
+        {{--</div>--}}
+        {{--<div class="cuerpo_pdf">--}}
+            {{--<h1>Dear {{$datos_cliente}}</h1>--}}
+            {{--<span>Thank your choosing GotoPeru! We have created the following travel plans for you to review. I hope you find everything to your satifaction and please remmember </span>--}}
+        {{--</div>--}}
+        {{--<div class="pie_pdf">--}}
+            {{--<img src="{{asset('img/portada/proposal-pie-pdf.jpg')}}" class="responsive-img position-absolute" alt="">--}}
+        {{--</div>--}}
+
 
     @foreach($paquete as $paquete)
-
         @foreach($cotizacion as $cotizaciones)
             @php $pasajeros = $cotizaciones->nropersonas; @endphp
             @foreach($cotizaciones->cotizaciones_cliente as $cliente_cotizaciones)
 {{--                {{dd($cliente_cotizaciones->cliente)}}--}}
                 @if($cliente_cotizaciones->estado == 1)
-                    <b>Cliente: {{$cliente_cotizaciones->cliente->nombres}} X {{$pasajeros}}</b>
+{{--                    <b>Cliente: {{$cliente_cotizaciones->cliente->nombres}} X {{$pasajeros}}</b>--}}
                 @endif
             @endforeach
         @endforeach

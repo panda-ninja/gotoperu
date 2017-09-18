@@ -49,6 +49,9 @@ b{
 .text-12{
     font-size: 12px;
 }
+.text-20{
+    font-size: 20px;
+}
 .text-center{
     text-align: center;
 }
@@ -66,7 +69,7 @@ b{
 }
 .firstpage{
     position: absolute;
-    page-break-after: always;
+    /*page-break-after: always;*/
     top: -50px;
     left: -50px;
     width: 115%;
@@ -143,3 +146,45 @@ b{
     width: 100%;
 }
 /*# sourceMappingURL=quotes-pdf.css.map */
+.cabecera_pdf{
+    position: absolute;
+    background:url("img/portada/proposal-cabecera-pdf.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0px;
+    /*page-break-after: always;*/
+    top: -50px;
+    left: -50px;
+    height: 500px;
+    width: 900px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+}
+.cuerpo_pdf{
+    height: 200px;
+    background: #2c2c2c;
+}
+.pie_pdf{
+//background:url("img/portada/proposal-pie-pdf.jpg");
+    margin: 0px;
+    padding: 100px;
+    height: 300px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+}
+.bienvenida{
+    position: absolute;
+    page-break-after: always;
+    top: 350px;
+    margin: 50px;
+    color: white;
+}
+.pie{
+    position: absolute;
+    page-break-after: always;
+    top: 920px;
+    text-align: right;
+}
