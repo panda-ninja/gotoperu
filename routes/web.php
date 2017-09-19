@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('admin.index');
-});
-
+//Route::get('/', function () {
+//    return view('admin.index');
+//});
+Route::get('/', [
+    'uses' => 'IndexController@index',
+    'as' => 'index_path',
+]);
 Route::get('admin/package', [
     'uses' => 'PackageController@create',
     'as' => 'package_create_path',

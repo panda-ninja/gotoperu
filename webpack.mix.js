@@ -23,7 +23,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     // .sass('resources/assets/sass/sweetalert2.css', 'public/css/admin');
 
 //---mix cpy
-// mix.copy('node_modules/sweetalert2/dist/sweetalert2.js', 'resources/assets/js/vendors/sweetalert2.js');
+// mix.copy('node_modules/chart.js/dist/Chart.js', 'resources/assets/js/vendors/Chart.js');
 // mix.copy('node_modules/datatables.net/js/jquery.dataTables.js', 'resources/assets/js/vendors/jquery.dataTables.js');
 // mix.copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'resources/assets/js/vendors/dataTables.bootstrap.js');
 //---js admin
@@ -36,6 +36,7 @@ mix.scripts([
     // 'resources/assets/js/vendors/jquery.dataTables.js',
     // 'resources/assets/js/vendors/dataTables.bootstrap.js',
     'resources/assets/js/vendors/function.js',
+    // 'resources/assets/js/vendors/Chart.js',
 ], 'public/js/admin/plugins.js');
 
 //---js web
