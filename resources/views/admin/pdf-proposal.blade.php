@@ -213,28 +213,28 @@
                                     $precio_d = 0;
                                 @endphp
                             @endif
-                            {{--@if($precio_paquete2->personas_m > 0)--}}
-                                {{--<tr>--}}
-                                    {{--<td class="text-left"><b>Matrimonial</b></td>--}}
-                                    {{--<td class="text-right">--}}
-                                        {{--@php--}}
-                                            {{--$precio_m = ceil(($precio_paquete2->precio_m)* (1/2)) * ($paquete->duracion - 1);--}}
-                                            {{--$total_costo = $precio_m + $total;--}}
-                                            {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
-                                        {{--@endphp--}}
-                                        {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--<tr>--}}
-                                {{--<td colspan="2">--}}
-                                {{--<i class="text-11">- {{$precio_paquete2->personas_m}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_m * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_m * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>--}}
-                                {{--</td>--}}
-                                {{--</tr>--}}
-                            {{--@else--}}
-                                {{--@php--}}
-                                    {{--$precio_m = 0;--}}
-                                {{--@endphp--}}
-                            {{--@endif--}}
+                            @if($precio_paquete2->personas_m > 0)
+                                <tr>
+                                    <td class="text-left"><b>Matrimonial</b></td>
+                                    <td class="text-right">
+                                        @php
+                                            $precio_m = ceil(($precio_paquete2->precio_m)* (1/2)) * ($paquete->duracion - 1);
+                                            $total_costo = $precio_m + $total;
+                                            $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
+                                        @endphp
+                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                <td colspan="2">
+                                <i class="text-11">- {{$precio_paquete2->personas_m}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_m * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_m * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>
+                                </td>
+                                </tr>
+                            @else
+                                @php
+                                    $precio_m = 0;
+                                @endphp
+                            @endif
                             @if($precio_paquete2->personas_t > 0)
                                 <tr>
                                     <td class="text-left"><b>Triple</b></td>
