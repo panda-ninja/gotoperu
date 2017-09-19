@@ -225,11 +225,11 @@
                                         {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
-                                <tr>
-                                <td colspan="2">
-                                <i class="text-11">- {{$precio_paquete2->personas_m}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_m * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_m * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>
-                                </td>
-                                </tr>
+                                {{--<tr>--}}
+                                {{--<td colspan="2">--}}
+                                {{--<i class="text-11">- {{$precio_paquete2->personas_m}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_m * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_m * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>--}}
+                                {{--</td>--}}
+                                {{--</tr>--}}
                             @else
                                 @php
                                     $precio_m = 0;
