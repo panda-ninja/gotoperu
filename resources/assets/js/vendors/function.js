@@ -54,7 +54,7 @@ function Pasar_datos(){
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
             var precio_grupo=0;
-            Itis_precio += parseInt(itinerario[4]);
+            Itis_precio += parseFloat(itinerario[4]);
             // if(parseInt(itinerario[4])==0) {
             //     Itis_precio += parseInt(itinerario[4]);
             //     precio_grupo=parseInt(itinerario[4]);
@@ -67,7 +67,7 @@ function Pasar_datos(){
             var servicios=itinerario[5].split('*');
             $.each(servicios, function( key, value ) {
                 var serv=value.split('//');
-                var val_p_g=parseInt(serv[1]);
+                var val_p_g=parseFloat(serv[1]);
                 // if(serv[2]==1)
                 //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
                 // precio_grupo+=val_p_g;
@@ -83,7 +83,7 @@ function Pasar_datos(){
                 '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
             '</a>'+
         '</span>'+
-        '<span class="label label-success pull-right">($'+itinerario[4]+'.00)</span>'+
+        '<span class="label label-success pull-right">($'+itinerario[4]+')</span>'+
                     '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
                 '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
                     itinerario[3]+
@@ -502,7 +502,7 @@ function sumar_servicios(grupo){
             var dato1=dato.split('_');
             // console.log(dato1[1]);
             if(dato1[0]==grupo) {
-                total_ci += parseInt(dato1[1]);
+                total_ci += parseFloat(dato1[1]);
             }
             // console.log($(this).val());
         }

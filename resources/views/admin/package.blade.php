@@ -105,7 +105,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <b class="font-montserrat">COST WITHOUT HOTELS $ <label  id="totalItinerario_front">0</label>.00 P.P</b>
+                        <b class="font-montserrat">COST WITHOUT HOTELS $ <label  id="totalItinerario_front">0</label> P.P</b>
                     </div>
                 </div>
             </div>
@@ -127,8 +127,8 @@
                                     <?php
                                         if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                             if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                                $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/2);
-                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/2,2);
+                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/2,2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                             }
                                             else{
                                                 $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
@@ -173,7 +173,7 @@
                                         <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
                                         <td>
                                             @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                                                {{ceil($servicios->itinerario_servicios_servicio->precio_venta/2)}}
+                                                {{round($servicios->itinerario_servicios_servicio->precio_venta/2,2)}}
                                             @else
                                                 {{$servicios->itinerario_servicios_servicio->precio_venta}}
                                             @endif

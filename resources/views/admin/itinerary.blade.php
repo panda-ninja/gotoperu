@@ -850,29 +850,36 @@
                     </td>
                     <td class="col-lg-3">
                         @foreach($itinerario->itinerario_itinerario_servicios as $it_iti_servicio)
+                            <?php
+                            if($it_iti_servicio->itinerario_servicios_servicio->grupo!='HOTELS'){
+                                $p_venta=$it_iti_servicio->itinerario_servicios_servicio->precio_venta;
+                                if($it_iti_servicio->itinerario_servicios_servicio->precio_grupo==1)
+                                    $p_venta=round($it_iti_servicio->itinerario_servicios_servicio->precio_venta/2,2);
+                            }
+                            ?>
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='TOURS')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-map-o" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-map-o" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='MOVILID')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-bus" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-bus" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='REPRESENT')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-users" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-users" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='ENTRANCES')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-ticket" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-ticket" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='FOOD')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-cutlery" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-cutlery" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='TRAINS')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-train" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-train" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='FLIGHTS')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-plane" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-plane" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
                             @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='OTHERS')
-                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-question" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}}</p>
+                                <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-question" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
                             @endif
 
                         @endforeach
@@ -886,7 +893,7 @@
                                     if($it_iti_servicio->itinerario_servicios_servicio->grupo!='HOTELS'){
                                         $p_venta=$it_iti_servicio->itinerario_servicios_servicio->precio_venta;
                                         if($it_iti_servicio->itinerario_servicios_servicio->precio_grupo==1)
-                                            $p_venta=ceil(ceil($it_iti_servicio->itinerario_servicios_servicio->precio_venta)/2);
+                                            $p_venta=round($it_iti_servicio->itinerario_servicios_servicio->precio_venta/2,2);
                                         $total_recio_venta+=$p_venta;
                                     }
                                 ?>
@@ -1009,10 +1016,27 @@
                                                         @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
-                                                        @endforeach
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
+
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                                 <div class="checkbox11">
                                                                     <label>
                                                                         <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{0}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
@@ -1031,15 +1055,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                @if($service->precio_grupo==1)
+                                                                    <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                @else
+                                                                    <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                @endif
                                                             @endif
 
                                                         @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                            <div class="checkbox11">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                    $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
+                                                                <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1054,15 +1094,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
 
-                                                        @endforeach
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1078,15 +1134,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
 
-                                                        @endforeach
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1102,15 +1174,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
 
-                                                        @endforeach
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1126,15 +1214,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
 
-                                                        @endforeach
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1150,15 +1254,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
 
-                                                        @endforeach
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1174,15 +1294,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
 
-                                                        @endforeach
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1198,15 +1334,31 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                            @endif
+                                                                    @if($service->precio_grupo==1)
+                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                    @else
+                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @endif
+                                                                @endif
 
-                                                        @endforeach
+                                                            @endforeach
                                                             <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                                                @php
+                                                                    $service_p=0;
+                                                                @endphp
+                                                                @if($service->precio_grupo==1)
+                                                                    @php
+                                                                        $service_p=round($service->precio_venta/2,2);
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $service_p=$service->precio_venta;
+                                                                    @endphp
+                                                                @endif
                                                             <div class="checkbox11">
                                                                 <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service->precio_venta}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service->precio_venta}} p.p</span>
+                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
+                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                                 </label>
                                                             </div>
                                                         </div>
