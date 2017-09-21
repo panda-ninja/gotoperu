@@ -9,7 +9,7 @@
 
             <ul class="nav navbar-nav margin-left-60">
                 <li class="active"><a href="{{route('index_path')}}">Ventas <span class="sr-only">(current)</span></a></li>
-                <li><a href="{{route('contabilidad_path',Date("Y"))}}">Contabilidad</a></li>
+                <li><a href="{{route('contabilidad_index_path')}}">Contabilidad</a></li>
                 <li><a href="{{route('book_path')}}">Reservas</a></li>
                 <li><a href="{{route('book_path')}}">Operaciones</a></li>
                 {{--<li class="dropdown">--}}

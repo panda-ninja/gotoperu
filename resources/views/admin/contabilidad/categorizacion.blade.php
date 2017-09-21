@@ -286,9 +286,9 @@
                         </div>
                         <div class="panel-body">
                             <div class="input-group">
-                                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt-1])}}"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
+                                {{--<span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt-1])}}"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>--}}
                                 <span id="anio_s" class="input-group-addon">{{$fecha_pqt}}</span>
-                                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt+1])}}"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
+                                {{--<span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt+1])}}"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>--}}
                             </div>
                             <table align="center" cellpadding="0" cellspacing="0" border="0">
                                 <tbody align="center">

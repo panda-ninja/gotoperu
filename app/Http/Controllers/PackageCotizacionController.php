@@ -289,6 +289,7 @@ class PackageCotizacionController extends Controller
                 $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
 //                $p_servicio->user_id=auth()->guard('admin')->user()->id;
                 $p_servicio->precio_grupo=$servicios->itinerario_servicios_servicio->precio_grupo;
+                $p_servicio->precio_c=0;
                 $p_servicio->user_id=1;
                 $p_servicio->estado=1;
                 $p_servicio->m_servicios_id=$servicios->m_servicios_id;
@@ -569,6 +570,7 @@ class PackageCotizacionController extends Controller
                             $new_servicio->precio = $serivicio->precio;
                         }
                         $new_servicio->itinerario_cotizaciones_id=$new_itinerario->id;
+                        $new_servicio->precio_c=0;
 //                        $new_servicio->user_id=auth()->guard('admin')->user()->id;
                         $new_servicio->precio_grupo=$serivicio->precio_grupo;
                         $new_servicio->user_id=1;

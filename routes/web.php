@@ -310,13 +310,23 @@ Route::get('admin/contabilidad/{id}', [
     'uses' => 'PackageCotizacionController@contabilidad',
     'as' => 'contabilidad_path',
 ]);
-Route::post('/admin/venta/categorizar', [
-    'uses' => 'PackageCotizacionController@categorizar',
-    'as' => 'categorizar_path',
-]);
 Route::post('/admin/book/id', [
     'uses' => 'BookController@asignar_proveedor',
     'as' => 'asignar_proveedor_path',
 ]);
-
-
+Route::post('/admin/venta/categorizar', [
+    'uses' => 'PackageCotizacionController@categorizar',
+    'as' => 'categorizar_path',
+]);
+Route::get('admin/contabilidad/', [
+    'uses' => 'ContabilidadController@index',
+    'as' => 'contabilidad_index_path',
+]);
+Route::get('/admin/contabilidad/show/{id}', [
+    'uses' => 'ContabilidadController@show',
+    'as' => 'contabilidad_show_path',
+]);
+Route::post('admin/contabilidad/con/conciliar', [
+    'uses' => 'ContabilidadController@confirmar',
+    'as' => 'contabilidad_confirmar_path',
+]);

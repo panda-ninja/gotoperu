@@ -23416,3 +23416,33 @@ function categorizar(id,cate) {
 
     })
 }
+function confirmar_fecha(id){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: '¿Esta seguro de confirmar el monto y fecha?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        var precio=$('#precio_c_'+id).val();
+        var fecha=$('#fecha_pago_'+id).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/contabilidad/con/conciliar', 'id='+id+'&&precio='+precio+'&&fecha='+fecha, function(data) {
+            if(data==1){
+                $('#servicio_'+id).html('Confirmada');
+                $('#servicio_'+id).removeClass('btn-primary');
+                $('#servicio_'+id).addClass('btn-success');
+                $('#servicio_'+id).off("click");
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+}
