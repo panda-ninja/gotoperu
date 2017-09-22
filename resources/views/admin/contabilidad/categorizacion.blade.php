@@ -1,4 +1,4 @@
-@extends('layouts.admin.admin')
+@extends('layouts.admin.contabilidad')
 @section('archivos-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
 @stop

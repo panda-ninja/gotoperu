@@ -53,7 +53,7 @@
         <div>
             <h3 class="no-margin text-orange-goto">Itinerary for days</h3>
             @foreach($paquete->itinerario_cotizaciones->sortBy('dias') as $itinerario)
-                <h4 class="text-green-goto">Day {{$itinerario->dias}} - {{$itinerario->titulo}}</h4>
+                <h4 class="text-green-goto">Day {{$itinerario->dias}}: {{date("d-m-Y",strtotime($itinerario->fecha))}} - {{$itinerario->titulo}}</h4>
                 <p>{{$itinerario->descripcion}}</p>
                 @if (Storage::disk('itinerary')->has($itinerario->imagen))
                     <img
@@ -116,7 +116,7 @@
         <div>
             <h3  class="text-orange-goto"><b>Precios:</b></h3>
             <p>Los precios son por persona. La cotizacion fue realizado para <b class="text-22 text-green-goto">{{$pasajeros}} personas</b>.</p>
-            @php $servicio = 0; @endphp
+            @php $servicio = 0;$total=0; @endphp
             @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
                 @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
                     @php

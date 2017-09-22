@@ -28,17 +28,17 @@ class ContabilidadController extends Controller
     }
     public function confirmar(Request $request)
     {
-//        $id=$request->input('id');
-//        $precio=$request->input('precio');
-//        $fecha=$request->input('fecha');
-//        $servicio=ItinerarioServicios::FindOrFail($id)->get();
-//        $servicio->precio_c=$precio;
-//        $servicio->fecha_venc =$fecha;
+        $id=$request->input('id');
+        $precio=$request->input('precio');
+        $fecha=$request->input('fecha');
+        $servicio=ItinerarioServicios::FindOrFail($id);
+        $servicio->precio_c=$precio;
+        $servicio->fecha_venc =$fecha;
 //        $servicio->save();
-        return 1;
-//        if($servicio->save())
-//            return 1;
-//        else
-//            return 0;
+//        return 1;
+        if($servicio->save())
+            return 1;
+        else
+            return 0;
     }
 }

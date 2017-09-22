@@ -23433,7 +23433,7 @@ function confirmar_fecha(id){
                 'X-CSRF-TOKEN': $('[name="_token"]').val()
             }
         });
-        $.post('/admin/contabilidad/con/conciliar', 'id='+id+'&&precio='+precio+'&&fecha='+fecha, function(data) {
+        $.post('/admin/contabilidad/conciliar-venta', 'id='+id+'&&precio='+precio+'&&fecha='+fecha, function(data) {
             if(data==1){
                 $('#servicio_'+id).html('Confirmada');
                 $('#servicio_'+id).removeClass('btn-primary');
@@ -23441,8 +23441,21 @@ function confirmar_fecha(id){
                 $('#servicio_'+id).off("click");
             }
         }).fail(function (data) {
-
+            console.log(data);
         });
 
     })
+}
+
+function insertar_codigo(id){
+    var $codigo=$('#code_'+id).val();
+    console.log($codigo);
+}
+function calcular_saldo(id){
+    var $total=parseFloat($('#total_'+id).html());
+    var $serv_acta=parseFloat($('#serv_acta_'+id).val());
+    var $saldo=parseFloat($total-$serv_acta);
+    console.log('total:'+$total+'_acta:'+$serv_acta+'_saldo:'+$saldo);
+    $('#saldo_'+id).html($saldo);
+
 }

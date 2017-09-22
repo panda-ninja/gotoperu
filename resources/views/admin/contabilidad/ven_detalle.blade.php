@@ -1,4 +1,4 @@
-@extends('layouts.admin.book')
+@extends('layouts.admin.contabilidad')
 @section('content')
     <div class="row">
         <ol class="breadcrumb">
@@ -125,8 +125,8 @@
                                 <th class="col-lg-2">Services</th>
                                 <th class="col-lg-1">Quote</th>
                                 {{--<th class="col-lg-1">Math Price</th>--}}
-                                <th class="col-lg-1">Reserva Price</th>
-                                <th class="col-lg-1">Contab. Price</th>
+                                <th class="col-lg-1">Book Price</th>
+                                <th class="col-lg-1">Cont. Price</th>
                                 <th class="col-lg-1">Verification Code</th>
                                 <th class="col-lg-1">Provider</th>
                                 <th class="col-lg-1">Fecha Venc.</th>
@@ -152,8 +152,8 @@
                                     @endforeach
                                     <tr>
                                         {{--<td rowspan="{{$nro_servicios}}"><b class="text-primary">Day {{$itinerario->dias}}</b></td>--}}
-                                        <td ><b class="text-primary">Day {{$itinerario->dias}}</b></td>
-                                        <td colspan="7"></td>
+                                        <td colspan="2"><b class="text-primary">Day {{$itinerario->dias}} : {{date("d-m-Y",strtotime($itinerario->fecha))}}</b></td>
+                                        <td colspan="6"></td>
                                     </tr>
 
                                     @foreach($itinerario->itinerario_servicios as $servicios)
@@ -189,6 +189,45 @@
                                                 @else
                                                     <button id="servicio_{{$servicios->id}}" type="button" class="btn btn-primary" onclick="confirmar_fecha('{{$servicios->id}}')">Pendiente</button>
                                                 @endif
+                                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
+                                                    <i class="fa fa-usd" aria-hidden="true"></i> Pagar
+                                                </button>
+                                                <div class="modal fade" id="myModal_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <form action="{{route('pagar_proveedor_path')}}" method="post">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Pago del servicio</h4>
+                                                                </div>
+                                                                <div class="modal-body clearfix">
+                                                                    <div class="col-md-12">
+                                                                        <h3>{{$servicios->nombre}}</h3>
+                                                                        <p class="text-20">Total: $<span class="text-success" id="total_{{$servicios->id}}">{{$servicios->precio_c}}</span></p>
+                                                                        <div class="form-group col-lg-6">
+                                                                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon">A pagar: $</div>
+                                                                                <input type="number" min="0" max="{{$servicios->precio_c}}"  class="form-control" id="serv_acta_{{$servicios->id}}" placeholder="Monto $" value="{{$servicios->precio_c}}" onchange="calcular_saldo({{$servicios->id}})">
+                                                                            </div>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon">Saldo: <span id="saldo_{{$servicios->id}}">0</span>$</div>
+                                                                                <input type="date" id="prox_fecha" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    {{csrf_field()}}
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </th>
                                             {{--<td>--}}
                                                 {{--@if($servicios->itinerario_proveedor)--}}

@@ -125,7 +125,7 @@
                                 <th>Services</th>
                                 <th>Quote</th>
                                 <th>Math Price</th>
-                                <th>Real Price</th>
+                                <th>Book Price</th>
                                 <th>Verification Code</th>
                                 <th>Provider</th>
                                 <th></th>
@@ -149,8 +149,8 @@
                                     @endforeach
                                     <tr>
                                         {{--<td rowspan="{{$nro_servicios}}"><b class="text-primary">Day {{$itinerario->dias}}</b></td>--}}
-                                        <td ><b class="text-primary">Day {{$itinerario->dias}}</b></td>
-                                        <td colspan="7"></td>
+                                        <td colspan="2"><b class="text-primary">Day {{$itinerario->dias}}: {{date("d/m/Y",strtotime($itinerario->fecha))}}</b></td>
+                                        <td colspan="6"></td>
                                     </tr>
 
                                     @foreach($itinerario->itinerario_servicios as $servicios)
@@ -160,7 +160,7 @@
                                             <td class="text-right"><p class="@if($servicios->precio_grupo==1){{'hide'}}@endif"><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio}} $</p><p class="@if($servicios->precio_grupo==0){{'hide'}}@endif"><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas*2}} $</p></td>
                                             <td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>
                                             <td class="text-right">{{$servicios->precio_proveedor}} $</td>
-                                            <td>Code verificacion</td>
+                                            <td><input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')"></td>
                                             <td>
                                             @if($servicios->itinerario_proveedor)
                                                 {{$servicios->itinerario_proveedor->razon_social}}
@@ -197,12 +197,20 @@
                                                                                             $valor=1;
                                                                                         @endphp
                                                                                 @endif
+                                                                                    @php
+                                                                                        $precio_book=$producto->precio_costo*2;
+                                                                                    @endphp
+                                                                                    @if($producto->precio_grupo==0)
+                                                                                        @php
+                                                                                            $precio_book=$producto->precio_costo*$cotizacion->nropersonas;
+                                                                                        @endphp
+                                                                                    @endif
                                                                                     @if(($servicios->precio*$valor) < $producto->precio_costo)
                                                                                     <div class="col-md-12">
                                                                                         <div class="checkbox11">
                                                                                             <label class="text-danger">
-                                                                                                <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$producto->precio_costo}}">
-                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*2}}@else{{$producto->precio_costo}} @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
+                                                                                                <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">
+                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*2}}@else{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}} @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -210,8 +218,8 @@
                                                                                     <div class="col-md-12">
                                                                                         <div class="checkbox11">
                                                                                             <label class="text-green-goto">
-                                                                                                <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$producto->precio_costo}}">
-                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*2}}@else{{$producto->precio_costo}} @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
+                                                                                                <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">
+                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*2}}@else{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}  @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>

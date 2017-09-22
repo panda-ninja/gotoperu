@@ -248,7 +248,8 @@ class PackageCotizacionController extends Controller
         $paquete_precio5->save();
         $dia=0;
         $dia_texto=1;
-
+        $coti=Cotizacion::FindOrFail($cotizacion_id);
+        $fecha_viaje=date($coti->fecha);
         foreach ($itinerarios_ as $itinerario_id){
 //            dd('holaaaaaaa');
             $m_itineario=M_Itinerario::FindOrFail($itinerario_id);
@@ -256,6 +257,8 @@ class PackageCotizacionController extends Controller
             $p_itinerario->titulo=$m_itineario->titulo;
             $p_itinerario->descripcion=$m_itineario->descripcion;
             $p_itinerario->dias=$dia_texto;
+            $mod_date = strtotime($fecha_viaje."+ ".($dia_texto-1)." days");
+            $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
             $p_itinerario->precio=$m_itineario->precio;
             $p_itinerario->imagen=$m_itineario->imagen;
             $p_itinerario->observaciones=$txt_sugerencia[$dia];
@@ -523,6 +526,8 @@ class PackageCotizacionController extends Controller
                 $new_paquete->estado=1;
                 $new_paquete->cotizaciones_id=$p_cotizacion_id;
                 $new_paquete->save();
+                $coti=Cotizacion::FindOrFail($p_cotizacion_id);
+                $fecha_viaje=date($coti->fecha);
 //                dd($new_paquete);
                 foreach ($p_paquete_->itinerarios as $p_itinerario){
 //                    dd($p_itinerario);
@@ -531,7 +536,8 @@ class PackageCotizacionController extends Controller
                     $new_itinerario->titulo=$p_itinerario->titulo;
                     $new_itinerario->descripcion=$p_itinerario->descripcion;
                     $new_itinerario->dias=$p_itinerario->dias;
-                    $new_itinerario->fecha=$p_itinerario->fecha;
+                    $mod_date = strtotime($fecha_viaje."+ ".($p_itinerario->dias-1)." days");
+                    $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
                     $new_itinerario->precio=$p_itinerario->precio;
                     $new_itinerario->imagen=$p_itinerario->imagen;
                     $new_itinerario->estado=1;
