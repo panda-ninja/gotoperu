@@ -23439,6 +23439,7 @@ function confirmar_fecha(id){
                 $('#servicio_'+id).removeClass('btn-primary');
                 $('#servicio_'+id).addClass('btn-success');
                 $('#servicio_'+id).off("click");
+                pasar_price(id);
             }
         }).fail(function (data) {
             console.log(data);
@@ -23449,13 +23450,56 @@ function confirmar_fecha(id){
 
 function insertar_codigo(id){
     var $codigo=$('#code_'+id).val();
-    console.log($codigo);
+    // console.log($codigo);
 }
+
 function calcular_saldo(id){
     var $total=parseFloat($('#total_'+id).html());
     var $serv_acta=parseFloat($('#serv_acta_'+id).val());
     var $saldo=parseFloat($total-$serv_acta);
     console.log('total:'+$total+'_acta:'+$serv_acta+'_saldo:'+$saldo);
-    $('#saldo_'+id).html($saldo);
+    $('#saldo_'+id).val($saldo);
+    $('#ifecha_pago_'+id).removeClass('hide');
+    if($saldo==0)
+        $('#ifecha_pago_'+id).addClass('hide');
+    else
+        $('#ifecha_pago_'+id).removeClass('hide');
+}
+function enviar_form(id){
+    $('#fo_'+id).submit(function() {
+        var prox_fecha=$('#prox_fecha_'+id).val();
+        if(!prox_fecha){
+            $('#prox_fecha_'+id).focusin();
+        }
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#for_'+id).addClass('hide');
+                    $('#result_'+id).removeClass('text-danger');
+                    $('#result_'+id).addClass('text-success');
+                    $('#result_'+id).html('Pago guardado Correctamente!');
+                }
+                else{
+                    $('#result_'+id).removeClass('text-success');
+                    $('#result_'+id).addClass('text-danger');
+                    $('#result_'+id).html('Error al pagar, intentelo de nuevo');
+                }
+            }
+        })
+        return false;
+    });
+}
+
+function pasar_price(id){
+    $("#serv_acta_"+id).attr({
+        "max" : $('#precio_c_'+id).val(),        // substitute your own
+    });
+    $('#total_'+id).html($('#precio_c_'+id).val());
+    $('#itotal_'+id).val($('#precio_c_'+id).val());
 
 }

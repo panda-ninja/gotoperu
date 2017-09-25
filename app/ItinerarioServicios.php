@@ -20,4 +20,9 @@ class ItinerarioServicios extends Model
     {
         return $this->belongsTo(M_Servicio::class, 'm_servicios_id');
     }
+    public function pagos()
+    {
+        return $this->hasMany(ItinerarioServiciosPagos::class, 'itinerario_servicios_id');
+    }
+
 }

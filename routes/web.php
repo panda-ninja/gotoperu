@@ -334,3 +334,7 @@ Route::post('/admin/contabilidad/pagar', [
     'uses' => 'ContabilidadController@pagar',
     'as' => 'pagar_proveedor_path',
 ]);
+Route::get('/admin/contabilidad/buscar/fechas', [
+    'uses' => 'ContabilidadController@listar',
+    'as' => 'contabilidad_fechas_path',
+]);

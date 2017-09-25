@@ -57,7 +57,6 @@
 
                     <td><a id="propover_{{$itinerary->id}}" href="{{route('show_itinerary_path',$itinerary->id)}}" data-toggle="popover" title="{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS" data-content="{{$lista}}">{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS</a></td>
                     <td>
-
                         @foreach($arra_destinos as $destino)
                                 <p class="text-12 text-unset"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$destino}}</p>
                         @endforeach

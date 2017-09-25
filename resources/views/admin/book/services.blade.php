@@ -124,7 +124,7 @@
                                 <th></th>
                                 <th>Services</th>
                                 <th>Quote</th>
-                                <th>Math Price</th>
+                                {{--<th>Math Price</th>--}}
                                 <th>Book Price</th>
                                 <th>Verification Code</th>
                                 <th>Provider</th>
@@ -157,8 +157,44 @@
                                         <tr>
                                             <td></td>
                                             <td>{{$servicios->id}} {{$servicios->nombre}}</td>
-                                            <td class="text-right"><p class="@if($servicios->precio_grupo==1){{'hide'}}@endif"><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio}} $</p><p class="@if($servicios->precio_grupo==0){{'hide'}}@endif"><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas*2}} $</p></td>
-                                            <td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>
+                                            <td class="text-right">
+                                                @php
+                                                    $mate='';
+                                                @endphp
+                                                @if($servicios->precio_grupo==1)
+                                                    @php
+                                                        $mate.=$servicios->precio*2;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $mate.=$servicios->precio;
+                                                    @endphp
+                                                @endif
+                                                @php
+                                                    $mate.="x ".$cotizacion->nropersonas."=";
+                                                @endphp
+
+                                                @if($servicios->precio_grupo==1)
+                                                    @php
+                                                        $mate.=$servicios->precio*2*$cotizacion->nropersonas;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $mate.=$servicios->precio*$cotizacion->nropersonas;
+                                                    @endphp
+                                                @endif
+                                                @php
+                                                    $mate.="$";
+                                                @endphp
+
+                                                <p class="@if($servicios->precio_grupo==1){{'hide'}}@endif"><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio}} $
+                                                    <a id="ipropover_{{$servicios->id}}" data-toggle="popover" title="Detalle" data-content="{{$mate}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
+                                                </p>
+                                                <p class="@if($servicios->precio_grupo==0){{'hide'}}@endif"><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas*2}} $
+                                                    <a id="propover_{{$servicios->id}}" data-toggle="popover" title="Detalle" data-content="{{$mate}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
+                                                </p>
+                                            </td>
+                                            {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
                                             <td class="text-right">{{$servicios->precio_proveedor}} $</td>
                                             <td><input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')"></td>
                                             <td>
@@ -299,5 +335,22 @@
         </div>
 
     </div>
+    <script>
+        $(document).ready(function() {
 
+//                $('[data-toggle="popover"]').popover()
+
+            @foreach($cotizacion->paquete_cotizaciones as $paquete)
+                @if($paquete->estado==2)
+                    @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                        @foreach($itinerario->itinerario_servicios as $servicios)
+                            $('#ipropover_{{$servicios->id}}').popover({html: true, placement: "rigth", trigger: "click"});
+                            $('#propover_{{$servicios->id}}').popover({html: true, placement: "rigth", trigger: "click"});
+                        @endforeach
+                    @endforeach
+                @endif
+            @endforeach
+
+        });
+    </script>
 @stop
