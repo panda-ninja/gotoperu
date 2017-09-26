@@ -7,6 +7,15 @@
             <li class="active">Reservas confirmadas</li>
         </ol>
     </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <label for="">Desde:</label>
+            <input type="text" name="fecha_desde" value="{{date("Y-m-d")}}">
+        </div>
+        <div class="col-lg-6">
+
+        </div>
+    </div>
     {{--<div class="row">--}}
         {{--<div class="col-md-12">--}}
             {{--<div class="panel panel-default">--}}
