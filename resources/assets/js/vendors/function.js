@@ -1418,11 +1418,13 @@ function confirmar_fecha(id){
             }
         });
         $.post('/admin/contabilidad/conciliar-venta', 'id='+id+'&&precio='+precio+'&&fecha='+fecha, function(data) {
-            if(data==1){
+            var data1=data.split('_');
+            if(data[0]=='1'){
                 $('#servicio_'+id).html('Confirmada');
                 $('#servicio_'+id).removeClass('btn-primary');
                 $('#servicio_'+id).addClass('btn-success');
                 $('#servicio_'+id).off("click");
+                $('#servicio_pago_'+id).val(data1[1]);
                 pasar_price(id);
             }
         }).fail(function (data) {

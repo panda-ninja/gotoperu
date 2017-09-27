@@ -4,18 +4,29 @@
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li>Contabilidad</li>
-            <li class="active">Reservas confirmadas</li>
+            <li>Conciliar</li>
+            <li class="active">Listar por fechas</li>
         </ol>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <label for="">Desde:</label>
-            <input type="text" name="fecha_desde" value="{{date("Y-m-d")}}">
+    <form action="{{route('contabilidad_fechas_post_path')}}" method="post">
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="">Desde:</label>
+                <input class="form-control input-lg" type="date" name="desde" value="{{$desde}}">
+            </div>
+            <div class="col-lg-3">
+                <label for="">Hasta:</label>
+                <input class="form-control input-lg" type="date" name="hasta" value="{{$hasta}}">
+            </div>
+            <div class="col-lg-3 margin-top-25">
+                {{csrf_field()}}
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fa fa-search" aria-hidden="true"></i> Buscar
+                </button>
+            </div>
         </div>
-        <div class="col-lg-6">
-
-        </div>
-    </div>
+    </form>
+    <div class="margin-top-10"></div>
     {{--<div class="row">--}}
         {{--<div class="col-md-12">--}}
             {{--<div class="panel panel-default">--}}
@@ -127,19 +138,30 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th class="col-lg-3">Pax</th>
+                            <th class="col-lg-2">Day</th>
                             <th class="col-lg-2">Services</th>
-                            <th class="col-lg-1">Quote</th>
-                            <th class="col-lg-1">Book Price</th>
+                            {{--<th class="col-lg-1">Quote</th>--}}
+                            {{--<th class="col-lg-1">Book Price</th>--}}
                             <th class="col-lg-1">Cont. Price</th>
-                            <th class="col-lg-1">Verification Code</th>
-                            <th class="col-lg-1">Provider</th>
+                            {{--<th class="col-lg-1">Verification Code</th>--}}
+                            <th class="col-lg-2">Provider</th>
                             <th class="col-lg-1">Fecha Venc.</th>
                             <th class="col-lg-1">Estado</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($cotizaciones  as $cotizacion)
+                            @php
+                            $cliente='';
+                            @endphp
+                            @foreach($cotizacion->cotizaciones_cliente as $cotizaciones_cliente)
+                                @if($cotizaciones_cliente->estado==1)
+                                    @php
+                                        $cliente=$cotizaciones_cliente->cliente->nombres.', '.$cotizaciones_cliente->cliente->apellidos;
+                                    @endphp
+                                @endif
+                            @endforeach
                             @foreach($cotizacion->paquete_cotizaciones as $paquete)
                             @if($paquete->estado==2)
                                 @foreach($paquete->itinerario_cotizaciones as $itinerario)
@@ -155,16 +177,17 @@
                                             @endforeach
                                         @endif
                                     @endforeach
-                                    <tr>
-                                        <td colspan="2"><b class="text-primary">Day {{$itinerario->dias}} : {{date("d-m-Y",strtotime($itinerario->fecha))}}</b></td>
-                                        <td colspan="6"></td>
-                                    </tr>
+                                    {{--<tr>--}}
+                                        {{--<td colspan="3"><b class="text-primary">Day {{$itinerario->dias}} : {{date("d-m-Y",strtotime($itinerario->fecha))}}</b></td>--}}
+                                        {{--<td colspan="6"></td>--}}
+                                    {{--</tr>--}}
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
-                                            <td></td>
-                                            <td>{{$servicios->id}} {{$servicios->nombre}}</td>
-                                            <td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>
-                                            <td class="text-right">{{$servicios->precio_proveedor}} $</td>
+                                            <td>{{$cliente}} x {{$cotizacion->nropersonas}} {{date_format(date_create($cotizacion->fecha), 'jS F Y')}} </td>
+                                            <td><b class="text-primary">Day {{$itinerario->dias}} : {{date("d-m-Y",strtotime($itinerario->fecha))}}</b></td>
+                                            <td>{{$servicios->nombre}}</td>
+                                            {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
+                                            {{--<td class="text-right">{{$servicios->precio_proveedor}} $</td>--}}
                                             @if($servicios->precio_c==0)
                                                 @php
                                                     $precio=$servicios->precio_proveedor;
@@ -174,8 +197,9 @@
                                                     $precio=$servicios->precio_c;
                                                 @endphp
                                             @endif
-                                            <td><input id="precio_c_{{$servicios->id}}" class="form-control" type="number" value="{{$precio}}" step="0.01" min="0"></td>
-                                            <td>{{$servicios->codigo_verificacion}}</td>
+                                            <td id="precio_c_{{$servicios->id}}">{{$precio}}$</td>
+                                            {{--<td><input id="precio_c_{{$servicios->id}}" class="form-control" type="number" value="{{$precio}}" step="0.01" min="0"></td>--}}
+{{--                                            <td>{{$servicios->codigo_verificacion}}</td>--}}
                                             <td>
                                                 @if($servicios->itinerario_proveedor)
                                                     {{$servicios->itinerario_proveedor->razon_social}}
@@ -186,11 +210,11 @@
                                             <th><input class="form-control" type="date" id="fecha_pago_{{$servicios->id}}" value="{{date("Y-m-d")}}"></th>
                                             <th>
                                                 {{csrf_field()}}
-                                                @if($servicios->precio_c>0)
-                                                    <button id="servicio_{{$servicios->id}}" type="button" class="btn btn-success">confirmada</button>
-                                                @else
-                                                    <button id="servicio_{{$servicios->id}}" type="button" class="btn btn-primary" onclick="confirmar_fecha('{{$servicios->id}}')">Pendiente</button>
-                                                @endif
+                                                {{--@if($servicios->precio_c>0)--}}
+                                                    {{--<button id="servicio_{{$servicios->id}}" type="button" class="btn btn-success">confirmada</button>--}}
+                                                {{--@else--}}
+                                                    {{--<button id="servicio_{{$servicios->id}}" type="button" class="btn btn-primary" onclick="confirmar_fecha('{{$servicios->id}}')">Pendiente</button>--}}
+                                                {{--@endif--}}
                                                 <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
                                                     <i class="fa fa-usd" aria-hidden="true"></i> Pagar
                                                 </button>

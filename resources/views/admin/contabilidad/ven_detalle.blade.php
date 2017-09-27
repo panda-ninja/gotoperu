@@ -222,6 +222,7 @@
                                                                     {{csrf_field()}}
                                                                     <input type="hidden" name="itineraio_servicios_id" value="{{$servicios->id}}">
                                                                     <input type="hidden" name="total" id="itotal_{{$servicios->id}}" value="{{$servicios->precio_c}}">
+                                                                    <input type="hidden" name="servicio_pago" id="servicio_pago_{{$servicios->id}}" value="0">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                     <button type="submit" class="btn btn-primary" onclick="enviar_form('{{$servicios->id}}')">Save changes</button>
                                                                 </div>

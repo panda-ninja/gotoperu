@@ -89,16 +89,83 @@
                                                     <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                @if($categoria->nombre=='HOTELS')
+                                                    <table class="table table-responsive table-striped table-condensed">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="col-lg-2 text-primary">ACOMODATION</th>
+                                                            <th class="col-lg-2 text-warning text-center text-15">2 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                            <th class="col-lg-2 text-warning text-center text-15">3 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                            <th class="col-lg-2 text-warning text-center text-15">4 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                            <th class="col-lg-2 text-warning text-center text-15">5 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>SIMGLE</td>
+                                                            <td><input type="number" name="S_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="S_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="S_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="S_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>DOUBLE</td>
+                                                            <td><input type="number" name="D_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="D_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="D_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="D_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>MATRIMONIAL</td>
+                                                            <td><input type="number" name="M_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="M_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="M_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="M_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>TRIPLE</td>
+                                                            <td><input type="number" name="T_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="T_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="T_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="T_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SUPERIOR SIMPLE</td>
+                                                            <td><input type="number" name="SS_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SS_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SS_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SS_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SUPERIOR DOUBLE</td>
+                                                            <td><input type="number" name="SD_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SD_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SD_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SD_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SUITE</td>
+                                                            <td><input type="number" name="SU_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SU_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SU_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="SU_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>JR. SUITE</td>
+                                                            <td><input type="number" name="JS_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="JS_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="JS_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            <td><input type="number" name="JS_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                @endif
+                                            </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     @if($categoria->nombre=='HOTELS')
-                                                        <label for="txt_type">Type</label>
-                                                        <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
-                                                            <option value="2 STARS">2 STARS</option>
-                                                            <option value="3 STARS">3 STARS</option>
-                                                            <option value="4 STARS">4 STARS</option>
-                                                            <option value="5 STARS">5 STARS</option>
-                                                        </select>
+
                                                     @endif
                                                     @if($categoria->nombre=='TOURS')
                                                         <label for="txt_type">Type</label>
@@ -167,33 +234,35 @@
                                                 </div>
                                             </div>
                                             @if($categoria->nombre=='HOTELS')
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="txt_type">Accommodation</label>
+                                                {{--<div class="col-md-4">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label for="txt_type">Accommodation</label>--}}
                                                         {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
-                                                        <select class="form-control" id="txt_acomodacion_{{$pos}}" name="txt_acomodacion_{{$pos}}">
-                                                            <option value="S">SIMPLE</option>
-                                                            <option value="D">DOBLE</option>
-                                                            <option value="M">MATRIMONIAL</option>
-                                                            <option value="T">TRIPLE</option>
-                                                            <option value="SS">SUPERIOR SIMPLE</option>
-                                                            <option value="SD">SUPERIOR DOBLE</option>
-                                                            <option value="SU">SUITE</option>
-                                                            <option value="JS">JR. SUITE</option>
+                                                        {{--<select class="form-control" id="txt_acomodacion_{{$pos}}" name="txt_acomodacion_{{$pos}}">--}}
+                                                            {{--<option value="S">SIMPLE</option>--}}
+                                                            {{--<option value="D">DOBLE</option>--}}
+                                                            {{--<option value="M">MATRIMONIAL</option>--}}
+                                                            {{--<option value="T">TRIPLE</option>--}}
+                                                            {{--<option value="SS">SUPERIOR SIMPLE</option>--}}
+                                                            {{--<option value="SD">SUPERIOR DOBLE</option>--}}
+                                                            {{--<option value="SU">SUITE</option>--}}
+                                                            {{--<option value="JS">JR. SUITE</option>--}}
 
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                        {{--</select>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
                                             @endif
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     @if($categoria->nombre=='TRAINS'||$categoria->nombre=='FLIGHTS')
                                                         <label for="txt_product">Ruta</label>
-                                                    @else
+                                                        <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
+                                                    @elseif($categoria->nombre!='HOTELS')
                                                         <label for="txt_product">Product</label>
+                                                        <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
                                                     @endif
-                                                    <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
+
                                                 </div>
                                             </div>
                                             <div class="col-md-4 hide">
@@ -216,12 +285,14 @@
                                                     </div>
                                                 </div>
                                             @endif
+                                            @if($categoria->nombre!='HOTELS')
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_price">Price</label>
                                                     <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price" min="0">
                                                 </div>
                                             </div>
+                                            @endif
                                             @if($categoria->nombre=='MOVILID')
                                                 <div class="col-md-2">
                                                     <div class="form-group">
@@ -237,22 +308,22 @@
                                                 </div>
                                             @endif
                                             @if($categoria->nombre=='HOTELS')
-                                                <div class="col-md-6">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label class=" text-green-goto">
-                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">
-                                                                Precio es absoluto
-                                                            </label>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class=" text-green-goto">
-                                                                <input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">
-                                                                Precio es individual
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {{--<div class="col-md-6">--}}
+                                                    {{--<div class="row">--}}
+                                                        {{--<div class="col-md-6">--}}
+                                                            {{--<label class=" text-green-goto">--}}
+                                                                {{--<input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Absoluto" checked="checked">--}}
+                                                                {{--Precio es absoluto--}}
+                                                            {{--</label>--}}
+                                                        {{--</div>--}}
+                                                        {{--<div class="col-md-6">--}}
+                                                            {{--<label class=" text-green-goto">--}}
+                                                                {{--<input type="radio" name="txt_tipo_grupo_{{$pos}}" value="Individual">--}}
+                                                                {{--Precio es individual--}}
+                                                            {{--</label>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
                                             @endif
                                             @if($categoria->nombre=='TOURS')
                                                 <div class="col-md-6">
@@ -453,118 +524,188 @@
                     ?>
                 @endif
                 <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
-                    <div class="col-lg-12">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="txt_codigo">Filtrar por Localizacion</label>
-                                <select class="form-control" id="filtro_localizacion_{{$categoria->nombre}}" name="filtro_localizacion_{{$categoria->nombre}}" on onchange="filtrar_mo_lista('{{$categoria->nombre}}')">
-                                    @foreach($destinations as $destination)
-                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="txt_codigo">Filtrar por tipo</label>
-                                <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
-                                    @foreach($destinations as $destination)
-                                        <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Localizacion</th>
-                            <th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>
-                            <th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>
-                            @if($categoria->nombre=='TRAINS') <th>Horario</th> @endif
-                            <th>Precio</th>
-                            <th>Operaciones</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Localizacion</th>
-                            <th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>
-                            <th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>
-                            @if($categoria->nombre=='TRAINS') <th>Horario</th> @endif
-                            <th>Precio</th>
-                            <th>Operaciones</th>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-                        @foreach($servicios as $servicio)
-                            @if($servicio->grupo==$categoria->nombre)
-                                <?php
-                                $acom='';
-                                ?>
-                                @if($servicio->acomodacion=='S')
+                    @if($categoria->nombre!='HOTELS')
+                        <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Localizacion</th>
+                                <th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>
+                                <th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>
+                                @if($categoria->nombre=='TRAINS') <th>Horario</th> @endif
+                                <th>Precio</th>
+                                <th>Operaciones</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Localizacion</th>
+                                <th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>
+                                <th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>
+                                @if($categoria->nombre=='TRAINS') <th>Horario</th> @endif
+                                <th>Precio</th>
+                                <th>Operaciones</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            @foreach($servicios as $servicio)
+                                @if($servicio->grupo==$categoria->nombre)
                                     <?php
-                                    $acom='SIMPLE';
+                                    $acom='';
                                     ?>
-                                @endif
-                                @if($servicio->acomodacion=='D')
-                                    <?php
-                                    $acom='DOBLE';
-                                    ?>
-                                @endif
-                                @if($servicio->acomodacion=='T')
-                                    <?php
-                                    $acom='TRIPLE';
-                                    ?>
-                                @endif
-                                @if($servicio->acomodacion=='M')
-                                    <?php
-                                    $acom='MATRIMONIAL';
-                                    ?>
-                                @endif
-                                @if($servicio->acomodacion=='SS')
-                                    <?php
-                                    $acom='SUPERIOR SIMPLE';
-                                    ?>
-                                @endif
-                                @if($servicio->acomodacion=='SD')
-                                    <?php
-                                    $acom='SUPERIOR DOBLE';
-                                    ?>
-                                @endif
-                                @if($servicio->acomodacion=='SU')
-                                    <?php
-                                    $acom='SUITE';
-                                    ?>
-                                @endif
-                                @if($servicio->acomodacion=='JR')
-                                    <?php
-                                    $acom='JR. SUITE';
-                                    ?>
-                                @endif
+                                    @if($servicio->acomodacion=='S')
+                                        <?php
+                                        $acom='SIMPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='D')
+                                        <?php
+                                        $acom='DOBLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='T')
+                                        <?php
+                                        $acom='TRIPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='M')
+                                        <?php
+                                        $acom='MATRIMONIAL';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SS')
+                                        <?php
+                                        $acom='SUPERIOR SIMPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SD')
+                                        <?php
+                                        $acom='SUPERIOR DOBLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SU')
+                                        <?php
+                                        $acom='SUITE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='JR')
+                                        <?php
+                                        $acom='JR. SUITE';
+                                        ?>
+                                    @endif
 
-                                <tr id="lista_services_{{$servicio->id}}">
-                                    <td class="text-green-goto">{{$servicio->codigo}}</td>
-                                    <td class="lista_mo">{{$servicio->localizacion}}</td>
-                                    <td>{{$servicio->tipoServicio}} {{$acom}}</td>
-                                    <td>{{$servicio->nombre}}</td>
-                                    @if($categoria->nombre=='TRAINS') <td>{{$servicio->salida}} - {{$servicio->llegada}}</td> @endif
-                                    <td>${{$servicio->precio_venta}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$servicio->id}}">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->id}}','{{$servicio->nombre}}')">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endif
-                        @endforeach
-                        </tbody>
-                    </table>
+                                    <tr id="lista_services_{{$servicio->id}}">
+                                        <td class="text-green-goto">{{$servicio->codigo}}</td>
+                                        <td class="lista_mo">{{$servicio->localizacion}}</td>
+                                        <td>{{$servicio->tipoServicio}} {{$acom}}</td>
+                                        <td>{{$servicio->nombre}}</td>
+                                        @if($categoria->nombre=='TRAINS') <td>{{$servicio->salida}} - {{$servicio->llegada}}</td> @endif
+                                        <td>${{$servicio->precio_venta}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$servicio->id}}">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->id}}','{{$servicio->nombre}}')">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Localizacion</th>
+                                {{--<th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>--}}
+                                {{--<th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>--}}
+                                {{--@if($categoria->nombre=='TRAINS') <th>Horario</th> @endif--}}
+                                {{--<th>Precio</th>--}}
+                                <th>Operaciones</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Localizacion</th>
+                                {{--<th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>--}}
+                                {{--<th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>--}}
+                                {{--@if($categoria->nombre=='TRAINS') <th>Horario</th> @endif--}}
+                                {{--<th>Precio</th>--}}
+                                <th>Operaciones</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            @foreach($servicios->sortByDesc('id') as $servicio)
+                                @if($servicio->grupo==$categoria->nombre)
+                                    <?php
+                                    $acom='';
+                                    ?>
+                                    @if($servicio->acomodacion=='S')
+                                        <?php
+                                        $acom='SIMPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='D')
+                                        <?php
+                                        $acom='DOBLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='T')
+                                        <?php
+                                        $acom='TRIPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='M')
+                                        <?php
+                                        $acom='MATRIMONIAL';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SS')
+                                        <?php
+                                        $acom='SUPERIOR SIMPLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SD')
+                                        <?php
+                                        $acom='SUPERIOR DOBLE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='SU')
+                                        <?php
+                                        $acom='SUITE';
+                                        ?>
+                                    @endif
+                                    @if($servicio->acomodacion=='JR')
+                                        <?php
+                                        $acom='JR. SUITE';
+                                        ?>
+                                    @endif
+                                    <tr id="lista_services_{{$servicio->id}}">
+                                        <td class="text-green-goto">{{$servicio->codigo}}</td>
+                                        <td class="lista_mo">{{$servicio->localizacion}}</td>
+                                        {{--<td>{{$servicio->tipoServicio}} {{$acom}}</td>--}}
+                                        {{--<td>{{$servicio->nombre}}</td>--}}
+                                        {{--@if($categoria->nombre=='TRAINS') <td>{{$servicio->salida}} - {{$servicio->llegada}}</td> @endif--}}
+                                        {{--<td>${{$servicio->precio_venta}}</td>--}}
+                                        <td>
+                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$servicio->id}}">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->id}}','{{$servicio->nombre}}')">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
                 <?php
                 $pos++;

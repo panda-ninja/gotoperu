@@ -37,18 +37,28 @@ class ContabilidadController extends Controller
         $servicio->fecha_venc =$fecha;
 //        $servicio->save();
 //        return 1;
-        if($servicio->save())
-            return 1;
+        if($servicio->save()){
+            $pagos=new ItinerarioServiciosPagos();
+            $pagos->a_cuenta=$precio;
+            $pagos->fecha_a_pagar=$fecha;
+            $pagos->estado=0;
+            $pagos->itinerario_servicios_id=$id;
+            if($pagos->save())
+                return '1_'.$pagos->id;
+            else
+                return 0;
+        }
         else
             return 0;
     }
     public function pagar(Request $request)
     {
         $id=$request->input('itineraio_servicios_id');
+        $pago_id=$request->input('servicio_pago');
         $total=$request->input('total');
         $a_cuenta=$request->input('a_cuenta');
 
-        $pagos=new ItinerarioServiciosPagos();
+        $pagos=ItinerarioServiciosPagos::FindOrFail($pago_id);
         $pagos->a_cuenta=$a_cuenta;
         $pagos->fecha_a_pagar=date("Y-m-d");
         $pagos->estado=1;
@@ -73,9 +83,26 @@ class ContabilidadController extends Controller
             return 0;
     }
 
-    public function listar(){
-        $cotizaciones=Cotizacion::get();
-        return view('admin.contabilidad.lista-fecha',['cotizaciones'=>$cotizaciones]);
-    }
+    public function listar($desde,$hasta){
+//        $fecha_desde=$request->input('fecha_desde');
+//        $fecha_hasta=$request->input('fecha_hasta');
 
+        $cotizaciones=Cotizacion::with(['paquete_cotizaciones.itinerario_cotizaciones.itinerario_servicios.pagos'=> function ($query) use ($desde,$hasta) {
+            $query->whereBetween('fecha_a_pagar', array($desde, $hasta))
+                ->where('estado', 0);
+        }])->get();
+//        dd($cotizaciones);
+        return view('admin.contabilidad.lista-fecha',['cotizaciones'=>$cotizaciones,'desde'=>$desde,'hasta'=>$hasta]);
+    }
+    public function listar_post(Request $request){
+        $desde=$request->input('desde');
+        $hasta=$request->input('hasta');
+
+        $cotizaciones=Cotizacion::with(['paquete_cotizaciones.itinerario_cotizaciones.itinerario_servicios.pagos'=> function ($query) use ($desde,$hasta) {
+            $query->whereBetween('fecha_a_pagar', array($desde, $hasta))
+                ->where('estado', 0);
+        }])->get();
+//        dd($cotizaciones);
+        return view('admin.contabilidad.lista-fecha',['cotizaciones'=>$cotizaciones,'desde'=>$desde,'hasta'=>$hasta]);
+    }
 }

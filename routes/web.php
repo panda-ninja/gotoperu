@@ -334,7 +334,19 @@ Route::post('/admin/contabilidad/pagar', [
     'uses' => 'ContabilidadController@pagar',
     'as' => 'pagar_proveedor_path',
 ]);
-Route::get('/admin/contabilidad/buscar/fechas', [
+Route::get('/admin/contabilidad/buscar/fechas/{desde}/{hasta}', [
     'uses' => 'ContabilidadController@listar',
     'as' => 'contabilidad_fechas_path',
 ]);
+Route::post('/admin/contabilidad/buscar/fechas/', [
+    'uses' => 'ContabilidadController@listar_post',
+    'as' => 'contabilidad_fechas_post_path',
+]);
+//Route::post('/admin/contabilidad/buscar/fechas', [
+//    'uses' => 'ContabilidadController@listar',
+//    'as' => 'contabilidad_fechas_path',
+//]);
+//Route::get('/admin/contabilidad/buscar/fechas', [
+//    'uses' => 'ContabilidadController@listar',
+//    'as' => 'buscar_pagos_proveedores_path',
+//]);
