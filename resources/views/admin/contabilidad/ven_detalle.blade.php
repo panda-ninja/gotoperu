@@ -179,7 +179,7 @@
                                                 @if($servicios->precio_c>0)
                                                     <button id="servicio_{{$servicios->id}}" type="button" class="btn btn-success">confirmada</button>
                                                 @else
-                                                    <button id="servicio_{{$servicios->id}}" type="button" class="btn btn-primary" onclick="confirmar_fecha('{{$servicios->id}}')">Pendiente</button>
+                                                    <button id="servicio_{{$servicios->id}}" type="button" class="btn btn-danger" onclick="confirmar_fecha('{{$servicios->id}}')">confirmar ahora</button>
                                                 @endif
                                                 <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
                                                     <i class="fa fa-usd" aria-hidden="true"></i> Pagar

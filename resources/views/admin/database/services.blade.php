@@ -640,7 +640,7 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            @foreach($servicios->sortByDesc('id') as $servicio)
+                            @foreach($servicios->groupBy('grupo') as $servicio)
                                 @if($servicio->grupo==$categoria->nombre)
                                     <?php
                                     $acom='';

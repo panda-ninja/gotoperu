@@ -1419,9 +1419,9 @@ function confirmar_fecha(id){
         });
         $.post('/admin/contabilidad/conciliar-venta', 'id='+id+'&&precio='+precio+'&&fecha='+fecha, function(data) {
             var data1=data.split('_');
-            if(data[0]=='1'){
+            if(data1[0]=='1'){
                 $('#servicio_'+id).html('Confirmada');
-                $('#servicio_'+id).removeClass('btn-primary');
+                $('#servicio_'+id).removeClass('btn-danger');
                 $('#servicio_'+id).addClass('btn-success');
                 $('#servicio_'+id).off("click");
                 $('#servicio_pago_'+id).val(data1[1]);
