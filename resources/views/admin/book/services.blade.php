@@ -234,7 +234,7 @@
                                                                                         @endphp
                                                                                 @endif
                                                                                     @php
-                                                                                        $precio_book=$producto->precio_costo*2;
+                                                                                        $precio_book=$producto->precio_costo*1;
                                                                                     @endphp
                                                                                     @if($producto->precio_grupo==0)
                                                                                         @php
@@ -246,7 +246,7 @@
                                                                                         <div class="checkbox11">
                                                                                             <label class="text-danger">
                                                                                                 <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">
-                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*2}}@else{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}} @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
+                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*1}}@else{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}} @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -255,7 +255,7 @@
                                                                                         <div class="checkbox11">
                                                                                             <label class="text-green-goto">
                                                                                                 <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">
-                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*2}}@else{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}  @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
+                                                                                                @if($producto->precio_grupo==1){{$producto->precio_costo*1}}@else{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}  @endif $ <span class="text-primary">by {{$producto->proveedor->razon_social}}</span>
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
