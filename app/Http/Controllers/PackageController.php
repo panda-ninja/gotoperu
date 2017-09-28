@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Hotel;
 use App\M_Destino;
 use App\M_Itinerario;
 use App\M_Servicio;
@@ -16,6 +17,7 @@ use Mockery\Exception;
 use PhpParser\Node\Expr\Array_;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Redirect;
+use Psy\Test\Readline\HoaConsoleTest;
 
 class PackageController extends Controller
 {
@@ -44,8 +46,9 @@ class PackageController extends Controller
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
         $m_servicios=M_Servicio::get();
+        $hotel=Hotel::get();
 //        dd($servicios);
-        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios]);
+        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel]);
     }
 
     /**
