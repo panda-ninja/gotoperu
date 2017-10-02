@@ -307,43 +307,47 @@
                 $amount_d5=0;
                 $amount_m5=0;
                 $amount_t5=0;
+                $hotel_id=0;
                 ?>
                 @foreach($hotel as $servicio)
-                    @if($servicio->localizacion=="CUSCO")
-                        @if($servicio->estrellas=="2")
+                        @if($servicio->localizacion=="CUSCO")
                             @php
-                                $amount_s2=$servicio->single;
-                                $amount_d2=$servicio->double;
-                                $amount_m2=$servicio->matrimonial;
-                                $amount_t2=$servicio->triple;
-                             @endphp
-                        @endif
-                        @if($servicio->estrellas=="3")
-                            @php
-                                $amount_s3=$servicio->single;
-                                $amount_d3=$servicio->double;
-                                $amount_m3=$servicio->matrimonial;
-                                $amount_t3=$servicio->triple;
+                                $hotel_id=$servicio->id;
                             @endphp
+                            @if($servicio->estrellas=="2")
+                                @php
+                                    $amount_s2=$servicio->single;
+                                    $amount_d2=$servicio->double;
+                                    $amount_m2=$servicio->matrimonial;
+                                    $amount_t2=$servicio->triple;
+                                @endphp
+                            @endif
+                            @if($servicio->estrellas=="3")
+                                @php
+                                    $amount_s3=$servicio->single;
+                                    $amount_d3=$servicio->double;
+                                    $amount_m3=$servicio->matrimonial;
+                                    $amount_t3=$servicio->triple;
+                                @endphp
+                            @endif
+                            @if($servicio->estrellas=="4")
+                                @php
+                                    $amount_s4=$servicio->single;
+                                    $amount_d4=$servicio->double;
+                                    $amount_m4=$servicio->matrimonial;
+                                    $amount_t4=$servicio->triple;
+                                @endphp
+                            @endif
+                            @if($servicio->estrellas=="5")
+                                @php
+                                    $amount_s5=$servicio->single;
+                                    $amount_d5=$servicio->double;
+                                    $amount_m5=$servicio->matrimonial;
+                                    $amount_t5=$servicio->triple;
+                                @endphp
+                            @endif
                         @endif
-                        @if($servicio->estrellas=="4")
-                            @php
-                                $amount_s4=$servicio->single;
-                                $amount_d4=$servicio->double;
-                                $amount_m4=$servicio->matrimonial;
-                                $amount_t4=$servicio->triple;
-                            @endphp
-                        @endif
-                        @if($servicio->estrellas=="5")
-                            @php
-                                $amount_s5=$servicio->single;
-                                $amount_d5=$servicio->double;
-                                $amount_m5=$servicio->matrimonial;
-                                $amount_t5=$servicio->triple;
-                            @endphp
-                        @endif
-                    @endif
-                @endforeach
+                    @endforeach
 
                 <table class="table table-condensed table-bordered font-montserrat">
                     <caption class="text-right"><b>Price per night</b></caption>
@@ -1547,14 +1551,13 @@
                         <label for="txt_day">Total venta</label>
                         <input type="number" class="form-control" id="totalItinerario_venta" name="totalItinerario_venta" min="0" value="0" readonly>
                         <input type="number" class="form-control" id="nroItinerario" name="nroItinerario" min="0" value="0">
-
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
+                <input type="hidden" name="hotel_id" value="{{$hotel_id}}">
                 <button type="submit" class="btn btn-lg btn-primary">Submit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>

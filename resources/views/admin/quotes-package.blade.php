@@ -342,90 +342,45 @@
                 $amount_d5=0;
                 $amount_m5=0;
                 $amount_t5=0;
+                $hotel_id=0;
                 ?>
-                @foreach($m_servicios as $servicio)
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="S" )
-                        <?php
-                        $amount_s2=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="D" )
-                        <?php
-                        $amount_d2=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="M" )
-                        <?php
-                        $amount_m2=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="2 STARS" &&$servicio->acomodacion=="T" )
-                        <?php
-                        $amount_t2=$servicio->precio_venta;
-                        ?>
-                    @endif
-
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="S" )
-                        <?php
-                        $amount_s3=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="D" )
-                        <?php
-                        $amount_d3=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="M" )
-                        <?php
-                        $amount_m3=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="3 STARS" &&$servicio->acomodacion=="T" )
-                        <?php
-                        $amount_t3=$servicio->precio_venta;
-                        ?>
-                    @endif
-
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="S" )
-                        <?php
-                        $amount_s4=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="D" )
-                        <?php
-                        $amount_d4=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="M" )
-                        <?php
-                        $amount_m4=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="4 STARS" &&$servicio->acomodacion=="T" )
-                        <?php
-                        $amount_t4=$servicio->precio_venta;
-                        ?>
-                    @endif
-
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="S" )
-                        <?php
-                        $amount_s5=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="D" )
-                        <?php
-                        $amount_d5=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="M" )
-                        <?php
-                        $amount_m5=$servicio->precio_venta;
-                        ?>
-                    @endif
-                    @if($servicio->tipoServicio=="5 STARS" &&$servicio->acomodacion=="T" )
-                        <?php
-                        $amount_t5=$servicio->precio_venta;
-                        ?>
+                @foreach($hotel as $servicio)
+                    @if($servicio->localizacion=="CUSCO")
+                        @php
+                            $hotel_id=$servicio->id;
+                        @endphp
+                        @if($servicio->estrellas=="2")
+                            @php
+                                $amount_s2=$servicio->single;
+                                $amount_d2=$servicio->double;
+                                $amount_m2=$servicio->matrimonial;
+                                $amount_t2=$servicio->triple;
+                            @endphp
+                        @endif
+                        @if($servicio->estrellas=="3")
+                            @php
+                                $amount_s3=$servicio->single;
+                                $amount_d3=$servicio->double;
+                                $amount_m3=$servicio->matrimonial;
+                                $amount_t3=$servicio->triple;
+                            @endphp
+                        @endif
+                        @if($servicio->estrellas=="4")
+                            @php
+                                $amount_s4=$servicio->single;
+                                $amount_d4=$servicio->double;
+                                $amount_m4=$servicio->matrimonial;
+                                $amount_t4=$servicio->triple;
+                            @endphp
+                        @endif
+                        @if($servicio->estrellas=="5")
+                            @php
+                                $amount_s5=$servicio->single;
+                                $amount_d5=$servicio->double;
+                                $amount_m5=$servicio->matrimonial;
+                                $amount_t5=$servicio->triple;
+                            @endphp
+                        @endif
                     @endif
                 @endforeach
                 <?php
@@ -1752,6 +1707,7 @@
                 @endforeach
                 <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cliente_id}}">
                 <input type="text" name="acomodacion" value="{{$acomodacion_}}">
+                <input type="text" name="hotel_id" value="{{$hotel_id}}">
                 <button type="submit" class="btn btn-lg btn-primary">Generar plan <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>

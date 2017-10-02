@@ -342,10 +342,10 @@ Route::post('/admin/contabilidad/buscar/fechas/', [
     'uses' => 'ContabilidadController@listar_post',
     'as' => 'contabilidad_fechas_post_path',
 ]);
-//Route::post('/admin/contabilidad/buscar/fechas', [
-//    'uses' => 'ContabilidadController@listar',
-//    'as' => 'contabilidad_fechas_path',
-//]);
+Route::post('/admin/reservas/confirmar', [
+    'uses' => 'BookController@confirmar',
+    'as' => 'confirmar_reserva_path',
+]);
 //Route::get('/admin/contabilidad/buscar/fechas', [
 //    'uses' => 'ContabilidadController@listar',
 //    'as' => 'buscar_pagos_proveedores_path',

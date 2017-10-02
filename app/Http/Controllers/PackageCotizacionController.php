@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
+use App\Hotel;
 use App\ItinerarioCotizaciones;
 use App\ItinerarioDestinos;
 use App\ItinerarioServicios;
@@ -100,7 +101,8 @@ class PackageCotizacionController extends Controller
         $itinerarios=M_Itinerario::get();
         $m_servicios=M_Servicio::get();
 //      dd($servicios);
-        return view('admin.quotes-package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'destinos1'=>$destinos1,'cotizacion'=>$cotizacion,'acomodacion_'=>$acomodacion]);
+        $hotel=Hotel::get();
+        return view('admin.quotes-package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'destinos1'=>$destinos1,'cotizacion'=>$cotizacion,'acomodacion_'=>$acomodacion,'hotel'=>$hotel]);
     }
 
     public function store_package(Request $request)
@@ -117,7 +119,7 @@ class PackageCotizacionController extends Controller
         $txt_sugerencia=$request->input('txt_sugerencia');
         $nro_personas=$request->input('nro_personitas');
         $cliente_id=$request->input('cliente_id');
-
+        $hotel_id=$request->input('hotel_id');
 //        dd($itinerarios_);
 
         $strellas_2=$request->input('strellas_2');
@@ -191,6 +193,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio2->estado=0;
         $paquete_precio2->utilidad=$profit_2;
         $paquete_precio2->paquete_cotizaciones_id=$paquete->id;
+        $paquete_precio2->hotel_id=$hotel_id;
         $paquete_precio2->save();
 
         $paquete_precio3=new PaquetePrecio();
@@ -209,6 +212,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio3->estado=0;
         $paquete_precio3->utilidad=$profit_3;
         $paquete_precio3->paquete_cotizaciones_id=$paquete->id;
+        $paquete_precio3->hotel_id=$hotel_id;
         $paquete_precio3->save();
 
         $paquete_precio4=new PaquetePrecio();
@@ -227,6 +231,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio4->estado=0;
         $paquete_precio4->utilidad=$profit_4;
         $paquete_precio4->paquete_cotizaciones_id=$paquete->id;
+        $paquete_precio4->hotel_id=$hotel_id;
         $paquete_precio4->save();
 
         $paquete_precio5=new PaquetePrecio();
@@ -245,6 +250,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio5->estado=0;
         $paquete_precio5->utilidad=$profit_5;
         $paquete_precio5->paquete_cotizaciones_id=$paquete->id;
+        $paquete_precio5->hotel_id=$hotel_id;
         $paquete_precio5->save();
         $dia=0;
         $dia_texto=1;
@@ -465,6 +471,12 @@ class PackageCotizacionController extends Controller
         $paquetePrecio->personas_t=$t;
         $paquetePrecio->estado=2;
         $paquetePrecio->save();
+        //-- recorremos los dias para agregar los hoteles
+        $itinerario_cotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$paquetePrecio->id)->get();
+        foreach ($itinerario_cotizaciones as $itinerario_cotizacion){
+            $itinerario_cotizacion->id;
+            PRecio
+        }
 
         $paquete=PaqueteCotizaciones::where('id',$paquetePrecio->paquete_cotizaciones_id)->get();
         foreach ($paquete as $paquete_){
@@ -477,10 +489,8 @@ class PackageCotizacionController extends Controller
             $cotizaciones->categorizado='N';
             $cotizaciones->save();
             $cotizacion=Cotizacion::where('id',$cotizaciones->id)->get();
-//            return view('admin.quotes-current-details',['cotizacion'=>$cotizacion]);
-            return redirect()->route('cotizacion_id_show_path',[$cotizaciones->id]);
+        return redirect()->route('cotizacion_id_show_path',[$cotizaciones->id]);
         }
-
 
     }
     public function cargar_paquete_enlatados(Request $request){

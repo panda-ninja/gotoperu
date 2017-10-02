@@ -25,4 +25,8 @@ class ItinerarioCotizaciones extends Model
     {
         return $this->hasMany(ItinerarioHora::class, 'itinerario_cotizaciones_id');
     }
+    public function hotel()
+    {
+        return $this->hasMany(PrecioHotelReserva::class, 'itinerario_cotizaciones_id');
+    }
 }

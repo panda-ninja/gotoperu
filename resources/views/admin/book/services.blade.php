@@ -72,7 +72,7 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="?page=update"><i class="fa fa-fw fa-database" aria-hidden="true"></i> Actualizar Datos</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-database" aria-hidden="true"></i> Reservar todo</a></li>
                                     <li><a href="#"><i class="fa fa-fw fa-check" aria-hidden="true"></i> Friends</a></li>
                                     <li><a href="#">Work</a></li>
                                     <li role="separator" class="divider"></li>
@@ -326,11 +326,21 @@
                                 <td colspan="2"><b>Total</b></td>
                                 <td class="text-right text-18 text-warning"><b>1322.00 $</b></td>
                                 <td class="text-right text-18 text-info"><b>343.00 $</b></td>
-
                             </tr>
 
                         </tbody>
                     </table>
+                    <form action="{{route('confirmar_reserva_path')}}" method="post">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <input type="hidden" name="cotizacion_id" value="{{$cotizacion->id}}">
+                                {{csrf_field()}}
+                                <button type="submit" class="btn btn-lg btn-success">Confirmar toda la reserva
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
         </div>
 

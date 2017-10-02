@@ -112,4 +112,15 @@ class BookController extends Controller
         $proveedores=Proveedor::get();
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
     }
+    public function confirmar(Request $request){
+        $cotizacion_id=$request->input('cotizacion_id');
+        $coti=Cotizacion::FindOrFail($cotizacion_id);
+        $coti->confirmado_r='ok';
+        $coti->save();
+        $cotizacion=Cotizacion::FindOrFail($cotizacion_id);
+        $productos=M_Producto::get();
+        $proveedores=Proveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
+
+    }
 }
