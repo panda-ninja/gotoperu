@@ -286,7 +286,136 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    {{--{{dd($itinerario->hotel)}}--}}
+                                    @foreach($itinerario->hotel as $hotel)
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                {{--{{$hotel->id}}--}}
+                                                @php
+                                                    $total=0;
+                                                    $cadena_total='';
+                                                @endphp
+                                                @if($hotel->personas_s>0)
+                                                    @php
+                                                        $total+=$hotel->personas_s*$hotel->precio_s;
+                                                        $cadena_total.="<p>Single: ".$hotel->personas_s." x ".$hotel->precio_s." =".($hotel->personas_s*$hotel->precio_s*1)."</p>";
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_s}} Single Room </b><span class="text-info"> | </span>
+                                                @endif
+                                                @if($hotel->personas_d>0)
+                                                    @php
+                                                        $total+=$hotel->personas_d*$hotel->precio_d*2;
+                                                        $cadena_total.="<p>Double: ".$hotel->personas_d." x ".($hotel->precio_d*2)." =".($hotel->personas_d*$hotel->precio_d*2)."</p>";
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_d}} Double Room </b><span class="text-info"> | </span>
+                                                @endif
+                                                @if($hotel->personas_m>0)
+                                                    @php
+                                                        $total+=$hotel->personas_m*$hotel->precio_m*2;
+                                                        $cadena_total.="<p>Matrimonial: ".$hotel->personas_m." x ".($hotel->precio_m*2)." =".($hotel->personas_m*$hotel->precio_m*2)."</p>";
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_m}} Matrimonial Room </b><span class="text-info"> | </span>
+                                                @endif
+                                                @if($hotel->personas_t>0)
+                                                    @php
+                                                        $total+=$hotel->personas_t*$hotel->precio_t*3;
+                                                        $cadena_total.="<p>Triple: ".$hotel->personas_t." x ".($hotel->precio_t*3)." =".($hotel->personas_t*$hotel->precio_t*3)."</p>";
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_t}} Triple Room </b><span class="text-info"> | </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-right">
+                                                <p><i class="fa fa-users" aria-hidden="true"></i> {{$total}} $
+                                                    <a id="hpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
+                                                </p>
+                                            </td>
+                                            {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
+                                            <td class="text-right">{{$servicios->precio_proveedor}} $</td>
+                                            <td><input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')"></td>
+                                            <td>
+                                                {{--@if($hotel->proveedor)--}}
+                                                    {{--{{$hotel->proveedor->razon_social}}--}}
+                                                {{--@else--}}
+                                                    {{--<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$hotel->id}}">--}}
+                                                        {{--Proveedor--}}
+                                                    {{--</button>--}}
+                                                    {{--<div class="modal fade" id="myModal_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--}}
+                                                        {{--<div class="modal-dialog" role="document">--}}
+                                                            {{--<div class="modal-content">--}}
+                                                                {{--<form action="{{route('asignar_proveedor_path')}}" method="post">--}}
+                                                                    {{--<div class="modal-header">--}}
+                                                                        {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                        {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                    {{--</div>--}}
+                                                                    {{--<div class="modal-body clearfix">--}}
+                                                                        {{--<div class="col-md-12">--}}
+{{--                                                                            {{dd($servicios)}}--}}
+                                                                            {{--@foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)--}}
+{{--                                                                                {{dd($hotel_proveedor_)}}--}}
+                                                                                {{--{{$hotel_proveedor_->proveedor->razon_social}}--}}
+                                                                                {{--<div class="col-md-12">--}}
+                                                                                    {{--<div class="checkbox11">--}}
+                                                                                        {{--<label class="text-danger">--}}
+                                                                                            {{--<input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_0">--}}
+                                                                                            {{--@php--}}
+                                                                                                {{--$cadena='';--}}
+                                                                                            {{--@endphp--}}
+                                                                                            {{--@if($hotel->personas_s>0)--}}
+                                                                                                {{--@php--}}
+                                                                                                    {{--$cadena.='<p>Single: '.$hotel_proveedor->single*$hotel->personas_s.'</p>';--}}
+                                                                                                {{--@endphp--}}
+                                                                                            {{--@endif--}}
+                                                                                            {{--@if($hotel->personas_d>0)--}}
+                                                                                                {{--@php--}}
+                                                                                                    {{--$cadena.='<p>Double: '.$hotel_proveedor->double*$hotel->personas_d.'</p>';--}}
+                                                                                                {{--@endphp--}}
+                                                                                            {{--@endif--}}
+                                                                                            {{--@if($hotel->personas_m>0)--}}
+                                                                                                {{--@php--}}
+                                                                                                    {{--$cadena.='<p>Matrimonial: '.$hotel_proveedor->matrimonial*$hotel->personas_m.'</p>';--}}
+                                                                                                {{--@endphp--}}
+                                                                                            {{--@endif--}}
+                                                                                            {{--@if($hotel->personas_t>0)--}}
+                                                                                                {{--@php--}}
+                                                                                                    {{--$cadena.='<p>Triple: '.$hotel_proveedor->triple*$hotel->personas_t.'</p>';--}}
+                                                                                                {{--@endphp--}}
+                                                                                            {{--@endif--}}
+                                                                                            {{--{{$cadena}}--}}
+                                                                                        {{--</label>--}}
+                                                                                    {{--</div>--}}
+                                                                                {{--</div>--}}
+                                                                            {{--@endforeach--}}
 
+
+                                                                        {{--</div>--}}
+
+                                                                    {{--</div>--}}
+                                                                    {{--<div class="modal-footer">--}}
+                                                                        {{--{{csrf_field()}}--}}
+                                                                        {{--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                                                                        {{--<button type="submit" class="btn btn-primary">Save changes</button>--}}
+                                                                    {{--</div>--}}
+                                                                {{--</form>--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--@endif--}}
+                                                {{--@if($servicios->itinerario_proveedor)--}}
+                                                    {{--{{$servicios->itinerario_proveedor->razon_social}}--}}
+                                                 {{--@else--}}
+
+                                                {{--@endif--}}
+                                            </td>
+                                            <td>
+                                                @if($servicios->itinerario_proveedor)
+                                                    <i class="fa fa-check fa-2x text-success"></i>
+                                                @else
+                                                    <i class="fa fa-clock-o fa-2x text-unset"></i>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
                             @endif
                         @endforeach
@@ -356,6 +485,9 @@
                         @foreach($itinerario->itinerario_servicios as $servicios)
                             $('#ipropover_{{$servicios->id}}').popover({html: true, placement: "rigth", trigger: "click"});
                             $('#propover_{{$servicios->id}}').popover({html: true, placement: "rigth", trigger: "click"});
+                        @endforeach
+                        @foreach($itinerario->hotel as $hotel)
+                            $('#hpropover_{{$hotel->id}}').popover({html: true, placement: "rigth", trigger: "click"});
                         @endforeach
                     @endforeach
                 @endif

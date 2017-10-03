@@ -9,8 +9,12 @@ class PrecioHotelReserva extends Model
     //
     protected $table = "precio_hotel_reserva";
 
-    public function paquete_cotizaciones()
+    public function itinerario_dia()
     {
-        return $this->belongsTo(PaqueteCotizaciones::class, 'paquete_cotizaciones_id');
+        return $this->belongsTo(ItinerarioCotizaciones::class, 'itinerario_cotizaciones_id');
+    }
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class, 'proveedor_id');
     }
 }

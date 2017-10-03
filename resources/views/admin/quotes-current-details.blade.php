@@ -85,6 +85,10 @@
                     @if($paquete->estado==2)
                         @php
                             $sumatotal=0;
+                            $total_utilidad_s=0;
+                            $total_utilidad_d=0;
+                            $total_utilidad_m=0;
+                            $total_utilidad_t=0;
                         @endphp
                         @foreach($paquete->paquete_precios as $precio_paquete2)
 

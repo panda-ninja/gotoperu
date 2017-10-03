@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
+use App\HotelProveedor;
 use App\ItinerarioServicios;
 use App\M_Producto;
 use App\PaqueteCotizaciones;
@@ -61,7 +62,8 @@ class BookController extends Controller
         $cotizacion=Cotizacion::FindOrFail($id);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
+        $hotel_proveedor=HotelProveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
 
     /**

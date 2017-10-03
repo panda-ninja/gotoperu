@@ -18,6 +18,7 @@ use App\P_Paquete;
 use App\P_PaquetePrecio;
 use App\PaqueteCotizaciones;
 use App\PaquetePrecio;
+use App\PrecioHotelReserva;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Mockery\Exception;
@@ -358,7 +359,6 @@ class PackageCotizacionController extends Controller
     public function current_cotizacion()
     {
         $cotizacion=Cotizacion::get();
-
         return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
     }
     public function autocomplete()
@@ -471,11 +471,31 @@ class PackageCotizacionController extends Controller
         $paquetePrecio->personas_t=$t;
         $paquetePrecio->estado=2;
         $paquetePrecio->save();
+//        dd($paquetePrecio->id);
         //-- recorremos los dias para agregar los hoteles
-        $itinerario_cotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$paquetePrecio->id)->get();
-        foreach ($itinerario_cotizaciones as $itinerario_cotizacion){
-            $itinerario_cotizacion->id;
-            PRecio
+        $itinerario_cotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$paquetePrecio->paquete_cotizaciones_id)->get();
+        $nroDias=count($itinerario_cotizaciones);
+//        dd($nroDias);
+        $pos=1;
+        foreach ($itinerario_cotizaciones as $itinerario_cotizacion) {
+            if ($pos < $nroDias){
+                $preio_hotel = new PrecioHotelReserva();
+                $preio_hotel->estrellas = $paquetePrecio->estrellas;
+                $preio_hotel->precio_s = $paquetePrecio->precio_s;
+                $preio_hotel->personas_s = $paquetePrecio->personas_s;
+                $preio_hotel->precio_d = $paquetePrecio->precio_d;
+                $preio_hotel->personas_d = $paquetePrecio->personas_d;
+                $preio_hotel->precio_m = $paquetePrecio->precio_m;
+                $preio_hotel->personas_m = $paquetePrecio->personas_m;
+                $preio_hotel->precio_t = $paquetePrecio->precio_t;
+                $preio_hotel->personas_t = $paquetePrecio->personas_t;
+                $preio_hotel->utilidad = $paquetePrecio->utilidad;
+                $preio_hotel->estado = $paquetePrecio->estado;
+                $preio_hotel->hotel_id = $paquetePrecio->hotel_id;
+                $preio_hotel->itinerario_cotizaciones_id = $itinerario_cotizacion->id;
+                $preio_hotel->save();
+                $pos++;
+            }
         }
 
         $paquete=PaqueteCotizaciones::where('id',$paquetePrecio->paquete_cotizaciones_id)->get();
