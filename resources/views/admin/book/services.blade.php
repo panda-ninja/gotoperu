@@ -334,73 +334,65 @@
                                             <td class="text-right">{{$servicios->precio_proveedor}} $</td>
                                             <td><input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')"></td>
                                             <td>
-                                                {{--@if($hotel->proveedor)--}}
-                                                    {{--{{$hotel->proveedor->razon_social}}--}}
-                                                {{--@else--}}
-                                                    {{--<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$hotel->id}}">--}}
-                                                        {{--Proveedor--}}
-                                                    {{--</button>--}}
-                                                    {{--<div class="modal fade" id="myModal_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--}}
-                                                        {{--<div class="modal-dialog" role="document">--}}
-                                                            {{--<div class="modal-content">--}}
-                                                                {{--<form action="{{route('asignar_proveedor_path')}}" method="post">--}}
-                                                                    {{--<div class="modal-header">--}}
-                                                                        {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
-                                                                        {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--<div class="modal-body clearfix">--}}
-                                                                        {{--<div class="col-md-12">--}}
+                                                @if($hotel->proveedor)
+                                                    {{$hotel->proveedor->razon_social}}
+                                                @else
+                                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_h_{{$hotel->id}}">
+                                                        Proveedor
+                                                    </button>
+                                                    <div class="modal fade" id="myModal_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form action="{{route('asignar_proveedor_hotel_path')}}" method="post">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                                    </div>
+                                                                    <div class="modal-body clearfix">
+                                                                        <div class="col-md-12">
 {{--                                                                            {{dd($servicios)}}--}}
-                                                                            {{--@foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)--}}
-{{--                                                                                {{dd($hotel_proveedor_)}}--}}
-                                                                                {{--{{$hotel_proveedor_->proveedor->razon_social}}--}}
-                                                                                {{--<div class="col-md-12">--}}
-                                                                                    {{--<div class="checkbox11">--}}
-                                                                                        {{--<label class="text-danger">--}}
-                                                                                            {{--<input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_0">--}}
-                                                                                            {{--@php--}}
-                                                                                                {{--$cadena='';--}}
-                                                                                            {{--@endphp--}}
-                                                                                            {{--@if($hotel->personas_s>0)--}}
-                                                                                                {{--@php--}}
-                                                                                                    {{--$cadena.='<p>Single: '.$hotel_proveedor->single*$hotel->personas_s.'</p>';--}}
-                                                                                                {{--@endphp--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--@if($hotel->personas_d>0)--}}
-                                                                                                {{--@php--}}
-                                                                                                    {{--$cadena.='<p>Double: '.$hotel_proveedor->double*$hotel->personas_d.'</p>';--}}
-                                                                                                {{--@endphp--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--@if($hotel->personas_m>0)--}}
-                                                                                                {{--@php--}}
-                                                                                                    {{--$cadena.='<p>Matrimonial: '.$hotel_proveedor->matrimonial*$hotel->personas_m.'</p>';--}}
-                                                                                                {{--@endphp--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--@if($hotel->personas_t>0)--}}
-                                                                                                {{--@php--}}
-                                                                                                    {{--$cadena.='<p>Triple: '.$hotel_proveedor->triple*$hotel->personas_t.'</p>';--}}
-                                                                                                {{--@endphp--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--{{$cadena}}--}}
-                                                                                        {{--</label>--}}
-                                                                                    {{--</div>--}}
-                                                                                {{--</div>--}}
-                                                                            {{--@endforeach--}}
+                                                                            {{--{{$hotel_proveedor}}--}}
+                                                                            @foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)
+{{--                                                                                {{dd($hotel_proveedor_->single)}}--}}
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="checkbox11 text-left bg-info">
+                                                                                        <label class="text-primary">
+                                                                                            <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_0">
+                                                                                            <b>{{$hotel_proveedor_->proveedor->razon_social}}</b>
+                                                                                        </label>
+                                                                                        @if($hotel->personas_s>0)
+                                                                                                <p>Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
+                                                                                        @endif
+                                                                                        @if($hotel->personas_d>0)
+                                                                                                <p>Double: ${{$hotel_proveedor_->double*$hotel->personas_d}}</p>
+                                                                                        @endif
+                                                                                        @if($hotel->personas_m>0)
+                                                                                            <p>Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
+                                                                                        @endif
+                                                                                        @if($hotel->personas_t>0)
+                                                                                            <p>Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
+                                                                                        @endif
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endforeach
 
 
-                                                                        {{--</div>--}}
+                                                                        </div>
 
-                                                                    {{--</div>--}}
-                                                                    {{--<div class="modal-footer">--}}
-                                                                        {{--{{csrf_field()}}--}}
-                                                                        {{--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-                                                                        {{--<button type="submit" class="btn btn-primary">Save changes</button>--}}
-                                                                    {{--</div>--}}
-                                                                {{--</form>--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--@endif--}}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        {{csrf_field()}}
+                                                                        <input type="text" name="id" value="{{$hotel->id}}">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                                 {{--@if($servicios->itinerario_proveedor)--}}
                                                     {{--{{$servicios->itinerario_proveedor->razon_social}}--}}
                                                  {{--@else--}}

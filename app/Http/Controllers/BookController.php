@@ -63,6 +63,7 @@ class BookController extends Controller
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
+//        dd($hotel_proveedor);
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
 
@@ -114,6 +115,23 @@ class BookController extends Controller
         $proveedores=Proveedor::get();
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
     }
+    function asignar_proveedor_hotel(Request $request){
+        $dat=$request->input('precio')[0];
+//        dd($dat);
+        $dato=explode('_',$dat);
+//        dd($dato);
+        $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
+        $itinerario->precio_proveedor=$dato[3];
+        $itinerario->proveedor_id=$dato[2];
+        $itinerario->save();
+
+        $cotizacion=Cotizacion::FindOrFail($dato[0]);
+        $productos=M_Producto::get();
+        $proveedores=Proveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
+    }
+
+
     public function confirmar(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');
         $coti=Cotizacion::FindOrFail($cotizacion_id);
