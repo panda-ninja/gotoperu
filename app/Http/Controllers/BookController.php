@@ -9,6 +9,7 @@ use App\HotelProveedor;
 use App\ItinerarioServicios;
 use App\M_Producto;
 use App\PaqueteCotizaciones;
+use App\PrecioHotelReserva;
 use App\Proveedor;
 use Illuminate\Http\Request;
 
@@ -63,7 +64,6 @@ class BookController extends Controller
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
-//        dd($hotel_proveedor);
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
 
@@ -113,22 +113,29 @@ class BookController extends Controller
         $cotizacion=Cotizacion::FindOrFail($dato[0]);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
+        $hotel_proveedor=HotelProveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
     function asignar_proveedor_hotel(Request $request){
         $dat=$request->input('precio')[0];
 //        dd($dat);
         $dato=explode('_',$dat);
 //        dd($dato);
-        $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
-        $itinerario->precio_proveedor=$dato[3];
-        $itinerario->proveedor_id=$dato[2];
-        $itinerario->save();
+        $hotel_proveedor=HotelProveedor::FindOrFail($dato[3]);
+//        dd($hotel_proveedor);
+        $hotel_reservado=PrecioHotelReserva::FindOrFail($dato[1]);
+        $hotel_reservado->precio_s_r=$hotel_proveedor->single;
+        $hotel_reservado->precio_d_r=$hotel_proveedor->double;
+        $hotel_reservado->precio_m_r=$hotel_proveedor->matrimonial;
+        $hotel_reservado->precio_t_r=$hotel_proveedor->triple;
+        $hotel_reservado->proveedor_id=$dato[2];
+        $hotel_reservado->save();
 
         $cotizacion=Cotizacion::FindOrFail($dato[0]);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
+        $hotel_proveedor=HotelProveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
 
 
