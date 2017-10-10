@@ -17,6 +17,7 @@ class ServicesController extends Controller
         $destinations=M_Destino::get();
         $servicios=M_Servicio::get();
         $categorias=M_Category::get();
+//        dd($servicios);
         return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
     }
     public function store(Request $request){

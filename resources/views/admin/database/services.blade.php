@@ -550,6 +550,7 @@
                             </tfoot>
                             <tbody>
                             @foreach($servicios as $servicio)
+
                                 @if($servicio->grupo==$categoria->nombre)
                                     <?php
                                     $acom='';
@@ -640,7 +641,8 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            @foreach($servicios->groupBy('grupo') as $servicio)
+                            @foreach($servicios as $servicio)
+                                {{--@foreach($servicios->groupBy('grupo') as $servicio)--}}
                                 @if($servicio->grupo==$categoria->nombre)
                                     <?php
                                     $acom='';

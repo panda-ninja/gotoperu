@@ -80,26 +80,114 @@
                                                         <input type="hidden" name="tipoServicio_{{$pos0}}" id="tipoServicio_{{$pos0}}" value="{{$categoria->nombre}}">
                                                     </div>
                                                 </div>
+                                                @if($categoria->nombre=='HOTELS')
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col-md-9">
+                                                            <label for="txt_precio">Provider</label>
+                                                            <input type="text" class="form-control" id="txt_provider_{{$pos0}}" name="txt_provider_{{$pos0}}" placeholder="Provider">
+                                                        </div>
+                                                        <div class="col-md-3 margin-top-25 ">
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
+                                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if($categoria->nombre=='HOTELS')
+                                                    <div class="col-md-12">
+                                                        <table class="table table-responsive table-striped table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="col-lg-2 text-primary">ACOMODATION</th>
+                                                                <th class="col-lg-2 text-warning text-center text-15">2 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                                <th class="col-lg-2 text-warning text-center text-15">3 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                                <th class="col-lg-2 text-warning text-center text-15">4 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                                <th class="col-lg-2 text-warning text-center text-15">5 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>SIMGLE</td>
+                                                                <td><input type="number" name="S_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="S_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="S_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="S_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>DOUBLE</td>
+                                                                <td><input type="number" name="D_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="D_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="D_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="D_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>MATRIMONIAL</td>
+                                                                <td><input type="number" name="M_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="M_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="M_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="M_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>TRIPLE</td>
+                                                                <td><input type="number" name="T_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="T_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="T_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="T_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>SUPERIOR SIMPLE</td>
+                                                                <td><input type="number" name="SS_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SS_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SS_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SS_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>SUPERIOR DOUBLE</td>
+                                                                <td><input type="number" name="SD_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SD_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SD_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SD_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>SUITE</td>
+                                                                <td><input type="number" name="SU_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SU_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SU_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SU_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>JR. SUITE</td>
+                                                                <td><input type="number" name="JS_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="JS_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="JS_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="JS_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                @endif
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="txt_type">Type</label>
+                                                        {{--<label for="txt_type">Type</label>--}}
                                                         {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
 
-                                                        @if($categoria->nombre=='HOTELS')
-                                                            <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
-                                                                <option value="2 STARS">2 STARS</option>
-                                                                <option value="3 STARS">3 STARS</option>
-                                                                <option value="4 STARS">4 STARS</option>
-                                                                <option value="5 STARS">5 STARS</option>
-                                                            </select>
-                                                        @endif
+{{--                                                        @if($categoria->nombre=='HOTELS')--}}
+                                                            {{--<select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">--}}
+                                                                {{--<option value="2 STARS">2 STARS</option>--}}
+                                                                {{--<option value="3 STARS">3 STARS</option>--}}
+                                                                {{--<option value="4 STARS">4 STARS</option>--}}
+                                                                {{--<option value="5 STARS">5 STARS</option>--}}
+                                                            {{--</select>--}}
+                                                        {{--@endif--}}
                                                         @if($categoria->nombre=='TOURS')
+                                                            <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="GROUP">GROUP</option>
                                                                 <option value="PRIVATE">PRIVATE</option>
                                                             </select>
                                                         @endif
                                                         @if($categoria->nombre=='MOVILID')
+                                                            <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="AUTO">AUTO</option>
                                                                 <option value="SUBARU">SUBARU</option>
@@ -109,6 +197,7 @@
                                                             </select>
                                                         @endif
                                                         @if($categoria->nombre=='REPRESENT')
+                                                            <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="GUIDE">GUIDE</option>
                                                                 <option value="TRANSFER">TRANSFER</option>
@@ -116,12 +205,14 @@
                                                             </select>
                                                         @endif
                                                         @if($categoria->nombre=='ENTRANCES')
+                                                            <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="EXTRANJERO">EXTRANJERO</option>
                                                                 <option value="NATIONAL">NATIONAL</option>
                                                             </select>
                                                         @endif
                                                         @if($categoria->nombre=='FOOD')
+                                                            <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="LUNCH">LUNCH</option>
                                                                 <option value="DINNER">DINNER</option>
@@ -129,6 +220,7 @@
                                                             </select>
                                                         @endif
                                                         @if($categoria->nombre=='TRAINS')
+                                                            <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="EXPEDITION">EXPEDITION</option>
                                                                 <option value="VISITADOME">VISITADOME</option>
@@ -138,6 +230,7 @@
                                                             </select>
                                                         @endif
                                                         @if($categoria->nombre=='FLIGHTS')
+                                                            <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="NATIONAL">NATIONAL</option>
                                                                 <option value="INTERNATIONAL">INTERNATIONAL</option>
@@ -149,24 +242,25 @@
 
                                                     </div>
                                                 </div>
-                                                @if($categoria->nombre=='HOTELS')
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="txt_type">Accommodation</label>
+                                                {{--@if($categoria->nombre=='HOTELS')--}}
+                                                {{--<div class="col-md-4">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label for="txt_type">Accommodation</label>--}}
                                                         {{--<input type="text" class="form-control" id="txt_type_0" name="txt_type_0" placeholder="Type">--}}
-                                                        <select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_{{$pos0}}">
-                                                            <option value="S">SIMPLE</option>
-                                                            <option value="D">DOBLE</option>
-                                                            <option value="M">MATRIMONIAL</option>
-                                                            <option value="T">TRIPLE</option>
-                                                            <option value="SS">SUPERIOR SIMPLE</option>
-                                                            <option value="SD">SUPERIOR DOBLE</option>
-                                                            <option value="SU">SUITE</option>
-                                                            <option value="JS">JR. SUITE</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                @endif
+                                                        {{--<select class="form-control" id="txt_acomodacion_0" name="txt_acomodacion_{{$pos0}}">--}}
+                                                            {{--<option value="S">SIMPLE</option>--}}
+                                                            {{--<option value="D">DOBLE</option>--}}
+                                                            {{--<option value="M">MATRIMONIAL</option>--}}
+                                                            {{--<option value="T">TRIPLE</option>--}}
+                                                            {{--<option value="SS">SUPERIOR SIMPLE</option>--}}
+                                                            {{--<option value="SD">SUPERIOR DOBLE</option>--}}
+                                                            {{--<option value="SU">SUITE</option>--}}
+                                                            {{--<option value="JS">JR. SUITE</option>--}}
+                                                        {{--</select>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                                {{--@endif--}}
+                                                @if($categoria->nombre!='HOTELS')
                                                 <div class="col-md-4">
                                                     <div class="form-group col-md-9">
                                                         <label for="txt_precio">Provider</label>
@@ -178,12 +272,14 @@
                                                         </button>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="txt_product">Product</label>
                                                         <input type="text" class="form-control" id="txt_product_{{$pos0}}" name="txt_product_{{$pos0}}" placeholder="Product">
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-4 hide">
                                                     <div class="form-group">
                                                         <label for="txt_code">Code product</label>
@@ -196,6 +292,7 @@
                                                         <input type="number" class="form-control" id="txt_price_0" name="txt_price_{{$pos0}}" placeholder="Price" min="0.00" step="0.01">
                                                     </div>
                                                 </div>
+                                                @endif
                                                 <div class="col-md-4 hide">
                                                     <div class="row">
                                                         <div class="col-md-6">
