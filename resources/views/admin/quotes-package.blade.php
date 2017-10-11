@@ -352,7 +352,7 @@
                         @if($servicio->estrellas=="2")
                             @php
                                 $amount_s2=$servicio->single;
-                                $amount_d2=$servicio->double;
+                                $amount_d2=$servicio->doble;
                                 $amount_m2=$servicio->matrimonial;
                                 $amount_t2=$servicio->triple;
                             @endphp
@@ -360,7 +360,7 @@
                         @if($servicio->estrellas=="3")
                             @php
                                 $amount_s3=$servicio->single;
-                                $amount_d3=$servicio->double;
+                                $amount_d3=$servicio->doble;
                                 $amount_m3=$servicio->matrimonial;
                                 $amount_t3=$servicio->triple;
                             @endphp
@@ -368,7 +368,7 @@
                         @if($servicio->estrellas=="4")
                             @php
                                 $amount_s4=$servicio->single;
-                                $amount_d4=$servicio->double;
+                                $amount_d4=$servicio->doble;
                                 $amount_m4=$servicio->matrimonial;
                                 $amount_t4=$servicio->triple;
                             @endphp
@@ -376,7 +376,7 @@
                         @if($servicio->estrellas=="5")
                             @php
                                 $amount_s5=$servicio->single;
-                                $amount_d5=$servicio->double;
+                                $amount_d5=$servicio->doble;
                                 $amount_m5=$servicio->matrimonial;
                                 $amount_t5=$servicio->triple;
                             @endphp

@@ -1489,3 +1489,55 @@ function pasar_price(id){
     $('#itotal_'+id).val($('#precio_c_'+id).val());
 
 }
+
+function mostrar_hoteles(pos) {
+    var loca=$('#txt_localizacion_'+pos).val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/ventas/hotel/traer-precios', 'loca='+loca, function(data) {
+        var data1=data.split('_');
+            $('#hotel_id_2').val(data1[0]);
+            $('#S_2').val(data1[1]);
+            $('#D_2').val(data1[2]);
+            $('#M_2').val(data1[3]);
+            $('#T_2').val(data1[4]);
+            $('#SS_2').val(data1[5]);
+            $('#SD_2').val(data1[6]);
+            $('#SU_2').val(data1[7]);
+            $('#JS_2').val(data1[8]);
+            $('#hotel_id_3').val(data1[9]);
+            $('#S_3').val(data1[10]);
+            $('#D_3').val(data1[11]);
+            $('#M_3').val(data1[12]);
+            $('#T_3').val(data1[13]);
+            $('#SS_3').val(data1[14]);
+            $('#SD_3').val(data1[15]);
+            $('#SU_3').val(data1[16]);
+            $('#JS_3').val(data1[17]);
+            $('#hotel_id_4').val(data1[18]);
+            $('#S_4').val(data1[19]);
+            $('#D_4').val(data1[20]);
+            $('#M_4').val(data1[21]);
+            $('#T_4').val(data1[22]);
+            $('#SS_4').val(data1[23]);
+            $('#SD_4').val(data1[24]);
+            $('#SU_4').val(data1[25]);
+            $('#JS_4').val(data1[26]);
+            $('#hotel_id_5').val(data1[27]);
+            $('#S_5').val(data1[28]);
+            $('#D_5').val(data1[29]);
+            $('#M_5').val(data1[30]);
+            $('#T_5').val(data1[31]);
+            $('#SS_5').val(data1[32]);
+            $('#SD_5').val(data1[33]);
+            $('#SU_5').val(data1[34]);
+            $('#JS_5').val(data1[35]);
+
+
+    }).fail(function (data) {
+        console.log(data);
+    });
+}

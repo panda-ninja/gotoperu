@@ -71,7 +71,7 @@
                                                     <div class="form-group">
                                                         <label for="txt_codigo">Location</label>
                                                         {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                        <select class="form-control" id="txt_localizacion_{{$pos0}}" name="txt_localizacion_{{$pos0}}">
+                                                        <select class="form-control" id="txt_localizacion_{{$pos0}}" name="txt_localizacion_{{$pos0}}" onchange="mostrar_hoteles('{{$pos0}}')">
                                                             @foreach($destinations as $destination)
                                                                 <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                                             @endforeach
@@ -84,7 +84,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group col-md-9">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_{{$pos0}}" name="txt_provider_{{$pos0}}" placeholder="Provider">
+                                                            <input type="text" class="form-control" id="txt_provider_{{$pos0}}" name="txt_provider_{{$pos0}}" placeholder="Provider" required>
                                                         </div>
                                                         <div class="col-md-3 margin-top-25 ">
                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
@@ -108,59 +108,59 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td>SIMGLE</td>
-                                                                <td><input type="number" name="S_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="S_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="S_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="S_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="S_2" id="S_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="S_3" id="S_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="S_4" id="S_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="S_5" id="S_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>DOUBLE</td>
-                                                                <td><input type="number" name="D_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="D_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="D_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="D_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="D_2" id="D_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="D_3" id="D_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="D_4" id="D_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="D_5" id="D_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>MATRIMONIAL</td>
-                                                                <td><input type="number" name="M_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="M_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="M_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="M_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="M_2" id="M_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="M_3" id="M_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="M_4" id="M_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="M_5" id="M_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>TRIPLE</td>
-                                                                <td><input type="number" name="T_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="T_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="T_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="T_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="T_2" id="T_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="T_3" id="T_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="T_4" id="T_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="T_5" id="T_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>SUPERIOR SIMPLE</td>
-                                                                <td><input type="number" name="SS_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SS_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SS_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SS_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SS_2" id="SS_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SS_3" id="SS_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SS_4" id="SS_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SS_5" id="SS_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>SUPERIOR DOUBLE</td>
-                                                                <td><input type="number" name="SD_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SD_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SD_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SD_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SD_2" id="SD_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SD_3" id="SD_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SD_4" id="SD_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SD_5" id="SD_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>SUITE</td>
-                                                                <td><input type="number" name="SU_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SU_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SU_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="SU_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SU_2" id="SU_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SU_3" id="SU_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SU_4" id="SU_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="SU_5" id="SU_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>JR. SUITE</td>
-                                                                <td><input type="number" name="JS_2" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="JS_3" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="JS_4" class="form-control" min="0" step="0.01" value="0"></td>
-                                                                <td><input type="number" name="JS_5" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="JS_2" id="JS_2" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="JS_3" id="JS_3" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="JS_4" id="JS_4" class="form-control" min="0" step="0.01" value="0"></td>
+                                                                <td><input type="number" name="JS_5" id="JS_5" class="form-control" min="0" step="0.01" value="0"></td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -320,6 +320,10 @@
                             </div>
                             {{csrf_field()}}
                             <input type="hidden" name="posTipo" id="posTipo" value="0">
+                            <input type="text" name="hotel_id_2" id="hotel_id_2" value="0">
+                            <input type="text" name="hotel_id_3" id="hotel_id_3" value="0">
+                            <input type="text" name="hotel_id_4" id="hotel_id_4" value="0">
+                            <input type="text" name="hotel_id_5" id="hotel_id_5" value="0">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>

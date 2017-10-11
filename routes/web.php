@@ -350,8 +350,7 @@ Route::post('/admin/book/hotel', [
     'uses' => 'BookController@asignar_proveedor_hotel',
     'as' => 'asignar_proveedor_hotel_path',
 ]);
-
-//Route::get('/admin/contabilidad/buscar/fechas', [
-//    'uses' => 'ContabilidadController@listar',
-//    'as' => 'buscar_pagos_proveedores_path',
-//]);
+Route::post('/admin/ventas/hotel/traer-precios', [
+    'uses' => 'CostController@mostrar_hotel',
+    'as' => 'mostrar_precio_hotel_path',
+]);

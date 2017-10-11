@@ -397,7 +397,7 @@
                                                                                                 <p>Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
                                                                                         @endif
                                                                                         @if($hotel->personas_d>0)
-                                                                                                <p>Double: ${{$hotel_proveedor_->double*$hotel->personas_d}}</p>
+                                                                                                <p>Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
                                                                                         @endif
                                                                                         @if($hotel->personas_m>0)
                                                                                             <p>Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
