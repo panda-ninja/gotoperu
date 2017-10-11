@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Hotel;
 use App\M_Category;
 use App\M_Servicio;
 use App\M_Destino;
