@@ -354,3 +354,11 @@ Route::post('/admin/ventas/hotel/traer-precios', [
     'uses' => 'CostController@mostrar_hotel',
     'as' => 'mostrar_precio_hotel_path',
 ]);
+Route::post('/admin/products-edit', [
+    'uses' => 'ServicesController@edit_hotel',
+    'as' => 'hotel_edit_path',
+]);
+Route::post('/admin/services/delete', [
+    'uses' => 'ServicesController@delete',
+    'as' => 'service_delete_path',
+]);

@@ -365,6 +365,7 @@
                         $activo_='in active';
                         ?>
                     @endif
+                    @if($categoria->nombre!='HOTELS')
                         <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo_}}">
                             <div class="margin-top-20">
                                 <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
@@ -417,6 +418,65 @@
                                 </table>
                             </div>
                         </div>
+                    @else
+                        <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo_}}">
+                            <div class="margin-top-20">
+                                <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Provider</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Operations</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Provider</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Operations</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    @foreach($hotel as $hotel_)
+                                        <tr>
+                                            <td>{{dd($hotel_)}}</td>
+                                        </tr>
+                                    @endforeach
+                                    @foreach($productos as $proveedor)
+                                        @foreach($proveedor->productos  as $producto)
+                                            @if($producto->grupo==$categoria->nombre)
+                                                <tr id="lista_services_{{$producto->id}}">
+                                                    <td><b class="text-success"><i class="fa fa-bus fa-2x" aria-hidden="true"></i></b></td>
+                                                    <td>{{$producto->localizacion}}</td>
+                                                    <td>{{$producto->tipo_producto}}</td>
+                                                    <td><b class="bg-green-goto text-grey-goto">{{$proveedor->codigo}}</b> {{$proveedor->razon_social}}</td>
+                                                    <td><b class="bg-orange-goto text-grey-goto">{{$producto->codigo}}</b>{{$producto->nombre}}</td>
+                                                    <td>${{$producto->precio_costo}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$producto->id}}">
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger" onclick="eliminar_producto('{{$producto->id}}','{{$producto->nombre}}')">
+                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
                     <?php
                         $pos++;
                     ?>

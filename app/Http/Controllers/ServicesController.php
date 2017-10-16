@@ -18,8 +18,9 @@ class ServicesController extends Controller
         $destinations=M_Destino::get();
         $servicios=M_Servicio::get();
         $categorias=M_Category::get();
+        $hotel=Hotel::get();
 //        dd($servicios);
-        return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
+        return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
     }
     public function store(Request $request){
         $categorias=M_Category::get();
@@ -67,485 +68,6 @@ class ServicesController extends Controller
             $JS_5=$request->input('JS_5');
 
             //-- GUARDAMOS LOS DATOS DE LOS HOTELES
-//            $destino_s_2 = new M_Servicio();
-//            $destino_s_2->grupo = $cate[$posTipo];
-//            $destino_s_2->localizacion = $txt_localizacion;
-//            $destino_s_2->tipoServicio = '2 STARS';
-//            $destino_s_2->acomodacion = 'S';
-//            $destino_s_2->nombre = 'SINGLE ROOM';
-//            $destino_s_2->precio_venta = $S_2;
-//            $destino_s_2->salida = '';
-//            $destino_s_2->llegada = '';
-//            $destino_s_2->min_personas = 1;
-//            $destino_s_2->max_personas = 1;
-//            $destino_s_2->save();
-//            $destino_s_2->codigo = $destino_s_2->id;
-//            $destino_s_2->save();
-//
-//            $destino_d_2 = new M_Servicio();
-//            $destino_d_2->grupo = $cate[$posTipo];
-//            $destino_d_2->localizacion = $txt_localizacion;
-//            $destino_d_2->tipoServicio = '2 STARS';
-//            $destino_d_2->acomodacion = 'D';
-//            $destino_d_2->nombre = 'DOUBLE ROOM';
-//            $destino_d_2->precio_venta = $D_2;
-//            $destino_d_2->salida = '';
-//            $destino_d_2->llegada = '';
-//            $destino_d_2->min_personas = 1;
-//            $destino_d_2->max_personas = 2;
-//            $destino_d_2->save();
-//            $destino_d_2->codigo = $destino_d_2->id;
-//            $destino_d_2->save();
-//
-//            $destino_m_2 = new M_Servicio();
-//            $destino_m_2->grupo = $cate[$posTipo];
-//            $destino_m_2->localizacion = $txt_localizacion;
-//            $destino_m_2->tipoServicio = '2 STARS';
-//            $destino_m_2->acomodacion = 'M';
-//            $destino_m_2->nombre = 'MATRIMONIAL ROOM';
-//            $destino_m_2->precio_venta = $M_2;
-//            $destino_m_2->salida = '';
-//            $destino_m_2->llegada = '';
-//            $destino_m_2->min_personas = 1;
-//            $destino_m_2->max_personas = 2;
-//            $destino_m_2->save();
-//            $destino_m_2->codigo = $destino_m_2->id;
-//            $destino_m_2->save();
-//
-//            $destino_t_2 = new M_Servicio();
-//            $destino_t_2->grupo = $cate[$posTipo];
-//            $destino_t_2->localizacion = $txt_localizacion;
-//            $destino_t_2->tipoServicio = '2 STARS';
-//            $destino_t_2->acomodacion = 'T';
-//            $destino_t_2->nombre = 'TRIPLE ROOM';
-//            $destino_t_2->precio_venta = $T_2;
-//            $destino_t_2->salida = '';
-//            $destino_t_2->llegada = '';
-//            $destino_t_2->min_personas = 1;
-//            $destino_t_2->max_personas = 3;
-//            $destino_t_2->save();
-//            $destino_t_2->codigo = $destino_t_2->id;
-//            $destino_t_2->save();
-//
-//            $destino_ss_2 = new M_Servicio();
-//            $destino_ss_2->grupo = $cate[$posTipo];
-//            $destino_ss_2->localizacion = $txt_localizacion;
-//            $destino_ss_2->tipoServicio = '2 STARS';
-//            $destino_ss_2->acomodacion = 'SS';
-//            $destino_ss_2->nombre = 'SUPERIOR ROOM';
-//            $destino_ss_2->precio_venta = $SS_2;
-//            $destino_ss_2->salida = '';
-//            $destino_ss_2->llegada = '';
-//            $destino_ss_2->min_personas = 1;
-//            $destino_ss_2->max_personas = 1;
-//            $destino_ss_2->save();
-//            $destino_ss_2->codigo = $destino_ss_2->id;
-//            $destino_ss_2->save();
-//
-//            $destino_sd_2 = new M_Servicio();
-//            $destino_sd_2->grupo = $cate[$posTipo];
-//            $destino_sd_2->localizacion = $txt_localizacion;
-//            $destino_sd_2->tipoServicio = '2 STARS';
-//            $destino_sd_2->acomodacion = 'SD';
-//            $destino_sd_2->nombre = 'SUPERIOR DOUBLE ROOM';
-//            $destino_sd_2->precio_venta = $SD_2;
-//            $destino_sd_2->salida = '';
-//            $destino_sd_2->llegada = '';
-//            $destino_sd_2->min_personas = 1;
-//            $destino_sd_2->max_personas = 2;
-//            $destino_sd_2->save();
-//            $destino_sd_2->codigo = $destino_sd_2->id;
-//            $destino_sd_2->save();
-//
-//            $destino_su_2 = new M_Servicio();
-//            $destino_su_2->grupo = $cate[$posTipo];
-//            $destino_su_2->localizacion = $txt_localizacion;
-//            $destino_su_2->tipoServicio = '2 STARS';
-//            $destino_su_2->acomodacion = 'SU';
-//            $destino_su_2->nombre = 'SUITE ROOM';
-//            $destino_su_2->precio_venta = $SD_2;
-//            $destino_su_2->salida = '';
-//            $destino_su_2->llegada = '';
-//            $destino_su_2->min_personas = 1;
-//            $destino_su_2->max_personas = 2;
-//            $destino_su_2->save();
-//            $destino_su_2->codigo = $destino_su_2->id;
-//            $destino_su_2->save();
-//
-//            $destino_js_2 = new M_Servicio();
-//            $destino_js_2->grupo = $cate[$posTipo];
-//            $destino_js_2->localizacion = $txt_localizacion;
-//            $destino_js_2->tipoServicio = '2 STARS';
-//            $destino_js_2->acomodacion = 'JS';
-//            $destino_js_2->nombre = 'JR. SUITE ROOM';
-//            $destino_js_2->precio_venta = $JS_2;
-//            $destino_js_2->salida = '';
-//            $destino_js_2->llegada = '';
-//            $destino_js_2->min_personas = 1;
-//            $destino_js_2->max_personas = 2;
-//            $destino_js_2->save();
-//            $destino_js_2->codigo = $destino_js_2->id;
-//            $destino_js_2->save();
-//
-//            $destino_s_3 = new M_Servicio();
-//            $destino_s_3->grupo = $cate[$posTipo];
-//            $destino_s_3->localizacion = $txt_localizacion;
-//            $destino_s_3->tipoServicio = '3 STARS';
-//            $destino_s_3->acomodacion = 'S';
-//            $destino_s_3->nombre = 'SINGLE ROOM';
-//            $destino_s_3->precio_venta = $S_3;
-//            $destino_s_3->salida = '';
-//            $destino_s_3->llegada = '';
-//            $destino_s_3->min_personas = 1;
-//            $destino_s_3->max_personas = 1;
-//            $destino_s_3->save();
-//            $destino_s_3->codigo = $destino_s_3->id;
-//            $destino_s_3->save();
-//
-//            $destino_d_3 = new M_Servicio();
-//            $destino_d_3->grupo = $cate[$posTipo];
-//            $destino_d_3->localizacion = $txt_localizacion;
-//            $destino_d_3->tipoServicio = '3 STARS';
-//            $destino_d_3->acomodacion = 'D';
-//            $destino_d_3->nombre = 'DOUBLE ROOM';
-//            $destino_d_3->precio_venta = $D_3;
-//            $destino_d_3->salida = '';
-//            $destino_d_3->llegada = '';
-//            $destino_d_3->min_personas = 1;
-//            $destino_d_3->max_personas = 2;
-//            $destino_d_3->save();
-//            $destino_d_3->codigo = $destino_d_3->id;
-//            $destino_d_3->save();
-//
-//            $destino_m_3 = new M_Servicio();
-//            $destino_m_3->grupo = $cate[$posTipo];
-//            $destino_m_3->localizacion = $txt_localizacion;
-//            $destino_m_3->tipoServicio = '3 STARS';
-//            $destino_m_3->acomodacion = 'M';
-//            $destino_m_3->nombre = 'MATRIMONIAL ROOM';
-//            $destino_m_3->precio_venta = $M_3;
-//            $destino_m_3->salida = '';
-//            $destino_m_3->llegada = '';
-//            $destino_m_3->min_personas = 1;
-//            $destino_m_3->max_personas = 2;
-//            $destino_m_3->save();
-//            $destino_m_3->codigo = $destino_m_3->id;
-//            $destino_m_3->save();
-//
-//            $destino_t_3 = new M_Servicio();
-//            $destino_t_3->grupo = $cate[$posTipo];
-//            $destino_t_3->localizacion = $txt_localizacion;
-//            $destino_t_3->tipoServicio = '3 STARS';
-//            $destino_t_3->acomodacion = 'T';
-//            $destino_t_3->nombre = 'TRIPLE ROOM';
-//            $destino_t_3->precio_venta = $T_3;
-//            $destino_t_3->salida = '';
-//            $destino_t_3->llegada = '';
-//            $destino_t_3->min_personas = 1;
-//            $destino_t_3->max_personas = 3;
-//            $destino_t_3->save();
-//            $destino_t_3->codigo = $destino_t_3->id;
-//            $destino_t_3->save();
-//
-//            $destino_ss_3 = new M_Servicio();
-//            $destino_ss_3->grupo = $cate[$posTipo];
-//            $destino_ss_3->localizacion = $txt_localizacion;
-//            $destino_ss_3->tipoServicio = '3 STARS';
-//            $destino_ss_3->acomodacion = 'SS';
-//            $destino_ss_3->nombre = 'SUPERIOR ROOM';
-//            $destino_ss_3->precio_venta = $SS_3;
-//            $destino_ss_3->salida = '';
-//            $destino_ss_3->llegada = '';
-//            $destino_ss_3->min_personas = 1;
-//            $destino_ss_3->max_personas = 1;
-//            $destino_ss_3->save();
-//            $destino_ss_3->codigo = $destino_ss_3->id;
-//            $destino_ss_3->save();
-//
-//            $destino_sd_3 = new M_Servicio();
-//            $destino_sd_3->grupo = $cate[$posTipo];
-//            $destino_sd_3->localizacion = $txt_localizacion;
-//            $destino_sd_3->tipoServicio = '3 STARS';
-//            $destino_sd_3->acomodacion = 'SD';
-//            $destino_sd_3->nombre = 'SUPERIOR DOUBLE ROOM';
-//            $destino_sd_3->precio_venta = $SD_3;
-//            $destino_sd_3->salida = '';
-//            $destino_sd_3->llegada = '';
-//            $destino_sd_3->min_personas = 1;
-//            $destino_sd_3->max_personas = 2;
-//            $destino_sd_3->save();
-//            $destino_sd_3->codigo = $destino_sd_3->id;
-//            $destino_sd_3->save();
-//
-//            $destino_su_3 = new M_Servicio();
-//            $destino_su_3->grupo = $cate[$posTipo];
-//            $destino_su_3->localizacion = $txt_localizacion;
-//            $destino_su_3->tipoServicio = '3 STARS';
-//            $destino_su_3->acomodacion = 'SU';
-//            $destino_su_3->nombre = 'SUITE ROOM';
-//            $destino_su_3->precio_venta = $SD_3;
-//            $destino_su_3->salida = '';
-//            $destino_su_3->llegada = '';
-//            $destino_su_3->min_personas = 1;
-//            $destino_su_3->max_personas = 2;
-//            $destino_su_3->save();
-//            $destino_su_3->codigo = $destino_su_3->id;
-//            $destino_su_3->save();
-//
-//            $destino_js_3 = new M_Servicio();
-//            $destino_js_3->grupo = $cate[$posTipo];
-//            $destino_js_3->localizacion = $txt_localizacion;
-//            $destino_js_3->tipoServicio = '3 STARS';
-//            $destino_js_3->acomodacion = 'JS';
-//            $destino_js_3->nombre = 'JR. SUITE ROOM';
-//            $destino_js_3->precio_venta = $JS_3;
-//            $destino_js_3->salida = '';
-//            $destino_js_3->llegada = '';
-//            $destino_js_3->min_personas = 1;
-//            $destino_js_3->max_personas = 2;
-//            $destino_js_3->save();
-//            $destino_js_3->codigo = $destino_js_3->id;
-//            $destino_js_3->save();
-//
-//            $destino_s_4 = new M_Servicio();
-//            $destino_s_4->grupo = $cate[$posTipo];
-//            $destino_s_4->localizacion = $txt_localizacion;
-//            $destino_s_4->tipoServicio = '4 STARS';
-//            $destino_s_4->acomodacion = 'S';
-//            $destino_s_4->nombre = 'SINGLE ROOM';
-//            $destino_s_4->precio_venta = $S_4;
-//            $destino_s_4->salida = '';
-//            $destino_s_4->llegada = '';
-//            $destino_s_4->min_personas = 1;
-//            $destino_s_4->max_personas = 1;
-//            $destino_s_4->save();
-//            $destino_s_4->codigo = $destino_s_4->id;
-//            $destino_s_4->save();
-//
-//            $destino_d_4 = new M_Servicio();
-//            $destino_d_4->grupo = $cate[$posTipo];
-//            $destino_d_4->localizacion = $txt_localizacion;
-//            $destino_d_4->tipoServicio = '4 STARS';
-//            $destino_d_4->acomodacion = 'D';
-//            $destino_d_4->nombre = 'DOUBLE ROOM';
-//            $destino_d_4->precio_venta = $D_4;
-//            $destino_d_4->salida = '';
-//            $destino_d_4->llegada = '';
-//            $destino_d_4->min_personas = 1;
-//            $destino_d_4->max_personas = 2;
-//            $destino_d_4->save();
-//            $destino_d_4->codigo = $destino_d_4->id;
-//            $destino_d_4->save();
-//
-//            $destino_m_4 = new M_Servicio();
-//            $destino_m_4->grupo = $cate[$posTipo];
-//            $destino_m_4->localizacion = $txt_localizacion;
-//            $destino_m_4->tipoServicio = '4 STARS';
-//            $destino_m_4->acomodacion = 'M';
-//            $destino_m_4->nombre = 'MATRIMONIAL ROOM';
-//            $destino_m_4->precio_venta = $M_4;
-//            $destino_m_4->salida = '';
-//            $destino_m_4->llegada = '';
-//            $destino_m_4->min_personas = 1;
-//            $destino_m_4->max_personas = 2;
-//            $destino_m_4->save();
-//            $destino_m_4->codigo = $destino_m_4->id;
-//            $destino_m_4->save();
-//
-//            $destino_t_4 = new M_Servicio();
-//            $destino_t_4->grupo = $cate[$posTipo];
-//            $destino_t_4->localizacion = $txt_localizacion;
-//            $destino_t_4->tipoServicio = '4 STARS';
-//            $destino_t_4->acomodacion = 'T';
-//            $destino_t_4->nombre = 'TRIPLE ROOM';
-//            $destino_t_4->precio_venta = $T_4;
-//            $destino_t_4->salida = '';
-//            $destino_t_4->llegada = '';
-//            $destino_t_4->min_personas = 1;
-//            $destino_t_4->max_personas = 3;
-//            $destino_t_4->save();
-//            $destino_t_4->codigo = $destino_t_4->id;
-//            $destino_t_4->save();
-//
-//            $destino_ss_4 = new M_Servicio();
-//            $destino_ss_4->grupo = $cate[$posTipo];
-//            $destino_ss_4->localizacion = $txt_localizacion;
-//            $destino_ss_4->tipoServicio = '4 STARS';
-//            $destino_ss_4->acomodacion = 'SS';
-//            $destino_ss_4->nombre = 'SUPERIOR ROOM';
-//            $destino_ss_4->precio_venta = $SS_4;
-//            $destino_ss_4->salida = '';
-//            $destino_ss_4->llegada = '';
-//            $destino_ss_4->min_personas = 1;
-//            $destino_ss_4->max_personas = 1;
-//            $destino_ss_4->save();
-//            $destino_ss_4->codigo = $destino_ss_4->id;
-//            $destino_ss_4->save();
-//
-//            $destino_sd_4 = new M_Servicio();
-//            $destino_sd_4->grupo = $cate[$posTipo];
-//            $destino_sd_4->localizacion = $txt_localizacion;
-//            $destino_sd_4->tipoServicio = '4 STARS';
-//            $destino_sd_4->acomodacion = 'SD';
-//            $destino_sd_4->nombre = 'SUPERIOR DOUBLE ROOM';
-//            $destino_sd_4->precio_venta = $SD_4;
-//            $destino_sd_4->salida = '';
-//            $destino_sd_4->llegada = '';
-//            $destino_sd_4->min_personas = 1;
-//            $destino_sd_4->max_personas = 2;
-//            $destino_sd_4->save();
-//            $destino_sd_4->codigo = $destino_sd_4->id;
-//            $destino_sd_4->save();
-//
-//            $destino_su_4 = new M_Servicio();
-//            $destino_su_4->grupo = $cate[$posTipo];
-//            $destino_su_4->localizacion = $txt_localizacion;
-//            $destino_su_4->tipoServicio = '4 STARS';
-//            $destino_su_4->acomodacion = 'SU';
-//            $destino_su_4->nombre = 'SUITE ROOM';
-//            $destino_su_4->precio_venta = $SD_4;
-//            $destino_su_4->salida = '';
-//            $destino_su_4->llegada = '';
-//            $destino_su_4->min_personas = 1;
-//            $destino_su_4->max_personas = 2;
-//            $destino_su_4->save();
-//            $destino_su_4->codigo = $destino_su_4->id;
-//            $destino_su_4->save();
-//
-//            $destino_js_4 = new M_Servicio();
-//            $destino_js_4->grupo = $cate[$posTipo];
-//            $destino_js_4->localizacion = $txt_localizacion;
-//            $destino_js_4->tipoServicio = '4 STARS';
-//            $destino_js_4->acomodacion = 'JS';
-//            $destino_js_4->nombre = 'JR. SUITE ROOM';
-//            $destino_js_4->precio_venta = $JS_4;
-//            $destino_js_4->salida = '';
-//            $destino_js_4->llegada = '';
-//            $destino_js_4->min_personas = 1;
-//            $destino_js_4->max_personas = 2;
-//            $destino_js_4->save();
-//            $destino_js_4->codigo = $destino_js_4->id;
-//            $destino_js_4->save();
-//
-//            $destino_s_5 = new M_Servicio();
-//            $destino_s_5->grupo = $cate[$posTipo];
-//            $destino_s_5->localizacion = $txt_localizacion;
-//            $destino_s_5->tipoServicio = '5 STARS';
-//            $destino_s_5->acomodacion = 'S';
-//            $destino_s_5->nombre = 'SINGLE ROOM';
-//            $destino_s_5->precio_venta = $S_5;
-//            $destino_s_5->salida = '';
-//            $destino_s_5->llegada = '';
-//            $destino_s_5->min_personas = 1;
-//            $destino_s_5->max_personas = 1;
-//            $destino_s_5->save();
-//            $destino_s_5->codigo = $destino_s_5->id;
-//            $destino_s_5->save();
-//
-//            $destino_d_5 = new M_Servicio();
-//            $destino_d_5->grupo = $cate[$posTipo];
-//            $destino_d_5->localizacion = $txt_localizacion;
-//            $destino_d_5->tipoServicio = '5 STARS';
-//            $destino_d_5->acomodacion = 'D';
-//            $destino_d_5->nombre = 'DOUBLE ROOM';
-//            $destino_d_5->precio_venta = $D_5;
-//            $destino_d_5->salida = '';
-//            $destino_d_5->llegada = '';
-//            $destino_d_5->min_personas = 1;
-//            $destino_d_5->max_personas = 2;
-//            $destino_d_5->save();
-//            $destino_d_5->codigo = $destino_d_5->id;
-//            $destino_d_5->save();
-//
-//            $destino_m_5 = new M_Servicio();
-//            $destino_m_5->grupo = $cate[$posTipo];
-//            $destino_m_5->localizacion = $txt_localizacion;
-//            $destino_m_5->tipoServicio = '5 STARS';
-//            $destino_m_5->acomodacion = 'M';
-//            $destino_m_5->nombre = 'MATRIMONIAL ROOM';
-//            $destino_m_5->precio_venta = $M_5;
-//            $destino_m_5->salida = '';
-//            $destino_m_5->llegada = '';
-//            $destino_m_5->min_personas = 1;
-//            $destino_m_5->max_personas = 2;
-//            $destino_m_5->save();
-//            $destino_m_5->codigo = $destino_m_5->id;
-//            $destino_m_5->save();
-//
-//            $destino_t_5 = new M_Servicio();
-//            $destino_t_5->grupo = $cate[$posTipo];
-//            $destino_t_5->localizacion = $txt_localizacion;
-//            $destino_t_5->tipoServicio = '5 STARS';
-//            $destino_t_5->acomodacion = 'T';
-//            $destino_t_5->nombre = 'TRIPLE ROOM';
-//            $destino_t_5->precio_venta = $T_5;
-//            $destino_t_5->salida = '';
-//            $destino_t_5->llegada = '';
-//            $destino_t_5->min_personas = 1;
-//            $destino_t_5->max_personas = 3;
-//            $destino_t_5->save();
-//            $destino_t_5->codigo = $destino_t_5->id;
-//            $destino_t_5->save();
-//
-//            $destino_ss_5 = new M_Servicio();
-//            $destino_ss_5->grupo = $cate[$posTipo];
-//            $destino_ss_5->localizacion = $txt_localizacion;
-//            $destino_ss_5->tipoServicio = '5 STARS';
-//            $destino_ss_5->acomodacion = 'SS';
-//            $destino_ss_5->nombre = 'SUPERIOR ROOM';
-//            $destino_ss_5->precio_venta = $SS_5;
-//            $destino_ss_5->salida = '';
-//            $destino_ss_5->llegada = '';
-//            $destino_ss_5->min_personas = 1;
-//            $destino_ss_5->max_personas = 1;
-//            $destino_ss_5->save();
-//            $destino_ss_5->codigo = $destino_ss_5->id;
-//            $destino_ss_5->save();
-//
-//            $destino_sd_5 = new M_Servicio();
-//            $destino_sd_5->grupo = $cate[$posTipo];
-//            $destino_sd_5->localizacion = $txt_localizacion;
-//            $destino_sd_5->tipoServicio = '5 STARS';
-//            $destino_sd_5->acomodacion = 'SD';
-//            $destino_sd_5->nombre = 'SUPERIOR DOUBLE ROOM';
-//            $destino_sd_5->precio_venta = $SD_5;
-//            $destino_sd_5->salida = '';
-//            $destino_sd_5->llegada = '';
-//            $destino_sd_5->min_personas = 1;
-//            $destino_sd_5->max_personas = 2;
-//            $destino_sd_5->save();
-//            $destino_sd_5->codigo = $destino_sd_5->id;
-//            $destino_sd_5->save();
-//
-//            $destino_su_5 = new M_Servicio();
-//            $destino_su_5->grupo = $cate[$posTipo];
-//            $destino_su_5->localizacion = $txt_localizacion;
-//            $destino_su_5->tipoServicio = '5 STARS';
-//            $destino_su_5->acomodacion = 'SU';
-//            $destino_su_5->nombre = 'SUITE ROOM';
-//            $destino_su_5->precio_venta = $SD_5;
-//            $destino_su_5->salida = '';
-//            $destino_su_5->llegada = '';
-//            $destino_su_5->min_personas = 1;
-//            $destino_su_5->max_personas = 2;
-//            $destino_su_5->save();
-//            $destino_su_5->codigo = $destino_su_5->id;
-//            $destino_su_5->save();
-//
-//            $destino_js_5 = new M_Servicio();
-//            $destino_js_5->grupo = $cate[$posTipo];
-//            $destino_js_5->localizacion = $txt_localizacion;
-//            $destino_js_5->tipoServicio = '5 STARS';
-//            $destino_js_5->acomodacion = 'JS';
-//            $destino_js_5->nombre = 'JR. SUITE ROOM';
-//            $destino_js_5->precio_venta = $JS_5;
-//            $destino_js_5->salida = '';
-//            $destino_js_5->llegada = '';
-//            $destino_js_5->min_personas = 1;
-//            $destino_js_5->max_personas = 2;
-//            $destino_js_5->save();
-//            $destino_js_5->codigo = $destino_js_5->id;
-//            $destino_js_5->save();
 
 
             $hotel_proveedor=new Hotel();
@@ -604,11 +126,11 @@ class ServicesController extends Controller
             $hotel_proveedor_5->estado=1;
             $hotel_proveedor_5->save();
 
-            $destinations = M_Destino::get();
-            $servicios = M_Servicio::get();
-            $categorias = M_Category::get();
-            return view('admin.database.services', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations]);
-
+            $destinations=M_Destino::get();
+            $servicios=M_Servicio::get();
+            $categorias=M_Category::get();
+            $hotel=Hotel::get();
+            return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
         }
         elseif($posTipo!=0) {
             $txt_type = $request->input('txt_type_' . $posTipo);
@@ -643,10 +165,11 @@ class ServicesController extends Controller
                 $destino->save();
                 $destino->codigo = $destino->id;
                 $destino->save();
-                $destinations = M_Destino::get();
-                $servicios = M_Servicio::get();
-                $categorias = M_Category::get();
-                return view('admin.database.services', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations]);
+                $destinations=M_Destino::get();
+                $servicios=M_Servicio::get();
+                $categorias=M_Category::get();
+                $hotel=Hotel::get();
+                return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
             }
 //        else{
 //            $destinations=M_Destino::get();
@@ -655,6 +178,35 @@ class ServicesController extends Controller
 //            return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
 //        }
         }
+    }
+    public function edit_hotel(Request $request){
+        $id=$request->input('id');
+        $S_2=$request->input('eS_2');
+        $D_2=$request->input('eD_2');
+        $M_2=$request->input('eM_2');
+        $T_2=$request->input('eT_2');
+        $SS_2=$request->input('eSS_2');
+        $SD_2=$request->input('eSD_2');
+        $SU_2=$request->input('eSU_2');
+        $JS_2=$request->input('eJS_2');
+
+
+        $hotel_proveedor=Hotel::FindOrFail($id);
+        $hotel_proveedor->single=$S_2;
+        $hotel_proveedor->doble=$D_2;
+        $hotel_proveedor->matrimonial=$M_2;
+        $hotel_proveedor->triple=$T_2;
+        $hotel_proveedor->superior_s=$SS_2;
+        $hotel_proveedor->superior_d=$SD_2;
+        $hotel_proveedor->suite=$SU_2;
+        $hotel_proveedor->jr_suite=$JS_2;
+        $hotel_proveedor->estado=1;
+        $hotel_proveedor->save();
+        $destinations=M_Destino::get();
+        $servicios=M_Servicio::get();
+        $categorias=M_Category::get();
+        $hotel=Hotel::get();
+        return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
     }
     public function delete(Request $request){
         $id=$request->input('id');

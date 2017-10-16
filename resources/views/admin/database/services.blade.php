@@ -617,96 +617,111 @@
                             </tbody>
                         </table>
                     @else
+
                         <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>Codigo</th>
                                 <th>Localizacion</th>
-                                {{--<th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>--}}
-                                {{--<th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>--}}
-                                {{--@if($categoria->nombre=='TRAINS') <th>Horario</th> @endif--}}
-                                {{--<th>Precio</th>--}}
+                                <th>Estrellas</th>
                                 <th>Operaciones</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Codigo</th>
                                 <th>Localizacion</th>
-                                {{--<th>@if($categoria->nombre=='TRAINS') Clase @else Tipo @endif</th>--}}
-                                {{--<th>@if($categoria->nombre=='TRAINS') Ruta @else Nombre @endif</th>--}}
-                                {{--@if($categoria->nombre=='TRAINS') <th>Horario</th> @endif--}}
-                                {{--<th>Precio</th>--}}
+                                <th>Estrellas</th>
                                 <th>Operaciones</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            @foreach($servicios as $servicio)
-                                {{--@foreach($servicios->groupBy('grupo') as $servicio)--}}
-                                @if($servicio->grupo==$categoria->nombre)
-                                    <?php
-                                    $acom='';
-                                    ?>
-                                    @if($servicio->acomodacion=='S')
-                                        <?php
-                                        $acom='SIMPLE';
-                                        ?>
-                                    @endif
-                                    @if($servicio->acomodacion=='D')
-                                        <?php
-                                        $acom='DOBLE';
-                                        ?>
-                                    @endif
-                                    @if($servicio->acomodacion=='T')
-                                        <?php
-                                        $acom='TRIPLE';
-                                        ?>
-                                    @endif
-                                    @if($servicio->acomodacion=='M')
-                                        <?php
-                                        $acom='MATRIMONIAL';
-                                        ?>
-                                    @endif
-                                    @if($servicio->acomodacion=='SS')
-                                        <?php
-                                        $acom='SUPERIOR SIMPLE';
-                                        ?>
-                                    @endif
-                                    @if($servicio->acomodacion=='SD')
-                                        <?php
-                                        $acom='SUPERIOR DOBLE';
-                                        ?>
-                                    @endif
-                                    @if($servicio->acomodacion=='SU')
-                                        <?php
-                                        $acom='SUITE';
-                                        ?>
-                                    @endif
-                                    @if($servicio->acomodacion=='JR')
-                                        <?php
-                                        $acom='JR. SUITE';
-                                        ?>
-                                    @endif
-                                    <tr id="lista_services_{{$servicio->id}}">
-                                        <td class="text-green-goto">{{$servicio->codigo}}</td>
-                                        <td class="lista_mo">{{$servicio->localizacion}}</td>
-                                        {{--<td>{{$servicio->tipoServicio}} {{$acom}}</td>--}}
-                                        {{--<td>{{$servicio->nombre}}</td>--}}
-                                        {{--@if($categoria->nombre=='TRAINS') <td>{{$servicio->salida}} - {{$servicio->llegada}}</td> @endif--}}
-                                        {{--<td>${{$servicio->precio_venta}}</td>--}}
-                                        <td>
-                                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$servicio->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->id}}','{{$servicio->nombre}}')">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endif
+                            @foreach($hotel->sortBy('localizacion') as $hotel_)
+                                <tr id="lista_services_h_{{$hotel_->id}}">
+                                    <td class="text-green-goto">{{$hotel_->localizacion}}</td>
+                                    <td class="text-green-goto">{{$hotel_->estrellas}} <b class="text-warning"><i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></b></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_h_{{$hotel_->id}}">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" onclick="eliminar_servicio_h('{{$hotel_->id}}','{{$hotel_->nombre}}')">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                             @endforeach
+
                             </tbody>
                         </table>
+                        @foreach($hotel->sortBy('localizacion') as $hotel_)
+                        <div class="modal fade bd-example-modal-sm" id="modal_edit_destination_h_{{$hotel_->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form action="{{route('hotel_edit_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Hotel</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <table class="table table-responsive table-striped table-condensed">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="col-lg-2 text-primary">ACOMODATION</th>
+                                                            <th class="col-lg-2 text-warning text-center text-15">{{$hotel_->estrellas}} <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>SIMGLE</td>
+                                                            <td><input type="number" name="eS_2" class="form-control" min="0" step="0.01" value="{{$hotel_->single}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>DOUBLE</td>
+                                                            <td><input type="number" name="eD_2" class="form-control" min="0" step="0.01" value="{{$hotel_->doble}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>MATRIMONIAL</td>
+                                                            <td><input type="number" name="eM_2" class="form-control" min="0" step="0.01" value="{{$hotel_->matrimonial}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>TRIPLE</td>
+                                                            <td><input type="number" name="eT_2" class="form-control" min="0" step="0.01" value="{{$hotel_->triple}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SUPERIOR SIMPLE</td>
+                                                            <td><input type="number" name="eSS_2" class="form-control" min="0" step="0.01" value="{{$hotel_->superior_s}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SUPERIOR DOUBLE</td>
+                                                            <td><input type="number" name="eSD_2" class="form-control" min="0" step="0.01" value="{{$hotel_->superior_d}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SUITE</td>
+                                                            <td><input type="number" name="eSU_2" class="form-control" min="0" step="0.01" value="{{$hotel_->suite}}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>JR. SUITE</td>
+                                                            <td><input type="number" name="eJS_2" class="form-control" min="0" step="0.01" value="{{$hotel_->jr_suite}}"></td>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="id" value="{{$hotel_->id}}">
+                                            <input type="hidden" name="posTipo" id="posTipo" value="0">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+
                     @endif
                 </div>
                 <?php
