@@ -29,9 +29,14 @@ class CostController extends Controller
         $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
         $destinations=M_Destino::get();
         $categorias=M_Category::get();
-        $hotel=HotelProveedor::distinct('hotel_id')->get();
-        $array='';
-        dd($hotel);
+        $hotel=HotelProveedor::get();
+        $proveedores=[];
+        foreach ($hotel as $hotel_){
+            if(!in_array($hotel_->localizacion.'_'.$hotel_->proveedor_id,$proveedores)){
+                $proveedores[]=$hotel_->localizacion.'_'.$hotel_->proveedor_id;
+            }
+        }
+//        dd($array);
         $productos=Proveedor::with(['productos'])->get();
 //        dd($productos_hotels);
 
@@ -42,7 +47,7 @@ class CostController extends Controller
             'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
             'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
             'destinations'=>$destinations,'categorias'=>$categorias,
-            'productos'=>$productos,'hotel'=>$hotel]);
+            'productos'=>$productos,'hotel'=>$hotel,'proveedores'=>$proveedores]);
     }
     public function store(Request $request){
         $categorias=M_Category::get();

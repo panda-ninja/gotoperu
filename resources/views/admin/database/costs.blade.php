@@ -426,10 +426,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Location</th>
-                                        <th>Type</th>
                                         <th>Provider</th>
-                                        <th>Product</th>
-                                        <th>Price</th>
                                         <th>Operations</th>
                                     </tr>
                                     </thead>
@@ -437,41 +434,57 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Location</th>
-                                        <th>Type</th>
                                         <th>Provider</th>
-                                        <th>Product</th>
-                                        <th>Price</th>
                                         <th>Operations</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    @foreach($hotel as $hotel_)
+                                    @php
+                                        $pos=0;
+                                    @endphp
+                                    @foreach($proveedores as $proveedores_)
+                                        @php
+                                          $pos++;
+                                          $dato=explode('_',$proveedores_);
+                                        @endphp
+{{--                                        @foreach($hotel->where('Proveedores_id',$proveedores_) as $hotel_)--}}
                                         <tr>
-                                            <td>{{dd($hotel_)}}</td>
+                                            <td></td>
+                                            <td>{{$dato[0]}}</td>
+                                            <td>{{$dato[1]}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_hotel_{{$pos}}">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger" onclick="eliminar_hotel_pro('{{$pos}}','{{$dato[1]}}')">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
                                         </tr>
+                                        {{--@endforeach--}}
                                     @endforeach
-                                    @foreach($productos as $proveedor)
-                                        @foreach($proveedor->productos  as $producto)
-                                            @if($producto->grupo==$categoria->nombre)
-                                                <tr id="lista_services_{{$producto->id}}">
-                                                    <td><b class="text-success"><i class="fa fa-bus fa-2x" aria-hidden="true"></i></b></td>
-                                                    <td>{{$producto->localizacion}}</td>
-                                                    <td>{{$producto->tipo_producto}}</td>
-                                                    <td><b class="bg-green-goto text-grey-goto">{{$proveedor->codigo}}</b> {{$proveedor->razon_social}}</td>
-                                                    <td><b class="bg-orange-goto text-grey-goto">{{$producto->codigo}}</b>{{$producto->nombre}}</td>
-                                                    <td>${{$producto->precio_costo}}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$producto->id}}">
-                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-danger" onclick="eliminar_producto('{{$producto->id}}','{{$producto->nombre}}')">
-                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
-                                    @endforeach
+                                    {{--@foreach($productos as $proveedor)--}}
+                                        {{--@foreach($proveedor->productos  as $producto)--}}
+                                            {{--@if($producto->grupo==$categoria->nombre)--}}
+                                                {{--<tr id="lista_services_{{$producto->id}}">--}}
+                                                    {{--<td><b class="text-success"><i class="fa fa-bus fa-2x" aria-hidden="true"></i></b></td>--}}
+                                                    {{--<td>{{$producto->localizacion}}</td>--}}
+                                                    {{--<td>{{$producto->tipo_producto}}</td>--}}
+                                                    {{--<td><b class="bg-green-goto text-grey-goto">{{$proveedor->codigo}}</b> {{$proveedor->razon_social}}</td>--}}
+                                                    {{--<td><b class="bg-orange-goto text-grey-goto">{{$producto->codigo}}</b>{{$producto->nombre}}</td>--}}
+                                                    {{--<td>${{$producto->precio_costo}}</td>--}}
+                                                    {{--<td>--}}
+                                                        {{--<button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$producto->id}}">--}}
+                                                            {{--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
+                                                        {{--</button>--}}
+                                                        {{--<button type="button" class="btn btn-danger" onclick="eliminar_producto('{{$producto->id}}','{{$producto->nombre}}')">--}}
+                                                            {{--<i class="fa fa-trash-o" aria-hidden="true"></i>--}}
+                                                        {{--</button>--}}
+                                                    {{--</td>--}}
+                                                {{--</tr>--}}
+                                            {{--@endif--}}
+                                        {{--@endforeach--}}
+                                    {{--@endforeach--}}
                                     </tbody>
                                 </table>
                             </div>
@@ -482,7 +495,45 @@
                     ?>
                 @endforeach
             </div>
-            <?php
+            @php
+                $pos=0;
+            @endphp
+            @foreach($proveedores as $proveedores_)
+                @php
+                    $pos++;
+                    $dato=explode('_',$proveedores_);
+                @endphp
+                @foreach($hotel->where('localizacion',$dato[0])->where('proveedores_id',$dato[1])->where('estrellas','3') as $hotel_)
+                {{dd($hotel_)}}
+                @endforeach
+                <div class="modal fade bd-example-modal-lg" id="modal_edit_cost_hotel_{{$pos}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <form action="{{route('costs_edit_hotel_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Cost</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                {{csrf_field()}}
+                                <input type="hidden" name="id" id="id" value="{{$producto->id}}">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        <?php
             $pos0=0;
             ?>
             @foreach($productos as $proveedor)
