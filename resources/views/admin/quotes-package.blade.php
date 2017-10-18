@@ -342,15 +342,19 @@
                 $amount_d5=0;
                 $amount_m5=0;
                 $amount_t5=0;
-                $hotel_id=0;
+                $hotel_id_2=0;
+                $hotel_id_3=0;
+                $hotel_id_4=0;
+                $hotel_id_5=0;
                 ?>
                 @foreach($hotel as $servicio)
                     @if($servicio->localizacion=="CUSCO")
-                        @php
-                            $hotel_id=$servicio->id;
-                        @endphp
+                        {{--@php--}}
+                            {{--$hotel_id_2=$servicio->id;--}}
+                        {{--@endphp--}}
                         @if($servicio->estrellas=="2")
                             @php
+                                $hotel_id_2=$servicio->id;
                                 $amount_s2=$servicio->single;
                                 $amount_d2=$servicio->doble;
                                 $amount_m2=$servicio->matrimonial;
@@ -359,6 +363,7 @@
                         @endif
                         @if($servicio->estrellas=="3")
                             @php
+                                $hotel_id_3=$servicio->id;
                                 $amount_s3=$servicio->single;
                                 $amount_d3=$servicio->doble;
                                 $amount_m3=$servicio->matrimonial;
@@ -367,6 +372,7 @@
                         @endif
                         @if($servicio->estrellas=="4")
                             @php
+                                $hotel_id_4=$servicio->id;
                                 $amount_s4=$servicio->single;
                                 $amount_d4=$servicio->doble;
                                 $amount_m4=$servicio->matrimonial;
@@ -375,6 +381,7 @@
                         @endif
                         @if($servicio->estrellas=="5")
                             @php
+                                $hotel_id_5=$servicio->id;
                                 $amount_s5=$servicio->single;
                                 $amount_d5=$servicio->doble;
                                 $amount_m5=$servicio->matrimonial;
@@ -1707,7 +1714,11 @@
                 @endforeach
                 <input type="hidden" name="cliente_id" id="cliente_id" value="{{$cliente_id}}">
                 <input type="text" name="acomodacion" value="{{$acomodacion_}}">
-                <input type="text" name="hotel_id" value="{{$hotel_id}}">
+                <input type="text" name="hotel_id_2" value="{{$hotel_id_2}}">
+                <input type="text" name="hotel_id_3" value="{{$hotel_id_3}}">
+                <input type="text" name="hotel_id_4" value="{{$hotel_id_4}}">
+                <input type="text" name="hotel_id_5" value="{{$hotel_id_5}}">
+
                 <button type="submit" class="btn btn-lg btn-primary">Generar plan <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>

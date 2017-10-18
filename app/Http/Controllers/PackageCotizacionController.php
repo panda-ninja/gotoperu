@@ -120,7 +120,11 @@ class PackageCotizacionController extends Controller
         $txt_sugerencia=$request->input('txt_sugerencia');
         $nro_personas=$request->input('nro_personitas');
         $cliente_id=$request->input('cliente_id');
-        $hotel_id=$request->input('hotel_id');
+        $hotel_id_2=$request->input('hotel_id_2');
+        $hotel_id_3=$request->input('hotel_id_3');
+        $hotel_id_4=$request->input('hotel_id_4');
+        $hotel_id_5=$request->input('hotel_id_5');
+
 //        dd($itinerarios_);
 
         $strellas_2=$request->input('strellas_2');
@@ -194,7 +198,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio2->estado=0;
         $paquete_precio2->utilidad=$profit_2;
         $paquete_precio2->paquete_cotizaciones_id=$paquete->id;
-        $paquete_precio2->hotel_id=$hotel_id;
+        $paquete_precio2->hotel_id=$hotel_id_2;
         $paquete_precio2->save();
 
         $paquete_precio3=new PaquetePrecio();
@@ -213,7 +217,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio3->estado=0;
         $paquete_precio3->utilidad=$profit_3;
         $paquete_precio3->paquete_cotizaciones_id=$paquete->id;
-        $paquete_precio3->hotel_id=$hotel_id;
+        $paquete_precio3->hotel_id=$hotel_id_3;
         $paquete_precio3->save();
 
         $paquete_precio4=new PaquetePrecio();
@@ -232,7 +236,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio4->estado=0;
         $paquete_precio4->utilidad=$profit_4;
         $paquete_precio4->paquete_cotizaciones_id=$paquete->id;
-        $paquete_precio4->hotel_id=$hotel_id;
+        $paquete_precio4->hotel_id=$hotel_id_4;
         $paquete_precio4->save();
 
         $paquete_precio5=new PaquetePrecio();
@@ -251,7 +255,7 @@ class PackageCotizacionController extends Controller
             $paquete_precio5->estado=0;
         $paquete_precio5->utilidad=$profit_5;
         $paquete_precio5->paquete_cotizaciones_id=$paquete->id;
-        $paquete_precio5->hotel_id=$hotel_id;
+        $paquete_precio5->hotel_id=$hotel_id_5;
         $paquete_precio5->save();
         $dia=0;
         $dia_texto=1;
