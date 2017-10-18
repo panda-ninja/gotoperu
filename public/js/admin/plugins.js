@@ -23604,7 +23604,6 @@ function Eliminar_cotizacion(id,titulo) {
         });
         $.post('/admin/cotizacion/delete', 'id='+id, function(data) {
             if(data==1){
-                // $("#lista_destinos_"+id).remove();
                 $("#coti_new"+id).fadeOut( "slow");
             }
         }).fail(function (data) {
