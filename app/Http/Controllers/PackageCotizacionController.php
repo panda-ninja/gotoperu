@@ -697,4 +697,13 @@ class PackageCotizacionController extends Controller
             return0;
 
     }
+    public function delete(Request $request){
+        $id = $request->input('id');
+        $cotizacion=Cotizacion::FindOrFail($id);
+
+        if($cotizacion->delete())
+            return 1;
+        else
+            return 0;
+    }
 }

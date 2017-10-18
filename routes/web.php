@@ -362,3 +362,11 @@ Route::post('/admin/services/delete', [
     'uses' => 'ServicesController@delete',
     'as' => 'service_delete_path',
 ]);
+Route::post('/admin/costs/edit-hotel', [
+    'uses' => 'CostController@edit_hotel',
+    'as' => 'costs_edit_hotel_path',
+]);
+Route::post('/admin/cotizacion/delete', [
+    'uses' => 'PackageCotizacionController@delete',
+    'as' => 'cotizacion_delete_path',
+]);

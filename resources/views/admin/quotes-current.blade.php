@@ -39,11 +39,15 @@
                     <?php
                     $date = date_create($cotizacion_->fecha);
                     $fecha=date_format($date, 'jS F Y');
+                    $titulo='';
                     ?>
-                    <tr>
+                    <tr id="coti_new{{$cotizacion_->id}}">
                         <td>
                             @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
                                 @if($cliente_coti->estado=='1')
+                                    <?php
+                                    $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                    ?>
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>
                                 @endif
                             @endforeach
@@ -54,6 +58,9 @@
                             {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')" >
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </td>
 
@@ -90,11 +97,15 @@
                 <?php
                 $date = date_create($cotizacion_->fecha);
                 $fecha=date_format($date, 'jS F Y');
+                $titulo='';
                 ?>
-                <tr>
+                <tr id="coti_new{{$cotizacion_->id}}">
                     <td>
                         @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
                             @if($cliente_coti->estado=='1')
+                                <?php
+                                $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                ?>
                                 <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>
                             @endif
                         @endforeach
@@ -105,6 +116,9 @@
                         {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                         <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')" >
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </td>
 
@@ -141,11 +155,15 @@
                     <?php
                     $date = date_create($cotizacion_->fecha);
                     $fecha=date_format($date, 'jS F Y');
+                    $titulo='';
                     ?>
-                    <tr>
+                    <tr id="coti_new{{$cotizacion_->id}}">
                         <td>
                             @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
                                 @if($cliente_coti->estado=='1')
+                                    <?php
+                                    $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                    ?>
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>
                                 @endif
                             @endforeach
@@ -156,6 +174,9 @@
                             {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')" >
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </td>
                     </tr>
@@ -191,11 +212,15 @@
                     <?php
                     $date = date_create($cotizacion_->fecha);
                     $fecha=date_format($date, 'jS F Y');
+                    $titulo='';
                     ?>
-                    <tr>
+                    <tr id="coti_new{{$cotizacion_->id}}">
                         <td>
                             @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
                                 @if($cliente_coti->estado=='1')
+                                    <?php
+                                    $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                    ?>
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>
                                 @endif
                             @endforeach
@@ -206,6 +231,9 @@
                             {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')" >
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </td>
                     </tr>
@@ -241,11 +269,15 @@
                     <?php
                     $date = date_create($cotizacion_->fecha);
                     $fecha=date_format($date, 'jS F Y');
+                    $titulo='';
                     ?>
-                    <tr>
+                    <tr id="coti_new{{$cotizacion_->id}}">
                         <td>
                             @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
                                 @if($cliente_coti->estado=='1')
+                                    <?php
+                                        $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                    ?>
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>
                                 @endif
                             @endforeach
@@ -256,6 +288,9 @@
                             {{--<a href="" class="text-22 text-orange-goto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>--}}
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal_probabilidad_{{$cotizacion_->id}}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')" >
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </td>
                     </tr>
