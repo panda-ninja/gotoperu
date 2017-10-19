@@ -22071,6 +22071,7 @@ function Pasar_datos(){
             itinerario=$(this).val().split('_');
             var precio_grupo=0;
             Itis_precio += parseFloat(itinerario[4]);
+            console.log('Precios:'+Itis_precio);
             // if(parseInt(itinerario[4])==0) {
             //     Itis_precio += parseInt(itinerario[4]);
             //     precio_grupo=parseInt(itinerario[4]);

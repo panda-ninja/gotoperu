@@ -169,6 +169,7 @@ class ProveedorController extends Controller
         $txt_r_telefono=$request->input('txt_r_telefono_');
         $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'));
         $txt_c_telefono=$request->input('txt_c_telefono_');
+        $txt_categoria=$request->input('txt_categoria_');
 
         $proveedor=Proveedor::findOrFail($id);
         $proveedor->ruc=$txt_ruc;
@@ -182,6 +183,8 @@ class ProveedorController extends Controller
         $proveedor->c_nombres=$txt_c_nombres;
         $proveedor->c_telefono=$txt_c_telefono;
         $proveedor->localizacion=$txt_localizacion;
+        $proveedor->categoria=$txt_categoria;
+
 //        $proveedor->codigo=$txt_grupo_cod.$proveedor->id;
         if($proveedor->save()){
             $proveedor->codigo=$txt_grupo_cod.$id;

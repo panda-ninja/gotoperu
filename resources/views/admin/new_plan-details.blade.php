@@ -168,7 +168,7 @@
                                 @endif
                                 @if($precio_paquete2->personas_d > 0)
                                     <tr>
-                                        <td class="text-left"><b>Doble/Matrimonial</b></td>
+                                        <td class="text-left"><b>Doble</b></td>
                                         <td class="text-right">
                                             @php
                                                 $precio_d = ceil(($precio_paquete2->precio_d)* (1/2)) * ($paquete->duracion - 1);
@@ -183,7 +183,23 @@
                                         $precio_d = 0;
                                     @endphp
                                 @endif
-
+                                @if($precio_paquete2->personas_m > 0)
+                                    <tr>
+                                        <td class="text-left"><b>Matrimonial</b></td>
+                                        <td class="text-right">
+                                            @php
+                                                $precio_m = ceil(($precio_paquete2->precio_m)* (1/2)) * ($paquete->duracion - 1);
+                                                $total_costo = $precio_m + $total;
+                                                $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
+                                            @endphp
+                                            {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                        </td>
+                                    </tr>
+                                @else
+                                    @php
+                                        $precio_m = 0;
+                                    @endphp
+                                @endif
                                 @if($precio_paquete2->personas_t > 0)
                                     <tr>
                                         <td class="text-left"><b>Triple</b></td>

@@ -295,9 +295,9 @@ class PackageCotizacionController extends Controller
                 $p_servicio=new ItinerarioServicios();
                 $p_servicio->nombre=$servicios->itinerario_servicios_servicio->nombre;
                 $p_servicio->observacion='';
-                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                    $p_servicio->precio=ceil($servicios->itinerario_servicios_servicio->precio_venta/$nro_personas);
-                else
+//                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+//                    $p_servicio->precio=round($servicios->itinerario_servicios_servicio->precio_venta/$nro_personas);
+//                else
                     $p_servicio->precio=$servicios->itinerario_servicios_servicio->precio_venta;
                 $st+=$p_servicio->precio;
                 $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
@@ -388,7 +388,6 @@ class PackageCotizacionController extends Controller
         $cotizacion=Cotizacion::where('id',$cotizacion_id)->get();
         return view('admin.quotes-current-details',['cotizacion'=>$cotizacion]);
     }
-
 
     public function show_paxs()
     {

@@ -132,17 +132,6 @@
                     - {{$destino}}<br>
                 @endif
             @endforeach
-
-            {{--@foreach($paquete->itinerario_cotizaciones as $itinerarios_destino)--}}
-                {{--@foreach($itinerarios_destino->itinerario_destinos as $destino)--}}
-{{--                    <img src="{{asset('img/destinations/'.$destino->imagen.'')}}" class="margin-bottom-3" width="347" alt="">--}}
-                    {{--@if (Storage::disk('destination')->has($destino->imagen))--}}
-                            {{--<img--}}
-                                    {{--src="{{route('destination_image_path', ['filename' => $destino->imagen])}}" class="margin-bottom-3" width="347" alt="">--}}
-                    {{--@endif--}}
-                    {{--- {{$destino->destino}}<br>--}}
-                {{--@endforeach--}}
-            {{--@endforeach--}}
         </div>
 
         <div>
@@ -283,11 +272,11 @@
                                         {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
-                                <tr>
-                                <td colspan="2">
-                                <i class="text-11">- {{$precio_paquete2->personas_s}} habitaciones con acomodacion simple, total de pasajeros {{$precio_paquete2->personas_s * 1}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_s * 1)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>
-                                </td>
-                                </tr>
+                                {{--<tr>--}}
+                                {{--<td colspan="2">--}}
+                                {{--<i class="text-11">- {{$precio_paquete2->personas_s}} habitaciones con acomodacion simple, total de pasajeros {{$precio_paquete2->personas_s * 1}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_s * 1)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>--}}
+                                {{--</td>--}}
+                                {{--</tr>--}}
                             @else
                                 @php
                                     $precio_s = 0;
@@ -306,10 +295,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                <td colspan="2">
-                                <i class="text-11">- {{$precio_paquete2->personas_d}} habitaciones con acomodacion doble, total de pasajeros {{$precio_paquete2->personas_d * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_d * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>
-                                </td>
-                                </tr>
+                                {{--<td colspan="2">--}}
+                                {{--<i class="text-11">- {{$precio_paquete2->personas_d}} habitaciones con acomodacion doble, total de pasajeros {{$precio_paquete2->personas_d * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_d * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>--}}
+                                {{--</td>--}}
+                                {{--</tr>--}}
                             @else
                                 @php
                                     $precio_d = 0;
@@ -327,11 +316,11 @@
                                         {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
-                                <tr>
-                                <td colspan="2">
-                                <i class="text-11">- {{$precio_paquete2->personas_m}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_m * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_m * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>
-                                </td>
-                                </tr>
+                                {{--<tr>--}}
+                                {{--<td colspan="2">--}}
+                                {{--<i class="text-11">- {{$precio_paquete2->personas_m}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_m * 2}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_m * 2)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>--}}
+                                {{--</td>--}}
+                                {{--</tr>--}}
                             @else
                                 @php
                                     $precio_m = 0;
@@ -349,11 +338,11 @@
                                         {{number_format(ceil($total_utilidad), 2, '.', '')}}
                                     </td>
                                 </tr>
-                                <tr>
-                                <td colspan="2">
-                                <i class="text-11">- {{$precio_paquete2->personas_t}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_t * 3}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_t * 3)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>
-                                </td>
-                                </tr>
+                                {{--<tr>--}}
+                                {{--<td colspan="2">--}}
+                                {{--<i class="text-11">- {{$precio_paquete2->personas_t}} habitaciones con acomodacion matrimonial, total de pasajeros {{$precio_paquete2->personas_t * 3}}, precio por persona ${{$total_utilidad / ($precio_paquete2->personas_t * 3)}}, numero de dias en hotel {{$paquete->duracion - 1}}</i>--}}
+                                {{--</td>--}}
+                                {{--</tr>--}}
                             @else
                                 @php
                                     $precio_t = 0;

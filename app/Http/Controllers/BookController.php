@@ -119,13 +119,17 @@ class BookController extends Controller
     function asignar_proveedor_hotel(Request $request){
         $dat=$request->input('precio')[0];
 //        dd($dat);
+        //0=
+        //1=PrecioHotelReserva_id
+        //2=proveedor_id
+        //3=HotelProveedor_id
         $dato=explode('_',$dat);
 //        dd($dato);
         $hotel_proveedor=HotelProveedor::FindOrFail($dato[3]);
 //        dd($hotel_proveedor);
         $hotel_reservado=PrecioHotelReserva::FindOrFail($dato[1]);
         $hotel_reservado->precio_s_r=$hotel_proveedor->single;
-        $hotel_reservado->precio_d_r=$hotel_proveedor->double;
+        $hotel_reservado->precio_d_r=$hotel_proveedor->doble;
         $hotel_reservado->precio_m_r=$hotel_proveedor->matrimonial;
         $hotel_reservado->precio_t_r=$hotel_proveedor->triple;
         $hotel_reservado->proveedor_id=$dato[2];

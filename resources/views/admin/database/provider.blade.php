@@ -206,7 +206,9 @@
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
-                                        {{--<th>Direccion</th>--}}
+                                        @if($tipoServicio_=='HOTELS')
+                                        <th>Cat</th>
+                                        @endif
                                         <th>Tel./Cel.</th>
                                         <th>Email</th>
                                         <th>Reservas</th>
@@ -220,7 +222,9 @@
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
-                                        {{--<th>Direccion</th>--}}
+                                        @if($tipoServicio_=='HOTELS')
+                                        <th>Cat</th>
+                                        @endif
                                         <th>Tel./Cel.</th>
                                         <th>Email</th>
                                         <th>Reservas</th>
@@ -236,7 +240,9 @@
                                                 <td>{{$provider->codigo}}</td>
                                                 <td>{{$provider->ruc}}</td>
                                                 <td>{{$provider->razon_social}}</td>
-                                                {{--<td>{{$provider->direccion}}</td>--}}
+                                                @if($tipoServicio_=='HOTELS')
+                                                <td class="text-warning"><b>{{$provider->categoria}}</b> <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></td>
+                                                @endif
                                                 <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
                                                 <td>{{$provider->email}}</td>
                                                 <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
@@ -324,6 +330,19 @@
                                                                     <input type="hidden" name="tipoServicio_" id="tipoServicio_" value="{{$tipoServicio_}}">
                                                                 </div>
                                                             </div>
+                                                            @if($tipoServicio_=='HOTELS')
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="txt_codigo">Categoria</label>
+                                                                    <select class="form-control" id="txt_categoria_" name="txt_categoria_">
+                                                                        <option value="2">2 STARS</option>
+                                                                        <option value="3">3 STARS</option>
+                                                                        <option value="4">4 STARS</option>
+                                                                        <option value="5">5 STARS</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            @endif
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="txt_codigo">Ruc</label>

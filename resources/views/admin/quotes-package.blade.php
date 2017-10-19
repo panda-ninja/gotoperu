@@ -62,7 +62,7 @@
         <div class="row margin-top-20">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="txt_code">Code</label>
+                    <label for="txt_code">Code{{$cotizacion_->nropersonas}}</label>
                     <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code">
                 </div>
             </div>
@@ -154,8 +154,8 @@
                                     <?php
                                     if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                         if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                            $precio_iti+=ceil($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas));
-                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.ceil($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas)).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                            $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas),2);
+                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval($cotizacion_->nropersonas),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                         }
                                         else{
                                             $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
@@ -200,7 +200,7 @@
                                                 <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
                                                 <td>
                                                     @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                                                        {{ceil($servicios->itinerario_servicios_servicio->precio_venta/2)}}
+                                                        {{round($servicios->itinerario_servicios_servicio->precio_venta/2,2)}}
                                                     @else
                                                         {{$servicios->itinerario_servicios_servicio->precio_venta}}
                                                     @endif
