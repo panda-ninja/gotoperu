@@ -56,6 +56,7 @@ class CostController extends Controller
         }
 
         $posTipo=$request->input('posTipo');
+//        dd($posTipo);
         if($posTipo!=0){
 //        $posTipo=0;
         $localizacion='txt_localizacion_'.$posTipo;
