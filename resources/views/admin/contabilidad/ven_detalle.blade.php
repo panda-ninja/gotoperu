@@ -130,6 +130,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $sumatotal_v=0;
+                            $sumatotal_v_r=0;
+                            $sumatotal_v_c=0;
+                        @endphp
                         @foreach($cotizacion->paquete_cotizaciones as $paquete)
                             @if($paquete->estado==2)
                                 @foreach($paquete->itinerario_cotizaciones as $itinerario)
@@ -152,8 +157,30 @@
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
                                             <td></td>
-                                            <td>{{$servicios->id}} {{$servicios->nombre}}</td>
-                                            <td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>
+                                            <td>{{$servicios->nombre}}</td>
+                                            <td class="text-right">
+                                                @if($servicios->precio_grupo==1)
+                                                    {{round($servicios->precio/$cotizacion->nropersonas,2)}} x {{$cotizacion->nropersonas}}={{$servicios->precio}} $
+                                                    @php
+                                                        $sumatotal_v+=$servicios->precio;
+                                                        $sumatotal_v_r+=$servicios->precio_proveedor;
+                                                        $sumatotal_v_c+=$servicios->precio_c;
+                                                    @endphp
+                                                @else
+                                                    {{$servicios->precio}} x {{$cotizacion->nropersonas}}={{$servicios->precio*$cotizacion->nropersonas}} $
+                                                    @php
+                                                        $sumatotal_v+=$servicios->precio*$cotizacion->nropersonas;
+                                                        $sumatotal_v_r+=$servicios->precio_proveedor;
+                                                        $sumatotal_v_c+=$servicios->precio_c;
+                                                    @endphp
+                                                @endif
+
+
+                                                {{--@if($servicios->precio_grupo==1)--}}
+                                                    {{--{{$servicios->precio}}--}}
+                                                {{--@else--}}
+                                                    {{--{{$servicios->precio}}--}}
+                                                {{--@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
                                             <td class="text-right">{{$servicios->precio_proveedor}} $</td>
                                             @if($servicios->precio_c==0)
                                                 @php
@@ -233,6 +260,207 @@
                                             </th>
                                         </tr>
                                     @endforeach
+                                    @foreach($itinerario->hotel as $hotel)
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                {{--{{$hotel->id}}--}}
+                                                @php
+                                                    $total=0;
+                                                    $total_book=0;
+                                                    $cadena_total='';
+                                                    $cadena_total_book='';
+                                                @endphp
+                                                @if($hotel->personas_s>0)
+                                                    @php
+                                                        $total+=$hotel->personas_s*$hotel->precio_s;
+                                                        $total_book+=$hotel->personas_s*$hotel->precio_s_r;
+                                                        $cadena_total.="<p>Single: ".$hotel->personas_s." x ".$hotel->precio_s." =".($hotel->personas_s*$hotel->precio_s*1)."</p>";
+                                                        $cadena_total_book.="<p>Single: ".$hotel->personas_s." x ".$hotel->precio_s_r." =".($hotel->personas_s*$hotel->precio_s_r*1)."</p>";
+                                                        $sumatotal_v+=$hotel->personas_s*$hotel->precio_s;
+{{--                                                        $sumatotal_v_r+=$hotel->personas_s*$hotel->precio_s_r;--}}
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_s}} Single Room </b><span class="text-info"> | </span>
+                                                @endif
+                                                @if($hotel->personas_d>0)
+                                                    @php
+                                                        $total+=$hotel->personas_d*$hotel->precio_d;
+                                                        $total_book+=$hotel->personas_d*$hotel->precio_d_r;
+                                                        $cadena_total.="<p>Double: ".$hotel->personas_d." x ".($hotel->precio_d)." =".($hotel->personas_d*$hotel->precio_d)."</p>";
+                                                        $cadena_total_book.="<p>Double: ".$hotel->personas_d." x ".($hotel->precio_d_r)." =".($hotel->personas_d*$hotel->precio_d_r)."</p>";
+                                                        $sumatotal_v+=$hotel->personas_d*$hotel->precio_d;
+{{--                                                        $sumatotal_v_r+=$hotel->personas_d*$hotel->precio_d_r;--}}
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_d}} Double Room </b><span class="text-info"> | </span>
+                                                @endif
+                                                @if($hotel->personas_m>0)
+                                                    @php
+                                                        $total+=$hotel->personas_m*$hotel->precio_m;
+                                                        $total_book+=$hotel->personas_m*$hotel->precio_m_r;
+                                                        $cadena_total.="<p>Matrimonial: ".$hotel->personas_m." x ".($hotel->precio_m)." =".($hotel->personas_m*$hotel->precio_m)."</p>";
+                                                        $cadena_total_book.="<p>Matrimonial: ".$hotel->personas_m." x ".($hotel->precio_m_r)." =".($hotel->personas_m*$hotel->precio_m_r)."</p>";
+                                                        $sumatotal_v+=$hotel->personas_m*$hotel->precio_m;
+{{--                                                        $sumatotal_v_r+=$hotel->personas_m*$hotel->precio_m_r;--}}
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_m}} Matrimonial Room </b><span class="text-info"> | </span>
+                                                @endif
+                                                @if($hotel->personas_t>0)
+                                                    @php
+                                                        $total+=$hotel->personas_t*$hotel->precio_t;
+                                                        $total_book+=$hotel->personas_t*$hotel->precio_t_r;
+                                                        $cadena_total.="<p>Triple: ".$hotel->personas_t." x ".($hotel->precio_t)." =".($hotel->personas_t*$hotel->precio_t)."</p>";
+                                                        $cadena_total_book.="<p>Triple: ".$hotel->personas_t." x ".($hotel->precio_t_r)." =".($hotel->personas_t*$hotel->precio_t_r)."</p>";
+                                                        $sumatotal_v+=$hotel->personas_t*$hotel->precio_t;
+{{--                                                        $sumatotal_v_r+=$hotel->personas_t*$hotel->precio_t_r;--}}
+                                                    @endphp
+                                                    <b class="text-success">{{$hotel->personas_t}} Triple Room </b><span class="text-info"> | </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-right">
+                                                <p>{{$total}} $
+                                                    <a id="hpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
+                                                </p>
+                                            </td>
+                                            {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
+                                            @php
+                                                $sumatotal_v_r+=$total_book
+                                            @endphp
+                                            <td class="text-right">
+                                                <p> {{$total_book}} $
+                                                    <a id="h_rpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total_book}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
+                                                </p>
+                                            </td>
+                                            @php
+                                                $precio=0;
+                                            @endphp
+                                            @if($hotel->personas_s>0)
+                                                @if($hotel->precio_s_c==0)
+                                                    @php
+                                                        $precio=$hotel->precio_s_r;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $precio=$hotel->precio_s_c;
+                                                    @endphp
+                                                @endif
+                                            @endif
+                                            @if($hotel->personas_d>0)
+                                                @if($hotel->precio_d_c==0)
+                                                    @php
+                                                        $precio=$hotel->precio_d_r*$hotel->personas_d;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $precio=$hotel->precio_d_c*$hotel->personas_d;
+                                                    @endphp
+                                                @endif
+                                            @endif
+                                            @if($hotel->personas_m>0)
+                                                @if($hotel->precio_m_c==0)
+                                                    @php
+                                                        $precio=$hotel->precio_m_r*$hotel->personas_m;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $precio=$hotel->precio_m_c*$hotel->personas_m;
+                                                    @endphp
+                                                @endif
+                                            @endif
+                                            @if($hotel->personas_t>0)
+                                                @if($hotel->precio_t_c==0)
+                                                    @php
+                                                        $precio=$hotel->precio_t_r*$hotel->personas_t;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $precio=$hotel->precio_t_c*$hotel->personas_t;
+                                                    @endphp
+                                                @endif
+                                            @endif
+                                            <td><input id="precio_h_c_{{$hotel->id}}" class="form-control" type="number" value="{{$precio}}" step="0.01" min="0"></td>
+
+                                            {{--<td>--}}
+                                                {{--<input class="form-control" type="text" id="code_{{$hotel->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo_h('{{$servicios->id}}')">--}}
+                                            {{--</td>--}}
+                                            <td>
+                                                @if($hotel->codigo_verificacion)
+                                                    {{$hotel->codigo_verificacion}}
+                                                @else
+                                                    <input class="form-control" type="text" id="code_{{$hotel->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo_h('{{$servicios->id}}')">
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($hotel->proveedor)
+                                                    {{$hotel->proveedor->razon_social}}
+                                                @else
+                                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_h_{{$hotel->id}}">
+                                                        Proveedor
+                                                    </button>
+                                                    <div class="modal fade" id="myModal_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form action="{{route('asignar_proveedor_hotel_path')}}" method="post">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                                    </div>
+                                                                    <div class="modal-body clearfix">
+                                                                        <div class="col-md-12">
+                                                                            {{--                                                                            {{dd($servicios)}}--}}
+                                                                            {{--{{$hotel_proveedor}}--}}
+                                                                            @foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)
+                                                                                {{--                                                                                {{dd($hotel_proveedor_->single)}}--}}
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="checkbox11 text-left bg-info">
+                                                                                        <label class="text-primary">
+                                                                                            <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}">
+                                                                                            <b>{{$hotel_proveedor_->proveedor->razon_social}}</b>
+                                                                                        </label>
+                                                                                        @if($hotel->personas_s>0)
+                                                                                            <p>Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
+                                                                                        @endif
+                                                                                        @if($hotel->personas_d>0)
+                                                                                            <p>Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
+                                                                                        @endif
+                                                                                        @if($hotel->personas_m>0)
+                                                                                            <p>Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
+                                                                                        @endif
+                                                                                        @if($hotel->personas_t>0)
+                                                                                            <p>Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
+                                                                                        @endif
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endforeach
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        {{csrf_field()}}
+                                                                        <input type="text" name="id" value="{{$hotel->id}}">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                {{--@if($servicios->itinerario_proveedor)--}}
+                                                {{--{{$servicios->itinerario_proveedor->razon_social}}--}}
+                                                {{--@else--}}
+
+                                                {{--@endif--}}
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
                             @endif
                         @endforeach
@@ -240,12 +468,35 @@
                         <tbody>
                             <tr>
                                 <td colspan="2"><b>Total</b></td>
-                                <td class="text-right text-18 text-warning"><b>1322.00 $</b></td>
-                                <td class="text-right text-18 text-info"><b>343.00 $</b></td>
+                                <td class="text-right text-18 text-warning"><b>{{$sumatotal_v}} $</b></td>
+                                <td class="text-right text-18 text-info"><b>{{$sumatotal_v_r}} $</b></td>
+                                <td class="text-right text-18 text-warning"><b>{{$sumatotal_v_c}} $</b></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
         </div>
     </div>
+        <script>
+            $(document).ready(function() {
+
+//                $('[data-toggle="popover"]').popover()
+
+                @foreach($cotizacion->paquete_cotizaciones as $paquete)
+                    @if($paquete->estado==2)
+                        @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                            @foreach($itinerario->itinerario_servicios as $servicios)
+$('#ipropover_{{$servicios->id}}').popover({html: true, placement: "rigth", trigger: "click"});
+                $('#propover_{{$servicios->id}}').popover({html: true, placement: "rigth", trigger: "click"});
+                @endforeach
+                @foreach($itinerario->hotel as $hotel)
+                $('#hpropover_{{$hotel->id}}').popover({html: true, placement: "left", trigger: "click"});
+                $('#h_rpropover_{{$hotel->id}}').popover({html: true, placement: "rigth", trigger: "click"});
+                @endforeach
+                @endforeach
+                @endif
+                @endforeach
+
+            });
+        </script>
 @stop

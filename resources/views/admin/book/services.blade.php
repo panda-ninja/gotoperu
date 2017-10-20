@@ -160,14 +160,14 @@
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
                                             <td></td>
-                                            <td>{{$servicios->id}} {{$servicios->nombre}}</td>
+                                            <td>{{$servicios->nombre}}</td>
                                             <td class="text-right">
                                                 @php
                                                     $mate='';
                                                 @endphp
                                                 @if($servicios->precio_grupo==1)
                                                     @php
-                                                        $mate.=$servicios->precio*2;
+                                                        $mate.=round($servicios->precio/$cotizacion->nropersonas,2);
                                                     @endphp
                                                 @else
                                                     @php
@@ -179,8 +179,8 @@
                                                 @endphp
                                                 @if($servicios->precio_grupo==1)
                                                     @php
-                                                        $mate.=$servicios->precio*2*$cotizacion->nropersonas;
-                                                        $sumatotal_v+=$servicios->precio*2*$cotizacion->nropersonas;
+                                                        $mate.=$servicios->precio;
+                                                        $sumatotal_v+=$servicios->precio;
                                                         $sumatotal_v_r+=$servicios->precio_proveedor;
                                                     @endphp
                                                 @else
@@ -194,10 +194,10 @@
                                                     $mate.="$";
                                                 @endphp
 
-                                                <p class="@if($servicios->precio_grupo==1){{'hide'}}@endif"><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio}} $
+                                                <p class="@if($servicios->precio_grupo==1){{'hide'}}@endif"><i class="fa fa-male" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas}} $
                                                     <a id="ipropover_{{$servicios->id}}" data-toggle="popover" title="Detalle" data-content="{{$mate}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
                                                 </p>
-                                                <p class="@if($servicios->precio_grupo==0){{'hide'}}@endif"><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio*$cotizacion->nropersonas*2}} $
+                                                <p class="@if($servicios->precio_grupo==0){{'hide'}}@endif"><i class="fa fa-users" aria-hidden="true"></i> {{$servicios->precio}} $
                                                     <a id="propover_{{$servicios->id}}" data-toggle="popover" title="Detalle" data-content="{{$mate}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
                                                 </p>
                                             </td>
@@ -318,34 +318,34 @@
                                                 @endif
                                                 @if($hotel->personas_d>0)
                                                     @php
-                                                        $total+=$hotel->personas_d*$hotel->precio_d*2;
-                                                        $total_book+=$hotel->personas_d*$hotel->precio_d_r*2;
-                                                        $cadena_total.="<p>Double: ".$hotel->personas_d." x ".($hotel->precio_d*2)." =".($hotel->personas_d*$hotel->precio_d*2)."</p>";
-                                                        $cadena_total_book.="<p>Double: ".$hotel->personas_d." x ".($hotel->precio_d_r*2)." =".($hotel->personas_d*$hotel->precio_d_r*2)."</p>";
-                                                        $sumatotal_v+=$hotel->personas_d*$hotel->precio_d*2;
-{{--                                                        $sumatotal_v_r+=$hotel->personas_d*$hotel->precio_d_r*2;--}}
+                                                        $total+=$hotel->personas_d*$hotel->precio_d;
+                                                        $total_book+=$hotel->personas_d*$hotel->precio_d_r;
+                                                        $cadena_total.="<p>Double: ".$hotel->personas_d." x ".($hotel->precio_d)." =".($hotel->personas_d*$hotel->precio_d)."</p>";
+                                                        $cadena_total_book.="<p>Double: ".$hotel->personas_d." x ".($hotel->precio_d_r)." =".($hotel->personas_d*$hotel->precio_d_r)."</p>";
+                                                        $sumatotal_v+=$hotel->personas_d*$hotel->precio_d;
+{{--                                                        $sumatotal_v_r+=$hotel->personas_d*$hotel->precio_d_r;--}}
                                                     @endphp
                                                     <b class="text-success">{{$hotel->personas_d}} Double Room </b><span class="text-info"> | </span>
                                                 @endif
                                                 @if($hotel->personas_m>0)
                                                     @php
-                                                        $total+=$hotel->personas_m*$hotel->precio_m*2;
-                                                        $total_book+=$hotel->personas_m*$hotel->precio_m_r*2;
-                                                        $cadena_total.="<p>Matrimonial: ".$hotel->personas_m." x ".($hotel->precio_m*2)." =".($hotel->personas_m*$hotel->precio_m*2)."</p>";
-                                                        $cadena_total_book.="<p>Matrimonial: ".$hotel->personas_m." x ".($hotel->precio_m_r*2)." =".($hotel->personas_m*$hotel->precio_m_r*2)."</p>";
-                                                        $sumatotal_v+=$hotel->personas_m*$hotel->precio_m*2;
-{{--                                                        $sumatotal_v_r+=$hotel->personas_m*$hotel->precio_m_r*2;--}}
+                                                        $total+=$hotel->personas_m*$hotel->precio_m;
+                                                        $total_book+=$hotel->personas_m*$hotel->precio_m_r;
+                                                        $cadena_total.="<p>Matrimonial: ".$hotel->personas_m." x ".($hotel->precio_m)." =".($hotel->personas_m*$hotel->precio_m)."</p>";
+                                                        $cadena_total_book.="<p>Matrimonial: ".$hotel->personas_m." x ".($hotel->precio_m_r)." =".($hotel->personas_m*$hotel->precio_m_r)."</p>";
+                                                        $sumatotal_v+=$hotel->personas_m*$hotel->precio_m;
+{{--                                                        $sumatotal_v_r+=$hotel->personas_m*$hotel->precio_m_r;--}}
                                                     @endphp
                                                     <b class="text-success">{{$hotel->personas_m}} Matrimonial Room </b><span class="text-info"> | </span>
                                                 @endif
                                                 @if($hotel->personas_t>0)
                                                     @php
-                                                        $total+=$hotel->personas_t*$hotel->precio_t*3;
-                                                        $total_book+=$hotel->personas_t*$hotel->precio_t_r*3;
-                                                        $cadena_total.="<p>Triple: ".$hotel->personas_t." x ".($hotel->precio_t*3)." =".($hotel->personas_t*$hotel->precio_t*3)."</p>";
-                                                        $cadena_total_book.="<p>Triple: ".$hotel->personas_t." x ".($hotel->precio_t_r*3)." =".($hotel->personas_t*$hotel->precio_t_r*3)."</p>";
-                                                        $sumatotal_v+=$hotel->personas_t*$hotel->precio_t*3;
-{{--                                                        $sumatotal_v_r+=$hotel->personas_t*$hotel->precio_t_r*3;--}}
+                                                        $total+=$hotel->personas_t*$hotel->precio_t;
+                                                        $total_book+=$hotel->personas_t*$hotel->precio_t_r;
+                                                        $cadena_total.="<p>Triple: ".$hotel->personas_t." x ".($hotel->precio_t)." =".($hotel->personas_t*$hotel->precio_t)."</p>";
+                                                        $cadena_total_book.="<p>Triple: ".$hotel->personas_t." x ".($hotel->precio_t_r)." =".($hotel->personas_t*$hotel->precio_t_r)."</p>";
+                                                        $sumatotal_v+=$hotel->personas_t*$hotel->precio_t;
+{{--                                                        $sumatotal_v_r+=$hotel->personas_t*$hotel->precio_t_r;--}}
                                                     @endphp
                                                     <b class="text-success">{{$hotel->personas_t}} Triple Room </b><span class="text-info"> | </span>
                                                 @endif

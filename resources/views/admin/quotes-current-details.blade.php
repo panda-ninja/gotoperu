@@ -221,9 +221,9 @@
                     @endphp
                     @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
                         @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
-                            @if($orden_cotizaciones->precio_grupo==1)
-                                $st_precio+=;
-                            @endif
+                            {{--@if($orden_cotizaciones->precio_grupo==1)--}}
+                                {{--$st_precio+=$orden_cotizaciones->precio;--}}
+                            {{--@endif--}}
                             @php
                                 $total = $orden_cotizaciones->precio + $servicio;
                                 $servicio = $total;
