@@ -374,3 +374,7 @@ Route::post('/admin/cotizacion/delete', [
     'uses' => 'PackageCotizacionController@delete',
     'as' => 'cotizacion_delete_path',
 ]);
+Route::post('/admin/contabilidad/pagar-hotel', [
+    'uses' => 'ContabilidadController@pagar',
+    'as' => 'pagar_proveedor_h_path',
+]);
