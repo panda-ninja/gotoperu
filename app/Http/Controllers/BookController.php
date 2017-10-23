@@ -148,10 +148,12 @@ class BookController extends Controller
         $coti=Cotizacion::FindOrFail($cotizacion_id);
         $coti->confirmado_r='ok';
         $coti->save();
+
         $cotizacion=Cotizacion::FindOrFail($cotizacion_id);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores]);
+        $hotel_proveedor=HotelProveedor::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
 
     }
 }

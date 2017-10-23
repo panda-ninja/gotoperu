@@ -1434,12 +1434,10 @@ function confirmar_fecha(id){
 
     })
 }
-
 function insertar_codigo(id){
     var $codigo=$('#code_'+id).val();
     // console.log($codigo);
 }
-
 function calcular_saldo(id){
     var $total=parseFloat($('#total_'+id).html());
     var $serv_acta=parseFloat($('#serv_acta_'+id).val());
@@ -1481,7 +1479,6 @@ function enviar_form(id){
         return false;
     });
 }
-
 function pasar_price(id){
     $("#serv_acta_"+id).attr({
         "max" : $('#precio_c_'+id).val(),        // substitute your own
@@ -1490,7 +1487,6 @@ function pasar_price(id){
     $('#itotal_'+id).val($('#precio_c_'+id).val());
 
 }
-
 function mostrar_hoteles(pos) {
     var loca=$('#txt_localizacion_'+pos).val();
     $.ajaxSetup({
@@ -1542,7 +1538,6 @@ function mostrar_hoteles(pos) {
         console.log(data);
     });
 }
-
 function eliminar_servicio_h(id,servicio) {
     // alert('holaaa');
     swal({
@@ -1570,7 +1565,6 @@ function eliminar_servicio_h(id,servicio) {
 
     })
 }
-
 function Eliminar_cotizacion(id,titulo) {
     // alert('holaaa');
     swal({
@@ -1596,4 +1590,45 @@ function Eliminar_cotizacion(id,titulo) {
         });
 
     })
+}
+function confirmar_fecha_h(id){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: '¿Esta seguro de confirmar el monto y fecha?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        var precio=$('#precio_h_c_'+id).val();
+        var fecha=$('#fecha_pago_h_'+id).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/contabilidad/conciliar-venta-h', 'id='+id+'&&precio='+precio+'&&fecha='+fecha, function(data) {
+            var data1=data.split('_');
+            if(data1[0]=='1'){
+                $('#servicio_h_'+id).html('Confirmada');
+                $('#servicio_h_'+id).removeClass('btn-danger');
+                $('#servicio_h_'+id).addClass('btn-success');
+                $('#servicio_h_'+id).off("click");
+                $('#servicio_pago_h_'+id).val(data1[1]);
+                pasar_price_h(id);
+            }
+        }).fail(function (data) {
+            console.log(data);
+        });
+
+    })
+}
+function pasar_price_h(id){
+    $("#serv_acta_h_"+id).attr({
+        "max" : $('#precio_c_h_'+id).val(),        // substitute your own
+    });
+    $('#total_h_'+id).html($('#precio_c_h_'+id).val());
+    $('#itotal_h_'+id).val($('#precio_c_h_'+id).val());
+
 }

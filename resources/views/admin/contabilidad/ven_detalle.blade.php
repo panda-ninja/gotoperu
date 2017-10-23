@@ -200,8 +200,8 @@
                                                     No asignado
                                                 @endif
                                             </td>
-                                            <th><input class="form-control" type="date" id="fecha_pago_{{$servicios->id}}" value="{{date("Y-m-d")}}"></th>
-                                            <th>
+                                            <td><input class="form-control" type="date" id="fecha_pago_{{$servicios->id}}" value="{{date("Y-m-d")}}"></td>
+                                            <td>
                                                 {{csrf_field()}}
                                                 @if($servicios->precio_c>0)
                                                     <button id="servicio_{{$servicios->id}}" type="button" class="btn btn-success">confirmada</button>
@@ -257,7 +257,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </th>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     @foreach($itinerario->hotel as $hotel)
@@ -393,71 +393,66 @@
                                                 @if($hotel->proveedor)
                                                     {{$hotel->proveedor->razon_social}}
                                                 @else
-                                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_h_{{$hotel->id}}">
-                                                        Proveedor
-                                                    </button>
-                                                    <div class="modal fade" id="myModal_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <form action="{{route('asignar_proveedor_hotel_path')}}" method="post">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                No asignado
+                                                @endif
+                                            </td>
+                                            <td><input class="form-control" type="date" id="fecha_pago_h_{{$hotel->id}}" value="{{date("Y-m-d")}}"></td>
+                                            <td>
+                                                {{csrf_field()}}
+                                                @if($servicios->precio_c>0)
+                                                    <button id="servicio_h_{{$servicios->id}}" type="button" class="btn btn-success">confirmada</button>
+                                                @else
+                                                    <button id="servicio_h_{{$servicios->id}}" type="button" class="btn btn-danger" onclick="confirmar_fecha_h('{{$hotel->id}}')">confirmar ahora</button>
+                                                @endif
+                                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_h_{{$hotel->id}}">
+                                                    <i class="fa fa-usd" aria-hidden="true"></i> Pagar
+                                                </button>
+                                                <div class="modal fade" id="myModal_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <form id="fo_{{$hotel->id}}" name="fo_{{$hotel->id}}" action="{{route('pagar_proveedor_h_path')}}" method="post">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Pago del servicio</h4>
+                                                                </div>
+                                                                <div class="modal-body clearfix">
+                                                                    <div class="col-md-12">
+                                                                        <h4 class="text-success">{{$hotel->nombre}}</h4>
+                                                                        <table id="for_{{$hotel->id}}">
+                                                                            <tr>
+                                                                                <td class="col-lg-2">Total:</td>
+                                                                                <td class="col-lg-2" id="total_h_{{$hotel->id}}">{{$hotel->precio_c}}</td>
+                                                                                <td class="col-lg-8"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="col-lg-2">a pagar:</td>
+                                                                                <td class="col-lg-3"><input type="number" min="0" max="{{$hotel->precio_c}}"  class="form-control" name="a_cuenta" id="serv_acta_h_{{$hotel->id}}" placeholder="Monto $" value="{{$hotel->precio_c}}" onchange="calcular_saldo_h({{$hotel->id}})">
+                                                                                </td>
+                                                                                <td class="col-lg-7"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="col-lg-2">Saldo:</td>
+                                                                                <td class="col-lg-2">
+                                                                                <input type="text" class="form-control" name="saldo" id="saldo_h_{{$servicios->id}}" value="0" readonly></td>
+                                                                                <td class="col-lg-2 hide" id="ifecha_pago_h_{{$hotel->id}}"><input type="date" id="prox_fecha_{{$hotel->id}}" name="prox_fecha" class="form-control"></td>
+                                                                                <td class="col-lg-6"></td>
+                                                                            </tr>
+                                                                        </table>
                                                                     </div>
-                                                                    <div class="modal-body clearfix">
-                                                                        <div class="col-md-12">
-                                                                            {{--                                                                            {{dd($servicios)}}--}}
-                                                                            {{--{{$hotel_proveedor}}--}}
-                                                                            @foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)
-                                                                                {{--                                                                                {{dd($hotel_proveedor_->single)}}--}}
-
-                                                                                <div class="col-md-6">
-                                                                                    <div class="checkbox11 text-left bg-info">
-                                                                                        <label class="text-primary">
-                                                                                            <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}">
-                                                                                            <b>{{$hotel_proveedor_->proveedor->razon_social}}</b>
-                                                                                        </label>
-                                                                                        @if($hotel->personas_s>0)
-                                                                                            <p>Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
-                                                                                        @endif
-                                                                                        @if($hotel->personas_d>0)
-                                                                                            <p>Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
-                                                                                        @endif
-                                                                                        @if($hotel->personas_m>0)
-                                                                                            <p>Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
-                                                                                        @endif
-                                                                                        @if($hotel->personas_t>0)
-                                                                                            <p>Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
-                                                                                        @endif
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endforeach
-
-
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        {{csrf_field()}}
-                                                                        <input type="text" name="id" value="{{$hotel->id}}">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
+                                                                    <div id="result_h_{{$hotel->id}}" class="text-15"></div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="itineraio_servicios_id" value="{{$hotel->id}}">
+                                                                    <input type="hidden" name="total" id="itotal_{{$hotel->id}}" value="{{$hotel->precio_c}}">
+                                                                    <input type="hidden" name="servicio_pago" id="servicio_pago_{{$hotel->id}}" value="0">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary" onclick="enviar_form('{{$hotel->id}}')">Save changes</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
-                                                @endif
-                                                {{--@if($servicios->itinerario_proveedor)--}}
-                                                {{--{{$servicios->itinerario_proveedor->razon_social}}--}}
-                                                {{--@else--}}
-
-                                                {{--@endif--}}
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

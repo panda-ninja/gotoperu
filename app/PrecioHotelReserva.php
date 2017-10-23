@@ -17,4 +17,8 @@ class PrecioHotelReserva extends Model
     {
         return $this->belongsTo(Proveedor::class, 'proveedor_id');
     }
+    public function pagos()
+    {
+        return $this->hasMany(PrecioHotelReservaPagos::class, 'precio_hotel_reserva_id');
+    }
 }

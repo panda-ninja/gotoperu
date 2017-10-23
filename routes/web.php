@@ -330,6 +330,10 @@ Route::post('admin/contabilidad/conciliar-venta', [
     'uses' => 'ContabilidadController@confirmar',
     'as' => 'contabilidad_confirmar_path',
 ]);
+Route::post('admin/contabilidad/conciliar-venta-h', [
+    'uses' => 'ContabilidadController@confirmar_h',
+    'as' => 'contabilidad_confirmar_h_path',
+]);
 Route::post('/admin/contabilidad/pagar', [
     'uses' => 'ContabilidadController@pagar',
     'as' => 'pagar_proveedor_path',
