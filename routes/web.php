@@ -11,10 +11,28 @@
 |
 */
 
+Route::get('/crear', [
+    'uses' => 'IndexController@crear',
+    'as' => 'crear_path',
+]);
+Route::post('/crearp', [
+    'uses' => 'IndexController@crearp',
+    'as' => 'crear_p_path',
+]);
+
 //Route::get('/', function () {
 //    return view('admin.index');
 //});
 Route::get('/', [
+    'uses' => 'IndexController@inicio',
+    'as' => 'inicio_path',
+]);
+Route::post('/login', [
+    'uses' => 'UserAuthController@store',
+    'as' => 'login_path',
+]);
+
+Route::get('admin/', [
     'uses' => 'IndexController@index',
     'as' => 'index_path',
 ]);
