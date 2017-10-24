@@ -19,15 +19,15 @@
                         @endif
                         <div class="form-group">
                             <label for="txt_codigo">Username</label>
-                            <input type="text" class="form-control" placeholder="Username" id="txt_codigo" name="txt_codigo" value="fredy1432@gotmail.com">
+                            <input type="text" class="form-control" placeholder="Username" id="txt_codigo" name="email" value="fredy1432@gotmail.com">
                         </div>
                         <div class="form-group">
                             <label for="txt_codigo">Password</label>
-                            <input type="password" class="form-control" placeholder="Password" id="txt_password" name="txt_password">
+                            <input type="password" class="form-control" placeholder="Password" id="txt_password" name="password" value="GOTOPERU*1">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group hide">
                             <label for="txt_codigo">pa</label>
-                            <input type="text" class="form-control" placeholder="Password" value="{{bcrypt(12)}}">
+                            <input type="text" class="form-control" placeholder="Password" value="{{bcrypt('cusco')}}">
                         </div>
 
                     </div>

@@ -18,12 +18,22 @@
                             </div>
                         @endif
                         <div class="form-group">
+                            <label for="txt_codigo">Tipo</label>
+                            <select class="form-control" name="tipo">
+                                <option value="admin">Admin</option>
+                                <option value="ventas">Ventas</option>
+                                <option value="contabilidad">Contabiliad</option>
+                                <option value="reservas">Reservas</option>
+                                <option value="operaciones">Operaciones</option>
+                            </select> 
+                        </div>
+                        <div class="form-group">
                             <label for="txt_codigo">Username</label>
                             <input type="text" class="form-control" placeholder="Username" id="txt_codigo" name="txt_codigo" value="fredy1432@gotmail.com">
                         </div>
                         <div class="form-group">
                             <label for="txt_codigo">Password</label>
-                            <input type="password" class="form-control" placeholder="Password" id="txt_password" name="txt_password">
+                            <input type="password" class="form-control" placeholder="Password" id="txt_password" name="txt_password" value="GOTOPERU*1">
                         </div>
                         <div class="form-group">
                             <label for="txt_codigo">pa</label>

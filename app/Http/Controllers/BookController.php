@@ -25,7 +25,6 @@ class BookController extends Controller
         $paquete_cotizacion = PaqueteCotizaciones::where('estado', 2)->get();
         $cot_cliente = CotizacionesCliente::with('cliente')->where('estado', 1)->get();
         $cliente = Cliente::get();
-
         $cotizacion_cat=Cotizacion::where('estado',2)
             ->whereBetween('categorizado',['C','S'])->get();
         return view('admin.book.book', ['paquete_cotizacion'=>$paquete_cotizacion, 'cot_cliente'=>$cot_cliente, 'cliente'=>$cliente,'cotizacion_cat'=>$cotizacion_cat]);
@@ -141,8 +140,6 @@ class BookController extends Controller
         $hotel_proveedor=HotelProveedor::get();
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
-
-
     public function confirmar(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');
         $coti=Cotizacion::FindOrFail($cotizacion_id);

@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,29 +9,50 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/crear', [
+Route::get('/crear',[
     'uses' => 'IndexController@crear',
     'as' => 'crear_path',
 ]);
-Route::post('/crearp', [
+Route::post('/crearp',[
     'uses' => 'IndexController@crearp',
     'as' => 'crear_p_path',
 ]);
 
-//Route::get('/', function () {
-//    return view('admin.index');
-//});
-Route::get('/', [
+Route::get('/',[
     'uses' => 'IndexController@inicio',
     'as' => 'inicio_path',
 ]);
-Route::post('/login', [
+Route::post('/login',[
     'uses' => 'UserAuthController@store',
     'as' => 'login_path',
 ]);
 
-Route::get('admin/', [
+
+
+Route::get('/logout',[
+    'uses' => 'UserAuthController@destroy',
+    'as' => 'logout_path',
+]);
+Route::get('/ventas',[
+    'uses' => 'IndexController@ventas',
+    'as' => 'ventas_path',
+]);
+Route::get('/contabilidad', [
+    'uses' => 'IndexController@contabilidad',
+    'as' => 'contabilidad1_path',
+]);
+Route::get('/reservas', [
+    'uses' => 'IndexController@reservas',
+    'as' => 'reservas_path',
+]);
+
+Route::get('admin/',[
+    'uses' => 'IndexController@index',
+    'as' => 'index_path',
+]);
+
+
+Route::get('admin/',[
     'uses' => 'IndexController@index',
     'as' => 'index_path',
 ]);
@@ -72,7 +92,6 @@ Route::get('storage/destination/{filename}', [
     'uses' => 'DestinationController@getDestinarionImageName',
     'as' => 'destination_image_path'
 ]);
-
 Route::get('admin/catalog', [
     'uses' => 'PackageController@catalog',
     'as' => 'catalog_show_path',
@@ -89,7 +108,6 @@ Route::get('admin/qoute/proposal/options/{id}', [
     'uses' => 'QouteController@options',
     'as' => 'qoute_options_path',
 ]);
-
 /*== routes for services*/
 Route::get('/admin/products', [
     'uses' => 'ServicesController@index',
@@ -124,7 +142,6 @@ Route::post('/admin/costs/delete', [
     'uses' => 'CostController@delete',
     'as' => 'costs_delete_path',
 ]);
-
 /*== rutas para proveedores*/
 Route::any('admin/buscar-proveedor/', [
     'uses' => 'ProveedorController@autocomplete',
@@ -150,7 +167,6 @@ Route::post('/admin/provider/delete', [
     'uses' => 'ProveedorController@delete',
     'as' => 'provider_delete_path',
 ]);
-
 /*== rutas para itinerarios*/
 Route::get('/admin/itinerary',[
     'uses' => 'ItinerariController@index',
@@ -164,7 +180,6 @@ Route::post('/admin/itinerary/edit',[
     'uses' => 'ItinerariController@edit',
     'as' => 'itinerary_edit_path',
 ]);
-
 Route::post('/admin/itinerary/delete',[
     'uses' => 'ItinerariController@delete',
     'as' => 'itinerary_delete_path',
@@ -221,8 +236,6 @@ Route::post('admin/show-cotization/', [
     'uses' => 'PackageCotizacionController@show_cotizacion',
     'as' => 'cotizacion_show_path',
 ]);
-
-
 //hidalgo
 //client
 Route::get('admin/pax/', [
@@ -241,7 +254,6 @@ Route::post('admin/pax/payment/update/{id}', [
     'uses' => 'PaymentController@update',
     'as' => 'payment_update_path',
 ]);
-
 //RESERVAS
 Route::get('admin/book', [
     'uses' => 'BookController@index',
@@ -251,7 +263,6 @@ Route::get('admin/book/{id}', [
     'uses' => 'BookController@show',
     'as' => 'book_show_path',
 ]);
-
 Route::get('admin/show-cotization/{id}', [
     'uses' => 'PackageCotizacionController@show_cotizacion_id',
     'as' => 'cotizacion_id_show_path',
