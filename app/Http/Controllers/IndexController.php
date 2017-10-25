@@ -172,7 +172,6 @@ public function inicio()
     }
     public function ventas_now()
     {
-
         $mes='Septiembre';
         $chart = Charts::create('percentage', 'justgage')
             ->title('$68000')

@@ -1693,3 +1693,26 @@ function marcar_anio_hasta(signo,fecha) {
         $('#anio_hasta_').val(fecha);
     }
 }
+var escojer_consulta1=0;
+function escojer_consulta() {
+    if(escojer_consulta1==0) {
+        $('#lista').fadeOut();
+        $('#lista').addClass('hide');
+
+        $('#custon').fadeIn();
+        $('#custon').removeClass('hide');
+        escojer_consulta1=1;
+        $('#custon1').html('Lista');
+
+    }
+    else{
+        $('#custon').fadeOut();
+        $('#custon').addClass('hide');
+
+        $('#lista').fadeIn();
+        $('#lista').removeClass('hide');
+        escojer_consulta1=0;
+        $('#custon1').html('Custon');
+
+    }
+}

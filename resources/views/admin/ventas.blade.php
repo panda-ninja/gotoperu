@@ -73,6 +73,46 @@
                 </div>
             </div>
         </form>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-lg-1 margin-top-25">
+                        <button class="btn btn-primary" name="custon" id="custon1" onclick="escojer_consulta()">Custon</button>
+                    </div>
+                    <div id="custon" class="col-lg-6 hide">
+                        <div class="col-lg-6">
+                            <label for="">Desde</label>
+                            <input class="form-control" type="date">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="">Hasta</label>
+                            <input class="form-control" type="date">
+                        </div>
+                    </div>
+                    <div id="lista" class="col-lg-6">
+                        <label for="">Lista</label>
+                        <select name="lista" id="" class="form-control">
+                            <option value="1">Today</option>
+                            <option value="2">Yesterday</option>
+                            <option value="3">This week(Sun-Today)</option>
+                            <option value="4">This week(Mon-Today)</option>
+                            <option value="5">Last 7 days</option>
+                            <option value="6">Last week(Sun-Sat)</option>
+                            <option value="7">Last week(Sun-Sun)</option>
+                            <option value="8">Last business week(Mon-Fri)</option>
+                            <option value="9">Las 14 days</option>
+                            <option value="10">This month</option>
+                            <option value="11">Last 30 days</option>
+                            <option value="12">Last month</option>
+                            <option value="13">All time</option>
+                        </select> 
+                    </div>
+                    <div class="col-lg-1 margin-top-25">
+                        <button class="btn btn-primary" name="buscar">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-1"></div>
