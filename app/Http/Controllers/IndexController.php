@@ -170,6 +170,54 @@ public function inicio()
         return view('admin.ventas',['chart' => $chart,'chart1' => $chart1,'chart2' => $chart2,'chart3' => $chart3,'chart4' => $chart4]);
 
     }
+    public function ventas_now()
+    {
+
+        $mes='Septiembre';
+        $chart = Charts::create('percentage', 'justgage')
+            ->title('$68000')
+            ->elementLabel($mes)
+            ->values([25500,0,68000])
+            ->colors(['#7F8429'])
+            ->responsive(true)
+            ->height(250)
+            ->width(0);
+        $chart1 = Charts::create('percentage', 'justgage')
+            ->title('$60000')
+            ->elementLabel($mes)
+            ->values([30500,0,60000])
+            ->colors(['#e09e37'])
+            ->responsive(true)
+            ->height(250)
+            ->width(0);
+        $chart2 = Charts::create('percentage', 'justgage')
+            ->title('$1600')
+            ->elementLabel($mes)
+            ->values([500,0,1600])
+            ->colors(['#3097D1'])
+            ->responsive(true)
+            ->height(250)
+            ->width(0);
+        $chart3 = Charts::create('percentage', 'justgage')
+            ->title('$34000')
+            ->elementLabel($mes)
+            ->values([10500,0,34000])
+            ->colors(['#e91e63'])
+            ->responsive(true)
+            ->height(250)
+            ->width(0);
+
+        $chart4 = Charts::create('percentage', 'justgage')
+            ->title('$38000')
+            ->elementLabel($mes)
+            ->values([30500,0,38000])
+            ->colors(['#ff0000'])
+            ->responsive(true)
+            ->height(250)
+            ->width(0);
+        return view('admin.ventas',['chart' => $chart,'chart1' => $chart1,'chart2' => $chart2,'chart3' => $chart3,'chart4' => $chart4]);
+
+    }
     public function logeo(Request $request){
         $txt_codigo=$request->input('txt_codigo');
         $txt_password=$request->input('txt_password');

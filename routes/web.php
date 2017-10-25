@@ -51,6 +51,10 @@ Route::get('admin/',[
     'as' => 'index_path',
 ]);
 
+Route::post('ventas/vista/',[
+    'uses' => 'IndexController@ventas_now',
+    'as' => 'ventas_now_path',
+]);
 
 Route::get('admin/',[
     'uses' => 'IndexController@index',

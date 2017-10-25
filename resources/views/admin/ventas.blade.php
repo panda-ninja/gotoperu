@@ -9,9 +9,9 @@
         @endphp
         <div class="col-lg-6">
             <div class="input-group">
-                <span class="input-group-addon"><a href="#" onclick="marcar_anio_desde('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_desde('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward" aria-hidden="true"></i></a></span>
                 <span id="anio_desde" class="input-group-addon">{{$fecha_pqt}}</span>
-                <span class="input-group-addon"><a href="#" onclick="marcar_anio_desde('+','{{$fecha_pqt}}')"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_desde('+','{{$fecha_pqt}}')"><i class="fa fa-step-forward" aria-hidden="true"></i></a></span>
             </div>
             <table class="table">
                 <tr>
@@ -36,9 +36,9 @@
         </div>
         <div class="col-lg-6">
             <div class="input-group">
-                <span class="input-group-addon"><a href="#" onclick="marcar_anio_hasta('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_hasta('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward" aria-hidden="true"></i></a></span>
                 <span id="anio_hasta" class="input-group-addon">{{$fecha_pqt}}</span>
-                <span class="input-group-addon"><a href="#" onclick="marcar_anio_hasta('+','{{$fecha_pqt}}')"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_hasta('+','{{$fecha_pqt}}')"><i class="fa fa-step-forward" aria-hidden="true"></i></a></span>
             </div>
             <table class="table">
                 <tr>
@@ -61,15 +61,18 @@
                 </tr>
             </table>
          </div>
-        <input type="hidden" name="anio_desde" id="anio_desde_" value="{{$fecha_pqt}}">
-        <input type="hidden" name="mes_desde" id="mes_desde_" value="01">
-        <input type="hidden" name="anio_hasta" id="anio_hasta_" value="{{$fecha_pqt}}">
-        <input type="hidden" name="mes_hasta" id="mes_hasta_" value="01">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <button class="btn btn-primary btn-lg" name="buscar">Buscar</button>
+        <form action="{{route('ventas_now_path')}}" method="post">
+            {{csrf_field()}}
+            <input type="hidden" name="anio_desde" id="anio_desde_" value="{{$fecha_pqt}}">
+            <input type="hidden" name="mes_desde" id="mes_desde_" value="01">
+            <input type="hidden" name="anio_hasta" id="anio_hasta_" value="{{$fecha_pqt}}">
+            <input type="hidden" name="mes_hasta" id="mes_hasta_" value="01">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg" name="buscar">Buscar</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="row">
         <div class="col-lg-1"></div>
