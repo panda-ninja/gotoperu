@@ -1632,3 +1632,64 @@ function pasar_price_h(id){
     $('#itotal_h_'+id).val($('#precio_c_h_'+id).val());
 
 }
+
+function marcar_anio_desde(signo,fecha) {
+    fecha=parseInt($('#anio_desde').html());
+    if(signo=='+') {
+        fecha++;
+        $('#anio_desde').html(fecha);
+        $('#anio_desde_').val(fecha);
+    }
+    else{
+        fecha--;
+        $('#anio_desde').html(fecha);
+        $('#anio_desde_').val(fecha);
+    }
+}
+function marcar_mes_desde(mes){
+    $('#mes_desde_').val(mes);
+    $('#mes_desde_01').addClass('btn-primary');
+    $('#mes_desde_01').removeClass('btn-warning');
+    $('#mes_desde_02').removeClass('btn-warning');
+    $('#mes_desde_03').removeClass('btn-warning');
+    $('#mes_desde_04').removeClass('btn-warning');
+    $('#mes_desde_05').removeClass('btn-warning');
+    $('#mes_desde_06').removeClass('btn-warning');
+    $('#mes_desde_07').removeClass('btn-warning');
+    $('#mes_desde_08').removeClass('btn-warning');
+    $('#mes_desde_09').removeClass('btn-warning');
+    $('#mes_desde_10').removeClass('btn-warning');
+    $('#mes_desde_11').removeClass('btn-warning');
+    $('#mes_desde_12').removeClass('btn-warning');
+    $('#mes_desde_'+mes).addClass('btn-warning');
+}
+function marcar_mes_hasta(mes){
+    $('#mes_hasta_').val(mes);
+    $('#mes_hasta_01').addClass('btn-primary');
+    $('#mes_hasta_01').removeClass('btn-warning');
+    $('#mes_hasta_02').removeClass('btn-warning');
+    $('#mes_hasta_03').removeClass('btn-warning');
+    $('#mes_hasta_04').removeClass('btn-warning');
+    $('#mes_hasta_05').removeClass('btn-warning');
+    $('#mes_hasta_06').removeClass('btn-warning');
+    $('#mes_hasta_07').removeClass('btn-warning');
+    $('#mes_hasta_08').removeClass('btn-warning');
+    $('#mes_hasta_09').removeClass('btn-warning');
+    $('#mes_hasta_10').removeClass('btn-warning');
+    $('#mes_hasta_11').removeClass('btn-warning');
+    $('#mes_hasta_12').removeClass('btn-warning');
+    $('#mes_hasta_'+mes).addClass('btn-warning');
+}
+function marcar_anio_hasta(signo,fecha) {
+    fecha=parseInt($('#anio_hasta').html());
+    if(signo=='+') {
+        fecha++;
+        $('#anio_hasta').html(fecha);
+        $('#anio_hasta_').val(fecha);
+    }
+    else{
+        fecha--;
+        $('#anio_hasta').html(fecha);
+        $('#anio_hasta_').val(fecha);
+    }
+}

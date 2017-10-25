@@ -1,7 +1,7 @@
 @extends('layouts.admin.ventas')
 @section('content')
     <h1 class="page-header">Dashboard</h1>
-    <i class="fa fa-camera-retro fa-5x"></i>
+
     <div class="row">
         @php
             $fecha_pqt=date("Y");
@@ -9,16 +9,65 @@
         @endphp
         <div class="col-lg-6">
             <div class="input-group">
-                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt-1])}}"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
-                <span id="anio_s" class="input-group-addon">{{$fecha_pqt}}</span>
-                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_pqt+1])}}"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_desde('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
+                <span id="anio_desde" class="input-group-addon">{{$fecha_pqt}}</span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_desde('+','{{$fecha_pqt}}')"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
             </div>
+            <table class="table">
+                <tr>
+                    <td id="mes_desde_01" class="col-lg-3 btn btn-warning" onclick="marcar_mes_desde('01')">01</td>
+                    <td id="mes_desde_02" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('02')">02</td>
+                    <td id="mes_desde_03" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('03')">03</td>
+                    <td id="mes_desde_04" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('04')">04</td>
+                </tr>
+                <tr>
+                    <td id="mes_desde_05" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('05')">05</td>
+                    <td id="mes_desde_06" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('06')">06</td>
+                    <td id="mes_desde_07" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('07')">07</td>
+                    <td id="mes_desde_08" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('08')">08</td>
+                </tr>
+                <tr>
+                    <td id="mes_desde_09" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('09')">09</td>
+                    <td id="mes_desde_10" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('10')">10</td>
+                    <td id="mes_desde_11" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('11')">11</td>
+                    <td id="mes_desde_12" class="col-lg-3 btn btn-primary" onclick="marcar_mes_desde('12')">12</td>
+                </tr>
+            </table>
         </div>
         <div class="col-lg-6">
             <div class="input-group">
-                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_m-1])}}"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
-                <span id="anio_s" class="input-group-addon">{{$fecha_m}}</span>
-                <span class="input-group-addon"><a href="{{route('contabilidad_path',[$fecha_m+1])}}"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_hasta('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></a></span>
+                <span id="anio_hasta" class="input-group-addon">{{$fecha_pqt}}</span>
+                <span class="input-group-addon"><a href="#" onclick="marcar_anio_hasta('+','{{$fecha_pqt}}')"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></a></span>
+            </div>
+            <table class="table">
+                <tr>
+                    <td id="mes_hasta_01" class="col-lg-3 btn btn-warning" onclick="marcar_mes_hasta('01')">01</td>
+                    <td id="mes_hasta_02" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('02')">02</td>
+                    <td id="mes_hasta_03" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('03')">03</td>
+                    <td id="mes_hasta_04" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('04')">04</td>
+                </tr>
+                <tr>
+                    <td id="mes_hasta_05" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('05')">05</td>
+                    <td id="mes_hasta_06" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('06')">06</td>
+                    <td id="mes_hasta_07" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('07')">07</td>
+                    <td id="mes_hasta_08" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('08')">08</td>
+                </tr>
+                <tr>
+                    <td id="mes_hasta_09" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('09')">09</td>
+                    <td id="mes_hasta_10" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('10')">10</td>
+                    <td id="mes_hasta_11" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('11')">11</td>
+                    <td id="mes_hasta_12" class="col-lg-3 btn btn-primary" onclick="marcar_mes_hasta('12')">12</td>
+                </tr>
+            </table>
+         </div>
+        <input type="hidden" name="anio_desde" id="anio_desde_" value="{{$fecha_pqt}}">
+        <input type="hidden" name="mes_desde" id="mes_desde_" value="01">
+        <input type="hidden" name="anio_hasta" id="anio_hasta_" value="{{$fecha_pqt}}">
+        <input type="hidden" name="mes_hasta" id="mes_hasta_" value="01">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <button class="btn btn-primary btn-lg" name="buscar">Buscar</button>
             </div>
         </div>
     </div>
