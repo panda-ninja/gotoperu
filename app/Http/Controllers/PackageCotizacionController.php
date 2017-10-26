@@ -459,6 +459,7 @@ class PackageCotizacionController extends Controller
         $d=$request->input('d_'.$pos);
         $m=$request->input('m_'.$pos);
         $t=$request->input('t_'.$pos);
+
         $precio_paquete_id=$request->input('precio_paquete_id_'.$pos);
 //        dd($precio_paquete_id);
         $paquetePrecio=PaquetePrecio::FindOrFail($precio_paquete_id);
@@ -510,6 +511,7 @@ class PackageCotizacionController extends Controller
             $cotizaciones=Cotizacion::FindOrFail($paquete1->cotizaciones_id);
             $cotizaciones->estado=2;
             $cotizaciones->categorizado='N';
+            $cotizaciones->fecha_venta=date("Y-m-d");
             $cotizaciones->save();
             $cotizacion=Cotizacion::where('id',$cotizaciones->id)->get();
         return redirect()->route('cotizacion_id_show_path',[$cotizaciones->id]);

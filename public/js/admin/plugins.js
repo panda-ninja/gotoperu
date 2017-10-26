@@ -23719,7 +23719,7 @@ function escojer_consulta() {
         $('#custon').removeClass('hide');
         escojer_consulta1=1;
         $('#custon1').html('Lista');
-
+        $('#opcion').val('Custon');
     }
     else{
         $('#custon').fadeOut();
@@ -23729,6 +23729,6 @@ function escojer_consulta() {
         $('#lista').removeClass('hide');
         escojer_consulta1=0;
         $('#custon1').html('Custon');
-
+        $('#opcion').val('Lista');
     }
 }

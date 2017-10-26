@@ -7,7 +7,7 @@
             $fecha_pqt=date("Y");
              $fecha_m=date("m");
         @endphp
-        <div class="col-lg-6">
+        <div class="col-lg-6 hide">
             <div class="input-group">
                 <span class="input-group-addon"><a href="#" onclick="marcar_anio_desde('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward" aria-hidden="true"></i></a></span>
                 <span id="anio_desde" class="input-group-addon">{{$fecha_pqt}}</span>
@@ -34,7 +34,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 hide">
             <div class="input-group">
                 <span class="input-group-addon"><a href="#" onclick="marcar_anio_hasta('-','{{$fecha_pqt}}')"><i class="fa fa-step-backward" aria-hidden="true"></i></a></span>
                 <span id="anio_hasta" class="input-group-addon">{{$fecha_pqt}}</span>
@@ -61,7 +61,7 @@
                 </tr>
             </table>
          </div>
-        <form action="{{route('ventas_now_path')}}" method="post">
+        <form class="hide" action="{{route('ventas_now_path')}}" method="post">
             {{csrf_field()}}
             <input type="hidden" name="anio_desde" id="anio_desde_" value="{{$fecha_pqt}}">
             <input type="hidden" name="mes_desde" id="mes_desde_" value="01">
@@ -79,37 +79,34 @@
                     <div class="col-lg-1 margin-top-25">
                         <button class="btn btn-primary" name="custon" id="custon1" onclick="escojer_consulta()">Custon</button>
                     </div>
-                    <div id="custon" class="col-lg-6 hide">
-                        <div class="col-lg-6">
-                            <label for="">Desde</label>
-                            <input class="form-control" type="date">
+                    <form action="{{route('ventas_now_path')}}" method="post">
+                        {{csrf_field()}}
+                        <input type="text" name="opcion" id="opcion" value="Lista">
+                        <div id="custon" class="col-lg-6 hide">
+                            <div class="col-lg-6">
+                                <label for="">Desde</label>
+                                <input class="form-control" type="date">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">Hasta</label>
+                                <input class="form-control" type="date">
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <label for="">Hasta</label>
-                            <input class="form-control" type="date">
+                        <div id="lista" class="col-lg-6">
+                            <label for="">Lista</label>
+                            <select name="lista" id="" class="form-control">
+                                <option value="1">Today</option>
+                                <option value="2">Yesterday</option>
+                                <option value="3">Last 7 days</option>
+                                <option value="4">Las 14 days</option>
+                                <option value="5">This month</option>
+                                <option value="6">Last 30 days</option>
+                             </select>
                         </div>
-                    </div>
-                    <div id="lista" class="col-lg-6">
-                        <label for="">Lista</label>
-                        <select name="lista" id="" class="form-control">
-                            <option value="1">Today</option>
-                            <option value="2">Yesterday</option>
-                            <option value="3">This week(Sun-Today)</option>
-                            <option value="4">This week(Mon-Today)</option>
-                            <option value="5">Last 7 days</option>
-                            <option value="6">Last week(Sun-Sat)</option>
-                            <option value="7">Last week(Sun-Sun)</option>
-                            <option value="8">Last business week(Mon-Fri)</option>
-                            <option value="9">Las 14 days</option>
-                            <option value="10">This month</option>
-                            <option value="11">Last 30 days</option>
-                            <option value="12">Last month</option>
-                            <option value="13">All time</option>
-                        </select> 
-                    </div>
-                    <div class="col-lg-1 margin-top-25">
-                        <button class="btn btn-primary" name="buscar">Buscar</button>
-                    </div>
+                        <div class="col-lg-1 margin-top-25">
+                            <button type="submit" class="btn btn-primary" name="buscar">Buscar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

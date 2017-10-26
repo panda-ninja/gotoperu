@@ -170,13 +170,107 @@ public function inicio()
         return view('admin.ventas',['chart' => $chart,'chart1' => $chart1,'chart2' => $chart2,'chart3' => $chart3,'chart4' => $chart4]);
 
     }
-    public function ventas_now()
+    public function ventas_now(Request $request)
     {
+//        $fecha=date("Y-m-d");
+//        $cotizacion=Cotizacion::where('fecha_venta',$fecha)->get();
+//        dd($cotizacion);
+        $opcion=$request->input('opcion');
+        $ventas=0;
+//        dd($opcion);
+        if($opcion=='Lista'){
+            $opcion2=$request->input('lista');
+            if($opcion2=='1') {//-- hoy dia
+                $fecha = date("Y-m-d");
+                $cotizacion_ = Cotizacion::with('paquete_cotizaciones')->where('fecha_venta', $fecha)->get();
+//                dd($cotizacion_);
+//                foreach ($cotizacion_ as $cotizacion1){
+//                    $cotizacion = $cotizacion1;
+//                }
+//                dd($cotizacion);
+            $sumatotal_v=0;
+                $sumatotal_v_r=0;
+                foreach ($cotizacion_ as $cotizacion) {
+                    foreach ($cotizacion->paquete_cotizaciones as $paquete) {
+                        if ($paquete->estado == 2) {
+                            foreach ($paquete->itinerario_cotizaciones as $itinerario) {
+                                foreach ($itinerario->itinerario_servicios as $servicios) {
+
+                                    if ($servicios->precio_grupo == 1) {
+                                        $sumatotal_v += $servicios->precio;
+                                    } else {
+                                        $sumatotal_v += $servicios->precio * $cotizacion->nropersonas;
+                                    }
+                                }
+                                foreach ($itinerario->hotel as $hotel) {
+                                    $total = 0;
+                                    $total_book = 0;
+                                    $cadena_total = '';
+                                    $cadena_total_book = '';
+                                    if ($hotel->personas_s > 0) {
+                                        $total += $hotel->personas_s * $hotel->precio_s;
+                                        $total_book += $hotel->personas_s * $hotel->precio_s_r;
+                                        $sumatotal_v += $hotel->personas_s * $hotel->precio_s;
+                                    }
+
+                                    if ($hotel->personas_d > 0) {
+                                        $total += $hotel->personas_d * $hotel->precio_d;
+                                        $total_book += $hotel->personas_d * $hotel->precio_d_r;
+                                        $sumatotal_v += $hotel->personas_d * $hotel->precio_d;
+                                    }
+
+                                    if ($hotel->personas_m > 0) {
+                                        $total += $hotel->personas_m * $hotel->precio_m;
+                                        $total_book += $hotel->personas_m * $hotel->precio_m_r;
+                                        $sumatotal_v += $hotel->personas_m * $hotel->precio_m;
+                                    }
+                                    if ($hotel->personas_t > 0) {
+                                        $total += $hotel->personas_t * $hotel->precio_t;
+                                        $total_book += $hotel->personas_t * $hotel->precio_t_r;
+                                        $sumatotal_v += $hotel->personas_t * $hotel->precio_t;
+                                    }
+                                    $sumatotal_v_r += $total_book;
+                                }
+                            }
+                        }
+                    }
+                }
+                $ventas=$sumatotal_v;
+            }
+            if($opcion2=='2'){
+
+            }
+            if($opcion2=='3'){
+
+            }
+            if($opcion2=='4'){
+
+            }
+            if($opcion2=='5'){
+
+            }
+            if($opcion2=='6'){
+
+            }
+        }
+        elseif($opcion=='Custon'){
+
+        }
+
+//        $cotizacion=Cotizacion::get();
+//        $productos=M_Producto::get();
+//        $proveedores=Proveedor::get();
+//        $hotel_proveedor=HotelProveedor::get();
+
+
+
+
+
         $mes='Septiembre';
         $chart = Charts::create('percentage', 'justgage')
             ->title('$68000')
             ->elementLabel($mes)
-            ->values([25500,0,68000])
+            ->values([$ventas,0,68000])
             ->colors(['#7F8429'])
             ->responsive(true)
             ->height(250)

@@ -473,8 +473,6 @@
                                                 <div class="text-right">
                                                     <b class="text-25">Precio del paquete: $<span id="total_{{$precio_paquete2->estrellas}}" class=" text-success"></span></b>
                                                 </div>
-
-
                                                 <input type="hidden" id="precio_paquete_id" name="precio_paquete_id_{{$precio_paquete2->estrellas}}"   value="{{$precio_paquete2->id}}">
                                             </div>
                                         @endif
