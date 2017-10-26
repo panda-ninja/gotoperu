@@ -81,7 +81,7 @@
                     </div>
                     <form action="{{route('ventas_now_path')}}" method="post">
                         {{csrf_field()}}
-                        <input type="text" name="opcion" id="opcion" value="Lista">
+                        <input type="hidden" name="opcion" id="opcion" value="Lista">
                         <div id="custon" class="col-lg-6 hide">
                             <div class="col-lg-6">
                                 <label for="">Desde</label>
