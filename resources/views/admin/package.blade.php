@@ -307,19 +307,22 @@
                 $amount_d5=0;
                 $amount_m5=0;
                 $amount_t5=0;
-                $hotel_id=0;
+                $hotel_id_2=0;
+                $hotel_id_3=0;
+                $hotel_id_4=0;
+                $hotel_id_5=0;
+
                 ?>
                 @foreach($hotel as $servicio)
                         @if($servicio->localizacion=="CUSCO")
-                            @php
-                                $hotel_id=$servicio->id;
-                            @endphp
+
                             @if($servicio->estrellas=="2")
                                 @php
                                     $amount_s2=$servicio->single;
                                     $amount_d2=$servicio->double;
                                     $amount_m2=$servicio->matrimonial;
                                     $amount_t2=$servicio->triple;
+                                    $hotel_id_2=$servicio->id;
                                 @endphp
                             @endif
                             @if($servicio->estrellas=="3")
@@ -328,6 +331,7 @@
                                     $amount_d3=$servicio->double;
                                     $amount_m3=$servicio->matrimonial;
                                     $amount_t3=$servicio->triple;
+                                    $hotel_id_3=$servicio->id;
                                 @endphp
                             @endif
                             @if($servicio->estrellas=="4")
@@ -336,6 +340,7 @@
                                     $amount_d4=$servicio->double;
                                     $amount_m4=$servicio->matrimonial;
                                     $amount_t4=$servicio->triple;
+                                    $hotel_id_4=$servicio->id;
                                 @endphp
                             @endif
                             @if($servicio->estrellas=="5")
@@ -344,6 +349,7 @@
                                     $amount_d5=$servicio->double;
                                     $amount_m5=$servicio->matrimonial;
                                     $amount_t5=$servicio->triple;
+                                    $hotel_id_5=$servicio->id;
                                 @endphp
                             @endif
                         @endif
@@ -1557,7 +1563,11 @@
         </div>
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
-                <input type="hidden" name="hotel_id" value="{{$hotel_id}}">
+                <input type="hidden" name="hotel_id_2" value="{{$hotel_id_2}}">
+                <input type="hidden" name="hotel_id_3" value="{{$hotel_id_3}}">
+                <input type="hidden" name="hotel_id_4" value="{{$hotel_id_4}}">
+                <input type="hidden" name="hotel_id_5" value="{{$hotel_id_5}}">
+
                 <button type="submit" class="btn btn-lg btn-primary">Submit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
         </div>

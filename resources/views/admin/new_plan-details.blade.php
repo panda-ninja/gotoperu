@@ -76,7 +76,39 @@
                             <td>{{$servicios->observacion}}</td>
                             <td>
                                 @if($servicios->estado_error==1)
-                                    {{$servicios->mensaje_error}}<a href="#" class="text-danger"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                                    {{$servicios->mensaje_error}}
+                                    {{--<a href="#" class="text-danger"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>--}}
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_edit_cost_hotel_{{$servicios->id}}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="modal fade bd-example-modal-lg" id="modal_edit_cost_hotel_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-ms" role="document">
+                                            <div class="modal-content">
+                                                <form action="{{route('costs_edit_hotel_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Service</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        @foreach($m_servicio as $servicio)
+                                                        @endforeach
+                                                        <div class="row">
+                                                            <div class="col"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        {{csrf_field()}}
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 @else
                                     <a href="#" class="text-success"><i class="fa fa-check fa-2x" aria-hidden="true"></i></a>
                                 @endif

@@ -278,7 +278,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="txt_codigo">Travelers {{$servicio}}</label>
+                                                <label for="txt_codigo">Travelers </label>
                                                 <input type="number" class="form-control" id="travelers" name="travelers" min="0" value="{{$cotizacion_->nropersonas}}">
                                             </div>
                                         </div>

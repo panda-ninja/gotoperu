@@ -598,7 +598,8 @@ class PackageCotizacionController extends Controller
                         if($serivicio->precio_grupo==1) {
                             $new_servicio->min_personas=$serivicio->min_personas;
                             $new_servicio->max_personas=$serivicio->max_personas;
-                            $new_servicio->precio = round($serivicio->precio / $cotizaion->nropersonas,2);
+//                            $new_servicio->precio = round($serivicio->precio / $cotizaion->nropersonas,2);
+                            $new_servicio->precio = $serivicio->precio;
                             if($serivicio->min_personas<=$cotizaion->nropersonas && $cotizaion->nropersonas<=$serivicio->max_personas){
                                 $new_servicio->estado_error=0;
                             }
@@ -632,6 +633,7 @@ class PackageCotizacionController extends Controller
                     $new_paquete_precio->personas_t=$acomodacion_t;
                     $new_paquete_precio->utilidad=$precios->utilidad;
                     $new_paquete_precio->paquete_cotizaciones_id=$new_paquete->id;
+                    $new_paquete_precio->hotel_id=$precios->hotel_id;
                     if($estrella[$precios->estrellas]==$precios->estrellas)
                         if($precios->estado==1)
                             $new_paquete_precio->estado=1;
@@ -660,7 +662,8 @@ class PackageCotizacionController extends Controller
             foreach ($cotizacion as $cotizacion_){
                 $cotizacion1=$cotizacion_;
             }
-            return view('admin.new_plan-details', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
+            $m_servicio=M_Servicio::get();
+            return view('admin.new_plan-details', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion,'m_servicio'=>$m_servicio]);
         }
     }
     public function contabilidad($fecha)
