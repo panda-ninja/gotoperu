@@ -44,7 +44,7 @@
                 <li class="divider"></li>
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Quotes</b></li>
                 <li class="divider"></li>
-                <li><a href="{{route("quotes_new_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> New</a></li>
+                <li><a href="{{route("quotes_new1_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> New</a></li>
                 <li><a href="{{route("current-quote_path")}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Current</a></li>
                 <li class="divider"></li>
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Sales</b></li>

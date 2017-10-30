@@ -568,3 +568,36 @@ body {
 .mes:hover {
   cursor: pointer;
 }
+.caja{
+  background: #ddd;
+  padding:1px;
+}
+.caja_itinerario{
+  border: 1px solid #ffa500;
+  padding: 5px;
+  margin: 5px;
+}
+.caja_n_v{
+  //padding: 5px;
+  margin: 5px;
+  margin-top: -5px;
+}
+.caja_datos{
+  border: 1px solid #26292c;
+  padding: 5px;
+  margin: 5px;
+}
+.caja_negro{
+  background: #26292c;
+  color: white;
+  //padding: -5px;
+}
+
+.caja_verde{
+  background: #7F8429;
+  color: white;
+}
+.btn-green{
+  background: #26292c;
+  color: white;
+}

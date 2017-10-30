@@ -93,10 +93,15 @@
                                                     </div>
 
                                                     <div class="modal-body">
-                                                        @foreach($m_servicio as $servicio)
+                                                        @php
+                                                            $valor='%'.$servicios->nombre.'%';
+                                                        @endphp
+                                                        {{--{{$servicios->nombre}}--}}
+                                                        @foreach($m_servicio->where as $servicio)
+                                                            <label for="rb_"><input type="radio" name="rb_[]" id="rb_">{{$servicio->localizacion}} {{$servicio->nombre}} {{$servicio->tipoServicio}} ${{$servicio->precio_venta}}<span class="text-primary">{{$servicio->min_personas}} - {{$servicio->max_personas}}</span></label>
                                                         @endforeach
                                                         <div class="row">
-                                                            <div class="col"></div>
+                                                            <div class="col-lg-6"></div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
