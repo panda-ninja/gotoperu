@@ -11,7 +11,7 @@
 
         <div class="row">
             <div class="col-lg-8">
-                <b class="text-center text-30">gfhfghfg</b>
+                <b class="text-center text-30">DATES QUOTES</b>
                 <div class="row caja_datos">
                     <div class="col-md-8">
                         <div class="form-group">
