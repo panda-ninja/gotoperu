@@ -10,7 +10,7 @@
     <form action="{{route('package_cotizacion_save_path')}}" method="post" id="package_new_path_id">
 
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <b class="text-center text-30">DATES QUOTES</b>
                 <div class="row caja_datos">
                     <div class="col-md-8">
@@ -235,7 +235,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 margin-top-25">
+            <div class="col-lg-7 margin-top-25">
                 <b class="text-center text-30">NEW ITINERARY</b>
             </div>
             <div class="col-lg-4 margin-top-25">
@@ -349,11 +349,11 @@
                     @endforeach
                 </div>
             </div>
-            <div class="col-lg-1">
+            <div class="col-lg-2">
                 <a href="#!" class="btn btn-primary" onclick="Pasar_datos1()"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                 <input type="hidden" name="nroItinerario" id="nroItinerario" value="0">
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="grid ui-sortable" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios1()">
                 </div>
             </div>
