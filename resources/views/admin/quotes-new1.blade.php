@@ -25,7 +25,6 @@
                             <input type="text" class="form-control" id="txt_country" name="txt_country" placeholder="Country">
                         </div>
                     </div>
-
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="txt_email">Email</label>
@@ -38,7 +37,6 @@
                             <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="Phone">
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_travellers">Travellers</label>
@@ -57,11 +55,10 @@
                             <input type="date" class="form-control" id="txt_travel_date" name="txt_travel_date" placeholder="Travel date">
                         </div>
                     </div>
-
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack" type="radio" name="strellas[]" id="strellas_2" value="2" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_2" value="2" onchange="filtrar_estrellas()">
                                 2 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
@@ -69,7 +66,7 @@
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack" type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas()">
                                 3 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
@@ -77,7 +74,7 @@
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack" type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas()">
                                 4 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
@@ -85,12 +82,11 @@
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack" type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas()">
                                 5 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
                     </div>
-
                     <div class="col-md-3 text-center">
                         <div class="checkbox1 caja">
                             <label class="text-unset">
@@ -159,18 +155,28 @@
                         </label>
                     </div>
                 </div>
+                    @php
+                    $deti='';
+                    @endphp
                     @foreach($destinos as $destino)
                         <div class="col-md-3">
                             <div class="checkbox1">
                                 <label class=" text-unset">
-                                    <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->destino}}">
+                                    <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->id}}" onchange="filtrar_itinerarios1()">
                                     {{$destino->destino}}
                                 </label>
                             </div>
                         </div>
+                        @php
+                            $deti.=$destino->id.'/';
+                        @endphp
                     @endforeach
+                    @php
+                        $deti=substr($deti,0,strlen($deti)-1);
+                    @endphp
                 </div>
             </div>
+            <input type="hidden" id="desti" value="{{$deti}}">
             <div class="col-lg-4">
                 <b class="text-center text-30">ITINERARIES</b>
                 <div class="row caja_itinerario">
@@ -180,7 +186,7 @@
                             <div class="col-lg-3">
                                 <div class="checkbox1">
                                     <label class=" text-unset text-danger text-12">
-                                        <input class="destinospack" type="radio" name="pos_dias[]" value="0">
+                                        <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
                                         <b><span id="dia_l">5</span>DAYS</b>
                                     </label>
                                 </div>
@@ -188,7 +194,7 @@
                             <div class="col-lg-3">
                                 <div class="checkbox1">
                                     <label class=" text-unset text-danger text-12">
-                                        <input class="destinospack" type="radio" name="pos_dias[]" value="0">
+                                        <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
                                         <b><span id="dia_c">5</span>DAYS</b>
                                     </label>
                                 </div>
@@ -196,7 +202,7 @@
                             <div class="col-lg-3">
                                 <div class="checkbox1">
                                     <label class=" text-unset text-danger text-12">
-                                        <input class="destinospack" type="radio" name="pos_dias[]" value="0">
+                                        <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
                                         <b><span id="dia_r">5</span>DAYS</b>
                                     </label>
                                 </div>
@@ -229,112 +235,136 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8 margin-top-25">
                 <b class="text-center text-30">NEW ITINERARY</b>
             </div>
-            <div class="col-lg-4">
-            </div>
-
-            <div class="col-lg-5">
-                    <div id="lista_itinerarios">
-                        @foreach ($itinerarios as $itinerario)
-                            <?php
-                            $encontrado=1;
-                            ?>
-                            
-                            @if($encontrado==1)
-                                <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5">
-                                    <div class="input-group">
-                            <span class="input-group-addon">
-                                <?php
-                                $servicios1='';
-                                $precio_iti=0;
-                                $destinos_iti='';
-                                ?>
-                                @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
-                                    <?php
-                                    if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
-                                        if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                            $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2);
-                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
-                                        }
-                                        else{
-                                            $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                            $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
-
-                                        }
-                                    }
-                                    ?>
-                                @endforeach
-                                @foreach($itinerario->destinos as $destino)
-                                    <?php
-                                    $destinos_iti.=$destino->destino.'*';
-                                    ?>
-                                @endforeach
-                                <?php
-                                $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
-                                $servicios1=substr($servicios1,0,strlen($servicios1)-1);
-                                ?>
-                                <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
-                            </span>
-                                        <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
-
-                                        <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$itinerario->id}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
-                            </span>
-                                    </div>
-                                    <div class="collapse clearfix" id="collapse_{{$itinerario->id}}">
-                                        <div class="col-md-12 well margin-top-5">
-                                            {{$itinerario->descripcion}}
-                                            <h5><b>Services</b></h5>
-                                            <table class="table table-condensed table-striped">
-                                                <thead>
-                                                <tr class="bg-grey-goto text-white">
-                                                    <th colspan="2">Concepts</th>
-                                                    <th>Prices</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
-                                                    <tr>
-                                                        <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                                        <td>
-                                                            @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                                                                {{round($servicios->itinerario_servicios_servicio->precio_venta/2,2)}}
-                                                            @else
-                                                                {{$servicios->itinerario_servicios_servicio->precio_venta}}
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            <?php
-                            $encontrado=0;
-                            ?>
-                        @endforeach
+            <div class="col-lg-4 margin-top-25">
+                <div class="row caja_n_v">
+                    <div class="col-lg-12 caja_negro">
+                        3 STARS
+                    </div>
+                    <div class="col-lg-12 caja_verde">
+                        <div class="row">
+                            <div class="col-lg-3"><b class="text-20">GTP628</b></div>
+                            <div class="col-lg-3"><b class="text-20">6d</b></div>
+                            <div class="col-lg-3"><b class="text-20">$850</b></div>
+                            <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button class="btn btn-green">GO</button></div>
+                        </div>
                     </div>
                 </div>
-            <div class="col-lg-2">
-
             </div>
-            <div class="5"></div>
+            <div class="col-lg-5">
+                <div id="lista_itinerarios">
+                    @php
+                    $pos_itinerario=0;
+                    @endphp
+                    @foreach($destinos as $destino)
+                        <div id="group_destino_{{$destino->id}}" class="hide">
+                            <div class="row">
+                                <b class="font-montserrat text-orange-goto text-20">{{$destino->destino}}</b>
+                            </div>
+                            @foreach($itinerarios_d->where('destino', $destino->destino) as $iti)
+                                @foreach($itinerarios->where('id',$iti->m_itinerario_id) as $itinerario)
+                                    @php
+                                        $encontrado=1;
+                                        $pos_itinerario++;
+                                    @endphp
+                                    @if($encontrado==1)
+                                        <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                @php
+                                                    $servicios1='';
+                                                    $precio_iti=0;
+                                                    $destinos_iti='';
+                                                @endphp
+                                                    @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                                        <?php
+                                                        if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
+                                                            if($servicios->itinerario_servicios_servicio->precio_grupo==1){
+                                                                $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2);
+                                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                            }
+                                                            else{
+                                                                $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
+                                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+
+                                                            }
+                                                        }
+                                                        ?>
+                                                    @endforeach
+                                                    @foreach($itinerario->destinos as $destino)
+                                                        <?php
+                                                        $destinos_iti.=$destino->destino.'*';
+                                                        ?>
+                                                    @endforeach
+                                                    <?php
+                                                    $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
+                                                    $servicios1=substr($servicios1,0,strlen($servicios1)-1);
+                                                    ?>
+                                                    <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
+                                                </span>
+                                                <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$pos_itinerario}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="collapse clearfix" id="collapse_{{$pos_itinerario}}">
+                                                <div class="col-md-12 well margin-top-5">
+                                                    {{$itinerario->descripcion}}
+                                                    <h5><b>Services</b></h5>
+                                                    <table class="table table-condensed table-striped">
+                                                        <thead>
+                                                        <tr class="bg-grey-goto text-white">
+                                                            <th colspan="2">Concepts</th>
+                                                            <th>Prices</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                                            <tr>
+                                                                <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
+                                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                                                <td>
+                                                                    @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+                                                                        {{round($servicios->itinerario_servicios_servicio->precio_venta/2,2)}}
+                                                                    @else
+                                                                        {{$servicios->itinerario_servicios_servicio->precio_venta}}
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @php
+                                        $encontrado=0;
+                                    @endphp
+                                @endforeach
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <a href="#!" class="btn btn-primary" onclick="Pasar_datos1()"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                <input type="hidden" name="nroItinerario" id="nroItinerario" value="0">
+            </div>
+            <div class="col-lg-6">
+                <div class="grid ui-sortable" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios1()">
+                </div>
+            </div>
         </div>
-
-
-
+        <div class="hide">
         <div class="row">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-primary"><span class="label bg-primary">1</span> Client</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -362,15 +392,12 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-primary"><span class="label bg-primary">2</span> Details</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
@@ -531,11 +558,13 @@
                 </div>
             @endforeach
         </div>
+
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
                 {{csrf_field()}}
                 <button type="submit" class="btn btn-lg btn-primary">Create package <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>
+        </div>
         </div>
     </form>
     <script>

@@ -8,6 +8,7 @@ use App\CotizacionesCliente;
 use App\CotizacionesPagos;
 use App\M_Destino;
 use App\M_Itinerario;
+use App\M_ItinerarioDestino;
 use App\M_Servicio;
 use App\P_Paquete;
 use App\PaqueteCotizaciones;
@@ -139,9 +140,10 @@ class QouteController extends Controller
     {
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
+        $itinerarios_d=M_ItinerarioDestino::get();
         $m_servicios=M_Servicio::get();
         $p_paquete=P_Paquete::get();
 //        dd($servicios);
-        return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete]);
+        return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d]);
     }
 }
