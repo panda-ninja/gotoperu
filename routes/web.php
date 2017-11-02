@@ -416,3 +416,7 @@ Route::post('/admin/contabilidad/pagar-hotel', [
     'uses' => 'ContabilidadController@pagar',
     'as' => 'pagar_proveedor_h_path',
 ]);
+Route::post('/ventas/nuevo-paquete', [
+    'uses' => 'PackageCotizacionController@nuevo_paquete',
+    'as' => 'nuevo_paquete_path',
+]);

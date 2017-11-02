@@ -12,7 +12,8 @@
         <div class="row">
             <div class="col-lg-7">
                 <b class="text-center text-30">DATES QUOTES</b>
-                <div class="row caja_datos">
+                <form action="" id="frm_datos">
+                    <div class="row caja_datos">
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="txt_name">Name</label>
@@ -58,7 +59,7 @@
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_2" value="2" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_2" value="2" checked="checked" onchange="filtrar_estrellas1(2)">
                                 2 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
@@ -66,7 +67,7 @@
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas1(3)">
                                 3 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
@@ -74,7 +75,7 @@
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas1(4)">
                                 4 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
@@ -82,7 +83,7 @@
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas()">
+                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas1(5)">
                                 5 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
@@ -95,10 +96,10 @@
                                 <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <a href="#"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                        <a href="#!" onclick="aumentar_acom('s','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <a href="#"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                        <a href="#!" onclick="aumentar_acom('s','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </label>
@@ -112,10 +113,10 @@
                                 <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <a href="#"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                        <a href="#!" onclick="aumentar_acom('d','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <a href="#"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                        <a href="#!" onclick="aumentar_acom('d','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </label>
@@ -129,10 +130,10 @@
                                 <b class="text-20px"><i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i></b>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <a href="#"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                        <a href="#!" onclick="aumentar_acom('m','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <a href="#"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                        <a href="#!" onclick="aumentar_acom('m','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </label>
@@ -146,10 +147,10 @@
                             <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <a href="#"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                    <a href="#!" onclick="aumentar_acom('t','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
                                 </div>
                                 <div class="col-lg-6">
-                                    <a href="#"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                    <a href="#!" onclick="aumentar_acom('t','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </label>
@@ -175,41 +176,43 @@
                         $deti=substr($deti,0,strlen($deti)-1);
                     @endphp
                 </div>
+                </form>
             </div>
             <input type="hidden" id="desti" value="{{$deti}}">
             <div class="col-lg-4">
                 <b class="text-center text-30">ITINERARIES</b>
-                <div class="row caja_itinerario">
-                    <div class="col-lg-12">
-                        <div class="row text-center">
-                            <div class="col-lg-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
-                            <div class="col-lg-3">
-                                <div class="checkbox1">
-                                    <label class=" text-unset text-danger text-12">
-                                        <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
-                                        <b><span id="dia_l">5</span>DAYS</b>
-                                    </label>
-                                </div>
+                <div class="col-lg-12">
+                    <div class="row text-center">
+                        <div class="col-lg-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+                        <div class="col-lg-3">
+                            <div class="checkbox1">
+                                <label class=" text-unset text-danger text-12">
+                                    <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
+                                    <b><span id="dia_l">5</span>DAYS</b>
+                                </label>
                             </div>
-                            <div class="col-lg-3">
-                                <div class="checkbox1">
-                                    <label class=" text-unset text-danger text-12">
-                                        <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
-                                        <b><span id="dia_c">5</span>DAYS</b>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="checkbox1">
-                                    <label class=" text-unset text-danger text-12">
-                                        <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
-                                        <b><span id="dia_r">5</span>DAYS</b>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-1"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
                         </div>
+                        <div class="col-lg-3">
+                            <div class="checkbox1">
+                                <label class=" text-unset text-danger text-12">
+                                    <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
+                                    <b><span id="dia_c">5</span>DAYS</b>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="checkbox1">
+                                <label class=" text-unset text-danger text-12">
+                                    <input class="destinospack3" type="radio" name="pos_dias[]" value="0">
+                                    <b><span id="dia_r">5</span>DAYS</b>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-1"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
                     </div>
+                </div>
+                <div class="row caja_itinerario" style="height: 480px; overflow-y: auto;">
+
                     @foreach($p_paquete as $p_paquete_)
                         <div class="col-md-12">
                             <div class="checkbox1">
@@ -240,20 +243,28 @@
             </div>
             <div class="col-lg-4 margin-top-25">
                 <div class="row caja_n_v">
-                    <div class="col-lg-12 caja_negro">
-                        3 STARS
-                    </div>
-                    <div class="col-lg-12 caja_verde">
-                        <div class="row">
-                            <div class="col-lg-3"><b class="text-20">GTP628</b></div>
-                            <div class="col-lg-3"><b class="text-20">6d</b></div>
-                            <div class="col-lg-3"><b class="text-20">$850</b></div>
-                            <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button class="btn btn-green">GO</button></div>
+                    <form action="{{route('nuevo_paquete_path')}}" method="post" id="form_nuevo_pqt" name="form_nuevo_pqt">
+                        <div class="col-lg-12 caja_negro" id="estrellas">
+                            2 STARS
+                            {{csrf_field()}}
+                            <input type="hidden" id="estrellas_from" name="estrellas_from" value="0">
+                            <input type="hidden" id="a_s" name="a_s" value="0">
+                            <input type="hidden" id="a_d" name="a_d" value="0">
+                            <input type="hidden" id="a_m" name="a_m" value="0">
+                            <input type="hidden" id="a_t" name="a_t" value="0">
                         </div>
-                    </div>
+                        <div class="col-lg-12 caja_verde">
+                            <div class="row">
+                                <div class="col-lg-3"><b class="text-20">New</b></div>
+                                <div class="col-lg-3"><b class="text-20">0d</b></div>
+                                <div class="col-lg-3"><b class="text-20">$850</b></div>
+                                <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form1()">GO</button></div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-5" style="height: 500px; overflow-y: auto;">
                 <div id="lista_itinerarios">
                     @php
                     $pos_itinerario=0;
@@ -429,7 +440,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas1(2)">
                         2 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
@@ -437,7 +448,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas1(3)">
                         3 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
@@ -445,7 +456,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas1(4)">
                         4 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
@@ -453,7 +464,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas()">
+                        <input class="destinospack" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas1(5)">
                         5 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>

@@ -714,4 +714,8 @@ class PackageCotizacionController extends Controller
         else
             return 0;
     }
+    public function nuevo_paquete(Request $request){
+        $txt_name = $request->input('name1');
+        dd($txt_name);
+    }
 }
