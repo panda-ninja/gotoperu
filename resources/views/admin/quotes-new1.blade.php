@@ -7,12 +7,11 @@
             <li class="active">New</li>
         </ol>
     </div>
-    <form action="{{route('package_cotizacion_save_path')}}" method="post" id="package_new_path_id">
-
+    {{--<form action="{{route('package_cotizacion_save_path')}}" method="post" id="package_new_path_id">--}}
         <div class="row">
             <div class="col-lg-7">
                 <b class="text-center text-30">DATES QUOTES</b>
-                <form action="" id="frm_datos">
+                <form action="" id="frm_datos" name="frm_datos" method="post">
                     <div class="row caja_datos">
                     <div class="col-md-8">
                         <div class="form-group">
@@ -252,12 +251,22 @@
                             <input type="hidden" id="a_d" name="a_d" value="0">
                             <input type="hidden" id="a_m" name="a_m" value="0">
                             <input type="hidden" id="a_t" name="a_t" value="0">
+                            <input type="hidden" name="txt_country1" id="txt_country1">
+                            <input type="hidden" name="txt_name1" id="txt_name1">
+                            <input type="hidden" name="txt_email1" id="txt_email1">
+                            <input type="hidden" name="txt_phone1" id="txt_phone1">
+                            <input type="hidden" name="txt_travelers1" id="txt_travelers1">
+                            <input type="hidden" name="txt_days1" id="txt_days1">
+                            <input type="hidden" name="txt_date1" id="txt_date1">
+                            <input type="hidden" name="txt_destinos1" id="txt_destinos1">
+                            <input type="hidden" name="lista_itinerarios1" id="lista_itinerarios1">
+
                         </div>
                         <div class="col-lg-12 caja_verde">
                             <div class="row">
                                 <div class="col-lg-3"><b class="text-20">New</b></div>
-                                <div class="col-lg-3"><b class="text-20">0d</b></div>
-                                <div class="col-lg-3"><b class="text-20">$850</b></div>
+                                <div class="col-lg-3"><b class="text-20" id="dias_html">0d</b></div>
+                                <div class="col-lg-3">$<b class="text-20" id="st_new">850</b></div>
                                 <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form1()">GO</button></div>
                             </div>
                         </div>
@@ -419,7 +428,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="txt_days">Days</label>
-                    <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1">
+                    <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1" onchange="pasar_dias()">
                 </div>
             </div>
             <div class="col-md-3">
@@ -569,7 +578,6 @@
                 </div>
             @endforeach
         </div>
-
         <div class="row margin-top-20">
             <div class="col-md-12 text-center">
                 {{csrf_field()}}
@@ -577,7 +585,7 @@
             </div>
         </div>
         </div>
-    </form>
+    {{--</form>--}}
     <script>
         $(document).ready(function() {
             calcular_resumen();

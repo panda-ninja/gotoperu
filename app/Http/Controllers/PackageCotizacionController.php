@@ -715,7 +715,16 @@ class PackageCotizacionController extends Controller
             return 0;
     }
     public function nuevo_paquete(Request $request){
-        $txt_name = $request->input('name1');
-        dd($txt_name);
+        $txt_name1 = $request->input('txt_name1');
+        $txt_country1 = $request->input('txt_country1');
+        $txt_email1 = $request->input('txt_email1');
+        $txt_phone1 = $request->input('txt_phone1');
+        $txt_travelers1 = $request->input('txt_travelers1');
+        $txt_days1 = $request->input('txt_days1');
+        $txt_date1 = $request->input('txt_date1');
+        $txt_destinos1 = $request->input('txt_destinos1');
+        $lista_itinerarios1 = $request->input('lista_itinerarios1');
+
+        dd($lista_itinerarios1);
     }
 }

@@ -1761,6 +1761,7 @@ function  filtrar_itinerarios1(){
 // var total_Itinerarios=0;
 // var Itis_precio=0;
 // var nroPasajeros=2;
+var lista_itinerarios1='';
 function Pasar_datos1(){
     Itis_precio=parseFloat($('#totalItinerario').val());
     total_Itinerarios=$('#nroItinerario').val();
@@ -1790,94 +1791,47 @@ function Pasar_datos1(){
                 //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
                 // precio_grupo+=val_p_g;
             });
+            // lista_itinerarios1+=itinerario[0]+'/';
             var iti_temp='';
-            iti_temp+='<div id="itinerario_" class="caja_itineario">' +
+            iti_temp+='<div id="itinerario_'+itinerario[0]+'" class="caja_itineario">'+
+                '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
                 '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
+                '<a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
                 '</div>';
-            // iti_temp+='<div id="itis_'+itinerario[0]+'" class="box-sortable margin-bottom-10">'+
-            //     '<input type="hidden" name="itinerarios_[]" id="itinerarios_'+itinerario[0]+'" value="'+itinerario[0]+'">'+
-            //     '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
-            //     '<b>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
-            //     '</a>'+
-            //     '<span class="label pull-right">' +
-            //     '<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('+itinerario[0]+','+itinerario[4]+')">' +
-            //     '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
-            //     '</a>'+
-            //     '</span>'+
-            //     '<span class="label label-success pull-right">($'+itinerario[4]+')</span>'+
-            //     '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
-            //     '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
-            //     itinerario[3]+
-            //     '<h5><b>Services</b></h5>'+
-            //     '<table class="table table-condensed table-striped">'+
-            //     '<thead>'+
-            //     '<tr class="bg-grey-goto text-white">'+
-            //     '<th colspan="2">Concepts</th>'+
-            //     '<th>Prices</th>'+
-            //     '<th></th>'+
-            //     '</tr>'+
-            //     '</thead>'+
-            //     '<tbody>';
-            // var servicios_='';
-            // $.each(servicios, function( key, value ) {
-            //     var serv=value.split('//');
-            //     var val_p_g=serv[1];
-            //     // if(serv[2]==1)
-            //     //     val_p_g=Math.ceil(serv[1]/nroPasajeros);
-            //     iti_temp+='<tr><td><input type="hidden" name="iti_servicios_'+itinerario[0]+'" value="'+value+'">'+serv[0]+'</td>'+
-            //         '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
-            //         '<td>'+val_p_g+'</td>'+
-            //         '<td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>'+
-            //         '</tr>';
-            // });
-            // console.log('servicios:');
-
-            // iti_temp+=''+
-            //     '<tr>'+
-            //     '<td class="" colspan="4">'+
-            //     '<a class="hide" href="#add-services'+itinerario[0]+'" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
-            //     '<div class="col-md-12">'+
-            //     '<label for="txta_description">Sugerencias para los servicios</label>'+
-            //     '<textarea class="form-control" id="txt_sugerencia_'+itinerario[0]+'" name="txt_sugerencia[]" rows="3"></textarea>'+
-            //     '</div>'+
-            //     '<div class="collapse" id="add-services'+itinerario[0]+'">'+
-            //     '<div class="row margin-top-10">'+
-            //     '<div class="col-md-6">'+
-            //     '<div class="form-group">'+
-            //     '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '<div class="col-md-4 row">'+
-            //     '<div class="form-group">'+
-            //     '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '<div class="col-md-2">'+
-            //     '<div class="form-group">'+
-            //     '<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '</td>'+
-            //     '</tr>'+
-            //     '</tbody>'+
-            //     '</table>'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '</div>';
 
             $('#Lista_itinerario_g').append(iti_temp);
-            iti_temp='';
-            // destinos+=$(this).val()+'_';
 
         }
     });
     $('#totalItinerario').val(Itis_precio);
     $('#totalItinerario_front').html(Itis_precio);
     $('#nroItinerario').val(total_Itinerarios);
+    // $('#lista_itinerarios1').val(lista_itinerarios1);
+
     calcular_resumen();
 }
+
+function borrar_iti(id){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar este itinerario?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $('#itinerario_'+id).fadeOut();
+        $('#itinerario_'+id).remove();
+        var lista_it='';
+        $(".txt_itinerarios").each(function (index) {
+            lista_it+=$(this).html()+'/';
+        });
+        $('#lista_itinerarios1').val(lista_it);
+    })
+
+}
+
 function ordenar_itinerarios1(){
     // var dia=1;
     // $(".dias").each(function (index) {
@@ -1959,20 +1913,27 @@ function aumentar_acom(tipo,signo){
 function enviar_form1(){
     $('#form_nuevo_pqt').submit(function() {
         // alert('holas');
-        var name1=$('#txt_name').val();
-        var country=$('#txt_country').val();
-        var email=$('#txt_email').val();
-        var phone=$('#txt_phone').val();
-        var travelers=$('#txt_travellers').val();
-        var days=$('#txt_days').val();
-        var date=$('#txt_travel_date').val();
 
-        destinos=destinos;
+        $('#txt_country1').val($('#txt_country').val());
+        $('#txt_name1').val($('#txt_name').val());
+        $('#txt_email1').val($('#txt_email').val());
+        $('#txt_phone1').val($('#txt_phone').val());
+        $('#txt_travelers1').val($('#txt_travellers').val());
+        $('#txt_days1').val($('#txt_days').val());
+        $('#txt_date1').val($('#txt_travel_date').val());
+        $('#txt_destinos1').val(destinos);
+        var lista_it='';
+        $(".txt_itinerarios").each(function (index) {
+            lista_it+=$(this).html()+'/';
+        });
+        $('#lista_itinerarios1').val(lista_it);
+
+        // destinos=destinos;
         console.log('hola '+name1);
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
-            data: $(this).serialize()+'&&name1='+name1,
+            data: $(this).serialize(),
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 if(data==1){
@@ -1990,4 +1951,8 @@ function enviar_form1(){
         })
         // return false;
     });
+}
+
+function pasar_dias(){
+    $('#dias_html').html($('#txt_days').val()+'d');
 }
