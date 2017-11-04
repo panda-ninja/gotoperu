@@ -23810,9 +23810,16 @@ function Pasar_datos1(){
             // lista_itinerarios1+=itinerario[0]+'/';
             var iti_temp='';
             iti_temp+='<div id="itinerario_'+itinerario[0]+'" class="caja_itineario">'+
-                '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
-                '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
-                '<a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
+                    '<div class="row">'+
+                    '<div class="col-lg-9">' +
+                        '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
+                        '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
+                    '</div>'+
+                    '<div class="col-lg-3">' +
+                        ' <b>'+itinerario[4]+'</b>'+
+                        ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
+                    '</div>'+
+                    '</div>'+
                 '</div>';
 
             $('#Lista_itinerario_g').append(iti_temp);
@@ -23820,11 +23827,19 @@ function Pasar_datos1(){
         }
     });
     $('#totalItinerario').val(Itis_precio);
-    $('#totalItinerario_front').html(Itis_precio);
+    $('#st_new').html(Itis_precio);
     $('#nroItinerario').val(total_Itinerarios);
     // $('#lista_itinerarios1').val(lista_itinerarios1);
 
+
+
     calcular_resumen();
+}
+function calcular_precio1(){
+    var preci_Total=0;
+    var total_Itinerarios=$('#nroItinerario').val();
+
+
 }
 
 function borrar_iti(id){
@@ -23970,5 +23985,6 @@ function enviar_form1(){
 }
 
 function pasar_dias(){
-    $('#dias_html').html($('#txt_days').val()+'d');
+    var dias=$('#txt_days').val();
+    $('#dias_html').html(dias+'d');
 }

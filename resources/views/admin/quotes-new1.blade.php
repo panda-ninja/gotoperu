@@ -155,6 +155,86 @@
                         </label>
                     </div>
                 </div>
+                <div>
+                    <input type="text">
+                    @php
+                    $h2_s=0;
+                    $h2_d=0;
+                    $h2_m=0;
+                    $h2_t=0;
+
+                    $h3_s=0;
+                    $h3_d=0;
+                    $h3_m=0;
+                    $h3_t=0;
+
+                    $h4_s=0;
+                    $h4_d=0;
+                    $h4_m=0;
+                    $h4_t=0;
+
+                    $h5_s=0;
+                    $h5_d=0;
+                    $h5_m=0;
+                    $h5_t=0;
+                    @endphp
+                    @foreach($hotel->where('localizacion','CUSCO')->take(4) as $hotels)
+                        @if($hotels->estrellas=='2')
+                          @php
+                              $h2_s=$hotels->single;
+                              $h2_d=$hotels->doble;
+                              $h2_m=$hotels->matrimonial;
+                              $h2_t=$hotels->triple;
+                          @endphp
+                        @endif
+
+                            @if($hotels->estrellas=='3')
+                                @php
+                                    $h3_s=$hotels->single;
+                                    $h3_d=$hotels->doble;
+                                    $h3_m=$hotels->matrimonial;
+                                    $h3_t=$hotels->triple;
+                                @endphp
+                            @endif
+
+                            @if($hotels->estrellas=='4')
+                                @php
+                                    $h4_s=$hotels->single;
+                                    $h4_d=$hotels->doble;
+                                    $h4_m=$hotels->matrimonial;
+                                    $h4_t=$hotels->triple;
+                                @endphp
+                            @endif
+
+                            @if($hotels->estrellas=='5')
+                                @php
+                                    $h5_s=$hotels->single;
+                                    $h5_d=$hotels->doble;
+                                    $h5_m=$hotels->matrimonial;
+                                    $h5_t=$hotels->triple;
+                                @endphp
+                            @endif
+                    @endforeach
+                    <input type="text" name="h2_s" id="h2_s" value="{{$h2_s}}">
+                    <input type="text" name="h2_d" id="h2_d" value="{{$h2_d}}">
+                    <input type="text" name="h2_m" id="h2_m" value="{{$h2_m}}">
+                    <input type="text" name="h2_t" id="h2_t" value="{{$h2_t}}">
+
+                    <input type="text" name="h3_s" id="h3_s" value="{{$h3_s}}">
+                    <input type="text" name="h3_d" id="h3_d" value="{{$h3_d}}">
+                    <input type="text" name="h3_m" id="h3_m" value="{{$h3_m}}">
+                    <input type="text" name="h3_t" id="h3_t" value="{{$h3_t}}">
+
+                    <input type="text" name="h4_s" id="h4_s" value="{{$h4_s}}">
+                    <input type="text" name="h4_d" id="h4_d" value="{{$h4_d}}">
+                    <input type="text" name="h4_m" id="h4_m" value="{{$h4_m}}">
+                    <input type="text" name="h4_t" id="h4_t" value="{{$h4_t}}">
+
+                    <input type="text" name="h5_s" id="h5_s" value="{{$h5_s}}">
+                    <input type="text" name="h5_d" id="h5_d" value="{{$h5_d}}">
+                    <input type="text" name="h5_m" id="h5_m" value="{{$h5_m}}">
+                    <input type="text" name="h5_t" id="h5_t" value="{{$h5_t}}">
+                </div>
                     @php
                     $deti='';
                     @endphp
@@ -260,6 +340,8 @@
                             <input type="hidden" name="txt_date1" id="txt_date1">
                             <input type="hidden" name="txt_destinos1" id="txt_destinos1">
                             <input type="hidden" name="lista_itinerarios1" id="lista_itinerarios1">
+                            <input type="text" name="totalItinerario" id="totalItinerario" value="0">
+
 
                         </div>
                         <div class="col-lg-12 caja_verde">
