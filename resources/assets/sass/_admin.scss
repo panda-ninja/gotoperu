@@ -632,6 +632,23 @@ body {
    padding: 5px;
  }
 .caja_detalle_hotel{
-  background: #fbc23d;
+  background: #fbc23d73;
   padding: 5px;
+}
+.caja_paso_activo{
+  background: #7F8429;
+  color:white;
+  border: 1px solid #ffa500;
+  padding: 5px;
+  text-align: center;
+}
+.caja_paso_noactivo{
+  color:#333333;
+  border: 1px solid #ffa500;
+  padding: 5px;
+  text-align: center;
+}
+.caja_items{
+  border-bottom: 1px solid #949494;
+margin-bottom: 5px;
 }
