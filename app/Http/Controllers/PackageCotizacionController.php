@@ -1002,6 +1002,7 @@ class PackageCotizacionController extends Controller
 
         }
 
+        
 //        $cliente=Cliente::FindOrFail($cliente_id);
 //        $destinos=$request->input('txt_destinos1');
 //        $cotizacion=Cotizacion::where('id',$cotizacion_id)->get();
