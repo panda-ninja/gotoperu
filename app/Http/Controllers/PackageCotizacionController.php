@@ -1002,14 +1002,14 @@ class PackageCotizacionController extends Controller
 
         }
 
-        
-//        $cliente=Cliente::FindOrFail($cliente_id);
-//        $destinos=$request->input('txt_destinos1');
-//        $cotizacion=Cotizacion::where('id',$cotizacion_id)->get();
+
+        $cliente=Cliente::FindOrFail($cliente_id);
+        $destinos=$request->input('txt_destinos1');
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
 //
 //        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day1'))->get();
 //        dd($p_paquete);
-//        return view('admin.quotes-planes',['cliente'=>$cliente,'cotizacion'=>$cotizacion,'destinos'=>$destinos,'acomodacion_s'=>$acomodacion_s,'acomodacion_d'=>$acomodacion_d,'acomodacion_m'=>$acomodacion_m,'acomodacion_t'=>$acomodacion_t,'p_paquete'=>$p_paquete]);
+        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos]);
 
 
     }
