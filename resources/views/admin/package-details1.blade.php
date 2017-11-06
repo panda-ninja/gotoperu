@@ -99,11 +99,15 @@
                                                                 @endphp
                                                                 @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $servicio)
                                                                     @php
-                                                                        $grupo='';
-                                                                        $loca='';
+                                                                        $grupo=$servicio->grupo;
+                                                                        $loca=$servicio->localizacion;
                                                                     @endphp
                                                                 @endforeach
-                                                                <div class="row">
+                                                                @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
+                                                                    <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
+
+                                                                @endforeach
+                                                                <div class="hide row">
                                                                     <div class="col-md-3">
                                                                         <div class="form-group">
                                                                             <label for="txt_codigo">Codigo</label>
