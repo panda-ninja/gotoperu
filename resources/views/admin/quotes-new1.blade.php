@@ -46,7 +46,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_days">Days</label>
-                            <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1">
+                            <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1" onchange="poner_dias()">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -57,41 +57,37 @@
                     </div>
                     <div class="col-md-3">
                         <div class="checkbox1">
-                            <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_2" value="2" checked="checked" onchange="filtrar_estrellas1(2)">
-                                2 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
+                            <label class="text-orange-goto">
+                                <input type="radio" name="strellas[]" id="strellas_2" value="2" checked="checked" onchange="filtrar_estrellas1('2')">2 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="checkbox1">
-                            <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas1(3)">
-                                3 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
+                            <label class="text-orange-goto">
+                                <input type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas1('3')">3 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="checkbox1">
-                            <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas1(4)">
-                                4 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
+                            <label class="text-orange-goto">
+                                <input type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas1('4')">4 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="checkbox1">
-                            <label class=" text-orange-goto">
-                                <input class="destinospack2" type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas1(5)">
-                                5 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
+                            <label class="text-orange-goto">
+                                <input type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas1('5')">5 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3 text-center">
-                        <div class="checkbox1 caja">
+                        <div class="caja">
                             <label class="text-unset">
                                 {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
-                                <p><b class="text-20">0</b></p>
+                                <p><b class="text-20" id="a_s_1">0</b></p>
                                 <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -105,10 +101,10 @@
                         </div>
                     </div>
                     <div class="col-md-3 text-center">
-                        <div class="checkbox1 caja">
+                        <div class="caja">
                             <label class="text-unset">
                                 {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
-                                <p><b class="text-20">0</b></p>
+                                <p><b class="text-20" id="a_d_1">0</b></p>
                                 <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -122,10 +118,10 @@
                         </div>
                     </div>
                     <div class="col-md-3 text-center">
-                        <div class="checkbox1 caja">
+                        <div class="caja">
                             <label class="text-unset">
                                 {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
-                                <p><b class="text-20">0</b></p>
+                                <p><b class="text-20" id="a_m_1">0</b></p>
                                 <b class="text-20px"><i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i></b>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -139,10 +135,10 @@
                         </div>
                     </div>
                     <div class="col-md-3 text-center">
-                    <div class="checkbox1 caja">
+                    <div class="caja">
                         <label class="text-unset">
                             {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
-                            <p><b class="text-20">0</b></p>
+                            <p><b class="text-20" id="a_t_1">0</b></p>
                             <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -156,7 +152,6 @@
                     </div>
                 </div>
                 <div>
-                    <input type="text">
                     @php
                     $h2_s=0;
                     $h2_d=0;
@@ -177,6 +172,10 @@
                     $h5_d=0;
                     $h5_m=0;
                     $h5_t=0;
+                    $hotel_id_2=0;
+                    $hotel_id_3=0;
+                    $hotel_id_4=0;
+                    $hotel_id_5=0;
                     @endphp
                     @foreach($hotel->where('localizacion','CUSCO')->take(4) as $hotels)
                         @if($hotels->estrellas=='2')
@@ -185,6 +184,7 @@
                               $h2_d=$hotels->doble;
                               $h2_m=$hotels->matrimonial;
                               $h2_t=$hotels->triple;
+                              $hotel_id_2=$hotels->id;
                           @endphp
                         @endif
 
@@ -194,6 +194,7 @@
                                     $h3_d=$hotels->doble;
                                     $h3_m=$hotels->matrimonial;
                                     $h3_t=$hotels->triple;
+                                    $hotel_id_3=$hotels->id;
                                 @endphp
                             @endif
 
@@ -203,6 +204,7 @@
                                     $h4_d=$hotels->doble;
                                     $h4_m=$hotels->matrimonial;
                                     $h4_t=$hotels->triple;
+                                    $hotel_id_4=$hotels->id;
                                 @endphp
                             @endif
 
@@ -212,28 +214,29 @@
                                     $h5_d=$hotels->doble;
                                     $h5_m=$hotels->matrimonial;
                                     $h5_t=$hotels->triple;
+                                    $hotel_id_5=$hotels->id;
                                 @endphp
                             @endif
                     @endforeach
-                    <input type="text" name="h2_s" id="h2_s" value="{{$h2_s}}">
-                    <input type="text" name="h2_d" id="h2_d" value="{{$h2_d}}">
-                    <input type="text" name="h2_m" id="h2_m" value="{{$h2_m}}">
-                    <input type="text" name="h2_t" id="h2_t" value="{{$h2_t}}">
+                    <input type="hidden" name="h2_s" id="h2_s" value="{{$h2_s}}">
+                    <input type="hidden" name="h2_d" id="h2_d" value="{{$h2_d}}">
+                    <input type="hidden" name="h2_m" id="h2_m" value="{{$h2_m}}">
+                    <input type="hidden" name="h2_t" id="h2_t" value="{{$h2_t}}">
 
-                    <input type="text" name="h3_s" id="h3_s" value="{{$h3_s}}">
-                    <input type="text" name="h3_d" id="h3_d" value="{{$h3_d}}">
-                    <input type="text" name="h3_m" id="h3_m" value="{{$h3_m}}">
-                    <input type="text" name="h3_t" id="h3_t" value="{{$h3_t}}">
+                    <input type="hidden" name="h3_s" id="h3_s" value="{{$h3_s}}">
+                    <input type="hidden" name="h3_d" id="h3_d" value="{{$h3_d}}">
+                    <input type="hidden" name="h3_m" id="h3_m" value="{{$h3_m}}">
+                    <input type="hidden" name="h3_t" id="h3_t" value="{{$h3_t}}">
 
-                    <input type="text" name="h4_s" id="h4_s" value="{{$h4_s}}">
-                    <input type="text" name="h4_d" id="h4_d" value="{{$h4_d}}">
-                    <input type="text" name="h4_m" id="h4_m" value="{{$h4_m}}">
-                    <input type="text" name="h4_t" id="h4_t" value="{{$h4_t}}">
+                    <input type="hidden" name="h4_s" id="h4_s" value="{{$h4_s}}">
+                    <input type="hidden" name="h4_d" id="h4_d" value="{{$h4_d}}">
+                    <input type="hidden" name="h4_m" id="h4_m" value="{{$h4_m}}">
+                    <input type="hidden" name="h4_t" id="h4_t" value="{{$h4_t}}">
 
-                    <input type="text" name="h5_s" id="h5_s" value="{{$h5_s}}">
-                    <input type="text" name="h5_d" id="h5_d" value="{{$h5_d}}">
-                    <input type="text" name="h5_m" id="h5_m" value="{{$h5_m}}">
-                    <input type="text" name="h5_t" id="h5_t" value="{{$h5_t}}">
+                    <input type="hidden" name="h5_s" id="h5_s" value="{{$h5_s}}">
+                    <input type="hidden" name="h5_d" id="h5_d" value="{{$h5_d}}">
+                    <input type="hidden" name="h5_m" id="h5_m" value="{{$h5_m}}">
+                    <input type="hidden" name="h5_t" id="h5_t" value="{{$h5_t}}">
                 </div>
                     @php
                     $deti='';
@@ -317,63 +320,27 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 margin-top-25">
+            <div class="col-lg-5 margin-top-25">
                 <b class="text-center text-30">NEW ITINERARY</b>
-            </div>
-            <div class="col-lg-4 margin-top-25">
-                <div class="row caja_n_v">
-                    <form action="{{route('nuevo_paquete_path')}}" method="post" id="form_nuevo_pqt" name="form_nuevo_pqt">
-                        <div class="col-lg-12 caja_negro" id="estrellas">
-                            2 STARS
-                            {{csrf_field()}}
-                            <input type="hidden" id="estrellas_from" name="estrellas_from" value="0">
-                            <input type="hidden" id="a_s" name="a_s" value="0">
-                            <input type="hidden" id="a_d" name="a_d" value="0">
-                            <input type="hidden" id="a_m" name="a_m" value="0">
-                            <input type="hidden" id="a_t" name="a_t" value="0">
-                            <input type="hidden" name="txt_country1" id="txt_country1">
-                            <input type="hidden" name="txt_name1" id="txt_name1">
-                            <input type="hidden" name="txt_email1" id="txt_email1">
-                            <input type="hidden" name="txt_phone1" id="txt_phone1">
-                            <input type="hidden" name="txt_travelers1" id="txt_travelers1">
-                            <input type="hidden" name="txt_days1" id="txt_days1">
-                            <input type="hidden" name="txt_date1" id="txt_date1">
-                            <input type="hidden" name="txt_destinos1" id="txt_destinos1">
-                            <input type="hidden" name="lista_itinerarios1" id="lista_itinerarios1">
-                            <input type="text" name="totalItinerario" id="totalItinerario" value="0">
-
-
-                        </div>
-                        <div class="col-lg-12 caja_verde">
-                            <div class="row">
-                                <div class="col-lg-3"><b class="text-20">New</b></div>
-                                <div class="col-lg-3"><b class="text-20" id="dias_html">0d</b></div>
-                                <div class="col-lg-3">$<b class="text-20" id="st_new">850</b></div>
-                                <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form1()">GO</button></div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-5" style="height: 500px; overflow-y: auto;">
-                <div id="lista_itinerarios">
-                    @php
-                    $pos_itinerario=0;
-                    @endphp
-                    @foreach($destinos as $destino)
-                        <div id="group_destino_{{$destino->id}}" class="hide">
-                            <div class="row">
-                                <b class="font-montserrat text-orange-goto text-20">{{$destino->destino}}</b>
-                            </div>
-                            @foreach($itinerarios_d->where('destino', $destino->destino) as $iti)
-                                @foreach($itinerarios->where('id',$iti->m_itinerario_id) as $itinerario)
-                                    @php
-                                        $encontrado=1;
-                                        $pos_itinerario++;
-                                    @endphp
-                                    @if($encontrado==1)
-                                        <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5">
-                                            <div class="input-group">
+                <div class="col-lg-12" style="height: 500px; overflow-y: auto;">
+                    <div id="lista_itinerarios">
+                        @php
+                            $pos_itinerario=0;
+                        @endphp
+                        @foreach($destinos as $destino)
+                            <div id="group_destino_{{$destino->id}}" class="hide">
+                                <div class="row">
+                                    <b class="font-montserrat text-orange-goto text-20">{{$destino->destino}}</b>
+                                </div>
+                                @foreach($itinerarios_d->where('destino', $destino->destino) as $iti)
+                                    @foreach($itinerarios->where('id',$iti->m_itinerario_id) as $itinerario)
+                                        @php
+                                            $encontrado=1;
+                                            $pos_itinerario++;
+                                        @endphp
+                                        @if($encontrado==1)
+                                            <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5">
+                                                <div class="input-group">
                                                 <span class="input-group-addon">
                                                 @php
                                                     $servicios1='';
@@ -385,11 +352,11 @@
                                                         if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                                             if($servicios->itinerario_servicios_servicio->precio_grupo==1){
                                                                 $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2);
-                                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                                $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                                             }
                                                             else{
                                                                 $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                                                $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                                $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
 
                                                             }
                                                         }
@@ -406,59 +373,122 @@
                                                     ?>
                                                     <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
                                                 </span>
-                                                <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
-                                                <span class="input-group-btn">
+                                                    <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
+                                                    <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$pos_itinerario}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
                                                 </span>
-                                            </div>
-                                            <div class="collapse clearfix" id="collapse_{{$pos_itinerario}}">
-                                                <div class="col-md-12 well margin-top-5">
-                                                    {{$itinerario->descripcion}}
-                                                    <h5><b>Services</b></h5>
-                                                    <table class="table table-condensed table-striped">
-                                                        <thead>
-                                                        <tr class="bg-grey-goto text-white">
-                                                            <th colspan="2">Concepts</th>
-                                                            <th>Prices</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
-                                                            <tr>
-                                                                <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
-                                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                                                <td>
-                                                                    @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                                                                        {{round($servicios->itinerario_servicios_servicio->precio_venta/2,2)}}
-                                                                    @else
-                                                                        {{$servicios->itinerario_servicios_servicio->precio_venta}}
-                                                                    @endif
-                                                                </td>
+                                                </div>
+                                                <div class="collapse clearfix" id="collapse_{{$pos_itinerario}}">
+                                                    <div class="col-md-12 well margin-top-5">
+                                                        {{$itinerario->descripcion}}
+                                                        <h5><b>Services</b></h5>
+                                                        <table class="table table-condensed table-striped">
+                                                            <thead>
+                                                            <tr class="bg-grey-goto text-white">
+                                                                <th colspan="2">Concepts</th>
+                                                                <th>Prices</th>
                                                             </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                                                <tr>
+                                                                    <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
+                                                                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                                                    <td>
+                                                                        @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+                                                                            {{round($servicios->itinerario_servicios_servicio->precio_venta/2,2)}}
+                                                                        @else
+                                                                            {{$servicios->itinerario_servicios_servicio->precio_venta}}
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endif
-                                    @php
-                                        $encontrado=0;
-                                    @endphp
+                                        @endif
+                                        @php
+                                            $encontrado=0;
+                                        @endphp
+                                    @endforeach
                                 @endforeach
-                            @endforeach
-                        </div>
-                    @endforeach
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-2 margin-top-40">
                 <a href="#!" class="btn btn-primary" onclick="Pasar_datos1()"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                 <input type="hidden" name="nroItinerario" id="nroItinerario" value="0">
             </div>
-            <div class="col-lg-4">
-                <div class="grid ui-sortable" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios1()">
+            <div class="col-lg-4 margin-top-25">
+                <div class="row caja_n_v">
+                    <form action="{{route('nuevo_paquete_path')}}" method="post" id="form_nuevo_pqt" name="form_nuevo_pqt">
+                        <div class="col-lg-12 caja_negro">
+                            <span  id="estrellas">2 STARS</span>
+                            {{csrf_field()}}
+                            <input type="hidden" id="estrellas_from" name="estrellas_from" value="2">
+                            <input type="hidden" id="a_s" name="a_s" value="0">
+                            <input type="hidden" id="a_d" name="a_d" value="0">
+                            <input type="hidden" id="a_m" name="a_m" value="0">
+                            <input type="hidden" id="a_t" name="a_t" value="0">
+                            <input type="hidden" name="txt_country1" id="txt_country1">
+                            <input type="hidden" name="txt_name1" id="txt_name1">
+                            <input type="hidden" name="txt_email1" id="txt_email1">
+                            <input type="hidden" name="txt_phone1" id="txt_phone1">
+                            <input type="hidden" name="txt_travelers1" id="txt_travelers1">
+                            <input type="hidden" name="txt_days1" id="txt_days1">
+                            <input type="hidden" name="txt_date1" id="txt_date1">
+                            <input type="hidden" name="txt_destinos1" id="txt_destinos1">
+                            <input type="hidden" name="lista_itinerarios1" id="lista_itinerarios1">
+                            <input type="hidden" name="totalItinerario" id="totalItinerario" value="0">
+
+                            <input type="hidden" name="h2_s_" id="h2_s_" value="{{$h2_s}}">
+                            <input type="hidden" name="h2_d_" id="h2_d_" value="{{$h2_d}}">
+                            <input type="hidden" name="h2_m_" id="h2_m_" value="{{$h2_m}}">
+                            <input type="hidden" name="h2_t_" id="h2_t_" value="{{$h2_t}}">
+
+                            <input type="hidden" name="h3_s_" id="h3_s_" value="{{$h3_s}}">
+                            <input type="hidden" name="h3_d_" id="h3_d_" value="{{$h3_d}}">
+                            <input type="hidden" name="h3_m_" id="h3_m_" value="{{$h3_m}}">
+                            <input type="hidden" name="h3_t_" id="h3_t_" value="{{$h3_t}}">
+
+                            <input type="hidden" name="h4_s_" id="h4_s_" value="{{$h4_s}}">
+                            <input type="hidden" name="h4_d_" id="h4_d_" value="{{$h4_d}}">
+                            <input type="hidden" name="h4_m_" id="h4_m_" value="{{$h4_m}}">
+                            <input type="hidden" name="h4_t_" id="h4_t_" value="{{$h4_t}}">
+
+                            <input type="hidden" name="h5_s_" id="h5_s_" value="{{$h5_s}}">
+                            <input type="hidden" name="h5_d_" id="h5_d_" value="{{$h5_d}}">
+                            <input type="hidden" name="h5_m_" id="h5_m_" value="{{$h5_m}}">
+                            <input type="hidden" name="h5_t_" id="h5_t_" value="{{$h5_t}}">
+
+                            <input type="hidden" name="hotel_id_2" id="hotel_id_2" value="{{$hotel_id_2}}">
+                            <input type="hidden" name="hotel_id_3" id="hotel_id_3" value="{{$hotel_id_3}}">
+                            <input type="hidden" name="hotel_id_4" id="hotel_id_4" value="{{$hotel_id_4}}">
+                            <input type="hidden" name="hotel_id_5" id="hotel_id_5" value="{{$hotel_id_5}}">
+
+                        </div>
+                        <div class="col-lg-12 caja_verde">
+                            <div class="row">
+                                <div class="col-lg-3"><b class="text-20">New</b></div>
+                                <div class="col-lg-3"><b class="text-20" id="dias_html">0d</b></div>
+                                <div class="col-lg-3">$<b class="text-20" id="st_new">850</b></div>
+                                <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form1()">GO</button></div>
+                            </div>
+                        </div>
+                            <div class="grid ui-sortable" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios1()">
+                            </div>
+
+
+                    </form>
                 </div>
+
             </div>
+
+
         </div>
         <div class="hide">
         <div class="row">
