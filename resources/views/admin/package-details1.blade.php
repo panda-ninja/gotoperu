@@ -58,6 +58,16 @@
             <div class="col-lg-2"></div>
         </div>
     </div>
+    @php
+    $nroPersonas=0;
+    $nro_dias=0;
+    $precio_iti=0;
+    $precio_hotel_s=0;
+    $precio_hotel_d=0;
+    $precio_hotel_m=0;
+    $precio_hotel_t=0;
+
+    @endphp
     @foreach($cotizaciones as $cotizacion)
         @foreach($cotizacion->paquete_cotizaciones as $paquete)
             @foreach($paquete->itinerario_cotizaciones as $itinerario)
@@ -74,6 +84,15 @@
                         </div>
                         <div class="row caja_detalle">
                             @foreach($itinerario->itinerario_servicios as $servicios)
+                                @if($servicios->precio_grupo==1)
+                                    @php
+                                        $precio_iti+=$servicios->precio;
+                                    @endphp
+                                @else
+                                    @php
+                                        $precio_iti+=$servicios->precio*$nroPersonas;
+                                    @endphp
+                                @endif
                                 <div class="col-lg-9">
                                     <div class="row">
                                         <div class="col-lg-10">{{$servicios->nombre}}</div>
@@ -199,12 +218,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-1 @if($s==0) hide @endif">${{$servicios->precio}}</div>
-                                <div class="col-lg-1 @if($d==0) hide @endif">${{$servicios->precio}}</div>
-                                <div class="col-lg-1 @if($t==0) hide @endif">${{$servicios->precio}}</div>
+                                <div class="col-lg-1 @if($s==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
+                                <div class="col-lg-1 @if($d==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
+                                <div class="col-lg-1 @if($t==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
                             @endforeach
                         </div>
                             @foreach($itinerario->hotel as $hotel)
+                                @if($hotel->personas_s>0)
+                                    @php
+                                        $precio_hotel_s+=$hotel->precio_s;
+                                    @endphp
+                                @endif
+                                @if($hotel->personas_d>0)
+                                    @php
+                                        $precio_hotel_d+=$hotel->precio_d/2;
+                                    @endphp
+                                @endif
+                                @if($hotel->personas_m>0)
+                                    @php
+                                        $precio_hotel_m+=$hotel->precio_m/2;
+                                    @endphp
+                                @endif
+                                @if($hotel->personas_t>0)
+                                    @php
+                                        $precio_hotel_t+=$hotel->precio_t/2;
+                                    @endphp
+                                @endif
                             <div class="row caja_detalle_hotel margin-bottom-15">
                             <div class="col-lg-9">
                                     <div class="row">
@@ -317,9 +356,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{$hotel->precio_s}}</div>
-                                <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{$hotel->precio_d}}</div>
-                                <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{$hotel->precio_t}}</div>
+                                <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{explode('.00',$hotel->precio_s)[0]}}</div>
+                                <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{explode('.00',$hotel->precio_d)[0]/2}}</div>
+                                <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{explode('.00',$hotel->precio_m)[0]/2}}</div>
+                                <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{explode('.00',$hotel->precio_t)[0]/3}}</div>
 
                             </div>
                         @endforeach
@@ -329,13 +369,32 @@
                         <textarea name="" id="" cols="70" rows="8">{{$itinerario->descripcion}}</textarea>
                     </div>
                 </div>
-
-                {{--@foreach($itinerario->itinerario_servicios as $servicios)--}}
-                    {{--{{$servicios->nombre}}--}}
-                {{--@endforeach--}}
             @endforeach
         @endforeach
     @endforeach
+    @php
+        $precio_hotel_s+=$precio_iti;
+        $precio_hotel_d+=$precio_iti;
+        $precio_hotel_m+=$precio_iti;
+        $precio_hotel_t+=$precio_iti;
+    @endphp
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-5">
+                <div class="row caja_dia">
+                    <div class="col-lg-9"><b>COST</b></div>
+                    <div class="col-lg-1 @if($s==0) hide @endif">${{$precio_hotel_s}}</div>
+                    <div class="col-lg-1 @if($d==0) hide @endif">${{$precio_hotel_d}}</div>
+                    <div class="col-lg-1 @if($t==0) hide @endif">${{$precio_hotel_t}}</div>
+                    <div class="col-lg-12 text-right text-warninggit add -">PRICE PER PERSON</div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+    </div>
 
 
     {{--</form>--}}

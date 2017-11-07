@@ -1818,8 +1818,6 @@ function Pasar_datos1(){
     $('#nroItinerario').val(total_Itinerarios);
     // $('#lista_itinerarios1').val(lista_itinerarios1);
 
-
-
     calcular_resumen();
     calcular_precio1();
 }
