@@ -424,3 +424,7 @@ Route::post('/ventas/new-cotizacion', [
     'uses' => 'PackageCotizacionController@editar_cotizacion1',
     'as' => 'editar_cotizacion1_path',
 ]);
+Route::post('/ventas/save-new-package', [
+    'uses' => 'PackageCotizacionController@guardar_paquete',
+    'as' => 'save_new_package_path',
+]);

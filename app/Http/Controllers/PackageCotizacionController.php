@@ -1051,4 +1051,50 @@ class PackageCotizacionController extends Controller
         return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id]);
 
     }
+    public function guardar_paquete(Request $request){
+        $cotizacion_id=$request->input('cotizacion_id');
+        $paquete_id=$request->input('paquete_id');
+        $paquete_precio_id=$request->input('paquete_precio_id');
+        $txt_titulo=strtoupper($request->input('txt_titulo'));
+        $descripcion=$request->input('descripcion');
+        $incluye=$request->input('incluye');
+        $no_incluye=$request->input('no_incluye');
+        $pro_s=$request->input('pro_s');
+        $pro_d=$request->input('pro_d');
+        $pro_m=$request->input('pro_m');
+        $pro_t=$request->input('pro_t');
+
+        $profit_por_s=$request->input('profit_por_s');
+        $profit_por_d=$request->input('profit_por_d');
+        $profit_por_m=$request->input('profit_por_m');
+        $profit_por_t=$request->input('profit_por_t');
+
+        $cotizacion=Cotizacion::findOrFail($cotizacion_id);
+        $cotizacion->estado=1;
+        $cotizacion->save();
+
+        $paquete=PaqueteCotizaciones::FindOrFail($paquete_id);
+        $paquete->titulo=$txt_titulo;
+        $paquete->descripcion=$descripcion;
+        $paquete->incluye=$incluye;
+        $paquete->noincluye=$no_incluye;
+        $paquete->estado=1;
+        $paquete->save();
+
+
+
+        $paquete_precio=PaquetePrecio::FindOrFail($paquete_precio_id);
+        $paquete_precio->utilidad_s=$pro_s;
+        $paquete_precio->utilidad_d=$pro_d;
+        $paquete_precio->utilidad_m=$pro_m;
+        $paquete_precio->utilidad_t=$pro_t;
+
+        $paquete_precio->utilidad_por_s=$profit_por_s;
+        $paquete_precio->utilidad_por_d=$profit_por_d;
+        $paquete_precio->utilidad_por_m=$profit_por_m;
+        $paquete_precio->utilidad_por_t=$profit_por_t;
+        $paquete_precio->save();
+
+    }
+
 }

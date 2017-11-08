@@ -2072,3 +2072,32 @@ function poner_dias() {
     $('#dias_html').html($('#txt_days').val()+'d');
     calcular_precio1();
 }
+
+function variar_profit(acom) {
+    var valor=parseFloat($('#cost_'+acom).html());
+    var pro=parseFloat($('#pro_'+acom).val());
+    var sale=Math.round(valor+pro);
+    $('#sale_'+acom).html(sale);
+    var profit_por=Math.round((pro/sale)*100,2);
+    $('#porc_'+acom).html(profit_por);
+    $('#porc_'+acom).val(profit_por);
+    var sale_s=parseFloat($('#sale_s').html());
+    var sale_d=parseFloat($('#sale_d').html());
+    var sale_m=parseFloat($('#sale_m').html());
+    var sale_t=parseFloat($('#sale_t').html());
+    $('#total_profit').html(sale_s+sale_d+sale_m+sale_t);
+    var pro_s=parseFloat($('#pro_s').val());
+    var pro_d=parseFloat($('#pro_d').val());
+    var pro_m=parseFloat($('#pro_m').val());
+    var pro_t=parseFloat($('#pro_t').val());
+
+    var uti_por_s=Math.round((pro_s/sale_s)*100,0);
+    var uti_por_d=Math.round((pro_d/sale_d)*100,0);
+    var uti_por_m=Math.round((pro_m/sale_m)*100,0);
+    var uti_por_t=Math.round((pro_t/sale_t)*100,0);
+
+    $('#profit_por_s').val(uti_por_s);
+    $('#profit_por_d').val(uti_por_d);
+    $('#profit_por_m').val(uti_por_m);
+    $('#profit_por_t').val(uti_por_t);
+}
