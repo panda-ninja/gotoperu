@@ -1039,8 +1039,16 @@ class PackageCotizacionController extends Controller
 //        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day1'))->get();
 //        dd($p_paquete);
         $m_servicios=M_Servicio::get();
-        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios]);
+        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
+    }
 
+    public function editar_cotizacion1(Request $request){
+        $cotizacion_id=$request->input('cotizacion_id');
+        $paquete_precio_id=$request->input('paquete_precio_id');
+
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+
+        return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id]);
 
     }
 }

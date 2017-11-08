@@ -66,338 +66,186 @@
     $precio_hotel_d=0;
     $precio_hotel_m=0;
     $precio_hotel_t=0;
-
+    $cotizacion_id='';
     @endphp
-    @foreach($cotizaciones as $cotizacion)
-        @foreach($cotizacion->paquete_cotizaciones as $paquete)
-            @foreach($paquete->itinerario_cotizaciones as $itinerario)
-                <div class="row caja_items">
-                    <div class="col-lg-1 caja_dia_indice">
-                        DAY {{$itinerario->dias}}
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="row caja_dia">
-                            <div class="col-lg-9">{{$itinerario->titulo}}</div>
-                            <div class="col-lg-1 @if($s==0) hide @endif">S</div>
-                            <div class="col-lg-1 @if($d==0) hide @endif">D</div>
-                            <div class="col-lg-1 @if($t==0) hide @endif">T</div>
+        @foreach($cotizaciones as $cotizacion)
+            @php
+                $cotizacion_id=$cotizacion->id;
+            @endphp
+            @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
+                @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                    <div class="row caja_items">
+                        <div class="col-lg-1 caja_dia_indice">
+                            DAY {{$itinerario->dias}}
                         </div>
-                        <div class="row caja_detalle">
-                            @foreach($itinerario->itinerario_servicios as $servicios)
-                                @if($servicios->precio_grupo==1)
-                                    @php
-                                        $precio_iti+=$servicios->precio;
-                                    @endphp
-                                @else
-                                    @php
-                                        $precio_iti+=$servicios->precio*$nroPersonas;
-                                    @endphp
-                                @endif
-                                <div class="col-lg-9">
-                                    <div class="row">
-                                        <div class="col-lg-10">{{$servicios->nombre}}</div>
-                                        <div class="col-lg-2">
-                                            <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a>
-                                            <!-- Modal -->
-                                            <div class="modal fade bd-example-modal-lg" id="modal_new_destination1_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Editar Servicio</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                @php
-                                                                    $grupo='';
-                                                                    $loca='';
-                                                                @endphp
-                                                                @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $servicio)
-                                                                    @php
-                                                                        $grupo=$servicio->grupo;
-                                                                        $loca=$servicio->localizacion;
-                                                                    @endphp
-                                                                @endforeach
-                                                                @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
-                                                                    <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
-
-                                                                @endforeach
-                                                                <div class="hide row">
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_codigo">Codigo</label>
-                                                                            <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Codigo">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3 ">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_destino">Destino</label>
-                                                                            <input type="text" class="form-control" id="txt_destino" name="txt_destino" placeholder="Destino">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_descripcion">Descripcion</label>
-                                                                            <input type="text" class="form-control" id="txt_descripcion" name="txt_descripcion" placeholder="Descripcion">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_pais">Pais</label>
-                                                                            <input type="text" class="form-control" id="txt_pais" name="txt_pais" placeholder="Pais" VALUE="PERÚ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3 hide">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_region">Region</label>
-                                                                            <select class="custom-select form-control" id="txt_region" name="txt_region" >
-                                                                                <option selected>Abrir menu</option>
-                                                                                <option value="COSTA">COSTA</option>
-                                                                                <option value="SIERRA">SIERRA</option>
-                                                                                <option value="SELVA">SELVA</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3 hide">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_departamento">Departamento</label>
-                                                                            <select class="custom-select form-control" id="txt_departamento" name="txt_departamento" >
-                                                                                <option selected>Abrir menu</option>
-                                                                                <option value="AMAZONAS">AMAZONAS</option>
-                                                                                <option value="ANCASH">ANCASH</option>
-                                                                                <option value="APURIMAC">APURIMAC</option>
-                                                                                <option value="AREQUIPA">AREQUIPA</option>
-                                                                                <option value="AYACUCHO">AYACUCHO</option>
-                                                                                <option value="CAJAMARCA">CAJAMARCA</option>
-                                                                                <option value="CALLAO">CALLAO</option>
-                                                                                <option value="CUSCO">CUSCO</option>
-                                                                                <option value="HUANCAVELICA">HUANCAVELICA</option>
-                                                                                <option value="HUANUCO">HUANUCO</option>
-                                                                                <option value="ICA">ICA</option>
-                                                                                <option value="JUNIN">JUNIN</option>
-                                                                                <option value="LA LIBERTAD">LA LIBERTAD</option>
-                                                                                <option value="LAMBAYEQUE">LAMBAYEQUE</option>
-                                                                                <option value="LIMA">LIMA</option>
-                                                                                <option value="LORETO">LORETO</option>
-                                                                                <option value="MADRE DE DIOS">MADRE DE DIOS</option>
-                                                                                <option value="MOQUEGUA">MOQUEGUA</option>
-                                                                                <option value="PASCO">PASCO</option>
-                                                                                <option value="PIURA">PIURA</option>
-                                                                                <option value="PUNO">PUNO</option>
-                                                                                <option value="SAN MARTIN">SAN MARTIN</option>
-                                                                                <option value="TACNA">TACNA</option>
-                                                                                <option value="TUMBES">TUMBES</option>
-                                                                                <option value="UCAYALI">UCAYALI</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_imagen">Imagen</label>
-                                                                            <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                {{csrf_field()}}
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-1 @if($s==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
-                                <div class="col-lg-1 @if($d==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
-                                <div class="col-lg-1 @if($t==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
-                            @endforeach
-                        </div>
-                            @foreach($itinerario->hotel as $hotel)
-                                @if($hotel->personas_s>0)
-                                    @php
-                                        $precio_hotel_s+=$hotel->precio_s;
-                                    @endphp
-                                @endif
-                                @if($hotel->personas_d>0)
-                                    @php
-                                        $precio_hotel_d+=$hotel->precio_d/2;
-                                    @endphp
-                                @endif
-                                @if($hotel->personas_m>0)
-                                    @php
-                                        $precio_hotel_m+=$hotel->precio_m/2;
-                                    @endphp
-                                @endif
-                                @if($hotel->personas_t>0)
-                                    @php
-                                        $precio_hotel_t+=$hotel->precio_t/2;
-                                    @endphp
-                                @endif
-                            <div class="row caja_detalle_hotel margin-bottom-15">
-                            <div class="col-lg-9">
-                                    <div class="row">
-                                        <div class="col-lg-10">HOTEL</div>
-                                        <div class="col-lg-2">
-                                            <a class="btn" data-toggle="modal" data-target="#modal_new_destination_{{$hotel->id}}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a>
-                                            <!-- Modal -->
-                                            <div class="modal fade bd-example-modal-lg" id="modal_new_destination_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">New destination</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_codigo">Codigo</label>
-                                                                            <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Codigo">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3 ">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_destino">Destino</label>
-                                                                            <input type="text" class="form-control" id="txt_destino" name="txt_destino" placeholder="Destino">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_descripcion">Descripcion</label>
-                                                                            <input type="text" class="form-control" id="txt_descripcion" name="txt_descripcion" placeholder="Descripcion">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_pais">Pais</label>
-                                                                            <input type="text" class="form-control" id="txt_pais" name="txt_pais" placeholder="Pais" VALUE="PERÚ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3 hide">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_region">Region</label>
-                                                                            <select class="custom-select form-control" id="txt_region" name="txt_region" >
-                                                                                <option selected>Abrir menu</option>
-                                                                                <option value="COSTA">COSTA</option>
-                                                                                <option value="SIERRA">SIERRA</option>
-                                                                                <option value="SELVA">SELVA</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3 hide">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_departamento">Departamento</label>
-                                                                            <select class="custom-select form-control" id="txt_departamento" name="txt_departamento" >
-                                                                                <option selected>Abrir menu</option>
-                                                                                <option value="AMAZONAS">AMAZONAS</option>
-                                                                                <option value="ANCASH">ANCASH</option>
-                                                                                <option value="APURIMAC">APURIMAC</option>
-                                                                                <option value="AREQUIPA">AREQUIPA</option>
-                                                                                <option value="AYACUCHO">AYACUCHO</option>
-                                                                                <option value="CAJAMARCA">CAJAMARCA</option>
-                                                                                <option value="CALLAO">CALLAO</option>
-                                                                                <option value="CUSCO">CUSCO</option>
-                                                                                <option value="HUANCAVELICA">HUANCAVELICA</option>
-                                                                                <option value="HUANUCO">HUANUCO</option>
-                                                                                <option value="ICA">ICA</option>
-                                                                                <option value="JUNIN">JUNIN</option>
-                                                                                <option value="LA LIBERTAD">LA LIBERTAD</option>
-                                                                                <option value="LAMBAYEQUE">LAMBAYEQUE</option>
-                                                                                <option value="LIMA">LIMA</option>
-                                                                                <option value="LORETO">LORETO</option>
-                                                                                <option value="MADRE DE DIOS">MADRE DE DIOS</option>
-                                                                                <option value="MOQUEGUA">MOQUEGUA</option>
-                                                                                <option value="PASCO">PASCO</option>
-                                                                                <option value="PIURA">PIURA</option>
-                                                                                <option value="PUNO">PUNO</option>
-                                                                                <option value="SAN MARTIN">SAN MARTIN</option>
-                                                                                <option value="TACNA">TACNA</option>
-                                                                                <option value="TUMBES">TUMBES</option>
-                                                                                <option value="UCAYALI">UCAYALI</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_imagen">Imagen</label>
-                                                                            <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                {{csrf_field()}}
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{explode('.00',$hotel->precio_s)[0]}}</div>
-                                <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{explode('.00',$hotel->precio_d)[0]/2}}</div>
-                                <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{explode('.00',$hotel->precio_m)[0]/2}}</div>
-                                <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{explode('.00',$hotel->precio_t)[0]/3}}</div>
-
+                        <div class="col-lg-5">
+                            <div class="row caja_dia">
+                                <div class="col-lg-9">{{$itinerario->titulo}}</div>
+                                <div class="col-lg-1 @if($s==0) hide @endif">S</div>
+                                <div class="col-lg-1 @if($d==0) hide @endif">D</div>
+                                <div class="col-lg-1 @if($t==0) hide @endif">T</div>
                             </div>
-                        @endforeach
+                            <div class="row caja_detalle">
+                                @foreach($itinerario->itinerario_servicios as $servicios)
+                                    @if($servicios->precio_grupo==1)
+                                        @php
+                                            $precio_iti+=$servicios->precio;
+                                        @endphp
+                                    @else
+                                        @php
+                                            $precio_iti+=$servicios->precio*$nroPersonas;
+                                        @endphp
+                                    @endif
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-10">{{$servicios->nombre}}</div>
+                                            <div class="col-lg-2">
+                                                <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                <!-- Modal -->
+                                                <div class="modal fade bd-example-modal-lg" id="modal_new_destination1_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Editar Servicio</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    @php
+                                                                        $grupo='';
+                                                                        $loca='';
+                                                                    @endphp
+                                                                    @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $servicio)
+                                                                        @php
+                                                                            $grupo=$servicio->grupo;
+                                                                            $loca=$servicio->localizacion;
+                                                                        @endphp
+                                                                    @endforeach
+                                                                    @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
+                                                                        <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
 
+                                                                    @endforeach
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    {{csrf_field()}}
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 @if($s==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
+                                    <div class="col-lg-1 @if($d==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
+                                    <div class="col-lg-1 @if($t==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
+                                @endforeach
+                            </div>
+                                @foreach($itinerario->hotel as $hotel)
+                                    @if($hotel->personas_s>0)
+                                        @php
+                                            $precio_hotel_s+=$hotel->precio_s;
+                                        @endphp
+                                    @endif
+                                    @if($hotel->personas_d>0)
+                                        @php
+                                            $precio_hotel_d+=$hotel->precio_d/2;
+                                        @endphp
+                                    @endif
+                                    @if($hotel->personas_m>0)
+                                        @php
+                                            $precio_hotel_m+=$hotel->precio_m/2;
+                                        @endphp
+                                    @endif
+                                    @if($hotel->personas_t>0)
+                                        @php
+                                            $precio_hotel_t+=$hotel->precio_t/2;
+                                        @endphp
+                                    @endif
+                                <div class="row caja_detalle_hotel margin-bottom-15">
+                                <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-10">HOTEL</div>
+                                            <div class="col-lg-2">
+                                                <a class="btn" data-toggle="modal" data-target="#modal_new_destination_{{$hotel->id}}">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                <!-- Modal -->
+                                                <div class="modal fade bd-example-modal-lg" id="modal_new_destination_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">New destination</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    {{csrf_field()}}
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{explode('.00',$hotel->precio_s)[0]}}</div>
+                                    <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{explode('.00',$hotel->precio_d)[0]/2}}</div>
+                                    <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{explode('.00',$hotel->precio_m)[0]/2}}</div>
+                                    <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{explode('.00',$hotel->precio_t)[0]/3}}</div>
+
+                                </div>
+                            @endforeach
+
+                        </div>
+                        <div class="col-lg-6">
+                            <textarea name="" id="" cols="70" rows="8">{{$itinerario->descripcion}}</textarea>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <textarea name="" id="" cols="70" rows="8">{{$itinerario->descripcion}}</textarea>
-                    </div>
-                </div>
+                @endforeach
             @endforeach
         @endforeach
-    @endforeach
-    @php
-        $precio_hotel_s+=$precio_iti;
-        $precio_hotel_d+=$precio_iti;
-        $precio_hotel_m+=$precio_iti;
-        $precio_hotel_t+=$precio_iti;
-    @endphp
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="col-lg-1">
-            </div>
-            <div class="col-lg-5">
-                <div class="row caja_dia">
-                    <div class="col-lg-9"><b>COST</b></div>
-                    <div class="col-lg-1 @if($s==0) hide @endif">${{$precio_hotel_s}}</div>
-                    <div class="col-lg-1 @if($d==0) hide @endif">${{$precio_hotel_d}}</div>
-                    <div class="col-lg-1 @if($t==0) hide @endif">${{$precio_hotel_t}}</div>
-                    <div class="col-lg-12 text-right text-warninggit add -">PRICE PER PERSON</div>
+        @php
+            $precio_hotel_s+=$precio_iti;
+            $precio_hotel_d+=$precio_iti;
+            $precio_hotel_m+=$precio_iti;
+            $precio_hotel_t+=$precio_iti;
+        @endphp
+    <form action="{{route('editar_cotizacion1_path')}}" method="post">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-1">
+                </div>
+                <div class="col-lg-5">
+                    <div class="row caja_dia">
+                        <div class="col-lg-9"><b>COST</b></div>
+                        <div class="col-lg-1 text-warning @if($s==0) hide @endif"><b>${{$precio_hotel_s}}</b></div>
+                        <div class="col-lg-1 text-warning @if($d==0) hide @endif"><b>${{$precio_hotel_d}}</b></div>
+                        <div class="col-lg-1 text-warning @if($t==0) hide @endif"><b>${{$precio_hotel_t}}</b></div>
+                        <div class="col-lg-12 text-right text-warninggit add -">PRICE PER PERSON</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-right">
+                    {{csrf_field()}}
+                    <input type="hidden" name="paquete_precio_id" value="{{$paquete_precio_id}}">
+                    <input type="hidden" name="cotizacion_id" value="{{$cotizacion_id}}">
+                    <button class="btn btn-warning btn-lg" type="submit" name="create">CREATE</button>
                 </div>
             </div>
-            <div class="col-lg-6">
-            </div>
         </div>
-    </div>
-
-
-    {{--</form>--}}
+    </form>
     <script>
         $(document).ready(function() {
             calcular_resumen();

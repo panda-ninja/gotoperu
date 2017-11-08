@@ -420,3 +420,7 @@ Route::post('/ventas/nuevo-paquete', [
     'uses' => 'PackageCotizacionController@nuevo_paquete',
     'as' => 'nuevo_paquete_path',
 ]);
+Route::post('/ventas/new-cotizacion', [
+    'uses' => 'PackageCotizacionController@editar_cotizacion1',
+    'as' => 'editar_cotizacion1_path',
+]);
