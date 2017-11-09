@@ -296,10 +296,31 @@
                 <div class="row caja_itinerario" style="height: 480px; overflow-y: auto;">
 
                     @foreach($p_paquete as $p_paquete_)
+                        @php
+                            $array_destinos1='';
+                            $array_destinos=array();
+                        @endphp
+                        @foreach($p_paquete_->itinerarios as $itinerarios)
+                            @foreach($itinerarios->destinos as $destino)
+                                @php
+                                    $array_destinos[$destino->destino]=$destino->destino;
+                                @endphp
+                            @endforeach
+                        @endforeach
+                        @foreach($array_destinos as $destino1)
+                            @php
+                                $array_destinos1=$destino1.'/';
+                            @endphp
+                        @endforeach
+
+                        @php
+                            $array_destinos1=substr($array_destinos1,0,(strlen($array_destinos1)-1));
+                        @endphp
+
                         <div class="col-md-12">
                             <div class="checkbox1">
                                 <label class=" text-unset text-warning text-12">
-                                    <input class="destinospack" type="checkbox" name="paquetes[]" value="{{$p_paquete_->id}}">
+                                    <input class="destinospack" type="checkbox" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion}}">
                                     {{$p_paquete_->duracion}} {{$p_paquete_->titulo}}
                                 </label>
                             </div>

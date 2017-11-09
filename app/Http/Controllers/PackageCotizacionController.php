@@ -1027,6 +1027,15 @@ class PackageCotizacionController extends Controller
                 $preio_hotel->estado = $paquetePrecio->estado;
                 $preio_hotel->hotel_id = $paquetePrecio->hotel_id;
                 $preio_hotel->itinerario_cotizaciones_id = $itinerario_cotizacion->id;
+                $preio_hotel->utilidad_s=$paquetePrecio->utilidad_s;
+                $preio_hotel->utilidad_d=$paquetePrecio->utilidad_d;
+                $preio_hotel->utilidad_m=$paquetePrecio->utilidad_m;
+                $preio_hotel->utilidad_t=$paquetePrecio->utilidad_t;
+
+                $preio_hotel->utilidad_por_s=$paquetePrecio->utilidad_por_s;
+                $preio_hotel->utilidad_por_d=$paquetePrecio->utilidad_por_d;
+                $preio_hotel->utilidad_por_m=$paquetePrecio->utilidad_por_m;
+                $preio_hotel->utilidad_por_t=$paquetePrecio->utilidad_por_t;
                 $preio_hotel->save();
                 $pos++;
             }
@@ -1039,6 +1048,7 @@ class PackageCotizacionController extends Controller
 //        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day1'))->get();
 //        dd($p_paquete);
         $m_servicios=M_Servicio::get();
+//        $imprimir=$request->input('imprimir');
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
     }
 
@@ -1047,8 +1057,8 @@ class PackageCotizacionController extends Controller
         $paquete_precio_id=$request->input('paquete_precio_id');
 
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-
-        return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id]);
+        $imprimir=$request->input('imprimir');
+        return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
 
     }
     public function guardar_paquete(Request $request){
@@ -1094,6 +1104,28 @@ class PackageCotizacionController extends Controller
         $paquete_precio->utilidad_por_m=$profit_por_m;
         $paquete_precio->utilidad_por_t=$profit_por_t;
         $paquete_precio->save();
+
+        $itinerarios=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$paquete_id)->get();
+        foreach ($itinerarios as $itinerario){
+            foreach ($itinerario->hotel as $hotel){
+                $hotel1=PrecioHotelReserva::FindOrFail($hotel->id);
+                $hotel1->utilidad_s=$pro_s;
+                $hotel1->utilidad_d=$pro_d;
+                $hotel1->utilidad_m=$pro_m;
+                $hotel1->utilidad_t=$pro_t;
+
+                $hotel1->utilidad_por_s=$profit_por_s;
+                $hotel1->utilidad_por_d=$profit_por_d;
+                $hotel1->utilidad_por_m=$profit_por_m;
+                $hotel1->utilidad_por_t=$profit_por_t;
+                $hotel1->save();
+            }
+        }
+        $paquete_precio_id=$request->input('paquete_precio_id');
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+        $imprimir='si';
+
+        return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_id,'imprimir'=>$imprimir]);
 
     }
 

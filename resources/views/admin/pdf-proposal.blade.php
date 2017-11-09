@@ -46,8 +46,47 @@
             {{--<img src="{{asset('img/portada/proposal-pie-pdf.jpg')}}" class="responsive-img position-absolute" alt="">--}}
         {{--</div>--}}
 
+    @php
+        $nroPersonas=0;
+        $nro_dias=0;
+        $precio_hotel_s=0;
+        $precio_hotel_d=0;
+        $precio_hotel_m=0;
+        $precio_hotel_t=0;
+        $cotizacion_id='';
+        $s=0;
+        $d=0;
+        $m=0;
+        $t=0;
+        $utilidad_s=0;
+        $utilidad_d=0;
+        $utilidad_m=0;
+        $utilidad_t=0;
 
+    @endphp
     @foreach($paquete as $paquete)
+        @foreach($paquete->paquete_precios as $precio)
+            @if($precio->personas_s>0)
+                @php
+                    $s=1;
+                @endphp
+            @endif
+            @if($precio->personas_d>0)
+                @php
+                    $d=1;
+                @endphp
+            @endif
+            @if($precio->personas_m>0)
+                @php
+                    $m=1;
+                @endphp
+            @endif
+            @if($precio->personas_t>0)
+                @php
+                    $t=1;
+                @endphp
+            @endif
+        @endforeach
         @foreach($cotizacion as $cotizaciones)
             @php $pasajeros = $cotizaciones->nropersonas; @endphp
             @foreach($cotizaciones->cotizaciones_cliente as $cliente_cotizaciones)
@@ -82,7 +121,39 @@
 
         <div>
             <h3 class="no-margin">Itinerary for days</h3>
+            @php
+                $precio_iti=0;
+            @endphp
             @foreach($paquete->itinerario_cotizaciones->sortBy('dias') as $itinerario)
+                @php
+                    $precio_iti+=$itinerario->precio;
+                @endphp
+                @foreach($itinerario->hotel as $hotel)
+                    @if($hotel->personas_s>0)
+                        @php
+                            $precio_hotel_s+=$hotel->precio_s;
+                            $utilidad_s=$hotel->utilidad_s;
+                        @endphp
+                    @endif
+                    @if($hotel->personas_d>0)
+                        @php
+                            $precio_hotel_d+=$hotel->precio_d/2;
+                            $utilidad_d=$hotel->utilidad_d;
+                        @endphp
+                    @endif
+                    @if($hotel->personas_m>0)
+                        @php
+                            $precio_hotel_m+=$hotel->precio_m/2;
+                            $utilidad_m=$hotel->utilidad_m;
+                        @endphp
+                    @endif
+                    @if($hotel->personas_t>0)
+                        @php
+                            $precio_hotel_t+=$hotel->precio_t/3;
+                            $utilidad_t=$hotel->utilidad_t;
+                        @endphp
+                    @endif
+                @endforeach
                 <h4>Day {{$itinerario->dias}} - {{$itinerario->titulo}}</h4>
                 <p>{{$itinerario->descripcion}}</p>
                 @if (Storage::disk('itinerary')->has($itinerario->imagen))
@@ -111,7 +182,16 @@
 
             @endforeach
         </div>
-
+        @php
+            $precio_hotel_s+=$precio_iti;
+            $precio_hotel_s=round($precio_hotel_s+$utilidad_s,2);
+            $precio_hotel_d+=$precio_iti;
+            $precio_hotel_d=round($precio_hotel_d+$utilidad_d,2);
+            $precio_hotel_m+=$precio_iti;
+            $precio_hotel_m=round($precio_hotel_m+$utilidad_m,2);
+            $precio_hotel_t+=$precio_iti;
+            $precio_hotel_t=round($precio_hotel_t+$utilidad_t,2);
+        @endphp
         <div>
             <h3><b>Destinations:</b></h3>
             @php
@@ -170,12 +250,14 @@
                                     <tr>
                                         <td class="text-left"><b>Single</b></td>
                                         <td class="text-right">
-                                            @php
-                                                $precio_s = (($precio_paquete2->precio_s)* 1) * ($paquete->duracion - 1);
-                                                $total_costo = $precio_s + $total;
-                                                $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                            @endphp
-                                            {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                            {{--@php--}}
+                                                {{--$precio_s = (($precio_paquete2->precio_s)* 1) * ($paquete->duracion - 1);--}}
+                                                {{--$total_costo = $precio_s + $total;--}}
+                                                {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                            {{--@endphp--}}
+                                            {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                            {{number_format(ceil($precio_hotel_s), 2, '.', '')}}
+
                                         </td>
                                     </tr>
                                     {{--<tr>--}}
@@ -192,12 +274,13 @@
                                     <tr>
                                         <td class="text-left"><b>Double</b></td>
                                         <td class="text-right">
-                                            @php
-                                                $precio_d = round(($precio_paquete2->precio_d)* (1/2),2) * ($paquete->duracion - 1);
-                                                $total_costo = $precio_d + $total;
-                                                $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                            @endphp
-                                            {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                            {{--@php--}}
+                                                {{--$precio_d = round(($precio_paquete2->precio_d)* (1/2),2) * ($paquete->duracion - 1);--}}
+                                                {{--$total_costo = $precio_d + $total;--}}
+                                                {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                            {{--@endphp--}}
+                                            {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                            {{number_format(ceil($precio_hotel_d), 2, '.', '')}}
                                         </td>
                                     </tr>
                                     {{--<tr>--}}
@@ -214,12 +297,13 @@
                                     <tr>
                                         <td class="text-left"><b>Matrimonial</b></td>
                                         <td class="text-right">
-                                            @php
-                                                $precio_m = round(($precio_paquete2->precio_m)* (1/2),2) * ($paquete->duracion - 1);
-                                                $total_costo = $precio_m + $total;
-                                                $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                            @endphp
-                                            {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                            {{--@php--}}
+                                                {{--$precio_m = round(($precio_paquete2->precio_m)* (1/2),2) * ($paquete->duracion - 1);--}}
+                                                {{--$total_costo = $precio_m + $total;--}}
+                                                {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                            {{--@endphp--}}
+                                            {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                            {{number_format(ceil($precio_hotel_m), 2, '.', '')}}
                                         </td>
                                     </tr>
                                     {{--<tr>--}}
@@ -236,12 +320,13 @@
                                     <tr>
                                         <td class="text-left"><b>Triple</b></td>
                                         <td class="text-right">
-                                            @php
-                                                $precio_t = round(($precio_paquete2->precio_t)* (1/3),2) * ($paquete->duracion - 1);
-                                                $total_costo = $precio_t + $total;
-                                                $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                            @endphp
-                                            {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                            {{--@php--}}
+                                                {{--$precio_t = round(($precio_paquete2->precio_t)* (1/3),2) * ($paquete->duracion - 1);--}}
+                                                {{--$total_costo = $precio_t + $total;--}}
+                                                {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                            {{--@endphp--}}
+                                            {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                            {{number_format(ceil($precio_hotel_t), 2, '.', '')}}
                                         </td>
                                     </tr>
                                     {{--<tr>--}}
@@ -272,12 +357,13 @@
                                 <tr>
                                     <td class="text-left"><b>Single</b></td>
                                     <td class="text-right">
-                                        @php
-                                            $precio_s = (($precio_paquete2->precio_s)* 1) * ($paquete->duracion - 1);
-                                            $total_costo = $precio_s + $total;
-                                            $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                        @endphp
-                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                        {{--@php--}}
+                                            {{--$precio_s = (($precio_paquete2->precio_s)* 1) * ($paquete->duracion - 1);--}}
+                                            {{--$total_costo = $precio_s + $total;--}}
+                                            {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                        {{--@endphp--}}
+                                        {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                        {{number_format(ceil($precio_hotel_s), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 {{--<tr>--}}
@@ -294,12 +380,13 @@
                                 <tr>
                                     <td class="text-left"><b>Double</b></td>
                                     <td class="text-right">
-                                        @php
-                                            $precio_d = round(($precio_paquete2->precio_d)* (1/2),2) * ($paquete->duracion - 1);
-                                            $total_costo = $precio_d + $total;
-                                            $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                        @endphp
-                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                        {{--@php--}}
+                                            {{--$precio_d = round(($precio_paquete2->precio_d)* (1/2),2) * ($paquete->duracion - 1);--}}
+                                            {{--$total_costo = $precio_d + $total;--}}
+                                            {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                        {{--@endphp--}}
+                                        {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                        {{number_format(ceil($precio_hotel_d), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -316,12 +403,13 @@
                                 <tr>
                                     <td class="text-left"><b>Matrimonial</b></td>
                                     <td class="text-right">
-                                        @php
-                                            $precio_m = round(($precio_paquete2->precio_m)* (1/2),2) * ($paquete->duracion - 1);
-                                            $total_costo = $precio_m + $total;
-                                            $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                        @endphp
-                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                        {{--@php--}}
+                                            {{--$precio_m = round(($precio_paquete2->precio_m)* (1/2),2) * ($paquete->duracion - 1);--}}
+                                            {{--$total_costo = $precio_m + $total;--}}
+                                            {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                        {{--@endphp--}}
+                                        {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                        {{number_format(ceil($precio_hotel_m), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 {{--<tr>--}}
@@ -338,12 +426,13 @@
                                 <tr>
                                     <td class="text-left"><b>Triple</b></td>
                                     <td class="text-right">
-                                        @php
-                                            $precio_t = round(($precio_paquete2->precio_t)* (1/3),2) * ($paquete->duracion - 1);
-                                            $total_costo = $precio_t + $total;
-                                            $total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));
-                                        @endphp
-                                        {{number_format(ceil($total_utilidad), 2, '.', '')}}
+                                        {{--@php--}}
+                                            {{--$precio_t = round(($precio_paquete2->precio_t)* (1/3),2) * ($paquete->duracion - 1);--}}
+                                            {{--$total_costo = $precio_t + $total;--}}
+                                            {{--$total_utilidad = $total_costo + ($total_costo * (($precio_paquete2->utilidad)/100));--}}
+                                        {{--@endphp--}}
+                                        {{--{{number_format(ceil($total_utilidad), 2, '.', '')}}--}}
+                                        {{number_format(ceil($precio_hotel_t), 2, '.', '')}}
                                     </td>
                                 </tr>
                                 {{--<tr>--}}

@@ -127,13 +127,20 @@
                 @php
                     $codigo=$paquete->codigo
                 @endphp
-                @foreach($paquete->itinerario_cotizaciones as $itinerario)
-                    @foreach($itinerario->itinerario_destinos as $destinos)
-                        @php
-                            $destinos1[]=$destinos->destino;
-                        @endphp
+                @php
+                    $array_destinos[]=null
+                @endphp
+                @foreach($paquete->itinerario_cotizaciones as $itinerarios_destino)
+                    @foreach($itinerarios_destino->itinerario_destinos as $destino)
+                        @if(in_array($destino->destino,$array_destinos))
+                        @else
+                            @php
+                                $array_destinos[]=$destino->destino;
+                            @endphp
+                        @endif
                     @endforeach
                 @endforeach
+
             @endforeach
         @endforeach
         <div class="row">
@@ -141,15 +148,17 @@
                 <p class="text-25"><b>{{$plan[$pos_plan]}}</b></p>
                 <p class="text-20"><b>{{$dias}} DAYS</b></p>
                 <p class="text-20"><b>CODE:{{$codigo}}</b></p>
-                @foreach($destinos1 as $destino)
-                    <div class="col-md-3">
-                        <div class="checkbox1">
-                            <label class=" text-unset">
-                                <input class="destinospack" type="checkbox" name="destinos[]" checked="checked">
-                                {{$destino}}
-                            </label>
+                @foreach($array_destinos as $destino)
+                    @if($destino!=null)
+                        <div class="col-md-3">
+                            <div class="checkbox1">
+                                <label class=" text-unset">
+                                    <input class="destinospack" type="checkbox" name="destinos[]" checked="checked">
+                                    {{$destino}}
+                                </label>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
                 <div class="col-md-12">
                     <div class="form-group">
@@ -180,7 +189,6 @@
                 @php
                     $nroPersonas=0;
                     $nro_dias=0;
-                    $precio_iti=0;
                     $precio_hotel_s=0;
                     $precio_hotel_d=0;
                     $precio_hotel_m=0;
@@ -212,6 +220,9 @@
                             @endif
                         @endforeach
                         @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                                @php
+                                    $precio_iti+=$itinerario->precio;
+                                @endphp
                             @foreach($itinerario->hotel as $hotel)
                                 @if($hotel->personas_s>0)
                                     @php
@@ -230,7 +241,7 @@
                                 @endif
                                 @if($hotel->personas_t>0)
                                     @php
-                                        $precio_hotel_t+=$hotel->precio_t/2;
+                                        $precio_hotel_t+=$hotel->precio_t/3;
                                     @endphp
                                 @endif
                             @endforeach
@@ -354,7 +365,12 @@
                             <input type="hidden" name="cotizacion_id" value="{{$cotizacion_id1}}">
 
                             {{csrf_field()}}
-                            <button class="btn btn-warning btn-lg" type="submit" name="create">PREPARE PDF</button>
+                            @if($imprimir=='no')
+                                <button class="btn btn-warning btn-lg" type="submit" name="create">PREPARE PDF</button>
+                            @else
+                                <a class="btn btn-success btn-lg" name="create">PREPARE PDF</a>
+                                <a href="{{route('quotes_pdf_path',$paquete_id)}}" class="pull-right btn btn-default btn-lg"><i class="fa fa-download" aria-hidden="true"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>

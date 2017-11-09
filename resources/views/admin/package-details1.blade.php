@@ -93,7 +93,7 @@
                                         @endphp
                                     @else
                                         @php
-                                            $precio_iti+=$servicios->precio*$nroPersonas;
+                                            $precio_iti+=$servicios->precio
                                         @endphp
                                     @endif
                                     <div class="col-lg-9">
@@ -165,7 +165,7 @@
                                     @endif
                                     @if($hotel->personas_t>0)
                                         @php
-                                            $precio_hotel_t+=$hotel->precio_t/2;
+                                            $precio_hotel_t+=$hotel->precio_t/3;
                                         @endphp
                                     @endif
                                 <div class="row caja_detalle_hotel margin-bottom-15">
@@ -241,6 +241,7 @@
                     {{csrf_field()}}
                     <input type="hidden" name="paquete_precio_id" value="{{$paquete_precio_id}}">
                     <input type="hidden" name="cotizacion_id" value="{{$cotizacion_id}}">
+                    <input type="hidden" name="imprimir" value="no">
                     <button class="btn btn-warning btn-lg" type="submit" name="create">CREATE</button>
                 </div>
             </div>

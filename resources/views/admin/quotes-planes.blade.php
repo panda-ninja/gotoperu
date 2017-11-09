@@ -42,7 +42,7 @@
                                     <h4 class="panel-title">
                                         @php
                                             $nro_destinos=0;
-                                        $array_destinos=array();
+                                            $array_destinos=array();
                                         @endphp
                                         @foreach($p_paquete as $p_paquete_)
                                             @php
