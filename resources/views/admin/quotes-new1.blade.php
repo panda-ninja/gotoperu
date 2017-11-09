@@ -298,18 +298,18 @@
                     @foreach($p_paquete as $p_paquete_)
                         @php
                             $array_destinos1='';
-                            $array_destinos=array();
+                            $array_destinos2=array();
                         @endphp
-                        @foreach($p_paquete_->itinerarios as $itinerarios)
-                            @foreach($itinerarios->destinos as $destino)
+                        @foreach($p_paquete_->itinerarios as $itinerarios0)
+                            @foreach($itinerarios0->destinos as $destino0)
                                 @php
-                                    $array_destinos[$destino->destino]=$destino->destino;
+                                    $array_destinos2[$destino0->destino]=$destino0->destino;
                                 @endphp
                             @endforeach
                         @endforeach
-                        @foreach($array_destinos as $destino1)
+                        @foreach($array_destinos2 as $destino12)
                             @php
-                                $array_destinos1=$destino1.'/';
+                                $array_destinos1=$destino12.'/';
                             @endphp
                         @endforeach
 
@@ -320,7 +320,7 @@
                         <div class="col-md-12">
                             <div class="checkbox1">
                                 <label class=" text-unset text-warning text-12">
-                                    <input class="destinospack" type="checkbox" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion}}">
+                                    <input class="destinospack" type="checkbox" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
                                     {{$p_paquete_->duracion}} {{$p_paquete_->titulo}}
                                 </label>
                             </div>
