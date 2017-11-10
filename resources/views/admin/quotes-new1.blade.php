@@ -245,7 +245,7 @@
                         <div class="col-md-3">
                             <div class="checkbox1">
                                 <label class=" text-unset">
-                                    <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->id}}" onchange="filtrar_itinerarios1()">
+                                    <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->id.'_'.$destino->destino}}" onchange="filtrar_itinerarios1()">
                                     {{$destino->destino}}
                                 </label>
                             </div>
@@ -294,9 +294,12 @@
                     </div>
                 </div>
                 <div class="row caja_itinerario" style="height: 480px; overflow-y: auto;">
-
+                    @php
+                    $pos=0;
+                    @endphp
                     @foreach($p_paquete as $p_paquete_)
                         @php
+                            $pos++;
                             $array_destinos1='';
                             $array_destinos2=array();
                         @endphp
@@ -317,10 +320,11 @@
                             $array_destinos1=substr($array_destinos1,0,(strlen($array_destinos1)-1));
                         @endphp
 
-                        <div class="col-md-12">
+                        <div class="col-md-12" id="itinerario3_{{$pos}}">
                             <div class="checkbox1">
-                                <label class=" text-unset text-warning text-12">
-                                    <input class="destinospack" type="checkbox" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
+                                <label class=" text-unset text-warning text-12 lista_itinerarios2" >
+                                    <input class="lista_itinerarios3" type="hidden"  value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
+                                    <input class="paquetespack" type="checkbox" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
                                     {{$p_paquete_->duracion}} {{$p_paquete_->titulo}}
                                 </label>
                             </div>
@@ -582,7 +586,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas1(2)">
+                        <input class="destinospack4" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas1(2)">
                         2 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
@@ -590,7 +594,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas1(3)">
+                        <input class="destinospack4" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas1(3)">
                         3 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
@@ -598,7 +602,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas1(4)">
+                        <input class="destinospack4" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas1(4)">
                         4 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
@@ -606,7 +610,7 @@
             <div class="col-md-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
-                        <input class="destinospack" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas1(5)">
+                        <input class="destinospack4" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas1(5)">
                         5 <i class="fa fa-star-half-o fa-3x" aria-hidden="true"></i>
                     </label>
                 </div>
@@ -622,7 +626,7 @@
             <div class="col-md-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
-                        <input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">
+                        <input class="destinospack5" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">
                         <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                     </label>
                 </div>
@@ -630,7 +634,7 @@
             <div class="col-md-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
-                        <input class="destinospack" type="checkbox" name="acomodacion_d" id="acomodacion_d" value="2">
+                        <input class="destinospack5" type="checkbox" name="acomodacion_d" id="acomodacion_d" value="2">
                         <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
                     </label>
                 </div>
@@ -638,7 +642,7 @@
             <div class="col-md-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
-                        <input class="destinospack" type="checkbox" name="acomodacion_m" id="acomodacion_m" value="2">
+                        <input class="destinospack5" type="checkbox" name="acomodacion_m" id="acomodacion_m" value="2">
                         <b class="text-20px"><i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i></b>
                     </label>
                 </div>
@@ -646,7 +650,7 @@
             <div class="col-md-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
-                        <input class="destinospack" type="checkbox" name="acomodacion_t" id="acomodacion_t" value="3">
+                        <input class="destinospack5" type="checkbox" name="acomodacion_t" id="acomodacion_t" value="3">
                         <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
 
                     </label>

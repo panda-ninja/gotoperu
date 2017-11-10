@@ -1715,48 +1715,22 @@ function  filtrar_itinerarios1(){
         $('#group_destino_'+value).addClass("hide");
         $('#group_destino_'+value).fadeOut("slow");
     });
+    var esta=0;
+    destinos='';
+    var valorci='';
+    $("input[class='destinospack']").each(function (index) {
+        if($(this).is(':checked')) {
+            valorci=$(this).val().split('_');
+            console.log('destino escojido:'+valorci[0]);
+            destinos+=valorci[0]+'/';
+            var destino = $(this).val();
+            $('#group_destino_'+valorci[0]).removeClass("hide");
+            $('#group_destino_'+valorci[0]).fadeIn("slow");
 
-
-    // $("input[class='itinerario']").each(function (index1) {
-        // var destino = destino1.split('_');
-        // var destinos=destino[1].split('*');
-        // if(destino[0]==itinerario){
-        var esta=0;
-        // console.log('entrando a los destinos');
-        destinos='';
-        $("input[class='destinospack']").each(function (index) {
-            if($(this).is(':checked')) {
-                destinos+=$(this).val()+'/';
-                var destino = $(this).val();
-                $('#group_destino_'+destino).removeClass("hide");
-                $('#group_destino_'+destino).fadeIn("slow");
-                // console.log('preguntando si esta:'+destino);
-                // console.log('respuesta:'+$.inArray(destino,destinos));
-                // if($.inArray(destino,destinos)>=0) {
-                //     esta=1;
-                //     console.log('si esta:'+destino);
-                // }
-            }
-        });
-        destinos=destinos.substr(0,destinos.length-1);
-        // if(esta==1) {
-        //     $('#group_destino_'+destino[0]).removeClass("hide");
-        //     $('#group_destino_'+destino[0]).fadeIn("slow");
-        //     console.log('no borrando:'+'#itinerario'+destino[0]);
-        // }
-        // else {
-        //     $(this).prop("checked", "");
-        //     $('#itinerario'+destino[0]).fadeOut("slow");
-        //     console.log('borrando:'+'#itinerario'+destino[0]);
-        // }
-        // }
-    // });
-
-    // $("input[class='servicios_edit']").each(function (index2) {
-    //     var dato3 = $(this).val();
-    //     var servicio3 = dato3.split('_');
-    //     sumar_servicios_edit(servicio3[0]);
-    // });
+        }
+    });
+    destinos=destinos.substr(0,destinos.length-1);
+    filtrar_itinerarios();
 }
 // var total_Itinerarios=0;
 // var Itis_precio=0;
@@ -1948,6 +1922,7 @@ function filtrar_estrellas1(estrella){
     $('#estrellas').html(estrella+' STARS');
     $('#estrellas_from').val(estrella);
     calcular_precio1();
+    filtrar_itinerarios();
 }
 function aumentar_acom(tipo,signo){
     // alert(tipo+':'+signo);
@@ -2071,6 +2046,7 @@ function poner_dias() {
     $('#txt_days1').val($('#txt_days').val());
     $('#dias_html').html($('#txt_days').val()+'d');
     calcular_precio1();
+    filtrar_itinerarios();
 }
 
 function variar_profit(acom) {
@@ -2100,4 +2076,41 @@ function variar_profit(acom) {
     $('#profit_por_d').val(uti_por_d);
     $('#profit_por_m').val(uti_por_m);
     $('#profit_por_t').val(uti_por_t);
+}
+function filtrar_itinerarios(){
+    var dias_f=$('#txt_days').val();
+    var estrellas=$('#estrellas_from').val();
+    // console.log('dias:'+dias_f);
+    //-- sacamos los destinos
+    var desti_f='';
+    var valorci1='';
+    $("input[class='destinospack']").each(function (index) {
+        if($(this).is(':checked')) {
+            valorci1=$(this).val().split('_');
+            desti_f+=valorci1[1]+'/';
+        }
+    });
+    desti_f=desti_f.substr(0,desti_f.length-1);
+    // console.log('destinos escojidos:'+desti_f);
+    var pos=1;
+    $("input[class='lista_itinerarios3']").each(function (index) {
+        $('#itinerario3_'+pos).addClass('hide');
+        console.log('esconder:');
+        pos++;
+        // $(this).fadeIn("slow");
+    });
+    var pqt='';
+    // $("input[class='lista_itinerarios3']").each(function (index) {
+    //     // if($(this).is(':checked')) {
+    //         pqt=$(this).val().split('_');
+    //         // console.log(pqt);
+    //         if(dias_f==pqt[1]){
+    //             if(desti_f==pqt[2]){
+    //                 // console.log('es correcto');
+    //                 $(this).removeClass("hide");
+    //                 // $(this).fadeOut("slow");
+    //             }
+    //         }
+    //     // }
+    // });
 }
