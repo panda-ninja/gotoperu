@@ -382,17 +382,35 @@
                     @endforeach
                 </div>
                 <div class="row caja_n_v">
+                    <form action="{{route('nuevo_paquete_plantilla_path')}}" method="post" id="form_nuevo_pqt_" name="form_nuevo_pqt_">
                     <div class="col-lg-12 caja_negro">
-                        3 STARS
+                        <span  id="estrellas_">2 STARS</span>
+                        {{csrf_field()}}
+                        <input type="hidden" id="estrellas_from_" name="estrellas_from_" value="2">
+                        <input type="hidden" id="a_s_" name="a_s_" value="0">
+                        <input type="hidden" id="a_d_" name="a_d_" value="0">
+                        <input type="hidden" id="a_m_" name="a_m_" value="0">
+                        <input type="hidden" id="a_t_" name="a_t_" value="0">
+                        <input type="hidden" name="txt_country1_" id="txt_country1_">
+                        <input type="hidden" name="txt_name1_" id="txt_name1_">
+                        <input type="hidden" name="txt_email1_" id="txt_email1_">
+                        <input type="hidden" name="txt_phone1_" id="txt_phone1_">
+                        <input type="hidden" name="txt_travelers1_" id="txt_travelers1_">
+                        <input type="hidden" name="txt_days1_" id="txt_days1_">
+                        <input type="hidden" name="txt_date1_" id="txt_date1_">
+                        <input type="hidden" name="txt_destinos1_" id="txt_destinos1_">
+                        <input type="hidden" name="pqt_id" id="pqt_id" value="0">
+
                     </div>
                     <div class="col-lg-12 caja_verde">
                         <div class="row">
                             <div class="col-lg-3"><b class="text-20">GTP628</b></div>
                             <div class="col-lg-3"><b class="text-20" id="dias_html_0">0d</b></div>
                             <div class="col-lg-3"><b class="text-20" id="precio_plantilla">$0</b></div>
-                            <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button class="btn btn-green">GO</button></div>
+                            <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form2()">GO</button></div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-5 margin-top-25">

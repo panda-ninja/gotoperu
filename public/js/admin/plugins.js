@@ -23936,7 +23936,11 @@ function ordenar_itinerarios1(){
 }
 function filtrar_estrellas1(estrella){
     $('#estrellas').html(estrella+' STARS');
+    $('#estrellas_').html(estrella+' STARS');
+
     $('#estrellas_from').val(estrella);
+    $('#estrellas_from_').val(estrella);
+
     calcular_precio1();
     filtrar_itinerarios();
 }
@@ -23949,12 +23953,14 @@ function aumentar_acom(tipo,signo){
             if(valor<0)
                 valor=0;
             $('#a_s').val(valor);
+            $('#a_s_').val(valor);
             $('#a_s_1').html(valor);
         }
         else{
             var valor=$('#a_s').val();
             valor++;
             $('#a_s').val(valor);
+            $('#a_s_').val(valor);
             $('#a_s_1').html(valor);
         }
     }
@@ -23967,6 +23973,7 @@ function aumentar_acom(tipo,signo){
             if(valor<0)
                 valor=0;
             $('#a_d').val(valor);
+            $('#a_d_').val(valor);
             $('#a_d_1').html(valor);
         }
         else{
@@ -23974,6 +23981,7 @@ function aumentar_acom(tipo,signo){
             valor++;
             // console.log(valor);
             $('#a_d').val(valor);
+            $('#a_d_').val(valor);
             $('#a_d_1').html(valor);
         }
     }
@@ -23984,12 +23992,14 @@ function aumentar_acom(tipo,signo){
             if(valor<0)
                 valor=0;
             $('#a_m').val(valor);
+            $('#a_m_').val(valor);
             $('#a_m_1').html(valor);
         }
         else{
             var valor=$('#a_m').val();
             valor++;
             $('#a_m').val(valor);
+            $('#a_m_').val(valor);
             $('#a_m_1').html(valor);
         }
     }
@@ -24000,12 +24010,14 @@ function aumentar_acom(tipo,signo){
             if(valor<0)
                 valor=0;
             $('#a_t').val(valor);
+            $('#a_t_').val(valor);
             $('#a_t_1').html(valor);
         }
         else{
             var valor=$('#a_t').val();
             valor++;
             $('#a_t').val(valor);
+            $('#a_t_').val(valor);
             $('#a_t_1').html(valor);
         }
     }
@@ -24137,6 +24149,7 @@ function filtrar_itinerarios(){
 }
 function mostrar_datos(cadena) {
     var datos_pqt=cadena.split('_');
+    $('#pqt_id').val(datos_pqt[0]);
     var cadena_pqt=$('#datos_paquete_'+datos_pqt[0]).val();
     var precio_t_iti=parseFloat(datos_pqt[2]);
     var estella=$('#estrellas_from').val();
@@ -24222,6 +24235,33 @@ function mostrar_datos(cadena) {
     precio_hotel_d+=precio_t_iti;
     precio_hotel_m+=precio_t_iti;
     precio_hotel_t+=precio_t_iti;
-    $('#precio_plantilla').html(precio_hotel_s+precio_hotel_d+precio_hotel_m+precio_hotel_t);
+    $('#precio_plantilla').html('$'+precio_hotel_s+precio_hotel_d+precio_hotel_m+precio_hotel_t);
+}
+function enviar_form2(){
+    $('#form_nuevo_pqt_').submit(function() {
+        // alert('holas');
 
+        $('#txt_country1_').val($('#txt_country').val());
+        $('#txt_name1_').val($('#txt_name').val());
+        $('#txt_email1_').val($('#txt_email').val());
+        $('#txt_phone1_').val($('#txt_phone').val());
+        $('#txt_travelers1_').val($('#txt_travellers').val());
+        $('#txt_days1_').val($('#txt_days').val());
+        $('#txt_date1_').val($('#txt_travel_date').val());
+        $('#txt_destinos1_').val(destinos);
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                }
+                else{
+                }
+            }
+        })
+        // return false;
+    });
 }

@@ -428,3 +428,7 @@ Route::post('/ventas/save-new-package', [
     'uses' => 'PackageCotizacionController@guardar_paquete',
     'as' => 'save_new_package_path',
 ]);
+Route::post('/ventas/nuevo-plantilla', [
+    'uses' => 'PackageCotizacionController@nuevo_paquete_',
+    'as' => 'nuevo_paquete_plantilla_path',
+]);
