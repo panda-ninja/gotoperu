@@ -326,7 +326,7 @@
                             $array_destinos1=substr($array_destinos1,0,(strlen($array_destinos1)-1));
                         @endphp
 
-                        <div class="col-md-12" id="itinerario3_{{$pos}}">
+                        <div class="col-md-12 hide" id="itinerario3_{{$pos}}">
                             <div class="col-lg-9 checkbox1">
                                 @php
                                     $hotel0='';
