@@ -402,7 +402,8 @@
                             @if($imprimir=='no')
                                 <button class="btn btn-warning btn-lg" type="submit" name="create">PREPARE PDF</button>
                             @else
-                                <a class="btn btn-success btn-lg" name="create">PREPARE PDF</a>
+
+                                <button class="btn btn-warning btn-lg" type="submit" name="create">PREPARE PDF</button>
                                 <a href="{{route('quotes_pdf_path',$paquete_id)}}" class="pull-right btn btn-default btn-lg"><i class="fa fa-download" aria-hidden="true"></i></a>
                             @endif
                         </div>
