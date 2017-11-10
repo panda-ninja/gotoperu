@@ -318,7 +318,7 @@
                         @endforeach
                         @foreach($array_destinos2 as $destino12)
                             @php
-                                $array_destinos1=$destino12.'/';
+                                $array_destinos1.=$destino12.'/';
                             @endphp
                         @endforeach
 
