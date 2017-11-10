@@ -2206,6 +2206,6 @@ function mostrar_datos(cadena) {
     precio_hotel_d+=precio_t_iti;
     precio_hotel_m+=precio_t_iti;
     precio_hotel_t+=precio_t_iti;
-    $('#precio_plantilla').html(precio_hotel_s+precio_hotel_d+precio_hotel_m+precio_hotel_t);
+    $('#precio_plantilla').html('$'+precio_hotel_s+precio_hotel_d+precio_hotel_m+precio_hotel_t);
 
 }
