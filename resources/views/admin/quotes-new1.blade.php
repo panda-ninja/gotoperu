@@ -353,7 +353,7 @@
                                 <label class=" text-unset text-warning text-12 lista_itinerarios2" >
                                     <input class="lista_itinerarios3" type="hidden"  value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
                                     <input class="paquetespack" type="radio" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}" onchange="mostrar_datos('{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$iti_total}}')">
-                                    <input name="datos_paquete_{{$p_paquete_->id}}" id="datos_paquete_{{$p_paquete_->id}}" value="{{$hotel0}}">
+                                    <input type="hidden" name="datos_paquete_{{$p_paquete_->id}}" id="datos_paquete_{{$p_paquete_->id}}" value="{{$hotel0}}">
                                     {{$p_paquete_->duracion}} {{$p_paquete_->titulo}}
                                 </label>
                             </div>
