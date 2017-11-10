@@ -24061,6 +24061,8 @@ function pasar_dias(){
 function poner_dias() {
     $('#txt_days1').val($('#txt_days').val());
     $('#dias_html').html($('#txt_days').val()+'d');
+    $('#dias_html_0').html($('#txt_days').val()+'d');
+
     calcular_precio1();
     filtrar_itinerarios();
 }
@@ -24093,11 +24095,9 @@ function variar_profit(acom) {
     $('#profit_por_m').val(uti_por_m);
     $('#profit_por_t').val(uti_por_t);
 }
-function filtrar_itinerarios(){
+function filtrar_itinerarios_(){
     var dias_f=$('#txt_days').val();
     var estrellas=$('#estrellas_from').val();
-    // console.log('dias:'+dias_f);
-    //-- sacamos los destinos
     var desti_f='';
     var valorci1='';
     $("input[class='destinospack']").each(function (index) {
@@ -24107,26 +24107,121 @@ function filtrar_itinerarios(){
         }
     });
     desti_f=desti_f.substr(0,desti_f.length-1);
-    // console.log('destinos escojidos:'+desti_f);
     var pos=1;
     $("input[class='lista_itinerarios3']").each(function (index) {
         $('#itinerario3_'+pos).addClass('hide');
-        console.log('esconder:');
         pos++;
-        // $(this).fadeIn("slow");
     });
     var pqt='';
-    // $("input[class='lista_itinerarios3']").each(function (index) {
-    //     // if($(this).is(':checked')) {
-    //         pqt=$(this).val().split('_');
-    //         // console.log(pqt);
-    //         if(dias_f==pqt[1]){
-    //             if(desti_f==pqt[2]){
-    //                 // console.log('es correcto');
-    //                 $(this).removeClass("hide");
-    //                 // $(this).fadeOut("slow");
-    //             }
-    //         }
-    //     // }
-    // });
+    var pos1=1;
+    $("input[class='lista_itinerarios3']").each(function (index) {
+        pqt='';
+        pqt=$(this).val().split('_');
+        if(dias_f==pqt[1]){
+            console.log('coinciden los dias:'+dias_f+'=='+pqt[1]);
+            if(desti_f==pqt[2]){
+                console.log('coinciden los destinos:'+desti_f+'=='+pqt[2]);
+                $('#itinerario3_'+pos1).removeClass("hide");
+            }
+        }
+        pos1++;
+        // }
+    });
+}
+function filtrar_itinerarios(){
+    $('#caja_load').removeClass("hide");
+    filtrar_itinerarios_();
+    setTimeout(function(){
+        $('#caja_load').addClass("hide");
+    }, 3000);
+}
+function mostrar_datos(cadena) {
+    var datos_pqt=cadena.split('_');
+    var cadena_pqt=$('#datos_paquete_'+datos_pqt[0]).val();
+    var precio_t_iti=parseFloat(datos_pqt[2]);
+    var estella=$('#estrellas_from').val();
+
+    var a_s0=parseInt($('#a_s').val());
+    var a_d0=parseInt($('#a_d').val());
+    var a_m0=parseInt($('#a_m').val());
+    var a_t0=parseInt($('#a_t').val());
+
+    var precio_hotel_s=0;
+    var precio_hotel_d=0;
+    var precio_hotel_m=0;
+    var precio_hotel_t=0;
+    if(estella==2) {
+        var v_star_2=cadena_pqt[0];
+        v_star_2=v_star_2.split('_');
+
+        if (a_s0 > 0) {
+            precio_hotel_s +=parseFloat(v_star_2[0]);
+        }
+        if (a_d0 > 0) {
+            precio_hotel_d +=parseFloat(v_star_2[1]);
+        }
+        if (a_m0 > 0) {
+            precio_hotel_m +=parseFloat(v_star_2[2]);
+        }
+        if (a_t0 > 0) {
+            precio_hotel_t +=parseFloat(v_star_2[3]);
+        }
+    }
+    if(estella==3) {
+        var v_star_3=cadena_pqt[1];
+        v_star_2=v_star_3.split('_');
+
+        if (a_s0 > 0) {
+            precio_hotel_s +=parseFloat(v_star_2[0]);
+        }
+        if (a_d0 > 0) {
+            precio_hotel_d +=parseFloat(v_star_2[1]);
+        }
+        if (a_m0 > 0) {
+            precio_hotel_m +=parseFloat(v_star_2[2]);
+        }
+        if (a_t0 > 0) {
+            precio_hotel_t +=parseFloat(v_star_2[3]);
+        }
+    }
+    if(estella==4) {
+        var v_star_3=cadena_pqt[2];
+        v_star_2=v_star_3.split('_');
+
+        if (a_s0 > 0) {
+            precio_hotel_s +=parseFloat(v_star_2[0]);
+        }
+        if (a_d0 > 0) {
+            precio_hotel_d +=parseFloat(v_star_2[1]);
+        }
+        if (a_m0 > 0) {
+            precio_hotel_m +=parseFloat(v_star_2[2]);
+        }
+        if (a_t0 > 0) {
+            precio_hotel_t +=parseFloat(v_star_2[3]);
+        }
+    }
+    if(estella==5) {
+        var v_star_3=cadena_pqt[3];
+        v_star_2=v_star_3.split('_');
+
+        if (a_s0 > 0) {
+            precio_hotel_s +=parseFloat(v_star_2[0]);
+        }
+        if (a_d0 > 0) {
+            precio_hotel_d +=parseFloat(v_star_2[1]);
+        }
+        if (a_m0 > 0) {
+            precio_hotel_m +=parseFloat(v_star_2[2]);
+        }
+        if (a_t0 > 0) {
+            precio_hotel_t +=parseFloat(v_star_2[3]);
+        }
+    }
+    precio_hotel_s+=precio_t_iti;
+    precio_hotel_d+=precio_t_iti;
+    precio_hotel_m+=precio_t_iti;
+    precio_hotel_t+=precio_t_iti;
+    $('#precio_plantilla').html(precio_hotel_s+precio_hotel_d+precio_hotel_m+precio_hotel_t);
+
 }

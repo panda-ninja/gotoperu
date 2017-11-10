@@ -10,7 +10,7 @@
     {{--<form action="{{route('package_cotizacion_save_path')}}" method="post" id="package_new_path_id">--}}
         <div class="row">
             <div class="col-lg-7">
-                <b class="text-center text-30">DATES QUOTES</b>
+                    <b class="text-center text-30">DATES QUOTES</b>
                 <form action="" id="frm_datos" name="frm_datos" method="post">
                     <div class="row caja_datos">
                     <div class="col-md-8">
@@ -294,8 +294,14 @@
                     </div>
                 </div>
                 <div class="row caja_itinerario" style="height: 480px; overflow-y: auto;">
+                    <div class="text-center"><i id="caja_load" class="fa fa-spinner hide" aria-hidden="true"></i></div>
                     @php
-                    $pos=0;
+                        $pos=0;
+                        $iti_total=0;
+                        $precio_hotel_s=0;
+                        $precio_hotel_d=0;
+                        $precio_hotel_m=0;
+                        $precio_hotel_t=0;
                     @endphp
                     @foreach($p_paquete as $p_paquete_)
                         @php
@@ -321,12 +327,56 @@
                         @endphp
 
                         <div class="col-md-12" id="itinerario3_{{$pos}}">
-                            <div class="checkbox1">
+                            <div class="col-lg-9 checkbox1">
+                                @php
+                                    $hotel0='';
+                                @endphp
+                                @foreach($p_paquete_->precios as $precio0)
+                                    @php
+                                        {{--$hotel0.=substr($precio0->precio_s,0,strlen($precio0->precio_s)-3).'_'.substr($precio0->precio_d,0,strlen($precio0->precio_d)-3).'_'.substr($precio0->precio_m,0,strlen($precio0->precio_m)-3).'_'.substr($precio0->precio_t,0,strlen($precio0->precio_t)-3).'/';--}}
+                                        $hotel0.=$precio0->precio_s.'_'.$precio0->precio_d.'_'.$precio0->precio_m.'_'.$precio0->precio_t.'/';
+                                    @endphp
+                                @endforeach
+                                @foreach($p_paquete_->itinerarios as $itinerarios0)
+                                    @foreach($itinerarios0->serivicios as $serivicios0)
+                                        @if($serivicios0->precio_grupo==1)
+                                            @php
+                                                $iti_total+=$serivicios0->precio_grupo*2;
+                                            @endphp
+                                        @else
+                                            @php
+                                                $iti_total+=$serivicios0->precio_grupo;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                @endforeach
                                 <label class=" text-unset text-warning text-12 lista_itinerarios2" >
                                     <input class="lista_itinerarios3" type="hidden"  value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
-                                    <input class="paquetespack" type="checkbox" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
+                                    <input class="paquetespack" type="radio" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}" onchange="mostrar_datos('{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$iti_total}}')">
+                                    <input name="datos_paquete_{{$p_paquete_->id}}" id="datos_paquete_{{$p_paquete_->id}}" value="{{$hotel0}}">
                                     {{$p_paquete_->duracion}} {{$p_paquete_->titulo}}
                                 </label>
+                            </div>
+                            <div class="col-lg-3">
+                                <a class="text-warning" type="button" data-toggle="collapse" data-target="#collapseExample_{{$p_paquete_->id}}" aria-expanded="false" aria-controls="collapseExample">
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="collapse" id="collapseExample_{{$p_paquete_->id}}">
+                                    <div class="card card-body">
+                                        <div class="caja_itineario">
+
+                                            @foreach($p_paquete_->itinerarios as $itinerarios0)
+                                                <div class="row">
+                                                    <div class="col-lg-12 text-10">
+                                                        <b class="dias">Dia {{$itinerarios0->dias}}</b> {{$itinerarios0->titulo}}
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -338,8 +388,8 @@
                     <div class="col-lg-12 caja_verde">
                         <div class="row">
                             <div class="col-lg-3"><b class="text-20">GTP628</b></div>
-                            <div class="col-lg-3"><b class="text-20">6d</b></div>
-                            <div class="col-lg-3"><b class="text-20">$850</b></div>
+                            <div class="col-lg-3"><b class="text-20" id="dias_html_0">0d</b></div>
+                            <div class="col-lg-3"><b class="text-20" id="precio_plantilla">$0</b></div>
                             <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button class="btn btn-green">GO</button></div>
                         </div>
                     </div>
