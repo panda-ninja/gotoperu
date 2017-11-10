@@ -194,6 +194,15 @@
                     $precio_hotel_m=0;
                     $precio_hotel_t=0;
                     $cotizacion_id='';
+                    $utilidad_s=0;
+                    $utilidad_d=0;
+                    $utilidad_m=0;
+                    $utilidad_t=0;
+
+                    $utilidad_por_s=0;
+                    $utilidad_por_d=0;
+                    $utilidad_por_m=0;
+                    $utilidad_por_t=0;
                 @endphp
                 @foreach($cotizaciones as $cotizacion)
                     @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
@@ -227,21 +236,29 @@
                                 @if($hotel->personas_s>0)
                                     @php
                                         $precio_hotel_s+=$hotel->precio_s;
+                                        $utilidad_s=$hotel->utilidad_s;
+                                        $utilidad_por_s=$hotel->utilidad_por_s;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_d>0)
                                     @php
                                         $precio_hotel_d+=$hotel->precio_d/2;
+                                        $utilidad_d=$hotel->utilidad_d;
+                                    $utilidad_por_d=$hotel->utilidad_por_d;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_m>0)
                                     @php
                                         $precio_hotel_m+=$hotel->precio_m/2;
+                                        $utilidad_m=$hotel->utilidad_m;
+                                        $utilidad_por_m=$hotel->utilidad_por_m;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_t>0)
                                     @php
                                         $precio_hotel_t+=$hotel->precio_t/3;
+                                        $utilidad_t=$hotel->utilidad_t;
+                                        $utilidad_por_t=$hotel->utilidad_por_t;
                                     @endphp
                                 @endif
                             @endforeach
@@ -310,43 +327,60 @@
                             <b CLASS="text-warning text-15">PROFIT</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_s" id="pro_s" value="{{round($precio_hotel_s*(0.4),0)}}" onchange="variar_profit('s')">
-                            <b CLASS="text-warning text-15"><span id="porc_s">40</span>%</b>
+                            <input class="form-control" type="number" name="pro_s" id="pro_s" value="{{substr($utilidad_s,0,(strlen($utilidad_s)-3))}}" onchange="variar_profit('s')">
+                            <b CLASS="text-warning text-15"><span id="porc_s">{{$utilidad_por_s}}</span>%</b>
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_d" id="pro_d" value="{{round($precio_hotel_d*(0.4),0)}}" onchange="variar_profit('d')">
-                            <b CLASS="text-warning text-15"><span id="porc_d">40</span>%</b>
+                            <input class="form-control" type="number" name="pro_d" id="pro_d" value="{{substr($utilidad_d,0,(strlen($utilidad_d)-3))}}" onchange="variar_profit('d')">
+                            <b CLASS="text-warning text-15"><span id="porc_d">{{$utilidad_por_d}}</span>%</b>
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_m" id="pro_m" value="{{round($precio_hotel_m*(0.4),0)}}" onchange="variar_profit('m')">
-                            <b CLASS="text-warning text-15"><span id="porc_m">40</span>%</b>
+                            <input class="form-control" type="number" name="pro_m" id="pro_m" value="{{substr($utilidad_m,0,(strlen($utilidad_m)-3))}}" onchange="variar_profit('m')">
+                            <b CLASS="text-warning text-15"><span id="porc_m">{{$utilidad_por_m}}</span>%</b>
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_t" id="pro_t" value="{{round($precio_hotel_t*(0.4),0)}}" onchange="variar_profit('t')">
-                            <b CLASS="text-warning text-15"><span id="porc_t">40</span>%</b>
+                            <input class="form-control" type="number" name="pro_t" id="pro_t" value="{{substr($utilidad_t,0,(strlen($utilidad_t)-3))}}" onchange="variar_profit('t')">
+                            <b CLASS="text-warning text-15"><span id="porc_t">{{$utilidad_por_t}}</span>%</b>
                         </div>
                     </div>
                     <div class="row ">
                         @php
-                            $valor=round(($precio_hotel_s+($precio_hotel_s*0.4)),2);
-                            $valor+=round(($precio_hotel_d+($precio_hotel_d*0.4)),2);
-                            $valor+=round(($precio_hotel_m+($precio_hotel_m*0.4)),2);
-                            $valor+=round(($precio_hotel_t+($precio_hotel_t*0.4)),2);
+                            $valor=0;
                         @endphp
+                        @if($s!=0)
+                            @php
+                            $valor+=round($precio_hotel_s+$utilidad_s,2);
+                            @endphp
+                        @endif
+                        @if($d!=0)
+                            @php
+                                $valor+=round($precio_hotel_d+$utilidad_d,2);
+                            @endphp
+                        @endif
+                        @if($m!=0)
+                            @php
+                                $valor+=round($precio_hotel_m+$utilidad_m,2);
+                            @endphp
+                        @endif
+                        @if($t!=0)
+                            @php
+                                $valor+=round($precio_hotel_t+$utilidad_t,2);
+                            @endphp
+                        @endif
                         <div class="col-lg-4">
                             <b CLASS="text-warning text-15">SALES</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_s">{{round(($precio_hotel_s+($precio_hotel_s*0.4)),2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_s">{{round($precio_hotel_s+$utilidad_s,2)}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_d">{{round(($precio_hotel_d+($precio_hotel_d*0.4)),2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_d">{{round($precio_hotel_d+$utilidad_d,2)}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_m">{{round(($precio_hotel_m+($precio_hotel_m*0.4)),2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_m">{{round($precio_hotel_m+$utilidad_m,2)}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_t">{{round(($precio_hotel_t+($precio_hotel_t*0.4)),2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_t">{{round($precio_hotel_t+$utilidad_t,2)}}</span></b>
                         </div>
                     </div>
                     <div class="row text-center">
