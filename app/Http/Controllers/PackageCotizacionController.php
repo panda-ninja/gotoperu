@@ -1282,58 +1282,58 @@ class PackageCotizacionController extends Controller
         $coti=Cotizacion::FindOrFail($cotizacion_id);
         $fecha_viaje=date($coti->fecha);
 //        dd($itinerarios_);
-        foreach ($itinerarios_ as $itinerario_id){
-//            $itinerario_id=explode('//',$itinerario_id_);
-//            $itinerario_id=$itinerario_id[0];
-//            dd($itinerario_id);
-            $m_itineario=M_Itinerario::FindOrFail($itinerario_id);
-            $p_itinerario=new ItinerarioCotizaciones();
-            $p_itinerario->titulo=$m_itineario->titulo;
-            $p_itinerario->descripcion=$m_itineario->descripcion;
-            $p_itinerario->dias=$dia_texto;
-            $mod_date = strtotime($fecha_viaje."+ ".($dia_texto-1)." days");
-            $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
-            $p_itinerario->precio=$m_itineario->precio;
-            $p_itinerario->imagen=$m_itineario->imagen;
-            $p_itinerario->observaciones='';
-            $p_itinerario->estado=1;
-            $p_itinerario->paquete_cotizaciones_id=$paquete->id;
-            $p_itinerario->save();
-            $dia++;
-            $dia_texto++;
-            foreach ($m_itineario->destinos as $m_destinos){
-                $p_destinos=new ItinerarioDestinos();
-                $p_destinos->codigo=$m_destinos->codigo;
-                $p_destinos->destino=$m_destinos->destino;
-                $p_destinos->region=$m_destinos->region;
-                $p_destinos->pais=$m_destinos->pais;
-                $p_destinos->descripcion=$m_destinos->descripcion;
-                $p_destinos->imagen=$m_destinos->imagen;
-                $p_destinos->estado=1;
-                $p_destinos->itinerario_cotizaciones_id=$p_itinerario->id;
-                $p_destinos->save();
-            }
-            $st=0;
-            foreach($m_itineario->itinerario_itinerario_servicios as $servicios){
-                $p_servicio=new ItinerarioServicios();
-                $p_servicio->nombre=$servicios->itinerario_servicios_servicio->nombre;
-                $p_servicio->observacion='';
+
+        foreach($p_paquete as $p_paquete_){
+            foreach($p_paquete_->itinerarios as $itinerarios_){
+//                $m_itineario=M_Itinerario::FindOrFail($itinerarios_->id);
+                $p_itinerario=new ItinerarioCotizaciones();
+                $p_itinerario->titulo=$itinerarios_->titulo;
+                $p_itinerario->descripcion=$itinerarios_->descripcion;
+                $p_itinerario->dias=$dia_texto;
+                $mod_date = strtotime($fecha_viaje."+ ".($dia_texto-1)." days");
+                $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
+                $p_itinerario->precio=$itinerarios_->precio;
+                $p_itinerario->imagen=$itinerarios_->imagen;
+                $p_itinerario->observaciones='';
+                $p_itinerario->estado=1;
+                $p_itinerario->paquete_cotizaciones_id=$paquete->id;
+                $p_itinerario->save();
+                $dia++;
+                $dia_texto++;
+                foreach ($itinerarios_->destinos as $m_destinos){
+                    $p_destinos=new ItinerarioDestinos();
+                    $p_destinos->codigo=$m_destinos->codigo;
+                    $p_destinos->destino=$m_destinos->destino;
+                    $p_destinos->region=$m_destinos->region;
+                    $p_destinos->pais=$m_destinos->pais;
+                    $p_destinos->descripcion=$m_destinos->descripcion;
+                    $p_destinos->imagen=$m_destinos->imagen;
+                    $p_destinos->estado=1;
+                    $p_destinos->itinerario_cotizaciones_id=$p_itinerario->id;
+                    $p_destinos->save();
+                }
+                $st=0;
+                foreach($itinerarios_->serivicios as $servicios){
+                    $p_servicio=new ItinerarioServicios();
+                    $p_servicio->nombre=$servicios->nombre;
+                    $p_servicio->observacion='';
 //                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
 //                    $p_servicio->precio=round($servicios->itinerario_servicios_servicio->precio_venta/$nro_personas);
 //                else
-                $p_servicio->precio=$servicios->itinerario_servicios_servicio->precio_venta;
-                $st+=$p_servicio->precio;
-                $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
-//                $p_servicio->user_id=auth()->guard('admin')->user()->id;
-                $p_servicio->precio_grupo=$servicios->itinerario_servicios_servicio->precio_grupo;
-                $p_servicio->precio_c=0;
-                $p_servicio->user_id=1;
-                $p_servicio->estado=1;
-                $p_servicio->m_servicios_id=$servicios->m_servicios_id;
-                $p_servicio->save();
+                    $p_servicio->precio=$servicios->precio;
+                    $st+=$p_servicio->precio;
+                    $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
+                $p_servicio->user_id=auth()->guard('admin')->user()->id;
+                    $p_servicio->precio_grupo=$servicios->precio_grupo;
+                    $p_servicio->precio_c=0;
+                    $p_servicio->user_id=1;
+//                    $p_servicio->estado=1;
+                    $p_servicio->m_servicios_id=$servicios->m_servicios_id;
+                    $p_servicio->save();
+                }
+                $p_itinerario->precio=$st;
+                $p_itinerario->save();
             }
-            $p_itinerario->precio=$st;
-            $p_itinerario->save();
         }
 //-- recorremos los dias para agregar los hoteles
         $itinerario_cotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$paquete->id)->get();
