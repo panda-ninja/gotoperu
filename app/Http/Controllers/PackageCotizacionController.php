@@ -1106,7 +1106,7 @@ class PackageCotizacionController extends Controller
             $acomodacion_t=$request->input('a_t_');
 
         $p_paquete_id=$request->input('pqt_id');
-        $p_paquete=P_Paquete::FindOrFail($p_paquete_id);
+        $p_paquete=P_Paquete::where('id',$p_paquete_id);
 
         $cotizacion_id=$cotizacion->id;
         $txt_day=$request->input('txt_days1_');
@@ -1128,6 +1128,26 @@ class PackageCotizacionController extends Controller
         $strellas_3=0;
         $strellas_4=0;
         $strellas_5=0;
+        $txt_title='';
+        $precioCosto=0;
+        $amount_s2=0;
+        $amount_d2=0;
+        $amount_t2=0;
+        $amount_s3=0;
+        $amount_d3=0;
+        $amount_t3=0;
+        $amount_s4=0;
+        $amount_d4=0;
+        $amount_t4=0;
+        $amount_s5=0;
+        $amount_d5=0;
+        $amount_t5=0;
+
+        $profit_2=0;
+        $profit_3=0;
+        $profit_4=0;
+        $profit_5=0;
+
         foreach($p_paquete as $p_paquete_){
             $txt_title=strtoupper($p_paquete_->titulo);
             $txta_description=$p_paquete_->descripcion;
@@ -1167,6 +1187,7 @@ class PackageCotizacionController extends Controller
                     $profit_5=$p_precio->utilidad;
                 }
             }
+            $precioCosto=$p_paquete->preciocosto;
         }
 
         $acomodacion_s=0;
@@ -1189,10 +1210,13 @@ class PackageCotizacionController extends Controller
         $paquete->noincluye=$txta_notinclude;
         $paquete->utilidad=40;
         $paquete->estado=0;
-        $paquete->preciocosto=$p_paquete->preciocosto;
+        $paquete->preciocosto=$precioCosto;
         $paquete->cotizaciones_id=$cotizacion_id;
         $paquete->save();
         $paquete_precio_id=0;
+
+
+
         if($estrela==2) {
             $paquete_precio2 = new PaquetePrecio();
             $paquete_precio2->estrellas = 2;
