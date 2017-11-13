@@ -1063,29 +1063,29 @@ class PackageCotizacionController extends Controller
         //-- Datos de la cotizacion
         $date = date_create($request->input('txt_date1_'));
         $fecha = date_format($date, 'jS F Y');
-        $cotizacion = new Cotizacion();
-        $cotizacion->nombre = strtoupper($request->input('txt_name1_')) . ' x' . $request->input('txt_travelers1_') . ' ' . $fecha;
-        $cotizacion->nropersonas = $request->input('txt_travelers1_');
-        $cotizacion->duracion = $request->input('txt_days1_');
-        $cotizacion->fecha = $request->input('txt_date1_');
+        $cotizacion_plantilla = new Cotizacion();
+        $cotizacion_plantilla->nombre = strtoupper($request->input('txt_name1_')) . ' x' . $request->input('txt_travelers1_') . ' ' . $fecha;
+        $cotizacion_plantilla->nropersonas = $request->input('txt_travelers1_');
+        $cotizacion_plantilla->duracion = $request->input('txt_days1_');
+        $cotizacion_plantilla->fecha = $request->input('txt_date1_');
         $estrela=$request->input('estrellas_from_');
         if($estrela==2)
-            $cotizacion->star_2=2;
+            $cotizacion_plantilla->star_2=2;
         if($estrela==3)
-            $cotizacion->star_3=3;
+            $cotizacion_plantilla->star_3=3;
         if($estrela==4)
-            $cotizacion->star_4=4;
+            $cotizacion_plantilla->star_4=4;
         if($estrela==5)
-            $cotizacion->star_5=5;
+            $cotizacion_plantilla->star_5=5;
 
-        $cotizacion->estado=0;
-        $cotizacion->users_id=auth()->guard('admin')->user()->id;
+        $cotizacion_plantilla->estado=0;
+        $cotizacion_plantilla->users_id=auth()->guard('admin')->user()->id;
 //        $cotizacion->users_id=1;
-        $cotizacion->save();
+        $cotizacion_plantilla->save();
+//        dd($cotizacion_plantilla);
 
-        $cotizacionGet=Cotizacion::where('id',$cotizacion->id)->get();
         $cotizacion_cliente=new CotizacionesCliente();
-        $cotizacion_cliente->cotizaciones_id=$cotizacion->id;
+        $cotizacion_cliente->cotizaciones_id=$cotizacion_plantilla->id;
         $cotizacion_cliente->clientes_id=$cliente->id;
         $cotizacion_cliente->estado=1;
         $cotizacion_cliente->save();
@@ -1106,9 +1106,8 @@ class PackageCotizacionController extends Controller
             $acomodacion_t=$request->input('a_t_');
 
         $p_paquete_id=$request->input('pqt_id');
-        $p_paquete=P_Paquete::where('id',$p_paquete_id);
-
-        $cotizacion_id=$cotizacion->id;
+        $p_paquete=P_Paquete::where('id',$p_paquete_id)->get();
+        $cotizacion_id=$cotizacion_plantilla->id;
         $txt_day=$request->input('txt_days1_');
         $txt_code=strtoupper('GTP-'.$txt_day.'00');
 
@@ -1116,7 +1115,7 @@ class PackageCotizacionController extends Controller
         $txta_include='';
         $txta_notinclude='';
         $totalItinerario=$request->input('totalItinerario');
-        $itinerarios_=$request->input('itinerarios_2');
+//        $itinerarios_=$request->input('itinerarios_2');
         $txt_sugerencia='';
         $nro_personas=$request->input('txt_travelers1');
         $cliente_id=$cliente->id;
@@ -1147,8 +1146,8 @@ class PackageCotizacionController extends Controller
         $profit_3=0;
         $profit_4=0;
         $profit_5=0;
-
         foreach($p_paquete as $p_paquete_){
+//            dd($p_paquete_);
             $txt_title=strtoupper($p_paquete_->titulo);
             $txta_description=$p_paquete_->descripcion;
             $txta_include=$p_paquete_->incluye;
@@ -1187,19 +1186,8 @@ class PackageCotizacionController extends Controller
                     $profit_5=$p_precio->utilidad;
                 }
             }
-            $precioCosto=$p_paquete->preciocosto;
+            $precioCosto=$p_paquete_->preciocosto;
         }
-
-        $acomodacion_s=0;
-        $acomodacion_d=0;
-        $acomodacion_m=0;
-        $acomodacion_t=0;
-
-        $acomodacion_s=$request->input('a_s_');
-        $acomodacion_d=$request->input('a_d_');
-        $acomodacion_t=$request->input('a_m_');
-        $acomodacion_m=$request->input('a_t_');
-
 
         $paquete=new PaqueteCotizaciones();
         $paquete->codigo=$txt_code;
@@ -1344,10 +1332,15 @@ class PackageCotizacionController extends Controller
 //                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
 //                    $p_servicio->precio=round($servicios->itinerario_servicios_servicio->precio_venta/$nro_personas);
 //                else
-                    $p_servicio->precio=$servicios->precio;
+                    if($servicios->precio_grupo==1){
+                        $p_servicio->precio=$servicios->precio*2;
+                    }
+                    else {
+                        $p_servicio->precio = $servicios->precio;
+                    }
                     $st+=$p_servicio->precio;
                     $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
-                $p_servicio->user_id=auth()->guard('admin')->user()->id;
+                    $p_servicio->user_id=auth()->guard('admin')->user()->id;
                     $p_servicio->precio_grupo=$servicios->precio_grupo;
                     $p_servicio->precio_c=0;
                     $p_servicio->user_id=1;
