@@ -1106,7 +1106,7 @@ class PackageCotizacionController extends Controller
             $acomodacion_t=$request->input('a_t_');
 
         $p_paquete_id=$request->input('pqt_id');
-        $p_paquete=P_Paquete::FindOrFail();
+        $p_paquete=P_Paquete::FindOrFail($p_paquete_id);
 
         $cotizacion_id=$cotizacion->id;
         $txt_day=$request->input('txt_days1_');

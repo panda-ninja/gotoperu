@@ -24149,24 +24149,34 @@ function filtrar_itinerarios(){
 }
 function mostrar_datos(cadena) {
     var datos_pqt=cadena.split('_');
+    console.log('datos_pqt:'+datos_pqt);
     $('#pqt_id').val(datos_pqt[0]);
     var cadena_pqt=$('#datos_paquete_'+datos_pqt[0]).val();
+
     var precio_t_iti=parseFloat(datos_pqt[2]);
     var estella=$('#estrellas_from').val();
+    console.log('cadena_pqt:'+cadena_pqt);
+    console.log('precio_t_iti:'+precio_t_iti);
+    console.log('estella:'+estella);
 
     var a_s0=parseInt($('#a_s').val());
     var a_d0=parseInt($('#a_d').val());
     var a_m0=parseInt($('#a_m').val());
     var a_t0=parseInt($('#a_t').val());
+    console.log('a_s0:'+a_s0);
+    console.log('a_d0:'+a_d0);
+    console.log('a_m0:'+a_m0);
+    console.log('a_t0:'+a_t0);
 
     var precio_hotel_s=0;
     var precio_hotel_d=0;
     var precio_hotel_m=0;
     var precio_hotel_t=0;
+    cadena_pqt=cadena_pqt.split('/');
     if(estella==2) {
         var v_star_2=cadena_pqt[0];
         v_star_2=v_star_2.split('_');
-
+        console.log('v_star_2:'+v_star_2);
         if (a_s0 > 0) {
             precio_hotel_s +=parseFloat(v_star_2[0]);
         }
@@ -24179,11 +24189,16 @@ function mostrar_datos(cadena) {
         if (a_t0 > 0) {
             precio_hotel_t +=parseFloat(v_star_2[3]);
         }
+        console.log('a_s0:'+a_s0);
+        console.log('a_d0:'+a_d0);
+        console.log('a_m0:'+a_m0);
+        console.log('a_t0:'+a_t0);
+
     }
     if(estella==3) {
         var v_star_3=cadena_pqt[1];
         v_star_2=v_star_3.split('_');
-
+        console.log('v_star_2:'+v_star_2);
         if (a_s0 > 0) {
             precio_hotel_s +=parseFloat(v_star_2[0]);
         }
@@ -24196,11 +24211,15 @@ function mostrar_datos(cadena) {
         if (a_t0 > 0) {
             precio_hotel_t +=parseFloat(v_star_2[3]);
         }
+        console.log('a_s0:'+a_s0);
+        console.log('a_d0:'+a_d0);
+        console.log('a_m0:'+a_m0);
+        console.log('a_t0:'+a_t0);
     }
     if(estella==4) {
         var v_star_3=cadena_pqt[2];
         v_star_2=v_star_3.split('_');
-
+        console.log('v_star_2:'+v_star_2);
         if (a_s0 > 0) {
             precio_hotel_s +=parseFloat(v_star_2[0]);
         }
@@ -24213,11 +24232,15 @@ function mostrar_datos(cadena) {
         if (a_t0 > 0) {
             precio_hotel_t +=parseFloat(v_star_2[3]);
         }
+        console.log('a_s0:'+a_s0);
+        console.log('a_d0:'+a_d0);
+        console.log('a_m0:'+a_m0);
+        console.log('a_t0:'+a_t0);
     }
     if(estella==5) {
         var v_star_3=cadena_pqt[3];
         v_star_2=v_star_3.split('_');
-
+        console.log('v_star_2:'+v_star_2);
         if (a_s0 > 0) {
             precio_hotel_s +=parseFloat(v_star_2[0]);
         }
@@ -24230,12 +24253,27 @@ function mostrar_datos(cadena) {
         if (a_t0 > 0) {
             precio_hotel_t +=parseFloat(v_star_2[3]);
         }
+        console.log('a_s0:'+a_s0);
+        console.log('a_d0:'+a_d0);
+        console.log('a_m0:'+a_m0);
+        console.log('a_t0:'+a_t0);
     }
     precio_hotel_s+=precio_t_iti;
     precio_hotel_d+=precio_t_iti;
     precio_hotel_m+=precio_t_iti;
     precio_hotel_t+=precio_t_iti;
-    $('#precio_plantilla').html('$'+precio_hotel_s+precio_hotel_d+precio_hotel_m+precio_hotel_t);
+
+    console.log('precio_hotel_s:'+precio_hotel_s);
+    console.log('precio_hotel_d:'+precio_hotel_d);
+    console.log('precio_hotel_m:'+precio_hotel_m);
+    console.log('precio_hotel_t:'+precio_hotel_t);
+
+    console.log('total_precio:'+total_precio);
+
+
+    var total_precio=parseFloat(precio_hotel_s)+parseFloat(precio_hotel_d)+parseFloat(precio_hotel_m)+parseFloat(precio_hotel_t);
+
+    $('#precio_plantilla').html('$'+total_precio);
 }
 function enviar_form2(){
     $('#form_nuevo_pqt_').submit(function() {
