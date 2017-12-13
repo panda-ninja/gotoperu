@@ -663,26 +663,55 @@ margin-bottom: 5px;
 
 }
 .ventas{
- border-top: 5px solid #3097D1;
+ border-top: 5px solid #328ed1;
   background: white;
   color: #333333;
   font-size: medium;
+  margin: 0 15px;
 }
 .activo{
-  background: #3097D1 !important;
+  background: white !important;
+  background: #82d1ce !important;
 }
 .contabilidad{
   border-top: 5px solid #f17e54;
   background: white;
   color: #333333 !important;
+  margin: 0 15px;
 }
 .reservas{
   border-top: 5px solid #7F8429;
   background: white;
   color: #333333 !important;
+  margin: 0 15px;
 }
 .operaciones{
   border-top: 5px solid red;
   background: white;
   color: #333333 !important;
+  margin: 0 15px;
+}
+.bg-white{
+  background: white;
+}
+.menu-titulo{
+  border: 3px solid #76b9d1;
+  padding: 5px;
+  color: #000;
+}
+.menu-activo{
+  background: #e09e37;
+}
+.menu-lista{
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  color: #000;
+  text-decoration: none;
+}
+.menu-lista-activo{
+  background: #d4d4d4;
+}
+.link{
+  text-decoration: none !important;
 }

@@ -236,28 +236,28 @@
                                 @if($hotel->personas_s>0)
                                     @php
                                         $precio_hotel_s+=$hotel->precio_s;
-                                        $utilidad_s=$hotel->utilidad_s;
+                                        $utilidad_s=intval($hotel->utilidad_s);
                                         $utilidad_por_s=$hotel->utilidad_por_s;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_d>0)
                                     @php
                                         $precio_hotel_d+=$hotel->precio_d/2;
-                                        $utilidad_d=$hotel->utilidad_d;
+                                        $utilidad_d=intval($hotel->utilidad_d);
                                     $utilidad_por_d=$hotel->utilidad_por_d;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_m>0)
                                     @php
                                         $precio_hotel_m+=$hotel->precio_m/2;
-                                        $utilidad_m=$hotel->utilidad_m;
+                                        $utilidad_m=intval($hotel->utilidad_m);
                                         $utilidad_por_m=$hotel->utilidad_por_m;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_t>0)
                                     @php
                                         $precio_hotel_t+=$hotel->precio_t/3;
-                                        $utilidad_t=$hotel->utilidad_t;
+                                        $utilidad_t=intval($hotel->utilidad_t);
                                         $utilidad_por_t=$hotel->utilidad_por_t;
                                     @endphp
                                 @endif
@@ -327,19 +327,19 @@
                             <b CLASS="text-warning text-15">PROFIT</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_s" id="pro_s" value="{{substr($utilidad_s,0,(strlen($utilidad_s)-3))}}" onchange="variar_profit('s')">
+                            <input class="form-control" type="number" name="pro_s" id="pro_s" value="{{$utilidad_s}}" onchange="variar_profit('s')">
                             <b CLASS="text-warning text-15"><span id="porc_s">{{$utilidad_por_s}}</span>%</b>
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_d" id="pro_d" value="{{substr($utilidad_d,0,(strlen($utilidad_d)-3))}}" onchange="variar_profit('d')">
+                            <input class="form-control" type="number" name="pro_d" id="pro_d" value="{{$utilidad_d}}" onchange="variar_profit('d')">
                             <b CLASS="text-warning text-15"><span id="porc_d">{{$utilidad_por_d}}</span>%</b>
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_m" id="pro_m" value="{{substr($utilidad_m,0,(strlen($utilidad_m)-3))}}" onchange="variar_profit('m')">
+                            <input class="form-control" type="number" name="pro_m" id="pro_m" value="{{$utilidad_m}}" onchange="variar_profit('m')">
                             <b CLASS="text-warning text-15"><span id="porc_m">{{$utilidad_por_m}}</span>%</b>
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <input class="form-control" type="number" name="pro_t" id="pro_t" value="{{substr($utilidad_t,0,(strlen($utilidad_t)-3))}}" onchange="variar_profit('t')">
+                            <input class="form-control" type="number" name="pro_t" id="pro_t" value="{{$utilidad_t}}" onchange="variar_profit('t')">
                             <b CLASS="text-warning text-15"><span id="porc_t">{{$utilidad_por_t}}</span>%</b>
                         </div>
                     </div>

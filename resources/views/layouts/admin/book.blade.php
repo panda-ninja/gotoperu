@@ -22,7 +22,7 @@
 </head>
 <body>
 
-@include('layouts.admin.nav')
+@include('layouts.admin.nav-book')
 
 <div class="container-fluid">
     <div class="row">

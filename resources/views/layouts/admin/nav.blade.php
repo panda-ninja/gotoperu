@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top bg-grey-goto">
+<nav class="navbar navbar-fixed-top bg-white">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="nav-brand-goto margin-top-10" href="/">
@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav margin-left-60">
-                <li class="active"><a class="ventas activo" href="{{route('index_path')}}">Ventas</a></li>
+                <li><a class="ventas activo" href="{{route('index_path')}}">Ventas</a></li>
                 <li><a class="reservas" href="{{route('book_path')}}">Reservas</a></li>
                 <li><a class="contabilidad" href="{{route('contabilidad_index_path')}}">Contabilidad</a></li>
                 <li><a class="operaciones" href="{{route('book_path')}}">Operaciones</a></li>
