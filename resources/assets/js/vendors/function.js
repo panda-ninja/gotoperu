@@ -1730,7 +1730,7 @@ function  filtrar_itinerarios1(){
         }
     });
     destinos=destinos.substr(0,destinos.length-1);
-    filtrar_itinerarios();
+    filtrar_itinerarios_admin();
 }
 // var total_Itinerarios=0;
 // var Itis_precio=0;
@@ -1926,7 +1926,7 @@ function filtrar_estrellas1(estrella){
     $('#estrellas_from_').val(estrella);
 
     calcular_precio1();
-    filtrar_itinerarios();
+    filtrar_itinerarios_admin();
 }
 function aumentar_acom(tipo,signo){
     // alert(tipo+':'+signo);
@@ -2060,7 +2060,7 @@ function poner_dias() {
     $('#dias_html_0').html($('#txt_days').val()+'d');
 
     calcular_precio1();
-    filtrar_itinerarios();
+    filtrar_itinerarios_admin();
 }
 
 function variar_profit(acom) {
@@ -2124,7 +2124,7 @@ function filtrar_itinerarios_(){
         // }
     });
 }
-function filtrar_itinerarios(){
+function filtrar_itinerarios_admin(){
     $('#caja_load').removeClass("hide");
     filtrar_itinerarios_();
     setTimeout(function(){
