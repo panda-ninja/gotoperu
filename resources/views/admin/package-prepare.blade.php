@@ -230,7 +230,7 @@
                         @endforeach
                         @foreach($paquete->itinerario_cotizaciones as $itinerario)
                                 @php
-                                    $precio_iti+=$itinerario->precio;
+{{--                                    $precio_iti+=$itinerario->precio;--}}
                                 @endphp
                             @foreach($itinerario->hotel as $hotel)
                                 @if($hotel->personas_s>0)
@@ -262,13 +262,31 @@
                                     @endphp
                                 @endif
                             @endforeach
+                            @php
+                                $precio=0;
+                            @endphp
+                            @foreach($itinerario->itinerario_servicios as $servicios)
+                                @if($servicios->precio_grupo==1)
+                                    @php
+                                        $precio+=$servicios->precio/2;
+                                    @endphp
+                                @else
+                                    @php
+                                        $precio+=$servicios->precio;
+                                    @endphp
+                                @endif
+                            @endforeach
+                                @php
+                                    $precio_iti+=$precio;
+                                @endphp
+
                             <div id="itinerario_" class="caja_itineario">
                                 <div class="row">
                                     <div class="col-lg-9">
                                         <b class="dias" id="dias_"+total_Itinerarios+>Dia :{{$itinerario->dias}}</b> {{$itinerario->titulo}}
                                     </div>
                                     <div class="col-lg-3">
-                                        <b>$ {{$itinerario->precio}}</b>
+                                        <b>$ {{$precio}}</b>
                                     </div>
                                 </div>
                             </div>
