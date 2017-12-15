@@ -24130,15 +24130,25 @@ function filtrar_itinerarios_(){
         pqt='';
         pqt=$(this).val().split('_');
         if(dias_f==pqt[1]){
-            console.log('coinciden los dias:'+dias_f+'=='+pqt[1]);
-            if(desti_f==pqt[2]){
-                console.log('coinciden los destinos:'+desti_f+'=='+pqt[2]);
+            if(coinciden(desti_f,pqt[2])){
                 $('#itinerario3_'+pos1).removeClass("hide");
             }
         }
         pos1++;
-        // }
     });
+}
+function coinciden(escojidos,ofertados) {
+    ofertados=ofertados.split('/');
+    escojidos=escojidos.split('/');
+    var p=0;
+    for(var i=0;i<escojidos.length;i++) {
+        if(ofertados.indexOf(escojidos[i])>=0)
+            p++;
+    }
+    if(p==escojidos.length)
+        return true;
+    else
+        return false;
 }
 function filtrar_itinerarios_admin(){
     $('#caja_load').removeClass("hide");
