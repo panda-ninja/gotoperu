@@ -341,7 +341,8 @@
                                     @foreach($itinerarios0->serivicios as $serivicios0)
                                         @if($serivicios0->precio_grupo==1)
                                             @php
-                                                $iti_total+=$serivicios0->precio_grupo*2;
+{{--                                                $iti_total+=$serivicios0->precio_grupo*2;--}}
+                                            $iti_total+=$serivicios0->precio_grupo;
                                             @endphp
                                         @else
                                             @php

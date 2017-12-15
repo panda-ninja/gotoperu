@@ -87,13 +87,18 @@
                             </div>
                             <div class="row caja_detalle">
                                 @foreach($itinerario->itinerario_servicios as $servicios)
+                                    @php
+                                        $preciom=0;
+                                    @endphp
                                     @if($servicios->precio_grupo==1)
                                         @php
-                                            $precio_iti+=$servicios->precio;
+                                            $precio_iti+=$servicios->precio/2;
+                                            $preciom=$servicios->precio/2;
                                         @endphp
                                     @else
                                         @php
-                                            $precio_iti+=$servicios->precio
+                                            $precio_iti+=$servicios->precio;
+                                            $preciom=$servicios->precio;
                                         @endphp
                                     @endif
                                     <div class="col-lg-9">
@@ -142,9 +147,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-1 @if($s==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
-                                    <div class="col-lg-1 @if($d==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
-                                    <div class="col-lg-1 @if($t==0) hide @endif">${{explode('.00',$servicios->precio)[0]}}</div>
+                                    <div class="col-lg-1 @if($s==0) hide @endif">${{explode('.00',$preciom)[0]}}</div>
+                                    <div class="col-lg-1 @if($d==0) hide @endif">${{explode('.00',$preciom)[0]}}</div>
+                                    <div class="col-lg-1 @if($t==0) hide @endif">${{explode('.00',$preciom)[0]}}</div>
                                 @endforeach
                             </div>
                                 @foreach($itinerario->hotel as $hotel)

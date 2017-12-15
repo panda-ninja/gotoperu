@@ -125,9 +125,18 @@
                 $precio_iti=0;
             @endphp
             @foreach($paquete->itinerario_cotizaciones->sortBy('dias') as $itinerario)
-                @php
-                    $precio_iti+=$itinerario->precio;
-                @endphp
+                @foreach($itinerario->itinerario_servicios as $servicios)
+                    @if($servicios->precio_grupo==1)
+                        @php
+                            $precio_iti+=$servicios->precio/2;
+                        @endphp
+                    @else
+                        @php
+                            $precio_iti+=$servicios->precio;
+                        @endphp
+                    @endif
+                @endforeach
+
                 @foreach($itinerario->hotel as $hotel)
                     @if($hotel->personas_s>0)
                         @php
@@ -154,6 +163,7 @@
                         @endphp
                     @endif
                 @endforeach
+
                 <h4>Day {{$itinerario->dias}} - {{$itinerario->titulo}}</h4>
                 <p>{{$itinerario->descripcion}}</p>
                 @if (Storage::disk('itinerary')->has($itinerario->imagen))
