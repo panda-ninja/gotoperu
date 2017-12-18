@@ -150,11 +150,11 @@
                 <p class="text-20"><b>CODE:{{$codigo}}</b></p>
                 @foreach($array_destinos as $destino)
                     @if($destino!=null)
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="checkbox1">
-                                <label class=" text-unset">
-                                    <input class="destinospack" type="checkbox" name="destinos[]" checked="checked">
-                                    {{$destino}}
+                                <label class="text-green-goto text-unset">
+                                    {{--<input class="destinospack" type="checkbox" name="destinos[]" checked="checked">--}}
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> {{$destino}}
                                 </label>
                             </div>
                         </div>
@@ -189,16 +189,20 @@
                 @php
                     $nroPersonas=0;
                     $nro_dias=0;
-                    $precio_hotel_s=0;
-                    $precio_hotel_d=0;
-                    $precio_hotel_m=0;
-                    $precio_hotel_t=0;
+                    $pre_s=0;
+                    $pre_d=0;
+                    $pre_m=0;
+                    $pre_t=0;
+
                     $cotizacion_id='';
                     $utilidad_s=0;
                     $utilidad_d=0;
                     $utilidad_m=0;
                     $utilidad_t=0;
-
+                    $prem_s=0;
+                    $prem_d=0;
+                    $prem_m=0;
+                    $prem_t=0;
                     $utilidad_por_s=0;
                     $utilidad_por_d=0;
                     $utilidad_por_m=0;
@@ -228,35 +232,45 @@
                                 @endphp
                             @endif
                         @endforeach
+                        @php
+                            $pos=0;
+                        @endphp
                         @foreach($paquete->itinerario_cotizaciones as $itinerario)
-                                @php
-{{--                                    $precio_iti+=$itinerario->precio;--}}
-                                @endphp
+                            @php
+{{--                        $precio_iti+=$itinerario->precio;--}}
+                            $precio_hotel_s=0;
+                            $precio_hotel_d=0;
+                            $precio_hotel_m=0;
+                            $precio_hotel_t=0;
+                            @endphp
                             @foreach($itinerario->hotel as $hotel)
+                                @php
+                                    $pos++;
+                                @endphp
                                 @if($hotel->personas_s>0)
                                     @php
-                                        $precio_hotel_s+=$hotel->precio_s;
+                                        $precio_hotel_s=$hotel->precio_s;
                                         $utilidad_s=intval($hotel->utilidad_s);
                                         $utilidad_por_s=$hotel->utilidad_por_s;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_d>0)
                                     @php
-                                        $precio_hotel_d+=$hotel->precio_d/2;
+                                        $precio_hotel_d=$hotel->precio_d/2;
                                         $utilidad_d=intval($hotel->utilidad_d);
                                     $utilidad_por_d=$hotel->utilidad_por_d;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_m>0)
                                     @php
-                                        $precio_hotel_m+=$hotel->precio_m/2;
+                                        $precio_hotel_m=$hotel->precio_m/2;
                                         $utilidad_m=intval($hotel->utilidad_m);
                                         $utilidad_por_m=$hotel->utilidad_por_m;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_t>0)
                                     @php
-                                        $precio_hotel_t+=$hotel->precio_t/3;
+                                        $precio_hotel_t=$hotel->precio_t/3;
                                         $utilidad_t=intval($hotel->utilidad_t);
                                         $utilidad_por_t=$hotel->utilidad_por_t;
                                     @endphp
@@ -276,17 +290,36 @@
                                     @endphp
                                 @endif
                             @endforeach
-                                @php
-                                    $precio_iti+=$precio;
-                                @endphp
+                            @php
+                                $precio_iti+=$precio;
+                                $pre_s=$precio+$precio_hotel_s;
+                                $prem_s+=$pre_s;
 
+                                $pre_d=$precio+$precio_hotel_d;
+                                $prem_d+=$pre_d;
+
+                                $pre_m=$precio+$precio_hotel_m;
+                                $prem_m+=$pre_m;
+
+                                $pre_t=$precio+$precio_hotel_t;
+                                $prem_t+=$pre_t;
+                            @endphp
                             <div id="itinerario_" class="caja_itineario">
                                 <div class="row">
                                     <div class="col-lg-9">
                                         <b class="dias" id="dias_"+total_Itinerarios+>Dia :{{$itinerario->dias}}</b> {{$itinerario->titulo}}
                                     </div>
-                                    <div class="col-lg-3">
-                                        <b>$ {{$precio}}</b>
+                                    <div class="col-lg-3 @if($s==0) hide @endif">
+                                        <b>$ {{$pre_s}}</b>
+                                    </div>
+                                    <div class="col-lg-3 @if($d==0) hide @endif">
+                                        <b>$ {{$pre_d}}</b>
+                                    </div>
+                                    <div class="col-lg-3 @if($m==0) hide @endif">
+                                        <b>$ {{$pre_m}}</b>
+                                    </div>
+                                    <div class="col-lg-3 @if($t==0) hide @endif">
+                                        <b>$ {{$pre_t}}</b>
                                     </div>
                                 </div>
                             </div>
@@ -328,16 +361,16 @@
                             <b CLASS="text-warning text-15">COST</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_s" id="cost_s">{{$precio_hotel_s}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_s" id="cost_s">{{$prem_s}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_d" id="cost_d">{{$precio_hotel_d}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_d" id="cost_d">{{$prem_d}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_m" id="cost_m">{{$precio_hotel_m}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_m" id="cost_m">{{$prem_m}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_t" id="cost_t">{{$precio_hotel_t}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_t" id="cost_t">{{$prem_t}}</span></b>
                         </div>
                     </div>
                     <div class="row linea">
@@ -367,38 +400,38 @@
                         @endphp
                         @if($s!=0)
                             @php
-                            $valor+=round($precio_hotel_s+$utilidad_s,2);
+                            $valor+=round($prem_s+$utilidad_s,2);
                             @endphp
                         @endif
                         @if($d!=0)
                             @php
-                                $valor+=round($precio_hotel_d+$utilidad_d,2);
+                                $valor+=round($prem_d+$utilidad_d,2);
                             @endphp
                         @endif
                         @if($m!=0)
                             @php
-                                $valor+=round($precio_hotel_m+$utilidad_m,2);
+                                $valor+=round($prem_m+$utilidad_m,2);
                             @endphp
                         @endif
                         @if($t!=0)
                             @php
-                                $valor+=round($precio_hotel_t+$utilidad_t,2);
+                                $valor+=round($prem_t+$utilidad_t,2);
                             @endphp
                         @endif
                         <div class="col-lg-4">
                             <b CLASS="text-warning text-15">SALES</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_s">{{round($precio_hotel_s+$utilidad_s,2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_s">@if($s!=0){{round($prem_s+$utilidad_s,2)}}@else {{0}}@endif</span></b>
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_d">{{round($precio_hotel_d+$utilidad_d,2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_d">@if($d!=0){{round($prem_d+$utilidad_d,2)}}@else {{0}}@endif</span></b>
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_m">{{round($precio_hotel_m+$utilidad_m,2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_m">@if($m!=0){{round($prem_m+$utilidad_m,2)}}@else {{0}}@endif</span></b>
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_t">{{round($precio_hotel_t+$utilidad_t,2)}}</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_t">@if($t!=0){{round($prem_t+$utilidad_t,2)}}@else {{0}}@endif</span></b>
                         </div>
                     </div>
                     <div class="row text-center">

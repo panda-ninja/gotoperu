@@ -432,3 +432,7 @@ Route::post('/ventas/nuevo-plantilla', [
     'uses' => 'PackageCotizacionController@nuevo_paquete_',
     'as' => 'nuevo_paquete_plantilla_path',
 ]);
+Route::post('/admin/quotes/servicio/delete', [
+    'uses' => 'PackageCotizacionController@delete_servicio_quotes_paso1',
+    'as' => 'quotes_servicio_delete_path',
+]);

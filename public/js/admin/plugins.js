@@ -24091,16 +24091,29 @@ function variar_profit(acom) {
     var sale_d=parseFloat($('#sale_d').html());
     var sale_m=parseFloat($('#sale_m').html());
     var sale_t=parseFloat($('#sale_t').html());
+
     $('#total_profit').html(sale_s+sale_d+sale_m+sale_t);
     var pro_s=parseFloat($('#pro_s').val());
     var pro_d=parseFloat($('#pro_d').val());
     var pro_m=parseFloat($('#pro_m').val());
     var pro_t=parseFloat($('#pro_t').val());
-
-    var uti_por_s=Math.round((pro_s/sale_s)*100,0);
+    var uti_por_s=0;
+    var uti_por_d=0;
+    var uti_por_m=0;
+    var uti_por_t=0;
+    if(sale_s!=0)
+        uti_por_d=Math.round((pro_s/sale_s)*100,0);
+    if(sale_d!=0)
     var uti_por_d=Math.round((pro_d/sale_d)*100,0);
-    var uti_por_m=Math.round((pro_m/sale_m)*100,0);
+    if(sale_m!=0)
+        var uti_por_m=Math.round((pro_m/sale_m)*100,0);
+    if(sale_t!=0)
     var uti_por_t=Math.round((pro_t/sale_t)*100,0);
+
+    console.log('uti_por_s:'+uti_por_s);
+    console.log('uti_por_d:'+uti_por_d);
+    console.log('uti_por_m:'+uti_por_m);
+    console.log('uti_por_t:'+uti_por_t);
 
     $('#profit_por_s').val(uti_por_s);
     $('#profit_por_d').val(uti_por_d);
@@ -24312,4 +24325,71 @@ function enviar_form2(){
         })
         // return false;
     });
+}
+
+function borrar_serv_quot_paso1(id,servicio){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el "+servicio+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/quotes/servicio/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#lista_servicios_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+    calcularPrecio();
+}
+function calcularPrecio(){
+    var total_serv_s=0;
+    var total_serv_d=0;
+    var total_serv_t=0;
+    console.log('precio_servicio_s:');
+    $("input[class='precio_servicio_s']").each(function (index) {
+        total_serv_s+=parseFloat($(this).val());
+        console.log('precio_servicio_s:'+$(this).val());
+    });
+    $("input[class='precio_servicio_s_h']").each(function (index) {
+        total_serv_s+=parseFloat($(this).val());
+        console.log('precio_servicio_s_h:'+$(this).val());
+    });
+    console.log('total_serv_s:'+total_serv_s);
+    $("input[class='precio_servicio_d']").each(function (index) {
+        total_serv_d+=parseFloat($(this).val());
+        console.log('precio_servicio_d:'+$(this).val());
+    });
+    $("input[class='precio_servicio_d_h']").each(function (index) {
+        total_serv_d+=parseFloat($(this).val());
+        console.log('precio_servicio_d:'+$(this).val());
+    });
+    console.log('total_serv_d:'+total_serv_d);
+    $("input[class='precio_servicio_t']").each(function (index) {
+        total_serv_t+=parseFloat($(this).val());
+        console.log('precio_servicio_t:'+$(this).val());
+    });
+    $("input[class='precio_servicio_t_h']").each(function (index) {
+        total_serv_t+=parseFloat($(this).val());
+        console.log('precio_servicio_t:'+$(this).val());
+    });
+    console.log('total_serv_t:'+total_serv_t);
+
+
+    precio_servicio_s_h
+    $("#cost_s").html(total_serv_s);
+    $("#cost_d").html(total_serv_d);
+    $("#cost_t").html(total_serv_t);
 }

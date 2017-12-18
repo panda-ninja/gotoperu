@@ -101,55 +101,62 @@
                                             $preciom=$servicios->precio;
                                         @endphp
                                     @endif
-                                    <div class="col-lg-9">
-                                        <div class="row">
-                                            <div class="col-lg-10">{{$servicios->nombre}}</div>
-                                            <div class="col-lg-2">
-                                                <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
-                                                <!-- Modal -->
-                                                <div class="modal fade bd-example-modal-lg" id="modal_new_destination1_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Editar Servicio</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    @php
-                                                                        $grupo='';
-                                                                        $loca='';
-                                                                    @endphp
-                                                                    @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $servicio)
+                                    <div class="row" id="lista_servicios_{{$servicios->id}}">
+                                        <div class="col-lg-8">
+                                            <div class="row">
+                                                <div class="col-lg-10">{{$servicios->nombre}}</div>
+                                                <div class="col-lg-2">
+                                                    <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </a>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade bd-example-modal-lg" id="modal_new_destination1_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Editar Servicio</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
                                                                         @php
-                                                                            $grupo=$servicio->grupo;
-                                                                            $loca=$servicio->localizacion;
+                                                                            $grupo='';
+                                                                            $loca='';
                                                                         @endphp
-                                                                    @endforeach
-                                                                    @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
-                                                                        <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
+                                                                        @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $servicio)
+                                                                            @php
+                                                                                $grupo=$servicio->grupo;
+                                                                                $loca=$servicio->localizacion;
+                                                                            @endphp
+                                                                        @endforeach
+                                                                        @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
+                                                                            <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
 
-                                                                    @endforeach
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    {{csrf_field()}}
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                                </div>
-                                                            </form>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        {{csrf_field()}}
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-1 @if($s==0) hide @endif">$<input type="hidden" class="precio_servicio_s" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                        <div class="col-lg-1 @if($d==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                        <div class="col-lg-1 @if($t==0) hide @endif">$<input type="hidden" class="precio_servicio_t" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                        <div class="col-lg-1">
+                                            <b class="text-danger puntero" onclick="borrar_serv_quot_paso1('{{$servicios->id}}','{{$servicios->nombre}}')">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </b>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-1 @if($s==0) hide @endif">${{explode('.00',$preciom)[0]}}</div>
-                                    <div class="col-lg-1 @if($d==0) hide @endif">${{explode('.00',$preciom)[0]}}</div>
-                                    <div class="col-lg-1 @if($t==0) hide @endif">${{explode('.00',$preciom)[0]}}</div>
                                 @endforeach
                             </div>
                                 @foreach($itinerario->hotel as $hotel)
@@ -174,7 +181,7 @@
                                         @endphp
                                     @endif
                                 <div class="row caja_detalle_hotel margin-bottom-15">
-                                <div class="col-lg-9">
+                                <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-lg-10">HOTEL</div>
                                             <div class="col-lg-2">
@@ -210,6 +217,10 @@
                                     <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{explode('.00',$hotel->precio_d)[0]/2}}</div>
                                     <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{explode('.00',$hotel->precio_m)[0]/2}}</div>
                                     <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{explode('.00',$hotel->precio_t)[0]/3}}</div>
+                                    <input type="hidden" class="precio_servicio_s_h" value="{{explode('.00',$hotel->precio_s)[0]}}">
+                                    <input type="hidden" class="precio_servicio_d_h" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
+                                    <input type="hidden" class="precio_servicio_m_h" value="{{explode('.00',$hotel->precio_m)[0]/2}}">
+                                    <input type="hidden" class="precio_servicio_t_h" value="{{explode('.00',$hotel->precio_t)[0]/3}}">
 
                                 </div>
                             @endforeach
@@ -236,9 +247,9 @@
                 <div class="col-lg-5">
                     <div class="row caja_dia">
                         <div class="col-lg-9"><b>COST</b></div>
-                        <div class="col-lg-1 text-warning @if($s==0) hide @endif"><b>${{$precio_hotel_s}}</b></div>
-                        <div class="col-lg-1 text-warning @if($d==0) hide @endif"><b>${{$precio_hotel_d}}</b></div>
-                        <div class="col-lg-1 text-warning @if($t==0) hide @endif"><b>${{$precio_hotel_t}}</b></div>
+                        <div class="col-lg-1 text-warning @if($s==0) hide @endif"><b>$<span id="cost_s">{{$precio_hotel_s}}</span></b></div>
+                        <div class="col-lg-1 text-warning @if($d==0) hide @endif"><b>$<span id="cost_d">{{$precio_hotel_d}}</span></b></div>
+                        <div class="col-lg-1 text-warning @if($t==0) hide @endif"><b>$<span id="cost_t">{{$precio_hotel_t}}</span></b></div>
                         <div class="col-lg-12 text-right text-warninggit add -">PRICE PER PERSON</div>
                     </div>
                 </div>

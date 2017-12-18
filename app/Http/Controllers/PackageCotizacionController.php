@@ -1475,5 +1475,12 @@ class PackageCotizacionController extends Controller
         return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_id,'imprimir'=>$imprimir]);
 
     }
-
+    public function delete_servicio_quotes_paso1(Request $request){
+        $id = $request->input('id');
+        $objeto=ItinerarioServicios::FindOrFail($id);
+        if($objeto->delete())
+            return 1;
+        else
+            return 0;
+    }
 }
