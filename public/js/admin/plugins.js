@@ -24297,6 +24297,7 @@ function mostrar_datos(cadena) {
     // var total_precio=parseFloat(precio_hotel_s)+parseFloat(precio_hotel_d)+parseFloat(precio_hotel_m)+parseFloat(precio_hotel_t);
 
     // $('#precio_plantilla').html('$'+total_precio);
+    console.log('precio unitario {2}:'+datos_pqt);
     $('#precio_plantilla').html('$'+datos_pqt[2]);
 
 }
