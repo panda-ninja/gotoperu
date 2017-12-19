@@ -86,25 +86,36 @@
                                 <div class="col-lg-1 @if($t==0) hide @endif">T</div>
                             </div>
                             <div class="row caja_detalle">
+                                @php
+                                    $rango='';
+                                @endphp
+
                                 @foreach($itinerario->itinerario_servicios as $servicios)
                                     @php
                                         $preciom=0;
                                     @endphp
-                                    @if($servicios->precio_grupo==1)
+                                    {{--@if($servicios->precio_grupo==1)--}}
+                                        {{--@php--}}
+                                            {{--$precio_iti+=($servicios->precio/2)/$cotizacion->nropersonas;--}}
+                                            {{--$preciom=($servicios->precio/2)/$cotizacion->nropersonas;--}}
+                                        {{--@endphp--}}
+                                    {{--@else--}}
+                                    @if($servicios->min_personas<= $cotizacion->nropersonas&&$cotizacion->nropersonas <=$servicios->max_personas)
+                                        @else
                                         @php
-                                            $precio_iti+=$servicios->precio/2;
-                                            $preciom=$servicios->precio/2;
+                                            $rango=' text-danger';
                                         @endphp
-                                    @else
-                                        @php
-                                            $precio_iti+=$servicios->precio;
-                                            $preciom=$servicios->precio;
-                                        @endphp
+
                                     @endif
+                                        @php
+                                            $precio_iti+=round($servicios->precio/$cotizacion->nropersonas,2);
+                                            $preciom=round($servicios->precio/$cotizacion->nropersonas,2);
+                                        @endphp
+                                    {{--@endif--}}
                                     <div class="row" id="lista_servicios_{{$servicios->id}}">
                                         <div class="col-lg-8">
                                             <div class="row">
-                                                <div class="col-lg-10">{{$servicios->nombre}}</div>
+                                                <div class="col-lg-10{{$rango}}">{{$servicios->nombre}}</div>
                                                 <div class="col-lg-2">
                                                     <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
