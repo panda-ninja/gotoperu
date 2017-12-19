@@ -297,7 +297,6 @@
                     <div class="text-center"><i id="caja_load" class="fa fa-spinner hide" aria-hidden="true"></i></div>
                     @php
                         $pos=0;
-                        $iti_total=0;
                         $precio_hotel_s=0;
                         $precio_hotel_d=0;
                         $precio_hotel_m=0;
@@ -305,9 +304,10 @@
                     @endphp
                     @foreach($p_paquete as $p_paquete_)
                         @php
-                            $pos++;
-                            $array_destinos1='';
-                            $array_destinos2=array();
+                            $iti_total=0;
+                                $pos++;
+                                $array_destinos1='';
+                                $array_destinos2=array();
                         @endphp
                         @foreach($p_paquete_->itinerarios as $itinerarios0)
                             @foreach($itinerarios0->destinos as $destino0)
@@ -337,21 +337,22 @@
                                         $hotel0.=$precio0->precio_s.'_'.$precio0->precio_d.'_'.$precio0->precio_m.'_'.$precio0->precio_t.'/';
                                     @endphp
                                 @endforeach
+
                                 @foreach($p_paquete_->itinerarios as $itinerarios0)
                                     @foreach($itinerarios0->serivicios as $serivicios0)
-                                        @if($serivicios0->precio_grupo==1)
+
+                                    @if($serivicios0->precio_grupo==1)
                                             @php
-{{--                                                $iti_total+=$serivicios0->precio_grupo*2;--}}
-                                            $iti_total+=$serivicios0->precio_grupo;
+                                                $iti_total+=$serivicios0->precio;
                                             @endphp
                                         @else
                                             @php
-                                                $iti_total+=$serivicios0->precio_grupo;
+                                                $iti_total+=$serivicios0->precio;
                                             @endphp
                                         @endif
                                     @endforeach
                                 @endforeach
-                                <label class=" text-unset text-warning text-12 lista_itinerarios2" >
+                                <label class=" text-unset text-warning text-12 lista_itinerarios2">
                                     <input class="lista_itinerarios3" type="hidden"  value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
                                     <input class="paquetespack" type="radio" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}" onchange="mostrar_datos('{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$iti_total}}')">
                                     <input type="hidden" name="datos_paquete_{{$p_paquete_->id}}" id="datos_paquete_{{$p_paquete_->id}}" value="{{$hotel0}}">
