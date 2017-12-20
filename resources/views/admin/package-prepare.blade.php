@@ -282,11 +282,11 @@
                             @foreach($itinerario->itinerario_servicios as $servicios)
                                 @if($servicios->precio_grupo==1)
                                     @php
-                                        $precio+=$servicios->precio/2;
+                                        $precio+=round($servicios->precio/$cotizacion->nropersonas,1);
                                     @endphp
                                 @else
                                     @php
-                                        $precio+=$servicios->precio;
+                                        $precio+=round($servicios->precio,1);
                                     @endphp
                                 @endif
                             @endforeach
@@ -361,16 +361,16 @@
                             <b CLASS="text-warning text-15">COST</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_s" id="cost_s">{{$prem_s}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_s" id="cost_s">{{ceil($prem_s)}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_d" id="cost_d">{{$prem_d}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_d" id="cost_d">{{ceil($prem_d)}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_m" id="cost_m">{{$prem_m}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_m" id="cost_m">{{ceil($prem_m)}}</span></b>
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span name="cost_t" id="cost_t">{{$prem_t}}</span></b>
+                            <b CLASS="text-unset text-15">$<span name="cost_t" id="cost_t">{{ceil($prem_t)}}</span></b>
                         </div>
                     </div>
                     <div class="row linea">
@@ -422,21 +422,21 @@
                             <b CLASS="text-warning text-15">SALES</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_s">@if($s!=0){{round($prem_s+$utilidad_s,2)}}@else {{0}}@endif</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_s">@if($s!=0){{round(ceil($prem_s)+$utilidad_s,2)}}@else {{0}}@endif</span></b>
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_d">@if($d!=0){{round($prem_d+$utilidad_d,2)}}@else {{0}}@endif</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_d">@if($d!=0){{round(ceil($prem_d)+$utilidad_d,2)}}@else {{0}}@endif</span></b>
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_m">@if($m!=0){{round($prem_m+$utilidad_m,2)}}@else {{0}}@endif</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_m">@if($m!=0){{round(ceil($prem_m)+$utilidad_m,2)}}@else {{0}}@endif</span></b>
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_t">@if($t!=0){{round($prem_t+$utilidad_t,2)}}@else {{0}}@endif</span></b>
+                            <b CLASS="text-unset text-15">$<span id="sale_t">@if($t!=0){{round(ceil($prem_t)+$utilidad_t,2)}}@else {{0}}@endif</span></b>
                         </div>
                     </div>
                     <div class="row text-center">
                         <div class="text-center col-lg-12 total_profit">
-                            <b CLASS="text-15">TOTAL PROFIT $<span id="total_profit">{{$valor}}</span></b>
+                            <b CLASS="text-15">TOTAL PROFIT $<span id="total_profit">{{ceil($valor)}}</span></b>
                         </div>
                     </div>
                     <div class="row text-center margin-top-10">

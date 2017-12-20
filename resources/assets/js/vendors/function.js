@@ -2158,6 +2158,7 @@ function mostrar_datos(cadena) {
     var datos_pqt=cadena.split('_');
     // console.log('datos_pqt:'+datos_pqt);
     $('#pqt_id').val(datos_pqt[0]);
+
     // var cadena_pqt=$('#datos_paquete_'+datos_pqt[0]).val();
     //
     // var precio_t_iti=parseFloat(datos_pqt[2]);
@@ -2281,9 +2282,9 @@ function mostrar_datos(cadena) {
     // var total_precio=parseFloat(precio_hotel_s)+parseFloat(precio_hotel_d)+parseFloat(precio_hotel_m)+parseFloat(precio_hotel_t);
 
     // $('#precio_plantilla').html('$'+total_precio);
-    console.log('precio unitario {2}:'+datos_pqt);
-    $('#precio_plantilla').html('$'+datos_pqt[2]);
-
+    // console.log('precio unitario {2}:'+datos_pqt);
+    // $('#precio_plantilla').html('$'+datos_pqt[2]);
+    sumar_servicios_itinerario();
 }
 function enviar_form2(){
     $('#form_nuevo_pqt_').submit(function() {
@@ -2379,4 +2380,32 @@ function calcularPrecio(){
     $("#cost_s").html(total_serv_s);
     $("#cost_d").html(total_serv_d);
     $("#cost_t").html(total_serv_t);
+}
+
+function sumar_servicios_itinerario(){
+    console.log('hola');
+    var pqt=$('#pqt_id').val();
+    var arreglo
+    arreglo=$('#lista_servicios_'+pqt).val().split('/');
+    var dat='';
+    var suma=0;
+    var traveles=0;
+    traveles=$('#txt_travellers').val();
+    console.log('traveles:'+traveles);
+    console.log('servicios:'+arreglo);
+
+    $.each(arreglo, function( key, value ) {
+        dat=value.split('_');
+        if(dat[1]=='g'){
+            suma+=Math.round((dat[0]/traveles)*10)/10;
+            console.log('v:'+Math.round((dat[0]/traveles)*10)/10);
+        }
+        else if(dat[1]=='i'){
+            suma+=Math.round(dat[0]*10)/10;
+            console.log('v:'+Math.round(dat[0]*10)/10);
+        }
+
+    });
+    suma=Math.ceil(suma);
+    $('#precio_plantilla').html(suma);
 }

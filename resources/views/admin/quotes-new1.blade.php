@@ -40,7 +40,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_travellers">Travellers</label>
-                            <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1">
+                            <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1" onclick="sumar_servicios_itinerario()">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -330,6 +330,7 @@
                             <div class="col-lg-9 checkbox1">
                                 @php
                                     $hotel0='';
+                                    $cadena_hiden='';
                                 @endphp
                                 @foreach($p_paquete_->precios as $precio0)
                                     @php
@@ -337,25 +338,27 @@
                                         $hotel0.=$precio0->precio_s.'_'.$precio0->precio_d.'_'.$precio0->precio_m.'_'.$precio0->precio_t.'/';
                                     @endphp
                                 @endforeach
-
                                 @foreach($p_paquete_->itinerarios as $itinerarios0)
                                     @foreach($itinerarios0->serivicios as $serivicios0)
-
-                                    @if($serivicios0->precio_grupo==1)
+                                        @if($serivicios0->precio_grupo==1)
                                             @php
                                                 $iti_total+=$serivicios0->precio;
+                                                $cadena_hiden.=($serivicios0->precio*2).'_g/';
                                             @endphp
                                         @else
                                             @php
                                                 $iti_total+=$serivicios0->precio;
+                                                $cadena_hiden.=$serivicios0->precio.'_i/';
                                             @endphp
                                         @endif
                                     @endforeach
+
                                 @endforeach
                                 <label class=" text-unset text-warning text-12 lista_itinerarios2">
                                     <input class="lista_itinerarios3" type="hidden"  value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}">
                                     <input class="paquetespack" type="radio" name="paquetes[]" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1}}" onchange="mostrar_datos('{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$iti_total}}')">
                                     <input type="hidden" name="datos_paquete_{{$p_paquete_->id}}" id="datos_paquete_{{$p_paquete_->id}}" value="{{$hotel0}}">
+                                    <input type="hidden" class="lista_itinerarios4" id="lista_servicios_{{$p_paquete_->id}}" value="{{$cadena_hiden}}">
                                     {{$p_paquete_->duracion}} {{$p_paquete_->titulo}}
                                 </label>
                             </div>

@@ -86,6 +86,7 @@
                     $t=1;
                 @endphp
             @endif
+
         @endforeach
         @foreach($cotizacion as $cotizaciones)
             @php $pasajeros = $cotizaciones->nropersonas; @endphp
@@ -128,11 +129,11 @@
                 @foreach($itinerario->itinerario_servicios as $servicios)
                     @if($servicios->precio_grupo==1)
                         @php
-                            $precio_iti+=$servicios->precio/2;
+                            $precio_iti+=round($servicios->precio/$pasajeros,1);
                         @endphp
                     @else
                         @php
-                            $precio_iti+=$servicios->precio;
+                            $precio_iti+=round($servicios->precio,1);
                         @endphp
                     @endif
                 @endforeach
@@ -234,12 +235,12 @@
 
                     @if($orden_cotizaciones->precio_grupo==1)
                         @php
-                            $total = round($orden_cotizaciones->precio/$pasajeros,2) + $servicio;
+                            $total = round($orden_cotizaciones->precio/$pasajeros,1) + $servicio;
                             $servicio = $total;
                         @endphp
                     @else
                         @php
-                            $total = $orden_cotizaciones->precio + $servicio;
+                            $total = round($orden_cotizaciones->precio,1) + $servicio;
                             $servicio = $total;
                         @endphp
                     @endif
