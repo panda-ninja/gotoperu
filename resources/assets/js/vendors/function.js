@@ -2409,3 +2409,27 @@ function sumar_servicios_itinerario(){
     suma=Math.ceil(suma);
     $('#precio_plantilla').html(suma);
 }
+
+function MostrarDatos(){
+    var datos=$('#txt_name').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/cliente/mostrar', 'id='+datos, function(data) {
+        var dat=data.split('_');
+        if(dat[0]==1){
+            $("#txt_country").val(dat[2]);
+            $("#txt_email").val(dat[3]);
+            $("#txt_phone").val(dat[4]);
+            $("#txt_travellers").val(dat[5]);
+            $("#txt_days").val(dat[6]);
+            $("#txt_travel_date").val(dat[7]);
+            // $("#lista_destinos_"+id).remove();
+            $("#lista_services_"+id).fadeOut( "slow");
+        }
+    }).fail(function (data) {
+
+    });
+}

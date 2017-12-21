@@ -440,3 +440,11 @@ Route::get('admin/current-quotes/plan/excel/{id}', [
     'uses' => 'PackageCotizacionController@plan_excel',
     'as' => 'mostar_planes_excel_path'
 ]);
+Route::get('quotes/autocomplete', [
+    'uses' => 'PackageCotizacionController@cotizacion_cliente_autocomplete',
+    'as' => 'quotes_auto_path'
+]);
+Route::get('admin/cliente/mostrar', [
+    'uses' => 'PackageCotizacionController@mostrar_datos_cliente',
+    'as' => 'quotes_cliente_mostrar_path'
+]);

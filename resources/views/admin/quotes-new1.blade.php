@@ -11,12 +11,12 @@
         <div class="row">
             <div class="col-lg-7">
                     <b class="text-center text-30">DATES QUOTES</b>
-                <form action="" id="frm_datos" name="frm_datos" method="post">
+                <form action="" id="frm_datos" name="frm_datos" method="get">
                     <div class="row caja_datos">
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="txt_name">Name</label>
-                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Name" >
+                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onchange="MostrarDatos()" >
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -598,8 +598,8 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="txt_name">Name</label>
-                    <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Name" >
+                    <label for="txt_name2">Name</label>
+                    <input type="text" class="form-control" id="txt_name2" name="txt_name2" placeholder="Name" >
                 </div>
             </div>
             <div class="col-md-3">
@@ -800,5 +800,16 @@
         $(document).ready(function() {
             calcular_resumen();
         } );
+
+        $(function()
+        {
+            $( "#txt_name" ).autocomplete({
+                source: "../../../quotes/autocomplete",
+                minLength: 2,
+                select: function(event, ui) {
+                    $('#txt_name').val(ui.item.value);
+                }
+            });
+        });
     </script>
 @stop
