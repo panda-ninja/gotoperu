@@ -436,3 +436,7 @@ Route::post('/admin/quotes/servicio/delete', [
     'uses' => 'PackageCotizacionController@delete_servicio_quotes_paso1',
     'as' => 'quotes_servicio_delete_path',
 ]);
+Route::get('admin/current-quotes/plan/excel/{id}', [
+    'uses' => 'PackageCotizacionController@plan_excel',
+    'as' => 'mostar_planes_excel_path'
+]);

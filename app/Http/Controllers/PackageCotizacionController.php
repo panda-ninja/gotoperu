@@ -453,6 +453,26 @@ class PackageCotizacionController extends Controller
             return view('admin.plan-details', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
         }
     }
+    public function plan_excel($id){
+        $paquetes = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+        foreach ($paquetes as $paquetes2){
+            $paquete = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+            $cotizacion = Cotizacion::where('id',$paquetes2->cotizaciones_id)->get();
+            $cotizacion1='';
+            foreach ($cotizacion as $cotizacion_){
+                $cotizacion1=$cotizacion_;
+            }
+//          return view('admin.plan-details-excel', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
+//            $cliente_coti=CotizacionesCliente::where('cotizaciones_id',$cotizacion->id)->get();
+//            dd($cliente_coti);
+
+//        $cliente=Cliente::FindOrFail($cliente_coti->clientes_id);
+//        $destinos=$request->input('txt_destinos1');
+//        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+        $m_servicios=M_Servicio::get();
+        return view('admin.plan-details-excel',['cotizaciones'=>$cotizacion,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$id]);
+        }
+    }
     public function escojer_precio_paquete(Request $request){
         $pos=$request->input('pos');
         $s=$request->input('s_'.$pos);
