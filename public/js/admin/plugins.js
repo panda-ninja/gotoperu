@@ -14118,7 +14118,7 @@ function sumar_servicios_edit(grupo){
             var dato1=dato.split('_');
             // console.log(dato1[1]);
             if(dato1[0]==grupo) {
-                total_ci += parseInt(dato1[1]);
+                total_ci += parseFloat(Int(dato1[1]);
             }
             // console.log($(this).val());
         }
