@@ -29,8 +29,9 @@ mix.js('resources/assets/js/app.js', 'public/js')
 // mix.copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'resources/assets/js/vendors/dataTables.bootstrap.js');
 //---js admin
 mix.scripts([
-    'node_modules/jquery/dist/jquery.js',
-    // 'node_modules/jquery-ui/external/requirejs/require.js',
+    // 'node_modules/jquery/dist/jquery-ui.js',
+    'resources/assets/js/vendors/jquery-ui.js',
+    'node_modules/jquery-ui/external/requirejs/require.js',
     'resources/assets/js/vendors/owl.carousel.js',
     //Customized
     'resources/assets/js/vendors/function-admin.js',

@@ -16,7 +16,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="txt_name">Name</label>
-                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onchange="MostrarDatos()" >
+                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onkeypress="return runScript(event)" >
                         </div>
                     </div>
                     <div class="col-md-4">

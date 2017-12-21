@@ -1526,17 +1526,18 @@ class PackageCotizacionController extends Controller
 //            ->get();
     }
     public function mostrar_datos_cliente(Request $request){
-        $cliente=explode(' ',$request->input('id'));
-        $cliente=Cliente::where('nombres',$cliente[0])->get();
-        $datos=Cotizacion::with(['cotizaciones_cliente'=>function($query) use ($cliente){
-            $query->where('clientes_id', $cliente->id)
-                ->where('estado', '1');
-        }])->get();
-
-
-        $itinerarios=M_Itinerario::with(['destinos'=> function ($query) use ($arreglo) {
-            $query->whereIn('destino', $arreglo);
-        }])
-            ->get();
+        return $request->input('id');
+//        $cliente=explode(' ',$request->input('id'));
+//        $cliente=Cliente::where('nombres',$cliente[0])->get();
+//        $datos=Cotizacion::with(['cotizaciones_cliente'=>function($query) use ($cliente){
+//            $query->where('clientes_id', $cliente->id)
+//                ->where('estado', '1');
+//        }])->get();
+//
+//
+//        $itinerarios=M_Itinerario::with(['destinos'=> function ($query) use ($arreglo) {
+//            $query->whereIn('destino', $arreglo);
+//        }])
+//            ->get();
     }
 }

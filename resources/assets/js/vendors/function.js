@@ -2418,6 +2418,7 @@ function MostrarDatos(){
         }
     });
     $.post('/admin/cliente/mostrar', 'id='+datos, function(data) {
+        console.log('data:'+data.tri);
         var dat=data.split('_');
         if(dat[0]==1){
             $("#txt_country").val(dat[2]);
@@ -2430,6 +2431,15 @@ function MostrarDatos(){
             $("#lista_services_"+id).fadeOut( "slow");
         }
     }).fail(function (data) {
-
     });
 }
+function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+        console.log('se presiono enter');
+        MostrarDatos();
+        // var tb = document.getElementById("scriptBox");
+        // eval(tb.value);
+        // return false;
+    }
+}
+
