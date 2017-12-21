@@ -1532,7 +1532,7 @@ class PackageCotizacionController extends Controller
             $query->where('clientes_id', $cliente->id)
                 ->where('estado', '1');
         }])->get();
-        
+
 
         $itinerarios=M_Itinerario::with(['destinos'=> function ($query) use ($arreglo) {
             $query->whereIn('destino', $arreglo);
