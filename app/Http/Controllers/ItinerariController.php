@@ -158,6 +158,8 @@ class ItinerariController extends Controller
             $itinerario->save();
             Storage::disk('itinerary')->put($filename,  File::get($txt_imagen));
         }
+
+
         M_ItinerarioDestino::where('m_itinerario_id',$txt_id)->delete();
         foreach ($destinos as $destino){
             $dato=explode('_',$destino);
