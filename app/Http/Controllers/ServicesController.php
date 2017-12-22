@@ -249,7 +249,8 @@ class ServicesController extends Controller
         $destinations=M_Destino::get();
         $servicios=M_Servicio::get();
         $categorias=M_Category::get();
-        return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
+        $hotel=Hotel::get();
+        return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
     }
     public function autocomplete()
     {

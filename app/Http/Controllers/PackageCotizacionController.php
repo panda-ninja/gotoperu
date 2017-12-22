@@ -19,7 +19,7 @@ use App\P_PaquetePrecio;
 use App\PaqueteCotizaciones;
 use App\PaquetePrecio;
 use App\PrecioHotelReserva;
-use Illuminate\Support\Facades\Input;
+
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use PhpParser\Node\Expr\Array_;
@@ -29,6 +29,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
 
 class PackageCotizacionController extends Controller
 {
@@ -1509,5 +1510,40 @@ class PackageCotizacionController extends Controller
             return 1;
         else
             return 0;
+    }
+    public function cotizacion_cliente_autocomplete(){
+//        dd(Input::all());
+        $term=Input::get('term');
+        $result=array();
+        $clientes=Cliente::where('nombres','LIKE','%'.$term.'%')
+            ->orwhere('apellidos','LIKE','%'.$term.'%')
+            ->get();
+        foreach ($clientes as $cliente){
+            $result[]=['id'=>$cliente->id,'value'=>$cliente->nombres.' '.$cliente->apellidos];
+        }
+//        $result[0]='hola1';
+//        $result[1]='hola2';
+//        $result[2]='hola3';
+
+        return $result;
+
+//        $objeto=M_Itinerario::with(['destinos'=> function ($query) use ($arreglo) {
+//            $query->whereIn('destino', $arreglo);
+//        }])
+//            ->get();
+    }
+    public function mostrar_datos_cliente(Request $request){
+        $cliente=explode(' ',$request->input('id'));
+        $cliente=Cliente::where('nombres',$cliente[0])->get();
+        $datos=Cotizacion::with(['cotizaciones_cliente'=>function($query) use ($cliente){
+            $query->where('clientes_id', $cliente->id)
+                ->where('estado', '1');
+        }])->get();
+
+
+        $itinerarios=M_Itinerario::with(['destinos'=> function ($query) use ($arreglo) {
+            $query->whereIn('destino', $arreglo);
+        }])
+            ->get();
     }
 }

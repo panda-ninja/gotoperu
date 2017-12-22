@@ -18,17 +18,23 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/admin.scss', 'public/css/admin')
     .sass('resources/assets/sass/fonts-awesome/font-awesome.scss', 'public/css/')
+<<<<<<< HEAD
     .sass('resources/assets/sass/quotes-pdf.css', 'public/css/');
+=======
+    .sass('resources/assets/sass/quotes-pdf.css', 'public/css/')
+    // .sass('resources/assets/sass/jquery-ui.min.css', 'public/css/');
+>>>>>>> origin/master
 
     // .sass('resources/assets/sass/sweetalert2.css', 'public/css/admin');
-
+// mix.sass('resources/assets/sass/jquery_ui.css', 'public/css/jquery.css');
 //---mix cpy
 // mix.copy('node_modules/chart.js/dist/Chart.js', 'resources/assets/js/vendors/Chart.js');
 // mix.copy('node_modules/datatables.net/js/jquery.dataTables.js', 'resources/assets/js/vendors/jquery.dataTables.js');
 // mix.copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'resources/assets/js/vendors/dataTables.bootstrap.js');
 //---js admin
 mix.scripts([
-    'resources/assets/js/vendors/jquery-ui.js',
+    'node_modules/jquery/dist/jquery.js',
+    // 'node_modules/jquery-ui/external/requirejs/require.js',
     'resources/assets/js/vendors/owl.carousel.js',
     //Customized
     'resources/assets/js/vendors/function-admin.js',

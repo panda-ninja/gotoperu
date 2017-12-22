@@ -1055,10 +1055,12 @@
 
                                                             @if($service_id->m_servicios_id==$service->id)
                                                                 <?php $estado='checked'?>
-                                                                @if($service->precio_grupo==1)
-                                                                    <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
+                                                                @if($service->precio_grupo)
+                                                                    @php
+                                                                        $total_pre_ven_edit+=round($service->precio_venta/2,2);
+                                                                    @endphp
                                                                 @else
-                                                                    <?php $total_pre_ven_edit+=$service->precio_venta;?>
+                                                                    @php $total_pre_ven_edit+=$service->precio_venta;@endphp
                                                                 @endif
                                                             @endif
 
@@ -1070,10 +1072,12 @@
                                                                 @if($service->precio_grupo==1)
                                                                     @php
                                                                     $service_p=round($service->precio_venta/2,2);
+{{--                                                                    $total_pre_ven_edit+=round($service->precio_venta/2,2);--}}
                                                                     @endphp
                                                                 @else
                                                                     @php
                                                                         $service_p=$service->precio_venta;
+{{--                                                                    $total_pre_ven_edit+=round($service->precio_venta);--}}
                                                                     @endphp
                                                                 @endif
                                                                 <div class="checkbox11">
