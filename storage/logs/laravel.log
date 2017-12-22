@@ -4641,7 +4641,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:52:52] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -4691,7 +4691,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:52:53] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -4741,7 +4741,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:52:56] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -4791,7 +4791,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:52:56] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -4841,7 +4841,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:52:57] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -4891,7 +4891,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:52:59] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -4941,7 +4941,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:53:01] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -4991,7 +4991,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 15:53:03] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1507
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5041,7 +5041,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:27:34] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1509
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5091,7 +5091,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:29:07] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1508
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5141,7 +5141,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:29:10] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1508
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5191,7 +5191,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:31:12] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Cannot use Symfony\Component\Console\Input\Input as Input because the name is already in use in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:33
 Stack trace:
 #0 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(137): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
@@ -5230,7 +5230,7 @@ Stack trace:
 #33 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): App\Http\Kernel->sendRequestThroughRouter()
 #34 /home/vagrant/Code/gotoperu/public/index.php(53): App\Http\Kernel->handle()
 #35 /home/vagrant/Code/gotoperu/public/index.php(0): {main}()
-#36 {main}  
+#36 {main}
 [2017-12-21 16:31:13] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Cannot use Symfony\Component\Console\Input\Input as Input because the name is already in use in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:33
 Stack trace:
 #0 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(137): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
@@ -5269,7 +5269,7 @@ Stack trace:
 #33 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): App\Http\Kernel->sendRequestThroughRouter()
 #34 /home/vagrant/Code/gotoperu/public/index.php(53): App\Http\Kernel->handle()
 #35 /home/vagrant/Code/gotoperu/public/index.php(0): {main}()
-#36 {main}  
+#36 {main}
 [2017-12-21 16:31:15] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Cannot use Symfony\Component\Console\Input\Input as Input because the name is already in use in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:33
 Stack trace:
 #0 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(137): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
@@ -5308,7 +5308,7 @@ Stack trace:
 #33 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): App\Http\Kernel->sendRequestThroughRouter()
 #34 /home/vagrant/Code/gotoperu/public/index.php(53): App\Http\Kernel->handle()
 #35 /home/vagrant/Code/gotoperu/public/index.php(0): {main}()
-#36 {main}  
+#36 {main}
 [2017-12-21 16:31:16] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Cannot use Symfony\Component\Console\Input\Input as Input because the name is already in use in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:33
 Stack trace:
 #0 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(137): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
@@ -5347,7 +5347,7 @@ Stack trace:
 #33 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): App\Http\Kernel->sendRequestThroughRouter()
 #34 /home/vagrant/Code/gotoperu/public/index.php(53): App\Http\Kernel->handle()
 #35 /home/vagrant/Code/gotoperu/public/index.php(0): {main}()
-#36 {main}  
+#36 {main}
 [2017-12-21 16:33:24] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imnput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1508
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5397,7 +5397,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:00] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5447,7 +5447,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:05] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5497,7 +5497,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:07] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5547,7 +5547,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:08] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5597,7 +5597,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:10] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5647,7 +5647,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:11] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5697,7 +5697,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:12] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5747,7 +5747,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:13] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5797,7 +5797,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:14] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5847,7 +5847,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:26] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5897,7 +5897,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:27] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5947,7 +5947,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:28] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -5997,7 +5997,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:28] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6047,7 +6047,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:29] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6097,7 +6097,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:31] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6147,7 +6147,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:31] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6197,7 +6197,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:34] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6247,7 +6247,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:59] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6297,7 +6297,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:35:59] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6347,7 +6347,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:36:01] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6397,7 +6397,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:36:01] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6447,7 +6447,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:38:58] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6497,7 +6497,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:39:50] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Illuminate\Http\Response::json() in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1521
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6547,7 +6547,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 16:40:41] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'App\Http\Controllers\Imput' not found in /home/vagrant/Code/gotoperu/app/Http/Controllers/PackageCotizacionController.php:1509
 Stack trace:
 #0 [internal function]: App\Http\Controllers\PackageCotizacionController->cotizacion_cliente_autocomplete()
@@ -6597,7 +6597,7 @@ Stack trace:
 #44 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #45 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #46 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#47 {main}  
+#47 {main}
 [2017-12-21 17:27:22] local.ERROR: ErrorException: Undefined variable: hotel in /home/vagrant/Code/gotoperu/storage/framework/views/8673ca0154b1b9a360ad2953dacf1e13799ca519.php:638
 Stack trace:
 #0 /home/vagrant/Code/gotoperu/storage/framework/views/8673ca0154b1b9a360ad2953dacf1e13799ca519.php(638): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/vagrant/C...', 638, Array)
@@ -6705,7 +6705,7 @@ Stack trace:
 #47 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #48 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #49 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#50 {main}  
+#50 {main}
 [2017-12-21 19:49:41] local.ERROR: ErrorException: Undefined variable: hotel in /home/vagrant/Code/gotoperu/storage/framework/views/8673ca0154b1b9a360ad2953dacf1e13799ca519.php:638
 Stack trace:
 #0 /home/vagrant/Code/gotoperu/storage/framework/views/8673ca0154b1b9a360ad2953dacf1e13799ca519.php(638): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/vagrant/C...', 638, Array)
@@ -6813,6 +6813,7 @@ Stack trace:
 #47 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #48 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #49 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+
 #50 {main}  
 [2017-12-21 22:27:58] local.ERROR: Exception: Property [id] does not exist on this collection instance. in /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1650
 Stack trace:
@@ -11561,4 +11562,4 @@ Stack trace:
 #47 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #48 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #49 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-#50 {main}  
+#50 {main}

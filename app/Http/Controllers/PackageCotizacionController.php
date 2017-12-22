@@ -434,13 +434,20 @@ class PackageCotizacionController extends Controller
     }
     public function probabilidad(Request $request)
     {
-        $cotizacion_id=$request->input('cotizacion_id');
-        $proba=$request->input('proba');
+        try {
+        $cotizacion_id=$request->input('txt_cotizacion');
+        $proba=$request->input('txt_porcentaje');
         $coti1=Cotizacion::FindOrFail($cotizacion_id);
         $coti1->posibilidad=$proba;
         $coti1->save();
-        $cotizacion=Cotizacion::get();
-        return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
+//        $cotizacion=Cotizacion::get();
+//        return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
+        return 'Thank you.';
+        }
+        catch (Exception $e){
+            return $e;
+        }
+
     }
     public function plan($id){
         $paquetes = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
