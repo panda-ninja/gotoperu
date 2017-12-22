@@ -1074,42 +1074,55 @@ class PackageCotizacionController extends Controller
     }
     public function nuevo_paquete_(Request $request)
     {
-        $cliente = new Cliente();
-        $cliente->nombres = strtoupper($request->input('txt_name1_'));
-        $cliente->email = $request->input('txt_email1_');
-        $cliente->nacionalidad = $request->input('txt_country1_');
-        $cliente->telefono = $request->input('txt_phone1_');
-        $cliente->save();
-
-        //-- Datos de la cotizacion
+        $plan=$request->input('plan');
+        $cotizacion_id=0;
+        $cliente_id=0;
+        $estrela = $request->input('estrellas_from_');
         $date = date_create($request->input('txt_date1_'));
         $fecha = date_format($date, 'jS F Y');
-        $cotizacion_plantilla = new Cotizacion();
-        $cotizacion_plantilla->nombre = strtoupper($request->input('txt_name1_')) . ' x' . $request->input('txt_travelers1_') . ' ' . $fecha;
-        $cotizacion_plantilla->nropersonas = $request->input('txt_travelers1_');
-        $cotizacion_plantilla->duracion = $request->input('txt_days1_');
-        $cotizacion_plantilla->fecha = $request->input('txt_date1_');
-        $estrela=$request->input('estrellas_from_');
-        if($estrela==2)
-            $cotizacion_plantilla->star_2=2;
-        if($estrela==3)
-            $cotizacion_plantilla->star_3=3;
-        if($estrela==4)
-            $cotizacion_plantilla->star_4=4;
-        if($estrela==5)
-            $cotizacion_plantilla->star_5=5;
+        if($plan=='0') {
+            $cliente = new Cliente();
+            $cliente->nombres = strtoupper($request->input('txt_name1_'));
+            $cliente->email = $request->input('txt_email1_');
+            $cliente->nacionalidad = $request->input('txt_country1_');
+            $cliente->telefono = $request->input('txt_phone1_');
+            $cliente->save();
 
-        $cotizacion_plantilla->estado=0;
-        $cotizacion_plantilla->users_id=auth()->guard('admin')->user()->id;
-//        $cotizacion->users_id=1;
-        $cotizacion_plantilla->save();
-//        dd($cotizacion_plantilla);
+            //-- Datos de la cotizacion
 
-        $cotizacion_cliente=new CotizacionesCliente();
-        $cotizacion_cliente->cotizaciones_id=$cotizacion_plantilla->id;
-        $cotizacion_cliente->clientes_id=$cliente->id;
-        $cotizacion_cliente->estado=1;
-        $cotizacion_cliente->save();
+            $cotizacion_plantilla = new Cotizacion();
+            $cotizacion_plantilla->nombre = strtoupper($request->input('txt_name1_')) . ' x' . $request->input('txt_travelers1_') . ' ' . $fecha;
+            $cotizacion_plantilla->nropersonas = $request->input('txt_travelers1_');
+            $cotizacion_plantilla->duracion = $request->input('txt_days1_');
+            $cotizacion_plantilla->fecha = $request->input('txt_date1_');
+
+            if ($estrela == 2)
+                $cotizacion_plantilla->star_2 = 2;
+            if ($estrela == 3)
+                $cotizacion_plantilla->star_3 = 3;
+            if ($estrela == 4)
+                $cotizacion_plantilla->star_4 = 4;
+            if ($estrela == 5)
+                $cotizacion_plantilla->star_5 = 5;
+
+            $cotizacion_plantilla->estado = 0;
+            $cotizacion_plantilla->users_id = auth()->guard('admin')->user()->id;
+            $cotizacion_plantilla->save();
+
+            $cotizacion_cliente = new CotizacionesCliente();
+            $cotizacion_cliente->cotizaciones_id = $cotizacion_plantilla->id;
+            $cotizacion_cliente->clientes_id = $cliente->id;
+            $cotizacion_cliente->estado = 1;
+            $cotizacion_cliente->save();
+            $cotizacion_id=$cotizacion_plantilla->id;
+            $cliente_id=$cliente->id;
+
+        }
+        else{
+            $cotizacion_id=$request->input('cotizacion_id_');
+            $cliente_id=$request->input('cliente_id_');
+
+        }
         $acomodacion_s=0;
         if($request->input('a_s_'))
             $acomodacion_s=$request->input('a_s_');
@@ -1125,21 +1138,20 @@ class PackageCotizacionController extends Controller
         $acomodacion_t=0;
         if($request->input('a_t_'))
             $acomodacion_t=$request->input('a_t_');
-
+//
         $p_paquete_id=$request->input('pqt_id');
         $p_paquete=P_Paquete::where('id',$p_paquete_id)->get();
-        $cotizacion_id=$cotizacion_plantilla->id;
+//
         $txt_day=$request->input('txt_days1_');
         $txt_code=strtoupper('GTP-'.$txt_day.'00');
-
+//
         $txta_description='';
         $txta_include='';
         $txta_notinclude='';
         $totalItinerario=$request->input('totalItinerario');
-//        $itinerarios_=$request->input('itinerarios_2');
         $txt_sugerencia='';
-        $nro_personas=$request->input('txt_travelers1');
-        $cliente_id=$cliente->id;
+        $nro_personas=$request->input('txt_travelers1_');
+
         $hotel_id_2=0;
         $hotel_id_3=0;
         $hotel_id_4=0;
@@ -1168,7 +1180,6 @@ class PackageCotizacionController extends Controller
         $profit_4=0;
         $profit_5=0;
         foreach($p_paquete as $p_paquete_){
-//            dd($p_paquete_);
             $txt_title=strtoupper($p_paquete_->titulo);
             $txta_description=$p_paquete_->descripcion;
             $txta_include=$p_paquete_->incluye;
@@ -1209,7 +1220,7 @@ class PackageCotizacionController extends Controller
             }
             $precioCosto=$p_paquete_->preciocosto;
         }
-
+//
         $paquete=new PaqueteCotizaciones();
         $paquete->codigo=$txt_code;
         $paquete->titulo=$txt_title;
@@ -1314,11 +1325,9 @@ class PackageCotizacionController extends Controller
         $dia_texto=1;
         $coti=Cotizacion::FindOrFail($cotizacion_id);
         $fecha_viaje=date($coti->fecha);
-//        dd($itinerarios_);
 
         foreach($p_paquete as $p_paquete_){
             foreach($p_paquete_->itinerarios as $itinerarios_){
-//                $m_itineario=M_Itinerario::FindOrFail($itinerarios_->id);
                 $p_itinerario=new ItinerarioCotizaciones();
                 $p_itinerario->titulo=$itinerarios_->titulo;
                 $p_itinerario->descripcion=$itinerarios_->descripcion;
@@ -1350,9 +1359,6 @@ class PackageCotizacionController extends Controller
                     $p_servicio=new ItinerarioServicios();
                     $p_servicio->nombre=$servicios->nombre;
                     $p_servicio->observacion='';
-//                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-//                    $p_servicio->precio=round($servicios->itinerario_servicios_servicio->precio_venta/$nro_personas);
-//                else
                     if($servicios->precio_grupo==1){
                         $p_servicio->precio=$servicios->precio*2;
                     }
@@ -1365,7 +1371,6 @@ class PackageCotizacionController extends Controller
                     $p_servicio->precio_grupo=$servicios->precio_grupo;
                     $p_servicio->precio_c=0;
                     $p_servicio->user_id=1;
-//                    $p_servicio->estado=1;
                     $p_servicio->m_servicios_id=$servicios->m_servicios_id;
                     $p_servicio->save();
                 }
@@ -1373,14 +1378,19 @@ class PackageCotizacionController extends Controller
                 $p_itinerario->save();
             }
         }
-//-- recorremos los dias para agregar los hoteles
+////-- recorremos los dias para agregar los hoteles
         $itinerario_cotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$paquete->id)->get();
 //        dd($itinerario_cotizaciones);
         $nroDias=count($itinerario_cotizaciones);
-//        dd($nroDias);
         $pos=1;
         $paquetePrecio=PaquetePrecio::FindOrFail($paquete_precio_id);
-        foreach ($itinerario_cotizaciones as $itinerario_cotizacion) {
+//        $valo='';
+//        foreach ($itinerario_cotizaciones as $itinerario_cotizacion) {
+//                $valo.=$itinerario_cotizacion->id.'_';
+//        }
+//        dd($valo);
+            foreach ($itinerario_cotizaciones as $itinerario_cotizacion) {
+                $id=$itinerario_cotizacion->id;
             if ($pos < $nroDias){
                 $preio_hotel = new PrecioHotelReserva();
                 $preio_hotel->estrellas = $estrela;
@@ -1395,7 +1405,7 @@ class PackageCotizacionController extends Controller
                 $preio_hotel->utilidad = $paquetePrecio->utilidad;
                 $preio_hotel->estado = $paquetePrecio->estado;
                 $preio_hotel->hotel_id = $paquetePrecio->hotel_id;
-                $preio_hotel->itinerario_cotizaciones_id = $itinerario_cotizacion->id;
+
                 $preio_hotel->utilidad_s=$paquetePrecio->utilidad_s;
                 $preio_hotel->utilidad_d=$paquetePrecio->utilidad_d;
                 $preio_hotel->utilidad_m=$paquetePrecio->utilidad_m;
@@ -1405,19 +1415,20 @@ class PackageCotizacionController extends Controller
                 $preio_hotel->utilidad_por_d=$paquetePrecio->utilidad_por_d;
                 $preio_hotel->utilidad_por_m=$paquetePrecio->utilidad_por_m;
                 $preio_hotel->utilidad_por_t=$paquetePrecio->utilidad_por_t;
+
+//                $preio_hotel->itinerario_cotizaciones_id=$itinerario_cotizacion->id;
+
+                $preio_hotel->itinerario_cotizaciones_id=$id;
+//                dd($itinerario_cotizacion->id);
                 $preio_hotel->save();
                 $pos++;
             }
         }
 
         $cliente=Cliente::FindOrFail($cliente_id);
-        $destinos=$request->input('txt_destinos1');
+        $destinos=$request->input('txt_destinos1_');
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-//
-//        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day1'))->get();
-//        dd($p_paquete);
         $m_servicios=M_Servicio::get();
-//        $imprimir=$request->input('imprimir');
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
     }
     public function editar_cotizacion1(Request $request){
@@ -1505,19 +1516,27 @@ class PackageCotizacionController extends Controller
             return 0;
     }
     public function cotizacion_cliente_autocomplete(){
-//        dd(Input::all());
         $term=Input::get('term');
         $result=array();
+//        $datos=Cotizacion::with(['cotizaciones_cliente.cliente'=>function($query) use ($term){
+//            $query->where('nombres','LIKE','%'.$term.'%');
+//        }])->get();
+//        foreach ($datos as $cotizacion){
+//            foreach ($cotizacion->cotizaciones_cliente as $cotizacion_cliente){
+//                foreach ($cotizacion_cliente->cliente as $cliente){
+//                    $result[]=['id'=>$cotizacion->id,'value'=>$cliente->nombres.' x '.$cotizacion->nropersonas.' '.$cotizacion->fecha];
+//                }
+//            }
+//        }
+
+
+
         $clientes=Cliente::where('nombres','LIKE','%'.$term.'%')
             ->orwhere('apellidos','LIKE','%'.$term.'%')
             ->get();
         foreach ($clientes as $cliente){
             $result[]=['id'=>$cliente->id,'value'=>$cliente->nombres.' '.$cliente->apellidos];
         }
-//        $result[0]='hola1';
-//        $result[1]='hola2';
-//        $result[2]='hola3';
-
         return $result;
 
 //        $objeto=M_Itinerario::with(['destinos'=> function ($query) use ($arreglo) {
@@ -1526,18 +1545,27 @@ class PackageCotizacionController extends Controller
 //            ->get();
     }
     public function mostrar_datos_cliente(Request $request){
-        return $request->input('id');
-//        $cliente=explode(' ',$request->input('id'));
-//        $cliente=Cliente::where('nombres',$cliente[0])->get();
-//        $datos=Cotizacion::with(['cotizaciones_cliente'=>function($query) use ($cliente){
-//            $query->where('clientes_id', $cliente->id)
-//                ->where('estado', '1');
-//        }])->get();
+        $cliente=trim($request->input('id'));
+        $cliente=Cliente::where('nombres',$cliente)->get();
+        $cliente1='';
+        $datos_enviar='';
+        foreach($cliente->take(1) as $cliente2){
+            $cliente1=$cliente2->id;
+            $datos_enviar=$cliente2->nacionalidad.'_'.$cliente2->email.'_'.$cliente2->telefono.'_';
+        }
+        $datos=Cotizacion::with(['cotizaciones_cliente'=>function($query) use ($cliente1){
+            $query->where('clientes_id', $cliente1)
+                ->where('estado', '1');
+        }])->get();
 //
-//
-//        $itinerarios=M_Itinerario::with(['destinos'=> function ($query) use ($arreglo) {
-//            $query->whereIn('destino', $arreglo);
-//        }])
-//            ->get();
+        if(count($datos)>0){
+            foreach($datos->take(1) as $dato){
+                $datos_enviar.=$dato->nropersonas.'_'.$dato->duracion.'_'.$dato->fecha.'_'.$dato->id.'_'.$cliente1;
+            }
+            return '1_'.$datos_enviar;
+        }
+
+        else
+            return '0_';
     }
 }
