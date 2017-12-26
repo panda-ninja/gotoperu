@@ -38,7 +38,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">QUOTES</a></div>
             <div class="menu-lista text-center {{activar_link2('admin/quotes/new/profile')}}"><a href="{{route("quotes_new1_path")}}" class="link text-grey-goto">New</a></div>
-            <div class="menu-lista text-center {{activar_link2('admin/current-quote')}}"><a href="{{route("current-quote_path")}}" class="link text-grey-goto">Current</a></div>
+            <div class="menu-lista text-center {{activar_link2('admin/current-quote')}}"><a href="{{route('current_quote_page_path', 'gotoperu.com')}}" class="link text-grey-goto">Current</a></div>
             <div class="menu-titulo text-center"><a href="!#" class="link text-grey-goto">SALES</a></div>
             <div class="menu-lista text-center"><a class="link text-grey-goto"><b>ITIN</b></a></div>
             <div class="menu-lista text-center{{activar_link2('admin/destination')}}"><a href="{{route('destination_index_path')}}" class="link text-grey-goto">Destination</a></div>

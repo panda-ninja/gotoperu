@@ -19,6 +19,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/admin.scss', 'public/css/admin')
     .sass('resources/assets/sass/fonts-awesome/font-awesome.scss', 'public/css/')
     .sass('resources/assets/sass/quotes-pdf.css', 'public/css/')
+    // .sass('resources/assets/sass/jquery-ui.min.css', 'public/css/');
+
     // .sass('resources/assets/sass/sweetalert2.css', 'public/css/admin');
 // mix.sass('resources/assets/sass/jquery_ui.css', 'public/css/jquery.css');
 //---mix cpy

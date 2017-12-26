@@ -237,6 +237,19 @@ Route::get('/admin/current-quote', [
     'uses' => 'PackageCotizacionController@current_cotizacion',
     'as' => 'current-quote_path',
 ]);
+
+
+//
+
+Route::get('/admin/current-quote/{page}', [
+    'uses' => 'PackageCotizacionController@current_cotizacion_page',
+    'as' => 'current_quote_page_path',
+]);
+
+
+//
+
+
 Route::get('admin/buscar-cotizacion/', [
     'uses' => 'PackageCotizacionController@autocomplete',
     'as' => 'buscar_cotizacion_path',
@@ -448,3 +461,5 @@ Route::post('/admin/cliente/mostrar', [
     'uses' => 'PackageCotizacionController@mostrar_datos_cliente',
     'as' => 'quotes_cliente_mostrar_path'
 ]);
+
+//

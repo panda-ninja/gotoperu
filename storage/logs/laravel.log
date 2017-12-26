@@ -6813,7 +6813,6 @@ Stack trace:
 #47 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
 #48 /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #49 /home/vagrant/Code/gotoperu/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
-
 #50 {main}  
 [2017-12-21 22:27:58] local.ERROR: Exception: Property [id] does not exist on this collection instance. in /home/vagrant/Code/gotoperu/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1650
 Stack trace:
