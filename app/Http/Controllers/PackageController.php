@@ -304,6 +304,12 @@ class PackageController extends Controller
         $profit_4=$request->input('profitt_4');
         $profit_5=$request->input('profitt_5');
 
+        $hotel_id_2=$request->input('hotel_id_2');
+        $hotel_id_3=$request->input('hotel_id_3');
+        $hotel_id_4=$request->input('hotel_id_4');
+        $hotel_id_5=$request->input('hotel_id_5');
+
+
 //        dd('profit_2:'.$profit_2.',profit_3:'.$profit_3.',profit_4:'.$profit_4.',profit_5:'.$profit_5);
 //        dd($txta_include.'_'.$txta_notinclude);
         $paquete=P_Paquete::FindOrFail($paquete_id);
@@ -337,6 +343,7 @@ class PackageController extends Controller
             $paquete_precio2->estado=0;
         $paquete_precio2->utilidad=$profit_2;
         $paquete_precio2->p_paquete_id=$paquete->id;
+        $paquete_precio2->hotel_id=$hotel_id_2;
         $paquete_precio2->save();
 
         $paquete_precio3=new P_PaquetePrecio();
@@ -355,6 +362,7 @@ class PackageController extends Controller
             $paquete_precio3->estado=0;
         $paquete_precio3->utilidad=$profit_3;
         $paquete_precio3->p_paquete_id=$paquete->id;
+        $paquete_precio3->hotel_id=$hotel_id_3;
         $paquete_precio3->save();
 
         $paquete_precio4=new P_PaquetePrecio();
@@ -373,6 +381,7 @@ class PackageController extends Controller
             $paquete_precio4->estado=0;
         $paquete_precio4->utilidad=$profit_4;
         $paquete_precio4->p_paquete_id=$paquete->id;
+        $paquete_precio4->hotel_id=$hotel_id_4;
         $paquete_precio4->save();
 
         $paquete_precio5=new P_PaquetePrecio();
@@ -391,6 +400,7 @@ class PackageController extends Controller
             $paquete_precio5->estado=0;
         $paquete_precio5->utilidad=$profit_5;
         $paquete_precio5->p_paquete_id=$paquete->id;
+        $paquete_precio5->hotel_id=$hotel_id_5;
         $paquete_precio5->save();
         $dia=0;
         foreach ($itinerarios_ as $itinerario_id){

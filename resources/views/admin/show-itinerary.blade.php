@@ -455,6 +455,10 @@
                                 $amount_d5=0;
                                 $amount_m5=0;
                                 $amount_t5=0;
+                                $hotel_id_2=0;
+                                $hotel_id_3=0;
+                                $hotel_id_4=0;
+                                $hotel_id_5=0;
                                 ?>
                                 @foreach($itinerary as $$itinerary)
                                     @foreach($itinerary->precios as $precio)
@@ -464,6 +468,7 @@
                                             $amount_d2=$precio->precio_d;
                                             $amount_m2=$precio->precio_m;
                                             $amount_t2=$precio->precio_t;
+                                            $hotel_id_2=$precio->hotel_id;
                                             ?>
                                         @endif
                                         @if($precio->estrellas=="3")
@@ -472,6 +477,7 @@
                                             $amount_d3=$precio->precio_d;
                                             $amount_m3=$precio->precio_m;
                                             $amount_t3=$precio->precio_t;
+                                            $hotel_id_3=$precio->hotel_id;
                                             ?>
                                         @endif
                                         @if($precio->estrellas=="4")
@@ -480,6 +486,7 @@
                                             $amount_d4=$precio->precio_d;
                                             $amount_m4=$precio->precio_m;
                                             $amount_t4=$precio->precio_t;
+                                            $hotel_id_4=$precio->hotel_id;
                                             ?>
                                         @endif
                                         @if($precio->estrellas=="5")
@@ -488,6 +495,7 @@
                                             $amount_d5=$precio->precio_d;
                                             $amount_m5=$precio->precio_m;
                                             $amount_t5=$precio->precio_t;
+                                            $hotel_id_5=$precio->hotel_id;
                                             ?>
                                         @endif
                                     @endforeach
@@ -1730,6 +1738,10 @@
                         <div class="row margin-top-20">
                             <div class="col-md-12 text-center">
                                 <input type="hidden" name="paquete_id" id="paquete_id" value="{{$paquete_id}}">
+                                <input type="hidden" name="hotel_id_2" value="{{$hotel_id_2}}">
+                                <input type="hidden" name="hotel_id_3" value="{{$hotel_id_3}}">
+                                <input type="hidden" name="hotel_id_4" value="{{$hotel_id_4}}">
+                                <input type="hidden" name="hotel_id_5" value="{{$hotel_id_5}}">
                                 <button type="submit" class="btn btn-lg btn-warning">Edit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
                             </div>
                         </div>

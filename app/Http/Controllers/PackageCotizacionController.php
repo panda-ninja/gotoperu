@@ -1086,7 +1086,7 @@ class PackageCotizacionController extends Controller
         $cotizacion_id=0;
         $cliente_id=0;
         $estrela = $request->input('estrellas_from_');
-
+//        dd($estrela );
         $date = date_create($request->input('txt_date1_'));
         $fecha = date_format($date, 'jS F Y');
 
@@ -1558,6 +1558,7 @@ class PackageCotizacionController extends Controller
     public function mostrar_datos_cliente(Request $request){
         $cliente=trim($request->input('id'));
         $cliente=Cliente::where('nombres',$cliente)->get();
+        return $cliente;
         $cliente1='';
         $datos_enviar='';
         foreach($cliente->take(1) as $cliente2){

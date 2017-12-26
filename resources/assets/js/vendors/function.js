@@ -2418,6 +2418,7 @@ function MostrarDatos(){
         }
     });
     $.post('/admin/cliente/mostrar', 'id='+datos, function(data) {
+        console.log(data);
         var dat=data.split('_');
         console.log(dat);
         if(dat[0]==1){
