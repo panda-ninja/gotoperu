@@ -1575,7 +1575,8 @@ function Eliminar_cotizacion(id,titulo) {
         });
         $.post('/admin/cotizacion/delete', 'id='+id, function(data) {
             if(data==1){
-                $("#coti_new"+id).fadeOut( "slow");
+                // $("#coti_new"+id).fadeOut( "slow");
+                $('#content-list-'+id).addClass('hide');
             }
         }).fail(function (data) {
             console.log(data);

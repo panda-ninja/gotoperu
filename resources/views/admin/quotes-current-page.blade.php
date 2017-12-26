@@ -10,19 +10,19 @@
 
     <div class="row margin-top-10 margin-bottom-20">
         <div class="col-md-2 no-padding">
-            <a href="{{route('current_quote_page_path', 'gotoperu.com')}}" class="btn btn-block btn-default active">gotoperu.com</a>
+            <a href="{{route('current_quote_page_path', 'gotoperu.com')}}" class="btn btn-block btn-default @if($page == 'gotoperu.com') active @endif">gotoperu.com</a>
         </div>
         <div class="col-md-2 no-padding">
-            <a href="{{route('current_quote_page_path', 'gotoperu.com.pe')}}" class="btn btn-block btn-default">gotoperu.com.pe</a>
+            <a href="{{route('current_quote_page_path', 'gotoperu.com.pe')}}" class="btn btn-block btn-default @if($page == 'gotoperu.com.pe') active @endif">gotoperu.com.pe</a>
         </div>
         <div class="col-md-2 no-padding">
-            <a href="{{route('current_quote_page_path', 'andesviagens.com')}}" class="btn btn-block btn-default">andesviagens.com</a>
+            <a href="{{route('current_quote_page_path', 'andesviagens.com')}}" class="btn btn-block btn-default @if($page == 'andesviagens.com') active @endif">andesviagens.com</a>
         </div>
         <div class="col-md-2 no-padding">
-            <a href="{{route('current_quote_page_path', 'machupicchu-galapagos.com')}}" class="btn btn-block btn-default">machupicchu-galapagos.com</a>
+            <a href="{{route('current_quote_page_path', 'machupicchu-galapagos.com')}}" class="btn btn-block btn-default @if($page == 'machupicchu-galapagos.com') active @endif">machupicchu-galapagos.com</a>
         </div>
         <div class="col-md-2 no-padding">
-            <a href="{{route('current_quote_page_path', 'gotolatinamerica.com')}}" class="btn btn-block btn-default">gotolatinamerica.com</a>
+            <a href="{{route('current_quote_page_path', 'gotolatinamerica.com')}}" class="btn btn-block btn-default @if($page == 'gotolatinamerica.com') active @endif">gotolatinamerica.com</a>
         </div>
     </div>
 
@@ -43,9 +43,9 @@
             </div>
         </div>
         {{--<div class="col-md-2 no-padding">--}}
-            {{--<div class="box-header-book border-right-0">--}}
-                {{--<h4 class="no-margin">1st Follow Up<span><b class="label label-success">#12</b> <small><b>arrival date:</b> june</small></span></h4>--}}
-            {{--</div>--}}
+        {{--<div class="box-header-book border-right-0">--}}
+        {{--<h4 class="no-margin">1st Follow Up<span><b class="label label-success">#12</b> <small><b>arrival date:</b> june</small></span></h4>--}}
+        {{--</div>--}}
         {{--</div>--}}
         <div class="col-md-2 no-padding">
             <div class="box-header-book border-right-0">
@@ -82,27 +82,27 @@
                             $titulo='';
                             ?>
 
-                            <li class="content-list-book" value="{{$cotizacion_->id}}">
+                            <li class="content-list-book" id="content-list-{{$cotizacion_->id}}" value="{{$cotizacion_->id}}">
                                 <div class="content-list-book-s">
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">
-                                    @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
-                                        @if($cliente_coti->estado=='1')
-                                            <?php
-                                            $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
-                                            ?>
-                                            {{--                                                <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>--}}
-                                            <strong>
-                                                <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
-                                                {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}}: {{$cotizacion_->nropersonas}} days: {{$fecha}}
-                                            </strong>
-                                            <small>
-                                                18987$
-                                            </small>
-                                        @endif
-                                    @endforeach
+                                        @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
+                                            @if($cliente_coti->estado=='1')
+                                                <?php
+                                                $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                                ?>
+                                                {{--                                                <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>--}}
+                                                <strong>
+                                                    <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
+                                                    {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}}: {{$cotizacion_->nropersonas}} days: {{$fecha}}
+                                                </strong>
+                                                <small>
+                                                    18987$
+                                                </small>
+                                            @endif
+                                        @endforeach
                                     </a>
                                     <div class="icon">
-                                        <a href=""><i class="fa fa-warning"></i></a>
+                                        <a href="#" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')"><i class="fa fa-trash text-danger"></i></a>
                                     </div>
                                 </div>
                             </li>
@@ -122,7 +122,7 @@
                             $titulo='';
                             ?>
 
-                            <li class="content-list-book" value="{{$cotizacion_->id}}">
+                            <li class="content-list-book" id="content-list-{{$cotizacion_->id}}" value="{{$cotizacion_->id}}">
                                 <div class="content-list-book-s">
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">
                                         @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
@@ -142,7 +142,7 @@
                                         @endforeach
                                     </a>
                                     <div class="icon">
-                                        <a href=""><i class="fa fa-warning"></i></a>
+                                        <a href="#" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')"><i class="fa fa-trash text-danger"></i></a>
                                     </div>
                                 </div>
                             </li>
@@ -162,7 +162,7 @@
                             $titulo='';
                             ?>
 
-                            <li class="content-list-book" value="{{$cotizacion_->id}}">
+                            <li class="content-list-book" id="content-list-{{$cotizacion_->id}}" value="{{$cotizacion_->id}}">
                                 <div class="content-list-book-s">
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">
                                         @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
@@ -182,7 +182,7 @@
                                         @endforeach
                                     </a>
                                     <div class="icon">
-                                        <a href=""><i class="fa fa-warning"></i></a>
+                                        <a href="#" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')"><i class="fa fa-trash text-danger"></i></a>
                                     </div>
                                 </div>
                             </li>
@@ -202,7 +202,7 @@
                             $titulo='';
                             ?>
 
-                            <li class="content-list-book" value="{{$cotizacion_->id}}">
+                            <li class="content-list-book" id="content-list-{{$cotizacion_->id}}" value="{{$cotizacion_->id}}">
                                 <div class="content-list-book-s">
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">
                                         @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
@@ -222,7 +222,7 @@
                                         @endforeach
                                     </a>
                                     <div class="icon">
-                                        <a href=""><i class="fa fa-warning"></i></a>
+                                        <a href="#" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')"><i class="fa fa-trash text-danger"></i></a>
                                     </div>
                                 </div>
                             </li>
@@ -242,7 +242,7 @@
                             $titulo='';
                             ?>
 
-                            <li class="content-list-book" value="{{$cotizacion_->id}}">
+                            <li class="content-list-book" id="content-list-{{$cotizacion_->id}}" value="{{$cotizacion_->id}}">
                                 <div class="content-list-book-s">
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">
                                         @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
@@ -262,7 +262,7 @@
                                         @endforeach
                                     </a>
                                     <div class="icon">
-                                        <a href=""><i class="fa fa-warning"></i></a>
+                                        <a href="#" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')"><i class="fa fa-trash text-danger"></i></a>
                                     </div>
                                 </div>
                             </li>
@@ -282,7 +282,7 @@
                             $titulo='';
                             ?>
 
-                            <li class="content-list-book" value="{{$cotizacion_->id}}">
+                            <li class="content-list-book" id="content-list-{{$cotizacion_->id}}" value="{{$cotizacion_->id}}">
                                 <div class="content-list-book-s">
                                     <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">
                                         @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
@@ -303,7 +303,7 @@
                                         @endforeach
                                     </a>
                                     <div class="icon">
-                                        <a href=""><i class="fa fa-warning"></i></a>
+                                        <a href="#" onclick="Eliminar_cotizacion('{{$cotizacion_->id}}','{{$titulo}}')"><i class="fa fa-trash text-danger"></i></a>
                                     </div>
                                 </div>
                             </li>
@@ -317,126 +317,126 @@
 
     <div class="row">
         {{--<div class="col-md-4 no-padding box-list-book">--}}
-            {{--<div class="content-list-book">--}}
-                {{--<div class="content-list-book-s">--}}
-                    {{--<a href="">--}}
-                        {{--<strong>--}}
-                            {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
-                            {{--hidalgo X 6: 6 days: 2/25/2018--}}
-                        {{--</strong>--}}
-                        {{--<small>--}}
-                            {{--18987$--}}
-                        {{--</small>--}}
-                    {{--</a>--}}
-                    {{--<div class="icon">--}}
-                        {{--<a href=""><i class="fa fa-warning"></i></a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+        {{--<div class="content-list-book">--}}
+        {{--<div class="content-list-book-s">--}}
+        {{--<a href="">--}}
+        {{--<strong>--}}
+        {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+        {{--hidalgo X 6: 6 days: 2/25/2018--}}
+        {{--</strong>--}}
+        {{--<small>--}}
+        {{--18987$--}}
+        {{--</small>--}}
+        {{--</a>--}}
+        {{--<div class="icon">--}}
+        {{--<a href=""><i class="fa fa-warning"></i></a>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
         {{--</div>--}}
         {{--<div class="col-md-4 no-padding box-list-book">--}}
 
-            {{--<div class="content-list-book">--}}
-                {{--<div class="content-list-book-s">--}}
-                    {{--<a href="">--}}
-                        {{--<strong>--}}
-                            {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
-                            {{--Hidalgo x2: 8 days: Jan 2018--}}
-                        {{--</strong>--}}
-                        {{--<small>--}}
-                            {{--1800$--}}
-                        {{--</small>--}}
-                    {{--</a>--}}
-                    {{--<div class="icon">--}}
-                        {{--<a href="">10%</a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="content-list-book">--}}
-                {{--<div class="content-list-book-s">--}}
-                    {{--<a href="">--}}
-                        {{--<strong>--}}
-                            {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
-                            {{--Hidalgo x2: 8 days: Jan 2018--}}
-                        {{--</strong>--}}
-                        {{--<small>--}}
-                            {{--1800$--}}
-                        {{--</small>--}}
-                    {{--</a>--}}
-                    {{--<div class="icon">--}}
-                        {{--<a href="">50%</a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-        </div>
-        {{--<div class="col-md-4 no-padding box-list-book border-right-0">--}}
-            {{--<div class="content-list-book">--}}
-                {{--<div class="content-list-book-s">--}}
-                    {{--<a href="">--}}
-                        {{--<strong>--}}
-                            {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
-                            {{--Hidalgo x2: 8 days: Jan 2018--}}
-                        {{--</strong>--}}
-                        {{--<small>--}}
-                            {{--1800$--}}
-                        {{--</small>--}}
-                    {{--</a>--}}
-                    {{--<div class="icon">--}}
-                        {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="content-list-book">--}}
-                {{--<div class="content-list-book-s">--}}
-                    {{--<a href="">--}}
-                        {{--<strong>--}}
-                            {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
-                            {{--Hidalgo x2: 8 days: Jan 2018--}}
-                        {{--</strong>--}}
-                        {{--<small>--}}
-                            {{--1800$--}}
-                        {{--</small>--}}
-                    {{--</a>--}}
-                    {{--<div class="icon">--}}
-                        {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="content-list-book">--}}
-                {{--<div class="content-list-book-s">--}}
-                    {{--<a href="">--}}
-                        {{--<strong>--}}
-                            {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
-                            {{--Hidalgo x2: 8 days: Jan 2018--}}
-                        {{--</strong>--}}
-                        {{--<small>--}}
-                            {{--1800$--}}
-                        {{--</small>--}}
-                    {{--</a>--}}
-                    {{--<div class="icon">--}}
-                        {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="content-list-book">--}}
-                {{--<div class="content-list-book-s">--}}
-                    {{--<a href="">--}}
-                        {{--<strong>--}}
-                            {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
-                            {{--Hidalgo x2: 8 days: Jan 2018--}}
-                        {{--</strong>--}}
-                        {{--<small>--}}
-                            {{--1800$--}}
-                        {{--</small>--}}
-                    {{--</a>--}}
-                    {{--<div class="icon">--}}
-                        {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+        {{--<div class="content-list-book">--}}
+        {{--<div class="content-list-book-s">--}}
+        {{--<a href="">--}}
+        {{--<strong>--}}
+        {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+        {{--Hidalgo x2: 8 days: Jan 2018--}}
+        {{--</strong>--}}
+        {{--<small>--}}
+        {{--1800$--}}
+        {{--</small>--}}
+        {{--</a>--}}
+        {{--<div class="icon">--}}
+        {{--<a href="">10%</a>--}}
         {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+
+        {{--<div class="content-list-book">--}}
+        {{--<div class="content-list-book-s">--}}
+        {{--<a href="">--}}
+        {{--<strong>--}}
+        {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+        {{--Hidalgo x2: 8 days: Jan 2018--}}
+        {{--</strong>--}}
+        {{--<small>--}}
+        {{--1800$--}}
+        {{--</small>--}}
+        {{--</a>--}}
+        {{--<div class="icon">--}}
+        {{--<a href="">50%</a>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+
+    </div>
+    {{--<div class="col-md-4 no-padding box-list-book border-right-0">--}}
+    {{--<div class="content-list-book">--}}
+    {{--<div class="content-list-book-s">--}}
+    {{--<a href="">--}}
+    {{--<strong>--}}
+    {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+    {{--Hidalgo x2: 8 days: Jan 2018--}}
+    {{--</strong>--}}
+    {{--<small>--}}
+    {{--1800$--}}
+    {{--</small>--}}
+    {{--</a>--}}
+    {{--<div class="icon">--}}
+    {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="content-list-book">--}}
+    {{--<div class="content-list-book-s">--}}
+    {{--<a href="">--}}
+    {{--<strong>--}}
+    {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+    {{--Hidalgo x2: 8 days: Jan 2018--}}
+    {{--</strong>--}}
+    {{--<small>--}}
+    {{--1800$--}}
+    {{--</small>--}}
+    {{--</a>--}}
+    {{--<div class="icon">--}}
+    {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="content-list-book">--}}
+    {{--<div class="content-list-book-s">--}}
+    {{--<a href="">--}}
+    {{--<strong>--}}
+    {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+    {{--Hidalgo x2: 8 days: Jan 2018--}}
+    {{--</strong>--}}
+    {{--<small>--}}
+    {{--1800$--}}
+    {{--</small>--}}
+    {{--</a>--}}
+    {{--<div class="icon">--}}
+    {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="content-list-book">--}}
+    {{--<div class="content-list-book-s">--}}
+    {{--<a href="">--}}
+    {{--<strong>--}}
+    {{--<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">--}}
+    {{--Hidalgo x2: 8 days: Jan 2018--}}
+    {{--</strong>--}}
+    {{--<small>--}}
+    {{--1800$--}}
+    {{--</small>--}}
+    {{--</a>--}}
+    {{--<div class="icon">--}}
+    {{--<a href="" class="text-success"><i class="fa fa-check"></i></a>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
     </div>
 
     <script>
@@ -453,6 +453,7 @@
         $("ol.simple_with_animation").sortable({
             group: 'simple_with_animation',
             pullPlaceholder: false,
+            tolerance: 6,
             // animation on drop
             onDrop: function  ($item, container, _super) {
 

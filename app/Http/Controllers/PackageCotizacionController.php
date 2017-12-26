@@ -366,6 +366,13 @@ class PackageCotizacionController extends Controller
         $cotizacion=Cotizacion::get();
         return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
     }
+
+    public function current_cotizacion_page($page)
+    {
+        $cotizacion=Cotizacion::where('web', $page)->get();
+        return view('admin.quotes-current-page',['cotizacion'=>$cotizacion, 'page'=>$page]);
+    }
+    
     public function autocomplete()
     {
         $term = Input::get('term');
