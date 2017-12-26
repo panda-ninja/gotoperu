@@ -18,6 +18,7 @@
                 $t=0;
             @endphp
             @foreach($cotizaciones as $cotizacion)
+                <p><b>Pagina de origen {{$cotizacion->web}}</b></p>
                 <b class="text-warning text-25">{{$cotizacion->nropersonas}} PAXS {{$cotizacion->star_2}}{{$cotizacion->star_3}}{{$cotizacion->star_4}}{{$cotizacion->star_5}} STARS:</b>
                 @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
                     @foreach($paquete->paquete_precios as $precio)

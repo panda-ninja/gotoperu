@@ -55,6 +55,18 @@
                             <input type="date" class="form-control" id="txt_travel_date" name="txt_travel_date" placeholder="Travel date">
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txt_travel_date">Pagina de origen</label>
+                            <select name="web" id="web" class="form-control">
+                                <option value="gotoperu.com">gotoperu.com</option>
+                                <option value="gotoperu.com.pe">gotoperu.com.pe</option>
+                                <option value="andesviagens.com">andesviagens.com</option>
+                                <option value="machupicchu-galapagos.com">machupicchu-galapagos.com</option>
+                                <option value="gotolatinamerica.com">gotolatinamerica.com</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="checkbox1">
                             <label class="text-orange-goto">
@@ -408,6 +420,8 @@
                         <input type="hidden" name="plan" id="plan" value="0">
                         <input type="hidden" name="cotizacion_id_" id="cotizacion_id_" value="0">
                         <input type="hidden" name="cliente_id_" id="cliente_id_" value="0">
+                        <input type="hidden" name="web_" id="web_" value="gotoperu.com">
+
                     </div>
                     <div class="col-lg-12 caja_verde">
                         <div class="row">

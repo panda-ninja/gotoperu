@@ -1088,7 +1088,7 @@ class PackageCotizacionController extends Controller
     public function nuevo_paquete_(Request $request)
     {
         $plan=$request->input('plan');
-
+//dd($request->input('web_'));
         $cotizacion_id=0;
         $cliente_id=0;
         $estrela = $request->input('estrellas_from_');
@@ -1124,6 +1124,7 @@ class PackageCotizacionController extends Controller
             $cotizacion_plantilla->estado = 0;
             $cotizacion_plantilla->users_id = auth()->guard('admin')->user()->id;
             $cotizacion_plantilla->posibilidad =0;
+            $cotizacion_plantilla->web=$request->input('web_');
             $cotizacion_plantilla->save();
 
             $cotizacion_cliente = new CotizacionesCliente();

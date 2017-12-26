@@ -2298,6 +2298,8 @@ function enviar_form2(){
         $('#txt_travelers1_').val($('#txt_travellers').val());
         $('#txt_days1_').val($('#txt_days').val());
         $('#txt_date1_').val($('#txt_travel_date').val());
+        $('#web_').val($('#web').val());
+
         $('#txt_destinos1_').val(destinos);
 
         // $.ajax({
