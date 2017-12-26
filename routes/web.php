@@ -457,7 +457,7 @@ Route::get('quotes/autocomplete', [
     'uses' => 'PackageCotizacionController@cotizacion_cliente_autocomplete',
     'as' => 'quotes_auto_path'
 ]);
-Route::get('admin/cliente/mostrar', [
+Route::post('/admin/cliente/mostrar', [
     'uses' => 'PackageCotizacionController@mostrar_datos_cliente',
     'as' => 'quotes_cliente_mostrar_path'
 ]);

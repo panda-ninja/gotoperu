@@ -2300,18 +2300,18 @@ function enviar_form2(){
         $('#txt_date1_').val($('#txt_travel_date').val());
         $('#txt_destinos1_').val(destinos);
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            // Mostramos un mensaje con la respuesta de PHP
-            success: function(data) {
-                if(data==1){
-                }
-                else{
-                }
-            }
-        })
+        // $.ajax({
+        //     type: 'POST',
+        //     url: $(this).attr('action'),
+        //     data: $(this).serialize(),
+        //     // Mostramos un mensaje con la respuesta de PHP
+        //     success: function(data) {
+        //         if(data==1){
+        //         }
+        //         else{
+        //         }
+        //     }
+        // })
         // return false;
     });
 }
@@ -2420,17 +2420,28 @@ function MostrarDatos(){
     });
     $.post('/admin/cliente/mostrar', 'id='+datos, function(data) {
         var dat=data.split('_');
+        console.log(dat);
         if(dat[0]==1){
-            $("#txt_country").val(dat[2]);
-            $("#txt_email").val(dat[3]);
-            $("#txt_phone").val(dat[4]);
-            $("#txt_travellers").val(dat[5]);
-            $("#txt_days").val(dat[6]);
-            $("#txt_travel_date").val(dat[7]);
-            // $("#lista_destinos_"+id).remove();
-            $("#lista_services_"+id).fadeOut( "slow");
+            $("#txt_country").val(dat[1]);
+            $("#txt_email").val(dat[2]);
+            $("#txt_phone").val(dat[3]);
+            $("#txt_travellers").val(dat[4]);
+            $("#txt_days").val(dat[5]);
+            $("#txt_travel_date").val(dat[6]);
+            $("#cotizacion_id_").val(dat[7]);
+            $("#cliente_id_").val(dat[8]);
+            $("#plan").val('1');
         }
     }).fail(function (data) {
-
     });
 }
+function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+        console.log('se presiono enter');
+        MostrarDatos();
+        // var tb = document.getElementById("scriptBox");
+        // eval(tb.value);
+        // return false;
+    }
+}
+

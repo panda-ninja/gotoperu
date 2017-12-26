@@ -16,7 +16,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="txt_name">Name</label>
-                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onchange="MostrarDatos()" >
+                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onkeypress="return runScript(event)" >
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -405,7 +405,9 @@
                         <input type="hidden" name="txt_date1_" id="txt_date1_">
                         <input type="hidden" name="txt_destinos1_" id="txt_destinos1_">
                         <input type="hidden" name="pqt_id" id="pqt_id" value="0">
-
+                        <input type="hidden" name="plan" id="plan" value="0">
+                        <input type="hidden" name="cotizacion_id_" id="cotizacion_id_" value="0">
+                        <input type="hidden" name="cliente_id_" id="cliente_id_" value="0">
                     </div>
                     <div class="col-lg-12 caja_verde">
                         <div class="row">
