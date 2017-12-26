@@ -382,7 +382,6 @@ class PackageCotizacionController extends Controller
         $txt_name=$request->input('txt_name');
         $cotizacion=Cotizacion::where('nombre',$txt_name)->get();
         return view('admin.quotes-current',['cotizacion'=>$cotizacion]);
-
     }
     public function show_cotizacion_id($cotizacion_id)
     {
@@ -1439,6 +1438,7 @@ class PackageCotizacionController extends Controller
         $cliente=Cliente::FindOrFail($cliente_id);
         $destinos=$request->input('txt_destinos1_');
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+
         $m_servicios=M_Servicio::get();
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
     }
@@ -1558,21 +1558,26 @@ class PackageCotizacionController extends Controller
     public function mostrar_datos_cliente(Request $request){
         $cliente=trim($request->input('id'));
         $cliente=Cliente::where('nombres',$cliente)->get();
-        return $cliente;
+//        return $cliente;
         $cliente1='';
         $datos_enviar='';
         foreach($cliente->take(1) as $cliente2){
             $cliente1=$cliente2->id;
             $datos_enviar=$cliente2->nacionalidad.'_'.$cliente2->email.'_'.$cliente2->telefono.'_';
         }
+
         $datos=Cotizacion::with(['cotizaciones_cliente'=>function($query) use ($cliente1){
-            $query->where('clientes_id', $cliente1)
-                ->where('estado', '1');
+            $query->where('clientes_id','=', $cliente1)
+                ->where('estado', '1')->get();
         }])->get();
 //
+//        return $datos;
         if(count($datos)>0){
-            foreach($datos->take(1) as $dato){
-                $datos_enviar.=$dato->nropersonas.'_'.$dato->duracion.'_'.$dato->fecha.'_'.$dato->id.'_'.$cliente1;
+            foreach($datos as $dato_cliente){
+                foreach($dato_cliente->cotizaciones_cliente as $dato){
+                    if($dato->clientes_id==$cliente1 && $dato->estado='1')
+                    $datos_enviar.=$dato_cliente->nropersonas.'_'.$dato_cliente->duracion.'_'.$dato_cliente->fecha.'_'.$dato_cliente->id.'_'.$cliente1;
+                }
             }
             return '1_'.$datos_enviar;
         }

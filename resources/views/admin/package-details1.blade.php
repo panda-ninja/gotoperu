@@ -19,7 +19,7 @@
             @endphp
             @foreach($cotizaciones as $cotizacion)
                 <b class="text-warning text-25">{{$cotizacion->nropersonas}} PAXS {{$cotizacion->star_2}}{{$cotizacion->star_3}}{{$cotizacion->star_4}}{{$cotizacion->star_5}} STARS:</b>
-                @foreach($cotizacion->paquete_cotizaciones as $paquete)
+                @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
                     @foreach($paquete->paquete_precios as $precio)
                         <b class="text-unset text-20">
                             @if($precio->personas_s>0)
@@ -73,93 +73,165 @@
                 $cotizacion_id=$cotizacion->id;
             @endphp
             @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
-                @foreach($paquete->itinerario_cotizaciones as $itinerario)
-                    <div class="row caja_items">
-                        <div class="col-lg-1 caja_dia_indice">
-                            DAY {{$itinerario->dias}}
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="row caja_dia">
-                                <div class="col-lg-7">{{$itinerario->titulo}}</div>
-                                <div class="col-lg-1 @if($s==0) hide @endif">S</div>
-                                <div class="col-lg-1 @if($d==0) hide @endif">D</div>
-                                <div class="col-lg-1 @if($t==0) hide @endif">T</div>
-                                <div class="col-lg-2 hide"></div>
+                @if($paquete->id==$paquete_precio_id)
+                    @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                        <div class="row caja_items">
+                            <div class="col-lg-1 caja_dia_indice">
+                                DAY {{$itinerario->dias}}
                             </div>
-                            <div class="row caja_detalle">
-                                @php
-                                    $rango='';
-                                @endphp
-
-                                @foreach($itinerario->itinerario_servicios as $servicios)
+                            <div class="col-lg-5">
+                                <div class="row caja_dia">
+                                    <div class="col-lg-7">{{$itinerario->titulo}}</div>
+                                    <div class="col-lg-1 @if($s==0) hide @endif">S</div>
+                                    <div class="col-lg-1 @if($d==0) hide @endif">D</div>
+                                    <div class="col-lg-1 @if($t==0) hide @endif">T</div>
+                                    <div class="col-lg-2 hide"></div>
+                                </div>
+                                <div class="row caja_detalle">
                                     @php
-                                        $preciom=0;
+                                        $rango='';
                                     @endphp
-                                    {{--@if($servicios->precio_grupo==1)--}}
-                                        {{--@php--}}
-                                            {{--$precio_iti+=($servicios->precio/2)/$cotizacion->nropersonas;--}}
-                                            {{--$preciom=($servicios->precio/2)/$cotizacion->nropersonas;--}}
-                                        {{--@endphp--}}
-                                    {{--@else--}}
-                                    @if($servicios->min_personas<= $cotizacion->nropersonas&&$cotizacion->nropersonas <=$servicios->max_personas)
+
+                                    @foreach($itinerario->itinerario_servicios as $servicios)
+                                        @php
+                                            $preciom=0;
+                                        @endphp
+                                        {{--@if($servicios->precio_grupo==1)--}}
+                                            {{--@php--}}
+                                                {{--$precio_iti+=($servicios->precio/2)/$cotizacion->nropersonas;--}}
+                                                {{--$preciom=($servicios->precio/2)/$cotizacion->nropersonas;--}}
+                                            {{--@endphp--}}
+                                        {{--@else--}}
+                                        @if($servicios->min_personas<= $cotizacion->nropersonas&&$cotizacion->nropersonas <=$servicios->max_personas)
+                                            @else
+                                            @php
+                                                $rango=' text-danger';
+                                            @endphp
+
+                                        @endif
+                                        @if($servicios->precio_grupo==1)
+                                        @php
+                                            $precio_iti+=round($servicios->precio/$cotizacion->nropersonas,1);
+                                                $preciom=round($servicios->precio/$cotizacion->nropersonas,1);
+                                        @endphp
                                         @else
-                                        @php
-                                            $rango=' text-danger';
-                                        @endphp
+                                            @php
+                                                $precio_iti+=round($servicios->precio,1);
+                                                $preciom=round($servicios->precio,1);
+                                            @endphp
+                                        @endif
+                                        {{--@endif--}}
+                                        <div class="row" id="lista_servicios_{{$servicios->id}}">
+                                            <div class="col-lg-7">
+                                                <div class="row">
+                                                    <div class="col-lg-10{{$rango}}">{{$servicios->nombre}}</div>
 
-                                    @endif
-                                    @if($servicios->precio_grupo==1)
-                                    @php
-                                        $precio_iti+=round($servicios->precio/$cotizacion->nropersonas,1);
-                                            $preciom=round($servicios->precio/$cotizacion->nropersonas,1);
-                                    @endphp
-                                    @else
-                                        @php
-                                            $precio_iti+=round($servicios->precio,1);
-                                            $preciom=round($servicios->precio,1);
-                                        @endphp
-                                    @endif
-                                    {{--@endif--}}
-                                    <div class="row" id="lista_servicios_{{$servicios->id}}">
-                                        <div class="col-lg-7">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1 @if($s==0) hide @endif">$<input type="hidden" class="precio_servicio_s" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                            <div class="col-lg-1 @if($d==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                            <div class="col-lg-1 @if($t==0) hide @endif">$<input type="hidden" class="precio_servicio_t" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                            <div class="col-lg-1">
+                                                <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                <!-- Modal -->
+                                                <div class="modal fade bd-example-modal-lg" id="modal_new_destination1_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Editar Servicio</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    @php
+                                                                        $grupo='';
+                                                                        $loca='';
+                                                                    @endphp
+                                                                    @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $servicio)
+                                                                        @php
+                                                                            $grupo=$servicio->grupo;
+                                                                            $loca=$servicio->localizacion;
+                                                                        @endphp
+                                                                    @endforeach
+                                                                    @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
+                                                                        <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
+
+                                                                    @endforeach
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    {{csrf_field()}}
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <b class="text-danger puntero" onclick="borrar_serv_quot_paso1('{{$servicios->id}}','{{$servicios->nombre}}')">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </b>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                    @foreach($itinerario->hotel as $hotel)
+                                        @if($hotel->personas_s>0)
+                                            @php
+                                                $precio_hotel_s+=$hotel->precio_s;
+                                            @endphp
+                                        @endif
+                                        @if($hotel->personas_d>0)
+                                            @php
+                                                $precio_hotel_d+=$hotel->precio_d/2;
+                                            @endphp
+                                        @endif
+                                        @if($hotel->personas_m>0)
+                                            @php
+                                                $precio_hotel_m+=$hotel->precio_m/2;
+                                            @endphp
+                                        @endif
+                                        @if($hotel->personas_t>0)
+                                            @php
+                                                $precio_hotel_t+=$hotel->precio_t/3;
+                                            @endphp
+                                        @endif
+                                    <div class="row caja_detalle_hotel margin-bottom-15">
+                                    <div class="col-lg-7">
                                             <div class="row">
-                                                <div class="col-lg-10{{$rango}}">{{$servicios->nombre}}</div>
+                                                <div class="col-lg-10">HOTEL</div>
 
                                             </div>
                                         </div>
-                                        <div class="col-lg-1 @if($s==0) hide @endif">$<input type="hidden" class="precio_servicio_s" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
-                                        <div class="col-lg-1 @if($d==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
-                                        <div class="col-lg-1 @if($t==0) hide @endif">$<input type="hidden" class="precio_servicio_t" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
-                                        <div class="col-lg-1">
-                                            <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
+                                        <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{explode('.00',$hotel->precio_s)[0]}}</div>
+                                        <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{explode('.00',$hotel->precio_d)[0]/2}}</div>
+                                        <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{explode('.00',$hotel->precio_m)[0]/2}}</div>
+                                        <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{explode('.00',$hotel->precio_t)[0]/3}}</div>
+                                        <input type="hidden" class="precio_servicio_s_h" value="{{explode('.00',$hotel->precio_s)[0]}}">
+                                        <input type="hidden" class="precio_servicio_d_h" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
+                                        <input type="hidden" class="precio_servicio_m_h" value="{{explode('.00',$hotel->precio_m)[0]/2}}">
+                                        <input type="hidden" class="precio_servicio_t_h" value="{{explode('.00',$hotel->precio_t)[0]/3}}">
+                                        <div class="col-lg-2">
+                                            <a class="btn" data-toggle="modal" data-target="#modal_new_destination_{{$hotel->id}}">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
                                             <!-- Modal -->
-                                            <div class="modal fade bd-example-modal-lg" id="modal_new_destination1_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade bd-example-modal-lg" id="modal_new_destination_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Editar Servicio</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">New destination</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                @php
-                                                                    $grupo='';
-                                                                    $loca='';
-                                                                @endphp
-                                                                @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $servicio)
-                                                                    @php
-                                                                        $grupo=$servicio->grupo;
-                                                                        $loca=$servicio->localizacion;
-                                                                    @endphp
-                                                                @endforeach
-                                                                @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
-                                                                    <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
-
-                                                                @endforeach
                                                             </div>
                                                             <div class="modal-footer">
                                                                 {{csrf_field()}}
@@ -171,86 +243,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-1">
-                                            <b class="text-danger puntero" onclick="borrar_serv_quot_paso1('{{$servicios->id}}','{{$servicios->nombre}}')">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                            </b>
-                                        </div>
                                     </div>
                                 @endforeach
+
                             </div>
-                                @foreach($itinerario->hotel as $hotel)
-                                    @if($hotel->personas_s>0)
-                                        @php
-                                            $precio_hotel_s+=$hotel->precio_s;
-                                        @endphp
-                                    @endif
-                                    @if($hotel->personas_d>0)
-                                        @php
-                                            $precio_hotel_d+=$hotel->precio_d/2;
-                                        @endphp
-                                    @endif
-                                    @if($hotel->personas_m>0)
-                                        @php
-                                            $precio_hotel_m+=$hotel->precio_m/2;
-                                        @endphp
-                                    @endif
-                                    @if($hotel->personas_t>0)
-                                        @php
-                                            $precio_hotel_t+=$hotel->precio_t/3;
-                                        @endphp
-                                    @endif
-                                <div class="row caja_detalle_hotel margin-bottom-15">
-                                <div class="col-lg-7">
-                                        <div class="row">
-                                            <div class="col-lg-10">HOTEL</div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{explode('.00',$hotel->precio_s)[0]}}</div>
-                                    <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{explode('.00',$hotel->precio_d)[0]/2}}</div>
-                                    <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{explode('.00',$hotel->precio_m)[0]/2}}</div>
-                                    <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{explode('.00',$hotel->precio_t)[0]/3}}</div>
-                                    <input type="hidden" class="precio_servicio_s_h" value="{{explode('.00',$hotel->precio_s)[0]}}">
-                                    <input type="hidden" class="precio_servicio_d_h" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
-                                    <input type="hidden" class="precio_servicio_m_h" value="{{explode('.00',$hotel->precio_m)[0]/2}}">
-                                    <input type="hidden" class="precio_servicio_t_h" value="{{explode('.00',$hotel->precio_t)[0]/3}}">
-                                    <div class="col-lg-2">
-                                        <a class="btn" data-toggle="modal" data-target="#modal_new_destination_{{$hotel->id}}">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </a>
-                                        <!-- Modal -->
-                                        <div class="modal fade bd-example-modal-lg" id="modal_new_destination_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">New destination</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            {{csrf_field()}}
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-
+                            <div class="col-lg-6">
+                                <textarea name="" id="" cols="70" rows="8">{{$itinerario->descripcion}}</textarea>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <textarea name="" id="" cols="70" rows="8">{{$itinerario->descripcion}}</textarea>
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
             @endforeach
         @endforeach
         @php

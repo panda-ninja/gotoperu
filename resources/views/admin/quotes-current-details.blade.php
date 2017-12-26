@@ -219,6 +219,7 @@
                     @endif
                 @endif
 
+
                     @php
                         $servicio = 0;
                         $st_precio=0;
@@ -508,6 +509,9 @@
 
             <input type="hidden" name="nro_planes" id="nro_planes" value="{{$pos_plan}}">
         @endif
+            <div class="col-md-3 margin-top-10">
+                <button class="btn btn-primary">NUEVO PLAN</button>
+            </div>
     </div>
 
     <script>
