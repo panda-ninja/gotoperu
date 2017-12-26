@@ -305,7 +305,7 @@
                         <div class="col-lg-1"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
                     </div>
                 </div>
-                <div class="row caja_itinerario" style="height: 480px; overflow-y: auto;">
+                <div class="row caja_itinerario" style="height: 555px; overflow-y: auto;">
                     <div class="text-center"><i id="caja_load" class="fa fa-spinner hide" aria-hidden="true"></i></div>
                     @php
                         $pos=0;
