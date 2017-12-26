@@ -461,5 +461,10 @@ Route::post('/admin/cliente/mostrar', [
     'uses' => 'PackageCotizacionController@mostrar_datos_cliente',
     'as' => 'quotes_cliente_mostrar_path'
 ]);
+Route::post('/admin/quotes/new/{id}', [
+    'uses' => 'PackageCotizacionController@nuevo_plan_cotizacion',
+    'as' => 'new_plan_cotizacion_path'
+]);
+
 
 //

@@ -510,7 +510,7 @@
             <input type="hidden" name="nro_planes" id="nro_planes" value="{{$pos_plan}}">
         @endif
             <div class="col-md-3 margin-top-10">
-                <button class="btn btn-primary">NUEVO PLAN</button>
+                <a href="{{route('new_plan_cotizacion_path',$cotizacion_->id)}}" class="btn btn-primary">NUEVO PLAN</a>
             </div>
     </div>
 
