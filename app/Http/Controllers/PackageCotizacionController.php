@@ -1608,11 +1608,12 @@ class PackageCotizacionController extends Controller
         $travelers=0;
         $days=0;
         $fecha='';
-
+        $web='gotoperu.com';
         foreach($datos as $dato){
             $travelers=$dato->nropersonas;
             $days=$dato->duracion;
             $fecha=$dato->fecha;
+            $web=$dato->web;
             foreach($dato->cotizaciones_cliente as $cotizaciones_cliente){
                 $nombres=$cotizaciones_cliente->cliente->nombres;
                 $nacionalidad=$cotizaciones_cliente->cliente->nacionalidad;
@@ -1637,7 +1638,8 @@ class PackageCotizacionController extends Controller
             'telefono'=>$telefono,
             'travelers'=>$travelers,
             'days'=>$days,
-            'fecha'=>$fecha]);
+            'fecha'=>$fecha,
+            'web'=>$web]);
     }
     public function show_step1($cliente_id, $cotizacion_id,$pqt_id)
     {
@@ -1652,6 +1654,5 @@ class PackageCotizacionController extends Controller
     {
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
         return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
-
     }
 }

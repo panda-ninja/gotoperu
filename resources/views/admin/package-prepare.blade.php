@@ -423,16 +423,16 @@
                             <b CLASS="text-warning text-15">SALES</b>
                         </div>
                         <div class="col-lg-3 @if($s==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_s">@if($s!=0){{round(ceil($prem_s)+$utilidad_s,2)}}@else {{0}}@endif</span></b>
+                            <input class="form-control" type="number" name="sale_s" id="sale_s" value="@if($s!=0){{round(ceil($prem_s)+$utilidad_s,2)}}@else{{0}}@endif" onchange="variar_sales('s')">
                         </div>
                         <div class="col-lg-3 @if($d==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_d">@if($d!=0){{round(ceil($prem_d)+$utilidad_d,2)}}@else {{0}}@endif</span></b>
+                            <input class="form-control" type="number" name="sale_d" id="sale_d" value="@if($d!=0){{round(ceil($prem_d)+$utilidad_d,2)}}@else{{0}}@endif" onchange="variar_sales('d')">
                         </div>
                         <div class="col-lg-3 @if($m==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_m">@if($m!=0){{round(ceil($prem_m)+$utilidad_m,2)}}@else {{0}}@endif</span></b>
+                            <input class="form-control" type="number" name="sale_m" id="sale_m" value="@if($m!=0){{round(ceil($prem_m)+$utilidad_m,2)}}@else{{0}}@endif" onchange="variar_sales('m')">
                         </div>
                         <div class="col-lg-3 @if($t==0) hide @endif">
-                            <b CLASS="text-unset text-15">$<span id="sale_t">@if($t!=0){{round(ceil($prem_t)+$utilidad_t,2)}}@else {{0}}@endif</span></b>
+                            <input class="form-control" type="number" name="sale_t" id="sale_t" value="@if($t!=0){{round(ceil($prem_t)+$utilidad_t,2)}}@else{{0}}@endif" onchange="variar_sales('t')">
                         </div>
                     </div>
                     <div class="row text-center">
