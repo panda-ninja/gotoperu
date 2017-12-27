@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 
+use App\M_ItinerarioDestino;
+
 class PackageCotizacionController extends Controller
 {
     //
@@ -1443,12 +1445,13 @@ class PackageCotizacionController extends Controller
             }
         }
 
-        $cliente=Cliente::FindOrFail($cliente_id);
-        $destinos=$request->input('txt_destinos1_');
-        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-
-        $m_servicios=M_Servicio::get();
-        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
+//        $cliente=Cliente::FindOrFail($cliente_id);
+//        $destinos=$request->input('txt_destinos1_');
+//        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+//
+//        $m_servicios=M_Servicio::get();
+//        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
+            return redirect()->route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete->id]);
     }
     public function editar_cotizacion1(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');
@@ -1456,6 +1459,7 @@ class PackageCotizacionController extends Controller
 
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
         $imprimir=$request->input('imprimir');
+
         return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
 
     }
@@ -1595,14 +1599,59 @@ class PackageCotizacionController extends Controller
     }
     public function nuevo_plan_cotizacion($id)
     {
+        $datos=Cotizacion::where('id',$id)->get();
+//        dd($datos);
+        $nombres='';
+        $nacionalidad='';
+        $email='';
+        $telefono='';
+        $travelers=0;
+        $days=0;
+        $fecha='';
+
+        foreach($datos as $dato){
+            $travelers=$dato->nropersonas;
+            $days=$dato->duracion;
+            $fecha=$dato->fecha;
+            foreach($dato->cotizaciones_cliente as $cotizaciones_cliente){
+                $nombres=$cotizaciones_cliente->cliente->nombres;
+                $nacionalidad=$cotizaciones_cliente->cliente->nacionalidad;
+                $email=$cotizaciones_cliente->cliente->email;
+                $telefono=$cotizaciones_cliente->cliente->telefono;
+
+            }
+        }
+
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
         $itinerarios_d=M_ItinerarioDestino::get();
         $m_servicios=M_Servicio::get();
         $p_paquete=P_Paquete::get();
         $hotel=Hotel::get();
-//        dd($servicios);
-        return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d,'hotel'=>$hotel]);
+
+
+        return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d,'hotel'=>$hotel,
+            'nombres'=>$nombres,
+            'nacionalidad'=>$nacionalidad,
+            'email'=>$email,
+            'telefono'=>$telefono,
+            'travelers'=>$travelers,
+            'days'=>$days,
+            'fecha'=>$fecha]);
+    }
+    public function show_step1($cliente_id, $cotizacion_id,$pqt_id)
+    {
+        $cliente=Cliente::FindOrFail($cliente_id);
+//        $destinos=$request->input('txt_destinos1_');
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+
+        $m_servicios=M_Servicio::get();
+        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id]);
+    }
+    public function show_step2($cotizacion_id, $paquete_precio_id,$imprimir)
+    {
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+        return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
 
     }
 }

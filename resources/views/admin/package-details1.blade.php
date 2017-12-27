@@ -262,7 +262,7 @@
             $precio_hotel_m+=$precio_iti;
             $precio_hotel_t+=$precio_iti;
         @endphp
-    <form action="{{route('editar_cotizacion1_path')}}" method="post">
+    {{--<form action="{{route('show_step2_path',[$cotizacion_id,$paquete_precio_id,'no'])}}" method="get">--}}
         <div class="row">
             <div class="col-lg-12">
                 <div class="col-lg-1">
@@ -279,14 +279,14 @@
                 </div>
                 <div class="col-lg-6 text-right">
                     {{csrf_field()}}
-                    <input type="hidden" name="paquete_precio_id" value="{{$paquete_precio_id}}">
-                    <input type="hidden" name="cotizacion_id" value="{{$cotizacion_id}}">
-                    <input type="hidden" name="imprimir" value="no">
-                    <button class="btn btn-warning btn-lg" type="submit" name="create">CREATE</button>
+                    {{--<input type="hidden" name="paquete_precio_id" value="{{$paquete_precio_id}}">--}}
+                    {{--<input type="hidden" name="cotizacion_id" value="{{$cotizacion_id}}">--}}
+                    {{--<input type="hidden" name="imprimir" value="no">--}}
+                    <a href="{{route('show_step2_path',[$cotizacion_id,$paquete_precio_id,'no'])}}" class="btn btn-warning btn-lg" type="submit" name="create">CREATE</a>
                 </div>
             </div>
         </div>
-    </form>
+    {{--</form>--}}
     <script>
         $(document).ready(function() {
             calcular_resumen();

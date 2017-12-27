@@ -461,10 +461,16 @@ Route::post('/admin/cliente/mostrar', [
     'uses' => 'PackageCotizacionController@mostrar_datos_cliente',
     'as' => 'quotes_cliente_mostrar_path'
 ]);
-Route::post('/admin/quotes/new/{id}', [
+Route::get('/admin/quotes/new/{id}', [
     'uses' => 'PackageCotizacionController@nuevo_plan_cotizacion',
     'as' => 'new_plan_cotizacion_path'
 ]);
-
-
+Route::get('/admin/quotes/new/step1/{cliente}/{coti_id}/{pqt_id}', [
+    'uses' => 'PackageCotizacionController@show_step1',
+    'as' => 'show_step1_path'
+]);
+Route::get('/admin/quotes/new/step2/{coti_id}/{pqt_id}/{imprimir}', [
+    'uses' => 'PackageCotizacionController@show_step2',
+    'as' => 'show_step2_path'
+]);
 //
