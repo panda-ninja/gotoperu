@@ -24719,8 +24719,6 @@ function aumentar_acom(tipo,signo){
 }
 function enviar_form1(){
     $('#form_nuevo_pqt').submit(function() {
-        // alert('holas');
-
         $('#txt_country1').val($('#txt_country').val());
         $('#txt_name1').val($('#txt_name').val());
         $('#txt_email1').val($('#txt_email').val());
@@ -24729,6 +24727,96 @@ function enviar_form1(){
         $('#txt_days1').val($('#txt_days').val());
         $('#txt_date1').val($('#txt_travel_date').val());
         $('#txt_destinos1').val(destinos);
+        $('#web1').val($('#web').val());
+
+        if($('#txt_name1').val()==''){
+            $('#txt_name1').focus();
+            swal(
+                'Oops...',
+                'Ingrese el nombre!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_country1').val()==''){
+            $('#txt_country1').focus();
+            swal(
+                'Oops...',
+                'Ingrese la nacionalidad!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_email1').val()==''){
+            $('#txt_email1').focus();
+            swal(
+                'Oops...',
+                'Ingrese el email!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_phone1').val()==''){
+            $('#txt_phone1').focus();
+            swal(
+                'Oops...',
+                'Ingrese el telefono!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_travelers1').val()==0){
+            $('#txt_travelers1').focus();
+            swal(
+                'Oops...',
+                'Ingrese el numero de pasajeros!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_days1').val()==0){
+            $('#txt_days1').focus();
+            swal(
+                'Oops...',
+                'Ingrese el umero de dias!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_date1').val()==''){
+            $('#txt_date1').focus();
+            swal(
+                'Oops...',
+                'Ingrese la fecha de viaje!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_destinos1').val()==''){
+            $('#txt_destinos1').focus();
+            swal(
+                'Oops...',
+                'Escoja los destinos!',
+                'error'
+            )
+            return false;
+        }
+
+        var a_s=parseInt($('#a_s').val());
+        var a_d=parseInt($('#a_d').val());
+        var a_m=parseInt($('#a_m').val());
+        var a_t=parseInt($('#a_t').val());
+
+        var a_total_=a_s+a_d+a_m+a_t;
+        if(a_total_==0){
+            swal(
+                'Oops...',
+                'Escoja la acomodacion!',
+                'error'
+            )
+            return false;
+        }
+
         var lista_it='';
         $(".txt_itinerarios").each(function (index) {
             lista_it+=$(this).html()+'/';
@@ -24777,14 +24865,14 @@ function variar_profit(acom) {
     var valor=parseFloat($('#cost_'+acom).html());
     var pro=parseFloat($('#pro_'+acom).val());
     var sale=Math.round(valor+pro);
-    $('#sale_'+acom).html(sale);
+    $('#sale_'+acom).val(sale);
     var profit_por=Math.round((pro/sale)*100,2);
     $('#porc_'+acom).html(profit_por);
     $('#porc_'+acom).val(profit_por);
-    var sale_s=parseFloat($('#sale_s').html());
-    var sale_d=parseFloat($('#sale_d').html());
-    var sale_m=parseFloat($('#sale_m').html());
-    var sale_t=parseFloat($('#sale_t').html());
+    var sale_s=parseFloat($('#sale_s').val());
+    var sale_d=parseFloat($('#sale_d').val());
+    var sale_m=parseFloat($('#sale_m').val());
+    var sale_t=parseFloat($('#sale_t').val());
 
     $('#total_profit').html(sale_s+sale_d+sale_m+sale_t);
     var pro_s=parseFloat($('#pro_s').val());
@@ -24814,6 +24902,50 @@ function variar_profit(acom) {
     $('#profit_por_m').val(uti_por_m);
     $('#profit_por_t').val(uti_por_t);
 }
+function variar_sales(acom){
+
+
+    var valor=parseFloat($('#cost_'+acom).html());
+    var sale=parseFloat($('#sale_'+acom).val());
+    var pro=Math.round(sale-valor);
+    $('#pro_'+acom).val(pro);
+    var profit_por=Math.round((pro/sale)*100,2);
+    $('#porc_'+acom).html(profit_por);
+    $('#porc_'+acom).val(profit_por);
+    var sale_s=parseFloat($('#sale_s').val());
+    var sale_d=parseFloat($('#sale_d').val());
+    var sale_m=parseFloat($('#sale_m').val());
+    var sale_t=parseFloat($('#sale_t').val());
+
+    $('#total_profit').html(sale_s+sale_d+sale_m+sale_t);
+    var pro_s=parseFloat($('#pro_s').val());
+    var pro_d=parseFloat($('#pro_d').val());
+    var pro_m=parseFloat($('#pro_m').val());
+    var pro_t=parseFloat($('#pro_t').val());
+    var uti_por_s=0;
+    var uti_por_d=0;
+    var uti_por_m=0;
+    var uti_por_t=0;
+    if(sale_s!=0)
+        uti_por_d=Math.round((pro_s/sale_s)*100,0);
+    if(sale_d!=0)
+        var uti_por_d=Math.round((pro_d/sale_d)*100,0);
+    if(sale_m!=0)
+        var uti_por_m=Math.round((pro_m/sale_m)*100,0);
+    if(sale_t!=0)
+        var uti_por_t=Math.round((pro_t/sale_t)*100,0);
+
+    console.log('uti_por_s:'+uti_por_s);
+    console.log('uti_por_d:'+uti_por_d);
+    console.log('uti_por_m:'+uti_por_m);
+    console.log('uti_por_t:'+uti_por_t);
+
+    $('#profit_por_s').val(uti_por_s);
+    $('#profit_por_d').val(uti_por_d);
+    $('#profit_por_m').val(uti_por_m);
+    $('#profit_por_t').val(uti_por_t);
+}
+
 function filtrar_itinerarios_(){
     var dias_f=$('#txt_days').val();
     var estrellas=$('#estrellas_from').val();
@@ -24998,8 +25130,6 @@ function mostrar_datos(cadena) {
 }
 function enviar_form2(){
     $('#form_nuevo_pqt_').submit(function() {
-        // alert('holas');
-
         $('#txt_country1_').val($('#txt_country').val());
         $('#txt_name1_').val($('#txt_name').val());
         $('#txt_email1_').val($('#txt_email').val());
@@ -25008,9 +25138,104 @@ function enviar_form2(){
         $('#txt_days1_').val($('#txt_days').val());
         $('#txt_date1_').val($('#txt_travel_date').val());
         $('#web_').val($('#web').val());
-
         $('#txt_destinos1_').val(destinos);
+        if($('#txt_name1_').val()==''){
+            $('#txt_name1_').focus();
+            swal(
+                'Oops...',
+                'Ingrese el nombre!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_country1_').val()==''){
+            $('#txt_country1_').focus();
+            swal(
+                'Oops...',
+                'Ingrese la nacionalidad!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_email1_').val()==''){
+            $('#txt_email1_').focus();
+            swal(
+                'Oops...',
+                'Ingrese el email!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_phone1_').val()==''){
+            $('#txt_phone1_').focus();
+            swal(
+                'Oops...',
+                'Ingrese el telefono!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_travelers1_').val()==0){
+            $('#txt_travelers1_').focus();
+            swal(
+                'Oops...',
+                'Ingrese el numero de pasajeros!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_days1_').val()==0){
+            $('#txt_days1_').focus();
+            swal(
+                'Oops...',
+                'Ingrese el umero de dias!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_date1_').val()==''){
+            $('#txt_date1_').focus();
+            swal(
+                'Oops...',
+                'Ingrese la fecha de viaje!',
+                'error'
+            )
+            return false;
+        }
+        if($('#txt_destinos1_').val()==''){
+            $('#txt_destinos1_').focus();
+            swal(
+                'Oops...',
+                'Escoja los destinos!',
+                'error'
+            )
+            return false;
+        }
 
+        var a_s_=parseInt($('#a_s_').val());
+        var a_d_=parseInt($('#a_d_').val());
+        var a_m_=parseInt($('#a_m_').val());
+        var a_t_=parseInt($('#a_t_').val());
+
+        var a_total=a_s_+a_d_+a_m_+a_t_;
+        if(a_total==0){
+
+            swal(
+                'Oops...',
+                'Escoja la acomodacion!',
+                'error'
+            )
+            return false;
+        }
+        var pqt_id=parseInt($('#pqt_id').val());
+        if(pqt_id==0) {
+            swal(
+                'Oops...',
+                'Escoja el paquete!',
+                'error'
+            )
+            return false;
+        }
         // $.ajax({
         //     type: 'POST',
         //     url: $(this).attr('action'),

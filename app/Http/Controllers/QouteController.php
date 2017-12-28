@@ -146,6 +146,28 @@ class QouteController extends Controller
         $p_paquete=P_Paquete::get();
         $hotel=Hotel::get();
 //        dd($servicios);
-        return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d,'hotel'=>$hotel]);
+        $plan=0;
+        $id=0;
+        $cliente_id=0;
+        $nombres='';
+        $nacionalidad='';
+        $email='';
+        $telefono='';
+        $travelers=0;
+        $days=0;
+        $fecha='';
+        $web='gotoperu.com';
+        return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d,'hotel'=>$hotel,
+            'plan'=>$plan,
+            'coti_id'=>$id,
+            'cliente_id'=>$cliente_id,
+            'nombres'=>$nombres,
+            'nacionalidad'=>$nacionalidad,
+            'email'=>$email,
+            'telefono'=>$telefono,
+            'travelers'=>$travelers,
+            'days'=>$days,
+            'fecha'=>$fecha,
+            'web'=>$web]);
     }
 }

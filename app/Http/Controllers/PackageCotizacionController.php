@@ -1089,6 +1089,18 @@ class PackageCotizacionController extends Controller
     }
     public function nuevo_paquete_(Request $request)
     {
+//        $this->validate($request,[
+//            'txt_name1_'=>'required',
+//            'txt_date1_'=>'required',
+//            'txt_email1_'=>'required',
+//            'txt_country1_'=>'required',
+//            'txt_phone1_'=>'required',
+//            'txt_travelers1_'=>'required',
+//            'txt_days1_'=>'required',
+//            'pqt_id'=>'required',
+//            'estrellas_from_'=>'required'
+//        ]);
+
         $plan=$request->input('plan');
 //dd($request->input('web_'));
         $cotizacion_id=0;
@@ -1601,6 +1613,8 @@ class PackageCotizacionController extends Controller
     {
         $datos=Cotizacion::where('id',$id)->get();
 //        dd($datos);
+        $plan=1;
+        $cliente_id=0;
         $nombres='';
         $nacionalidad='';
         $email='';
@@ -1608,17 +1622,18 @@ class PackageCotizacionController extends Controller
         $travelers=0;
         $days=0;
         $fecha='';
-
+        $web='gotoperu.com';
         foreach($datos as $dato){
             $travelers=$dato->nropersonas;
             $days=$dato->duracion;
             $fecha=$dato->fecha;
+            $web=$dato->web;
             foreach($dato->cotizaciones_cliente as $cotizaciones_cliente){
+                $cliente_id=$cotizaciones_cliente->cliente->id;
                 $nombres=$cotizaciones_cliente->cliente->nombres;
                 $nacionalidad=$cotizaciones_cliente->cliente->nacionalidad;
                 $email=$cotizaciones_cliente->cliente->email;
                 $telefono=$cotizaciones_cliente->cliente->telefono;
-
             }
         }
 
@@ -1628,16 +1643,18 @@ class PackageCotizacionController extends Controller
         $m_servicios=M_Servicio::get();
         $p_paquete=P_Paquete::get();
         $hotel=Hotel::get();
-
-
         return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d,'hotel'=>$hotel,
+            'plan'=>$plan,
+            'coti_id'=>$id,
+            'cliente_id'=>$cliente_id,
             'nombres'=>$nombres,
             'nacionalidad'=>$nacionalidad,
             'email'=>$email,
             'telefono'=>$telefono,
             'travelers'=>$travelers,
             'days'=>$days,
-            'fecha'=>$fecha]);
+            'fecha'=>$fecha,
+            'web'=>$web]);
     }
     public function show_step1($cliente_id, $cotizacion_id,$pqt_id)
     {
@@ -1664,7 +1681,6 @@ class PackageCotizacionController extends Controller
     {
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
         return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
-
     }
 
     public function step1_edit(Request $request, $id)

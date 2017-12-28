@@ -16,54 +16,54 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="txt_name">Name</label>
-                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onkeypress="return runScript(event)" >
+                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onkeypress="return runScript(event)" value="{{$nombres}}" required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_country">Country</label>
-                            <input type="text" class="form-control" id="txt_country" name="txt_country" placeholder="Country">
+                            <input type="text" class="form-control" id="txt_country" name="txt_country" placeholder="Country" value="{{$nacionalidad}}">
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="txt_email">Email</label>
-                            <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email">
+                            <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email" value="{{$email}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_phone">Phone</label>
-                            <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="Phone">
+                            <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="Phone" value="{{$telefono}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_travellers">Travellers</label>
-                            <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1" onclick="sumar_servicios_itinerario()">
+                            <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1" onclick="sumar_servicios_itinerario()" value="{{$travelers}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_days">Days</label>
-                            <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1" onchange="poner_dias()">
+                            <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1" onchange="poner_dias()" value="{{$days}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="txt_travel_date">Travel date</label>
-                            <input type="date" class="form-control" id="txt_travel_date" name="txt_travel_date" placeholder="Travel date">
+                            <input type="date" class="form-control" id="txt_travel_date" name="txt_travel_date" placeholder="Travel date" value="{{$fecha}}">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="txt_travel_date">Pagina de origen</label>
                             <select name="web" id="web" class="form-control">
-                                <option value="gotoperu.com">gotoperu.com</option>
-                                <option value="gotoperu.com.pe">gotoperu.com.pe</option>
-                                <option value="andesviagens.com">andesviagens.com</option>
-                                <option value="machupicchu-galapagos.com">machupicchu-galapagos.com</option>
-                                <option value="gotolatinamerica.com">gotolatinamerica.com</option>
+                                <option value="gotoperu.com" @if($web=='gotoperu.com') selected @endif>gotoperu.com</option>
+                                <option value="gotoperu.com.pe" @if($web=='gotoperu.com.pe') selected @endif>gotoperu.com.pe</option>
+                                <option value="andesviagens.com" @if($web=='andesviagens.com') selected @endif>andesviagens.com</option>
+                                <option value="machupicchu-galapagos.com" @if($web=='machupicchu-galapagos.com') selected @endif>machupicchu-galapagos.com</option>
+                                <option value="gotolatinamerica.com" @if($web=='gotolatinamerica.com') selected @endif>gotolatinamerica.com</option>
                             </select>
                         </div>
                     </div>
@@ -417,9 +417,9 @@
                         <input type="hidden" name="txt_date1_" id="txt_date1_">
                         <input type="hidden" name="txt_destinos1_" id="txt_destinos1_">
                         <input type="hidden" name="pqt_id" id="pqt_id" value="0">
-                        <input type="hidden" name="plan" id="plan" value="0">
-                        <input type="hidden" name="cotizacion_id_" id="cotizacion_id_" value="0">
-                        <input type="hidden" name="cliente_id_" id="cliente_id_" value="0">
+                        <input type="hidden" name="plan" id="plan" value="{{$plan}}">
+                        <input type="hidden" name="cotizacion_id_" id="cotizacion_id_" value="{{$coti_id}}">
+                        <input type="hidden" name="cliente_id_" id="cliente_id_" value="{{$cliente_id}}">
                         <input type="hidden" name="web_" id="web_" value="gotoperu.com">
 
                     </div>
