@@ -455,9 +455,9 @@
                                 <button class="btn btn-warning btn-lg" type="submit" name="create">PREPARE PDF</button>
                             @else
 
-                                <button class="btn btn-warning btn-lg" type="submit" name="create">PREPARE PDF</button>
+                                <button class="btn btn-warning btn-lg" type="submit" name="create">GUARDAR {{$plan[$pos_plan]}}</button>
                                 <p><b class="text-success text-20">Gracias. Su paquete fue creado correctamente!!!</b></p>
-                                <p><a class="btn btn-primary text-15 text-primary" href="{{route('current_quote_page_path',$cotizacion->web)}}">Ver aqui mi paquete</a></p>
+                                <p><a class="btn btn-primary text-15" href="{{route('current_quote_page_path',$cotizacion->web)}}">Ver aqui mi paquete</a></p>
                                 <a href="{{route('quotes_pdf_path',$paquete_id)}}" class="hide pull-right btn btn-default btn-lg"><i class="fa fa-download" aria-hidden="true"></i></a>
                             @endif
                         </div>

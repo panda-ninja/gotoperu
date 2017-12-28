@@ -417,9 +417,9 @@
                         <input type="hidden" name="txt_date1_" id="txt_date1_">
                         <input type="hidden" name="txt_destinos1_" id="txt_destinos1_">
                         <input type="hidden" name="pqt_id" id="pqt_id" value="0">
-                        <input type="hidden" name="plan" id="plan" value="0">
-                        <input type="hidden" name="cotizacion_id_" id="cotizacion_id_" value="0">
-                        <input type="hidden" name="cliente_id_" id="cliente_id_" value="0">
+                        <input type="hidden" name="plan" id="plan" value="{{$plan}}">
+                        <input type="hidden" name="cotizacion_id_" id="cotizacion_id_" value="{{$coti_id}}">
+                        <input type="hidden" name="cliente_id_" id="cliente_id_" value="{{$cliente_id}}">
                         <input type="hidden" name="web_" id="web_" value="gotoperu.com">
 
                     </div>

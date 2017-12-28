@@ -1601,6 +1601,8 @@ class PackageCotizacionController extends Controller
     {
         $datos=Cotizacion::where('id',$id)->get();
 //        dd($datos);
+        $plan=1;
+        $cliente_id=0;
         $nombres='';
         $nacionalidad='';
         $email='';
@@ -1615,11 +1617,11 @@ class PackageCotizacionController extends Controller
             $fecha=$dato->fecha;
             $web=$dato->web;
             foreach($dato->cotizaciones_cliente as $cotizaciones_cliente){
+                $cliente_id=$cotizaciones_cliente->cliente->id;
                 $nombres=$cotizaciones_cliente->cliente->nombres;
                 $nacionalidad=$cotizaciones_cliente->cliente->nacionalidad;
                 $email=$cotizaciones_cliente->cliente->email;
                 $telefono=$cotizaciones_cliente->cliente->telefono;
-
             }
         }
 
@@ -1629,9 +1631,10 @@ class PackageCotizacionController extends Controller
         $m_servicios=M_Servicio::get();
         $p_paquete=P_Paquete::get();
         $hotel=Hotel::get();
-
-
         return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d,'hotel'=>$hotel,
+            'plan'=>$plan,
+            'coti_id'=>$id,
+            'cliente_id'=>$cliente_id,
             'nombres'=>$nombres,
             'nacionalidad'=>$nacionalidad,
             'email'=>$email,
