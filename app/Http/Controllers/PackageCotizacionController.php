@@ -1089,6 +1089,18 @@ class PackageCotizacionController extends Controller
     }
     public function nuevo_paquete_(Request $request)
     {
+//        $this->validate($request,[
+//            'txt_name1_'=>'required',
+//            'txt_date1_'=>'required',
+//            'txt_email1_'=>'required',
+//            'txt_country1_'=>'required',
+//            'txt_phone1_'=>'required',
+//            'txt_travelers1_'=>'required',
+//            'txt_days1_'=>'required',
+//            'pqt_id'=>'required',
+//            'estrellas_from_'=>'required'
+//        ]);
+
         $plan=$request->input('plan');
 //dd($request->input('web_'));
         $cotizacion_id=0;
