@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top bg-white">
+<nav class="navbar bg-white">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="nav-brand-goto margin-top-10" href="/">

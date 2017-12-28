@@ -1,6 +1,6 @@
 // estilos lobo
 body {
-  padding-top: 50px;
+  //padding-top: 50px;
 }
 /*
  * Global add-ons
@@ -29,7 +29,7 @@ body {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 56px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -772,3 +772,16 @@ ol.vertical li.placeholder:before {
 ol li.highlight {
   background: #333333;
   color: #999999; }
+
+//
+.box-services-field{
+  column-count: 2;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  -o-column-count: 2;
+  column-gap: 1.5em;
+  -webkit-column-gap: 1.5em;
+  -moz-column-gap: 1.5em;
+  -o-column-gap: 1.5em;
+  //padding: 15px 0 15px 60px;
+}

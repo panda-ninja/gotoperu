@@ -1,5 +1,8 @@
 @extends('layouts.admin.admin')
 @section('content')
+    <script type="text/JavaScript">
+        window.onload=new function() {if (window.location.href.indexOf('#')==-1) window.location.href='#lista_servicios_{{$id_serv}}';}
+    </script>
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
@@ -140,7 +143,11 @@
                                                 <div class="modal fade bd-example-modal-lg" id="modal_new_destination1_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
-                                                            <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
+                                                            <form action="{{route('step1_edit_path', $servicios->id)}}" method="post" enctype="multipart/form-data">
+                                                                <input type="hidden" name="_method" value="patch">
+                                                                <input type="hidden" name="id_cotizacion" value="{{$cotizacion->id}}">
+                                                                <input type="hidden" name="id_client" value="{{$cliente->id}}">
+                                                                <input type="hidden" name="id_paquete" value="{{$paquete->id}}">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel">Editar Servicio</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -148,6 +155,8 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                    <div class="box-services-field">
+
                                                                     @php
                                                                         $grupo='';
                                                                         $loca='';
@@ -159,9 +168,18 @@
                                                                         @endphp
                                                                     @endforeach
                                                                     @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
-                                                                        <p>{{$servicio->nombre}} {{$servicio->tipoServicio}}</p>
-
+                                                                            {{--{{$cotizacion->nropersonas}}  -  {{$servicio->max_personas}}--}}
+                                                                        @if($cotizacion->nropersonas >= $servicio->min_personas AND $cotizacion->nropersonas <= $servicio->max_personas)
+                                                                                <div class="checkbox1">
+                                                                                    <label>
+                                                                                        <input type="radio" name="op_services" id="serv_{{$servicio->id}}" value="{{$servicio->id}}" @if($servicios->codigo == $servicio->codigo) checked @endif>
+                                                                                        {{$servicio->nombre}} {{$servicio->tipoServicio}}
+                                                                                    </label>
+                                                                                </div>
+                                                                        @endif
                                                                     @endforeach
+
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     {{csrf_field()}}

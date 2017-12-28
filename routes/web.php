@@ -469,8 +469,16 @@ Route::get('/admin/quotes/new/step1/{cliente}/{coti_id}/{pqt_id}', [
     'uses' => 'PackageCotizacionController@show_step1',
     'as' => 'show_step1_path'
 ]);
+Route::get('/admin/quotes/new/step1/{cliente}/{coti_id}/{pqt_id}/{id_serv}', [
+    'uses' => 'PackageCotizacionController@show_step1_ser',
+    'as' => 'show_step1_ser_path'
+]);
 Route::get('/admin/quotes/new/step2/{coti_id}/{pqt_id}/{imprimir}', [
     'uses' => 'PackageCotizacionController@show_step2',
     'as' => 'show_step2_path'
 ]);
 //
+Route::patch('/admin/quotes/new/step1/step1_edit/{id}', [
+    'uses' => 'PackageCotizacionController@step1_edit',
+    'as' => 'step1_edit_path'
+])->where('id', '[0-9]+');
