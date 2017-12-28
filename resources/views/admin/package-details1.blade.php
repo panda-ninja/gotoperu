@@ -1,5 +1,14 @@
 @extends('layouts.admin.admin')
 @section('content')
+    @if(isset($id_serv))
+        @php
+            $id_serv=$id_serv;
+        @endphp
+    @else
+        @php
+            $id_serv='';
+        @endphp
+    @endif
     <script type="text/JavaScript">
         window.onload=new function() {if (window.location.href.indexOf('#')==-1) window.location.href='#lista_servicios_{{$id_serv}}';}
     </script>
