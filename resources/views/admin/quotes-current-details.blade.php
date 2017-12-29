@@ -151,13 +151,22 @@
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
                                     <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
-                                    <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                    <a href="{{route('quotes_pdf_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="id" value="{{$paquete->id}}">
+                                    @if($paquete->estado==2)
+                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        @else
+                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                        @endif
+                                    </form>
                                 </div>
                                 <div class="box-letter-proposal text-center">
-                                    <span class="text-orange-goto text-40">{{$planes[$pos_plan]}}</span>
-                                    <span class="text-orange-goto text-40">${{number_format(ceil($sumatotal), 2, '.', '')}}</span>
+                                    <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
+                                    <span class="hide text-orange-goto text-40">${{number_format(ceil($sumatotal), 2, '.', '')}}</span>
                                 </div>
                             </div>
                         </div>
@@ -170,6 +179,15 @@
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="id" value="{{$paquete->id}}">
+                                        @if($paquete->estado==2)
+                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        @else
+                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                        @endif
+                                    </form>
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -188,6 +206,15 @@
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="id" value="{{$paquete->id}}">
+                                        @if($paquete->estado==2)
+                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        @else
+                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                        @endif
+                                    </form>
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -201,11 +228,19 @@
                                 <div class="box-dowload">
                                     <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
                                     {{csrf_field()}}
-                                    <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                    <a href="{{route('quotes_pdf_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="#" class="pull-right btn btn-default btn-sm" data-toggle="modal" data-target="#modal_planes_{{$paquete->id}}"><i class="fa fa-th-large" aria-hidden="true"></i></a>
-
+                                    <a href="#" class="hide pull-right btn btn-default btn-sm" data-toggle="modal" data-target="#modal_planes_{{$paquete->id}}"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="id" value="{{$paquete->id}}">
+                                        @if($paquete->estado==2)
+                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        @else
+                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                        @endif
+                                    </form>
                                     {{--<button type="button" id="plan_{{$pos_plan}}"  class="planes pull-right btn btn-danger btn-sm" onclick="activarPlan('{{$paquete->id}}','{{$cotizacion_->nombre}}','{{$cotizacion_->id}}','{{$pos_plan}}')">--}}
                                         {{--<i class="fa fa-toggle-off" aria-hidden="true"></i>--}}
                                     {{--</button>--}}

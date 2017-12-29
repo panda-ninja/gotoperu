@@ -482,3 +482,12 @@ Route::patch('/admin/quotes/new/step1/step1_edit/{id}', [
     'uses' => 'PackageCotizacionController@step1_edit',
     'as' => 'step1_edit_path'
 ])->where('id', '[0-9]+');
+
+Route::post('/admin/quotes/hotel/delete', [
+    'uses' => 'PackageCotizacionController@delete_hotel_quotes_paso1',
+    'as' => 'quotes_hotel_delete_path',
+]);
+Route::post('/admin/pqt/escojer', [
+    'uses' => 'PackageCotizacionController@escojer_pqt',
+    'as' => 'escojer_pqt_plan',
+]);

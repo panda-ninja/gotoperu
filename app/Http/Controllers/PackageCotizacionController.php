@@ -1708,5 +1708,38 @@ class PackageCotizacionController extends Controller
         }
         return redirect()->route('show_step1_ser_path', [$id_client,$id_cotizacion,$id_paquete,$id]);
     }
+    public function delete_hotel_quotes_paso1(Request $request){
+        $id = $request->input('id');
+        $objeto=PrecioHotelReserva::FindOrFail($id);
+        if($objeto->delete())
+            return 1;
+        else
+            return 0;
+    }
+    public function escojer_pqt(Request $request){
+        $id = $request->input('id');
+//        return $id;
+        $pqts=PaqueteCotizaciones::where('id',$id)->get();
+        foreach ($pqts as $pqt){
+            $pqtTemp=PaqueteCotizaciones::findOrFail($pqt->id);
+            $pqtTemp->estado=1;
+            $pqtTemp->save();
+        }
+        $coti_pqt=PaqueteCotizaciones::FindORFail($id);
+        $coti=Cotizacion::FindOrFail($coti_pqt->cotizaciones_id);
 
+        $coti->estado=2;
+        $coti->categorizado='N';
+        $coti->fecha_venta=date("Y-m-d");
+        $coti->save();
+
+
+
+        $pqt=PaqueteCotizaciones::FindOrFail($id);
+        $pqt->estado=2;
+        $pqt->save();
+
+        return redirect()->route('cotizacion_id_show_path',$coti->id);
+
+    }
 }

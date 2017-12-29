@@ -229,11 +229,10 @@
                                                 $precio_hotel_t+=$hotel->precio_t/3;
                                             @endphp
                                         @endif
-                                    <div class="row caja_detalle_hotel margin-bottom-15">
+                                    <div id="caja_detalle_{{$hotel->id}}" class="row caja_detalle_hotel margin-bottom-15">
                                     <div class="col-lg-7">
                                             <div class="row">
                                                 <div class="col-lg-10">HOTEL</div>
-
                                             </div>
                                         </div>
                                         <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{explode('.00',$hotel->precio_s)[0]}}</div>
@@ -244,7 +243,7 @@
                                         <input type="hidden" class="precio_servicio_d_h" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
                                         <input type="hidden" class="precio_servicio_m_h" value="{{explode('.00',$hotel->precio_m)[0]/2}}">
                                         <input type="hidden" class="precio_servicio_t_h" value="{{explode('.00',$hotel->precio_t)[0]/3}}">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-2 hide">
                                             <a class="btn" data-toggle="modal" data-target="#modal_new_destination_{{$hotel->id}}">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
@@ -270,6 +269,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-lg-1 text-right">
+                                            <b class="text-right text-danger puntero" onclick="borrar_hotel_quot_paso1('{{$hotel->id}}','{{$itinerario->dias}}')">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </b>
                                         </div>
                                     </div>
                                 @endforeach

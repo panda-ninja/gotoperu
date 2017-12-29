@@ -25279,6 +25279,33 @@ function borrar_serv_quot_paso1(id,servicio){
     })
     calcularPrecio();
 }
+function borrar_hotel_quot_paso1(id,dia){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar hotel para el dia "+dia+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/quotes/hotel/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#caja_detalle_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+    calcularPrecio();
+}
 function calcularPrecio(){
     var total_serv_s=0;
     var total_serv_d=0;
@@ -25382,3 +25409,15 @@ function runScript(event) {
     }
 }
 
+function escojer_pqt(id) {
+    console.log(id);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/pqt/escojer', 'id='+id, function(data) {
+        
+    }).fail(function (data) {
+    });
+}

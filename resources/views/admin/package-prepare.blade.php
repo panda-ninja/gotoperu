@@ -259,7 +259,7 @@
                                     @php
                                         $precio_hotel_d=$hotel->precio_d/2;
                                         $utilidad_d=intval($hotel->utilidad_d);
-                                    $utilidad_por_d=$hotel->utilidad_por_d;
+                                        $utilidad_por_d=$hotel->utilidad_por_d;
                                     @endphp
                                 @endif
                                 @if($hotel->personas_m>0)
