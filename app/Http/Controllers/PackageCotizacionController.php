@@ -1718,7 +1718,36 @@ class PackageCotizacionController extends Controller
     }
     public function escojer_pqt(Request $request){
         $id = $request->input('id');
+        $coti_pqt=PaqueteCotizaciones::FindORFail($id);
+
+        $cotizaciones=Cotizacion::where('id',$coti_pqt->cotizaciones_id)->get();
+        foreach ($cotizaciones as $cotizacion){
+            foreach ($cotizacion->paquete_cotizaciones as $paquete_cotizacion){
+                $coti_pqt=PaqueteCotizaciones::FindOrFail($paquete_cotizacion->id);
+                $coti_pqt->estado=1;
+                $coti_pqt->save();
+                foreach ($paquete_cotizacion->paquete_precios as $paquete_precio){
+                    $pqt_precio=PaquetePrecio::FindOrFail($paquete_precio->id);
+                    $pqt_precio->estado=1;
+                    $pqt_precio->save();
+                }
+            }
+        }
+        
 //        return $id;
+        $paquetesPrecio=PaquetePrecio::where('paquete_cotizaciones_id',$id)->get();
+        foreach ($paquetesPrecio as $paquetePrecio_){
+            $paquetePrecio_temp=PaquetePrecio::FindOrFail($paquetePrecio_->id);
+            $paquetePrecio_temp->estado=1;
+            $paquetePrecio_temp->save();
+        }
+        $paquetesPrecio1=PaquetePrecio::where('paquete_cotizaciones_id',$id)->get();
+        foreach ($paquetesPrecio1 as $paquetesPrecio1_){
+            $paquetePrecio_temp1=PaquetePrecio::FindOrFail($paquetesPrecio1_->id);
+            $paquetePrecio_temp1->estado=2;
+            $paquetePrecio_temp1->save();
+        }
+
         $pqts=PaqueteCotizaciones::where('id',$id)->get();
         foreach ($pqts as $pqt){
             $pqtTemp=PaqueteCotizaciones::findOrFail($pqt->id);
@@ -1726,20 +1755,48 @@ class PackageCotizacionController extends Controller
             $pqtTemp->save();
         }
         $coti_pqt=PaqueteCotizaciones::FindORFail($id);
-        $coti=Cotizacion::FindOrFail($coti_pqt->cotizaciones_id);
 
+
+        $coti=Cotizacion::FindOrFail($coti_pqt->cotizaciones_id);
         $coti->estado=2;
         $coti->categorizado='N';
         $coti->fecha_venta=date("Y-m-d");
         $coti->save();
-
-
-
         $pqt=PaqueteCotizaciones::FindOrFail($id);
         $pqt->estado=2;
         $pqt->save();
-
         return redirect()->route('cotizacion_id_show_path',$coti->id);
 
+
+        $precio_paquete_id=$request->input('precio_paquete_id_'.$pos);
+//        dd($precio_paquete_id);
+//        $paquetePrecio=PaquetePrecio::FindOrFail($precio_paquete_id);
+//        $paquetesPrecio=PaquetePrecio::where('paquete_cotizaciones_id',$paquetePrecio->paquete_cotizaciones_id)->get();
+//        foreach ($paquetesPrecio as $paquetePrecio_){
+//            $paquetePrecio_temp=PaquetePrecio::FindOrFail($paquetePrecio_->id);
+//            $paquetePrecio_temp->estado=1;
+//            $paquetePrecio_temp->save();
+//        }
+//        $paquetePrecio->personas_s=$s;
+//        $paquetePrecio->personas_d=$d;
+//        $paquetePrecio->personas_m=$m;
+//        $paquetePrecio->personas_t=$t;
+//        $paquetePrecio->estado=2;
+//        $paquetePrecio->save();
+
+//        $paquete=PaqueteCotizaciones::where('id',$paquetePrecio->paquete_cotizaciones_id)->get();
+//        foreach ($paquete as $paquete_){
+//            $paquete1=PaqueteCotizaciones::FindOrFail($paquete_->id);
+//            $paquete1->estado=2;
+//            $paquete1->save();
+//
+//            $cotizaciones=Cotizacion::FindOrFail($paquete1->cotizaciones_id);
+//            $cotizaciones->estado=2;
+//            $cotizaciones->categorizado='N';
+//            $cotizaciones->fecha_venta=date("Y-m-d");
+//            $cotizaciones->save();
+//            $cotizacion=Cotizacion::where('id',$cotizaciones->id)->get();
+//            return redirect()->route('cotizacion_id_show_path',[$cotizaciones->id]);
+//        }
     }
 }
