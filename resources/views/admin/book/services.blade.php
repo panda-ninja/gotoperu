@@ -8,6 +8,26 @@
         </ol>
     </div>
     <div class="row">
+        @php
+        $estrellas=2;
+        @endphp
+        @if($cotizacion->star_2=='2')
+            @php
+                $estrellas=2;
+            @endphp
+        @elseif($cotizacion->star_3=='3')
+            @php
+                $estrellas=3;
+            @endphp
+        @elseif($cotizacion->star_4=='4')
+            @php
+                $estrellas=4;
+            @endphp
+        @elseif($cotizacion->star_5=='5')
+            @php
+                $estrellas=5;
+            @endphp
+        @endif
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -384,30 +404,31 @@
                                                                         <div class="col-md-12">
 {{--                                                                            {{dd($servicios)}}--}}
                                                                             {{--{{$hotel_proveedor}}--}}
-                                                                            @foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)
+                                                                            @foreach($hotel_proveedor/*->where('hotel_id',$hotel->hotel_id)*/ as $hotel_proveedor_)
 {{--                                                                                {{dd($hotel_proveedor_->single)}}--}}
+                                                                                @if($hotel_proveedor_->estrellas==$paquete->estrellas)
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="checkbox11 text-left bg-info">
+                                                                                            <label class="text-primary">
+                                                                                                <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}">
+                                                                                                <b>{{$hotel_proveedor_->proveedor->razon_social}}</b>
+                                                                                            </label>
+                                                                                            @if($hotel->personas_s>0)
+                                                                                                    <p>Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
+                                                                                            @endif
+                                                                                            @if($hotel->personas_d>0)
+                                                                                                    <p>Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
+                                                                                            @endif
+                                                                                            @if($hotel->personas_m>0)
+                                                                                                <p>Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
+                                                                                            @endif
+                                                                                            @if($hotel->personas_t>0)
+                                                                                                <p>Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
+                                                                                            @endif
 
-                                                                                <div class="col-md-6">
-                                                                                    <div class="checkbox11 text-left bg-info">
-                                                                                        <label class="text-primary">
-                                                                                            <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}">
-                                                                                            <b>{{$hotel_proveedor_->proveedor->razon_social}}</b>
-                                                                                        </label>
-                                                                                        @if($hotel->personas_s>0)
-                                                                                                <p>Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
-                                                                                        @endif
-                                                                                        @if($hotel->personas_d>0)
-                                                                                                <p>Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
-                                                                                        @endif
-                                                                                        @if($hotel->personas_m>0)
-                                                                                            <p>Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
-                                                                                        @endif
-                                                                                        @if($hotel->personas_t>0)
-                                                                                            <p>Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
-                                                                                        @endif
-
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
+                                                                                @endif
                                                                             @endforeach
 
 

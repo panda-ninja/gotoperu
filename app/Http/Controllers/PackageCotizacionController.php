@@ -1266,6 +1266,7 @@ class PackageCotizacionController extends Controller
         $paquete->estado=0;
         $paquete->preciocosto=$precioCosto;
         $paquete->cotizaciones_id=$cotizacion_id;
+        $paquete->estrellas=$estrela;
         $paquete->save();
         $paquete_precio_id=0;
 
@@ -1733,7 +1734,7 @@ class PackageCotizacionController extends Controller
                 }
             }
         }
-        
+
 //        return $id;
         $paquetesPrecio=PaquetePrecio::where('paquete_cotizaciones_id',$id)->get();
         foreach ($paquetesPrecio as $paquetePrecio_){
