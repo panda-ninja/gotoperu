@@ -109,7 +109,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 hide">
                             <span class="pull-left pax-nav">
                                 <b>Travel date: no se</b>
                             </span>
@@ -223,7 +223,31 @@
                                             </td>
                                             {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
                                             <td class="text-right">{{$servicios->precio_proveedor}} $</td>
-                                            <td><input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')"></td>
+                                            <td>
+                                                @php
+                                                    $codigo='primary';
+                                                    $icon='save';
+                                                @endphp
+                                                @if($servicios->codigo_verificacion!='')
+                                                    @php
+                                                        $codigo='warning';
+                                                        $icon='edit';
+                                                    @endphp
+                                                @endif
+                                                <form class="form-inline" action="{{route('add_cod_verif_path')}}" method="post">
+                                                    {{csrf_field()}}
+                                                    <input type="hidden" name="id" value="{{$servicios->id}}">
+                                                    <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
+
+                                                    {{--<input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')">--}}
+                                                    <div class="col-lg-10">
+                                                        <input class="form-control" type="text" id="code_{{$servicios->id}}" name="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}">
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <button type="submit" class=" pull-left btn btn-{{$codigo}} btn-sm"><i class="fa fa-{{$icon}}" aria-hidden="true"></i></button>
+                                                    </div>
+                                                </form>
+                                            </td>
                                             <td>
                                             @if($servicios->itinerario_proveedor)
                                                 {{$servicios->itinerario_proveedor->razon_social}}
@@ -384,7 +408,30 @@
                                                     <a id="h_rpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total_book}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
                                                 </p>
                                             </td>
-                                            <td><input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')"></td>
+                                            <td>
+                                                @php
+                                                    $codigo_h='primary';
+                                                    $icon_h='save';
+                                                @endphp
+                                                @if($hotel->codigo_verificacion!='')
+                                                    @php
+                                                        $codigo_h='warning';
+                                                        $icon_h='edit';
+                                                    @endphp
+                                                @endif
+                                                <form class="form-inline" action="{{route('add_cod_verif_hotel_path')}}" method="post">
+                                                    {{csrf_field()}}
+                                                    <input type="hidden" name="id" value="{{$hotel->id}}">
+                                                    <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
+
+                                                    {{--<input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')">--}}
+                                                    <div class="col-lg-10">
+                                                        <input class="form-control" type="text" id="code_{{$hotel->id}}" name="code_{{$hotel->id}}" value="{{$hotel->codigo_verificacion}}">
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <button type="submit" class=" pull-left btn btn-{{$codigo_h}} btn-sm"><i class="fa fa-{{$icon_h}}" aria-hidden="true"></i></button>
+                                                    </div>
+                                                </form>
                                             <td>
                                                 @if($hotel->proveedor)
                                                     {{$hotel->proveedor->razon_social}}

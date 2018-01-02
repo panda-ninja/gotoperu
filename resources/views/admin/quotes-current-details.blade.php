@@ -154,15 +154,11 @@
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="id" value="{{$paquete->id}}">
                                     @if($paquete->estado==2)
-                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                        @else
-                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                                        @endif
-                                    </form>
+                                        <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-success btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                    @else
+                                        <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                    @endif
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -179,15 +175,11 @@
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="id" value="{{$paquete->id}}">
-                                        @if($paquete->estado==2)
-                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                        @else
-                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                                        @endif
-                                    </form>
+                                    @if($paquete->estado==2)
+                                        <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-success btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                    @else
+                                        <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                    @endif
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -206,15 +198,11 @@
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="id" value="{{$paquete->id}}">
-                                        @if($paquete->estado==2)
-                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                        @else
-                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                                        @endif
-                                    </form>
+                                    @if($paquete->estado==2)
+                                        <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-success btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                    @else
+                                        <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                    @endif
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -232,15 +220,15 @@
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="#" class="hide pull-right btn btn-default btn-sm" data-toggle="modal" data-target="#modal_planes_{{$paquete->id}}"><i class="fa fa-th-large" aria-hidden="true"></i></a>
-                                    <form action="{{route('escojer_pqt_plan')}}" method="post">
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="id" value="{{$paquete->id}}">
+                                    {{--<form action="{{route('escojer_pqt_plan')}}" method="post">--}}
+{{--                                        {{csrf_field()}}--}}
+                                        {{--<input type="hidden" name="id" value="{{$paquete->id}}">--}}
                                         @if($paquete->estado==2)
-                                            <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-success btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
                                         @else
-                                            <button type="submit"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                            <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
                                         @endif
-                                    </form>
+                                    {{--</form>--}}
                                     {{--<button type="button" id="plan_{{$pos_plan}}"  class="planes pull-right btn btn-danger btn-sm" onclick="activarPlan('{{$paquete->id}}','{{$cotizacion_->nombre}}','{{$cotizacion_->id}}','{{$pos_plan}}')">--}}
                                         {{--<i class="fa fa-toggle-off" aria-hidden="true"></i>--}}
                                     {{--</button>--}}

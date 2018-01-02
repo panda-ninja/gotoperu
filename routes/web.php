@@ -487,7 +487,16 @@ Route::post('/admin/quotes/hotel/delete', [
     'uses' => 'PackageCotizacionController@delete_hotel_quotes_paso1',
     'as' => 'quotes_hotel_delete_path',
 ]);
-Route::post('/admin/pqt/escojer', [
+Route::get('/admin/pqt/escojer/{id}', [
     'uses' => 'PackageCotizacionController@escojer_pqt',
     'as' => 'escojer_pqt_plan',
+]);
+Route::post('/admin/reservas/add-code', [
+    'uses' => 'PackageCotizacionController@add_cod_verif',
+    'as' => 'add_cod_verif_path',
+]);
+
+Route::post('/admin/reservas/hotel/add-code', [
+    'uses' => 'PackageCotizacionController@add_cod_hotel_verif',
+    'as' => 'add_cod_verif_hotel_path',
 ]);
