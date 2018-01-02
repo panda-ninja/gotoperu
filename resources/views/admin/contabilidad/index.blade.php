@@ -25,6 +25,9 @@
 
     <div class="row">
         <div class="col-md-4 no-padding box-list-book">
+            @php
+                $dato_cliente='';
+            @endphp
             @foreach($cotizacion->sortByDesc('fecha') as $cotizacion_cat_)
                 @foreach($cotizacion_cat_->cotizaciones_cliente as $clientes)
                     @if($clientes->estado==1)
