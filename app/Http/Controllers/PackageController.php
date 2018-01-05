@@ -99,6 +99,18 @@ class PackageController extends Controller
         $profit_4=$request->input('profitt_4');
         $profit_5=$request->input('profitt_5');
 
+        $plantillas= P_Paquete::where('duracion',$txt_day)->get();
+        $diferencia = 4 - strlen(count($plantillas));
+        $numero_con_ceros='';
+        for($i = 0 ; $i < $diferencia; $i++)
+        {
+            $numero_con_ceros .= 0;
+        }
+
+        $numero_con_ceros.= count($plantillas);
+        $plantilla_pqt= new P_Paquete();
+        $plantilla_pqt->codigo='GTP'.$txt_day.$numero_con_ceros;
+
         $paquete=new P_Paquete();
         $paquete->codigo=$txt_code;
         $paquete->titulo=$txt_title;
@@ -452,7 +464,6 @@ class PackageController extends Controller
             $p_itinerario->precio=$st;
             $p_itinerario->save();
         }
-
         $itineraries=P_Paquete::get();
         return view('admin.show-itineraries',['itineraries'=>$itineraries]);
     }

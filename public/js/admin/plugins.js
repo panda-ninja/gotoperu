@@ -25128,6 +25128,45 @@ function mostrar_datos(cadena) {
     // $('#precio_plantilla').html('$'+datos_pqt[2]);
     sumar_servicios_itinerario();
 }
+function validar_envio(){
+    console.log('hola ');
+    $('#generar_plantilla').submit(function() {
+
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            reverseButtons: true
+        }).then((resultado) => {
+            if (resultado.value) {
+            $('#generar_plantilla').submit(function() {});
+            // swal(
+            //     'Deleted!',
+            //     'Your file has been deleted.',
+            //     'success'
+            // )
+            // result.dismiss can be 'cancel', 'overlay',
+            // 'close', and 'timer'
+        } else if (resultado.dismiss === 'cancel') {
+            // swal(
+            //     'Cancelled',
+            //     'Your imaginary file is safe :)',
+            //     'error'
+            // )
+            return false;
+        }
+    })
+        return false;
+    });
+}
 function enviar_form2(){
     $('#form_nuevo_pqt_').submit(function() {
         $('#txt_country1_').val($('#txt_country').val());
@@ -25417,7 +25456,7 @@ function escojer_pqt(id) {
         }
     });
     $.post('/admin/pqt/escojer', 'id='+id, function(data) {
-        
+
     }).fail(function (data) {
     });
 }
