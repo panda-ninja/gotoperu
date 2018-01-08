@@ -10,7 +10,7 @@
                     <li class="active "><i class="fa fa-pencil-square-o text-warning" aria-hidden="true"></i> Edit</li>
                 </ol>
             </div>
-            <form action="{{route('package_edit_path')}}" method="post" id="package_new_path_id">
+            <form action="{{route('package_plantilla_crear_path')}}" method="post" id="package_new_path_id">
                 <div class="row">
                     <div class="col-md-12">
                         <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>
@@ -1847,12 +1847,15 @@
                                 <input type="hidden" name="hotel_id_3" value="{{$hotel_id_3}}">
                                 <input type="hidden" name="hotel_id_4" value="{{$hotel_id_4}}">
                                 <input type="hidden" name="hotel_id_5" value="{{$hotel_id_5}}">
-                                <button type="submit" class="btn btn-lg btn-warning">Edit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                                <input type="hidden" name="coti_id" id="coti_id" value="{{$coti_id}}">
+                                <button type="submit" name="btn_guardar" value="si" class="btn btn-lg btn-primary">Guardar <i class="fa fa-check" aria-hidden="true"></i></button>
+                                <button type="submit" name="btn_cancelar" value="no" class="btn btn-lg btn-danger">Cancelar <i class="fa fa-close" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
     <script>

@@ -24452,7 +24452,7 @@ function Pasar_datos1(){
     var itinerario='';
     $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
-            $(this).prop("checked", "");
+            // $(this).prop("checked", "");
             total_Itinerarios++;
             itinerario=$(this).val().split('_');
             var precio_grupo=0;
@@ -24477,21 +24477,42 @@ function Pasar_datos1(){
             var servicios=itinerario[5].split('*');
             // lista_itinerarios1+=itinerario[0]+'/';
             var iti_temp='';
-            iti_temp+='<div id="itinerario_'+itinerario[0]+'" class="caja_itineario">'+
-                    '<div class="row">'+
-                    '<div class="col-lg-9">' +
-                        '<input type="hidden" name="itinerarios_1[]" value="'+itinerario[5]+'">'+
-                    '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
-                    '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
-                        '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
-                        '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
-                    '</div>'+
-                    '<div class="col-lg-3">' +
-                        ' <b>'+itinerario[4]+'</b>'+
-                        ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
-                    '</div>'+
-                    '</div>'+
-                '</div>';
+            // iti_temp+='<div id="itinerario_'+itinerario[0]+'" class="caja_itineario">'+
+            //         '<div class="row">'+
+            //         '<div class="col-lg-9">' +
+            //             '<input type="hidden" name="itinerarios_1[]" value="'+itinerario[5]+'">'+
+            //         '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
+            //         '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
+            //             '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
+            //             '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
+            //         '</div>'+
+            //         '<div class="col-lg-3">' +
+            //             ' <b>'+itinerario[4]+'</b>'+
+            //             ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
+            //         '</div>'+
+            //         '</div>'+
+            //     '</div>';
+
+            iti_temp+='<li class="content-list-book" id="content-list-'+itinerario[0]+'" value="'+itinerario[0]+'">'+
+                        '<div class="content-list-book-s">'+
+                            '<a href="#!">'+
+                                '<strong>'+
+                                    '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">'+
+                                    '<input type="hidden" name="itinerarios_1[]" value="'+itinerario[5]+'">'+
+                                    '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
+                                    '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
+                                    '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
+                                    '<b class="dias" id="dias_"'+total_Itinerarios+'>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
+                                '</strong>'+
+                                '<small>'+
+                                    itinerario[4]+'$'+
+                                '</small>'+
+                            '</a>'+
+                            '<div class="icon">'+
+                                ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>'
+                            '</div>'+
+                            '</div>'+
+                        '</li>';
 
             $('#Lista_itinerario_g').append(iti_temp);
 
@@ -24501,7 +24522,11 @@ function Pasar_datos1(){
     $('#st_new').html(Itis_precio);
     $('#nroItinerario').val(total_Itinerarios);
     // $('#lista_itinerarios1').val(lista_itinerarios1);
-
+    var cont=1;
+    $(".dias").each(function (index) {
+        $(this).html('Dia '+cont+':');
+        cont++;
+    });
     calcular_resumen();
     calcular_precio1();
 }

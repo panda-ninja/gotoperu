@@ -154,6 +154,7 @@
                                     <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
                                         {{csrf_field()}}
                                         <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
                                         <button class=" pull-right btn btn-default btn-sm"><i class="fa fa-files-o" aria-hidden="true"></i></button>
                                     </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
@@ -180,6 +181,7 @@
                                     <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
                                         {{csrf_field()}}
                                         <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
                                         <button class=" pull-right btn btn-default btn-sm" ><i class="fa fa-files-o" aria-hidden="true"></i></button>
                                     </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
@@ -208,6 +210,7 @@
                                     <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
                                         {{csrf_field()}}
                                         <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
                                         <button class=" pull-right btn btn-default btn-sm" ><i class="fa fa-files-o" aria-hidden="true"></i></button>
                                     </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
@@ -234,6 +237,7 @@
                                     <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
                                         {{csrf_field()}}
                                         <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
                                         <button class=" pull-right btn btn-default btn-sm"><i class="fa fa-files-o" aria-hidden="true"></i></button>
                                     </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>

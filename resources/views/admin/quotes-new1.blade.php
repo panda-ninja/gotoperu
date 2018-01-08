@@ -593,10 +593,15 @@
                                 <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form1()">GO</button></div>
                             </div>
                         </div>
-                            <div class="grid ui-sortable" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios1()">
+                        <div class="row">
+                            <div class='col-md-12 box-list-book'>
+                                <li value="0">
+                                    <ol id="Lista_itinerario_g" class='simple_with_animation vertical no-padding no-margin'>
+
+                                    </ol>
+                                </li>
                             </div>
-
-
+                        </div>
                     </form>
                 </div>
 
@@ -826,6 +831,70 @@
                     $('#txt_name').val(ui.item.value);
                 }
             });
+        });
+
+
+    </script>
+    <script>
+        var adjustment;
+
+        $("ol.simple_with_animation").sortable({
+            group: 'simple_with_animation',
+            pullPlaceholder: false,
+            tolerance: 6,
+            // animation on drop
+            onDrop: function  ($item, container, _super) {
+
+                var $clonedItem = $('<li/>').css({height: 0});
+                $item.before($clonedItem);
+                $clonedItem.animate({'height': $item.height()});
+
+                var s_cotizacion = $item.val();
+                var s_porcentaje = $item.parent().parent().val();
+
+
+                $item.animate($clonedItem.position(), function  () {
+                    $clonedItem.detach();
+                    _super($item, container);
+                });
+
+                var datos = {
+                    "txt_cotizacion" : s_cotizacion,
+                    "txt_porcentaje" : s_porcentaje
+                };
+                {{--$.ajaxSetup({--}}
+                    {{--headers: {--}}
+                        {{--'X-CSRF-TOKEN': $('[name="_token"]').val()--}}
+                    {{--}--}}
+                {{--});--}}
+                {{--$.ajax({--}}
+                    {{--data:  datos,--}}
+                    {{--url:   "{{route('agregar_probabilidad_path')}}",--}}
+                    {{--type:  'post',--}}
+
+                {{--});--}}
+
+
+            },
+
+            // set $item relative to cursor position
+            onDragStart: function ($item, container, _super) {
+                var offset = $item.offset(),
+                    pointer = container.rootGroup.pointer;
+
+                adjustment = {
+                    left: pointer.left - offset.left,
+                    top: pointer.top - offset.top
+                };
+
+                _super($item, container);
+            },
+            onDrag: function ($item, position) {
+                $item.css({
+                    left: position.left - adjustment.left,
+                    top: position.top - adjustment.top
+                });
+            }
         });
     </script>
 @stop

@@ -1789,6 +1789,7 @@ class PackageCotizacionController extends Controller
     }
     public function clonar_plan(Request $request)
     {
+        $coti_id=$request->input('coti_id');
         $id=$request->input('pqt_id');
         $ogiginal_pqts=PaqueteCotizaciones::where('id',$id)->get();
 //        dd($id);
@@ -1881,15 +1882,15 @@ class PackageCotizacionController extends Controller
             }
         }
 
-        return redirect()->route('generar_pantilla_id_path',$new_pqt_id);
+        return redirect()->route('generar_pantilla_id_path',[$coti_id,$new_pqt_id]);
     }
-    public function clonar_plan_id($new_pqt_id){
+    public function clonar_plan_id($coti_id,$new_pqt_id){
         $destinos=M_Destino::get();
         $itinerarios=M_Itinerario::get();
         $m_servicios=M_Servicio::get();
         $itinerary=P_Paquete::FindOrFail($new_pqt_id);
         $hotel=Hotel::get();
-        return view('admin.show-plantilla-edit',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'paquete_id'=>$new_pqt_id,'hotel'=>$hotel]);
+        return view('admin.show-plantilla-edit',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'paquete_id'=>$new_pqt_id,'hotel'=>$hotel,'coti_id'=>$coti_id]);
     }
     public function poner_ceros($numero){
         $diferencia = 4 - strlen($numero);
