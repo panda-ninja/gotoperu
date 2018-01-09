@@ -753,41 +753,53 @@ class PackageCotizacionController extends Controller
     }
     public function nuevo_paquete(Request $request)
     {
-        $cliente = new Cliente();
-        $cliente->nombres = strtoupper($request->input('txt_name1'));
-        $cliente->email = $request->input('txt_email1');
-        $cliente->nacionalidad = $request->input('txt_country1');
-        $cliente->telefono = $request->input('txt_phone1');
-        $cliente->save();
-
-        //-- Datos de la cotizacion
+        $plan=$request->input('plan1');
+        $cotizacion_id=0;
+        $cliente_id=0;
+        $estrela = $request->input('estrellas_from');
         $date = date_create($request->input('txt_date1'));
         $fecha = date_format($date, 'jS F Y');
-        $cotizacion = new Cotizacion();
-        $cotizacion->nombre = strtoupper($request->input('txt_name1')) . ' x' . $request->input('txt_travelers1') . ' ' . $fecha;
-        $cotizacion->nropersonas = $request->input('txt_travelers1');
-        $cotizacion->duracion = $request->input('txt_days1');
-        $cotizacion->fecha = $request->input('txt_date1');
-        $estrela=$request->input('estrellas_from');
-        if($estrela==2)
-            $cotizacion->star_2=2;
-        if($estrela==3)
-            $cotizacion->star_3=3;
-        if($estrela==4)
-            $cotizacion->star_4=4;
-        if($estrela==5)
-            $cotizacion->star_5=5;
+        if($plan=='0') {
+            $cliente = new Cliente();
+            $cliente->nombres = strtoupper($request->input('txt_name1'));
+            $cliente->email = $request->input('txt_email1');
+            $cliente->nacionalidad = $request->input('txt_country1');
+            $cliente->telefono = $request->input('txt_phone1');
+            $cliente->save();
 
-        $cotizacion->estado=0;
-        $cotizacion->users_id=auth()->guard('admin')->user()->id;
-//        $cotizacion->users_id=1;
-        $cotizacion->save();
-        $cotizacionGet=Cotizacion::where('id',$cotizacion->id)->get();
-        $cotizacion_cliente=new CotizacionesCliente();
-        $cotizacion_cliente->cotizaciones_id=$cotizacion->id;
-        $cotizacion_cliente->clientes_id=$cliente->id;
-        $cotizacion_cliente->estado=1;
-        $cotizacion_cliente->save();
+            //-- Datos de la cotizacion
+            $cotizacion = new Cotizacion();
+            $cotizacion->nombre = strtoupper($request->input('txt_name1')) . ' x' . $request->input('txt_travelers1') . ' ' . $fecha;
+            $cotizacion->nropersonas = $request->input('txt_travelers1');
+            $cotizacion->duracion = $request->input('txt_days1');
+            $cotizacion->fecha = $request->input('txt_date1');
+            if($estrela==2)
+                $cotizacion->star_2=2;
+            if($estrela==3)
+                $cotizacion->star_3=3;
+            if($estrela==4)
+                $cotizacion->star_4=4;
+            if($estrela==5)
+                $cotizacion->star_5=5;
+
+            $cotizacion->estado=0;
+            $cotizacion->users_id=auth()->guard('admin')->user()->id;
+            $cotizacion->posibilidad =0;
+            $cotizacion->web=$request->input('web1');
+            $cotizacion->save();
+            $cotizacionGet=Cotizacion::where('id',$cotizacion->id)->get();
+            $cotizacion_cliente=new CotizacionesCliente();
+            $cotizacion_cliente->cotizaciones_id=$cotizacion->id;
+            $cotizacion_cliente->clientes_id=$cliente->id;
+            $cotizacion_cliente->estado=1;
+            $cotizacion_cliente->save();
+            $cotizacion_id=$cotizacion->id;
+            $cliente_id=$cliente->id;
+        }
+        else{
+            $cotizacion_id=$request->input('cotizacion_id_1');
+            $cliente_id=$request->input('cliente_id_1');
+        }
         $acomodacion_s=0;
         if($request->input('a_s'))
             $acomodacion_s=$request->input('a_s');
@@ -805,11 +817,6 @@ class PackageCotizacionController extends Controller
             $acomodacion_t=$request->input('a_t');
 
 
-
-
-
-
-        $cotizacion_id=$cotizacion->id;
         $txt_day=$request->input('txt_days1');
         $txt_code=strtoupper('GTP-'.$txt_day.'00');
         $txt_title=strtoupper('New package');
@@ -820,7 +827,7 @@ class PackageCotizacionController extends Controller
         $itinerarios_=$request->input('itinerarios_2');
         $txt_sugerencia='';
         $nro_personas=$request->input('txt_travelers1');
-        $cliente_id=$cliente->id;
+
         $hotel_id_2=0;
         $hotel_id_3=0;
         $hotel_id_4=0;
@@ -829,6 +836,25 @@ class PackageCotizacionController extends Controller
         $strellas_3=0;
         $strellas_4=0;
         $strellas_5=0;
+        $txt_title='';
+        $precioCosto=0;
+        $amount_s2=0;
+        $amount_d2=0;
+        $amount_t2=0;
+        $amount_s3=0;
+        $amount_d3=0;
+        $amount_t3=0;
+        $amount_s4=0;
+        $amount_d4=0;
+        $amount_t4=0;
+        $amount_s5=0;
+        $amount_d5=0;
+        $amount_t5=0;
+
+        $profit_2=0;
+        $profit_3=0;
+        $profit_4=0;
+        $profit_5=0;
         if($estrela==2){
             $hotel_id_2=$request->input('hotel_id_2');
             $strellas_2=2;
@@ -1078,15 +1104,16 @@ class PackageCotizacionController extends Controller
             }
         }
 
-        $cliente=Cliente::FindOrFail($cliente_id);
-        $destinos=$request->input('txt_destinos1');
-        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+//        $cliente=Cliente::FindOrFail($cliente_id);
+//        $destinos=$request->input('txt_destinos1');
+//        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
 //
 //        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day1'))->get();
 //        dd($p_paquete);
-        $m_servicios=M_Servicio::get();
+//        $m_servicios=M_Servicio::get();
 //        $imprimir=$request->input('imprimir');
-        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
+//        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
+        return redirect()->route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete->id]);
     }
     public function nuevo_paquete_(Request $request)
     {

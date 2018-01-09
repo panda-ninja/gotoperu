@@ -1733,18 +1733,18 @@ function  filtrar_itinerarios1(){
     destinos=destinos.substr(0,destinos.length-1);
     filtrar_itinerarios_admin();
 }
-// var total_Itinerarios=0;
+ var total_Itinerarios_camino2=0;
 // var Itis_precio=0;
 // var nroPasajeros=2;
 var lista_itinerarios1='';
 function Pasar_datos1(){
     Itis_precio=parseFloat($('#totalItinerario').val());
-    total_Itinerarios=$('#nroItinerario').val();
+    total_Itinerarios_camino2=$('#nroItinerario').val();
     var itinerario='';
     $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
             // $(this).prop("checked", "");
-            total_Itinerarios++;
+            total_Itinerarios_camino2++;
             itinerario=$(this).val().split('_');
             var precio_grupo=0;
             Itis_precio += parseFloat(itinerario[4]);
@@ -1793,33 +1793,32 @@ function Pasar_datos1(){
                                     '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
                                     '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
                                     '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
-                                    '<b class="dias" id="dias_"'+total_Itinerarios+'>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
+                                    '<b class="dias_iti_c2" id="dias_'+total_Itinerarios_camino2+'">Dia '+total_Itinerarios_camino2+':</b> '+itinerario[2]+
                                 '</strong>'+
                                 '<small>'+
                                     itinerario[4]+'$'+
                                 '</small>'+
                             '</a>'+
                             '<div class="icon">'+
-                                ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>'
+                                ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+','+itinerario[4]+')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>'
                             '</div>'+
                             '</div>'+
                         '</li>';
 
             $('#Lista_itinerario_g').append(iti_temp);
-
         }
     });
     $('#totalItinerario').val(Itis_precio);
     $('#st_new').html(Itis_precio);
-    $('#nroItinerario').val(total_Itinerarios);
+    $('#nroItinerario').val(total_Itinerarios_camino2);
     // $('#lista_itinerarios1').val(lista_itinerarios1);
-    var cont=1;
-    $(".dias").each(function (index) {
-        $(this).html('Dia '+cont+':');
-        cont++;
-    });
+    // var cont=1;
+    // $(".dias").each(function (index) {
+    //     $(this).html('Dia '+cont+':');
+    //     cont++;
+    // });
     calcular_resumen();
-    calcular_precio1();
+    //calcular_precio1();
 }
 function calcular_precio1(){
     var preci_Total=0;
@@ -1911,7 +1910,7 @@ function calcular_precio1(){
     console.log('precio total:'+total);
 }
 
-function borrar_iti(id){
+function borrar_iti(id,valor){
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de eliminar este itinerario?",
@@ -1921,13 +1920,23 @@ function borrar_iti(id){
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then(function () {
-        $('#itinerario_'+id).fadeOut();
-        $('#itinerario_'+id).remove();
+        $('#content-list-'+id).fadeOut();
+        $('#content-list-'+id).remove();
         var lista_it='';
         $(".txt_itinerarios").each(function (index) {
             lista_it+=$(this).html()+'/';
         });
         $('#lista_itinerarios1').val(lista_it);
+        var valor_temp=parseFloat($('#totalItinerario').val());
+        valor_temp=valor_temp-valor;
+        $('#totalItinerario').val(valor_temp);
+        $('#st_new').html(valor_temp);
+
+        var cont=1;
+        $(".dias_iti_c2").each(function (index) {
+            $(this).html('Dia '+cont+':');
+            cont++;
+        });
     })
 
 }
@@ -2031,7 +2040,7 @@ function aumentar_acom(tipo,signo){
             $('#a_t_1').html(valor);
         }
     }
-    calcular_precio1();
+    //calcular_precio1();
 }
 function enviar_form1(){
     $('#form_nuevo_pqt').submit(function() {
@@ -2042,8 +2051,8 @@ function enviar_form1(){
         $('#txt_travelers1').val($('#txt_travellers').val());
         $('#txt_days1').val($('#txt_days').val());
         $('#txt_date1').val($('#txt_travel_date').val());
-        $('#txt_destinos1').val(destinos);
         $('#web1').val($('#web').val());
+        $('#txt_destinos1').val(destinos);
 
         if($('#txt_name1').val()==''){
             $('#txt_name1').focus();
@@ -2138,28 +2147,35 @@ function enviar_form1(){
             lista_it+=$(this).html()+'/';
         });
         $('#lista_itinerarios1').val(lista_it);
-
+        if(lista_it==''){
+            swal(
+                'Oops...',
+                'Escoja el itinerario!',
+                'error'
+            )
+            return false;
+        }
         // destinos=destinos;
         console.log('hola '+name1);
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            // Mostramos un mensaje con la respuesta de PHP
-            success: function(data) {
-                if(data==1){
-                    // $('#for_'+id).addClass('hide');
-                    // $('#result_'+id).removeClass('text-danger');
-                    // $('#result_'+id).addClass('text-success');
-                    // $('#result_'+id).html('Pago guardado Correctamente!');
-                }
-                else{
-                    // $('#result_'+id).removeClass('text-success');
-                    // $('#result_'+id).addClass('text-danger');
-                    // $('#result_'+id).html('Error al pagar, intentelo de nuevo');
-                }
-            }
-        })
+        // $.ajax({
+        //     type: 'POST',
+        //     url: $(this).attr('action'),
+        //     data: $(this).serialize(),
+        //     // Mostramos un mensaje con la respuesta de PHP
+        //     success: function(data) {
+        //         if(data==1){
+        //             // $('#for_'+id).addClass('hide');
+        //             // $('#result_'+id).removeClass('text-danger');
+        //             // $('#result_'+id).addClass('text-success');
+        //             // $('#result_'+id).html('Pago guardado Correctamente!');
+        //         }
+        //         else{
+        //             // $('#result_'+id).removeClass('text-success');
+        //             // $('#result_'+id).addClass('text-danger');
+        //             // $('#result_'+id).html('Error al pagar, intentelo de nuevo');
+        //         }
+        //     }
+        // })
         // return false;
     });
 }
@@ -2173,7 +2189,7 @@ function poner_dias() {
     $('#dias_html').html($('#txt_days').val()+'d');
     $('#dias_html_0').html($('#txt_days').val()+'d');
 
-    calcular_precio1();
+    //calcular_precio1();
     filtrar_itinerarios_admin();
 }
 

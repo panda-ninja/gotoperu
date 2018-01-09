@@ -558,6 +558,10 @@
                             <input type="hidden" name="txt_destinos1" id="txt_destinos1">
                             <input type="hidden" name="lista_itinerarios1" id="lista_itinerarios1">
                             <input type="hidden" name="totalItinerario" id="totalItinerario" value="0">
+                            <input type="hidden" name="plan1" id="plan1" value="{{$plan}}">
+                            <input type="hidden" name="cotizacion_id_1" id="cotizacion_id_1" value="{{$coti_id}}">
+                            <input type="hidden" name="cliente_id_1" id="cliente_id_1" value="{{$cliente_id}}">
+                            <input type="hidden" name="web1" id="web1" value="gotoperu.com">
 
                             <input type="hidden" name="h2_s_" id="h2_s_" value="{{$h2_s}}">
                             <input type="hidden" name="h2_d_" id="h2_d_" value="{{$h2_d}}">
@@ -583,6 +587,7 @@
                             <input type="hidden" name="hotel_id_3" id="hotel_id_3" value="{{$hotel_id_3}}">
                             <input type="hidden" name="hotel_id_4" id="hotel_id_4" value="{{$hotel_id_4}}">
                             <input type="hidden" name="hotel_id_5" id="hotel_id_5" value="{{$hotel_id_5}}">
+
 
                         </div>
                         <div class="col-lg-12 caja_verde">
@@ -873,12 +878,16 @@
                     {{--type:  'post',--}}
 
                 {{--});--}}
-
-
+                var cont=1;
+                $(".dias_iti_c2").each(function (index) {
+                    $(this).html('Dia '+cont+':');
+                    cont++;
+                });
             },
 
             // set $item relative to cursor position
             onDragStart: function ($item, container, _super) {
+
                 var offset = $item.offset(),
                     pointer = container.rootGroup.pointer;
 
@@ -888,12 +897,14 @@
                 };
 
                 _super($item, container);
+
             },
             onDrag: function ($item, position) {
                 $item.css({
                     left: position.left - adjustment.left,
                     top: position.top - adjustment.top
                 });
+
             }
         });
     </script>
