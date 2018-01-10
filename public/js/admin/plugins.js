@@ -25417,7 +25417,7 @@ function escojer_pqt(id) {
         }
     });
     $.post('/admin/pqt/escojer', 'id='+id, function(data) {
-        
+
     }).fail(function (data) {
     });
 }
