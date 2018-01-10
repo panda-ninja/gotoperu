@@ -108,7 +108,7 @@ class BookController extends Controller
         $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
 
         $proveedor=Proveedor::FindOrFail($dato[2]);
-dd($proveedor);
+//dd($proveedor);
         $itinerario_serv_pro=new ItinerarioServicioProveedor();
         $itinerario_serv_pro->codigo=$proveedor->codigo;
         $itinerario_serv_pro->grupo=$proveedor->grupo;
@@ -124,12 +124,12 @@ dd($proveedor);
         $itinerario_serv_pro->ruc=$proveedor->ruc;
         $itinerario_serv_pro->razon_social=$proveedor->razon_social;
         $itinerario_serv_pro->direccion=$proveedor->direccion;
-        $itinerario_serv_pro->telefono=$itinerario->telefono;
+        $itinerario_serv_pro->telefono=$proveedor->telefono;
         $itinerario_serv_pro->celular=$proveedor->celular;
         $itinerario_serv_pro->email=$proveedor->email;
         $itinerario_serv_pro->r_nombres=$proveedor->r_nombres;
         $itinerario_serv_pro->r_telefono=$proveedor->r_telefono;
-        $itinerario_serv_pro->c_nombres=$itinerario->c_nombres;
+        $itinerario_serv_pro->c_nombres=$proveedor->c_nombres;
         $itinerario_serv_pro->c_telefono=$proveedor->c_telefono;
         $itinerario_serv_pro->save();
         $itinerario1=ItinerarioServicios::FindOrFail($dato[1]);
