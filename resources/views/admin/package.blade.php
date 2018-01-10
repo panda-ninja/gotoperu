@@ -50,7 +50,7 @@
         </div>
 
         <div class="row margin-top-20">
-            <div class="col-md-2">
+            <div class="col-md-2 hide">
                 <div class="form-group">
                     <label for="txt_code">Code</label>
                     <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code">

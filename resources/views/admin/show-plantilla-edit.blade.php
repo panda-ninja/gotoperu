@@ -5,12 +5,12 @@
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="/">Home</a></li>
-                    <li>Inventory</li>
+                    <li>Itin</li>
                     <li>Itineraries</li>
                     <li class="active "><i class="fa fa-pencil-square-o text-warning" aria-hidden="true"></i> Edit</li>
                 </ol>
             </div>
-            <form action="{{route('package_edit_path')}}" method="post" id="package_new_path_id">
+            <form action="{{route('package_plantilla_crear_path')}}" method="post" id="package_new_path_id">
                 <div class="row">
                     <div class="col-md-12">
                         <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>
@@ -155,75 +155,75 @@
                                 @php
                                     $iti_precio+=$itinerario_total;
                                 @endphp
-                            <div id="itis_{{$itinerario->id}}" class="box-sortable margin-bottom-10" onmouseleave="ordenar_itinerarios()" >
-                                <input type="hidden" name="itinerarios_[]" id="itinerarios_{{$iti_id}}" value="{{$iti_id}}">
-                                <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_{{$iti_id}}" aria-expanded="false" aria-controls="collapseExample">
-                                    <b class="lista_dias">Dia {{$itinerario->dias}}:</b> {{$itinerario->titulo}}
-                                </a>
-                                <span class="label pull-right">
+                                <div id="itis_{{$itinerario->id}}" class="box-sortable margin-bottom-10" onmouseleave="ordenar_itinerarios()" >
+                                    <input type="hidden" name="itinerarios_[]" id="itinerarios_{{$iti_id}}" value="{{$iti_id}}">
+                                    <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_{{$iti_id}}" aria-expanded="false" aria-controls="collapseExample">
+                                        <b class="lista_dias">Dia {{$itinerario->dias}}:</b> {{$itinerario->titulo}}
+                                    </a>
+                                    <span class="label pull-right">
                                     <a href="#!" class="text-16 text-danger" onclick="eliminar_iti('{{$iti_id}}','{{$itinerario->precio}}')">
                                         <i class="fa fa-times-circle" aria-hidden="true"></i>
                                     </a>
                                 </span>
-                                <span class="label label-success pull-right">($ {{$itinerario_total}})</span>
-                                <div class="collapse clearfix" id="collapseExample_{{$iti_id}}">
-                                    <div class="col-md-12"><input type="hidden" name="itinerario" value="{{$iti_id}}">
-                                        {{$itinerario->descripcion}}
-                                        <h5><b>Services</b></h5>
-                                        <table class="table table-condensed table-striped">
-                                            <thead>
-                                            <tr class="bg-grey-goto text-white">
-                                                <th colspan="2">Concepts</th>
-                                                <th>Prices</th>
-                                                <th></th>
+                                    <span class="label label-success pull-right">($ {{$itinerario_total}})</span>
+                                    <div class="collapse clearfix" id="collapseExample_{{$iti_id}}">
+                                        <div class="col-md-12"><input type="hidden" name="itinerario" value="{{$iti_id}}">
+                                            {{$itinerario->descripcion}}
+                                            <h5><b>Services</b></h5>
+                                            <table class="table table-condensed table-striped">
+                                                <thead>
+                                                <tr class="bg-grey-goto text-white">
+                                                    <th colspan="2">Concepts</th>
+                                                    <th>Prices</th>
+                                                    <th></th>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($itinerario->serivicios as $serivicios)
-                                                @php
-                                                    $valu=$serivicios->nombre.'//'.$serivicios->precio.'//'.$serivicios->precio_grupo;
-                                                @endphp
-                                                <tr>
-                                                    <td><input type="hidden" name="iti_servicios_{{$iti_id}}" value="{{$valu}}">{{$serivicios->nombre}}</td>
-                                                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                                    <td>{{$serivicios->precio}}</td>
-                                                    <td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
-                                                </tr>
-                                            @endforeach
+                                                </thead>
+                                                <tbody>
+                                                @foreach($itinerario->serivicios as $serivicios)
+                                                    @php
+                                                        $valu=$serivicios->nombre.'//'.$serivicios->precio.'//'.$serivicios->precio_grupo;
+                                                    @endphp
+                                                    <tr>
+                                                        <td><input type="hidden" name="iti_servicios_{{$iti_id}}" value="{{$valu}}">{{$serivicios->nombre}}</td>
+                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                                        <td>{{$serivicios->precio}}</td>
+                                                        <td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
+                                                    </tr>
+                                                @endforeach
 
                                                 <tr>
-                                                <td class="" colspan="4">
-                                                    <a class="hide" href="#add-services{{$iti_id}}" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                    <div class="col-md-12">
-                                                        <label for="txta_description">Sugerencias para los servicios</label>
-                                                        <textarea class="form-control" id="txt_sugerencia_{{$iti_id}}" name="txt_sugerencia[]" rows="3"></textarea>
+                                                    <td class="" colspan="4">
+                                                        <a class="hide" href="#add-services{{$iti_id}}" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                        <div class="col-md-12">
+                                                            <label for="txta_description">Sugerencias para los servicios</label>
+                                                            <textarea class="form-control" id="txt_sugerencia_{{$iti_id}}" name="txt_sugerencia[]" rows="3"></textarea>
                                                         </div>
-                                                    <div class="collapse" id="add-services{{$iti_id}}">
-                                                        <div class="row margin-top-10">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">
+                                                        <div class="collapse" id="add-services{{$iti_id}}">
+                                                            <div class="row margin-top-10">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">
                                                                     </div>
                                                                 </div>
-                                                            <div class="col-md-4 row">
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">
+                                                                <div class="col-md-4 row">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">
                                                                     </div>
                                                                 </div>
-                                                            <div class="col-md-2">
-                                                                <div class="form-group">
-                                                                    <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                         <div class="row">
@@ -239,7 +239,7 @@
                         <div id="lista_itinerarios">
                             @foreach ($itinerarios as $itinerario)
                                 @php
-                                $tiene_dest=0;
+                                    $tiene_dest=0;
                                 @endphp
                                 @foreach ($itinerario->destinos as $destino_)
                                     @if(in_array($destino_->destino,$arra_destinos))
@@ -294,10 +294,10 @@
                                                 <h5><b>Services</b></h5>
                                                 <table class="table table-condensed table-striped">
                                                     <thead>
-                                                        <tr class="bg-grey-goto text-white">
-                                                            <th colspan="2">Concepts</th>
-                                                            <th>Prices</th>
-                                                        </tr>
+                                                    <tr class="bg-grey-goto text-white">
+                                                        <th colspan="2">Concepts</th>
+                                                        <th>Prices</th>
+                                                    </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
@@ -459,6 +459,23 @@
                                 $hotel_id_3=0;
                                 $hotel_id_4=0;
                                 $hotel_id_5=0;
+
+                                $utilidad_s2=0;
+                                $utilidad_d2=0;
+                                $utilidad_m2=0;
+                                $utilidad_t2=0;
+                                $utilidad_s3=0;
+                                $utilidad_d3=0;
+                                $utilidad_m3=0;
+                                $utilidad_t3=0;
+                                $utilidad_s4=0;
+                                $utilidad_d4=0;
+                                $utilidad_m4=0;
+                                $utilidad_t4=0;
+                                $utilidad_s5=0;
+                                $utilidad_d5=0;
+                                $utilidad_m5=0;
+                                $utilidad_t5=0;
                                 ?>
                                 @foreach($itinerary as $$itinerary)
                                     @foreach($itinerary->precios as $precio)
@@ -469,7 +486,25 @@
                                             $amount_m2=$precio->precio_m;
                                             $amount_t2=$precio->precio_t;
                                             $hotel_id_2=$precio->hotel_id;
+                                            $utilidad_s2=$precio->utilidad_s;
+                                            $utilidad_d2=$precio->utilidad_d;
+                                            $utilidad_m2=$precio->utilidad_m;
+                                            $utilidad_t2=$precio->utilidad_t;
                                             ?>
+                                        @else
+                                            @foreach($hotel as $servicio)
+                                                @if($servicio->localizacion=="CUSCO")
+                                                    @if($servicio->estrellas=="2")
+                                                        @php
+                                                            $amount_s2=$servicio->single;
+                                                            $amount_d2=$servicio->double;
+                                                            $amount_m2=$servicio->matrimonial;
+                                                            $amount_t2=$servicio->triple;
+                                                            $hotel_id_2=$servicio->id;
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                            @endforeach
                                         @endif
                                         @if($precio->estrellas=="3")
                                             <?php
@@ -478,7 +513,25 @@
                                             $amount_m3=$precio->precio_m;
                                             $amount_t3=$precio->precio_t;
                                             $hotel_id_3=$precio->hotel_id;
+                                                $utilidad_s3=$precio->utilidad_s;
+                                                $utilidad_d3=$precio->utilidad_d;
+                                                $utilidad_m3=$precio->utilidad_m;
+                                                $utilidad_t3=$precio->utilidad_t;
                                             ?>
+                                            @else
+                                                @foreach($hotel as $servicio)
+                                                    @if($servicio->localizacion=="CUSCO")
+                                                        @if($servicio->estrellas=="3")
+                                                            @php
+                                                                $amount_s3=$servicio->single;
+                                                                $amount_d3=$servicio->double;
+                                                                $amount_m3=$servicio->matrimonial;
+                                                                $amount_t3=$servicio->triple;
+                                                                $hotel_id_3=$servicio->id;
+                                                            @endphp
+                                                        @endif
+                                                    @endif
+                                                @endforeach
                                         @endif
                                         @if($precio->estrellas=="4")
                                             <?php
@@ -487,7 +540,25 @@
                                             $amount_m4=$precio->precio_m;
                                             $amount_t4=$precio->precio_t;
                                             $hotel_id_4=$precio->hotel_id;
+                                            $utilidad_s4=$precio->utilidad_s;
+                                            $utilidad_d4=$precio->utilidad_d;
+                                            $utilidad_m4=$precio->utilidad_m;
+                                            $utilidad_t4=$precio->utilidad_t;
                                             ?>
+                                            @else
+                                                @foreach($hotel as $servicio)
+                                                    @if($servicio->localizacion=="CUSCO")
+                                                        @if($servicio->estrellas=="4")
+                                                            @php
+                                                                $amount_s4=$servicio->single;
+                                                                $amount_d4=$servicio->double;
+                                                                $amount_m4=$servicio->matrimonial;
+                                                                $amount_t4=$servicio->triple;
+                                                                $hotel_id_4=$servicio->id;
+                                                            @endphp
+                                                        @endif
+                                                    @endif
+                                                @endforeach
                                         @endif
                                         @if($precio->estrellas=="5")
                                             <?php
@@ -496,7 +567,25 @@
                                             $amount_m5=$precio->precio_m;
                                             $amount_t5=$precio->precio_t;
                                             $hotel_id_5=$precio->hotel_id;
+                                            $utilidad_s5=$precio->utilidad_s;
+                                            $utilidad_d5=$precio->utilidad_d;
+                                            $utilidad_m5=$precio->utilidad_m;
+                                            $utilidad_t5=$precio->utilidad_t;
                                             ?>
+                                            @else
+                                                @foreach($hotel as $servicio)
+                                                    @if($servicio->localizacion=="CUSCO")
+                                                        @if($servicio->estrellas=="5")
+                                                            @php
+                                                                $amount_s5=$servicio->single;
+                                                                $amount_d5=$servicio->double;
+                                                                $amount_m5=$servicio->matrimonial;
+                                                                $amount_t5=$servicio->triple;
+                                                                $hotel_id_5=$servicio->id;
+                                                            @endphp
+                                                        @endif
+                                                    @endif
+                                                @endforeach
                                         @endif
                                     @endforeach
                                 @endforeach
@@ -1199,10 +1288,10 @@
                             </div>
                         </div>
                         @php
-                        $profit_2=40;
-                        $profit_3=40;
-                        $profit_4=40;
-                        $profit_5=40;
+                            $profit_2=40;
+                            $profit_3=40;
+                            $profit_4=40;
+                            $profit_5=40;
                         @endphp
                         @foreach($itinerary->precios as $precio)
                             @if($precio->estrellas==2)
@@ -1260,6 +1349,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_t2_a_p"></span>.00</b>
+                                            <input type="number" class="hide form-control" name="utilidad_t2" id="utilidad_t2" value="{{$utilidad_t2}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_t2_a_v"></span>.00</b>
@@ -1278,6 +1368,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_m2_a_p"></span>.00</b>
+                                            <input type="number" class="hide form-control" name="utilidad_m2" id="utilidad_m2" value="{{$utilidad_m2}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_m2_a_v"></span>.00</b>
@@ -1297,6 +1388,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_d2_a_p"></span>.00</b>
+                                            <input type="number" class="hide form-control" name="utilidad_d2" id="utilidad_d2" value="{{$utilidad_d2}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_d2_a_v"></span>.00</b>
@@ -1315,6 +1407,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_s2_a_p"></span>.00</b>
+                                            <input type="number" class="hide form-control" name="utilidad_s2" id="utilidad_s2" value="{{$utilidad_s2}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_s2_a_v"></span>.00</b>
@@ -1380,6 +1473,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_t3_a_p"></span>.00</b>
+                                            <input type="number" class="hide form-control" name="utilidad_t3" id="utilidad_t3" value="{{$utilidad_t3}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_t3_a_v"></span>.00</b>
@@ -1398,6 +1492,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_m3_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_m3" id="utilidad_m3" value="{{$utilidad_m3}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_m3_a_v"></span>.00</b>
@@ -1417,6 +1512,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_d3_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_d3" id="utilidad_d3" value="{{$utilidad_d3}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_d3_a_v"></span>.00</b>
@@ -1435,6 +1531,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_s3_a_p"></span>.00</b>
+                                            <input type="number" class="hide form-control" name="utilidad_s3" id="utilidad_s3" value="{{$utilidad_s3}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_s3_a_v"></span>.00</b>
@@ -1501,6 +1598,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_t4_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_t4" id="utilidad_t4" value="{{$utilidad_t4}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_t4_a_v"></span>.00</b>
@@ -1519,6 +1617,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_m4_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_m4" id="utilidad_m4" value="{{$utilidad_m4}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_m4_a_v"></span>.00</b>
@@ -1538,6 +1637,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_d4_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_d4" id="utilidad_d4" value="{{$utilidad_d4}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_d4_a_v"></span>.00</b>
@@ -1556,6 +1656,7 @@
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_s4_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_s4" id="utilidad_s4" value="{{$utilidad_s4}}">
                                         </td>
                                         <td class="text-right">
                                             <b class="text-16">$ <span id="amount_s4_a_v"></span>.00</b>
@@ -1590,125 +1691,129 @@
                             </div>
                         </div>
                         <div id="precio_5" class="row hide">
-                        <div class="col-md-12">
-                            <b class="font-montserrat text-pink-goto">
-                                {{--<span class="label bg-orange-goto">1</span>--}}
-                                Precio 5 estrellas</b>
-                            <table class="table table-condensed font-montserrat">
-                                {{--<caption>table title and/or explanatory text</caption>--}}
-                                <thead>
-                                <tr>
-                                    <th><b class="text-grey-goto-light">Per Person</b></th>
-                                    <th></th>
-                                    <th class="text-right col-md-2"><b class="text-danger text-20">Cost</b></th>
-                                    <th class="text-right col-md-2"><b class="text-success text-20">Profit</b></th>
-                                    <th class="text-right col-md-2"><b class="text-pink-goto text-20">Price</b></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
-                                        <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
-                                        <i class="fa fa-male fa-2x" aria-hidden="true"></i>
-                                    </td>
-                                    <td>
-                                        <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                                        <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                                        <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_t5_a"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_t5_a_p"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_t5_a_v"></span>.00</b>
-                                    </td>
-                                </tr>
-                                <tr class="hide">
-                                    <td>
-                                        <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
-                                        <i class="fa fa-male fa-2x" aria-hidden="true"></i>
-                                    </td>
-                                    <td>
-                                        <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_m5_a"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_m5_a_p"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_m5_a_v"></span>.00</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
-                                        <i class="fa fa-male fa-2x" aria-hidden="true"></i>
-                                    </td>
-                                    <td>
-                                        <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                                        <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_d5_a"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_d5_a_p"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_d5_a_v"></span>.00</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <i class="fa fa-male fa-2x" aria-hidden="true"></i>
-                                    </td>
-                                    <td>
-                                        <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
-                                    </td>
+                            <div class="col-md-12">
+                                <b class="font-montserrat text-pink-goto">
+                                    {{--<span class="label bg-orange-goto">1</span>--}}
+                                    Precio 5 estrellas</b>
+                                <table class="table table-condensed font-montserrat">
+                                    {{--<caption>table title and/or explanatory text</caption>--}}
+                                    <thead>
+                                    <tr>
+                                        <th><b class="text-grey-goto-light">Per Person</b></th>
+                                        <th></th>
+                                        <th class="text-right col-md-2"><b class="text-danger text-20">Cost</b></th>
+                                        <th class="text-right col-md-2"><b class="text-success text-20">Profit</b></th>
+                                        <th class="text-right col-md-2"><b class="text-pink-goto text-20">Price</b></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
+                                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
+                                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                                        </td>
+                                        <td>
+                                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_t5_a"></span>.00</b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_t5_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_t5" id="utilidad_t5" value="{{$utilidad_t5}}">
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_t5_a_v"></span>.00</b>
+                                        </td>
+                                    </tr>
+                                    <tr class="hide">
+                                        <td>
+                                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
+                                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                                        </td>
+                                        <td>
+                                            <img src="{{asset('img/icons/matrimonial.png')}}" alt="" width="50">
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_m5_a"></span>.00</b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_m5_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_m5" id="utilidad_m5" value="{{$utilidad_m5}}">
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_m5_a_v"></span>.00</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-male fa-2x hide" aria-hidden="true"></i>
+                                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                                        </td>
+                                        <td>
+                                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_d5_a"></span>.00</b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_d5_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_d5" id="utilidad_d5" value="{{$utilidad_d5}}">
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_d5_a_v"></span>.00</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-male fa-2x" aria-hidden="true"></i>
+                                        </td>
+                                        <td>
+                                            <img src="{{asset('img/icons/single.png')}}" alt="" width="30">
+                                        </td>
 
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_s5_a"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_s5_a_p"></span>.00</b>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-16">$ <span id="amount_s5_a_v"></span>.00</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_s5_a"></span>.00</b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_s5_a_p"></span>.00</b>
+                                            <input type="number" class="hide" name="utilidad_t5" id="utilidad_t5" value="{{$utilidad_t5}}">
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-16">$ <span id="amount_s5_a_v"></span>.00</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
 
-                                    </td>
-                                    <td>
+                                        </td>
+                                        <td>
 
-                                    </td>
+                                        </td>
 
-                                    <td class="text-right">
-                                        <b class="text-20 text-danger"><span id="porc_cost_5">60</span>%</b>
-                                    </td>
-                                    <td class="text-right">
-                                        {{--<div>--}}
-                                        {{--<input type="number" class="form-control text-right" min="0" max="99" step="1">--}}
-                                        {{--</div>--}}
-                                        <div class="input-group has-success">
-                                            <input type="number" id="profitt_5" name="profitt_5" class="form-control input-porcent text-right" value="{{$profit_5}}" onchange="calcular_resumen()">
-                                            <span class="input-group-addon input-" id="basic-addon2">%</span>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <b class="text-20 text-pink-goto">100%</b>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                        <td class="text-right">
+                                            <b class="text-20 text-danger"><span id="porc_cost_5">60</span>%</b>
+                                        </td>
+                                        <td class="text-right">
+                                            {{--<div>--}}
+                                            {{--<input type="number" class="form-control text-right" min="0" max="99" step="1">--}}
+                                            {{--</div>--}}
+                                            <div class="input-group has-success">
+                                                <input type="number" id="profitt_5" name="profitt_5" class="form-control input-porcent text-right" value="{{$profit_5}}" onchange="calcular_resumen()">
+                                                <span class="input-group-addon input-" id="basic-addon2">%</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <b class="text-20 text-pink-goto">100%</b>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="row hide">
                             <div class="col-md-12">
@@ -1742,12 +1847,15 @@
                                 <input type="hidden" name="hotel_id_3" value="{{$hotel_id_3}}">
                                 <input type="hidden" name="hotel_id_4" value="{{$hotel_id_4}}">
                                 <input type="hidden" name="hotel_id_5" value="{{$hotel_id_5}}">
-                                <button type="submit" class="btn btn-lg btn-warning">Edit <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                                <input type="hidden" name="coti_id" id="coti_id" value="{{$coti_id}}">
+                                <button type="submit" name="btn_guardar" value="si" class="btn btn-lg btn-primary">Guardar <i class="fa fa-check" aria-hidden="true"></i></button>
+                                <button type="submit" name="btn_cancelar" value="no" class="btn btn-lg btn-danger">Cancelar <i class="fa fa-close" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
     <script>

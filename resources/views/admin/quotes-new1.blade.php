@@ -558,6 +558,10 @@
                             <input type="hidden" name="txt_destinos1" id="txt_destinos1">
                             <input type="hidden" name="lista_itinerarios1" id="lista_itinerarios1">
                             <input type="hidden" name="totalItinerario" id="totalItinerario" value="0">
+                            <input type="hidden" name="plan1" id="plan1" value="{{$plan}}">
+                            <input type="hidden" name="cotizacion_id_1" id="cotizacion_id_1" value="{{$coti_id}}">
+                            <input type="hidden" name="cliente_id_1" id="cliente_id_1" value="{{$cliente_id}}">
+                            <input type="hidden" name="web1" id="web1" value="gotoperu.com">
 
                             <input type="hidden" name="h2_s_" id="h2_s_" value="{{$h2_s}}">
                             <input type="hidden" name="h2_d_" id="h2_d_" value="{{$h2_d}}">
@@ -584,6 +588,7 @@
                             <input type="hidden" name="hotel_id_4" id="hotel_id_4" value="{{$hotel_id_4}}">
                             <input type="hidden" name="hotel_id_5" id="hotel_id_5" value="{{$hotel_id_5}}">
 
+
                         </div>
                         <div class="col-lg-12 caja_verde">
                             <div class="row">
@@ -593,10 +598,15 @@
                                 <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form1()">GO</button></div>
                             </div>
                         </div>
-                            <div class="grid ui-sortable" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios1()">
+                        <div class="row">
+                            <div class='col-md-12 box-list-book'>
+                                <li value="0">
+                                    <ol id="Lista_itinerario_g" class='simple_with_animation vertical no-padding no-margin'>
+
+                                    </ol>
+                                </li>
                             </div>
-
-
+                        </div>
                     </form>
                 </div>
 
@@ -826,6 +836,76 @@
                     $('#txt_name').val(ui.item.value);
                 }
             });
+        });
+
+
+    </script>
+    <script>
+        var adjustment;
+
+        $("ol.simple_with_animation").sortable({
+            group: 'simple_with_animation',
+            pullPlaceholder: false,
+            tolerance: 6,
+            // animation on drop
+            onDrop: function  ($item, container, _super) {
+
+                var $clonedItem = $('<li/>').css({height: 0});
+                $item.before($clonedItem);
+                $clonedItem.animate({'height': $item.height()});
+
+                var s_cotizacion = $item.val();
+                var s_porcentaje = $item.parent().parent().val();
+
+
+                $item.animate($clonedItem.position(), function  () {
+                    $clonedItem.detach();
+                    _super($item, container);
+                });
+
+                var datos = {
+                    "txt_cotizacion" : s_cotizacion,
+                    "txt_porcentaje" : s_porcentaje
+                };
+                {{--$.ajaxSetup({--}}
+                    {{--headers: {--}}
+                        {{--'X-CSRF-TOKEN': $('[name="_token"]').val()--}}
+                    {{--}--}}
+                {{--});--}}
+                {{--$.ajax({--}}
+                    {{--data:  datos,--}}
+                    {{--url:   "{{route('agregar_probabilidad_path')}}",--}}
+                    {{--type:  'post',--}}
+
+                {{--});--}}
+                var cont=1;
+                $(".dias_iti_c2").each(function (index) {
+                    $(this).html('Dia '+cont+':');
+                    cont++;
+                });
+            },
+
+            // set $item relative to cursor position
+            onDragStart: function ($item, container, _super) {
+
+                var offset = $item.offset(),
+                    pointer = container.rootGroup.pointer;
+
+                adjustment = {
+                    left: pointer.left - offset.left,
+                    top: pointer.top - offset.top
+                };
+
+                _super($item, container);
+
+            },
+            onDrag: function ($item, position) {
+                $item.css({
+                    left: position.left - adjustment.left,
+                    top: position.top - adjustment.top
+                });
+
+            }
         });
     </script>
 @stop

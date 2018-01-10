@@ -150,7 +150,13 @@
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
-                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
+                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Plan</b>
+                                    <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
+                                        <button class=" pull-right btn btn-default btn-sm"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+                                    </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -171,7 +177,13 @@
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload">
-                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
+                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Plan</b>
+                                    <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
+                                        <button class=" pull-right btn btn-default btn-sm" ><i class="fa fa-files-o" aria-hidden="true"></i></button>
+                                    </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -194,7 +206,13 @@
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
-                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
+                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Plan</b>
+                                    <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
+                                        <button class=" pull-right btn btn-default btn-sm" ><i class="fa fa-files-o" aria-hidden="true"></i></button>
+                                    </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -214,8 +232,14 @@
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload">
-                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> proposal</b>
+                                    <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Plan</b>
                                     {{csrf_field()}}
+                                    <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">
+                                        <input type="hidden" name="coti_id" id="coti_id" value="{{$cotizacion_->id}}">
+                                        <button class=" pull-right btn btn-default btn-sm"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+                                    </form>
                                     <a href="{{route('quotes_pdf_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_excel_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
                                     <a href="{{route('mostar_planes_path',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>

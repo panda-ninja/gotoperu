@@ -525,3 +525,16 @@ Route::post('/admin/reservas/hotel/add-code', [
     'uses' => 'PackageCotizacionController@add_cod_hotel_verif',
     'as' => 'add_cod_verif_hotel_path',
 ]);
+
+Route::post('/admin/curret/clonar', [
+    'uses' => 'PackageCotizacionController@clonar_plan',
+    'as' => 'generar_pantilla_path',
+]);
+Route::get('/admin/curret/clonar/{id}/{id1}', [
+    'uses' => 'PackageCotizacionController@clonar_plan_id',
+    'as' => 'generar_pantilla_id_path',
+]);
+Route::post('admin/plantilla/crear/', [
+    'uses' => 'PackageController@itinerary_plantilla_crear',
+    'as' => 'package_plantilla_crear_path'
+]);

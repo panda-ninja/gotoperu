@@ -13,6 +13,7 @@ use App\M_Destino;
 use App\M_Itinerario;
 use App\M_Servicio;
 use App\P_Itinerario;
+use App\P_ItinerarioDestino;
 use App\P_ItinerarioServicios;
 use App\P_Paquete;
 use App\P_PaquetePrecio;
@@ -752,41 +753,53 @@ class PackageCotizacionController extends Controller
     }
     public function nuevo_paquete(Request $request)
     {
-        $cliente = new Cliente();
-        $cliente->nombres = strtoupper($request->input('txt_name1'));
-        $cliente->email = $request->input('txt_email1');
-        $cliente->nacionalidad = $request->input('txt_country1');
-        $cliente->telefono = $request->input('txt_phone1');
-        $cliente->save();
-
-        //-- Datos de la cotizacion
+        $plan=$request->input('plan1');
+        $cotizacion_id=0;
+        $cliente_id=0;
+        $estrela = $request->input('estrellas_from');
         $date = date_create($request->input('txt_date1'));
         $fecha = date_format($date, 'jS F Y');
-        $cotizacion = new Cotizacion();
-        $cotizacion->nombre = strtoupper($request->input('txt_name1')) . ' x' . $request->input('txt_travelers1') . ' ' . $fecha;
-        $cotizacion->nropersonas = $request->input('txt_travelers1');
-        $cotizacion->duracion = $request->input('txt_days1');
-        $cotizacion->fecha = $request->input('txt_date1');
-        $estrela=$request->input('estrellas_from');
-        if($estrela==2)
-            $cotizacion->star_2=2;
-        if($estrela==3)
-            $cotizacion->star_3=3;
-        if($estrela==4)
-            $cotizacion->star_4=4;
-        if($estrela==5)
-            $cotizacion->star_5=5;
+        if($plan=='0') {
+            $cliente = new Cliente();
+            $cliente->nombres = strtoupper($request->input('txt_name1'));
+            $cliente->email = $request->input('txt_email1');
+            $cliente->nacionalidad = $request->input('txt_country1');
+            $cliente->telefono = $request->input('txt_phone1');
+            $cliente->save();
 
-        $cotizacion->estado=0;
-        $cotizacion->users_id=auth()->guard('admin')->user()->id;
-//        $cotizacion->users_id=1;
-        $cotizacion->save();
-        $cotizacionGet=Cotizacion::where('id',$cotizacion->id)->get();
-        $cotizacion_cliente=new CotizacionesCliente();
-        $cotizacion_cliente->cotizaciones_id=$cotizacion->id;
-        $cotizacion_cliente->clientes_id=$cliente->id;
-        $cotizacion_cliente->estado=1;
-        $cotizacion_cliente->save();
+            //-- Datos de la cotizacion
+            $cotizacion = new Cotizacion();
+            $cotizacion->nombre = strtoupper($request->input('txt_name1')) . ' x' . $request->input('txt_travelers1') . ' ' . $fecha;
+            $cotizacion->nropersonas = $request->input('txt_travelers1');
+            $cotizacion->duracion = $request->input('txt_days1');
+            $cotizacion->fecha = $request->input('txt_date1');
+            if($estrela==2)
+                $cotizacion->star_2=2;
+            if($estrela==3)
+                $cotizacion->star_3=3;
+            if($estrela==4)
+                $cotizacion->star_4=4;
+            if($estrela==5)
+                $cotizacion->star_5=5;
+
+            $cotizacion->estado=0;
+            $cotizacion->users_id=auth()->guard('admin')->user()->id;
+            $cotizacion->posibilidad =0;
+            $cotizacion->web=$request->input('web1');
+            $cotizacion->save();
+            $cotizacionGet=Cotizacion::where('id',$cotizacion->id)->get();
+            $cotizacion_cliente=new CotizacionesCliente();
+            $cotizacion_cliente->cotizaciones_id=$cotizacion->id;
+            $cotizacion_cliente->clientes_id=$cliente->id;
+            $cotizacion_cliente->estado=1;
+            $cotizacion_cliente->save();
+            $cotizacion_id=$cotizacion->id;
+            $cliente_id=$cliente->id;
+        }
+        else{
+            $cotizacion_id=$request->input('cotizacion_id_1');
+            $cliente_id=$request->input('cliente_id_1');
+        }
         $acomodacion_s=0;
         if($request->input('a_s'))
             $acomodacion_s=$request->input('a_s');
@@ -804,11 +817,6 @@ class PackageCotizacionController extends Controller
             $acomodacion_t=$request->input('a_t');
 
 
-
-
-
-
-        $cotizacion_id=$cotizacion->id;
         $txt_day=$request->input('txt_days1');
         $txt_code=strtoupper('GTP-'.$txt_day.'00');
         $txt_title=strtoupper('New package');
@@ -819,7 +827,7 @@ class PackageCotizacionController extends Controller
         $itinerarios_=$request->input('itinerarios_2');
         $txt_sugerencia='';
         $nro_personas=$request->input('txt_travelers1');
-        $cliente_id=$cliente->id;
+
         $hotel_id_2=0;
         $hotel_id_3=0;
         $hotel_id_4=0;
@@ -828,6 +836,25 @@ class PackageCotizacionController extends Controller
         $strellas_3=0;
         $strellas_4=0;
         $strellas_5=0;
+        $txt_title='';
+        $precioCosto=0;
+        $amount_s2=0;
+        $amount_d2=0;
+        $amount_t2=0;
+        $amount_s3=0;
+        $amount_d3=0;
+        $amount_t3=0;
+        $amount_s4=0;
+        $amount_d4=0;
+        $amount_t4=0;
+        $amount_s5=0;
+        $amount_d5=0;
+        $amount_t5=0;
+
+        $profit_2=0;
+        $profit_3=0;
+        $profit_4=0;
+        $profit_5=0;
         if($estrela==2){
             $hotel_id_2=$request->input('hotel_id_2');
             $strellas_2=2;
@@ -1077,15 +1104,16 @@ class PackageCotizacionController extends Controller
             }
         }
 
-        $cliente=Cliente::FindOrFail($cliente_id);
-        $destinos=$request->input('txt_destinos1');
-        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+//        $cliente=Cliente::FindOrFail($cliente_id);
+//        $destinos=$request->input('txt_destinos1');
+//        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
 //
 //        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day1'))->get();
 //        dd($p_paquete);
-        $m_servicios=M_Servicio::get();
+//        $m_servicios=M_Servicio::get();
 //        $imprimir=$request->input('imprimir');
-        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
+//        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
+        return redirect()->route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete->id]);
     }
     public function nuevo_paquete_(Request $request)
     {
@@ -1786,5 +1814,120 @@ class PackageCotizacionController extends Controller
         $hotel->save();
         return redirect()->route('book_show_path',$coti_id);
     }
+    public function clonar_plan(Request $request)
+    {
+        $coti_id=$request->input('coti_id');
+        $id=$request->input('pqt_id');
+        $ogiginal_pqts=PaqueteCotizaciones::where('id',$id)->get();
+//        dd($id);
+        $new_pqt_id=0;
+        foreach($ogiginal_pqts as $ogiginal_pqt){
+            $plantillas= P_Paquete::where('duracion',$ogiginal_pqt->duracion)->get();
+            $diferencia = 4 - strlen(count($plantillas));
+            $numero_con_ceros='';
+            for($i = 0 ; $i < $diferencia; $i++)
+            {
+                $numero_con_ceros .= 0;
+            }
 
+            $numero_con_ceros.= count($plantillas);
+            $plantilla_pqt= new P_Paquete();
+            $plantilla_pqt->codigo='GTP'.$ogiginal_pqt->duracion.$numero_con_ceros;
+            $plantilla_pqt->titulo=$plantilla_pqt->titulo;
+            $plantilla_pqt->duracion=$ogiginal_pqt->duracion;
+            $plantilla_pqt->precio_venta=$ogiginal_pqt->precioventa;
+            $plantilla_pqt->utilidad=$ogiginal_pqt->utilidad;
+            $plantilla_pqt->preciocosto=$ogiginal_pqt->preciocosto;
+            $plantilla_pqt->descripcion=$ogiginal_pqt->descripcion;
+            $plantilla_pqt->incluye=$ogiginal_pqt->incluye;
+            $plantilla_pqt->noincluye=$ogiginal_pqt->noincluye;
+            $plantilla_pqt->opcional=$ogiginal_pqt->opcional;
+            $plantilla_pqt->estado=1;
+            $plantilla_pqt->save();
+            $new_pqt_id=$plantilla_pqt->id;
+            foreach ($ogiginal_pqt->paquete_precios as $paquete_precio){
+                $plantilla_ppqt=new P_PaquetePrecio();
+                $plantilla_ppqt->estrellas=$paquete_precio->estrellas;
+                $plantilla_ppqt->precio_s=$paquete_precio->precio_s;
+                $plantilla_ppqt->personas_s=1;
+                $plantilla_ppqt->precio_d=$paquete_precio->precio_d;
+                $plantilla_ppqt->personas_d=1;
+                $plantilla_ppqt->precio_m=$paquete_precio->precio_m;
+                $plantilla_ppqt->personas_m=1;
+                $plantilla_ppqt->precio_t=$paquete_precio->precio_t;
+                $plantilla_ppqt->personas_t=1;
+                $plantilla_ppqt->estado=1;
+                $plantilla_ppqt->utilidad=$paquete_precio->utilidad;
+                $plantilla_ppqt->p_paquete_id=$plantilla_pqt->id;
+                $plantilla_ppqt->hotel_id=$paquete_precio->hotel_id;
+                $plantilla_ppqt->utilidad_s=$paquete_precio->utilidad_s;
+                $plantilla_ppqt->utilidad_d=$paquete_precio->utilidad_d;
+                $plantilla_ppqt->utilidad_m=$paquete_precio->utilidad_m;
+                $plantilla_ppqt->utilidad_t=$paquete_precio->utilidad_t;
+                $plantilla_ppqt->utilidad_por_s=$paquete_precio->utilidad_por_s;
+                $plantilla_ppqt->utilidad_por_d=$paquete_precio->utilidad_por_d;
+                $plantilla_ppqt->utilidad_por_m=$paquete_precio->utilidad_por_m;
+                $plantilla_ppqt->utilidad_por_t=$paquete_precio->utilidad_por_t;
+                $plantilla_ppqt->save();
+            }
+            foreach ($ogiginal_pqt->itinerario_cotizaciones as $itinerario_cotizacion){
+                $plantilla_piti=new P_Itinerario();
+                $plantilla_piti->titulo=$itinerario_cotizacion->titulo;
+                $plantilla_piti->descripcion=$itinerario_cotizacion->descripcion;
+                $plantilla_piti->dias=$itinerario_cotizacion->dias;
+                $plantilla_piti->fecha=$itinerario_cotizacion->fecha;
+                $plantilla_piti->precio=$itinerario_cotizacion->precio;
+                $plantilla_piti->imagen=$itinerario_cotizacion->imagen;
+                $plantilla_piti->sugerencia='';
+                $plantilla_piti->estado=1;
+                $plantilla_piti->p_paquete_id=$plantilla_pqt->id;
+                $plantilla_piti->save();
+                foreach ($itinerario_cotizacion->itinerario_servicios as $itinerario_servicios){
+                    $plantilla_pitis=new P_ItinerarioServicios();
+                    $plantilla_pitis->nombre=$itinerario_servicios->nombre;
+                    $plantilla_pitis->observacion=$itinerario_servicios->observacion;
+                    $plantilla_pitis->precio=$itinerario_servicios->precio;
+                    $plantilla_pitis->precio_grupo=$itinerario_servicios->precio_grupo;
+                    $plantilla_pitis->min_personas=$itinerario_servicios->min_personas;
+                    $plantilla_pitis->max_personas=$itinerario_servicios->max_personas;
+                    $plantilla_pitis->p_itinerario_id=$plantilla_piti->id;
+                    $plantilla_pitis->m_servicios_id=$itinerario_servicios->m_servicios_id;
+                    $plantilla_pitis->save();
+                }
+                foreach ($itinerario_cotizacion->itinerario_destinos as $itinerario_destino){
+                    $plantilla_pitid=new P_ItinerarioDestino();
+                    $plantilla_pitid->codigo=$itinerario_destino->codigo;
+                    $plantilla_pitid->destino=$itinerario_destino->destino;
+                    $plantilla_pitid->region=$itinerario_destino->region;
+                    $plantilla_pitid->pais=$itinerario_destino->pais;
+                    $plantilla_pitid->descripcion=$itinerario_destino->descripcion;
+                    $plantilla_pitid->imagen=$itinerario_destino->imagen;
+                    $plantilla_pitid->estado=1;
+                    $plantilla_pitid->p_itinerario_id=$plantilla_piti->id;
+                    $plantilla_pitid->save();
+                }
+            }
+        }
+
+        return redirect()->route('generar_pantilla_id_path',[$coti_id,$new_pqt_id]);
+    }
+    public function clonar_plan_id($coti_id,$new_pqt_id){
+        $destinos=M_Destino::get();
+        $itinerarios=M_Itinerario::get();
+        $m_servicios=M_Servicio::get();
+        $itinerary=P_Paquete::FindOrFail($new_pqt_id);
+        $hotel=Hotel::get();
+        return view('admin.show-plantilla-edit',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'paquete_id'=>$new_pqt_id,'hotel'=>$hotel,'coti_id'=>$coti_id]);
+    }
+    public function poner_ceros($numero){
+        $diferencia = 4 - strlen($numero);
+        $numero_con_ceros='';
+        for($i = 0 ; $i < $diferencia; $i++)
+        {
+            $numero_con_ceros .= 0;
+        }
+
+        $numero_con_ceros.= $numero;
+        return $numero_con_ceros;
+    }
 }
