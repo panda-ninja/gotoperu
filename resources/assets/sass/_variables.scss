@@ -69,9 +69,15 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   overflow: hidden;
   background-color: #e5e5e5;
 }
-.text-success{
-
+.font-weight-bold{
+  font-weight: bold;
 }
+.display-block{
+  display: block;
+}
+//.clickable {
+//  cursor: pointer;
+//}
   //--Default
 //--spacer
 .padding-side-10{
@@ -194,7 +200,7 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   font-size: 17px;
 }
 .text-18{
-  font-size: 18px;
+  font-size: 18px !important;
 }
 .text-19{
   font-size: 19px;
@@ -249,13 +255,13 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 }
 //--Color
 .text-green-goto{
-  color: #7F8429;
+  color: #7F8429 !important;
 }
 .text-orange-goto{
-  color: #e09e37;
+  color: #e09e37 !important;
 }
 .text-grey-goto{
-  color: #333333;
+  color: #333333 !important;
 }
 .text-grey-goto-light{
   color: #adadad;

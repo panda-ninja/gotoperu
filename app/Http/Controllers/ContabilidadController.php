@@ -25,12 +25,113 @@ class ContabilidadController extends Controller
     }
     public function show($id)
     {
-        $cotizacion=Cotizacion::FindOrFail($id);
+        $cotizacion=Cotizacion::where('id', $id)->get();
+//        dd($cotizacion);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
-        return view('admin.contabilidad.ven_detalle',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
+
+        return view('admin.contabilidad.confirmar_precio',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
+
+    public function update_price_conta(){
+        $id = $_POST['txt_id'];
+        $precio = $_POST['txt_precio'];
+
+        $i_servicio=ItinerarioServicios::FindOrFail($id);
+        $i_servicio->precio_c=$precio;
+
+        $i_servicio->save();
+        return ("ok");
+    }
+
+    public function pagar_servicios_conta($idcotizacion, $idservicio)
+    {
+        $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
+        $servicio = ItinerarioServicios::where('id', $idservicio)->get();
+//        dd($cotizacion);
+//        $productos=M_Producto::get();
+//        $proveedores=Proveedor::get();
+//        $hotel_proveedor=HotelProveedor::get();
+
+        return view('admin.contabilidad.pagar_servicio',['cotizacion'=>$cotizacion,'servicio'=>$servicio, 'idcotizacion'=>$idcotizacion]);
+    }
+
+    public function pay_price_conta(){
+        $id = $_POST['txt_id'];
+        $idpago = $_POST['txt_idpago'];
+//        $idcot = $_POST['txt_idcot'];
+        $medio = $_POST['txt_medio'];
+        $transaccion = $_POST['txt_transaccion'];
+        $fecha = $_POST['txt_fecha'];
+        $pago = $_POST['txt_pago'];
+
+        if ($idpago>0){
+            $p_servicio = ItinerarioServiciosPagos::FindOrFail($idpago);
+            $p_servicio->a_cuenta = $pago;
+            $p_servicio->fecha_a_pagar = $fecha;
+            $p_servicio->medio = $medio;
+            $p_servicio->transaccion = $transaccion;
+            $p_servicio->estado = 1;
+            $p_servicio->itinerario_servicios_id = $id;
+
+            $p_servicio->save();
+            return "ok update";
+        }else{
+            $p_servicio = new ItinerarioServiciosPagos;
+            $p_servicio->a_cuenta = $pago;
+            $p_servicio->fecha_a_pagar = $fecha;
+            $p_servicio->medio = $medio;
+            $p_servicio->transaccion = $transaccion;
+            $p_servicio->estado = 1;
+            $p_servicio->itinerario_servicios_id = $id;
+
+            $p_servicio->save();
+            return "ok save";
+        }
+
+//        return redirect()->route('pagar_servicios_conta_path', [$idcot, $id]);
+
+    }
+
+    public function pay_a_cuenta(){
+        $id = $_POST['txt_id'];
+//        $idcot = $_POST['txt_idcot'];
+        $fecha = $_POST['txt_fecha'];
+        $pago = $_POST['txt_pago'];
+
+        $p_servicio = new ItinerarioServiciosPagos;
+        $p_servicio->a_cuenta = $pago;
+        $p_servicio->fecha_a_pagar = $fecha;
+        $p_servicio->estado = 0;
+        $p_servicio->itinerario_servicios_id = $id;
+
+        $p_servicio->save();
+
+//        return redirect()->route('pagar_servicios_conta_path', [$idcot, $id]);
+        return "ok";
+
+    }
+
+
+
+
+
+
+
+
+
+//    public function confirmar_servicios_conta($id, $sd)
+//    {
+//        $cotizacion=Cotizacion::where('id', $id)->get();
+////        dd($cotizacion);
+//        $productos=M_Producto::get();
+//        $proveedores=Proveedor::get();
+//        $hotel_proveedor=HotelProveedor::get();
+//
+//        return view('admin.contabilidad.pagar_servicio',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
+//    }
+
     public function confirmar(Request $request)
     {
         $id=$request->input('id');

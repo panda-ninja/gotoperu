@@ -373,10 +373,35 @@ Route::get('admin/contabilidad', [
     'uses' => 'ContabilidadController@index',
     'as' => 'contabilidad_index_path',
 ]);
+
 Route::get('/admin/contabilidad/show/{id}', [
     'uses' => 'ContabilidadController@show',
     'as' => 'contabilidad_show_path',
 ]);
+
+Route::post('/admin/contabilidad/update_price_conta', [
+    'uses' => 'ContabilidadController@update_price_conta',
+    'as' => 'update_price_conta_path',
+]);
+
+Route::get('/admin/contabilidad/show/{idcotizacion}/{idservicio}', [
+    'uses' => 'ContabilidadController@pagar_servicios_conta',
+    'as' => 'pagar_servicios_conta_path',
+]);
+
+Route::post('/admin/contabilidad/pay_price_conta', [
+    'uses' => 'ContabilidadController@pay_price_conta',
+    'as' => 'pay_price_conta_path',
+]);
+
+Route::post('/admin/contabilidad/pay_a_cuenta', [
+    'uses' => 'ContabilidadController@pay_a_cuenta',
+    'as' => 'pay_a_cuenta_path',
+]);
+
+
+
+
 Route::post('admin/contabilidad/conciliar-venta', [
     'uses' => 'ContabilidadController@confirmar',
     'as' => 'contabilidad_confirmar_path',
@@ -474,7 +499,7 @@ Route::get('/admin/quotes/new/step1/{cliente}/{coti_id}/{pqt_id}/{id_serv}', [
     'as' => 'show_step1_ser_path'
 ]);
 Route::get('/admin/quotes/new/step2/{coti_id}/{pqt_id}/{imprimir}', [
-    'uses' => 'PackageCotizacionController@show_step2',
+    'uses' => 'PackageCotizacionControlladmin/contabilidader@show_step2',
     'as' => 'show_step2_path'
 ]);
 //
