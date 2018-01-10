@@ -7,6 +7,18 @@
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js")}}"></script>
 @stop
 @section('content')
+    @php
+    $todo_destinos='';
+    @endphp
+    @foreach($destinations as $destination)
+        @php
+            $todo_destinos.=$destination->id.'_';
+        @endphp
+    @endforeach
+    @php
+        $todo_destinos=substr($todo_destinos,0,strlen($todo_destinos)-1);
+    @endphp
+    <input type="hidden" name="todos_destinos" id="todos_destinos" value="{{$todo_destinos}}">
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
@@ -512,7 +524,6 @@
             @endforeach
 
         </ul>
-
         <div class="tab-content margin-top-20">
             @foreach($categorias as $categoria)
                 <?php
@@ -525,7 +536,19 @@
                 @endif
                 <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
                     @if($categoria->nombre!='HOTELS')
-                        <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}')">
+                                    <option value="0">Escoja la localizacion</option>
+                                    @foreach($destinations as $destination)
+                                        <option value="{{$destination->id}}_{{$categoria->nombre}}">{{$destination->destino}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        @foreach($destinations as $destination)
+                            <table id="tb_{{$destination->id}}_{{$categoria->nombre}}" class="{{$categoria->nombre}} table table-striped table-bordered table-responsive hide" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Codigo</th>
@@ -549,8 +572,7 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            @foreach($servicios as $servicio)
-
+                            @foreach($servicios->where('localizacion',$destination->destino) as $servicio)
                                 @if($servicio->grupo==$categoria->nombre)
                                     <?php
                                     $acom='';
@@ -596,8 +618,9 @@
                                         ?>
                                     @endif
 
-                                    <tr id="lista_services_{{$servicio->id}}">
-                                        <td class="text-green-goto">{{$servicio->codigo}}</td>
+                                    {{--<tr class="{{$servicio->localizacion}}" id="lista_services_{{$servicio->localizacion}}_{{$servicio->id}}">--}}
+                                    <tr class="{{$servicio->localizacion}}" id="lista_services_{{$servicio->id}}">
+                                    <td class="text-green-goto">{{$servicio->codigo}}</td>
                                         <td class="lista_mo">{{$servicio->localizacion}}</td>
                                         <td>{{$servicio->tipoServicio}} {{$acom}}</td>
                                         <td>{{$servicio->nombre}}</td>
@@ -607,7 +630,8 @@
                                             <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_{{$servicio->id}}">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->id}}','{{$servicio->nombre}}')">
+                                            {{--<button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->localizacion}}',{{$servicio->id}}','{{$servicio->nombre}}')">--}}
+                                            <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->localizacion}}','{{$servicio->id}}','{{$servicio->nombre}}')">
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </button>
                                         </td>
@@ -616,6 +640,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        @endforeach
                     @else
 
                         <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
@@ -728,7 +753,6 @@
                 $pos++;
                 ?>
             @endforeach
-
         </div>
     </div>
     @foreach($servicios as $servicio)
@@ -1264,12 +1288,16 @@
                 </div>
             </div>
         </div>
-
     @endforeach
     <script>
         $(document).ready(function() {
+            {{--@foreach($destinations as $destination)--}}
+                {{--@foreach($categorias as $categoria)--}}
+                {{--$('#tb_{{$destination->id}}_{{$categoria->nombre}}').DataTable();--}}
+                {{--@endforeach--}}
+            {{--@endforeach--}}
             @foreach($categorias as $categoria)
-            $('#tb_{{$categoria->nombre}}').DataTable();
+                $('#tb_{{$categoria->nombre}}').DataTable();
             @endforeach
         } );
     </script>

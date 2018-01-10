@@ -16,10 +16,13 @@ class ServicesController extends Controller
     //
     public function index(){
         $destinations=M_Destino::get();
+
         $servicios=M_Servicio::get();
+
         $categorias=M_Category::get();
         $hotel=Hotel::get();
 //        dd($servicios);
+
         return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
     }
     public function store(Request $request){
