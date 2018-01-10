@@ -20,7 +20,7 @@ class ItinerarioServicios extends Model
 
     public function itinerario_servicio_proveedor()
     {
-        return $this->belongsTo(ItinerarioServicioProveedor::class, 'proveedor_id');
+        return $this->belongsTo(ItinerarioServicioProveedor::class, 'proveedor_id_nuevo');
     }
 
 
