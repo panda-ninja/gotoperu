@@ -108,7 +108,7 @@ class BookController extends Controller
         $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
 
         $proveedor=Proveedor::FindOrFail($dato[2]);
-
+dd($proveedor);
         $itinerario_serv_pro=new ItinerarioServicioProveedor();
         $itinerario_serv_pro->codigo=$proveedor->codigo;
         $itinerario_serv_pro->grupo=$proveedor->grupo;
