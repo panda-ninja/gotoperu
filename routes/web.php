@@ -499,7 +499,7 @@ Route::get('/admin/quotes/new/step1/{cliente}/{coti_id}/{pqt_id}/{id_serv}', [
     'as' => 'show_step1_ser_path'
 ]);
 Route::get('/admin/quotes/new/step2/{coti_id}/{pqt_id}/{imprimir}', [
-    'uses' => 'PackageCotizacionControlladmin/contabilidader@show_step2',
+    'uses' => 'PackageCotizacionController@show_step2',
     'as' => 'show_step2_path'
 ]);
 //

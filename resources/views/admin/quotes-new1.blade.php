@@ -275,7 +275,7 @@
             <input type="hidden" id="desti" value="{{$deti}}">
             <div class="col-lg-4">
                 <b class="text-center text-30">ITINERARIES</b>
-                <div class="col-lg-12">
+                <div class="col-lg-12 hide">
                     <div class="row text-center">
                         <div class="col-lg-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
                         <div class="col-lg-3">
@@ -305,7 +305,7 @@
                         <div class="col-lg-1"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
                     </div>
                 </div>
-                <div class="row caja_itinerario" style="height: 555px; overflow-y: auto;">
+                <div class="row caja_itinerario" style="height: 600px; overflow-y: auto;">
                     <div class="text-center"><i id="caja_load" class="fa fa-spinner hide" aria-hidden="true"></i></div>
                     @php
                         $pos=0;
@@ -453,7 +453,7 @@
                                             $pos_itinerario++;
                                         @endphp
                                         @if($encontrado==1)
-                                            <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-5">
+                                            <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-0">
                                                 <div class="input-group">
                                                 <span class="input-group-addon">
                                                 @php
@@ -465,8 +465,8 @@
                                                         <?php
                                                         if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
                                                             if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                                                $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2);
-                                                                $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(2),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                                $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval(1),2);
+                                                                $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(1),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
                                                             }
                                                             else{
                                                                 $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
@@ -510,7 +510,7 @@
                                                                     <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
                                                                     <td>
                                                                         @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                                                                            {{round($servicios->itinerario_servicios_servicio->precio_venta/2,2)}}
+                                                                            {{round($servicios->itinerario_servicios_servicio->precio_venta/1,2)}}
                                                                         @else
                                                                             {{$servicios->itinerario_servicios_servicio->precio_venta}}
                                                                         @endif
