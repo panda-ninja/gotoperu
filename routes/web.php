@@ -374,6 +374,16 @@ Route::get('admin/contabilidad', [
     'as' => 'contabilidad_index_path',
 ]);
 
+Route::get('admin/contabilidad/listar/proveedores', [
+    'uses' => 'ContabilidadController@list_proveedores',
+    'as' => 'list_proveedores_path',
+]);
+
+Route::get('admin/contabilidad/listar/fechas', [
+    'uses' => 'ContabilidadController@list_fechas',
+    'as' => 'list_fechas_path',
+]);
+
 Route::get('/admin/contabilidad/show/{id}', [
     'uses' => 'ContabilidadController@show',
     'as' => 'contabilidad_show_path',
@@ -414,10 +424,10 @@ Route::post('/admin/contabilidad/pagar', [
     'uses' => 'ContabilidadController@pagar',
     'as' => 'pagar_proveedor_path',
 ]);
-Route::get('/admin/contabilidad/buscar/fechas/{desde}/{hasta}', [
-    'uses' => 'ContabilidadController@listar',
-    'as' => 'contabilidad_fechas_path',
-]);
+//Route::get('/admin/contabilidad/buscar/fechas/{desde}/{hasta}', [
+//    'uses' => 'ContabilidadController@listar',
+//    'as' => 'contabilidad_fechas_path',
+//]);
 Route::post('/admin/contabilidad/buscar/fechas/', [
     'uses' => 'ContabilidadController@listar_post',
     'as' => 'contabilidad_fechas_post_path',
@@ -499,7 +509,7 @@ Route::get('/admin/quotes/new/step1/{cliente}/{coti_id}/{pqt_id}/{id_serv}', [
     'as' => 'show_step1_ser_path'
 ]);
 Route::get('/admin/quotes/new/step2/{coti_id}/{pqt_id}/{imprimir}', [
-    'uses' => 'PackageCotizacionControlladmin/contabilidader@show_step2',
+    'uses' => 'PackageCotizacionController@show_step2',
     'as' => 'show_step2_path'
 ]);
 //

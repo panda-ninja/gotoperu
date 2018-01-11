@@ -33,7 +33,8 @@
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Conciliar</b></li>
                 <li class="divider"></li>
                 <li ><a href="{{route('contabilidad_index_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> All</a></li>
-                <li ><a href="{{route('contabilidad_fechas_path',[date("Y-m-d"),date("Y-m-d")])}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por fechas</a></li>
+                <li ><a href="{{route('list_proveedores_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por Proveedores</a></li>
+                <li ><a href="{{route('list_fechas_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por fechas</a></li>
                 <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Pagos</b></li>
                 <li class="divider"></li>
                 <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Pagar</a></li>

@@ -6,6 +6,7 @@ use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
 use App\HotelProveedor;
+use App\ItinerarioServicioProveedor;
 use App\ItinerarioServicios;
 use App\ItinerarioServiciosPagos;
 use App\M_Producto;
@@ -23,6 +24,26 @@ class ContabilidadController extends Controller
         $cotizacion=Cotizacion::where('confirmado_r','ok')->get();
         return view('admin.contabilidad.index',['cotizacion'=>$cotizacion]);
     }
+    public function list_proveedores()
+    {
+        $pagos = ItinerarioServiciosPagos::get();
+        $proveedor = ItinerarioServicioProveedor::get();
+        $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
+
+        return view('admin.contabilidad.lista-proveedor',['proveedor'=>$proveedor, 'servicios'=>$servicios, 'pagos'=>$pagos]);
+    }
+
+    public function list_fechas()
+    {
+        $cotizacion=Cotizacion::all();
+        $pagos = ItinerarioServiciosPagos::get();
+        $proveedor = ItinerarioServicioProveedor::get();
+        $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
+
+        return view('admin.contabilidad.lista-fecha',['proveedor'=>$proveedor, 'servicios'=>$servicios, 'pagos'=>$pagos, 'cotizacion'=>$cotizacion]);
+    }
+
+
     public function show($id)
     {
         $cotizacion=Cotizacion::where('id', $id)->get();
