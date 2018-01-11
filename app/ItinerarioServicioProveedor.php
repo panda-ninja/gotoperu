@@ -10,6 +10,6 @@ class ItinerarioServicioProveedor extends Model
 
     public function servicio_proveedor()
     {
-        return $this->hasMany(ItinerarioServicios::class, 'proveedor_id');
+        return $this->hasMany(ItinerarioServicios::class, 'proveedor_id_nuevo');
     }
 }
