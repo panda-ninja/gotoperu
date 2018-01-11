@@ -1932,13 +1932,14 @@ function borrar_iti(id,valor){
         $('#totalItinerario').val(valor_temp);
         $('#st_new').html(valor_temp);
 
-        var cont=1;
+        var cont=0;
         $(".dias_iti_c2").each(function (index) {
-            $(this).html('Dia '+cont+':');
             cont++;
+            $(this).html('Dia '+cont+':');
         });
+        console.log('cont:'+cont);
+        $('#nroItinerario').val(cont);
     })
-
 }
 
 function ordenar_itinerarios1(){

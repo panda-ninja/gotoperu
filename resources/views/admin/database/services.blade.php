@@ -537,7 +537,7 @@
                 <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
                     @if($categoria->nombre!='HOTELS')
                         <div class="col-lg-12">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 padding-left-0">
                                 <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}')">
                                     <option value="0">Escoja la localizacion</option>
                                     @foreach($destinations as $destination)
