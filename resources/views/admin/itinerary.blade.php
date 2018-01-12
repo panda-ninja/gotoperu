@@ -44,7 +44,22 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="txt_imagen">Imagen</label>
-                                                <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
+                                                <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,1);">
+                                                <span id="mensaje_file1" class="text-danger text-15"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="txt_imagen">Imagen</label>
+                                                <input type="file" class="form-control" id="txt_imagenB" name="txt_imagenB" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,2);">
+                                                <span id="mensaje_file2" class="text-danger text-15"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="txt_imagen">Imagen</label>
+                                                <input type="file" class="form-control" id="txt_imagenC" name="txt_imagenC" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,3);">
+                                                <span id="mensaje_file3" class="text-danger text-15"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -943,13 +958,41 @@
                                                                 <img
                                                                         src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}"  width="100" height="100">
                                                             </picture>
-                                                            {{--<img src="{{ route('destination_image_path', ['filename' => $destino->imagen])}}" alt="" width="100px" height="100px">--}}
-                                                            {{--                                                    <input type="file" id="file" name="file" class="dropify" data-default-file="{{ route('admin_itinerary_image_path', ['filename' => $destino->imagen])}}"/>--}}
-                                                            <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
-                                                        @else
-                                                            <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">
+                                                            {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
+                                                            {{--@else--}}
                                                         @endif
-
+                                                        <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,11);">
+                                                        <span id="mensaje_file11" class="text-danger text-15"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="txt_imagen">Imagen</label>
+                                                        @if (Storage::disk('itinerary')->has($itinerario->imagenB))
+                                                            <picture>
+                                                                <img
+                                                                        src="{{route('itinerary_image_path', ['filename' => $itinerario->imagenB])}}"  width="100" height="100">
+                                                            </picture>
+                                                            {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
+                                                            {{--@else--}}
+                                                        @endif
+                                                        <input type="file" class="form-control" id="txt_imagenB" name="txt_imagenB" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,22);">
+                                                        <span id="mensaje_file22" class="text-danger text-15"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="txt_imagen">Imagen</label>
+                                                        @if (Storage::disk('itinerary')->has($itinerario->imagenC))
+                                                            <picture>
+                                                                <img
+                                                                        src="{{route('itinerary_image_path', ['filename' => $itinerario->imagenC])}}"  width="100" height="100">
+                                                            </picture>
+                                                            {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
+                                                            {{--@else--}}
+                                                        @endif
+                                                        <input type="file" class="form-control" id="txt_imagenC" name="txt_imagenC" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,33);">
+                                                        <span id="mensaje_file33" class="text-danger text-15"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1397,6 +1440,43 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
+            /* Valida el tamaño maximo de un archivo adjunto */
+
         } );
+
+        function ValidarImagen(obj,nro){
+            var uploadFile = obj.files[0];
+
+            if (!window.FileReader) {
+//                alert('El navegador no soporta la lectura de archivos');
+                $('#mensaje_file'+nro).html('El navegador no soporta la lectura de archivos');
+                return;
+            }
+
+            if (!(/\.(jpg|png|gif)$/i).test(uploadFile.name)) {
+                $('#mensaje_file'+nro).html('El archivo a adjuntar no es una imagen');
+//                alert('El archivo a adjuntar no es una imagen');
+            }
+            else {
+                var img = new Image();
+                img.onload = function () {
+                    if (this.width.toFixed(0) != 360 && this.height.toFixed(0) != 360) {
+                        $('#mensaje_file'+nro).html('Las medidas deben ser: 360 * 360, no '+this.width.toFixed(0)+'*'+this.height.toFixed(0));
+//                        alert('Las medidas deben ser: 360 * 360');
+                    }
+                    else if (uploadFile.size > 20000)
+                    {
+                        $('#mensaje_file'+nro).html('El peso de la imagen no puede exceder los 2Mb, no '+uploadFile.size);
+//                         alert('El peso de la imagen no puede exceder los 200kb')
+                    }
+                    else {
+                        $('#mensaje_file'+nro).html('Imagen correcta :)');
+//                      alert('Imagen correcta :)')
+                    }
+                };
+                img.src = URL.createObjectURL(uploadFile);
+            }
+        }
+
     </script>
 @stop

@@ -1027,6 +1027,9 @@ class PackageCotizacionController extends Controller
             $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
             $p_itinerario->precio=$m_itineario->precio;
             $p_itinerario->imagen=$m_itineario->imagen;
+            $p_itinerario->imagenB=$m_itineario->imagenB;
+            $p_itinerario->imagenC=$m_itineario->imagenC;
+
             $p_itinerario->observaciones='';
             $p_itinerario->estado=1;
             $p_itinerario->paquete_cotizaciones_id=$paquete->id;
@@ -1399,6 +1402,9 @@ class PackageCotizacionController extends Controller
                 $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
                 $p_itinerario->precio=$itinerarios_->precio;
                 $p_itinerario->imagen=$itinerarios_->imagen;
+                $p_itinerario->imagenB=$itinerarios_->imagenB;
+                $p_itinerario->imagenC=$itinerarios_->imagenC;
+
                 $p_itinerario->observaciones='';
                 $p_itinerario->estado=1;
                 $p_itinerario->paquete_cotizaciones_id=$paquete->id;
