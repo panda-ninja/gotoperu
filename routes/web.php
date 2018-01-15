@@ -538,3 +538,8 @@ Route::post('admin/plantilla/crear/', [
     'uses' => 'PackageController@itinerary_plantilla_crear',
     'as' => 'package_plantilla_crear_path'
 ]);
+
+Route::patch('/admin/quotes/new/step1/step1_edit_hotel/{id}', [
+    'uses' => 'PackageCotizacionController@step1_edit_hotel',
+    'as' => 'step1_edit_hotel_path'
+])->where('id', '[0-9]+');
