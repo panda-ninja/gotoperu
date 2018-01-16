@@ -27612,3 +27612,20 @@ function mostrar_tabla_destino(grupo){
     //   console.log($(this));
     // });
 }
+
+function escojerPos_edit(daybyday,pos,cate) {
+    $("#posTipo").val(pos);
+    mostrar_pivot_edit(daybyday,cate);
+}
+function mostrar_pivot_edit(daybyday,cate){
+    console.log('Escojiste:'+cate);
+    $("#t_edit_"+daybyday+"_TOURS").addClass('hide');
+    $("#t_edit_"+daybyday+"_MOVILID").addClass('hide');
+    $("#t_edit_"+daybyday+"_REPRESENT").addClass('hide');
+    $("#t_edit_"+daybyday+"_ENTRANCES").addClass('hide');
+    $("#t_edit_"+daybyday+"_FOOD").addClass('hide');
+    $("#t_edit_"+daybyday+"_TRAINS").addClass('hide');
+    $("#t_edit_"+daybyday+"_FLIGHTS").addClass('hide');
+    $("#t_edit_"+daybyday+"_OTHERS").addClass('hide');
+    $("#t_edit_"+daybyday+"_"+cate).removeClass('hide');
+}

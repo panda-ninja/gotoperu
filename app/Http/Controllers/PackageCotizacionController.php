@@ -9,6 +9,7 @@ use App\Hotel;
 use App\ItinerarioCotizaciones;
 use App\ItinerarioDestinos;
 use App\ItinerarioServicios;
+use App\M_Category;
 use App\M_Destino;
 use App\M_Itinerario;
 use App\M_Servicio;
@@ -1914,7 +1915,6 @@ class PackageCotizacionController extends Controller
                 }
             }
         }
-
         return redirect()->route('generar_pantilla_id_path',[$coti_id,$new_pqt_id]);
     }
     public function clonar_plan_id($coti_id,$new_pqt_id){
@@ -1936,4 +1936,29 @@ class PackageCotizacionController extends Controller
         $numero_con_ceros.= $numero;
         return $numero_con_ceros;
     }
+    public function step1_edit_hotel(Request $request, $id){
+        $id_cotizacion = $request->get('id_cotizacion');
+        $id_client = $request->get('id_client');
+        $id_paquete = $request->get('id_paquete');
+        $precio_s=$request->input('precio_s');
+        $precio_d=$request->input('precio_d');
+        $precio_m=$request->input('precio_m');
+        $precio_t=$request->input('precio_t');
+        $precio_hotel_reserva=PrecioHotelReserva::FindOrFail($id);
+        $precio_hotel_reserva->precio_s=$precio_s;
+        $precio_hotel_reserva->precio_d=ceil($precio_d*2);
+        $precio_hotel_reserva->precio_m=ceil($precio_m*2);
+        $precio_hotel_reserva->precio_t=ceil($precio_t*3);
+        $precio_hotel_reserva->save();
+        return redirect()->route('show_step1_ser_path', [$id_client,$id_cotizacion,$id_paquete,$id]);
+    }
+    public function editar_daybyday($id){
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+//        $itinerarios=M_Itinerario::get();
+        $categorias=M_Category::get();
+        $itinerario=M_Itinerario::FindOrFail($id);
+        return view('admin.itinerary-edit',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerario'=>$itinerario]);
+    }
+
 }

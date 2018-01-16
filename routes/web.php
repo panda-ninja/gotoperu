@@ -543,3 +543,7 @@ Route::patch('/admin/quotes/new/step1/step1_edit_hotel/{id}', [
     'uses' => 'PackageCotizacionController@step1_edit_hotel',
     'as' => 'step1_edit_hotel_path'
 ])->where('id', '[0-9]+');
+Route::get('/admin/daybyday/edit/{id}', [
+    'uses' => 'PackageCotizacionController@editar_daybyday',
+    'as' => 'editar_dadybyday_parh',
+]);

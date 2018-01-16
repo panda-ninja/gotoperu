@@ -41,33 +41,35 @@
                                                 <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="txt_imagen">Imagen</label>
-                                                <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,1);">
-                                                <span id="mensaje_file1" class="text-danger text-15"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="txt_imagen">Imagen</label>
-                                                <input type="file" class="form-control" id="txt_imagenB" name="txt_imagenB" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,2);">
-                                                <span id="mensaje_file2" class="text-danger text-15"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="txt_imagen">Imagen</label>
-                                                <input type="file" class="form-control" id="txt_imagenC" name="txt_imagenC" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,3);">
-                                                <span id="mensaje_file3" class="text-danger text-15"></span>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="txt_descripcion">Descripcion</label>
                                         <textarea class="form-control" name="txt_descripcion" id="txt_descripcion" cols="30" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-lg-4">
+                                            <label for="txt_imagen">Primera imagen</label>
+                                            <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,1);">
+                                            <span id="mensaje_file1" class="text-danger text-15"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <label for="txt_imagen">Segunda imagen</label>
+                                                <input type="file" class="form-control" id="txt_imagenB" name="txt_imagenB" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,2);">
+                                                <span id="mensaje_file2" class="text-danger text-15"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-4">
+                                                <label for="txt_imagen">Tercera imagen</label>
+                                                <input type="file" class="form-control" id="txt_imagenC" name="txt_imagenC" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,3);">
+                                                <span id="mensaje_file3" class="text-danger text-15"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -916,9 +918,9 @@
                             <label for="" class="text-16 text-green-goto">${{$total_recio_venta}}</label>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#e_modal_itinerario_{{$itinerario->id}}">
+                        <a href="{{route('editar_dadybyday_parh',$itinerario->id)}}" class="btn btn-warning">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </button>
+                        </a>
                         <button type="button" class="btn btn-danger" onclick="eliminar_itinerario('{{$itinerario->id}}','{{$itinerario->titulo}}')">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
@@ -927,515 +929,6 @@
             @endforeach
             </tbody>
         </table>
-        @foreach($itinerarios as $itinerario)
-            <!-- Modal -->
-                <div class="modal fade bd-example-modal-lg" id="e_modal_itinerario_{{$itinerario->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <form action="{{route('itinerary_edit_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit Day by Day</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="txt_titulo">Titulo</label>
-                                                        <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo" value="{{$itinerario->titulo}}">
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="txt_imagen">Imagen</label>
-                                                        @if (Storage::disk('itinerary')->has($itinerario->imagen))
-                                                            <picture>
-                                                                <img
-                                                                        src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}"  width="100" height="100">
-                                                            </picture>
-                                                            {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
-                                                            {{--@else--}}
-                                                        @endif
-                                                        <input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,11);">
-                                                        <span id="mensaje_file11" class="text-danger text-15"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="txt_imagen">Imagen</label>
-                                                        @if (Storage::disk('itinerary')->has($itinerario->imagenB))
-                                                            <picture>
-                                                                <img
-                                                                        src="{{route('itinerary_image_path', ['filename' => $itinerario->imagenB])}}"  width="100" height="100">
-                                                            </picture>
-                                                            {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
-                                                            {{--@else--}}
-                                                        @endif
-                                                        <input type="file" class="form-control" id="txt_imagenB" name="txt_imagenB" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,22);">
-                                                        <span id="mensaje_file22" class="text-danger text-15"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="txt_imagen">Imagen</label>
-                                                        @if (Storage::disk('itinerary')->has($itinerario->imagenC))
-                                                            <picture>
-                                                                <img
-                                                                        src="{{route('itinerary_image_path', ['filename' => $itinerario->imagenC])}}"  width="100" height="100">
-                                                            </picture>
-                                                            {{--<input type="file" class="form-control" id="txt_imagen" name="txt_imagen" placeholder="Imagen">--}}
-                                                            {{--@else--}}
-                                                        @endif
-                                                        <input type="file" class="form-control" id="txt_imagenC" name="txt_imagenC" placeholder="Imagen" size="2048" onchange="ValidarImagen(this,33);">
-                                                        <span id="mensaje_file33" class="text-danger text-15"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="txt_descripcion">Descripcion</label>
-                                                <textarea class="form-control" name="txt_descripcion" id="txt_descripcion" cols="30" rows="5">{{$itinerario->descripcion}}</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row margin-top-20">
-                                        <div class="col-md-12">
-                                            <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">2</span> Destinations</h4>
-                                            <div class="divider margin-bottom-20"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        {{csrf_field()}}
-
-                                        @foreach($destinations as $destino)
-                                            <?php $estado=''?>
-                                            @foreach($itinerario->destinos as $destino_id)
-                                                @if($destino_id->destino==$destino->destino)
-                                                        <?php $estado='checked'?>
-                                                @endif
-                                            @endforeach
-                                                <div class="col-md-3">
-                                                    <div class="checkbox11">
-                                                        <label>
-                                                            <input class="grupo_edit" type="checkbox" name="destinos[]" value="{{$destino->id}}_{{$destino->destino}}_{{$itinerario->id}}" onchange="filtrar_grupos_edit({{$itinerario->id}})" <?php echo $estado;  ?>>
-                                                            {{$destino->destino}}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="row margin-top-20">
-                                        @foreach($categorias as $categoria)
-                                            <?php
-                                            $tipoServicio[]=$categoria->nombre;
-                                            ?>
-                                        @endforeach
-                                        <?php
-                                        $total_pre_ven_edit=0;
-                                        ?>
-                                        <ul class="nav nav-tabs">
-                                            <li class="hide"><a data-toggle="tab" href="#et_{{$tipoServicio[0]}}_{{$itinerario->id}}" onclick="escojerPos(0)">{{$tipoServicio[0]}}</a></li>
-                                            <li class="active"><a data-toggle="tab" href="#et_{{$tipoServicio[1]}}_{{$itinerario->id}}" onclick="escojerPos(1)">{{$tipoServicio[1]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[2]}}_{{$itinerario->id}}" onclick="escojerPos(2)">{{$tipoServicio[2]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[3]}}_{{$itinerario->id}}" onclick="escojerPos(3)">{{$tipoServicio[3]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[4]}}_{{$itinerario->id}}" onclick="escojerPos(4)">{{$tipoServicio[4]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[5]}}_{{$itinerario->id}}" onclick="escojerPos(5)">{{$tipoServicio[5]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[6]}}_{{$itinerario->id}}" onclick="escojerPos(6)">{{$tipoServicio[6]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[7]}}_{{$itinerario->id}}" onclick="escojerPos(7)">{{$tipoServicio[7]}}</a></li>
-                                            <li><a data-toggle="tab" href="#et_{{$tipoServicio[8]}}_{{$itinerario->id}}" onclick="escojerPos(8)">{{$tipoServicio[8]}}</a></li>
-                                        </ul>
-
-                                        <div class="tab-content margin-top-20">
-                                            <div id="et_{{$tipoServicio[0]}}_{{$itinerario->id}}" class="tab-pane fade in active">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[0])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                                <div class="checkbox11">
-                                                                    <label>
-                                                                        <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{0}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                        {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{0.00}} p.p</span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div id="et_{{$tipoServicio[1]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[1])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                @if($service->precio_grupo)
-                                                                    @php
-                                                                        $total_pre_ven_edit+=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php $total_pre_ven_edit+=$service->precio_venta;@endphp
-                                                                @endif
-                                                            @endif
-
-                                                        @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                    $service_p=round($service->precio_venta/2,2);
-{{--                                                                    $total_pre_ven_edit+=round($service->precio_venta/2,2);--}}
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-{{--                                                                    $total_pre_ven_edit+=round($service->precio_venta);--}}
-                                                                    @endphp
-                                                                @endif
-                                                                <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div id="et_{{$tipoServicio[2]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[2])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                            <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-
-                                            </div>
-                                            <div id="et_{{$tipoServicio[3]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[3])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                            <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-
-                                            </div>
-                                            <div id="et_{{$tipoServicio[4]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[4])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                            <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-
-                                            </div>
-                                            <div id="et_{{$tipoServicio[5]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[5])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                            <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-
-                                            </div>
-                                            <div id="et_{{$tipoServicio[6]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[6])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                            <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div id="et_{{$tipoServicio[7]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[7])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                            <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <div id="et_{{$tipoServicio[8]}}_{{$itinerario->id}}" class="tab-pane fade">
-                                                @foreach($services as $service)
-                                                    <?php $estado=''?>
-                                                    @if($service->grupo==$tipoServicio[8])
-                                                        @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
-                                                            @if($service_id->m_servicios_id==$service->id)
-                                                                <?php $estado='checked'?>
-                                                                    @if($service->precio_grupo==1)
-                                                                        <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                                                    @else
-                                                                        <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                                                    @endif
-                                                                @endif
-
-                                                            @endforeach
-                                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
-                                                                @php
-                                                                    $service_p=0;
-                                                                @endphp
-                                                                @if($service->precio_grupo==1)
-                                                                    @php
-                                                                        $service_p=round($service->precio_venta/2,2);
-                                                                    @endphp
-                                                                @else
-                                                                    @php
-                                                                        $service_p=$service->precio_venta;
-                                                                    @endphp
-                                                                @endif
-                                                            <div class="checkbox11">
-                                                                <label>
-                                                                    <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="row">
-                                        <div class="col-lg-6 text-left text-16">
-                                            <label class="text-green-goto">Total $<span id="total_ci_{{$itinerario->id}}">{{$total_pre_ven_edit}}</span></label>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="precio_itinerario" id="precio_itinerario" value="{{$total_pre_ven_edit}}">
-                                    <input type="hidden" name="itinerario_id" id="itinerario_id" value="{{$itinerario->id}}">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            @endforeach
     </div>
     <script>
         $(document).ready(function() {
@@ -1461,7 +954,7 @@
                 var img = new Image();
                 img.onload = function () {
                     if (this.width.toFixed(0) != 360 && this.height.toFixed(0) != 360) {
-                        $('#mensaje_file'+nro).html('Las medidas deben ser: 360 * 360, no '+this.width.toFixed(0)+'*'+this.height.toFixed(0));
+                        $('#mensaje_file'+nro).html('Las medidas deben ser: 360 x 360, no '+this.width.toFixed(0)+'x'+this.height.toFixed(0));
 //                        alert('Las medidas deben ser: 360 * 360');
                     }
                     else if (uploadFile.size > 20000)

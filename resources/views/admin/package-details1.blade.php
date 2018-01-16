@@ -318,7 +318,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-2 @if($hotel->personas_s==0) hide @endif">
-                                                                        <input class="form-control" type="number" name="precio_s" value="{{explode('.00',$hotel->precio_s)[0]/2}}">
+                                                                        <input class="form-control" type="number" name="precio_s" value="{{explode('.00',$hotel->precio_s)[0]/1}}">
                                                                     </div>
                                                                     <div class="col-lg-2 @if($hotel->personas_d==0) hide @endif">
                                                                         <input class="form-control" type="number" name="precio_d" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
