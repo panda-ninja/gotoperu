@@ -139,12 +139,13 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[1]}}_PRIVATE" class="tab-pane fade in active">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[1])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
 
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
+                                            @php $estado='checked';@endphp
                                             @if($service->precio_grupo==1)
                                                 <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
                                             @else
@@ -182,6 +183,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[1]}}_GROUP" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[1])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -233,6 +235,7 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_AUTO" class="tab-pane fade in active">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -271,6 +274,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_SUV" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -309,6 +313,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_VAN" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -347,6 +352,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_H1" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -385,6 +391,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_SPRINTER" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -423,6 +430,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_BUS" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -471,6 +479,7 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[3]}}_GUIDE" class="tab-pane fade in active">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[3])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -509,6 +518,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[3]}}_TRANSFER" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[3])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -547,6 +557,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[3]}}_ASSISTANCE" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[3])
                                     <?php
@@ -580,6 +591,7 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[4]}}_EXTRANJERO" class="tab-pane fade in active">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[4])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -618,6 +630,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[4]}}_NATIONAL" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[4])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -667,6 +680,7 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[5]}}_LUNCH" class="tab-pane fade in active">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[5])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -705,6 +719,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[5]}}_DINNER" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[5])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -743,6 +758,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[5]}}_BOX_LUNCH" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[5])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -794,6 +810,7 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_EXPEDITION" class="tab-pane fade in active">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -832,6 +849,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_VISITADOME" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -870,6 +888,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_EJECUTIVO" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -908,6 +927,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_FIRST_CLASS" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -946,6 +966,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_HIRAN_BINGHAN" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -984,6 +1005,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_PRESIDENTIAL" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -1031,6 +1053,7 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[7]}}_NATIONAL" class="tab-pane fade in active">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[7])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -1069,6 +1092,7 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[7]}}_INTERNATIONAL" class="tab-pane fade">
+                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[7])
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
@@ -1129,6 +1153,7 @@
                         @php
                             $veces=' in active';
                         @endphp
+                        @php $estado='';@endphp
                         @foreach($array_tipos as $array_tipo)
 
                             <div id="t_edit_{{$itinerario->id}}_{{$array_tipo}}" class="tab-pane fade {{$veces}}">

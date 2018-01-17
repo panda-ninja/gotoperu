@@ -1958,7 +1958,12 @@ class PackageCotizacionController extends Controller
 //        $itinerarios=M_Itinerario::get();
         $categorias=M_Category::get();
         $itinerario=M_Itinerario::FindOrFail($id);
-        return view('admin.itinerary-edit',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerario'=>$itinerario]);
+//        $itinerarioArray=M_Itinerario::with('itinerario_itinerario_servicios')->where('id',$id)->get();
+        $servicios=array();
+//        foreach ($itinerarioArray->itinerario_itinerario_servicios as $items){
+//            $servicios[]=$items->m_servicios_id;
+//        }
+        return view('admin.itinerary-edit',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerario'=>$itinerario,'servicios'=>$servicios]);
     }
 
 }
