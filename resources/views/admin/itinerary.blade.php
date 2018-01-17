@@ -943,11 +943,15 @@
             if (!window.FileReader) {
 //                alert('El navegador no soporta la lectura de archivos');
                 $('#mensaje_file'+nro).html('El navegador no soporta la lectura de archivos');
+                $('#mensaje_file'+nro).removeClass('text-success');
+                $('#mensaje_file'+nro).addClass('text-danger');
                 return;
             }
 
             if (!(/\.(jpg|png|gif)$/i).test(uploadFile.name)) {
                 $('#mensaje_file'+nro).html('El archivo a adjuntar no es una imagen');
+                $('#mensaje_file'+nro).removeClass('text-success');
+                $('#mensaje_file'+nro).addClass('text-danger');
 //                alert('El archivo a adjuntar no es una imagen');
             }
             else {
@@ -955,15 +959,22 @@
                 img.onload = function () {
                     if (this.width.toFixed(0) != 360 && this.height.toFixed(0) != 360) {
                         $('#mensaje_file'+nro).html('Las medidas deben ser: 360 x 360, no '+this.width.toFixed(0)+'x'+this.height.toFixed(0));
+                        $('#mensaje_file'+nro).removeClass('text-success');
+                        $('#mensaje_file'+nro).addClass('text-danger');
 //                        alert('Las medidas deben ser: 360 * 360');
                     }
-                    else if (uploadFile.size > 20000)
+                    else if (uploadFile.size > 20000000)
                     {
                         $('#mensaje_file'+nro).html('El peso de la imagen no puede exceder los 2Mb, no '+uploadFile.size);
+                        $('#mensaje_file'+nro).removeClass('text-success');
+                        $('#mensaje_file'+nro).addClass('text-danger');
 //                         alert('El peso de la imagen no puede exceder los 200kb')
                     }
                     else {
                         $('#mensaje_file'+nro).html('Imagen correcta :)');
+                        $('#mensaje_file'+nro).removeClass('text-danger');
+                        $('#mensaje_file'+nro).addClass('text-success');
+
 //                      alert('Imagen correcta :)')
                     }
                 };

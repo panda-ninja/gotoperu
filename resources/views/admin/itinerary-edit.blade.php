@@ -93,6 +93,14 @@
             </div>
             <div class="row">
                 {{csrf_field()}}
+                @php
+                    $array_destinos=array();
+                @endphp
+                @foreach($itinerario->destinos as $destino_id)
+                    @php
+                        $array_destinos[]=$destino_id->destino;
+                    @endphp
+                @endforeach
                 @foreach($destinations as $destino)
                     <?php $estado=''?>
                     @foreach($itinerario->destinos as $destino_id)
@@ -139,24 +147,32 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[1]}}_PRIVATE" class="tab-pane fade in active">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[1])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
-
                                         @if($service_id->m_servicios_id==$service->id)
-                                            @php $estado='checked';@endphp
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            @php $estado='checked=checked';@endphp
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
 
                                     @endforeach
 
                                     @if($service->tipoServicio=='PRIVATE')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                        @php
+                                            $visual=' hide';
+                                        @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -167,6 +183,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -176,28 +197,36 @@
                                                 </label>
                                             </div>
                                         </div>
-
                                     @endif
 
                                 @endif
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[1]}}_GROUP" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[1])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            <?php $estado='checked=checked'?>
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='GROUP')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -208,6 +237,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -235,21 +269,29 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_AUTO" class="tab-pane fade in active">
-                            @php $estado='';@endphp
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            <?php $estado='checked=checked'?>
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='AUTO')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="nueva col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -262,10 +304,15 @@
                                                     $service_p=$service->precio_venta;
                                                 @endphp
                                             @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
+                                                @endphp
+                                            @endif
                                             <div class="checkbox11">
                                                 <label>
                                                     <input type="checkbox" class="servicios_edit" name="servicios{{$itinerario->id}}[]" value="{{$itinerario->id}}_{{$service_p}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios_edit({{$itinerario->id}})" {{$estado}}>
-                                                    {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
+                                                    {{$service_id->m_servicios_id}}=={{$service->id}}, {{$service->nombre}} <span class="text-10 text-green-goto">{{$service->localizacion}}</span> <span class="text-12 text-orange-goto">$ {{$service_p}} p.p</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -274,21 +321,30 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_SUV" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='SUV')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -299,6 +355,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -313,21 +374,30 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_VAN" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            <?php $estado='checked=checked'?>
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='VAN')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -338,6 +408,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -352,21 +427,30 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_H1" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='H1')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -377,6 +461,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -391,21 +480,30 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_SPRINTER" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            <?php $estado='checked=checked'?>
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='SPRINTER')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -416,6 +514,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -430,21 +533,30 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[2]}}_BUS" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[2])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            <?php $estado='checked=checked'?>
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='BUS')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -455,6 +567,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -479,21 +596,30 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[3]}}_GUIDE" class="tab-pane fade in active">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[3])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
-                                            @if($service->precio_grupo==1)
-                                                <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
-                                            @else
-                                                <?php $total_pre_ven_edit+=$service->precio_venta;?>
-                                            @endif
+                                            <?php $estado='checked=checked'?>
+                                            {{--@if($service->precio_grupo==1)--}}
+                                                {{--<?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>--}}
+                                            {{--@else--}}
+                                                {{--<?php $total_pre_ven_edit+=$service->precio_venta;?>--}}
+                                            {{--@endif--}}
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='GUIDE')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -504,6 +630,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -518,12 +649,13 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[3]}}_TRANSFER" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[3])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
-                                            <?php $estado='checked'?>
+                                            <?php $estado='checked=checked'?>
                                             @if($service->precio_grupo==1)
                                                 <?php $total_pre_ven_edit+=round($service->precio_venta/2,2);?>
                                             @else
@@ -532,7 +664,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='TRANSFER')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -543,6 +683,11 @@
                                             @else
                                                 @php
                                                     $service_p=$service->precio_venta;
+                                                @endphp
+                                            @endif
+                                            @if($estado!='')
+                                                @php
+                                                    $total_pre_ven_edit+=$service_p;
                                                 @endphp
                                             @endif
                                             <div class="checkbox11">
@@ -557,9 +702,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[3]}}_ASSISTANCE" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[3])
+                                    @php $estado='';@endphp
                                     <?php
                                     $precio=$service->precio_venta;
                                     ?>
@@ -569,7 +715,15 @@
                                         ?>
                                     @endif
                                     @if($service->tipoServicio=='ASSISTANCE')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             <div class="checkbox11">
                                                 <label>
                                                     <input type="checkbox" class="servicios" name="servicios[]" value="0_{{$precio}}_{{$service->id}}_{{$service->localizacion}}" onchange="sumar_servicios(0)">
@@ -591,9 +745,10 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[4]}}_EXTRANJERO" class="tab-pane fade in active">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[4])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -605,7 +760,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='EXTRANJERO')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -630,9 +793,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[4]}}_NATIONAL" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[4])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -644,7 +808,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='NATIONAL')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -680,9 +852,10 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[5]}}_LUNCH" class="tab-pane fade in active">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[5])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -694,7 +867,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='LUNCH')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -719,9 +900,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[5]}}_DINNER" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[5])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -733,7 +915,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='DINNER')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -758,9 +948,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[5]}}_BOX_LUNCH" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[5])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -772,7 +963,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='BOX LUNCH')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -810,9 +1009,10 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_EXPEDITION" class="tab-pane fade in active">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -824,7 +1024,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='EXPEDITION')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -849,9 +1057,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_VISITADOME" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -863,7 +1072,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='VISITADOME')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -888,9 +1105,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_EJECUTIVO" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -902,7 +1120,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='EJECUTIVO')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -927,9 +1153,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_FIRST_CLASS" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -941,7 +1168,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='FIRST CLASS')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -966,9 +1201,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_HIRAN_BINGHAN" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -980,7 +1216,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='HIRAN BINGHAN')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -1005,9 +1249,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[6]}}_PRESIDENTIAL" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[6])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -1019,7 +1264,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='PRESIDENTIAL')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -1053,9 +1306,10 @@
                     {{--{{dd($tipos)}}--}}
                     <div class="tab-content margin-top-20">
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[7]}}_NATIONAL" class="tab-pane fade in active">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[7])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -1067,7 +1321,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='NATIONAL')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -1092,9 +1354,10 @@
                             @endforeach
                         </div>
                         <div id="t_edit_{{$itinerario->id}}_{{$tipoServicio[7]}}_INTERNATIONAL" class="tab-pane fade">
-                            @php $estado='';@endphp
+
                             @foreach($services as $service)
                                 @if($service->grupo==$tipoServicio[7])
+                                    @php $estado='';@endphp
                                     @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                         @if($service_id->m_servicios_id==$service->id)
                                             <?php $estado='checked'?>
@@ -1106,7 +1369,15 @@
                                         @endif
                                     @endforeach
                                     @if($service->tipoServicio=='INTERNATIONAL')
-                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                            @php
+                                                $visual=' hide';
+                                            @endphp
+                                            @if(in_array($service->localizacion,$array_destinos))
+                                                @php
+                                                    $visual='';
+                                                @endphp
+                                            @endif
+                                        <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                             @php
                                                 $service_p=0;
                                             @endphp
@@ -1153,12 +1424,13 @@
                         @php
                             $veces=' in active';
                         @endphp
-                        @php $estado='';@endphp
+
                         @foreach($array_tipos as $array_tipo)
 
                             <div id="t_edit_{{$itinerario->id}}_{{$array_tipo}}" class="tab-pane fade {{$veces}}">
                                 @foreach($services as $service)
                                     @if($service->grupo==$tipoServicio[8])
+                                        @php $estado='';@endphp
                                         @foreach($itinerario->itinerario_itinerario_servicios as $service_id)
                                             @if($service_id->m_servicios_id==$service->id)
                                                 <?php $estado='checked'?>
@@ -1170,7 +1442,15 @@
                                             @endif
                                         @endforeach
                                         @if($service->tipoServicio==$array_tipo)
-                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4 hide">
+                                                @php
+                                                    $visual=' hide';
+                                                @endphp
+                                                @if(in_array($service->localizacion,$array_destinos))
+                                                    @php
+                                                        $visual='';
+                                                    @endphp
+                                                @endif
+                                            <div id="service_edit_{{$itinerario->id}}_{{$service->id}}" class="col-md-4{{$visual}}">
                                                 @php
                                                     $service_p=0;
                                                 @endphp
