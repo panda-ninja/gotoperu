@@ -589,8 +589,8 @@ function  filtrar_grupos_edit(itinerario){
                 // console.log('no borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
             else {
-                $(this).prop("checked", "");
-                $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
+                //$(this).prop("checked", "");
+                //$('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
                 // console.log('borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
         }
