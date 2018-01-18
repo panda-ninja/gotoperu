@@ -553,3 +553,11 @@ Route::get('/admin/daybyday/edit/{id}', [
     'uses' => 'PackageCotizacionController@editar_daybyday',
     'as' => 'editar_dadybyday_parh',
 ]);
+Route::get('admin/operaciones', [
+    'uses' => 'OperacionesController@index',
+    'as' => 'operaciones_path',
+]);
+Route::post('admin/operaciones/fechas', [
+    'uses' => 'OperacionesController@Lista_fechas',
+    'as' => 'operaciones_lista_path',
+]);

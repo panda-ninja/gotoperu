@@ -6,6 +6,7 @@ use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
 use App\HotelProveedor;
+use App\ItinerarioCotizaciones;
 use App\ItinerarioServicioProveedor;
 use App\ItinerarioServicios;
 use App\M_Producto;
@@ -175,11 +176,22 @@ class BookController extends Controller
         $coti=Cotizacion::FindOrFail($cotizacion_id);
         $coti->confirmado_r='ok';
         $coti->save();
-
+//        $fecha=$coti->fecha;
         $cotizacion=Cotizacion::FindOrFail($cotizacion_id);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
+//        $pqt_id=$request->input('pqt_id');
+//        $pqt=PaqueteCotizaciones::where('id',$pqt_id)->get();
+//        foreach($pqt as $paquete){
+//            foreach($paquete->itinerario_cotizaciones as $itinerario){
+//                $iti_temp=ItinerarioCotizaciones::FindOrFail($itinerario->id);
+//                $iti_temp->
+//            }
+//        }
+
+//        {{date("d/m/Y",strtotime($fecha))}}
+
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
 
     }
