@@ -1811,6 +1811,16 @@ class PackageCotizacionController extends Controller
         $servicio->save();
         return redirect()->route('book_show_path',$coti_id);
     }
+    public function add_time(Request $request)
+    {
+        $coti_id=$request->input('coti_id');
+        $id=$request->input('id');
+        $codigo=$request->input('hora_'.$id);
+        $servicio=ItinerarioServicios::FindOrFail($id);
+        $servicio->hora_llegada=$codigo;
+        $servicio->save();
+        return redirect()->route('book_show_path',$coti_id);
+    }
     public function add_cod_hotel_verif(Request $request)
     {
         $coti_id=$request->input('coti_id');
@@ -1818,6 +1828,16 @@ class PackageCotizacionController extends Controller
         $codigo=$request->input('code_'.$id);
         $hotel=PrecioHotelReserva::FindOrFail($id);
         $hotel->codigo_verificacion=$codigo;
+        $hotel->save();
+        return redirect()->route('book_show_path',$coti_id);
+    }
+    public function add_hora_hotel_verif(Request $request)
+    {
+        $coti_id=$request->input('coti_id');
+        $id=$request->input('id');
+        $codigo=$request->input('hora_'.$id);
+        $hotel=PrecioHotelReserva::FindOrFail($id);
+        $hotel->hora_llegada=$codigo;
         $hotel->save();
         return redirect()->route('book_show_path',$coti_id);
     }

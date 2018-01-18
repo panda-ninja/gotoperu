@@ -520,12 +520,18 @@ Route::post('/admin/reservas/add-code', [
     'uses' => 'PackageCotizacionController@add_cod_verif',
     'as' => 'add_cod_verif_path',
 ]);
-
+Route::post('/admin/reservas/add-hora', [
+    'uses' => 'PackageCotizacionController@add_time',
+    'as' => 'add_time_path',
+]);
 Route::post('/admin/reservas/hotel/add-code', [
     'uses' => 'PackageCotizacionController@add_cod_hotel_verif',
     'as' => 'add_cod_verif_hotel_path',
 ]);
-
+Route::post('/admin/reservas/hotel/add-hora', [
+    'uses' => 'PackageCotizacionController@add_hora_hotel_verif',
+    'as' => 'add_hora_hotel_path',
+]);
 Route::post('/admin/curret/clonar', [
     'uses' => 'PackageCotizacionController@clonar_plan',
     'as' => 'generar_pantilla_path',
