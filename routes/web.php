@@ -561,3 +561,7 @@ Route::post('admin/operaciones/fechas', [
     'uses' => 'OperacionesController@Lista_fechas',
     'as' => 'operaciones_lista_path',
 ]);
+Route::get('admin/operaciones/s_p/{id1}/{id2}/{id3}', [
+    'uses' => 'OperacionesController@sp',
+    'as' => 'sp_path',
+]);

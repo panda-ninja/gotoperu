@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cotizacion;
+use App\ItinerarioServicios;
 use Illuminate\Http\Request;
 
 class OperacionesController extends Controller
@@ -19,7 +20,7 @@ class OperacionesController extends Controller
         }])
             ->where('confirmado_r','ok')
             ->get();
-        return view('admin.operaciones.operaciones',compact('cotizaciones'));
+        return view('admin.operaciones.operaciones',compact('cotizaciones','desde','hasta'));
     }
     public function Lista_fechas(Request $request)
     {
@@ -33,7 +34,14 @@ class OperacionesController extends Controller
         }])
             ->where('confirmado_r','ok')
             ->get();
-        return view('admin.operaciones.operaciones',compact('cotizaciones'));
+        return view('admin.operaciones.operaciones',compact('cotizaciones','desde','hasta'));
+    }
+    public function sp($id1,$id,$sp)
+    {
+        $iti=ItinerarioServicios::FindOrFail($id);
+        $iti->s_p=$sp;
+        $iti->save();
+        return redirect()->route('book_show_path',$id1);
     }
 
 }

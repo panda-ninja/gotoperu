@@ -149,6 +149,7 @@
                                 <th>Verification Code</th>
                                 <th>Hora</th>
                                 <th>Provider</th>
+                                <th>S/P</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -357,6 +358,32 @@
                                             @endif
                                             </td>
                                             <td>
+                                                @php
+                                                    $esServ='false';
+                                                @endphp
+                                                @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $serv)
+                                                    @if($serv->grupo=='TOURS')
+                                                        @php
+                                                            $esServ='true';
+                                                        @endphp
+                                                    @elseif($serv->grupo=='REPRESENT')
+                                                        @if($serv->tipoServicio=='TRANSFER')
+
+                                                            @php
+                                                                $esServ='true';
+                                                            @endphp
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                                @if($esServ=='true')
+                                                    @if($servicios->s_p=='PC')
+                                                    <a class="btn btn-success" href="{{route('sp_path',[$cotizacion->id,$servicios->id,'SIC'])}}">PC</a>
+                                                    @elseif($servicios->s_p=='SIC')
+                                                        <a class="btn btn-primary" href="{{route('sp_path',[$cotizacion->id,$servicios->id,'PC'])}}">SIC</a>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if($servicios->itinerario_proveedor)
                                                         <i class="fa fa-check fa-2x text-success"></i>
                                                 @else
@@ -554,6 +581,8 @@
                                                  {{--@else--}}
 
                                                 {{--@endif--}}
+                                            </td>
+                                            <td>
                                             </td>
                                             <td>
                                                 @if($hotel->proveedor)

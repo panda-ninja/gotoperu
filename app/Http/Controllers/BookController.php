@@ -10,6 +10,7 @@ use App\ItinerarioCotizaciones;
 use App\ItinerarioServicioProveedor;
 use App\ItinerarioServicios;
 use App\M_Producto;
+use App\M_Servicio;
 use App\PaqueteCotizaciones;
 use App\PrecioHotelReserva;
 use App\Proveedor;
@@ -65,7 +66,8 @@ class BookController extends Controller
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
+        $m_servicios=M_Servicio::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
     }
 
     /**
