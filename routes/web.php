@@ -374,6 +374,29 @@ Route::get('admin/contabilidad', [
     'as' => 'contabilidad_index_path',
 ]);
 
+Route::get('admin/contabilidad/listar/proveedores', [
+    'uses' => 'ContabilidadController@list_proveedores',
+    'as' => 'list_proveedores_path',
+]);
+Route::get('admin/contabilidad/listar/fechas', [
+    'uses' => 'ContabilidadController@rango_fecha',
+    'as' => 'rango_fecha_path',
+]);
+Route::get('admin/contabilidad/listar/fechas/{fecha_i}/{fecha_f}', [
+    'uses' => 'ContabilidadController@list_fechas',
+    'as' => 'list_fechas_path',
+]);
+
+Route::post('admin/contabilidad/listar/fechas/show', [
+    'uses' => 'ContabilidadController@list_fechas_show',
+    'as' => 'list_fechas_show_path',
+]);
+
+Route::post('admin/contabilidad/listar/fechas/rango', [
+    'uses' => 'ContabilidadController@list_fechas_rango',
+    'as' => 'list_fechas_rango_path',
+]);
+
 Route::get('/admin/contabilidad/show/{id}', [
     'uses' => 'ContabilidadController@show',
     'as' => 'contabilidad_show_path',
@@ -399,6 +422,22 @@ Route::post('/admin/contabilidad/pay_a_cuenta', [
     'as' => 'pay_a_cuenta_path',
 ]);
 
+Route::post('/admin/contabilidad/listar/consulta', [
+    'uses' => 'ContabilidadController@consulta_save',
+    'as' => 'consulta_save_path',
+]);
+
+Route::delete('/admin/contabilidad/listar/consulta/delete/{id}', [
+    'uses' => 'ContabilidadController@consulta_delete',
+    'as' => 'consulta_delete_path',
+])->where('id', '[0-9]+');
+
+Route::post('/admin/contabilidad/pagar_consulta', [
+    'uses' => 'ContabilidadController@pagar_consulta',
+    'as' => 'pagar_consulta_path',
+]);
+
+
 
 
 
@@ -414,10 +453,10 @@ Route::post('/admin/contabilidad/pagar', [
     'uses' => 'ContabilidadController@pagar',
     'as' => 'pagar_proveedor_path',
 ]);
-Route::get('/admin/contabilidad/buscar/fechas/{desde}/{hasta}', [
-    'uses' => 'ContabilidadController@listar',
-    'as' => 'contabilidad_fechas_path',
-]);
+//Route::get('/admin/contabilidad/buscar/fechas/{desde}/{hasta}', [
+//    'uses' => 'ContabilidadController@listar',
+//    'as' => 'contabilidad_fechas_path',
+//]);
 Route::post('/admin/contabilidad/buscar/fechas/', [
     'uses' => 'ContabilidadController@listar_post',
     'as' => 'contabilidad_fechas_post_path',

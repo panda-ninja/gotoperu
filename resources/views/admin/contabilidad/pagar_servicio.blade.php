@@ -94,7 +94,7 @@
                                 @foreach($servicio as $servicios)
                                     <div class="nombres"><b>PROVEEDOR:</b> {{$servicios->itinerario_servicio_proveedor->nombre}}</div>
                                     <div class="nombres"><b>RUC:</b> {{$servicios->itinerario_servicio_proveedor->codigo}}</div>
-                                    <div class="nacionalidad"><b>DIRECCION:</b> {{$servicios->itinerario_servicio_proveedor->proveedor_razon_social}}</div>
+                                    <div class="nacionalidad"><b>DIRECCION:</b> {{$servicios->itinerario_proveedor->razon_social}}</div>
                                 @endforeach
                             </div>
                             <div class="col-lg-12 margin-top-10">
@@ -172,7 +172,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td class="has-error"><input type="date" class="form-control input-sm text-right" id="f_date"></td>
-                                                        <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0"></td>
+                                                        <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly></td>
                                                         <td class="text-center">
                                                             <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$servicios->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
 
