@@ -92,8 +92,8 @@
                             </div>
                             <div class="col-lg-12">
                                 @foreach($servicio as $servicios)
-                                    <div class="nombres"><b>PROVEEDOR:</b> {{$servicios->itinerario_servicio_proveedor->nombre}}</div>
-                                    <div class="nombres"><b>RUC:</b> {{$servicios->itinerario_servicio_proveedor->codigo}}</div>
+                                    <div class="nombres"><b>PROVEEDOR:</b> {{$servicios->itinerario_proveedor->nombre}}</div>
+                                    <div class="nombres"><b>RUC:</b> {{$servicios->itinerario_proveedor->codigo}}</div>
                                     <div class="nacionalidad"><b>DIRECCION:</b> {{$servicios->itinerario_proveedor->razon_social}}</div>
                                 @endforeach
                             </div>
