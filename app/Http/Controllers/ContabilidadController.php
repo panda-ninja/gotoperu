@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\ConsultaPago;
 use App\Cotizacion;
 use App\CotizacionesCliente;
 use App\HotelProveedor;
@@ -14,7 +15,9 @@ use App\PaqueteCotizaciones;
 use App\PrecioHotelReserva;
 use App\PrecioHotelReservaPagos;
 use App\Proveedor;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ContabilidadController extends Controller
 {
@@ -33,16 +36,146 @@ class ContabilidadController extends Controller
         return view('admin.contabilidad.lista-proveedor',['proveedor'=>$proveedor, 'servicios'=>$servicios, 'pagos'=>$pagos]);
     }
 
-    public function list_fechas()
+    public function rango_fecha(){
+        $consulta = ConsultaPago::all();
+        return view('admin.contabilidad.rango-fecha', ['consulta'=>$consulta]);
+    }
+
+    public function list_fechas_rango(){
+        $ini = $_POST['txt_ini'];
+        $fin = $_POST['txt_fin'];
+
+        return redirect()->route('list_fechas_path', [$ini, $fin]);
+    }
+
+    public function list_fechas($fecha_i, $fecha_f)
     {
-        $cotizacion=Cotizacion::all();
+        $ini = $fecha_i;
+        $fin = $fecha_f;
+        $cotizacion=Cotizacion::get();
         $pagos = ItinerarioServiciosPagos::get();
         $proveedor = ItinerarioServicioProveedor::get();
         $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
 
-        return view('admin.contabilidad.lista-fecha',['proveedor'=>$proveedor, 'servicios'=>$servicios, 'pagos'=>$pagos, 'cotizacion'=>$cotizacion]);
+        return view('admin.contabilidad.lista-fecha',['proveedor'=>$proveedor, 'servicios'=>$servicios, 'pagos'=>$pagos, 'cotizacion'=>$cotizacion, 'ini'=>$ini, 'fin'=>$fin]);
     }
 
+    public function list_fechas_show(){
+        if (isset($_POST['chk_id'])){
+            $ids = $_POST['chk_id'];
+        }else{
+            $ids = 0;
+        }
+        if (isset($_POST['txt_codigos'])){
+            $codigos = $_POST['txt_codigos'];
+        }else{
+            $codigos = 0;
+        }
+
+//        foreach ($ids as $ids=>$value) {
+//            $ids = $value.'-';
+//        }
+        $cotizacion=Cotizacion::get();
+        $pagos = ItinerarioServiciosPagos::get();
+        $proveedor = ItinerarioServicioProveedor::get();
+        $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
+        $consulta = ConsultaPago::where('id', $codigos)->get();
+        return view('admin.contabilidad.lista-fecha-rango', ['proveedor'=>$proveedor, 'servicios'=>$servicios, 'pagos'=>$pagos, 'cotizacion'=>$cotizacion, 'ids'=>$ids, 'codigos'=>$codigos, 'consulta'=>$consulta]);
+    }
+
+    public function consulta_delete($id){
+        $consulta=ConsultaPago::findOrFail($id);
+        $consulta->delete();
+
+        Session::flash('message', 'La consulta fue eliminada satisfactoriamente');
+
+        return redirect()->route('rango_fecha_path');
+    }
+
+    public function pagar_consulta(){
+        $idservicio = $_POST['txt_idservicio'];
+        $saldo = $_POST['txt_saldo'];
+        $pagado = $_POST['txt_pagado'];
+        $fvpago = $_POST['txt_fvpago'];
+        $medio = $_POST['txt_medio'];
+        $cuenta = $_POST['txt_cuenta'];
+        $transaccion = $_POST['txt_transaccion'];
+
+        $mcuenta = $_POST['txt_mcuenta'];
+        $idpago = $_POST['txt_idpago'];
+//        $itinerario_servicio_pago = ItinerarioServiciosPagos::where('itinerario_servicios_id', $idservicio)->get();
+
+        $pago = $mcuenta - $saldo;
+
+
+        if ($idpago == 0){
+
+            if ($mcuenta == $saldo){
+                $p_servicio = new ItinerarioServiciosPagos;
+                $p_servicio->a_cuenta = $saldo;
+                $p_servicio->medio = $medio;
+                $p_servicio->cuenta = $cuenta;
+                $p_servicio->transaccion = $transaccion;
+                $p_servicio->estado = 1;
+                $p_servicio->itinerario_servicios_id = $idservicio;
+                $p_servicio->save();
+
+                return "cuenta = 0 id = 0";
+            }else{
+
+                $p_servicio_1 = new ItinerarioServiciosPagos;
+                $p_servicio_1->a_cuenta = $saldo;
+                $p_servicio_1->medio = $medio;
+                $p_servicio_1->cuenta = $cuenta;
+                $p_servicio_1->transaccion = $transaccion;
+                $p_servicio_1->estado = 1;
+                $p_servicio_1->itinerario_servicios_id = $idservicio;
+                $p_servicio_1->save();
+
+                $p_servicio_2 = new ItinerarioServiciosPagos;
+                $p_servicio_2->a_cuenta = $pago;
+                $p_servicio_2->fecha_a_pagar = $fvpago;
+                $p_servicio_2->estado = 0;
+                $p_servicio_2->itinerario_servicios_id = $idservicio;
+                $p_servicio_2->save();
+
+                return "cuenta <> 0 id = 0";
+
+            }
+
+        }else{
+            if ($mcuenta == $saldo) {
+                $p_servicio_1 = ItinerarioServiciosPagos::FindOrFail($idpago);
+                $p_servicio_1->a_cuenta = $saldo;
+                $p_servicio_1->medio = $medio;
+                $p_servicio_1->cuenta = $cuenta;
+                $p_servicio_1->transaccion = $transaccion;
+                $p_servicio_1->estado = 1;
+                $p_servicio_1->save();
+
+                return "cuenta = 0  id <> 0 ";
+            }else{
+                $p_servicio_1 = ItinerarioServiciosPagos::FindOrFail($idpago);
+                $p_servicio_1->a_cuenta = $saldo;
+                $p_servicio_1->medio = $medio;
+                $p_servicio_1->cuenta = $cuenta;
+                $p_servicio_1->transaccion = $transaccion;
+                $p_servicio_1->estado = 1;
+                $p_servicio_1->save();
+
+                $p_servicio_2 = new ItinerarioServiciosPagos;
+                $p_servicio_2->a_cuenta = $pago;
+                $p_servicio_2->fecha_a_pagar = $fvpago;
+                $p_servicio_2->estado = 0;
+                $p_servicio_2->itinerario_servicios_id = $idservicio;
+                $p_servicio_2->save();
+
+                return "cuenta <> 0  id <> 0 ".$idpago."";
+
+            }
+        }
+
+    }
 
     public function show($id)
     {
@@ -132,6 +265,16 @@ class ContabilidadController extends Controller
 //        return redirect()->route('pagar_servicios_conta_path', [$idcot, $id]);
         return "ok";
 
+    }
+
+    public function consulta_save(){
+        $cod = $_POST['txt_codigos'];
+
+        $consulta = new ConsultaPago();
+        $consulta->codigos = $cod;
+        $consulta->save();
+
+        return 'ok';
     }
 
 
