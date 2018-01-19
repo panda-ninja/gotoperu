@@ -171,7 +171,8 @@ class BookController extends Controller
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
+        $m_servicios=M_Servicio::get();
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
     }
     public function confirmar(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');
@@ -183,6 +184,7 @@ class BookController extends Controller
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
+        $m_servicios=M_Servicio::get();
 //        $pqt_id=$request->input('pqt_id');
 //        $pqt=PaqueteCotizaciones::where('id',$pqt_id)->get();
 //        foreach($pqt as $paquete){
@@ -194,7 +196,7 @@ class BookController extends Controller
 
 //        {{date("d/m/Y",strtotime($fecha))}}
 
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
 
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
 use App\Cotizacion;
 use App\ItinerarioServicios;
+use App\M_Servicio;
 use Illuminate\Http\Request;
 
 class OperacionesController extends Controller
@@ -20,7 +22,9 @@ class OperacionesController extends Controller
         }])
             ->where('confirmado_r','ok')
             ->get();
-        return view('admin.operaciones.operaciones',compact('cotizaciones','desde','hasta'));
+        $clientes2=Cliente::get();
+        $m_servicios=M_Servicio::get();
+        return view('admin.operaciones.operaciones',compact('cotizaciones','desde','hasta','clientes2','m_servicios'));
     }
     public function Lista_fechas(Request $request)
     {
@@ -34,7 +38,9 @@ class OperacionesController extends Controller
         }])
             ->where('confirmado_r','ok')
             ->get();
-        return view('admin.operaciones.operaciones',compact('cotizaciones','desde','hasta'));
+        $clientes2=Cliente::get();
+        $m_servicios=M_Servicio::get();
+        return view('admin.operaciones.operaciones',compact('cotizaciones','desde','hasta','clientes2','m_servicios'));
     }
     public function sp($id1,$id,$sp)
     {

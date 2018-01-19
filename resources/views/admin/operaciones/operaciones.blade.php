@@ -72,18 +72,40 @@
                 </thead>
                 <tbody>
                 @foreach($cotizaciones->where('confirmado_r','ok') as $cotizacion)
+                    @php
+                        $clientes_=array();
+                    @endphp
+                    @foreach($cotizacion->cotizaciones_cliente as $cotizacion_cliente)
+                        @foreach($clientes2->where('id',$cotizacion_cliente->clientes_id) as $cliente)
+                            @php
+                               $clientes_[]=$cliente->nombres." ".$cliente->apellidos;
+                            @endphp
+                        @endforeach
+                    @endforeach
                     @foreach($cotizacion->paquete_cotizaciones->where('estado','2') as $pqts)
                         @foreach($pqts->itinerario_cotizaciones->sortby('fecha') as $itinerario)
                             @foreach($itinerario->itinerario_servicios->sortby('hora_llegada') as $servicio)
+                                @php
+                                $serv_txt='';
+                                @endphp
+                                @foreach($m_servicios->where('id',$servicio->m_servicios_id) as $serv)
+                                    @php
+                                        $serv_txt=$serv->localizacion;
+                                    @endphp
+                                @endforeach
                                 {{--<p>{{$itinerario->fecha}} {{$servicio->nombre}} {{$servicio->hora_llegada}}</p>--}}
                                 <tr class="success">
                                     <td>{{$itinerario->fecha}}</td>
                                     <td>{{$cotizacion->nropersonas}}</td>
-                                    <td>{{$servicio->nombre}}</td>
+                                    <td>
+                                        @foreach($clientes_ as $cli)
+                                            {{$cli}}</br>
+                                        @endforeach
+                                    </td>
                                     <td>{{$cotizacion->web}}</td>
                                     <td>S/P</td>
                                     <td>ID</td>
-                                    <td>DESTINO</td>
+                                    <td>{{$serv_txt}}</td>
                                     <td>{{$servicio->hora_llegada}}</td>
                                     <td>SERVICIO</td>
                                     <td>HOTEL</td>
