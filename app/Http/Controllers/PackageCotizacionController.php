@@ -9,6 +9,7 @@ use App\Hotel;
 use App\ItinerarioCotizaciones;
 use App\ItinerarioDestinos;
 use App\ItinerarioServicios;
+use App\M_Category;
 use App\M_Destino;
 use App\M_Itinerario;
 use App\M_Servicio;
@@ -1027,6 +1028,9 @@ class PackageCotizacionController extends Controller
             $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
             $p_itinerario->precio=$m_itineario->precio;
             $p_itinerario->imagen=$m_itineario->imagen;
+            $p_itinerario->imagenB=$m_itineario->imagenB;
+            $p_itinerario->imagenC=$m_itineario->imagenC;
+
             $p_itinerario->observaciones='';
             $p_itinerario->estado=1;
             $p_itinerario->paquete_cotizaciones_id=$paquete->id;
@@ -1399,6 +1403,9 @@ class PackageCotizacionController extends Controller
                 $p_itinerario->fecha=date("Y-m-d",$mod_date) ;
                 $p_itinerario->precio=$itinerarios_->precio;
                 $p_itinerario->imagen=$itinerarios_->imagen;
+                $p_itinerario->imagenB=$itinerarios_->imagenB;
+                $p_itinerario->imagenC=$itinerarios_->imagenC;
+
                 $p_itinerario->observaciones='';
                 $p_itinerario->estado=1;
                 $p_itinerario->paquete_cotizaciones_id=$paquete->id;
@@ -1804,6 +1811,16 @@ class PackageCotizacionController extends Controller
         $servicio->save();
         return redirect()->route('book_show_path',$coti_id);
     }
+    public function add_time(Request $request)
+    {
+        $coti_id=$request->input('coti_id');
+        $id=$request->input('id');
+        $codigo=$request->input('hora_'.$id);
+        $servicio=ItinerarioServicios::FindOrFail($id);
+        $servicio->hora_llegada=$codigo;
+        $servicio->save();
+        return redirect()->route('book_show_path',$coti_id);
+    }
     public function add_cod_hotel_verif(Request $request)
     {
         $coti_id=$request->input('coti_id');
@@ -1811,6 +1828,16 @@ class PackageCotizacionController extends Controller
         $codigo=$request->input('code_'.$id);
         $hotel=PrecioHotelReserva::FindOrFail($id);
         $hotel->codigo_verificacion=$codigo;
+        $hotel->save();
+        return redirect()->route('book_show_path',$coti_id);
+    }
+    public function add_hora_hotel_verif(Request $request)
+    {
+        $coti_id=$request->input('coti_id');
+        $id=$request->input('id');
+        $codigo=$request->input('hora_'.$id);
+        $hotel=PrecioHotelReserva::FindOrFail($id);
+        $hotel->hora_llegada=$codigo;
         $hotel->save();
         return redirect()->route('book_show_path',$coti_id);
     }
@@ -1908,7 +1935,6 @@ class PackageCotizacionController extends Controller
                 }
             }
         }
-
         return redirect()->route('generar_pantilla_id_path',[$coti_id,$new_pqt_id]);
     }
     public function clonar_plan_id($coti_id,$new_pqt_id){
@@ -1930,4 +1956,34 @@ class PackageCotizacionController extends Controller
         $numero_con_ceros.= $numero;
         return $numero_con_ceros;
     }
+    public function step1_edit_hotel(Request $request, $id){
+        $id_cotizacion = $request->get('id_cotizacion');
+        $id_client = $request->get('id_client');
+        $id_paquete = $request->get('id_paquete');
+        $precio_s=$request->input('precio_s');
+        $precio_d=$request->input('precio_d');
+        $precio_m=$request->input('precio_m');
+        $precio_t=$request->input('precio_t');
+        $precio_hotel_reserva=PrecioHotelReserva::FindOrFail($id);
+        $precio_hotel_reserva->precio_s=$precio_s;
+        $precio_hotel_reserva->precio_d=ceil($precio_d*2);
+        $precio_hotel_reserva->precio_m=ceil($precio_m*2);
+        $precio_hotel_reserva->precio_t=ceil($precio_t*3);
+        $precio_hotel_reserva->save();
+        return redirect()->route('show_step1_ser_path', [$id_client,$id_cotizacion,$id_paquete,$id]);
+    }
+    public function editar_daybyday($id){
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+//        $itinerarios=M_Itinerario::get();
+        $categorias=M_Category::get();
+        $itinerario=M_Itinerario::FindOrFail($id);
+//        $itinerarioArray=M_Itinerario::with('itinerario_itinerario_servicios')->where('id',$id)->get();
+        $servicios=array();
+//        foreach ($itinerarioArray->itinerario_itinerario_servicios as $items){
+//            $servicios[]=$items->m_servicios_id;
+//        }
+        return view('admin.itinerary-edit',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerario'=>$itinerario,'servicios'=>$servicios]);
+    }
+
 }

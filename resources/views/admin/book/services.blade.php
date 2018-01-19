@@ -147,6 +147,7 @@
                                 {{--<th>Math Price</th>--}}
                                 <th>Book Price</th>
                                 <th>Verification Code</th>
+                                <th>Hora</th>
                                 <th>Provider</th>
                                 <th></th>
                             </tr>
@@ -227,6 +228,8 @@
                                                 @php
                                                     $codigo='primary';
                                                     $icon='save';
+                                                    $codigo_h='primary';
+                                                    $icon_h='save';
                                                 @endphp
                                                 @if($servicios->codigo_verificacion!='')
                                                     @php
@@ -234,17 +237,42 @@
                                                         $icon='edit';
                                                     @endphp
                                                 @endif
+                                                @if($servicios->hora_llegada!='')
+                                                    @php
+                                                        $codigo_h='warning';
+                                                        $icon_h='edit';
+                                                    @endphp
+                                                @endif
                                                 <form class="form-inline" action="{{route('add_cod_verif_path')}}" method="post">
-                                                    {{csrf_field()}}
-                                                    <input type="hidden" name="id" value="{{$servicios->id}}">
-                                                    <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
-
-                                                    {{--<input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')">--}}
-                                                    <div class="col-lg-10">
-                                                        <input class="form-control" type="text" id="code_{{$servicios->id}}" name="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}">
+                                                    <div class="row">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="id" value="{{$servicios->id}}">
+                                                        <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
+                                                        <div class="col-lg-12">
+                                                            <div class="input-group">
+                                                                <input class="form-control" type="text" id="code_{{$servicios->id}}" name="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}">
+                                                                <span class="input-group-btn">
+                                                                        <button type="submit" class="btn btn-{{$codigo}}"><i class="fa fa-{{$icon}}" aria-hidden="true"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-lg-2">
-                                                        <button type="submit" class=" pull-left btn btn-{{$codigo}} btn-sm"><i class="fa fa-{{$icon}}" aria-hidden="true"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form class="form-inline" action="{{route('add_time_path')}}" method="post">
+                                                    <div class="row">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="id" value="{{$servicios->id}}">
+                                                        <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
+                                                        <div class="col-lg-12">
+                                                            <div class="input-group">
+                                                                <input class="form-control" type="time" id="hora_{{$servicios->id}}" name="hora_{{$servicios->id}}" value="{{$servicios->hora_llegada}}" min="00:00" max="24:59">
+                                                                <span class="input-group-btn">
+                                                                        <button type="submit" class="btn btn-{{$codigo_h}}"><i class="fa fa-{{$icon_h}}" aria-hidden="true"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </form>
                                             </td>
@@ -410,28 +438,56 @@
                                             </td>
                                             <td>
                                                 @php
-                                                    $codigo_h='primary';
-                                                    $icon_h='save';
+                                                    $codigo_ho='primary';
+                                                    $icon_ho='save';
+                                                    $codigo_hora='primary';
+                                                    $icon_hora='save';
                                                 @endphp
                                                 @if($hotel->codigo_verificacion!='')
                                                     @php
-                                                        $codigo_h='warning';
-                                                        $icon_h='edit';
+                                                        $codigo_ho='warning';
+                                                        $icon_ho='edit';
+                                                    @endphp
+                                                @endif
+                                                @if($hotel->hora_llegada!='')
+                                                    @php
+                                                        $codigo_hora='warning';
+                                                        $icon_hora='edit';
                                                     @endphp
                                                 @endif
                                                 <form class="form-inline" action="{{route('add_cod_verif_hotel_path')}}" method="post">
-                                                    {{csrf_field()}}
-                                                    <input type="hidden" name="id" value="{{$hotel->id}}">
-                                                    <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
-
-                                                    {{--<input class="form-control" type="text" id="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}" onchange="insertar_codigo('{{$servicios->id}}')">--}}
-                                                    <div class="col-lg-10">
-                                                        <input class="form-control" type="text" id="code_{{$hotel->id}}" name="code_{{$hotel->id}}" value="{{$hotel->codigo_verificacion}}">
-                                                    </div>
-                                                    <div class="col-lg-2">
-                                                        <button type="submit" class=" pull-left btn btn-{{$codigo_h}} btn-sm"><i class="fa fa-{{$icon_h}}" aria-hidden="true"></i></button>
+                                                    <div class="row">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="id" value="{{$hotel->id}}">
+                                                        <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
+                                                        <div class="col-lg-12">
+                                                            <div class="input-group">
+                                                                <input class="form-control" type="text" id="code_{{$hotel->id}}" name="code_{{$hotel->id}}" value="{{$hotel->codigo_verificacion}}">
+                                                                <span class="input-group-btn">
+                                                                     <button type="submit" class="btn btn-{{$codigo_ho}}"><i class="fa fa-{{$icon_ho}}" aria-hidden="true"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </form>
+                                            </td>
+                                            <td>
+                                                <form class="form-inline" action="{{route('add_hora_hotel_path')}}" method="post">
+                                                    <div class="row">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="id" value="{{$hotel->id}}">
+                                                        <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
+                                                        <div class="col-lg-12">
+                                                            <div class="input-group">
+                                                                <input class="form-control" type="time" id="hora_{{$hotel->id}}" name="hora_{{$hotel->id}}" value="{{$hotel->hora_llegada}}">
+                                                                <span class="input-group-btn">
+                                                                     <button type="submit" class="btn btn-{{$codigo_hora}}"><i class="fa fa-{{$icon_hora}}" aria-hidden="true"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
                                             <td>
                                                 @if($hotel->proveedor)
                                                     {{$hotel->proveedor->razon_social}}

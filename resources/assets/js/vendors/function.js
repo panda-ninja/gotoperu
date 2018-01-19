@@ -589,8 +589,8 @@ function  filtrar_grupos_edit(itinerario){
                 // console.log('no borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
             else {
-                $(this).prop("checked", "");
-                $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
+                //$(this).prop("checked", "");
+                //$('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
                 // console.log('borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
         }
@@ -1733,6 +1733,15 @@ function  filtrar_itinerarios1(){
     destinos=destinos.substr(0,destinos.length-1);
     filtrar_itinerarios_admin();
 }
+function existe(clave){
+    var existe=false;
+    $("input[class='servicios_new']").each(function (index1) {
+        if(clave==$(this).val()){
+            existe=true;
+        }
+    });
+    return existe;
+}
  var total_Itinerarios_camino2=0;
 // var Itis_precio=0;
 // var nroPasajeros=2;
@@ -1744,68 +1753,72 @@ function Pasar_datos1(){
     $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
             // $(this).prop("checked", "");
-            total_Itinerarios_camino2++;
+
             itinerario=$(this).val().split('_');
-            var precio_grupo=0;
-            Itis_precio += parseFloat(itinerario[4]);
-            console.log('Precios:'+Itis_precio);
-            $.each(servicios, function( key, value ) {
-                var serv=value.split('//');
-                var val_p_g=parseFloat(serv[1]);
-                // if(serv[2]==1)
-                //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
-                // precio_grupo+=val_p_g;
-            });
-            // if(parseInt(itinerario[4])==0) {
-            //     Itis_precio += parseInt(itinerario[4]);
-            //     precio_grupo=parseInt(itinerario[4]);
-            // }
-            // else if(parseInt(itinerario[4])==1){
-            //     Itis_precio += Math.ceil(parseInt(itinerario[4])/nroPasajeros);
-            //     precio_grupo=Math.ceil(parseInt(itinerario[4])/nroPasajeros);
-            // }
-            // console.log('cost: '+Itis_precio);
-            var servicios=itinerario[5].split('*');
-            // lista_itinerarios1+=itinerario[0]+'/';
-            var iti_temp='';
-            // iti_temp+='<div id="itinerario_'+itinerario[0]+'" class="caja_itineario">'+
-            //         '<div class="row">'+
-            //         '<div class="col-lg-9">' +
-            //             '<input type="hidden" name="itinerarios_1[]" value="'+itinerario[5]+'">'+
-            //         '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
-            //         '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
-            //             '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
-            //             '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
-            //         '</div>'+
-            //         '<div class="col-lg-3">' +
-            //             ' <b>'+itinerario[4]+'</b>'+
-            //             ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
-            //         '</div>'+
-            //         '</div>'+
-            //     '</div>';
+            if(!existe(itinerario[0])) {
+                total_Itinerarios_camino2++;
+                var precio_grupo = 0;
+                Itis_precio += parseFloat(itinerario[4]);
+                console.log('Precios:' + Itis_precio);
+                $.each(servicios, function (key, value) {
+                    var serv = value.split('//');
+                    var val_p_g = parseFloat(serv[1]);
+                    // if(serv[2]==1)
+                    //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
+                    // precio_grupo+=val_p_g;
+                });
+                // if(parseInt(itinerario[4])==0) {
+                //     Itis_precio += parseInt(itinerario[4]);
+                //     precio_grupo=parseInt(itinerario[4]);
+                // }
+                // else if(parseInt(itinerario[4])==1){
+                //     Itis_precio += Math.ceil(parseInt(itinerario[4])/nroPasajeros);
+                //     precio_grupo=Math.ceil(parseInt(itinerario[4])/nroPasajeros);
+                // }
+                // console.log('cost: '+Itis_precio);
+                var servicios = itinerario[5].split('*');
+                // lista_itinerarios1+=itinerario[0]+'/';
+                var iti_temp = '';
+                // iti_temp+='<div id="itinerario_'+itinerario[0]+'" class="caja_itineario">'+
+                //         '<div class="row">'+
+                //         '<div class="col-lg-9">' +
+                //             '<input type="hidden" name="itinerarios_1[]" value="'+itinerario[5]+'">'+
+                //         '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
+                //         '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
+                //             '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
+                //             '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
+                //         '</div>'+
+                //         '<div class="col-lg-3">' +
+                //             ' <b>'+itinerario[4]+'</b>'+
+                //             ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
+                //         '</div>'+
+                //         '</div>'+
+                //     '</div>';
 
-            iti_temp+='<li class="content-list-book" id="content-list-'+itinerario[0]+'" value="'+itinerario[0]+'">'+
-                        '<div class="content-list-book-s">'+
-                            '<a href="#!">'+
-                                '<strong>'+
-                                    '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">'+
-                                    '<input type="hidden" name="itinerarios_1[]" value="'+itinerario[5]+'">'+
-                                    '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
-                                    '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
-                                    '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
-                                    '<b class="dias_iti_c2" id="dias_'+total_Itinerarios_camino2+'">Dia '+total_Itinerarios_camino2+':</b> '+itinerario[2]+
-                                '</strong>'+
-                                '<small>'+
-                                    itinerario[4]+'$'+
-                                '</small>'+
-                            '</a>'+
-                            '<div class="icon">'+
-                                ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+','+itinerario[4]+')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>'
-                            '</div>'+
-                            '</div>'+
-                        '</li>';
+                iti_temp += '<li class="content-list-book" id="content-list-' + itinerario[0] + '" value="' + itinerario[0] + '">' +
+                    '<div class="content-list-book-s">' +
+                    '<a href="#!">' +
+                    '<strong>' +
+                    '<input type="hidden" class="servicios_new" name="servicios_new_" value="' + itinerario[0] + '">' +
+                    '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">' +
+                    '<input type="hidden" name="itinerarios_1[]" value="' + itinerario[5] + '">' +
+                    '<input type="hidden" name="itinerarios_2[]" value="' + itinerario[0] + '">' +
+                    '<span class="itinerarios_1 hide">' + itinerario[5] + '</span>' +
+                    '<span class="txt_itinerarios hide" name="itinerarios1">' + itinerario[0] + '</span>' +
+                    '<b class="dias_iti_c2" id="dias_' + total_Itinerarios_camino2 + '">Dia ' + total_Itinerarios_camino2 + ':</b> ' + itinerario[2] +
+                    '</strong>' +
+                    '<small>' +
+                    itinerario[4] + '$' +
+                    '</small>' +
+                    '</a>' +
+                    '<div class="icon">' +
+                    ' <a class="text-right" href="#!" onclick="borrar_iti(' + itinerario[0] + ',' + itinerario[4] + ')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>'
+                '</div>' +
+                '</div>' +
+                '</li>';
 
-            $('#Lista_itinerario_g').append(iti_temp);
+                $('#Lista_itinerario_g').append(iti_temp);
+            }
         }
     });
     $('#totalItinerario').val(Itis_precio);
@@ -2812,4 +2825,21 @@ function mostrar_tabla_destino(grupo){
     // $("#tb_"+grupo+" tbody tr").each(function(el){
     //   console.log($(this));
     // });
+}
+
+function escojerPos_edit(daybyday,pos,cate) {
+    $("#posTipo").val(pos);
+    mostrar_pivot_edit(daybyday,cate);
+}
+function mostrar_pivot_edit(daybyday,cate){
+    console.log('Escojiste:'+cate);
+    $("#t_edit_"+daybyday+"_TOURS").addClass('hide');
+    $("#t_edit_"+daybyday+"_MOVILID").addClass('hide');
+    $("#t_edit_"+daybyday+"_REPRESENT").addClass('hide');
+    $("#t_edit_"+daybyday+"_ENTRANCES").addClass('hide');
+    $("#t_edit_"+daybyday+"_FOOD").addClass('hide');
+    $("#t_edit_"+daybyday+"_TRAINS").addClass('hide');
+    $("#t_edit_"+daybyday+"_FLIGHTS").addClass('hide');
+    $("#t_edit_"+daybyday+"_OTHERS").addClass('hide');
+    $("#t_edit_"+daybyday+"_"+cate).removeClass('hide');
 }

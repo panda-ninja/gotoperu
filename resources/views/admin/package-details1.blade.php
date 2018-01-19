@@ -179,10 +179,48 @@
                                                                     @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
                                                                             {{--{{$cotizacion->nropersonas}}  -  {{$servicio->max_personas}}--}}
                                                                         @if($cotizacion->nropersonas >= $servicio->min_personas AND $cotizacion->nropersonas <= $servicio->max_personas)
+                                                                                @php
+                                                                                    $precio_simgle=0;
+                                                                                @endphp
+                                                                                @if($servicio->precio_grupo==1)
+                                                                                    @php
+                                                                                        $precio_simgle=round($servicio->precio_venta/$cotizacion->nropersonas,1);
+                                                                                    @endphp
+                                                                                @else
+                                                                                    @php
+                                                                                        $precio_simgle=round($servicio->precio_venta,1);
+                                                                                    @endphp
+                                                                                @endif
                                                                                 <div class="checkbox1">
                                                                                     <label>
                                                                                         <input type="radio" name="op_services" id="serv_{{$servicio->id}}" value="{{$servicio->id}}" @if($servicios->codigo == $servicio->codigo) checked @endif>
-                                                                                        {{$servicio->nombre}} {{$servicio->tipoServicio}}
+                                                                                        {{$servicio->nombre}}<br>
+                                                                                        <span class="padding-left-10 text-primary">
+                                                                                        @if($grupo=='TOURS')
+                                                                                            <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                                        @endif
+                                                                                        @if($grupo=='MOVILID')
+                                                                                            <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                                        @endif
+                                                                                            @if($grupo=='REPRESENT')
+                                                                                                <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                            @if($grupo=='ENTRANCES')
+                                                                                                <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                            @if($grupo=='FOOD')
+                                                                                                <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                            @if($grupo=='TRAINS')
+                                                                                                <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                            @if($grupo=='FLIGHTS')
+                                                                                                <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                            @if($grupo=='OTHERS')
+                                                                                                <i class="fa fa-question text-success" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                        </span><b class="text-warning"> | </b><span class="text-green-goto">${{$precio_simgle}}</span><b class="text-warning"> | </b><span class="text-primary">[{{$servicio->min_personas}} - {{$servicio->max_personas}}] person</span>
                                                                                     </label>
                                                                                 </div>
                                                                         @endif
@@ -243,22 +281,55 @@
                                         <input type="hidden" class="precio_servicio_d_h" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
                                         <input type="hidden" class="precio_servicio_m_h" value="{{explode('.00',$hotel->precio_m)[0]/2}}">
                                         <input type="hidden" class="precio_servicio_t_h" value="{{explode('.00',$hotel->precio_t)[0]/3}}">
-                                        <div class="col-lg-2 hide">
-                                            <a class="btn" data-toggle="modal" data-target="#modal_new_destination_{{$hotel->id}}">
+                                        <div class="col-lg-1">
+                                            <a class="btn" data-toggle="modal" data-target="#modal_new_destinationh_{{$hotel->id}}">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
-                                            <!-- Modal -->
-                                            <div class="modal fade bd-example-modal-lg" id="modal_new_destination_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal fade bd-example-modal-m" id="modal_new_destinationh_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-m" role="document">
                                                     <div class="modal-content">
-                                                        <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">
+                                                        <form action="{{route('step1_edit_hotel_path', $hotel->id)}}" method="post" enctype="multipart/form-data">
+                                                            <input type="hidden" name="_method" value="patch">
+                                                            <input type="hidden" name="id_cotizacion" value="{{$cotizacion->id}}">
+                                                            <input type="hidden" name="id_client" value="{{$cliente->id}}">
+                                                            <input type="hidden" name="id_paquete" value="{{$paquete->id}}">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">New destination</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Editar Precio hotel</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
+                                                                <div class="row  caja_dia">
+                                                                    <div class="col-lg-4">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-10">Acomodacion</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_s==0) hide @endif">S</div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_d==0) hide @endif">D</div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_m==0) hide @endif">M</div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_t==0) hide @endif">T</div>
+                                                                </div>
+                                                                <div class="row  caja_detalle_hotel">
+                                                                    <div class="col-lg-4">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-10">HOTEL</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_s==0) hide @endif">
+                                                                        <input class="form-control" type="number" name="precio_s" value="{{explode('.00',$hotel->precio_s)[0]/1}}">
+                                                                    </div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_d==0) hide @endif">
+                                                                        <input class="form-control" type="number" name="precio_d" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
+                                                                    </div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_m==0) hide @endif">
+                                                                        <input class="form-control" type="number" name="precio_m" value="{{explode('.00',$hotel->precio_m)[0]/2}}">
+                                                                    </div>
+                                                                    <div class="col-lg-2 @if($hotel->personas_t==0) hide @endif">
+                                                                        <input class="form-control" type="number" name="precio_t" value="{{explode('.00',$hotel->precio_t)[0]/3}}">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 {{csrf_field()}}

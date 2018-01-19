@@ -88,25 +88,41 @@ class ItinerariController extends Controller
     }
 
     public function store(Request $request){
-            $txt_titulo=strtoupper($request->input('txt_titulo'));
-            $txt_descripcion=$request->input('txt_descripcion');
-            $destinos=$request->input('destinos');
-            $servicios=$request->input('servicios');
+        $txt_titulo=strtoupper($request->input('txt_titulo'));
+        $txt_descripcion=$request->input('txt_descripcion');
+        $destinos=$request->input('destinos');
+        $servicios=$request->input('servicios');
         $precio_iti=$request->input('precio_itinerario');
         $txt_imagen=$request->file('txt_imagen');
+        $txt_imagenB=$request->file('txt_imagenB');
+        $txt_imagenC=$request->file('txt_imagenC');
 
         $itinerario=new M_Itinerario();
-            $itinerario->titulo=$txt_titulo;
-            $itinerario->descripcion=$txt_descripcion;
-            $itinerario->precio=$precio_iti;
-            $itinerario->imagen=$txt_imagen;
+        $itinerario->titulo=$txt_titulo;
+        $itinerario->descripcion=$txt_descripcion;
+        $itinerario->precio=$precio_iti;
+        $itinerario->imagen=$txt_imagen;
+        $itinerario->imagen=$txt_imagenB;
+        $itinerario->imagen=$txt_imagenC;
+        $itinerario->save();
+        if($txt_imagen){
+            $filename ='itinerary-'.$itinerario->id.'.jpg';
+            $itinerario->imagen=$filename;
             $itinerario->save();
-            if($txt_imagen){
-                $filename ='itinerary-'.$itinerario->id.'.jpg';
-                $itinerario->imagen=$filename;
-                $itinerario->save();
-                Storage::disk('itinerary')->put($filename,  File::get($txt_imagen));
-            }
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagen));
+        }
+        if($txt_imagenB){
+            $filename ='itinerary-'.$itinerario->id.'B.jpg';
+            $itinerario->imagenB=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagenB));
+        }
+        if($txt_imagenC){
+            $filename ='itinerary-'.$itinerario->id.'C.jpg';
+            $itinerario->imagenC=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagenC));
+        }
             foreach ($destinos as $destino){
                 $dato=explode('_',$destino);
                 $m_destino=M_Destino::FindOrFail($dato[0]);
@@ -147,6 +163,9 @@ class ItinerariController extends Controller
         $servicios=$request->input('servicios'.$txt_id);
         $precio_iti=$request->input('precio_itinerario');
         $txt_imagen=$request->file('txt_imagen');
+        $txt_imagenB=$request->file('txt_imagenB');
+        $txt_imagenC=$request->file('txt_imagenC');
+
         $itinerario=M_Itinerario::FindOrFail($txt_id);
         $itinerario->titulo=$txt_titulo;
         $itinerario->descripcion=$txt_descripcion;
@@ -158,7 +177,18 @@ class ItinerariController extends Controller
             $itinerario->save();
             Storage::disk('itinerary')->put($filename,  File::get($txt_imagen));
         }
-
+        if($txt_imagenB){
+            $filename ='itinerary-'.$itinerario->id.'B.jpg';
+            $itinerario->imagenB=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagenB));
+        }
+        if($txt_imagenC){
+            $filename ='itinerary-'.$itinerario->id.'C.jpg';
+            $itinerario->imagenC=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagenC));
+        }
 
         M_ItinerarioDestino::where('m_itinerario_id',$txt_id)->delete();
         foreach ($destinos as $destino){

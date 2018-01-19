@@ -1,6 +1,9 @@
 @page{
     font-family: "arial", sans-serif;
 }
+.margin-all-5{
+    margin: 5px !important;
+}
 .no-margin{
     margin: 0 !important;
 }

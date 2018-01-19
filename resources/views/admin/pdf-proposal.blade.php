@@ -168,9 +168,17 @@
                 <h4>Day {{$itinerario->dias}} - {{$itinerario->titulo}}</h4>
                 <p>{{$itinerario->descripcion}}</p>
                 @if (Storage::disk('itinerary')->has($itinerario->imagen))
-                        <img
-                            src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}" class="responsive-img" alt="">
-               @endif
+                        {{--<img src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}" width="360" height="360" class="responsive-img" alt="">--}}
+                        <img src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}" width="215" height="215" alt="" class="margin-all-5">
+                @endif
+                @if (Storage::disk('itinerary')->has($itinerario->imagenB))
+                    {{--<img src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}" width="360" height="360" class="responsive-img" alt="">--}}
+                    <img src="{{route('itinerary_image_path', ['filename' => $itinerario->imagenB])}}" width="215" height="215" alt="" class="margin-all-5">
+                @endif
+                @if (Storage::disk('itinerary')->has($itinerario->imagenC))
+                    {{--<img src="{{route('itinerary_image_path', ['filename' => $itinerario->imagen])}}" width="360" height="360" class="responsive-img" alt="">--}}
+                    <img src="{{route('itinerary_image_path', ['filename' => $itinerario->imagenC])}}" width="215" height="215" alt="" class="margin-all-5">
+                @endif
 
                 {{--<img src="{{asset('img/itinerary/'.str_replace(' ','-',$itinerario->titulo).'')}}.jpg" class="responsive-img" alt="">--}}
                 {{--<h4>Servicios:</h4>--}}

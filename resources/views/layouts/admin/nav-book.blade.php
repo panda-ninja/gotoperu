@@ -11,7 +11,7 @@
                 <li><a class="ventas " href="{{route('index_path')}}">Ventas</a></li>
                 <li><a class="reservas activo" href="{{route('book_path')}}">Reservas</a></li>
                 <li><a class="contabilidad" href="{{route('contabilidad_index_path')}}">Contabilidad</a></li>
-                <li><a class="operaciones" href="{{route('book_path')}}">Operaciones</a></li>
+                <li><a class="operaciones" href="{{route('operaciones_path')}}">Operaciones</a></li>
 
             </ul>
 

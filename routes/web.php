@@ -559,12 +559,18 @@ Route::post('/admin/reservas/add-code', [
     'uses' => 'PackageCotizacionController@add_cod_verif',
     'as' => 'add_cod_verif_path',
 ]);
-
+Route::post('/admin/reservas/add-hora', [
+    'uses' => 'PackageCotizacionController@add_time',
+    'as' => 'add_time_path',
+]);
 Route::post('/admin/reservas/hotel/add-code', [
     'uses' => 'PackageCotizacionController@add_cod_hotel_verif',
     'as' => 'add_cod_verif_hotel_path',
 ]);
-
+Route::post('/admin/reservas/hotel/add-hora', [
+    'uses' => 'PackageCotizacionController@add_hora_hotel_verif',
+    'as' => 'add_hora_hotel_path',
+]);
 Route::post('/admin/curret/clonar', [
     'uses' => 'PackageCotizacionController@clonar_plan',
     'as' => 'generar_pantilla_path',
@@ -576,4 +582,21 @@ Route::get('/admin/curret/clonar/{id}/{id1}', [
 Route::post('admin/plantilla/crear/', [
     'uses' => 'PackageController@itinerary_plantilla_crear',
     'as' => 'package_plantilla_crear_path'
+]);
+
+Route::patch('/admin/quotes/new/step1/step1_edit_hotel/{id}', [
+    'uses' => 'PackageCotizacionController@step1_edit_hotel',
+    'as' => 'step1_edit_hotel_path'
+])->where('id', '[0-9]+');
+Route::get('/admin/daybyday/edit/{id}', [
+    'uses' => 'PackageCotizacionController@editar_daybyday',
+    'as' => 'editar_dadybyday_parh',
+]);
+Route::get('admin/operaciones', [
+    'uses' => 'OperacionesController@index',
+    'as' => 'operaciones_path',
+]);
+Route::post('admin/operaciones/fechas', [
+    'uses' => 'OperacionesController@Lista_fechas',
+    'as' => 'operaciones_lista_path',
 ]);
