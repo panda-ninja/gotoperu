@@ -71,20 +71,24 @@
                                                 $dia = $itinerario->dias - 1;
                                                 $fecha = date($cotizaciones->fecha);
                                                 $fecha_servicio = strtotime ( '+'.$dia.' day' , strtotime ( $fecha ) ) ;
-                                                $fecha_servicio = date ( 'Y-m-j' , $fecha_servicio );
+                                                $fecha_servicio = date ( 'Y-m-d' , $fecha_servicio );
 
                                                 $dia_pago = 7;
                                                 $fecha_p = date($fecha_servicio);
                                                 $fecha_pago = strtotime ( '-'.$dia_pago.' day' , strtotime ( $fecha_p ) ) ;
-                                                $fecha_pago = date ( 'Y-m-j' , $fecha_pago );
+                                                $fecha_pago = date ( 'Y-m-d' , $fecha_pago );
 
                                             @endphp
 
 
                                                 @foreach($itinerario->itinerario_servicios as $servicio)
-                                                    @php $total = 0; $j=0;@endphp
+                                                    @php $total = 0; $total2 = 0; $j=0;@endphp
                                                     @foreach($servicio->pagos->where('estado', 1) as $pagos)
                                                         @php $total = $total + $pagos->a_cuenta; @endphp
+                                                    @endforeach
+
+                                                    @foreach($servicio->pagos as $pagos)
+                                                        @php $total2 = $total2 + $pagos->a_cuenta; @endphp
                                                     @endforeach
 
                                                     @if($total == 0)
@@ -95,62 +99,65 @@
                                                         @endforeach
                                                     @endif
 
-                                                    @if($servicio->precio_c > $total)
+                                                    @if($servicio->precio_c > 0)
                                                         @if($total == 0)
                                                             @if($fecha_pago >= date($ini) AND  $fecha_pago <= date($fin))
-                                                        <tr>
-                                                            <td class="text-center"><input type="checkbox"  onclick="if (this.checked) sumar({{$pago_a_cuenta}}); else restar({{$pago_a_cuenta}})" name="chk_id[]" value="{{$servicio->id}}"></td>
-                                                            @if(isset($servicio->itinerario_proveedor))
-                                                                <td><b>{{ucwords(strtolower($servicio->itinerario_proveedor->razon_social))}}</b></td>
-                                                            @else
-                                                                <td><b></b></td>
+                                                                <tr>
+                                                                    <td class="text-center"><input type="checkbox"  onclick="if (this.checked) sumar({{$pago_a_cuenta}}); else restar({{$pago_a_cuenta}})" name="chk_id[]" value="{{$servicio->id}}"></td>
+                                                                    @if(isset($servicio->itinerario_proveedor))
+                                                                        <td><b>{{ucwords(strtolower($servicio->itinerario_proveedor->razon_social))}}</b></td>
+                                                                    @else
+                                                                        <td><b></b></td>
+                                                                    @endif
+                                                                    {{--<td><b>{{ucwords(strtolower($servicio->nombre))}}</b></td>--}}
+                                                                    @foreach($cotizaciones->cotizaciones_cliente as $cotizaciones_clientes)
+                                                                        <td><b>{{ucwords(strtolower($cotizaciones_clientes->cliente->nombres))}} X{{$cotizaciones->nropersonas}}</b></td>
+                                                                    @endforeach
+                                                                        <td class="text-right"><b>{{$fecha_servicio}}</b></td>
+                                                                    <td class="text-right"><b>{{$fecha_pago}}</b></td>
+                                                                    {{--<td class="text-right"><b><sup><small>$USS</small></sup></b></td>--}}
+                                                                    <td class="text-right"><b>{{$servicio->precio_c}}<sup><small>$USS</small></sup></b></td>
+                                                                    {{--<td class="text-center"><button class="btn btn-primary btn-sm">Pagar</button></td>--}}
+                                                                    <td class="text-right">
+                                                                        <b>
+                                                                            {{$total}}
+                                                                        </b>
+
+                                                                    </td>
+
+                                                                    <td class="text-right"><b>{{$servicio->precio_c}}</b></td>
+
+                                                                </tr>
                                                             @endif
-                                                            {{--<td><b>{{ucwords(strtolower($servicio->nombre))}}</b></td>--}}
-                                                            @foreach($cotizaciones->cotizaciones_cliente as $cotizaciones_clientes)
-                                                                <td><b>{{ucwords(strtolower($cotizaciones_clientes->cliente->nombres))}} X{{$cotizaciones->nropersonas}}</b></td>
-                                                            @endforeach
-                                                                <td class="text-right"><b>{{$fecha_servicio}}</b></td>
-                                                            <td class="text-right"><b>{{$fecha_pago}}</b></td>
-                                                            {{--<td class="text-right"><b><sup><small>$USS</small></sup></b></td>--}}
-                                                            <td class="text-right"><b>{{$servicio->precio_c}}<sup><small>$USS</small></sup></b></td>
-                                                            {{--<td class="text-center"><button class="btn btn-primary btn-sm">Pagar</button></td>--}}
-                                                            <td class="text-right">
-                                                                <b>
-                                                                    {{$total}}
-                                                                </b>
-                                                            </td>
+                                                        @else
+                                                            @if($pagos->fecha_a_pagar >= date($ini) AND  $pagos->fecha_a_pagar <= date($fin))
+                                                                @if($pagos->estado == 0)
+                                                                    <tr>
 
-                                                            <td class="text-right"><b>{{$servicio->precio_c}}</b></td>
-
-                                                        </tr>
+                                                                        <td class="text-center"><input type="checkbox"  onclick="if (this.checked) sumar({{$pago_a_cuenta}}); else restar({{$pago_a_cuenta}})" name="chk_id[]" value="{{$servicio->id}}"></td>
+                                                                        @if(isset($servicio->itinerario_proveedor))
+                                                                            <td><b>{{ucwords(strtolower($servicio->itinerario_proveedor->razon_social))}}</b></td>
+                                                                        @else
+                                                                            <td><b></b></td>
+                                                                        @endif
+                                                                        {{--<td><b>{{ucwords(strtolower($servicio->nombre))}}</b></td>--}}
+                                                                        @foreach($cotizaciones->cotizaciones_cliente as $cotizaciones_clientes)
+                                                                            <td><b>{{ucwords(strtolower($cotizaciones_clientes->cliente->nombres))}} X{{$cotizaciones->nropersonas}}</b></td>
+                                                                        @endforeach
+                                                                        <td class="text-right"><b>{{$fecha_servicio}}</b></td>
+                                                                        <td class="text-right"><b>{{$pagos->fecha_a_pagar}}</b></td>
+                                                                        {{--<td class="text-right"><b><sup><small>$USS</small></sup></b></td>--}}
+                                                                        <td class="text-right"><b>{{$servicio->precio_c}}<sup><small>$USS</small></sup></b></td>
+                                                                        {{--<td class="text-center"><button class="btn btn-primary btn-sm">Pagar</button></td>--}}
+                                                                        <td class="text-right">
+                                                                            <b>
+                                                                                {{$total}}
+                                                                            </b>
+                                                                        </td>
+                                                                        <td class="text-right"><b>{{$pagos->a_cuenta}}</b></td>
+                                                                    </tr>
                                                                 @endif
-                                                        @elseif($pagos->fecha_a_pagar >= date($ini) AND  $pagos->fecha_a_pagar <= date($fin))
-
-                                                            <tr>
-
-                                                                <td class="text-center"><input type="checkbox"  onclick="if (this.checked) sumar({{$pago_a_cuenta}}); else restar({{$pago_a_cuenta}})" name="chk_id[]" value="{{$servicio->id}}"></td>
-                                                                @if(isset($servicio->itinerario_proveedor))
-                                                                    <td><b>{{ucwords(strtolower($servicio->itinerario_proveedor->razon_social))}}</b></td>
-                                                                @else
-                                                                    <td><b></b></td>
-                                                                @endif
-                                                                {{--<td><b>{{ucwords(strtolower($servicio->nombre))}}</b></td>--}}
-                                                                @foreach($cotizaciones->cotizaciones_cliente as $cotizaciones_clientes)
-                                                                    <td><b>{{ucwords(strtolower($cotizaciones_clientes->cliente->nombres))}} X{{$cotizaciones->nropersonas}}</b></td>
-                                                                @endforeach
-                                                                <td class="text-right"><b>{{$fecha_servicio}}</b></td>
-                                                                <td class="text-right"><b>{{$pagos->fecha_a_pagar}}</b></td>
-                                                                {{--<td class="text-right"><b><sup><small>$USS</small></sup></b></td>--}}
-                                                                <td class="text-right"><b>{{$servicio->precio_c}}<sup><small>$USS</small></sup></b></td>
-                                                                {{--<td class="text-center"><button class="btn btn-primary btn-sm">Pagar</button></td>--}}
-                                                                <td class="text-right">
-                                                                    <b>
-                                                                        {{$total}}
-                                                                    </b>
-                                                                </td>
-                                                                <td class="text-right"><b>{{$pagos->a_cuenta}}</b></td>
-                                                            </tr>
-
+                                                            @endif
                                                         @endif
                                                     @endif
                                                 @endforeach
