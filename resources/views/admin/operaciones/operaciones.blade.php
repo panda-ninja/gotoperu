@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="col-lg-2 margin-top-20">
-                                <a href="{{route('')}}" class="btn btn-success btn-lg">
+                                <a href="#" class="btn btn-success btn-lg">
                                     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 </a>
                             </div>
