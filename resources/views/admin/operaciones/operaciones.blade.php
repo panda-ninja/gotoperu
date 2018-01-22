@@ -37,6 +37,12 @@
                                 {{csrf_field()}}
                                 <input type="submit" class="btn btn-primary btn-lg" name="Buscar">
                             </div>
+
+                            <div class="col-lg-2 margin-top-20">
+                                <a href="{{route('')}}" class="btn btn-success btn-lg">
+                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -46,11 +52,11 @@
 
     <div class="row">
         <div class="col-md-12">
-        <div class="panel panel-default">
+        <div class="panel panel-default table-responsive">
             <!-- Default panel contents -->
-            <div class="panel-heading">Lista de opraciones de <span class="bg-primary text-15">{{fecha_peru($desde)}}</span> a <span class="bg-primary text-15">{{fecha_peru($hasta)}}</span></div>
+            <div class="panel-heading">Lista de operaciones de <span class="bg-primary text-15">{{fecha_peru($desde)}}</span> a <span class="bg-primary text-15">{{fecha_peru($hasta)}}</span></div>
             <!-- Table -->
-            <table class="table table-striped table-responsive table-bordered table-hover">
+            <table class="table table-striped table-responsive table-bordered table-hover text-10">
                 <thead>
                     <tr class="bg-primary">
                         <td>FECHA</td>
@@ -61,12 +67,14 @@
                         <td>ID</td>
                         <td>DESTINO</td>
                         <td>HORA</td>
-                        <td>SERVICIO</td>
+                        <td>TOUR</td>
+                        <td>REPRESENT</td>
                         <td>HOTEL</td>
-                        <td>ROOM</td>
-                        <td>MOV</td>
-                        <td>GUIA</td>
-                        <td>TRF</td>
+                        <td>MOVILIDAD</td>
+                        {{--<td>ENTRANCES</td>--}}
+                        <td>FOOD</td>
+                        <td>TRAIN</td>
+                        <td>FLIGHT</td>
                         <td>OBSERVACIONES</td>
                     </tr>
                 </thead>
@@ -84,38 +92,102 @@
                     @endforeach
                     @foreach($cotizacion->paquete_cotizaciones->where('estado','2') as $pqts)
                         @foreach($pqts->itinerario_cotizaciones->sortby('fecha') as $itinerario)
+
+
                             @foreach($itinerario->itinerario_servicios->sortby('hora_llegada') as $servicio)
-                                @php
-                                $serv_txt='';
-                                @endphp
-                                @foreach($m_servicios->where('id',$servicio->m_servicios_id) as $serv)
-                                    @php
-                                        $serv_txt=$serv->localizacion;
-                                    @endphp
-                                @endforeach
-                                {{--<p>{{$itinerario->fecha}} {{$servicio->nombre}} {{$servicio->hora_llegada}}</p>--}}
-                                <tr class="success">
-                                    <td>{{$itinerario->fecha}}</td>
+                                <tr>
+                                    <td>{{fecha_peru($itinerario->fecha)}}</td>
                                     <td>{{$cotizacion->nropersonas}}</td>
                                     <td>
                                         @foreach($clientes_ as $cli)
-                                            {{$cli}}</br>
+                                        {{$cli}}</br>
                                         @endforeach
                                     </td>
                                     <td>{{$cotizacion->web}}</td>
                                     <td>S/P</td>
                                     <td>ID</td>
+                                @php
+                                    $serv_txt='';
+                                    $valor='';
+                                @endphp
+                                @foreach($m_servicios->where('id',$servicio->m_servicios_id) as $serv)
+                                    @php
+                                        $serv_txt=$serv->localizacion;
+                                    @endphp
                                     <td>{{$serv_txt}}</td>
                                     <td>{{$servicio->hora_llegada}}</td>
-                                    <td>SERVICIO</td>
-                                    <td>HOTEL</td>
-                                    <td>ROOM</td>
-                                    <td>MOV</td>
-                                    <td>GUIA</td>
-                                    <td>TRF</td>
-                                    <td>OBSERVACIONES</td>
+                                    @php
+                                        $prov_rs='';
+                                        $prov_celular='';
+                                    @endphp
+                                    @foreach($proveedores->where('id',$servicio->proveedor_id) as $prov)
+                                        @php
+                                            $prov_rs=$prov->razon_social;
+                                            $prov_celular=$prov->celular;
+                                        @endphp
+                                    @endforeach
+                                        @if($serv->grupo=='TOURS')
+                                            <td>
+                                                <p>{{$serv->nombre}}</p>
+                                                <p class="text-primary">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                            </td>
+                                        @else
+                                            <td></td>
+                                        @endif
+
+                                        @if($serv->grupo=='REPRESENT' && $serv->tipoServicio=='TRANSFER')
+                                            <td>
+                                                <p>{{$serv->nombre}}</p>
+                                                <p class="text-primary">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                            </td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        <td>HOTEL</td>
+                                        @if($serv->grupo=='MOVILID')
+                                            <td>
+                                                <p>{{$serv->nombre}}</p>
+                                                <p class="text-primary">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                            </td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        @if($serv->grupo=='FOOD')
+                                            <td>
+                                                <p>{{$serv->nombre}}</p>
+                                                <p class="text-primary">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                            </td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        @if($serv->grupo=='TRAINS')
+                                            <td>
+                                                <p>{{$serv->nombre}}</p>
+                                                <p class="text-primary">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                            </td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        @if($serv->grupo=='FLIGHTS')
+                                            <td>
+                                                <p>{{$serv->nombre}}</p>
+                                                <p class="text-primary">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                            </td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        @if($serv->grupo=='OTHERS')
+                                            <td>
+                                                <p>{{$serv->nombre}}</p>
+                                                <p class="text-primary">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                            </td>
+                                            @endif
+                                        <td>OBSERVACIONES</td>
+
+                                @endforeach
                                 </tr>
                             @endforeach
+
                         @endforeach
                     @endforeach
                 @endforeach
