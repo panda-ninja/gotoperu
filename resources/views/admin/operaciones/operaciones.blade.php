@@ -38,13 +38,10 @@
                                 <input type="submit" class="btn btn-primary btn-lg" name="Buscar">
                             </div>
 
-                            <div class="col-lg-2 margin-top-20">
-                                <a href="#" class="btn btn-success btn-lg">
-                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                </a>
-                            </div>
+
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -54,7 +51,14 @@
         <div class="col-md-12">
         <div class="panel panel-default table-responsive">
             <!-- Default panel contents -->
-            <div class="panel-heading">Lista de operaciones de <span class="bg-primary text-15">{{fecha_peru($desde)}}</span> a <span class="bg-primary text-15">{{fecha_peru($hasta)}}</span></div>
+            <div class="panel-heading">
+
+                Lista de operaciones de <span class="bg-primary text-15">{{fecha_peru($desde)}}</span> a <span class="bg-primary text-15">{{fecha_peru($hasta)}}</span>
+
+                    <a href="{{route('imprimir_operaciones_path',[$desde,$hasta])}}" class="btn btn-danger btn-sm">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    </a>
+            </div>
             <!-- Table -->
             <table class="table table-striped table-responsive table-bordered table-hover text-10">
                 <thead>

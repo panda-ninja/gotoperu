@@ -604,3 +604,7 @@ Route::get('admin/operaciones/s_p/{id1}/{id2}/{id3}', [
     'uses' => 'OperacionesController@sp',
     'as' => 'sp_path',
 ]);
+Route::get('admin/operaciones/pdf/{id1}/{id2}', [
+    'uses' => 'OperacionesController@pdf',
+    'as' => 'imprimir_operaciones_path',
+]);

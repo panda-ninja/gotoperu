@@ -191,3 +191,51 @@ b{
     top: 920px;
     text-align: right;
 }
+/*.table-border{*/
+   /*border: 1px solid #ccc;*/
+/*}*/
+
+/*.table-proveedor{*/
+    /*color: #3097D1;*/
+/*}*/
+/*.table-fondo{*/
+    /*background: #3097D1;*/
+    /*color: white;*/
+/*}*/
+.table-proveedor{
+     color: #3097D1;
+}
+
+/** {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+#page-wrap {
+    margin: 15px;
+}
+p {
+    margin: 10px 0;
+}
+
+/*
+Generic Styling, for Desktops/Laptops
+*/
+table {
+    font: 10px/1 Georgia, Serif;
+    width: 99%;
+    border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+th {
+    background: #3097D1;
+    color: white;
+    font-weight: bold;
+}
+td, th {
+    padding: 1px;
+    border: 1px solid #ccc;
+    text-align: left;
+}

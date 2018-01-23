@@ -52,5 +52,19 @@ class OperacionesController extends Controller
         $iti->save();
         return redirect()->route('book_show_path',$id1);
     }
+    public function pdf($desde,$hasta)
+    {
+        $cotizaciones=Cotizacion::with(['paquete_cotizaciones.itinerario_cotizaciones'=> function ($query) use ($desde,$hasta) {
+            $query->whereBetween('fecha', array($desde, $hasta));
+        }])
+            ->where('confirmado_r','ok')
+            ->get();
+        $clientes2=Cliente::get();
+        $m_servicios=M_Servicio::get();
+        $proveedores=Proveedor::get();
+        $pdf = \PDF::loadView('admin.operaciones.operaciones-pdf', compact('cotizaciones','desde','hasta','clientes2','m_servicios','proveedores'))
+        ->setPaper('a4', 'landscape')->setWarnings(true);
+        return $pdf->download('Operaciones'.'.pdf');
 
+    }
 }
