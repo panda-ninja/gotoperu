@@ -27629,3 +27629,117 @@ function mostrar_pivot_edit(daybyday,cate){
     $("#t_edit_"+daybyday+"_OTHERS").addClass('hide');
     $("#t_edit_"+daybyday+"_"+cate).removeClass('hide');
 }
+
+function guardar_obs_servicio(id){
+    var obs_=$("#obs_"+id).val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('../../admin/operaciones/observacion', 'obs='+obs_+'&id='+id, function(data) {
+        $("#rpt_"+id).html(data);
+        if(data=='1'){
+            $("#rpt_"+id).removeClass('text-danger');
+            $("#rpt_"+id).removeClass('text-success');
+            $("#rpt_"+id).addClass('text-success');
+            $("#rpt_"+id).html('Observacion guardada correctamente!');
+        }
+        else{
+            $("#rpt_"+id).removeClass('text-danger');
+            $("#rpt_"+id).removeClass('text-success');
+            $("#rpt_"+id).addClass('text-danger');
+            $("#rpt_"+id).html('Error al guardar la observacion, intentelo de nuevo!');
+        }
+
+    }).fail(function (data) {
+    });
+}
+
+function CierraPopup(id) {
+    $("#myModal_serv"+id).modal('hide');//ocultamos el modal
+    $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
+    $('.modal-backdrop').remove();//eliminamos el backdrop del modal
+}
+function segunda_confirmada(id,valor){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de guardar los cambios?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        var confi2_v_=$("#confi2_v_"+id).val();
+        console.log('hola:'+confi2_v_);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('../../admin/operaciones/segunda-confirmada', 'confi2='+confi2_v_+'&id='+id, function(data) {
+            $("#rpt_"+id).html(data);
+            if(data=='1'){
+                if(confi2_v_=='1'){
+                    $("#confi2_"+id).removeClass('text-grey-goto');
+                    $("#confi2_"+id).removeClass('text-success');
+                    $("#confi2_"+id).addClass('text-success');
+                    $("#confi2_v_"+id).val('0');
+                }
+                else if(confi2_v_=='0') {
+                    $("#confi2_" + id).removeClass('text-grey-goto');
+                    $("#confi2_" + id).removeClass('text-success');
+                    $("#confi2_" + id).addClass('text-grey-goto');
+                    $("#confi2_v_" + id).val('1');
+                }
+            }
+
+        }).fail(function (data) {
+        });
+
+    })
+
+
+}
+function segunda_confirmada_hotel(id,valor){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de guardar los cambios?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        var confi2_v_=$("#confi2_v_h_"+id).val();
+        console.log('hola:'+confi2_v_);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('../../admin/operaciones/segunda-confirmada-hotel', 'confi2='+confi2_v_+'&id='+id, function(data) {
+            $("#rpt_"+id).html(data);
+            if(data=='1'){
+                if(confi2_v_=='1'){
+                    $("#confi2_h_"+id).removeClass('text-grey-goto');
+                    $("#confi2_h_"+id).removeClass('text-success');
+                    $("#confi2_h_"+id).addClass('text-success');
+                    $("#confi2_v_h_"+id).val('0');
+                }
+                else if(confi2_v_=='0') {
+                    $("#confi2_h_" + id).removeClass('text-grey-goto');
+                    $("#confi2_h_" + id).removeClass('text-success');
+                    $("#confi2_h_" + id).addClass('text-grey-goto');
+                    $("#confi2_v_h_" + id).val('1');
+                }
+            }
+
+        }).fail(function (data) {
+
+        });
+
+    })
+
+}

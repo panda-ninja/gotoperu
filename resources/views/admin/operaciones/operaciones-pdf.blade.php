@@ -52,7 +52,7 @@
                         @endforeach
                         @foreach($cotizacion->paquete_cotizaciones->where('estado','2') as $pqts)
                             @foreach($pqts->itinerario_cotizaciones->sortby('fecha') as $itinerario)
-                                @foreach($itinerario->itinerario_servicios->sortby('hora_llegada') as $servicio)
+                                    @foreach($itinerario->itinerario_servicios->sortby('hora_llegada') as $servicio)
                                     <tr>
                                         <td>{{fecha_peru($itinerario->fecha)}}</td>
                                         <td>{{$cotizacion->nropersonas}}</td>
@@ -62,8 +62,8 @@
                                             @endforeach
                                         </td>
                                         <td>{{$cotizacion->web}}</td>
-                                        <td>S/P</td>
-                                        <td>ID</td>
+                                        <td>{{$servicio->s_p}}</td>
+                                        <td>{{$cotizacion->idioma_pasajeros}}</td>
                                         @php
                                             $serv_txt='';
                                             $valor='';
@@ -88,24 +88,74 @@
                                                 <td>
                                                     <p>{{$serv->nombre}}</p>
                                                     <p class="table-proveedor">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                                    @if($servicio->segunda_confirmada==1)
+                                                        <img  src="{{asset('img/icons/iconov.png')}}" width="30px" height="30px">
+                                                    @else
+                                                        <img src="{{asset('img/icons/iconon.png')}}" width="30px" height="30px">
+                                                    @endif
                                                 </td>
                                             @else
-                                                <td></td>
+                                                <td>
+
+                                                </td>
                                             @endif
 
                                             @if($serv->grupo=='REPRESENT' && $serv->tipoServicio=='TRANSFER')
                                                 <td>
                                                     <p>{{$serv->nombre}}</p>
                                                     <p class="table-proveedor">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                                    @if($servicio->segunda_confirmada==1)
+                                                        <img  src="{{asset('img/icons/iconov.png')}}" width="30px" height="30px">
+                                                    @else
+                                                        <img src="{{asset('img/icons/iconon.png')}}" width="30px" height="30px">
+                                                    @endif
                                                 </td>
                                             @else
-                                                <td></td>
+                                                <td>
+
+                                                </td>
                                             @endif
-                                            <td>HOTEL</td>
+                                            <td>
+                                                @php
+                                                    $prov_hotel_rs='';
+                                                    $prov_hotel_celular='';
+                                                @endphp
+                                                @foreach($itinerario->hotel as $hotel)
+                                                    @foreach($proveedores->where('id',$hotel->proveedor_id) as $prov_hotel)
+                                                        @php
+                                                            $prov_hotel_rs=$prov_hotel->razon_social;
+                                                            $prov_hotel_celular=$prov_hotel->celular;
+                                                        @endphp
+                                                    @endforeach
+                                                    @if($hotel->personas_s>0)
+                                                        <p>{{$hotel->personas_s}} Single</p>
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                        <p>{{$hotel->personas_d}} Double</p>
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                        <p>{{$hotel->personas_m}} Matrimonial</p>
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                        <p>{{$hotel->personas_t}} Triple</p>
+                                                    @endif
+                                                    <p class="table-proveedor">{{$prov_hotel_rs}}<br>{{$prov_hotel_celular}}</p>
+                                                        @if($hotel->segunda_confirmada==1)
+                                                            <img  src="{{asset('img/icons/iconov.png')}}" width="30px" height="30px">
+                                                        @else
+                                                            <img src="{{asset('img/icons/iconon.png')}}" width="30px" height="30px">
+                                                        @endif
+                                                @endforeach
+                                            </td>
                                             @if($serv->grupo=='MOVILID')
                                                 <td>
                                                     <p>{{$serv->nombre}}</p>
                                                     <p class="table-proveedor">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                                    @if($servicio->segunda_confirmada==1)
+                                                        <img  src="{{asset('img/icons/iconov.png')}}" width="30px" height="30px">
+                                                    @else
+                                                        <img src="{{asset('img/icons/iconon.png')}}" width="30px" height="30px">
+                                                    @endif
                                                 </td>
                                             @else
                                                 <td></td>
@@ -114,6 +164,11 @@
                                                 <td>
                                                     <p>{{$serv->nombre}}</p>
                                                     <p class="table-proveedor">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                                    @if($servicio->segunda_confirmada==1)
+                                                        <img  src="{{asset('img/icons/iconov.png')}}" width="30px" height="30px">
+                                                    @else
+                                                        <img src="{{asset('img/icons/iconon.png')}}" width="30px" height="30px">
+                                                    @endif
                                                 </td>
                                             @else
                                                 <td></td>
@@ -122,6 +177,11 @@
                                                 <td>
                                                     <p>{{$serv->nombre}}</p>
                                                     <p class="table-proveedor">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                                    @if($servicio->segunda_confirmada==1)
+                                                        <img  src="{{asset('img/icons/iconov.png')}}" width="30px" height="30px">
+                                                    @else
+                                                        <img src="{{asset('img/icons/iconon.png')}}" width="30px" height="30px">
+                                                    @endif
                                                 </td>
                                             @else
                                                 <td></td>
@@ -130,6 +190,11 @@
                                                 <td>
                                                     <p>{{$serv->nombre}}</p>
                                                     <p class="table-proveedor">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                                    @if($servicio->segunda_confirmada==1)
+                                                        <img  src="{{asset('img/icons/iconov.png')}}" width="30px" height="30px">
+                                                    @else
+                                                        <img src="{{asset('img/icons/iconon.png')}}" width="30px" height="30px">
+                                                    @endif
                                                 </td>
                                             @else
                                                 <td></td>
@@ -138,9 +203,14 @@
                                                 <td>
                                                     <p>{{$serv->nombre}}</p>
                                                     <p class="table-proveedor">{{$prov_rs}}<br>{{$prov_celular}}</p>
+                                                    @if($servicio->segunda_confirmada==1)
+                                                        <img  src="{{asset('img/icons/iconov.png')}}" width="25px" height="25px">
+                                                    @else
+                                                        <img src="{{asset('img/icons/iconon.png')}}" width="25px" height="25px">
+                                                    @endif
                                                 </td>
                                             @endif
-                                            <td>OBSERVACIONES</td>
+                                            <td>{{$servicio->obs_operaciones}}</td>
 
                                         @endforeach
                                     </tr>

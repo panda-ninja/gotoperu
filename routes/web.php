@@ -608,3 +608,16 @@ Route::get('admin/operaciones/pdf/{id1}/{id2}', [
     'uses' => 'OperacionesController@pdf',
     'as' => 'imprimir_operaciones_path',
 ]);
+Route::post('admin/operaciones/observacion', [
+    'uses' => 'OperacionesController@asignar_observacion',
+    'as' => 'asignar_observacion_servicio_path',
+]);
+
+Route::post('admin/operaciones/segunda-confirmada', [
+    'uses' => 'OperacionesController@segunda_confirmada',
+    'as' => 'confirmar2_reserva_path',
+]);
+Route::post('admin/operaciones/segunda-confirmada-hotel', [
+    'uses' => 'OperacionesController@segunda_confirmada_hotel',
+    'as' => 'confirmar2_reserva_hotel_path',
+]);

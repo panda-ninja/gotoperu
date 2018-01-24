@@ -38,51 +38,9 @@
                                         {{--<h1 class="panel-title pull-left" style="font-size:30px;">Hidalgo <small>hidlgo@gmail.com</small></h1>--}}
                                         <h2 class="panel-title pull-left" style="font-size:30px;">{{$clientes->cliente->nombres}} {{$clientes->cliente->apellidos}} x {{$cotizacion->nropersonas}} {{date_format(date_create($cotizacion->fecha), ' l jS F Y')}}</h2>
                                         <b class="text-warning padding-left-10"> (X{{$cotizacion->nropersonas}})</b>
-                                        @if($cotizacion->nropersonas==1)
+                                        @for($i=0;$i<$cotizacion->nropersonas;$i++)
                                             <i class="fa fa-male fa-2x"></i>
-                                        @elseif($cotizacion->nropersonas==2)
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                        @elseif($cotizacion->nropersonas==3)
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                        @elseif($cotizacion->nropersonas==4)
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                        @elseif($cotizacion->nropersonas==5)
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                        @elseif($cotizacion->nropersonas==6)
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                        @elseif($cotizacion->nropersonas==7)
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                        @elseif($cotizacion->nropersonas==8)
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                            <i class="fa fa-male fa-2x"></i>
-                                        @endif
+                                        @endfor
                                     @endif
                             @endforeach
                             <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hidalgo esta activo"></i>
@@ -181,7 +139,40 @@
 
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
-                                            <td></td>
+                                            <td>
+                                                @php
+                                                    $grupe='ninguno';
+                                                @endphp
+                                                @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $m_ser)
+                                                    @php
+                                                        $grupe=$m_ser->grupo;
+                                                    @endphp
+                                                @endforeach
+                                                @if($grupe=='TOURS')
+                                                    <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                @endif
+                                                @if($grupe=='MOVILID')
+                                                    <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                @endif
+                                                @if($grupe=='REPRESENT')
+                                                    <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                @endif
+                                                @if($grupe=='ENTRANCES')
+                                                    <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                @endif
+                                                @if($grupe=='FOOD')
+                                                    <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                @endif
+                                                @if($grupe=='TRAINS')
+                                                    <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                @endif
+                                                @if($grupe=='FLIGHTS')
+                                                    <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                @endif
+                                                @if($grupe=='OTHERS')
+                                                    <i class="fa fa-question fa-text-success" aria-hidden="true"></i>
+                                                @endif
+                                            </td>
                                             <td>{{$servicios->nombre}}</td>
                                             <td class="text-right">
                                                 @php
@@ -244,6 +235,14 @@
                                                         $icon_h='edit';
                                                     @endphp
                                                 @endif
+                                                @php
+                                                    $mostrar='hide';
+                                                @endphp
+                                                @if($grupe!='ENTRANCES')
+                                                    @php
+                                                        $mostrar='';
+                                                    @endphp
+                                                @endif
                                                 <form class="form-inline" action="{{route('add_cod_verif_path')}}" method="post">
                                                     <div class="row">
                                                         {{csrf_field()}}
@@ -261,7 +260,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <form class="form-inline" action="{{route('add_time_path')}}" method="post">
+                                                <form class="{{$mostrar}} form-inline" action="{{route('add_time_path')}}" method="post">
                                                     <div class="row">
                                                         {{csrf_field()}}
                                                         <input type="hidden" name="id" value="{{$servicios->id}}">
@@ -280,13 +279,15 @@
                                             <td>
                                             @if($servicios->itinerario_proveedor)
                                                 {{$servicios->itinerario_proveedor->razon_social}}
-                                                    {{--@foreach($$proveedores as $proveedor_)--}}
-                                                    {{--{{dd($servicios_->itinerario_proveedor)}}--}}
-                                                    {{--@if($servicios->itinerario_proveedor->proveedor_id=$proveedor->id)--}}
-                                                        {{--{{$proveedor->razon_social}}--}}
-                                                    {{--@endif--}}
-                                                {{--@endforeach--}}
                                             @else
+                                                @php
+                                                $grupe='ninguno';
+                                                @endphp
+                                                @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $m_ser)
+                                                        @php
+                                                            $grupe=$m_ser->grupo;
+                                                        @endphp
+                                                @endforeach
                                                     <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
                                                     Proveedor
                                                     </button>
@@ -296,7 +297,32 @@
                                                                 <form action="{{route('asignar_proveedor_path')}}" method="post">
                                                                 <div class="modal-header">
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                                    <h4 class="modal-title" id="myModalLabel">
+                                                                        @if($grupe=='TOURS')
+                                                                            <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($grupe=='MOVILID')
+                                                                            <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                        @endif
+                                                                            @if($grupe=='REPRESENT')
+                                                                                <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                            @endif
+                                                                            @if($grupe=='ENTRANCES')
+                                                                                <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                            @endif
+                                                                            @if($grupe=='FOOD')
+                                                                                <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                            @endif
+                                                                            @if($grupe=='TRAINS')
+                                                                                <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                            @endif
+                                                                            @if($grupe=='FLIGHTS')
+                                                                                <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                            @endif
+                                                                            @if($grupe=='OTHERS')
+                                                                                <i class="fa fa-question fa-text-success" aria-hidden="true"></i>
+                                                                            @endif
+                                                                        Lista de proveedores</h4>
                                                                 </div>
                                                                 <div class="modal-body clearfix">
                                                                     <div class="col-md-12">
@@ -348,8 +374,8 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     {{csrf_field()}}
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
                                                                 </div>
                                                                 </form>
                                                             </div>
@@ -528,59 +554,48 @@
                                                                 <form action="{{route('asignar_proveedor_hotel_path')}}" method="post">
                                                                     <div class="modal-header">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-building" aria-hidden="true"></i> Lista de proveedores para el hotel</h4>
                                                                     </div>
                                                                     <div class="modal-body clearfix">
                                                                         <div class="col-md-12">
-{{--                                                                            {{dd($servicios)}}--}}
-                                                                            {{--{{$hotel_proveedor}}--}}
-                                                                            @foreach($hotel_proveedor/*->where('hotel_id',$hotel->hotel_id)*/ as $hotel_proveedor_)
-{{--                                                                                {{dd($hotel_proveedor_->single)}}--}}
-                                                                                @if($hotel_proveedor_->estrellas==$paquete->estrellas)
+                                                                            @foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)
+{{--
+                                                                                {{--@if($hotel_proveedor_->estrellas==$paquete->estrellas)--}}
                                                                                     <div class="col-md-6">
                                                                                         <div class="checkbox11 text-left bg-info">
                                                                                             <label class="text-primary">
                                                                                                 <input class="grupo" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}">
-                                                                                                <b>{{$hotel_proveedor_->proveedor->razon_social}}</b>
+                                                                                                <b>{{$hotel_proveedor_->proveedor->razon_social}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></>
                                                                                             </label>
                                                                                             @if($hotel->personas_s>0)
-                                                                                                    <p>Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
+                                                                                                    <p class="text-green-goto">Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
                                                                                             @endif
                                                                                             @if($hotel->personas_d>0)
-                                                                                                    <p>Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
+                                                                                                    <p class="text-green-goto">Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
                                                                                             @endif
                                                                                             @if($hotel->personas_m>0)
-                                                                                                <p>Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
+                                                                                                <p class="text-green-goto">Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
                                                                                             @endif
                                                                                             @if($hotel->personas_t>0)
-                                                                                                <p>Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
+                                                                                                <p class="text-green-goto">Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
                                                                                             @endif
 
                                                                                         </div>
                                                                                     </div>
-                                                                                @endif
                                                                             @endforeach
-
-
                                                                         </div>
-
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         {{csrf_field()}}
-                                                                        <input type="text" name="id" value="{{$hotel->id}}">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                        <input type="hidden" name="id" value="{{$hotel->id}}">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 @endif
-                                                {{--@if($servicios->itinerario_proveedor)--}}
-                                                    {{--{{$servicios->itinerario_proveedor->razon_social}}--}}
-                                                 {{--@else--}}
-
-                                                {{--@endif--}}
                                             </td>
                                             <td>
                                             </td>

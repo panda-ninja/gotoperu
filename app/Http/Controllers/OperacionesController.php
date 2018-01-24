@@ -6,6 +6,7 @@ use App\Cliente;
 use App\Cotizacion;
 use App\ItinerarioServicios;
 use App\M_Servicio;
+use App\PrecioHotelReserva;
 use App\Proveedor;
 use Illuminate\Http\Request;
 
@@ -67,4 +68,39 @@ class OperacionesController extends Controller
         return $pdf->download('Operaciones'.'.pdf');
 
     }
+    public function asignar_observacion(Request $request)
+    {
+        $id=$request->input('id');
+        $obs=$request->input('obs');
+        $iti=ItinerarioServicios::FindOrFail($id);
+        $iti->obs_operaciones=$obs;
+        if($iti->save())
+            return 1;
+        else
+            return 0;
+    }
+    public function segunda_confirmada(Request $request)
+    {
+        $id=$request->input('id');
+        $confi2=$request->input('confi2');
+        $iti=ItinerarioServicios::FindOrFail($id);
+        $iti->segunda_confirmada=$confi2;
+        if($iti->save())
+            return 1;
+        else
+            return 0;
+    }
+    public function segunda_confirmada_hotel(Request $request)
+    {
+        $id=$request->input('id');
+        $confi2=$request->input('confi2');
+        $iti=PrecioHotelReserva::FindOrFail($id);
+        $iti->segunda_confirmada=$confi2;
+        if($iti->save())
+            return 1;
+        else
+            return 0;
+    }
+
+
 }
