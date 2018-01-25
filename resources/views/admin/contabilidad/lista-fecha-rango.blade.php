@@ -25,16 +25,13 @@
                         <button class="btn btn-success text-right" type="button" id="btn_guardar" onclick="guardarConsulta()">Guardar Consulta</button>
                             <i class="fa fa-spinner fa-pulse fa-3x fa-fw hide" id="btn_load"></i>
                             <span class="sr-only">Loading...</span>
-
                         <i class="fa fa-check fa-3x text-success hide" id="btn_check"></i>
                             <hr>
                     </div>
-                    {{--{{$id}}--}}
                     <div class="row">
-                        <form action="{{route('list_fechas_show_path')}}" method="post">
+                        {{--<form action="{{route('list_fechas_show_path')}}" method="post">--}}
                             {{csrf_field()}}
                             <div class="col-lg-12 table-responsive">
-
                                 <table class="table table-condensed table-bordered margin-top-20 table-hover">
                                     <thead>
                                     <tr>
@@ -120,8 +117,9 @@
                                                                                 {{$total}}
                                                                             </li>
                                                                         </td>
+
                                                                         @if($total == 0)
-                                                                                <input type="hidden" value="0" id="id_pago_{{$x}}">
+                                                                                <input type="text" value="0" id="id_pago_{{$x}}">
                                                                                 <input type="hidden" value="{{$servicio->precio_c}}" id="p_mcuenta_{{$x}}">
                                                                                 <input type="hidden" value="{{$servicio->precio_c}}" id="m_memory_{{$x}}">
                                                                                 {{--@php echo input $servicio->precio_c; @endphp--}}
@@ -129,7 +127,7 @@
 {{--                                                                                <td class="text-right"><b>{{$fecha_pago}}</b></td>--}}
                                                                                 @php  $y = $y +$servicio->precio_c; @endphp
                                                                         @else
-                                                                                <input type="hidden" value="{{$pagos->id}}" id="id_pago_{{$x}}">
+                                                                                <input type="text" value="{{$pagos->id}}" id="id_pago_{{$x}}">
 {{--                                                                                @php echo $pagos->a_cuenta; @endphp--}}
                                                                                 <input type="hidden" value="{{$pagos->a_cuenta}}" id="p_mcuenta_{{$x}}">
                                                                                 <input type="hidden" value="{{$pagos->a_cuenta}}" id="m_memory_{{$x}}">
@@ -171,16 +169,17 @@
                                                                                     <div class="modal fade" id="modal_{{$x}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                                         <div class="modal-dialog" role="document">
                                                                                             <div class="modal-content">
-                                                                                                <div class="modal-header">
-                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                                    <h4 class="modal-title" id="myModalLabel">Subir Imagen</h4>
-                                                                                                </div>
-                                                                                                <div class="modal-body">
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                                                                                                            <div class="input-group image-preview">
-                                                                                                                <input type="text" class="form-control image-preview-filename" disabled="disabled">
-                                                                                                                <span class="input-group-btn">
+                                                                                                <form id="guardar_imagen_pago" action="{{route('guardar_imagen_pago_path')}}" enctype="multipart/form-data" method="post">
+                                                                                                    <div class="modal-header">
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                                        <h4 class="modal-title" id="myModalLabel">Subir Imagen</h4>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                                                                                                <div class="input-group image-preview">
+                                                                                                                    <input type="text" class="form-control image-preview-filename" disabled="disabled">
+                                                                                                                    <span class="input-group-btn">
                                                                                                                         <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
                                                                                                                             <span class="glyphicon glyphicon-remove"></span> Clear
                                                                                                                         </button>
@@ -190,14 +189,19 @@
                                                                                                                             <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
                                                                                                                         </div>
                                                                                                                     </span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                                                                                                <span id="result_{{$x}}" class="text-15 text-success"></span>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                                <div class="modal-footer">
-                                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                    <button type="button" class="btn btn-primary">Guardar Imagen</button>
-                                                                                                </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <input type="text" id="response_{{$x}}" name="id">
+                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        <button type="submit" class="btn btn-primary" onclick="guardar_imagen_pago_({{$x}})">Guardar Imagen</button>
+                                                                                                    </div>
+                                                                                                </form>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -246,6 +250,7 @@
                                                                                 <div class="modal fade" id="modal_{{$x}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                                     <div class="modal-dialog" role="document">
                                                                                         <div class="modal-content">
+                                                                                            <form id="guardar_imagen_pago_2{{$x}}" name="guardar_imagen_pago_2{{$x}}" action="{{route('guardar_imagen_pago_path')}}" enctype="multipart/form-data" method="post">
                                                                                             <div class="modal-header">
                                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                                                 <h4 class="modal-title" id="myModalLabel">Subir Imagen</h4>
@@ -256,23 +261,28 @@
                                                                                                         <div class="input-group image-preview">
                                                                                                             <input type="text" class="form-control image-preview-filename" disabled="disabled">
                                                                                                             <span class="input-group-btn">
-                                                                                                                        <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                                                                                                                            <span class="glyphicon glyphicon-remove"></span> Clear
-                                                                                                                        </button>
-                                                                                                                        <div class="btn btn-default image-preview-input">
-                                                                                                                            <span class="glyphicon glyphicon-folder-open"></span>
-                                                                                                                            <span class="image-preview-input-title">Buscar</span>
-                                                                                                                            <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
-                                                                                                                        </div>
-                                                                                                                    </span>
+                                                                                                                <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                                                                                                    <span class="glyphicon glyphicon-remove"></span> Clear
+                                                                                                                </button>
+                                                                                                                <div class="btn btn-default image-preview-input">
+                                                                                                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                                                                                                    <span class="image-preview-input-title">Buscar</span>
+                                                                                                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="input_file"/>
+                                                                                                                </div>
+                                                                                                            </span>
                                                                                                         </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                                                                                        <span id="result_{{$x}}" class="text-15 text-success"></span>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="modal-footer">
+                                                                                                <input type="text" id="response_{{$x}}" name="id">
                                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                <button type="button" class="btn btn-primary">Guardar Imagen</button>
+                                                                                                <button type="submit" class="btn btn-primary" onclick="guardar_imagen_pago_2({{$x}})">Guardar hImagen</button>
                                                                                             </div>
+                                                                                            </form>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -297,20 +307,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {{--<div class="col-lg-3">--}}
-                                {{--<div class="panel panel-default">--}}
-                                    {{--<div class="panel-body text-center">--}}
-                                        {{--<h2 class="text-40"><sup><small>$usd</small></sup><b id="s_total">Monto</b></h2>--}}
-                                        {{--<button class="btn btn-info display-block w-100" type="button">Seleccionar</button>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        </form>
+                        {{--</form>--}}
                     </div>
-                    {{--<hr>--}}
-                    {{--<div class="text-right">--}}
-                        {{--<button class="btn btn-success text-right" type="button">Guardar Consulta</button>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -499,6 +497,8 @@
                         $('#p_bload_'+id).removeClass('hide');
                     },
                     success:  function (response) {
+                        response=response.split('/');
+                        $('#response_'+id).val(response[1]);
                         // $('#d_form')[0].reset();
                         $('#p_bcheck_'+id).removeClass('hide')
                         $('#p_bload_'+id).addClass('hide');
@@ -546,6 +546,7 @@
             }
 
             if(sendPay == "true"){
+
                 var datos = {
                     "txt_idservicio" : id_servicio,
                     "txt_saldo" : p_saldo,
@@ -567,7 +568,9 @@
                         $('#p_bload_'+id).removeClass('hide');
                     },
                     success:  function (response) {
-                        // $('#d_form')[0].reset();
+                        // $('#d_form')[0].reset();}
+                        response=response.split('/');
+                        $('#response_'+id).val(response[1]);
                         $('#p_bcheck_'+id).removeClass('hide')
                         $('#p_bload_'+id).addClass('hide');
                         $('#p_fpago_'+id).addClass('hide');
@@ -640,6 +643,32 @@
                 reader.readAsDataURL(file);
             });
         });
+        function guardar_imagen_pago_2(id){
+            $('#guardar_imagen_pago_2'+id).submit(function() {
 
+                // Enviamos el formulario usando AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    // Mostramos un mensaje con la respuesta de PHP
+                    success: function(data) {
+                        console.log(data);
+                        if(data==1){
+                            $('#result_'+id).removeClass('text-danger');
+                            $('#result_'+id).addClass('text-success');
+                            $('#result_'+id).html('imagen guardada Correctamente!');
+                        }
+                        else{
+                            $('#result_'+id).removeClass('text-success');
+                            $('#result_'+id).addClass('text-danger');
+                            $('#result_'+id).html('Error al guardar la imagen, intentelo de nuevo');
+                        }
+                    }
+                })
+                // esto es para que no se reenvie el formulario
+                return false;
+            });
+        }
     </script>
 @stop

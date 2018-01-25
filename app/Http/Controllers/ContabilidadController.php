@@ -120,7 +120,7 @@ class ContabilidadController extends Controller
                 $p_servicio->itinerario_servicios_id = $idservicio;
                 $p_servicio->save();
 
-                return "cuenta = 0 id = 0";
+                return "cuenta = 0 id = 0/".$p_servicio->id;
             }else{
 
                 $p_servicio_1 = new ItinerarioServiciosPagos;
@@ -139,7 +139,7 @@ class ContabilidadController extends Controller
                 $p_servicio_2->itinerario_servicios_id = $idservicio;
                 $p_servicio_2->save();
 
-                return "cuenta <> 0 id = 0";
+                return "cuenta <> 0 id = 0/".$p_servicio_1->id;
 
             }
 
@@ -153,7 +153,7 @@ class ContabilidadController extends Controller
                 $p_servicio_1->estado = 1;
                 $p_servicio_1->save();
 
-                return "cuenta = 0  id <> 0 ";
+                return "cuenta = 0  id <> 0 /".$p_servicio_1->id;
             }else{
                 $p_servicio_1 = ItinerarioServiciosPagos::FindOrFail($idpago);
                 $p_servicio_1->a_cuenta = $saldo;
@@ -170,7 +170,7 @@ class ContabilidadController extends Controller
                 $p_servicio_2->itinerario_servicios_id = $idservicio;
                 $p_servicio_2->save();
 
-                return "cuenta <> 0  id <> 0 ".$idpago."";
+                return "cuenta <> 0  id <> 0 ".$idpago."/".$p_servicio_1->id;
 
             }
         }
@@ -388,6 +388,25 @@ class ContabilidadController extends Controller
                 return '1_'.$pagos->id;
             else
                 return 0;
+        }
+        else
+            return 0;
+    }
+    public function guardar_imagen_pago(Request $request)
+    {
+//        return $request->all();
+
+        $id=$request->input('id');
+        $imagen=$request->input('input_file');
+//        dd($request->file('input_file'));
+
+        if($imagen){
+            $objeto=ItinerarioServiciosPagos::FindOrFail($id);
+            $filename ='pago-servicio-'.$id.'.jpg';
+            $objeto->imagen=$filename;
+            $objeto->save();
+            Storage::disk('imagen_pago_servicio')->put($filename,  File::get($imagen));
+            return 1;
         }
         else
             return 0;

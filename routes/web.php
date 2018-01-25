@@ -621,3 +621,7 @@ Route::post('admin/operaciones/segunda-confirmada-hotel', [
     'uses' => 'OperacionesController@segunda_confirmada_hotel',
     'as' => 'confirmar2_reserva_hotel_path',
 ]);
+Route::post('admin/contabilidad/listar-fechas-subir-imagen', [
+    'uses' => 'ContabilidadController@guardar_imagen_pago',
+    'as' => 'guardar_imagen_pago_path',
+]);
