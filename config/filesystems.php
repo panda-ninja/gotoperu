@@ -66,7 +66,7 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        'itinerary' => [
+        'imagen_pago_servicio' => [
             'driver' => 'local',
             'root' => storage_path('app/public/imagen_pago_servicio'),
             'url' => env('APP_URL').'/storage',

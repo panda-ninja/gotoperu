@@ -300,3 +300,21 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   border-radius: 5px;
   margin: 2px;
 }
+.img-hover img {
+  -webkit-transition: all .3s ease; /* Safari and Chrome */
+  -moz-transition: all .3s ease; /* Firefox */
+  -o-transition: all .3s ease; /* IE 9 */
+  -ms-transition: all .3s ease; /* Opera */
+  transition: all .3s ease;
+}
+.img-hover img:hover {
+  position: absolute;
+  z-index: 10000 !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform:translateZ(0) scale(2.20); /* Safari and Chrome */
+  -moz-transform:scale(2.20); /* Firefox */
+  -ms-transform:scale(2.20); /* IE 9 */
+  -o-transform:translatZ(0) scale(2.20); /* Opera */
+  transform:translatZ(0) scale(2.20);
+}

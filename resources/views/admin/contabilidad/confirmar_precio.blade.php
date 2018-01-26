@@ -116,12 +116,6 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    {{--<h4 class="text-right">--}}
-                        {{--<a href="#" style="text-decoration:none;">--}}
-                            {{--<strong class="text-warning text-25">Pending: 23.00$</strong>--}}
-                        {{--</a>--}}
-                    {{--</h4>--}}
-                    {{--<hr>--}}
 
                     <table class="table table-condensed table-bordered margin-top-20 table-hover">
                         <thead>
@@ -178,6 +172,130 @@
                                                     <button class="btn btn-warning display-block btn-sm" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
                                                     <a href="{{route('pagar_servicios_conta_path', [$cotizaciones->id, $servicios->id])}}" class="btn btn-primary display-block btn-sm hide" id="btn_p_{{$servicios->id}}">Pagar</a>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_{{$servicios->id}}"></i>
+                                                    <span class="sr-only">Loading...</span>
+                                                @endif
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @foreach($itinerario->hotel as $hotel)
+
+                                        <tr>
+
+                                            <td>
+                                                <b>
+                                                    @if($hotel->personas_s>0)
+                                                        <p>{{$hotel->personas_s}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                        <p>{{$hotel->personas_d}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                        <p>{{$hotel->personas_m}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                        <p>{{$hotel->personas_t}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                    @endif
+                                                </b>
+                                            </td>
+                                            <td class="text-right"><b class="text-18">
+                                                    @if($hotel->personas_s>0)
+                                                        <p>{{$hotel->personas_s}} x {{$hotel->precio_s}} = {{$hotel->personas_s*$hotel->precio_s}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                        <p> {{$hotel->personas_d}} x {{$hotel->precio_d}} = {{$hotel->personas_d*$hotel->precio_d}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                        <p>{{$hotel->personas_m}} x {{$hotel->precio_m}} = {{$hotel->personas_m*$hotel->precio_m}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                        <p>{{$hotel->personas_t}} x {{$hotel->precio_t}} = {{$hotel->personas_t*$hotel->precio_t}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                </b>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <b class="text-18">
+                                                    @if($hotel->personas_s>0)
+                                                        <p>{{$hotel->personas_s*$hotel->precio_s_r}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                        <p>{{$hotel->personas_d*$hotel->precio_d_r}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                        <p>{{$hotel->personas_m*$hotel->precio_m_r}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                        <p>{{$hotel->personas_t*$hotel->precio_t_r}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+
+                                                </b></td>
+                                            <td>
+                                                @if($hotel->precio_s_c>0 OR $hotel->precio_s_c!='')
+                                                    @php $precio_s_c=  $hotel->precio_s_c; @endphp
+                                                @else
+                                                    @php $precio_s_c =  $hotel->precio_s_r; @endphp
+                                                @endif
+
+                                                @if($hotel->precio_d_c>0 OR $hotel->precio_d_c!='')
+                                                    @php $precio_d_c=  $hotel->precio_d_c; @endphp
+                                                @else
+                                                    @php $precio_d_c =  $hotel->precio_d_r; @endphp
+                                                @endif
+
+                                                @if($hotel->precio_m_c>0 OR $hotel->precio_m_c!='')
+                                                    @php $precio_m_c=  $hotel->precio_m_c; @endphp
+                                                @else
+                                                    @php $precio_m_c =  $hotel->precio_m_r; @endphp
+                                                @endif
+
+                                                @if($hotel->precio_t_c>0 OR $hotel->precio_t_c!='')
+                                                    @php $precio_t_c=  $hotel->precio_t_c; @endphp
+                                                @else
+                                                    @php $precio_t_c =  $hotel->precio_t_r; @endphp
+                                                @endif
+                                                @php $s=0;$d=0;$m=0;$t=0; @endphp
+
+                                                @if($hotel->personas_s>0)
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm text-right text-18 text-green-goto font-weight-bold" id="p_conta_h_s_{{$hotel->id}}" value="{{$precio_s_c}}">
+                                                        <span class="input-group-addon">$</span>
+                                                    </div>
+                                                    @php $s=$hotel->personas_s; @endphp
+                                                @endif
+                                                @if($hotel->personas_d>0)
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm text-right text-18 text-green-goto font-weight-bold" id="p_conta_h_d_{{$hotel->id}}" value="{{$precio_d_c}}">
+                                                        <span class="input-group-addon">$</span>
+                                                    </div>
+                                                    @php $d=$hotel->personas_d; @endphp
+                                                @endif
+                                                @if($hotel->personas_m>0)
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm text-right text-18 text-green-goto font-weight-bold" id="p_conta_h_m_{{$hotel->id}}" value="{{$precio_m_c}}">
+                                                        <span class="input-group-addon">$</span>
+                                                    </div>
+                                                    @php $m=$hotel->personas_m; @endphp
+                                                @endif
+                                                @if($hotel->personas_t>0)
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm text-right text-18 text-green-goto font-weight-bold" id="p_conta_h_t_{{$hotel->id}}" value="{{$precio_t_c}}">
+                                                        <span class="input-group-addon">$</span>
+                                                    </div>
+                                                    @php $t=$hotel->personas_t; @endphp
+                                                @endif
+
+                                            </td>
+                                            <td class="text-center">
+                                                @if($hotel->precio_s_c > 0)
+                                                    <button class="btn btn-warning display-block btn-sm hide" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h_{{$hotel->id}}">Save</button>
+                                                    <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizaciones->id, $hotel->id])}}" class="btn btn-primary display-block btn-sm" id="btn_p_h{{$hotel->id}}">Pagar</a>
+                                                    <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_h{{$hotel->id}}"></i>
+                                                    <span class="sr-only">Loading...</span>
+                                                @else
+                                                    <button class="btn btn-warning display-block btn-sm" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h{{$hotel->id}}">Save</button>
+                                                    <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizaciones->id, $hotel->id])}}" class="btn btn-primary display-block btn-sm hide" id="btn_p_h{{$hotel->id}}">Pagar</a>
+                                                    <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_h{{$hotel->id}}"></i>
                                                     <span class="sr-only">Loading...</span>
                                                 @endif
 
@@ -273,7 +391,95 @@
                         $("#btn_s_"+id).removeAttr("disabled");
                     }
                 }
+                function savePrice_h(s,d,m,t,id){
+                    console.log('enviando pagos hotel');
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('[name="_token"]').val()
+                        }
+                    });
 
+                    $("#btn_s_h"+id).attr("disabled", true);
+
+                    var p_s=$("#p_conta_h_s_"+id).val();
+                    var p_d=$("#p_conta_h_d_"+id).val();
+                    var p_m=$("#p_conta_h_m_"+id).val();
+                    var p_t=$("#p_conta_h_t_"+id).val();
+                    var i=1;
+                    if(s>0) {
+                        if (p_s.length == 0) {
+                            $('#p_conta_h_s_' + id).css("border-bottom", "2px solid #FF0000");
+                            var sendPrice_s = "false";
+                            i=i*1;
+                            return false;
+                        } else {
+                            sendPrice_s = "true";
+                            i=i*0;
+                        }
+                    }
+                    if(d>0) {
+                        if (p_d.length == 0) {
+                            $('#p_conta_h_d_' + id).css("border-bottom", "2px solid #FF0000");
+                            var sendPrice_d = "false";
+                            i=i*1;
+                            return false;
+                        } else {
+                            sendPrice_d = "true";
+                            i=i*0;
+                        }
+                    }
+                    if(m>0) {
+                        if (p_m.length == 0) {
+                            $('#p_conta_h_m_' + id).css("border-bottom", "2px solid #FF0000");
+                            var sendPrice_m = "false";
+                            i=i*1;
+                            return false;
+                        } else {
+                            sendPrice_m = "true";
+                            i=i*0;
+                        }
+                    }
+                    if(t>0) {
+                        if (p_t.length == 0) {
+                            $('#p_conta_h_t_' + id).css("border-bottom", "2px solid #FF0000");
+                            var sendPrice_t = "false";
+                            i=i*1;
+                            return false;
+                        } else {
+                            sendPrice_t = "true";
+                            i=i*0;
+                        }
+                    }
+
+//                    if(i>0){
+                        var datos = {
+                            "txt_precio_s" : p_s,
+                            "txt_precio_d" : p_d,
+                            "txt_precio_m" : p_m,
+                            "txt_precio_t" : p_t,
+                            "txt_id" : id
+                        };
+                        $.ajax({
+                            data:  datos,
+                            url:   "{{route('update_price_conta_hotel_path')}}",
+                            type:  'post',
+
+                            beforeSend: function () {
+                                $('#btn_s_h'+id).addClass('hide');
+                                $('#p_load_h'+id).removeClass('hide');
+
+                            },
+                            success:  function (response) {
+                                // $('#d_form')[0].reset();
+                                $('#p_load_h'+id).addClass('hide');
+                                $('#btn_s_h'+id).addClass('hide');
+                                $("#btn_p_h"+id).removeClass("hide");
+                            }
+                        });
+//                    } else{
+//                        $("#btn_s_h"+id).removeAttr("disabled");
+//                    }
+                }
 
             </script>
 

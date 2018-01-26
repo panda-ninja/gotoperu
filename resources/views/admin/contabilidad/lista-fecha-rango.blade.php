@@ -119,7 +119,7 @@
                                                                         </td>
 
                                                                         @if($total == 0)
-                                                                                <input type="text" value="0" id="id_pago_{{$x}}">
+                                                                                <input type="hidden" value="0" id="id_pago_{{$x}}">
                                                                                 <input type="hidden" value="{{$servicio->precio_c}}" id="p_mcuenta_{{$x}}">
                                                                                 <input type="hidden" value="{{$servicio->precio_c}}" id="m_memory_{{$x}}">
                                                                                 {{--@php echo input $servicio->precio_c; @endphp--}}
@@ -127,7 +127,7 @@
 {{--                                                                                <td class="text-right"><b>{{$fecha_pago}}</b></td>--}}
                                                                                 @php  $y = $y +$servicio->precio_c; @endphp
                                                                         @else
-                                                                                <input type="text" value="{{$pagos->id}}" id="id_pago_{{$x}}">
+                                                                                <input type="hidden" value="{{$pagos->id}}" id="id_pago_{{$x}}">
 {{--                                                                                @php echo $pagos->a_cuenta; @endphp--}}
                                                                                 <input type="hidden" value="{{$pagos->a_cuenta}}" id="p_mcuenta_{{$x}}">
                                                                                 <input type="hidden" value="{{$pagos->a_cuenta}}" id="m_memory_{{$x}}">
@@ -169,7 +169,7 @@
                                                                                     <div class="modal fade" id="modal_{{$x}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                                         <div class="modal-dialog" role="document">
                                                                                             <div class="modal-content">
-                                                                                                <form id="guardar_imagen_pago" action="{{route('guardar_imagen_pago_path')}}" enctype="multipart/form-data" method="post">
+                                                                                                <form id="guardar_imagen_pago_2{{$x}}" name="guardar_imagen_pago_2{{$x}}" action="{{route('guardar_imagen_pago_path')}}" enctype="multipart/form-data" method="post">
                                                                                                     <div class="modal-header">
                                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                                                         <h4 class="modal-title" id="myModalLabel">Subir Imagen</h4>
@@ -177,16 +177,16 @@
                                                                                                     <div class="modal-body">
                                                                                                         <div class="row">
                                                                                                             <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                                                                                                                <div class="input-group image-preview">
-                                                                                                                    <input type="text" class="form-control image-preview-filename" disabled="disabled">
+                                                                                                                <div id="image-preview{{$x}}" class="input-group image-preview">
+                                                                                                                    <input id="image-preview-filename{{$x}}" type="text" class="form-control image-preview-filename" disabled="disabled">
                                                                                                                     <span class="input-group-btn">
-                                                                                                                        <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                                                                                                        <button id="image-preview-clear{{$x}}" type="button" class="btn btn-default image-preview-clear" style="display:none;">
                                                                                                                             <span class="glyphicon glyphicon-remove"></span> Clear
                                                                                                                         </button>
-                                                                                                                        <div class="btn btn-default image-preview-input">
+                                                                                                                        <div id="image-preview-input{{$x}}" class="btn btn-default image-preview-input">
                                                                                                                             <span class="glyphicon glyphicon-folder-open"></span>
-                                                                                                                            <span class="image-preview-input-title">Buscar</span>
-                                                                                                                            <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
+                                                                                                                            <span id="image-preview-input-title{{$x}}" class="image-preview-input-title">Buscar</span>
+                                                                                                                            <input type="file" accept="image/png, image/jpeg, image/gif" name="foto" id="foto{{$x}}"/>
                                                                                                                         </div>
                                                                                                                     </span>
                                                                                                                 </div>
@@ -197,9 +197,10 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="modal-footer">
+                                                                                                        {{csrf_field()}}
                                                                                                         <input type="text" id="response_{{$x}}" name="id">
                                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                        <button type="submit" class="btn btn-primary" onclick="guardar_imagen_pago_({{$x}})">Guardar Imagen</button>
+                                                                                                        <button type="submit" class="btn btn-primary" onclick="guardar_imagen_pago_2({{$x}})">Guardar Imagen</button>
                                                                                                     </div>
                                                                                                 </form>
                                                                                             </div>
@@ -217,18 +218,29 @@
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
                                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                                        <h4 class="modal-title" id="myModalLabel">Imagen</h4>
+                                                                                                        <h4 class="modal-title" id="myModalLabel">Imagenes de los pagos realizados</h4>
                                                                                                     </div>
                                                                                                     <div class="modal-body">
                                                                                                         <div class="row">
-                                                                                                            <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                                                                                                                dfdfdfdfd
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <div class="row">
+                                                                                                                @foreach($servicio->pagos->where('estado', 1) as $pagos)
+                                                                                                                    @if (Storage::disk('imagen_pago_servicio')->has($pagos->imagen))
+                                                                                                                        <div class="col-lg-3">
+                                                                                                                            <div class="img-hover">
+                                                                                                                                <img class="img-responsive img-rounded"
+                                                                                                                                     src="{{route('pago_servicio_image_path', ['filename' => $pagos->imagen])}}"  width="160" height="160">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    @endif
+                                                                                                                @endforeach
+                                                                                                                </div>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="modal-footer">
                                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                        <button type="button" class="btn btn-primary">Guardar Imagen</button>
+                                                                                                        <button type="button" class="hide btn btn-primary">Guardar Imagen</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -251,37 +263,39 @@
                                                                                     <div class="modal-dialog" role="document">
                                                                                         <div class="modal-content">
                                                                                             <form id="guardar_imagen_pago_2{{$x}}" name="guardar_imagen_pago_2{{$x}}" action="{{route('guardar_imagen_pago_path')}}" enctype="multipart/form-data" method="post">
-                                                                                            <div class="modal-header">
-                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                                <h4 class="modal-title" id="myModalLabel">Subir Imagen</h4>
-                                                                                            </div>
-                                                                                            <div class="modal-body">
-                                                                                                <div class="row">
-                                                                                                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                                                                                                        <div class="input-group image-preview">
-                                                                                                            <input type="text" class="form-control image-preview-filename" disabled="disabled">
-                                                                                                            <span class="input-group-btn">
-                                                                                                                <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                                                                                                                    <span class="glyphicon glyphicon-remove"></span> Clear
-                                                                                                                </button>
-                                                                                                                <div class="btn btn-default image-preview-input">
-                                                                                                                    <span class="glyphicon glyphicon-folder-open"></span>
-                                                                                                                    <span class="image-preview-input-title">Buscar</span>
-                                                                                                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="input_file"/>
-                                                                                                                </div>
-                                                                                                            </span>
+                                                                                                <div class="modal-header">
+                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                                    <h4 class="modal-title" id="myModalLabel">Subir Imagen</h4>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                                                                                            <div id="image-preview{{$x}}" class="input-group image-preview">
+                                                                                                                <input id="image-preview-filename{{$x}}" type="text" class="form-control image-preview-filename" disabled="disabled">
+                                                                                                                <span class="input-group-btn">
+                                                                                                                    <button id="image-preview-clear{{$x}}" type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                                                                                                        <span class="glyphicon glyphicon-remove"></span> Clear
+                                                                                                                    </button>
+                                                                                                                    <div id="image-preview-input{{$x}}" class="btn btn-default image-preview-input">
+                                                                                                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                                                                                                        <span id="image-preview-input-title{{$x}}" class="image-preview-input-title">Buscar</span>
+                                                                                                                        <input type="file" accept="image/png, image/jpeg, image/gif" name="foto" id="foto{{$x}}"/>
+                                                                                                                    </div>
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                                                                                            <span id="result_{{$x}}" class="text-15 text-success"></span>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                                                                                                        <span id="result_{{$x}}" class="text-15 text-success"></span>
-                                                                                                    </div>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <div class="modal-footer">
-                                                                                                <input type="text" id="response_{{$x}}" name="id">
-                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                <button type="submit" class="btn btn-primary" onclick="guardar_imagen_pago_2({{$x}})">Guardar hImagen</button>
-                                                                                            </div>
+                                                                                                <div class="modal-footer">
+                                                                                                    {{csrf_field()}}
+                                                                                                    <input type="text" id="response_{{$x}}" name="id">
+                                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                    <button type="submit" class="btn btn-primary" onclick="guardar_imagen_pago_2({{$x}})">Guardar hImagen</button>
+                                                                                                    {{--<button type="submit" class="btn btn-primary">Guardar hImagen</button>--}}
+                                                                                                </div>
                                                                                             </form>
                                                                                         </div>
                                                                                     </div>
@@ -616,45 +630,75 @@
                 placement:'bottom'
             });
             // Clear event
-            $('.image-preview-clear').click(function(){
-                $('.image-preview').attr("data-content","").popover('hide');
-                $('.image-preview-filename').val("");
-                $('.image-preview-clear').hide();
-                $('.image-preview-input input:file').val("");
-                $(".image-preview-input-title").text("Browse");
-            });
-            // Create the preview image
-            $(".image-preview-input input:file").change(function (){
-                var img = $('<img/>', {
-                    id: 'dynamic',
-                    width:250,
-                    height:200
+//            $('.image-preview-clear').click(function(){
+//                $('.image-preview').attr("data-content","").popover('hide');
+//                $('.image-preview-filename').val("");
+//                $('.image-preview-clear').hide();
+//                $('.image-preview-input input:file').val("");
+//                $(".image-preview-input-title").text("Browse");
+//            });
+//            // Create the preview image
+//            $(".image-preview-input input:file").change(function (){
+//                var img = $('<img/>', {
+//                    id: 'dynamic',
+//                    width:250,
+//                    height:200
+//                });
+//                var file = this.files[0];
+//                var reader = new FileReader();
+//                // Set preview image into the popover data-content
+//                reader.onload = function (e) {
+//                    $(".image-preview-input-title").text("Change");
+//                    $(".image-preview-clear").show();
+//                    $(".image-preview-filename").val(file.name);
+//                    img.attr('src', e.target.result);
+//                    $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+//                }
+//                reader.readAsDataURL(file);
+//            });
+            @for($idi=1;$idi<=$x;$idi++)
+                $('#image-preview-clear{{$idi}}').click(function(){
+                    $('#image-preview{{$idi}}').attr("data-content","").popover('hide');
+                    $('#image-preview-filename{{$idi}}').val("");
+                    $('#image-preview-clear{{$idi}}').hide();
+                    $('#image-preview-input{{$idi}} input:file').val("");
+                    $("#image-preview-input-title{{$idi}}").text("Browse");
                 });
-                var file = this.files[0];
-                var reader = new FileReader();
-                // Set preview image into the popover data-content
-                reader.onload = function (e) {
-                    $(".image-preview-input-title").text("Change");
-                    $(".image-preview-clear").show();
-                    $(".image-preview-filename").val(file.name);
-                    img.attr('src', e.target.result);
-                    $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
-                }
-                reader.readAsDataURL(file);
-            });
+                // Create the preview image
+                $("#image-preview-input{{$idi}} input:file").change(function (){
+                    var img = $('<img/>', {
+                        id: 'dynamic',
+                        width:250,
+                        height:200
+                    });
+                    var file = this.files[0];
+                    var reader = new FileReader();
+                    // Set preview image into the popover data-content
+                    reader.onload = function (e) {
+                        $("#image-preview-input-title{{$idi}}").text("Change");
+                        $("#image-preview-clear{{$idi}}").show();
+                        $("#image-preview-filename{{$idi}}").val(file.name);
+                        img.attr('src', e.target.result);
+                        $("#image-preview{{$idi}}").attr("data-content",$(img)[0].outerHTML).popover("show");
+                    }
+                    reader.readAsDataURL(file);
+                });
+            @endfor
         });
         function guardar_imagen_pago_2(id){
             $('#guardar_imagen_pago_2'+id).submit(function() {
-
                 // Enviamos el formulario usando AJAX
                 $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
-                    data: $(this).serialize(),
+//                    data: $(this).serialize(),
+                    data: new FormData($("#guardar_imagen_pago_2"+id)[0]),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     // Mostramos un mensaje con la respuesta de PHP
-                    success: function(data) {
-                        console.log(data);
-                        if(data==1){
+                    success:  function (response) {
+                        if(response==1){
                             $('#result_'+id).removeClass('text-danger');
                             $('#result_'+id).addClass('text-success');
                             $('#result_'+id).html('imagen guardada Correctamente!');

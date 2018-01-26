@@ -625,3 +625,15 @@ Route::post('admin/contabilidad/listar-fechas-subir-imagen', [
     'uses' => 'ContabilidadController@guardar_imagen_pago',
     'as' => 'guardar_imagen_pago_path',
 ]);
+Route::get('storage/contabilidad/{filename}', [
+    'uses' => 'ContabilidadController@getImageName',
+    'as' => 'pago_servicio_image_path'
+]);
+Route::post('/admin/contabilidad/update_price_conta_hotel', [
+    'uses' => 'ContabilidadController@update_price_conta_hotel',
+    'as' => 'update_price_conta_hotel_path',
+]);
+Route::get('/admin/contabilidad/show-hotel/{idcotizacion}/{idhotel}', [
+    'uses' => 'ContabilidadController@pagar_servicios_conta_hotel',
+    'as' => 'pagar_servicios_conta_hotel_path',
+]);

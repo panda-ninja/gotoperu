@@ -18,6 +18,9 @@ use App\Proveedor;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\Response;
 
 class ContabilidadController extends Controller
 {
@@ -394,10 +397,9 @@ class ContabilidadController extends Controller
     }
     public function guardar_imagen_pago(Request $request)
     {
-//        return $request->all();
-
+//        dd($request->all());
         $id=$request->input('id');
-        $imagen=$request->input('input_file');
+        $imagen=$request->file('foto');
 //        dd($request->file('input_file'));
 
         if($imagen){
@@ -406,9 +408,48 @@ class ContabilidadController extends Controller
             $objeto->imagen=$filename;
             $objeto->save();
             Storage::disk('imagen_pago_servicio')->put($filename,  File::get($imagen));
-            return 1;
+            return json_encode(1);
         }
-        else
-            return 0;
+        else{
+            return json_encode(0);
+        }
+
+    }
+    public function getImageName($filename){
+        $file = Storage::disk('imagen_pago_servicio')->get($filename);
+        return new Response($file, 200);
+    }
+    public function update_price_conta_hotel(){
+        $id = $_POST['txt_id'];
+        $i_hotel=PrecioHotelReserva::FindOrFail($id);
+        if($i_hotel->personas_s>0) {
+            $precio_s_c = $_POST['txt_precio_s'];
+            $i_hotel->precio_s_c = $precio_s_c;
+        }
+        if($i_hotel->personas_d>0) {
+            $precio_d_c = $_POST['txt_precio_d'];
+            $i_hotel->precio_d_c = $precio_d_c;
+        }
+        if($i_hotel->personas_m>0) {
+            $precio_m_c = $_POST['txt_precio_m'];
+            $i_hotel->precio_m_c = $precio_m_c;
+        }
+        if($i_hotel->personas_t>0) {
+            $precio_t_c = $_POST['txt_precio_t'];
+            $i_hotel->precio_t_c = $precio_t_c;
+        }
+        $i_hotel->save();
+        return ("ok");
+    }
+    public function pagar_servicios_conta_hotel($idcotizacion, $idhotel)
+    {
+        $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
+        $hotel =PrecioHotelReserva::where('id', $idhotel)->get();
+//        dd($cotizacion);
+//        $productos=M_Producto::get();
+//        $proveedores=Proveedor::get();
+//        $hotel_proveedor=HotelProveedor::get();
+
+        return view('admin.contabilidad.pagar_servicio_hotel',['cotizacion'=>$cotizacion,'hotel'=>$hotel, 'idcotizacion'=>$idcotizacion]);
     }
 }

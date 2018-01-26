@@ -27741,29 +27741,29 @@ function segunda_confirmada_hotel(id,valor){
     })
 }
 
-function guardar_imagen_pago(){
-    $('#guardar_imagen_pago').submit(function() {
-
-        // Enviamos el formulario usando AJAX
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            // Mostramos un mensaje con la respuesta de PHP
-            success: function(data) {
-                if(data==1){
-                    $('#result_'+id).removeClass('text-danger');
-                    $('#result_'+id).addClass('text-success');
-                    $('#result_'+id).html('imagen guardada Correctamente!');
-                }
-                else{
-                    $('#result_'+id).removeClass('text-success');
-                    $('#result_'+id).addClass('text-danger');
-                    $('#result_'+id).html('Error al guardar la imagen, intentelo de nuevo');
-                }
-            }
-        })
-        // esto es para que no se reenvie el formulario
-        return false;
-    });
-}
+// function guardar_imagen_pago(){
+//     $('#guardar_imagen_pago').submit(function() {
+//
+//         // Enviamos el formulario usando AJAX
+//         $.ajax({
+//             type: 'POST',
+//             url: $(this).attr('action'),
+//             data: $(this).serialize(),
+//             // Mostramos un mensaje con la respuesta de PHP
+//             success: function(data) {
+//                 if(data==1){
+//                     $('#result_'+id).removeClass('text-danger');
+//                     $('#result_'+id).addClass('text-success');
+//                     $('#result_'+id).html('imagen guardada Correctamente!');
+//                 }
+//                 else{
+//                     $('#result_'+id).removeClass('text-success');
+//                     $('#result_'+id).addClass('text-danger');
+//                     $('#result_'+id).html('Error al guardar la imagen, intentelo de nuevo');
+//                 }
+//             }
+//         })
+//         // esto es para que no se reenvie el formulario
+//         return false;
+//     });
+// }
