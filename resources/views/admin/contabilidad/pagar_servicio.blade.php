@@ -136,7 +136,7 @@
                                                     <tr>
                                                         {{--<td>0545</td>--}}
                                                         {{--<td>1</td>--}}
-                                                        <td>Cusco Catedral</td>
+                                                        <td>{{ucwords(strtolower($servicios->nombre))}}</td>
                                                         <td>{{$pagos->medio}}</td>
                                                         <td>{{$pagos->transaccion}}</td>
                                                         <td>{{$pagos->updated_at}}</td>
@@ -145,9 +145,10 @@
                                                     </tr>
                                                 @elseif($pagos->estado == 0 AND ($pagos->fecha_a_pagar=="" OR $pagos->fecha_a_pagar==NULL))
                                                     <tr>
-                                                        <td>Cusco Catedral</td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td>{{ucwords(strtolower($servicios->nombre))}}</td>
+                                                        <td>{{$pagos->medio}}</td>
+                                                        <td>{{$pagos->transaccion}}</td>
+                                                        <td>{{$pagos->updated_at}}</td>
                                                         <td class="has-error"><input type="date" class="form-control input-sm"></td>
                                                         <td><input type="text" class="form-control input-sm text-right" value="{{$servicios->precio_c - $total}}"></td>
                                                         <td class="text-center"><button class="btn btn-sm btn-warning display-block"><i>Save</i></button></td>
@@ -172,7 +173,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td class="has-error"><input type="date" class="form-control input-sm text-right" id="f_date"></td>
-                                                        <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly></td>
+                                                        <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly="readonly"></td>
                                                         <td class="text-center">
                                                             <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$servicios->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
 
@@ -221,7 +222,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td class="has-error"><input type="date" class="form-control input-sm text-right" id="f_date"></td>
-                                                <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0"></td>
+                                                <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly="readonly"></td>
                                                 <td class="text-center">
                                                     <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$servicios->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
 

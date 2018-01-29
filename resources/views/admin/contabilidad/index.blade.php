@@ -5,7 +5,7 @@
             <div class="box-header-book">
                 <h4 class="no-margin">New
                     <span>
-                        <b class="label label-danger">#24</b>
+                        <b class="label label-danger">#{{$cotizacion->count()}}</b>
                         <small><b>Travel date:</b> june</small>
                     </span>
                 </h4>

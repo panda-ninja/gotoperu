@@ -126,6 +126,14 @@
                                                                                 <td><input type="text" class="form-control input-sm text-right" value="{{$servicio->precio_c}}" onchange="accionSaldo({{$x}}, {{$servicio->precio_c}})" id="p_saldo_{{$x}}"></td>
 {{--                                                                                <td class="text-right"><b>{{$fecha_pago}}</b></td>--}}
                                                                                 @php  $y = $y +$servicio->precio_c; @endphp
+                                                                        @elseif($total == $servicio->precio_c)
+                                                                            <input type="hidden" value="0" id="id_pago_{{$x}}">
+                                                                            <input type="hidden" value="{{$servicio->precio_c}}" id="p_mcuenta_{{$x}}">
+                                                                            <input type="hidden" value="{{$servicio->precio_c}}" id="m_memory_{{$x}}">
+                                                                            {{--@php echo input $servicio->precio_c; @endphp--}}
+                                                                            <td><input type="text" class="form-control input-sm text-right" value="{{$servicio->precio_c-$total}}" onchange="accionSaldo({{$x}}, {{$servicio->precio_c}})" id="p_saldo_{{$x}}" readonly="readonly"></td>
+                                                                            {{--                                                                                <td class="text-right"><b>{{$fecha_pago}}</b></td>--}}
+                                                                            @php  $y = $y +$servicio->precio_c; @endphp
                                                                         @else
                                                                                 <input type="hidden" value="{{$pagos->id}}" id="id_pago_{{$x}}">
 {{--                                                                                @php echo $pagos->a_cuenta; @endphp--}}
@@ -138,7 +146,15 @@
 
 
                                                                         <td>
-                                                                            <select class="form-control input-sm" onchange="medio({{$x}})" id="p_medio_{{$x}}">
+                                                                            @php
+                                                                                $bloquear='';
+                                                                            @endphp
+                                                                            @if($total == $servicio->precio_c)
+                                                                                @php
+                                                                                    $bloquear=' readonly="readonly"';
+                                                                                @endphp
+                                                                            @endif
+                                                                            <select class="form-control input-sm" onchange="medio({{$x}})" id="p_medio_{{$x}}" {{$bloquear}}>
                                                                                 <option value="0">--Seleccione--</option>
                                                                                 <option value="Cheque">Cheque</option>
                                                                                 <option value="Efectivo">Efectivo</option>
@@ -147,10 +163,10 @@
                                                                             </select>
                                                                         </td>
                                                                             <td>
-                                                                                <input type="text" class="form-control input-sm text-right" id="p_cuenta_{{$x}}">
+                                                                                <input type="text" class="form-control input-sm text-right" id="p_cuenta_{{$x}}" {{$bloquear}}>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="text" class="form-control input-sm text-right" id="p_transa_{{$x}}">
+                                                                                <input type="text" class="form-control input-sm text-right" id="p_transa_{{$x}}" {{$bloquear}}>
                                                                             </td>
                                                                             {{--<td>--}}
                                                                                 {{--<input type="text" class="form-control input-sm">--}}

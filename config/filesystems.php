@@ -72,6 +72,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'imagen_pago_hotel' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/imagen_pago_hotel'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),

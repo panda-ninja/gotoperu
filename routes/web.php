@@ -637,3 +637,48 @@ Route::get('/admin/contabilidad/show-hotel/{idcotizacion}/{idhotel}', [
     'uses' => 'ContabilidadController@pagar_servicios_conta_hotel',
     'as' => 'pagar_servicios_conta_hotel_path',
 ]);
+
+Route::post('/admin/contabilidad/pay_price_hotel_conta', [
+    'uses' => 'ContabilidadController@pay_price_hotel_conta',
+    'as' => 'pay_price_hotel_conta_path',
+]);
+Route::post('/admin/contabilidad/pay_a_cuenta_hotel', [
+    'uses' => 'ContabilidadController@pay_a_cuenta_hotel',
+    'as' => 'pay_a_cuenta_hotel_path',
+]);
+Route::get('admin/contabilidad/listar-hotel/fechas', [
+    'uses' => 'ContabilidadController@rango_fecha_hotel',
+    'as' => 'rango_fecha_hotel_path',
+]);
+Route::post('admin/contabilidad/listar/fechas/rango/hotel', [
+    'uses' => 'ContabilidadController@list_fechas_rango_hotel',
+    'as' => 'list_fechas_rango_hotel_path',
+]);
+Route::get('admin/contabilidad/listar/fechas/hotel/{fecha_i}/{fecha_f}', [
+    'uses' => 'ContabilidadController@list_fechas_hotel',
+    'as' => 'list_fechas_hotel_path',
+]);
+Route::post('admin/contabilidad/listar/fechas-hotel/show', [
+    'uses' => 'ContabilidadController@list_fechas_hotel_show',
+    'as' => 'list_fechas_hotel_show_path',
+]);
+Route::get('storage/contabilidad/hotel/{filename}', [
+    'uses' => 'ContabilidadController@getImageName_hotel',
+    'as' => 'pago_hotel_image_path'
+]);
+Route::post('/admin/contabilidad/listar/hotel/consulta', [
+    'uses' => 'ContabilidadController@consulta_hotel_save',
+    'as' => 'consulta_hotel_save_path',
+]);
+Route::post('/admin/contabilidad/hotel/pagar_consulta', [
+    'uses' => 'ContabilidadController@pagar_consulta_hotel',
+    'as' => 'pagar_consulta_hotel_path',
+]);
+Route::post('admin/contabilidad/listar-fechas-hotel-subir-imagen', [
+    'uses' => 'ContabilidadController@guardar_imagen_pago_hotel',
+    'as' => 'guardar_imagen_pago_hotel_path',
+]);
+Route::post('admin/contabilidad/hotel/listar/fechas/show', [
+    'uses' => 'ContabilidadController@list_fechas_show_hotel',
+    'as' => 'list_fechas_hotel_show_path',
+]);

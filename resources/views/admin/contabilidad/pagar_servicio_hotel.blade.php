@@ -91,10 +91,13 @@
                                 <hr>
                             </div>
                             <div class="col-lg-12">
-                                @foreach($servicio as $servicios)
-                                    <div class="nombres"><b>PROVEEDOR:</b> {{$servicios->itinerario_proveedor->nombre}}</div>
-                                    <div class="nombres"><b>RUC:</b> {{$servicios->itinerario_proveedor->codigo}}</div>
-                                    <div class="nacionalidad"><b>DIRECCION:</b> {{$servicios->itinerario_proveedor->razon_social}}</div>
+                                @foreach($hotel as $hotel_)
+                                    @foreach($proveedores->where('id',$hotel_->proveedor_id)  as $proveeodor)
+                                        <div class="nombres"><b>PROVEEDOR:</b> {{$proveeodor->razon_social}}</div>
+                                        <div class="nombres"><b>RUC:</b> {{$proveeodor->ruc}}</div>
+                                        <div class="nacionalidad"><b>DIRECCION:</b> {{$proveeodor->direccion}}</div>
+                                        <div class="nacionalidad"><b>TELEFONO:</b> {{$proveeodor->telefono}}</div>
+                                    @endforeach
                                 @endforeach
                             </div>
                             <div class="col-lg-12 margin-top-10">
@@ -113,30 +116,44 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {{--<tr>--}}
-                                    {{--<td>{{$servicios->pagos->id}}</td>--}}
-                                    {{--<td><input type="text" class="form-control input-sm"></td>--}}
-                                    {{--<td><input type="text" class="form-control input-sm"></td>--}}
-                                    {{--<td><input type="date" class="form-control input-sm text-right" value=""></td>--}}
-                                    {{--<td><input type="text" class="form-control input-sm text-right" value=""></td>--}}
-                                    {{--<td class="text-center"><button class="btn btn-sm btn-success display-block"><i>Pagar</i></button></td>--}}
-                                    {{--</tr>--}}
-
                                     @php $total=0; @endphp
-                                    @foreach($servicio as $servicios)
-                                        @if($servicios->pagos->count()>0)
-                                            @foreach($servicios->pagos as $pagos)
+                                    @foreach($hotel as $hotel_)
+                                        @if($hotel_->pagos->count()>0)
+                                            @foreach($hotel_->pagos as $pagos)
                                                 @php
                                                     $total = $total + $pagos->a_cuenta
-
                                                 @endphp
-
-
                                                 @if($pagos->estado == 1)
                                                     <tr>
-                                                        {{--<td>0545</td>--}}
-                                                        {{--<td>1</td>--}}
-                                                        <td>Cusco Catedral</td>
+                                                        <td>
+                                                            @php
+                                                                $total_h=0;
+                                                            @endphp
+                                                            @if($hotel_->personas_s>0)
+                                                                <p>{{$hotel_->personas_s}} Single <span class="text-success"> = {{$hotel_->personas_s*$hotel_->precio_s_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_s*$hotel_->precio_s_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_d>0)
+                                                                <p>{{$hotel_->personas_d}} Double <span class="text-success"> = {{$hotel_->personas_d*$hotel_->precio_d_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_d*$hotel_->precio_d_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_m>0)
+                                                                <p>{{$hotel_->personas_m}} Matrimonial <span class="text-success"> = {{$hotel_->personas_m*$hotel_->precio_m_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_m*$hotel_->precio_m_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_t>0)
+                                                                <p>{{$hotel_->personas_t}} Triple <span class="text-success"> = {{$hotel_->personas_t*$hotel_->precio_t_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
+                                                                @endphp
+                                                            @endif
+                                                        </td>
                                                         <td>{{$pagos->medio}}</td>
                                                         <td>{{$pagos->transaccion}}</td>
                                                         <td>{{$pagos->updated_at}}</td>
@@ -149,18 +166,46 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td class="has-error"><input type="date" class="form-control input-sm"></td>
-                                                        <td><input type="text" class="form-control input-sm text-right" value="{{$servicios->precio_c - $total}}"></td>
+                                                        <td><input type="text" class="form-control input-sm text-right" value="{{$hotel_->precio_s_c - $total}}"></td>
                                                         <td class="text-center"><button class="btn btn-sm btn-warning display-block"><i>Save</i></button></td>
                                                     </tr>
                                                 @elseif($pagos->estado == 0 AND isset($pagos->fecha_a_pagar))
                                                     <tr>
-                                                        <td>{{ucwords(strtolower($servicios->nombre))}}</td>
+                                                        <td>
+                                                            @php
+                                                                $total_h=0;
+                                                            @endphp
+                                                            @if($hotel_->personas_s>0)
+                                                                <p>{{$hotel_->personas_s}} Single <span class="text-success"> = {{$hotel_->personas_s*$hotel_->precio_s_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_s*$hotel_->precio_s_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_d>0)
+                                                                <p>{{$hotel_->personas_d}} Double <span class="text-success"> = {{$hotel_->personas_d*$hotel_->precio_d_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_d*$hotel_->precio_d_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_m>0)
+                                                                <p>{{$hotel_->personas_m}} Matrimonial <span class="text-success"> = {{$hotel_->personas_m*$hotel_->precio_m_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_m*$hotel_->precio_m_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_t>0)
+                                                                <p>{{$hotel_->personas_t}} Triple <span class="text-success"> = {{$hotel_->personas_t*$hotel_->precio_t_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
+                                                                @endphp
+                                                            @endif
+                                                        </td>
                                                         <td><input type="text" class="form-control input-sm" id="p_medio"></td>
                                                         <td><input type="text" class="form-control input-sm" id="p_transaccion"></td>
                                                         <td><input type="date" class="form-control input-sm text-right" value="{{$pagos->fecha_a_pagar}}" id="p_fecha"></td>
-                                                        <td><input type="text" class="form-control input-sm text-right" value="{{$pagos->a_cuenta}}" id="p_pago" onkeyup="fecha_pago($('#p_pago').val(), {{$servicios->precio_c}}, {{$pagos->a_cuenta}})"></td>
+                                                        <td><input type="text" class="form-control input-sm text-right" value="{{$pagos->a_cuenta}}" id="p_pago" onkeyup="fecha_pago($('#p_pago').val(), {{$total_h}}, {{$pagos->a_cuenta}})"></td>
                                                         <td class="text-center">
-                                                            <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$servicios->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$servicios->precio_c}},{{$total}}, {{$pagos->id}}, {{$pagos->a_cuenta}})"><i>Pagar</i></button>
+                                                            <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$hotel_->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$total_h }},{{$total}}, {{$pagos->id}}, {{$pagos->a_cuenta}})"><i>Pagar</i></button>
                                                             <i class="fa fa-check text-primary hide" id="f_check"></i>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="btn_load"></i>
                                                             <span class="sr-only">Loading...</span>
@@ -168,13 +213,41 @@
                                                     </tr>
 
                                                     <tr class="hide" id="i_save">
-                                                        <td>{{ucwords(strtolower($servicios->nombre))}}</td>
+                                                        <td>
+                                                            @php
+                                                                $total_h=0;
+                                                            @endphp
+                                                            @if($hotel_->personas_s>0)
+                                                                <p>{{$hotel_->personas_s}} Single <span class="text-success"> = {{$hotel_->personas_s*$hotel_->precio_s_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_s*$hotel_->precio_s_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_d>0)
+                                                                <p>{{$hotel_->personas_d}} Double <span class="text-success"> = {{$hotel_->personas_d*$hotel_->precio_d_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_d*$hotel_->precio_d_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_m>0)
+                                                                <p>{{$hotel_->personas_m}} Matrimonial <span class="text-success"> = {{$hotel_->personas_m*$hotel_->precio_m_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_m*$hotel_->precio_m_c;
+                                                                @endphp
+                                                            @endif
+                                                            @if($hotel_->personas_t>0)
+                                                                <p>{{$hotel_->personas_t}} Triple <span class="text-success"> = {{$hotel_->personas_t*$hotel_->precio_t_c}}$</span></p>
+                                                                @php
+                                                                    $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
+                                                                @endphp
+                                                            @endif
+                                                        </td>
                                                         <td></td>
                                                         <td></td>
                                                         <td class="has-error"><input type="date" class="form-control input-sm text-right" id="f_date"></td>
                                                         <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly></td>
                                                         <td class="text-center">
-                                                            <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$servicios->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
+                                                            <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$hotel_->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
 
                                                             <i class="fa fa-check text-primary hide" id="f_btncheck"></i>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="f_btnload"></i>
@@ -193,23 +266,49 @@
                                                         <td class='text-right list-style-none'>
 
                                                             {{--<li><b>{{$total}}</b></li>--}}
-                                                            <li>{{$servicios->precio_c}}</li>
+                                                            <li>{{$total_h}}</li>
                                                             <li><b id="f_deuda">{{$pagos->a_cuenta}}</b></li>
                                                         </td>
                                                     </tr>
-
                                                 @endif
-
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td>{{ucwords(strtolower($servicios->nombre))}}</td>
+                                                <td>
+                                                    @php
+                                                        $total_h=0;
+                                                    @endphp
+                                                    @if($hotel_->personas_s>0)
+                                                        <p>{{$hotel_->personas_s}} Single <span class="text-success"> = {{$hotel_->personas_s*$hotel_->precio_s_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_s*$hotel_->precio_s_c;
+                                                        @endphp
+                                                    @endif
+                                                    @if($hotel_->personas_d>0)
+                                                        <p>{{$hotel_->personas_d}} Double <span class="text-success"> = {{$hotel_->personas_d*$hotel_->precio_d_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_d*$hotel_->precio_d_c;
+                                                        @endphp
+                                                    @endif
+                                                    @if($hotel_->personas_m>0)
+                                                        <p>{{$hotel_->personas_m}} Matrimonial <span class="text-success"> = {{$hotel_->personas_m*$hotel_->precio_m_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_m*$hotel_->precio_m_c;
+                                                        @endphp
+                                                    @endif
+                                                    @if($hotel_->personas_t>0)
+                                                        <p>{{$hotel_->personas_t}} Triple <span class="text-success"> = {{$hotel_->personas_t*$hotel_->precio_t_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
+                                                        @endphp
+                                                    @endif
+                                                </td>
                                                 <td><input type="text" class="form-control input-sm" id="p_medio"></td>
                                                 <td><input type="text" class="form-control input-sm" id="p_transaccion"></td>
                                                 <td><input type="date" class="form-control input-sm text-right" id="p_fecha"></td>
-                                                <td><input type="text" class="form-control input-sm text-right" id="p_pago" value="{{$servicios->precio_c}}" onkeyup="fecha_pago($('#p_pago').val(), {{$servicios->precio_c}}, {{$total}})"></td>
+                                                <td><input type="text" class="form-control input-sm text-right" id="p_pago" value="{{$total_h}}" onkeyup="fecha_pago($('#p_pago').val(), {{$total_h}}, {{$total}})"></td>
                                                 <td class="text-center">
-                                                    <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$servicios->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$servicios->precio_c}}, {{$total}}, 0, 0)"><i>Pagar</i></button>
+                                                    <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$hotel_->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$total_h}}, {{$total}}, 0, 0)"><i>Pagar</i></button>
                                                     <i class="fa fa-check text-primary hide" id="f_check"></i>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="btn_load"></i>
                                                     <span class="sr-only">Loading...</span>
@@ -217,13 +316,41 @@
                                             </tr>
 
                                             <tr class="hide" id="i_save">
-                                                <td>{{ucwords(strtolower($servicios->nombre))}}</td>
+                                                <td>
+                                                    @php
+                                                        $total_h=0;
+                                                    @endphp
+                                                    @if($hotel_->personas_s>0)
+                                                        <p>{{$hotel_->personas_s}} Single <span class="text-success"> = {{$hotel_->personas_s*$hotel_->precio_s_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_s*$hotel_->precio_s_c;
+                                                        @endphp
+                                                    @endif
+                                                    @if($hotel_->personas_d>0)
+                                                        <p>{{$hotel_->personas_d}} Double <span class="text-success"> = {{$hotel_->personas_d*$hotel_->precio_d_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_d*$hotel_->precio_d_c;
+                                                        @endphp
+                                                    @endif
+                                                    @if($hotel_->personas_m>0)
+                                                        <p>{{$hotel_->personas_m}} Matrimonial <span class="text-success"> = {{$hotel_->personas_m*$hotel_->precio_m_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_m*$hotel_->precio_m_c;
+                                                        @endphp
+                                                    @endif
+                                                    @if($hotel_->personas_t>0)
+                                                        <p>{{$hotel_->personas_t}} Triple <span class="text-success"> = {{$hotel_->personas_t*$hotel_->precio_t_c}}$</span></p>
+                                                        @php
+                                                            $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
+                                                        @endphp
+                                                    @endif
+                                                </td>
                                                 <td></td>
                                                 <td></td>
                                                 <td class="has-error"><input type="date" class="form-control input-sm text-right" id="f_date"></td>
-                                                <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0"></td>
+                                                <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly="readonly"></td>
                                                 <td class="text-center">
-                                                    <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$servicios->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
+                                                    <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$hotel_->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
 
                                                     <i class="fa fa-check text-primary hide" id="f_btncheck"></i>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="f_btnload"></i>
@@ -242,8 +369,8 @@
                                                 <td class='text-right list-style-none'>
 
                                                     {{--<li><b>{{$total}}</b></li>--}}
-                                                    <li>{{$servicios->precio_c}}</li>
-                                                    <li><b id="f_deuda">{{$servicios->precio_c-$total}}</b></li>
+                                                    <li>{{$total_h}}</li>
+                                                    <li><b id="f_deuda">{{$total_h-$total}}</b></li>
                                                 </td>
                                             </tr>
 
@@ -359,7 +486,7 @@
                 };
                 $.ajax({
                     data:  datos,
-                    url:   "{{route('pay_a_cuenta_path')}}",
+                    url:   "{{route('pay_a_cuenta_hotel_path')}}",
                     type:  'post',
 
                     beforeSend: function () {
@@ -379,16 +506,14 @@
 
         }
         function pagar_proveedor(id, idcot, medio, transaccion, fecha, pago, p_conta, total, idpago, acuenta){
-            var c_total = parseFloat(total);
-            var c_conta = parseFloat(p_conta);
+            var c_total = parseFloat(total);//es 0 xq no hay ningun pago
+            var c_conta = parseFloat(p_conta);// total que se debe
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('[name="_token"]').val()
                 }
             });
             $("#btn_pago").attr("disabled", true);
-
-
             if (fecha.length == 0 ){
                 $('#p_fecha').css("border-bottom", "2px solid #FF0000");
                 var sendPay = "false";
@@ -403,6 +528,7 @@
             // }
 
             if(sendPay == "true"){
+                // si se esta haciendo el pago total
                 if (c_conta == pago && idpago == 0){
                     var datos = {
                         "txt_id" : id,
@@ -415,7 +541,7 @@
                     };
                     $.ajax({
                         data:  datos,
-                        url:   "{{route('pay_price_conta_path')}}",
+                        url:   "{{route('pay_price_hotel_conta_path')}}",
                         type:  'post',
 
                         beforeSend: function () {
@@ -429,7 +555,7 @@
                         }
                     });
                 }
-
+                //-- si el pago es menor al total
                 if (c_conta > pago && idpago == 0){
                     var datos = {
                         "txt_id" : id,
@@ -442,7 +568,7 @@
                     };
                     $.ajax({
                         data:  datos,
-                        url:   "{{route('pay_price_conta_path')}}",
+                        url:   "{{route('pay_price_hotel_conta_path')}}",
                         type:  'post',
 
                         beforeSend: function () {
@@ -470,7 +596,7 @@
                     };
                     $.ajax({
                         data:  datos,
-                        url:   "{{route('pay_price_conta_path')}}",
+                        url:   "{{route('pay_price_hotel_conta_path')}}",
                         type:  'post',
 
                         beforeSend: function () {
@@ -497,7 +623,7 @@
                     };
                     $.ajax({
                         data:  datos,
-                        url:   "{{route('pay_price_conta_path')}}",
+                        url:   "{{route('pay_price_hotel_conta_path')}}",
                         type:  'post',
 
                         beforeSend: function () {
