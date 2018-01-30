@@ -682,3 +682,7 @@ Route::post('admin/contabilidad/hotel/listar/fechas/show', [
     'uses' => 'ContabilidadController@list_fechas_show_hotel',
     'as' => 'list_fechas_hotel_show_path',
 ]);
+Route::post('admin/package/gererar-codigo', [
+    'uses' => 'PackageController@generar_codigo_plantilla',
+    'as' => 'generar_codigo_plantilla_path',
+]);

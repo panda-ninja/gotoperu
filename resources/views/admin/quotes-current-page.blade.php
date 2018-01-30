@@ -31,7 +31,7 @@
             <div class="box-header-book">
                 <h4 class="no-margin">New
                     <span>
-                        <b class="label label-danger">#24</b>
+                        <b class="label label-danger">#{{$cotizacion->count()}}</b>
                         <small><b>$9542</b></small>
                     </span>
                 </h4>
@@ -90,7 +90,6 @@
                                                 <?php
                                                 $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
                                                 ?>
-                                                {{--                                                <a href="{{route('cotizacion_id_show_path',$cotizacion_->id)}}">{{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}</a>--}}
                                                 <strong>
                                                     <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
                                                     {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}}: {{$cotizacion_->nropersonas}} days: {{$fecha}}

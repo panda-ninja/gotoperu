@@ -199,7 +199,7 @@ body {
 }
 /* ----- PDF ----- */
 .portada-pdf{
-  height: 180px;
+  height: 207px;
   overflow-x: hidden;
   overflow-y: hidden;
   perspective: 180px;
@@ -218,7 +218,7 @@ body {
 .portada-pdf .box-dowload{
   position: absolute;
   border-bottom: 2px solid red;
-  background: rgba(255,255,255,.8);
+  background: #ddd;
   bottom: 0;
   left: 0;
   width:100%;
@@ -228,7 +228,7 @@ body {
 .portada-pdf .box-dowload1{
   position: absolute;
   border-bottom: 2px solid green;
-  background: rgba(255,255,255,.8);
+  background: #ddd;
   bottom: 0;
   left: 0;
   width:100%;

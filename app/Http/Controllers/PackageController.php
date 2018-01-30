@@ -871,6 +871,26 @@ class PackageController extends Controller
         return redirect()->route('cotizacion_id_show_path',$coti_id);
     }
 }
+
+    public function generar_codigo_plantilla(Request $request){
+        $duracion=$request->input('duracion');
+        $plantillas= P_Paquete::where('duracion',$duracion)->get();
+        $nro=count($plantillas);
+        $numero_con_ceros = '';
+        if($nro>0) {
+            $diferencia = 4 - strlen(count($plantillas));
+
+            for ($i = 0; $i < $diferencia; $i++) {
+                $numero_con_ceros .= 0;
+            }
+
+            $numero_con_ceros .= count($plantillas);
+        }
+        else
+            $numero_con_ceros ='0001';
+        $codigo='GTP'.$duracion.$numero_con_ceros;
+        return $codigo;
+    }
     /**
      * Display the specified resource.
      *

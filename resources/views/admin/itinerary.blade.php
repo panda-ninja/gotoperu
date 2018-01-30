@@ -833,6 +833,15 @@
             </div>
         </div>
     </div>
+    <div>
+        <div class="form-group">
+            <label for="txt_name">Destinos</label>
+            <input type="text" class="form-control" id="txt_destino" name="txt_destino" value="" >
+            <select class="form-control" id="txt_destino" name="txt_destino">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
     <div class="row margin-top-20">
         <table id="example" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
             <thead>

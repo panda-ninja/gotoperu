@@ -11,6 +11,7 @@
                 </ol>
             </div>
             <form action="{{route('package_edit_path')}}" method="post" id="package_new_path_id">
+                <input type="text" id="tipo_plantilla" value="si">
                 <div class="row">
                     <div class="col-md-12">
                         <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>
@@ -61,7 +62,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="txt_day">Duracion</label>
-                            <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" onchange="calcular_resumen()"  value="{{$itinerary->duracion}}">
+                            <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" onchange="calcular_resumen_edit()"  value="{{$itinerary->duracion}}" readonly="">
                         </div>
                     </div>
                     <div class="col-md-6">

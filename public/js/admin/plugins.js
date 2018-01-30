@@ -25557,8 +25557,6 @@ function calcular_resumen() {
     var amount_t5_u = Math.ceil(costo_itinerario) + Math.ceil(amount_t5);
 
 
-    // console.log('_costo_itinerario:'+costo_itinerario+'_amount_s2:'+amount_s2+'_txt_day:'+txt_day+'_nroPasajeros:'+nroPasajeros);
-    // var amount_s2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
     var amount_s2_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_s2) * Math.ceil(txt_day)));
     var amount_s2_u_pro = Math.ceil(amount_s2_u * utilidad_2);
     var amount_s2_u_pri = Math.ceil(amount_s2_u + amount_s2_u_pro);
@@ -25622,33 +25620,6 @@ function calcular_resumen() {
     var amount_t5_u = (Math.ceil(costo_itinerario) + (Math.ceil(amount_t5) * Math.ceil(txt_day)));
     var amount_t5_u_pro = Math.ceil(amount_t5_u * utilidad_5);
     var amount_t5_u_pri = Math.ceil(amount_t5_u + amount_t5_u_pro);
-    // console.log('con utilidad'+amount_s2_u);
-    //
-    // var amount_d2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_d2_u=Math.ceil(amount_d2_u*utilidad);
-    // var amount_t2_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t2)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_t2_u=Math.ceil(amount_t2_u*utilidad);
-    //
-    // var amount_s3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_s3_u=Math.ceil(amount_s3_u*utilidad);
-    // var amount_d3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_d3_u=Math.ceil(amount_d3_u*utilidad);
-    // var amount_t3_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t3)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_t3_u=Math.ceil(amount_t3_u*utilidad);
-    //
-    // var amount_s4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_s4_u=Math.ceil(amount_s4_u*utilidad);
-    // var amount_d4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_d4_u=Math.ceil(amount_d4_u*utilidad);
-    // var amount_t4_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t4)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_t4_u=Math.ceil(amount_t4_u*utilidad);
-    //
-    // var amount_s5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_s5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_s5_u=Math.ceil(amount_s5_u*utilidad);
-    // var amount_d5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_d5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_d5_u=Math.ceil(amount_d5_u*utilidad);
-    // var amount_t5_u=(Math.ceil(costo_itinerario)+(Math.ceil(amount_t5)*Math.ceil(txt_day)))*Math.ceil(nroPasajeros);
-    // amount_t5_u=Math.ceil(amount_t5_u*utilidad);
     console.log('amount_s2_u:' + amount_s2_u);
     $("#amount_s2_a").html(amount_s2_u);
     $("#amount_s2_a_p").html(amount_s2_u_pro);
@@ -25718,27 +25689,16 @@ function calcular_resumen() {
     $("#amount_t5_a_v").html(amount_t5_u_pri);
 
 
-    // console.log('amount_s3_u:'+amount_s3_u);
-    // $("#amount_s3_u").val(amount_s3_u);
-    // $("#amount_s3_a").html(amount_s3_u);
-    //
-    // $("#amount_d3_u").val(amount_d3_u);
-    // $("#amount_d3_a").html(amount_d3_u);
-    //
-    // $("#amount_m3_u").val(amount_d3_u);
-    // $("#amount_m3_a").html(amount_d3_u);
-    //
-    // $("#amount_t3_u").val(amount_t3_u);
-    // $("#amount_t3_a").html(amount_t3_u);
-    //
-    //
-    // $("#amount_s4_u").val(amount_s4_u);
-    // $("#amount_d4_u").val(amount_d4_u);
-    // $("#amount_t4_u").val(amount_t4_u);
-    //
-    // $("#amount_s5_u").val(amount_s5_u);
-    // $("#amount_d5_u").val(amount_d5_u);
-    // $("#amount_t5_u").val(amount_t5_u);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/package/gererar-codigo', 'duracion='+$('#txt_day').val(), function(data) {
+        $('#txt_codigo').val(data);
+    }).fail(function (data) {
+    });
+
 }
 function filtrar_estrellas(){
     if( $('#strellas_2').prop('checked') ) {

@@ -8,6 +8,7 @@
         </ol>
     </div>
     <form action="{{route('package_save_path')}}" method="post" id="package_new_path_id">
+        <input type="text" id="tipo_plantilla" value="0">
         <div class="row">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>
@@ -50,10 +51,10 @@
         </div>
 
         <div class="row margin-top-20">
-            <div class="col-md-2 hide">
+            <div class="col-md-2 ">
                 <div class="form-group">
                     <label for="txt_code">Code</label>
-                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code">
+                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code" readonly>
                 </div>
             </div>
             <div class="col-md-2">
@@ -311,7 +312,6 @@
                 $hotel_id_3=0;
                 $hotel_id_4=0;
                 $hotel_id_5=0;
-
                 ?>
                 @foreach($hotel as $servicio)
                         @if($servicio->localizacion=="CUSCO")
@@ -319,7 +319,7 @@
                             @if($servicio->estrellas=="2")
                                 @php
                                     $amount_s2=$servicio->single;
-                                    $amount_d2=$servicio->double;
+                                    $amount_d2=$servicio->doble;
                                     $amount_m2=$servicio->matrimonial;
                                     $amount_t2=$servicio->triple;
                                     $hotel_id_2=$servicio->id;
@@ -328,7 +328,7 @@
                             @if($servicio->estrellas=="3")
                                 @php
                                     $amount_s3=$servicio->single;
-                                    $amount_d3=$servicio->double;
+                                    $amount_d3=$servicio->doble;
                                     $amount_m3=$servicio->matrimonial;
                                     $amount_t3=$servicio->triple;
                                     $hotel_id_3=$servicio->id;
@@ -337,7 +337,7 @@
                             @if($servicio->estrellas=="4")
                                 @php
                                     $amount_s4=$servicio->single;
-                                    $amount_d4=$servicio->double;
+                                    $amount_d4=$servicio->doble;
                                     $amount_m4=$servicio->matrimonial;
                                     $amount_t4=$servicio->triple;
                                     $hotel_id_4=$servicio->id;
@@ -346,7 +346,7 @@
                             @if($servicio->estrellas=="5")
                                 @php
                                     $amount_s5=$servicio->single;
-                                    $amount_d5=$servicio->double;
+                                    $amount_d5=$servicio->doble;
                                     $amount_m5=$servicio->matrimonial;
                                     $amount_t5=$servicio->triple;
                                     $hotel_id_5=$servicio->id;

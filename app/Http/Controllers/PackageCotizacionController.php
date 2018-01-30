@@ -1850,14 +1850,20 @@ class PackageCotizacionController extends Controller
         $new_pqt_id=0;
         foreach($ogiginal_pqts as $ogiginal_pqt){
             $plantillas= P_Paquete::where('duracion',$ogiginal_pqt->duracion)->get();
-            $diferencia = 4 - strlen(count($plantillas));
-            $numero_con_ceros='';
-            for($i = 0 ; $i < $diferencia; $i++)
-            {
-                $numero_con_ceros .= 0;
-            }
+            $nro=count($plantillas);
+            $numero_con_ceros = '';
+            if($nro>0) {
+                $diferencia = 4 - strlen(count($plantillas));
 
-            $numero_con_ceros.= count($plantillas);
+                for ($i = 0; $i < $diferencia; $i++) {
+                    $numero_con_ceros .= 0;
+                }
+
+                $numero_con_ceros .= count($plantillas);
+            }
+            else
+                $numero_con_ceros ='001';
+
             $plantilla_pqt= new P_Paquete();
             $plantilla_pqt->codigo='GTP'.$ogiginal_pqt->duracion.$numero_con_ceros;
             $plantilla_pqt->titulo=$plantilla_pqt->titulo;

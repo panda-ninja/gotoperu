@@ -40,7 +40,7 @@
             @endphp
             @foreach($cotizaciones as $cotizacion)
                 <p><b>Pagina de origen {{$cotizacion->web}}</b></p>
-                <b class="text-warning text-25">{{$cotizacion->nropersonas}} PAXS {{$cotizacion->star_2}}{{$cotizacion->star_3}}{{$cotizacion->star_4}}{{$cotizacion->star_5}} STARS:</b>
+                <b class="text-warning text-25">{{$cotizacion->nropersonas}} PAXS {{$cotizacion->star_2}}{{$cotizacion->star_3}}{{$cotizacion->star_4}}{{$cotizacion->star_5}} <i class="fa fa-star" aria-hidden="true"></i>:</b>
                 @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
                     @foreach($paquete->paquete_precios as $precio)
                         <b class="text-unset text-20">
@@ -305,22 +305,30 @@
                                 $pre_t=$precio+$precio_hotel_t;
                                 $prem_t+=$pre_t;
                             @endphp
+
                             <div id="itinerario_" class="caja_itineario">
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        @foreach($itinerario->itinerario_destinos as $destino)
+                                            <b class="dias text-warning">{{$destino->destino}}</b> |
+                                        @endforeach
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-9">
                                         <b class="dias" id="dias_"+total_Itinerarios+>Dia :{{$itinerario->dias}}</b> {{$itinerario->titulo}}
                                     </div>
                                     <div class="col-lg-3 @if($s==0) hide @endif">
-                                        <b>$ {{$pre_s}}</b>
+                                        <b>$ {{round($pre_s,0)}}</b>
                                     </div>
                                     <div class="col-lg-3 @if($d==0) hide @endif">
-                                        <b>$ {{$pre_d}}</b>
+                                        <b>$ {{round($pre_d,0)}}</b>
                                     </div>
                                     <div class="col-lg-3 @if($m==0) hide @endif">
-                                        <b>$ {{$pre_m}}</b>
+                                        <b>$ {{round($pre_m,0)}}</b>
                                     </div>
                                     <div class="col-lg-3 @if($t==0) hide @endif">
-                                        <b>$ {{$pre_t}}</b>
+                                        <b>$ {{round($pre_t,0)}}</b>
                                     </div>
                                 </div>
                             </div>

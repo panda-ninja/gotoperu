@@ -72,13 +72,44 @@
                 @php
                     $total=0;
                     $servicio = 0;
+                    $precio_hotel=0;
+                    $precio_profit=0
                 @endphp
                 @foreach($paquete->itinerario_cotizaciones as $paquete_itinerario)
                     @foreach($paquete_itinerario->itinerario_servicios as $orden_cotizaciones)
-                        @php
-                            $total = $orden_cotizaciones->precio + $servicio;
-                            $servicio = $total;
-                        @endphp
+                        @if($orden_cotizaciones->precio_grupo==1)
+                            @php
+                                $servicio += $orden_cotizaciones->precio;
+                            @endphp
+                        @else
+                            @php
+                                $servicio += ($orden_cotizaciones->precio*$cotizacion_->nropersonas);
+                            @endphp
+                        @endif
+                    @endforeach
+                    @foreach($paquete_itinerario->hotel as $hotel)
+                        @if($hotel->personas_s>0)
+                            @php
+                                $precio_hotel+=$hotel->personas_s*$hotel->precio_s;
+                                $precio_profit=$hotel->utilidad_s;
+                            @endphp
+                        @endif
+                        @if($hotel->personas_d>0)
+                            @php
+                                $precio_hotel+=$hotel->personas_d*$hotel->precio_d;
+                                $precio_profit=$hotel->utilidad_s;
+                            @endphp
+                        @endif
+                        @if($hotel->personas_m>0)
+                            @php
+                                $precio_hotel+=$hotel->personas_m*$hotel->precio_m;
+                            @endphp
+                        @endif
+                        @if($hotel->personas_t>0)
+                            @php
+                                $precio_hotel+=$hotel->personas_t*$hotel->precio_t;
+                            @endphp
+                        @endif
                     @endforeach
                 @endforeach
                 @if($cotizacion_->estado==2)
@@ -147,6 +178,24 @@
                             $sumatotal=$total_utilidad_s+$total_utilidad_d+$total_utilidad_m+$total_utilidad_t;
                         @endphp
                         <div class="col-md-3 margin-top-10">
+                            <div class="btn-primary text-center text-13">
+                                @php
+                                    $date = date_create($cotizacion_->fecha);
+                                    $fecha=date_format($date, 'jS F Y');
+                                    $titulo='';
+                                @endphp
+                                @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
+                                    @if($cliente_coti->estado=='1')
+                                        @php
+                                        $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                        @endphp
+                                        <strong>
+                                            <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
+                                            {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}
+                                        </strong>
+                                    @endif
+                                @endforeach
+                            </div>
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
@@ -174,6 +223,24 @@
                         </div>
                     @elseif($paquete->estado==1)
                         <div class="col-md-3 margin-top-10">
+                            <div class="btn-primary text-center text-13">
+                                @php
+                                    $date = date_create($cotizacion_->fecha);
+                                    $fecha=date_format($date, 'jS F Y');
+                                    $titulo='';
+                                @endphp
+                                @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
+                                    @if($cliente_coti->estado=='1')
+                                        @php
+                                            $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                        @endphp
+                                        <strong>
+                                            <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
+                                            {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}
+                                        </strong>
+                                    @endif
+                                @endforeach
+                            </div>
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload">
@@ -203,6 +270,24 @@
                 @else
                     @if($paquete->estado==2)
                         <div class="col-md-3 margin-top-10">
+                            <div class="btn-primary text-center text-13">
+                                @php
+                                    $date = date_create($cotizacion_->fecha);
+                                    $fecha=date_format($date, 'jS F Y');
+                                    $titulo='';
+                                @endphp
+                                @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
+                                    @if($cliente_coti->estado=='1')
+                                        @php
+                                            $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                        @endphp
+                                        <strong>
+                                            <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
+                                            {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}
+                                        </strong>
+                                    @endif
+                                @endforeach
+                            </div>
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
@@ -229,6 +314,24 @@
                         </div>
                     @elseif($paquete->estado==1)
                         <div class="col-md-3 margin-top-10">
+                            <div class="btn-primary text-center text-13">
+                                @php
+                                    $date = date_create($cotizacion_->fecha);
+                                    $fecha=date_format($date, 'jS F Y');
+                                    $titulo='';
+                                @endphp
+                                @foreach($cotizacion_->cotizaciones_cliente as $cliente_coti)
+                                    @if($cliente_coti->estado=='1')
+                                        @php
+                                            $titulo=$cliente_coti->cliente->nombres.' '.$cliente_coti->cliente->apellidos.' x '.$cotizacion_->nropersonas.' '.$fecha;
+                                        @endphp
+                                        <strong>
+                                            <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
+                                            {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}
+                                        </strong>
+                                    @endif
+                                @endforeach
+                            </div>
                             <div class="portada-pdf">
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload">
