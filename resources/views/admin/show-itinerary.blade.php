@@ -11,7 +11,7 @@
                 </ol>
             </div>
             <form action="{{route('package_edit_path')}}" method="post" id="package_new_path_id">
-                <input type="text" id="tipo_plantilla" value="si">
+                <input type="hidden" id="tipo_plantilla" value="no">
                 <div class="row">
                     <div class="col-md-12">
                         <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>

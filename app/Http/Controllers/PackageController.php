@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Hotel;
 use App\M_Destino;
 use App\M_Itinerario;
+use App\M_ItinerarioDestino;
 use App\M_Servicio;
 use App\P_Itinerario;
 use App\P_ItinerarioDestino;
@@ -47,8 +48,9 @@ class PackageController extends Controller
         $itinerarios=M_Itinerario::get();
         $m_servicios=M_Servicio::get();
         $hotel=Hotel::get();
+        $itinerarios_d=M_ItinerarioDestino::get();
 //        dd($servicios);
-        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel]);
+        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel,'itinerarios_d'=>$itinerarios_d]);
     }
 
     /**

@@ -603,43 +603,60 @@ function  filtrar_grupos_edit(itinerario){
     });
 }
 function  filtrar_itinerarios(){
-
-    $("input[class='itinerario']").each(function (index1) {
-        var destino1 = $(this).val();
-        var destino = destino1.split('_');
-        var destinos=destino[1].split('*');
-        // if(destino[0]==itinerario){
-            var esta=0;
-            console.log('entrando a los destinos');
-            $("input[class='destinospack']").each(function (index) {
-                if($(this).is(':checked')) {
-                    var destino = $(this).val();
-                    console.log('preguntando si esta:'+destino);
-                    console.log('respuesta:'+$.inArray(destino,destinos));
-                    if($.inArray(destino,destinos)>=0) {
-                        esta=1;
-                        console.log('si esta:'+destino);
-                    }
-                }
-            });
-            if(esta==1) {
-                $('#itinerario'+destino[0]).removeClass("hide");
-                $('#itinerario'+destino[0]).fadeIn("slow");
-                console.log('no borrando:'+'#itinerario'+destino[0]);
-            }
-            else {
-                $(this).prop("checked", "");
-                $('#itinerario'+destino[0]).fadeOut("slow");
-                console.log('borrando:'+'#itinerario'+destino[0]);
-            }
-        // }
+    var destino1 =$('#desti').val().split('/');
+    //
+    $.each(destino1,function (index1,value){
+        $('#group_destino_'+value).addClass("hide");
+        $('#group_destino_'+value).fadeOut("slow");
     });
+    var esta=0;
+    destinos='';
+    var valorci='';
+    $("input[class='destinospack']").each(function (index) {
+        if($(this).is(':checked')) {
+            valorci=$(this).val().split('_');
+            console.log('destino escojido:'+valorci[0]);
+            destinos+=valorci[0]+'/';
+            $('#group_destino_'+valorci[0]).removeClass("hide");
+            $('#group_destino_'+valorci[0]).fadeIn("slow");
 
-    // $("input[class='servicios_edit']").each(function (index2) {
-    //     var dato3 = $(this).val();
-    //     var servicio3 = dato3.split('_');
-    //     sumar_servicios_edit(servicio3[0]);
+        }
+    });
+    destinos=destinos.substr(0,destinos.length-1);
+    $('#desti').val(destinos);
+    // filtrar_itinerarios_admin();
+
+    // $("input[class='itinerario']").each(function (index1) {
+    //     var destino1 = $(this).val();
+    //     var destino = destino1.split('_');
+    //     var destinos=destino[1].split('*');
+    //     // if(destino[0]==itinerario){
+    //         var esta=0;
+    //         console.log('entrando a los destinos');
+    //         $("input[class='destinospack']").each(function (index) {
+    //             if($(this).is(':checked')) {
+    //                 var destino = $(this).val();
+    //                 console.log('preguntando si esta:'+destino);
+    //                 console.log('respuesta:'+$.inArray(destino,destinos));
+    //                 if($.inArray(destino,destinos)>=0) {
+    //                     esta=1;
+    //                     console.log('si esta:'+destino);
+    //                 }
+    //             }
+    //         });
+    //         if(esta==1) {
+    //             $('#itinerario'+destino[0]).removeClass("hide");
+    //             $('#itinerario'+destino[0]).fadeIn("slow");
+    //             console.log('no borrando:'+'#itinerario'+destino[0]);
+    //         }
+    //         else {
+    //             $(this).prop("checked", "");
+    //             $('#itinerario'+destino[0]).fadeOut("slow");
+    //             console.log('borrando:'+'#itinerario'+destino[0]);
+    //         }
+    //     // }
     // });
+
 }
 
 function eliminar_iti(id,valor){

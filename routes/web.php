@@ -212,7 +212,7 @@ Route::get('admin/quotes/new/', [
     'uses' => 'QouteController@nuevo',
     'as' => 'quotes_new_path',
 ]);
-Route::get('admin/quotes/new/profile', [
+Route::get('admin/quotes/new/profile',[
     'uses' => 'QouteController@nuevo1',
     'as' => 'quotes_new1_path',
 ]);
