@@ -24836,107 +24836,110 @@ function Pasar_datos(){
     var itinerario='';
     $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
-            $(this).prop("checked", "");
-            total_Itinerarios++;
             itinerario=$(this).val().split('_');
-            var precio_grupo=0;
-            Itis_precio += parseFloat(itinerario[4]);
-            console.log('Precios:'+Itis_precio);
-            // if(parseInt(itinerario[4])==0) {
-            //     Itis_precio += parseInt(itinerario[4]);
-            //     precio_grupo=parseInt(itinerario[4]);
-            // }
-            // else if(parseInt(itinerario[4])==1){
-            //     Itis_precio += Math.ceil(parseInt(itinerario[4])/nroPasajeros);
-            //     precio_grupo=Math.ceil(parseInt(itinerario[4])/nroPasajeros);
-            // }
-            // console.log('cost: '+Itis_precio);
-            var servicios=itinerario[5].split('*');
+            if(!existe(itinerario[0])) {
+                total_Itinerarios++;
+                var precio_grupo=0;
+                Itis_precio += parseFloat(itinerario[4]);
+                console.log('Precios:'+Itis_precio);
+                var servicios=itinerario[5].split('*');
             $.each(servicios, function( key, value ) {
                 var serv=value.split('//');
                 var val_p_g=parseFloat(serv[1]);
-                // if(serv[2]==1)
-                //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
-                // precio_grupo+=val_p_g;
             });
             var iti_temp='';
-                iti_temp+='<div id="itis_'+itinerario[0]+'" class="box-sortable margin-bottom-10">'+
-                '<input type="hidden" name="itinerarios_[]" id="itinerarios_'+itinerario[0]+'" value="'+itinerario[0]+'">'+
-                '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
-                '<b>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
-            '</a>'+
-        '<span class="label pull-right">' +
-            '<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('+itinerario[0]+','+itinerario[4]+')">' +
-                '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
-            '</a>'+
-        '</span>'+
-        '<span class="label label-success pull-right">($'+itinerario[4]+')</span>'+
-                    '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
-                '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
-                    itinerario[3]+
-            '<h5><b>Services</b></h5>'+
-            '<table class="table table-condensed table-striped">'+
-                '<thead>'+
-                '<tr class="bg-grey-goto text-white">'+
-                '<th colspan="2">Concepts</th>'+
-                '<th>Prices</th>'+
-                '<th></th>'+
-                '</tr>'+
-                '</thead>'+
-                '<tbody>';
-                var servicios_='';
-                $.each(servicios, function( key, value ) {
-                    var serv=value.split('//');
-                    var val_p_g=serv[1];
-                    // if(serv[2]==1)
-                    //     val_p_g=Math.ceil(serv[1]/nroPasajeros);
-                    iti_temp+='<tr><td><input type="hidden" name="iti_servicios_'+itinerario[0]+'" value="'+value+'">'+serv[0]+'</td>'+
-                                '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
-                                '<td>'+val_p_g+'</td>'+
-                                '<td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>'+
-                            '</tr>';
-                });
-                // console.log('servicios:');
+        //         iti_temp+='<div id="itis_'+itinerario[0]+'" class="box-sortable margin-bottom-10">'+
+        //         '<input type="hidden" name="itinerarios_[]" id="itinerarios_'+itinerario[0]+'" value="'+itinerario[0]+'">'+
+        //         '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
+        //         '<b>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
+        //     '</a>'+
+        // '<span class="label pull-right">' +
+        //     '<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('+itinerario[0]+','+itinerario[4]+')">' +
+        //         '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
+        //     '</a>'+
+        // '</span>'+
+        // '<span class="label label-success pull-right">($'+itinerario[4]+')</span>'+
+        //             '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
+        //         '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
+        //             itinerario[3]+
+        //     '<h5><b>Services</b></h5>'+
+        //     '<table class="table table-condensed table-striped">'+
+        //         '<thead>'+
+        //         '<tr class="bg-grey-goto text-white">'+
+        //         '<th colspan="2">Concepts</th>'+
+        //         '<th>Prices</th>'+
+        //         '<th></th>'+
+        //         '</tr>'+
+        //         '</thead>'+
+        //         '<tbody>';
+        //         var servicios_='';
+        //         $.each(servicios, function( key, value ) {
+        //             var serv=value.split('//');
+        //             var val_p_g=serv[1];
+        //             iti_temp+='<tr><td><input type="hidden" name="iti_servicios_'+itinerario[0]+'" value="'+value+'">'+serv[0]+'</td>'+
+        //                         '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
+        //                         '<td>'+val_p_g+'</td>'+
+        //                         '<td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>'+
+        //                     '</tr>';
+        //         });
+        //     iti_temp+=''+
+        //         '<tr>'+
+        //         '<td class="" colspan="4">'+
+        //         '<a class="hide" href="#add-services'+itinerario[0]+'" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
+        //         '<div class="col-md-12">'+
+        //         '<label for="txta_description">Sugerencias para los servicios</label>'+
+        //         '<textarea class="form-control" id="txt_sugerencia_'+itinerario[0]+'" name="txt_sugerencia[]" rows="3"></textarea>'+
+        //         '</div>'+
+        //         '<div class="collapse" id="add-services'+itinerario[0]+'">'+
+        //         '<div class="row margin-top-10">'+
+        //         '<div class="col-md-6">'+
+        //         '<div class="form-group">'+
+        //         '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">'+
+        //         '</div>'+
+        //         '</div>'+
+        //         '<div class="col-md-4 row">'+
+        //         '<div class="form-group">'+
+        //         '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">'+
+        //         '</div>'+
+        //         '</div>'+
+        //         '<div class="col-md-2">'+
+        //         '<div class="form-group">'+
+        //         '<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
+        //         '</div>'+
+        //         '</div>'+
+        //         '</div>'+
+        //         '</div>'+
+        //         '</td>'+
+        //         '</tr>'+
+        //         '</tbody>'+
+        //         '</table>'+
+        //         '</div>'+
+        //         '</div>'+
+        //         '</div>';
 
-            iti_temp+=''+
-                '<tr>'+
-                '<td class="" colspan="4">'+
-                '<a class="hide" href="#add-services'+itinerario[0]+'" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
-                '<div class="col-md-12">'+
-                '<label for="txta_description">Sugerencias para los servicios</label>'+
-                '<textarea class="form-control" id="txt_sugerencia_'+itinerario[0]+'" name="txt_sugerencia[]" rows="3"></textarea>'+
-                '</div>'+
-                '<div class="collapse" id="add-services'+itinerario[0]+'">'+
-                '<div class="row margin-top-10">'+
-                '<div class="col-md-6">'+
-                '<div class="form-group">'+
-                '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">'+
-                '</div>'+
-                '</div>'+
-                '<div class="col-md-4 row">'+
-                '<div class="form-group">'+
-                '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">'+
-                '</div>'+
-                '</div>'+
-                '<div class="col-md-2">'+
-                '<div class="form-group">'+
-                '<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '</td>'+
-                '</tr>'+
-                '</tbody>'+
-                '</table>'+
-                '</div>'+
-                '</div>'+
-                '</div>';
-
+                iti_temp += '<li class="content-list-book" id="content-list-' + itinerario[0] + '" value="' + itinerario[0] + '">' +
+                    '<div class="content-list-book-s">' +
+                    '<a href="#!">' +
+                    '<strong>' +
+                    '<input type="hidden" class="servicios_new" name="servicios_new_" value="' + itinerario[0] + '">' +
+                    '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">' +
+                    '<input type="hidden" name="itinerarios_1[]" value="' + itinerario[5] + '">' +
+                    '<input type="hidden" name="itinerarios_2[]" value="' + itinerario[0] + '">' +
+                    '<span class="itinerarios_1 hide">' + itinerario[5] + '</span>' +
+                    '<span class="txt_itinerarios hide" name="itinerarios1">' + itinerario[0] + '</span>' +
+                    '<b class="dias_iti_c2" id="dias_' + total_Itinerarios + '">Dia ' + total_Itinerarios + ':</b> ' + itinerario[2] +
+                    '</strong>' +
+                    '<small>' +
+                    itinerario[4] + '$' +
+                    '</small>' +
+                    '</a>' +
+                    '<div class="icon">' +
+                    ' <a class="text-right" href="#!" onclick="eliminar_iti(' + itinerario[0] + ',' + itinerario[4] + ')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>'
+                '</div>' +
+                '</div>' +
+                '</li>';
             $('#Lista_itinerario_g').append(iti_temp);
-            iti_temp='';
-            // destinos+=$(this).val()+'_';
-
+            }
         }
     });
     $('#totalItinerario').val(Itis_precio);
@@ -25448,20 +25451,51 @@ function  filtrar_itinerarios(){
 function eliminar_iti(id,valor){
     swal({
         title: 'MENSAJE DEL SISTEMA',
-        text: "¿Estas seguro de eliminar el itinerario?",
+        text: "¿Estas seguro de eliminar este itinerario?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then(function () {
-        $('#itis_'+id).fadeOut();
-        $('#itis_'+id).remove();
-        Itis_precio=Itis_precio-valor;
-        $('#totalItinerario').val(Itis_precio);
-        $('#totalItinerario_front').html(Itis_precio);
+        $('#content-list-'+id).fadeOut();
+        $('#content-list-'+id).remove();
+        var lista_it='';
+        $(".txt_itinerarios").each(function (index) {
+            lista_it+=$(this).html()+'/';
+        });
+        $('#lista_itinerarios1').val(lista_it);
+        var valor_temp=parseFloat($('#totalItinerario').val());
+        valor_temp=valor_temp-valor;
+        $('#totalItinerario').val(valor_temp);
+        $('#totalItinerario_front').html(valor_temp);
+
+        var cont=0;
+        $(".dias_iti_c2").each(function (index) {
+            cont++;
+            $(this).html('Dia '+cont+':');
+        });
+        console.log('cont:'+cont);
+        $('#nroItinerario').val(cont);
         calcular_resumen();
     })
+
+    // swal({
+    //     title: 'MENSAJE DEL SISTEMA',
+    //     text: "¿Estas seguro de eliminar el itinerario?",
+    //     type: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Yes'
+    // }).then(function () {
+    //     $('#itis_'+id).fadeOut();
+    //     $('#itis_'+id).remove();
+    //     Itis_precio=Itis_precio-valor;
+    //     $('#totalItinerario').val(Itis_precio);
+    //     $('#totalItinerario_front').html(Itis_precio);
+    //     calcular_resumen();
+    // })
 }
 
 function calcular_utilidad(){
@@ -26515,8 +26549,6 @@ function Pasar_datos1(){
     var itinerario='';
     $("input[name=itinerarios]").each(function (index){
         if($(this).is(':checked')){
-            // $(this).prop("checked", "");
-
             itinerario=$(this).val().split('_');
             if(!existe(itinerario[0])) {
                 total_Itinerarios_camino2++;
@@ -26526,37 +26558,9 @@ function Pasar_datos1(){
                 $.each(servicios, function (key, value) {
                     var serv = value.split('//');
                     var val_p_g = parseFloat(serv[1]);
-                    // if(serv[2]==1)
-                    //     val_p_g=parseInt(Math.ceil(serv[1]/nroPasajeros));
-                    // precio_grupo+=val_p_g;
                 });
-                // if(parseInt(itinerario[4])==0) {
-                //     Itis_precio += parseInt(itinerario[4]);
-                //     precio_grupo=parseInt(itinerario[4]);
-                // }
-                // else if(parseInt(itinerario[4])==1){
-                //     Itis_precio += Math.ceil(parseInt(itinerario[4])/nroPasajeros);
-                //     precio_grupo=Math.ceil(parseInt(itinerario[4])/nroPasajeros);
-                // }
-                // console.log('cost: '+Itis_precio);
                 var servicios = itinerario[5].split('*');
-                // lista_itinerarios1+=itinerario[0]+'/';
                 var iti_temp = '';
-                // iti_temp+='<div id="itinerario_'+itinerario[0]+'" class="caja_itineario">'+
-                //         '<div class="row">'+
-                //         '<div class="col-lg-9">' +
-                //             '<input type="hidden" name="itinerarios_1[]" value="'+itinerario[5]+'">'+
-                //         '<input type="hidden" name="itinerarios_2[]" value="'+itinerario[0]+'">'+
-                //         '<span class="itinerarios_1 hide">'+itinerario[5]+'</span>'+
-                //             '<span class="txt_itinerarios hide" name="itinerarios1">'+itinerario[0]+'</span>'+
-                //             '<b class="dias" id="dias_"+total_Itinerarios+>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
-                //         '</div>'+
-                //         '<div class="col-lg-3">' +
-                //             ' <b>'+itinerario[4]+'</b>'+
-                //             ' <a class="text-right" href="#!" onclick="borrar_iti('+itinerario[0]+')"><i class="fa fa-times-circle" aria-hidden="true"></i></a>'
-                //         '</div>'+
-                //         '</div>'+
-                //     '</div>';
 
                 iti_temp += '<li class="content-list-book" id="content-list-' + itinerario[0] + '" value="' + itinerario[0] + '">' +
                     '<div class="content-list-book-s">' +
@@ -26587,14 +26591,7 @@ function Pasar_datos1(){
     $('#totalItinerario').val(Itis_precio);
     $('#st_new').html(Itis_precio);
     $('#nroItinerario').val(total_Itinerarios_camino2);
-    // $('#lista_itinerarios1').val(lista_itinerarios1);
-    // var cont=1;
-    // $(".dias").each(function (index) {
-    //     $(this).html('Dia '+cont+':');
-    //     cont++;
-    // });
     calcular_resumen();
-    //calcular_precio1();
 }
 function calcular_precio1(){
     var preci_Total=0;

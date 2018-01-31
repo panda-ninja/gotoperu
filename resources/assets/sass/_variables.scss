@@ -318,3 +318,13 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   -o-transform:translatZ(0) scale(2.20); /* Opera */
   transform:translatZ(0) scale(2.20);
 }
+.box-list-book2{
+  border-right: 1px solid transparent;
+  text-align: left;
+  background-color: transparent;
+  transition: background-color 0.05s ease-in-out;
+  /* min-height: 600px; */
+}
+.borar_stetica{
+  list-style: none;
+}

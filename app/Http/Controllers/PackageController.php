@@ -68,7 +68,7 @@ class PackageController extends Controller
         $txta_include=$request->input('txta_include');
         $txta_notinclude=$request->input('txta_notinclude');
         $totalItinerario=$request->input('totalItinerario');
-        $itinerarios_=$request->input('itinerarios_');
+        $itinerarios_=$request->input('itinerarios_2');
         $txt_sugerencia=$request->input('txt_sugerencia');
         $hotel_id_2=$request->input('hotel_id_2');
         $hotel_id_3=$request->input('hotel_id_3');
@@ -253,11 +253,12 @@ class PackageController extends Controller
             $p_itinerario->precio=$st;
             $p_itinerario->save();
         }
-        $destinos=M_Destino::get();
-        $itinerarios=M_Itinerario::get();
-        $m_servicios=M_Servicio::get();
-        $hotel=Hotel::get();
-        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel]);
+        return redirect()->route('show_itineraries_path');
+//        $destinos=M_Destino::get();
+//        $itinerarios=M_Itinerario::get();
+//        $m_servicios=M_Servicio::get();
+//        $hotel=Hotel::get();
+//        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel]);
     }
     public function itineraries()
     {
@@ -270,7 +271,8 @@ class PackageController extends Controller
         $itinerarios=M_Itinerario::get();
         $m_servicios=M_Servicio::get();
         $itinerary=P_Paquete::FindOrFail($id);
-        return view('admin.show-itinerary',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'paquete_id'=>$id]);
+        $itinerarios_d=M_ItinerarioDestino::get();
+        return view('admin.show-itinerary',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'paquete_id'=>$id,'itinerarios_d'=>$itinerarios_d]);
     }
     public function duplicate_itinerary($id)
     {
@@ -291,7 +293,7 @@ class PackageController extends Controller
         $txta_include=$request->input('txta_include');
         $txta_notinclude=$request->input('txta_notinclude');
         $totalItinerario=$request->input('totalItinerario');
-        $itinerarios_=$request->input('itinerarios_');
+        $itinerarios_=$request->input('itinerarios_2');
         $txt_sugerencia=$request->input('txt_sugerencia');
 
         $strellas_2=$request->input('strellas_2');
@@ -470,8 +472,9 @@ class PackageController extends Controller
             $p_itinerario->precio=$st;
             $p_itinerario->save();
         }
-        $itineraries=P_Paquete::get();
-        return view('admin.show-itineraries',['itineraries'=>$itineraries]);
+//        $itineraries=P_Paquete::get();
+//        return view('admin.show-itineraries',['itineraries'=>$itineraries]);
+        return redirect()->route('show_itineraries_path');
     }
     public function itinerary_duplicate(Request $request)
     {
@@ -686,7 +689,7 @@ class PackageController extends Controller
         $txta_include=$request->input('txta_include');
         $txta_notinclude=$request->input('txta_notinclude');
         $totalItinerario=$request->input('totalItinerario');
-        $itinerarios_=$request->input('itinerarios_');
+        $itinerarios_=$request->input('itinerarios_2');
         $txt_sugerencia=$request->input('txt_sugerencia');
 
         $strellas_2=$request->input('strellas_2');

@@ -1949,7 +1949,8 @@ class PackageCotizacionController extends Controller
         $m_servicios=M_Servicio::get();
         $itinerary=P_Paquete::FindOrFail($new_pqt_id);
         $hotel=Hotel::get();
-        return view('admin.show-plantilla-edit',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'paquete_id'=>$new_pqt_id,'hotel'=>$hotel,'coti_id'=>$coti_id]);
+        $itinerarios_d=M_ItinerarioDestino::get();
+        return view('admin.show-plantilla-edit',['itinerary'=>$itinerary,'destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'paquete_id'=>$new_pqt_id,'hotel'=>$hotel,'coti_id'=>$coti_id,'itinerarios_d'=>$itinerarios_d]);
     }
     public function poner_ceros($numero){
         $diferencia = 4 - strlen($numero);

@@ -10,11 +10,34 @@
     <form action="{{route('package_save_path')}}" method="post" id="package_new_path_id">
         <input type="hidden" id="tipo_plantilla" value="si">
         <div class="row">
-            <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span> Package</h4>
-                <div class="divider margin-bottom-20"></div>
+            <div class="col-md-1">
+                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">1</span></h4>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label for="txt_day">Duracion</label>
+                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="2" onchange="calcular_resumen()">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="txt_code">Code</label>
+                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code" readonly>
+                </div>
+            </div>
+
+            <div class="col-md-6 hide">
+                <div class="form-group">
+                    <label for="txt_title">Title</label>
+                    <input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="Title">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label for="txta_description">Description</label>
+                <input type="text" class="form-control" id="txta_description" name="txta_description">
             </div>
         </div>
+        <div class="divider"></div>
         <div class="row hide">
             <div class="col-md-3">
                 <div class="checkbox1">
@@ -49,38 +72,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="row margin-top-20">
-            <div class="col-md-2 ">
-                <div class="form-group">
-                    <label for="txt_code">Code</label>
-                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="Code" readonly>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="txt_day">Duracion</label>
-                    <input type="number" class="form-control" id="txt_day" name="txt_day" placeholder="Days" min="0" value="2" onchange="calcular_resumen()">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="txt_title">Title</label>
-                    <input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="Title">
-                </div>
-            </div>
-            <div class="col-md-12">
-                <label for="txta_description">Description</label>
-                <textarea class="form-control" id="txta_description" name="txta_description" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="row margin-top-20">
-            <div class="col-md-12">
-                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">2</span> Destinations</h4>
-                <div class="divider margin-bottom-20"></div>
-            </div>
-        </div>
         <div class="row">
+            <div class="col-md-1">
+                <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">2</span></h4>
+
+            </div>
+            <div class="col-sm-11">
             {{csrf_field()}}
             @php
                 $deti='';
@@ -101,18 +98,23 @@
             @php
                 $deti=substr($deti,0,strlen($deti)-1);
             @endphp
+            </div>
         </div>
         <input type="hidden" id="desti" value="">
-        <div class="row margin-top-20">
+        <div class="divider"></div>
+        <div class="row">
             <div class="col-md-12">
                 <h4 class="font-montserrat text-orange-goto"><span class="label bg-orange-goto">3</span> Itinerary</h4>
-                <div class="divider margin-bottom-20"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="grid" id="Lista_itinerario_g" onmouseup="ordenar_itinerarios()">
+                <div class='col-md-12 box-list-book2'>
+                    <li value="0" class="borar_stetica">
+                        <ol id="Lista_itinerario_g" class='simple_with_animation vertical no-padding no-margin'>
 
+                        </ol>
+                    </li>
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
@@ -1586,7 +1588,7 @@
                     <div class="form-group">
                         <label for="txt_day">Total venta</label>
                         <input type="number" class="form-control" id="totalItinerario_venta" name="totalItinerario_venta" min="0" value="0" readonly>
-                        <input type="number" class="form-control" id="nroItinerario" name="nroItinerario" min="0" value="0">
+                        <input type="text" class="form-control" id="nroItinerario" name="nroItinerario" value="0">
                     </div>
                 </div>
             </div>
@@ -1607,5 +1609,61 @@
             filtrar_estrellas();
             calcular_resumen();
         } );
+    </script>
+    <script>
+        var adjustment;
+
+        $("ol.simple_with_animation").sortable({
+            group: 'simple_with_animation',
+            pullPlaceholder: false,
+            tolerance: 6,
+            // animation on drop
+            onDrop: function  ($item, container, _super) {
+
+                var $clonedItem = $('<li/>').css({height: 0});
+                $item.before($clonedItem);
+                $clonedItem.animate({'height': $item.height()});
+
+                var s_cotizacion = $item.val();
+                var s_porcentaje = $item.parent().parent().val();
+
+                $item.animate($clonedItem.position(), function  () {
+                    $clonedItem.detach();
+                    _super($item, container);
+                });
+
+                var datos = {
+                    "txt_cotizacion" : s_cotizacion,
+                    "txt_porcentaje" : s_porcentaje
+                };
+                var cont=1;
+                $(".dias_iti_c2").each(function (index) {
+                    $(this).html('Dia '+cont+':');
+                    cont++;
+                });
+            },
+
+            // set $item relative to cursor position
+            onDragStart: function ($item, container, _super) {
+
+                var offset = $item.offset(),
+                    pointer = container.rootGroup.pointer;
+
+                adjustment = {
+                    left: pointer.left - offset.left,
+                    top: pointer.top - offset.top
+                };
+
+                _super($item, container);
+
+            },
+            onDrag: function ($item, position) {
+                $item.css({
+                    left: position.left - adjustment.left,
+                    top: position.top - adjustment.top
+                });
+
+            }
+        });
     </script>
 @stop
