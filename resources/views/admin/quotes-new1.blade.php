@@ -425,7 +425,7 @@
                     </div>
                     <div class="col-lg-12 caja_verde">
                         <div class="row">
-                            <div class="col-lg-3"><b class="text-20">GTP628</b></div>
+                            <div class="col-lg-3"><b class="text-20">New</b></div>
                             <div class="col-lg-3"><b class="text-20" id="dias_html_0">0d</b></div>
                             <div class="col-lg-3"><b class="text-20" id="precio_plantilla">$0</b></div>
                             <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form2()">GO</button></div>
@@ -594,13 +594,13 @@
                             <div class="row">
                                 <div class="col-lg-3"><b class="text-20">New</b></div>
                                 <div class="col-lg-3"><b class="text-20" id="dias_html">0d</b></div>
-                                <div class="col-lg-3">$<b class="text-20" id="st_new">850</b></div>
+                                <div class="col-lg-3">$<b class="text-20" id="st_new">0</b></div>
                                 <div class="col-lg-3 text-right margin-top-5 margin-bottom-5"><button type="submit" class="btn btn-green" onclick="enviar_form1()">GO</button></div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class='col-md-12 box-list-book'>
-                                <li value="0">
+                            <div class='col-md-12 box-list-book2'>
+                                <li value="0" class="borar_stetica">
                                     <ol id="Lista_itinerario_g" class='simple_with_animation vertical no-padding no-margin'>
 
                                     </ol>

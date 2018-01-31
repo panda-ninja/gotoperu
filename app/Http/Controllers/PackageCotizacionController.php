@@ -480,13 +480,6 @@ class PackageCotizacionController extends Controller
             foreach ($cotizacion as $cotizacion_){
                 $cotizacion1=$cotizacion_;
             }
-//          return view('admin.plan-details-excel', ['paquete'=>$paquete, 'cotizacion'=>$cotizacion]);
-//            $cliente_coti=CotizacionesCliente::where('cotizaciones_id',$cotizacion->id)->get();
-//            dd($cliente_coti);
-
-//        $cliente=Cliente::FindOrFail($cliente_coti->clientes_id);
-//        $destinos=$request->input('txt_destinos1');
-//        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
         $m_servicios=M_Servicio::get();
         return view('admin.plan-details-excel',['cotizaciones'=>$cotizacion,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$id]);
         }
@@ -801,21 +794,7 @@ class PackageCotizacionController extends Controller
             $cotizacion_id=$request->input('cotizacion_id_1');
             $cliente_id=$request->input('cliente_id_1');
         }
-        $acomodacion_s=0;
-        if($request->input('a_s'))
-            $acomodacion_s=$request->input('a_s');
 
-        $acomodacion_d=0;
-        if($request->input('a_d'))
-            $acomodacion_d=$request->input('a_d');
-
-        $acomodacion_m=0;
-        if($request->input('a_m'))
-            $acomodacion_m=$request->input('a_m');
-
-        $acomodacion_t=0;
-        if($request->input('a_t'))
-            $acomodacion_t=$request->input('a_t');
 
 
         $txt_day=$request->input('txt_days1');
@@ -902,6 +881,8 @@ class PackageCotizacionController extends Controller
 
 //        $acomodacion=$request->input('acomodacion');
 //        $acomodacion=explode('_',$acomodacion);
+
+
         $acomodacion_s=0;
         $acomodacion_d=0;
         $acomodacion_m=0;
@@ -909,8 +890,8 @@ class PackageCotizacionController extends Controller
 
         $acomodacion_s=$request->input('a_s');
         $acomodacion_d=$request->input('a_d');
-        $acomodacion_t=$request->input('a_m');
-        $acomodacion_m=$request->input('a_t');
+        $acomodacion_m=$request->input('a_m');
+        $acomodacion_t=$request->input('a_t');
 
 
         $paquete=new PaqueteCotizaciones();
@@ -1121,27 +1102,28 @@ class PackageCotizacionController extends Controller
     }
     public function nuevo_paquete_(Request $request)
     {
-//        $this->validate($request,[
-//            'txt_name1_'=>'required',
-//            'txt_date1_'=>'required',
-//            'txt_email1_'=>'required',
-//            'txt_country1_'=>'required',
-//            'txt_phone1_'=>'required',
-//            'txt_travelers1_'=>'required',
-//            'txt_days1_'=>'required',
-//            'pqt_id'=>'required',
-//            'estrellas_from_'=>'required'
-//        ]);
-
         $plan=$request->input('plan');
-//dd($request->input('web_'));
         $cotizacion_id=0;
         $cliente_id=0;
         $estrela = $request->input('estrellas_from_');
-//        dd($estrela );
         $date = date_create($request->input('txt_date1_'));
         $fecha = date_format($date, 'jS F Y');
+        $acomodacion_s=0;
+        if($request->input('a_s_'))
+            $acomodacion_s=$request->input('a_s_');
 
+        $acomodacion_d=0;
+        if($request->input('a_d_'))
+            $acomodacion_d=$request->input('a_d_');
+
+        $acomodacion_m=0;
+        if($request->input('a_m_'))
+            $acomodacion_m=$request->input('a_m_');
+
+        $acomodacion_t=0;
+        if($request->input('a_t_'))
+            $acomodacion_t=$request->input('a_t_');
+        
         if($plan=='0') {
             $cliente = new Cliente();
             $cliente->nombres = strtoupper($request->input('txt_name1_'));
@@ -1187,21 +1169,6 @@ class PackageCotizacionController extends Controller
             $cliente_id=$request->input('cliente_id_');
 
         }
-        $acomodacion_s=0;
-        if($request->input('a_s_'))
-            $acomodacion_s=$request->input('a_s_');
-
-        $acomodacion_d=0;
-        if($request->input('a_d_'))
-            $acomodacion_d=$request->input('a_d_');
-
-        $acomodacion_m=0;
-        if($request->input('a_m_'))
-            $acomodacion_m=$request->input('a_m_');
-
-        $acomodacion_t=0;
-        if($request->input('a_t_'))
-            $acomodacion_t=$request->input('a_t_');
 
         $p_paquete_id=$request->input('pqt_id');
         $p_paquete=P_Paquete::where('id',$p_paquete_id)->get();
@@ -1212,9 +1179,6 @@ class PackageCotizacionController extends Controller
         $txta_description='';
         $txta_include='';
         $txta_notinclude='';
-//        $totalItinerario=$request->input('totalItinerario');
-//        $txt_sugerencia='';
-//        $nro_personas=$request->input('txt_travelers1_');
 
         $hotel_id_2=0;
         $hotel_id_3=0;

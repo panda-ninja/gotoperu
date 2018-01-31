@@ -356,7 +356,7 @@
                             <p><b CLASS="text-warning text-15"><span id="porc_m">{{$utilidad_por_m}}</span>%</b></p>
                         </div>
                         <div class="col-lg-1 @if($t==0) hide @endif">
-                            <span name="pro_t" id="pro_t" >{{$utilidad_t}}</span>>
+                            <span name="pro_t" id="pro_t" >{{$utilidad_t}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_t">{{$utilidad_por_t}}</span>%</b></p>
                         </div>
                     </div>

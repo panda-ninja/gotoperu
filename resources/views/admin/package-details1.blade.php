@@ -94,7 +94,9 @@
                             </div>
                             <div class="col-lg-5">
                                 <div class="row caja_dia">
-                                    <div class="col-lg-7">{{$itinerario->titulo}}</div>
+                                    <div class="col-lg-7">
+                                        {{$itinerario->titulo}}
+                                    </div>
                                     <div class="col-lg-1 @if($s==0) hide @endif">S</div>
                                     <div class="col-lg-1 @if($d==0) hide @endif">D</div>
                                     <div class="col-lg-1 @if($t==0) hide @endif">T</div>
@@ -137,8 +139,33 @@
                                         <div class="row" id="lista_servicios_{{$servicios->id}}">
                                             <div class="col-lg-7">
                                                 <div class="row">
-                                                    <div class="col-lg-10{{$rango}}">{{$servicios->nombre}}</div>
-
+                                                    <div class="col-lg-10{{$rango}}">
+                                                        @if($servicios->servicio->grupo=='TOURS')
+                                                            <b class="text-primary text-13"><i class="fa fa-map-o" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='MOVILID')
+                                                            <b class="text-primary text-13"><i class="fa fa-bus" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='REPRESENT')
+                                                            <b class="text-primary text-13"><i class="fa fa-users" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='ENTRANCES')
+                                                            <b class="text-primary text-13"><i class="fa fa-ticket" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='FOOD')
+                                                            <b class="text-primary text-13"><i class="fa fa-cutlery" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='TRAINS')
+                                                            <b class="text-primary text-13"><i class="fa fa-train" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='FLIGHTS')
+                                                            <b class="text-primary text-13"><i class="fa fa-plane" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='OTHERS')
+                                                            <b class="text-primary text-13"><i class="fa fa-question" aria-hidden="true"></i></b>
+                                                        @endif
+                                                        {{$servicios->nombre}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-1 @if($s==0) hide @endif">$<input type="hidden" class="precio_servicio_s" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
