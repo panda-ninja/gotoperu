@@ -686,3 +686,7 @@ Route::post('admin/package/gererar-codigo', [
     'uses' => 'PackageController@generar_codigo_plantilla',
     'as' => 'generar_codigo_plantilla_path',
 ]);
+Route::get('admin/current-quotes/plan/total/{id}', [
+    'uses' => 'PackageCotizacionController@plan_total',
+    'as' => 'mostar_planes_total_path'
+]);

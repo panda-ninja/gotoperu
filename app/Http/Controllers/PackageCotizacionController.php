@@ -1123,7 +1123,7 @@ class PackageCotizacionController extends Controller
         $acomodacion_t=0;
         if($request->input('a_t_'))
             $acomodacion_t=$request->input('a_t_');
-        
+
         if($plan=='0') {
             $cliente = new Cliente();
             $cliente->nombres = strtoupper($request->input('txt_name1_'));
@@ -1669,9 +1669,7 @@ class PackageCotizacionController extends Controller
     public function show_step1_ser($cliente_id, $cotizacion_id,$pqt_id,$id_serv)
     {
         $cliente=Cliente::FindOrFail($cliente_id);
-//        $destinos=$request->input('txt_destinos1_');
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-
         $m_servicios=M_Servicio::get();
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id, 'id_serv'=>$id_serv]);
     }
@@ -1956,5 +1954,17 @@ class PackageCotizacionController extends Controller
 //        }
         return view('admin.itinerary-edit',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerario'=>$itinerario,'servicios'=>$servicios]);
     }
-
+    public function plan_total($id){
+        $paquetes = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+        foreach ($paquetes as $paquetes2){
+            $paquete = PaqueteCotizaciones::with('paquete_precios')->get()->where('id', $id);
+            $cotizacion = Cotizacion::where('id',$paquetes2->cotizaciones_id)->get();
+            $cotizacion1='';
+            foreach ($cotizacion as $cotizacion_){
+                $cotizacion1=$cotizacion_;
+            }
+            $m_servicios=M_Servicio::get();
+            return view('admin.plan-details-total',['cotizaciones'=>$cotizacion,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$id]);
+        }
+    }
 }

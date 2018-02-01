@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
-                                    <span class="hide text-orange-goto text-40">${{number_format(ceil($sumatotal), 2, '.', '')}}</span>
+                                    <span class="hide text-orange-goto text-40">${{number_format(ceil(122), 2, '.', '')}}</span>
                                 </div>
                             </div>
                         </div>

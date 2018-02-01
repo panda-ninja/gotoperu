@@ -2221,6 +2221,12 @@ function variar_profit(acom) {
     $('#profit_por_d').val(uti_por_d);
     $('#profit_por_m').val(uti_por_m);
     $('#profit_por_t').val(uti_por_t);
+    // console.log('repercutir:'+pro);
+    // $('#pro_s').val(pro);
+    // $('#pro_d').val(pro);
+    // $('#pro_m').val(pro);
+    // $('#pro_t').val(pro);
+
 }
 function variar_sales(acom){
 

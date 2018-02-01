@@ -300,10 +300,10 @@
                                                 <div class="col-lg-10">HOTEL</div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{explode('.00',$hotel->precio_s)[0]}}</div>
-                                        <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{explode('.00',$hotel->precio_d)[0]/2}}</div>
-                                        <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{explode('.00',$hotel->precio_m)[0]/2}}</div>
-                                        <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{explode('.00',$hotel->precio_t)[0]/3}}</div>
+                                        <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{round(explode('.00',$hotel->precio_s)[0],2)}}</div>
+                                        <div class="col-lg-1 @if($hotel->personas_d==0) hide @endif">${{round(explode('.00',$hotel->precio_d)[0]/2,2)}}</div>
+                                        <div class="col-lg-1 @if($hotel->personas_m==0) hide @endif">${{round(explode('.00',$hotel->precio_m)[0]/2,2)}}</div>
+                                        <div class="col-lg-1 @if($hotel->personas_t==0) hide @endif">${{round(explode('.00',$hotel->precio_t)[0]/3,2)}}</div>
                                         <input type="hidden" class="precio_servicio_s_h" value="{{explode('.00',$hotel->precio_s)[0]}}">
                                         <input type="hidden" class="precio_servicio_d_h" value="{{explode('.00',$hotel->precio_d)[0]/2}}">
                                         <input type="hidden" class="precio_servicio_m_h" value="{{explode('.00',$hotel->precio_m)[0]/2}}">
