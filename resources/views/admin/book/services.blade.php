@@ -44,7 +44,7 @@
                                     @endif
                             @endforeach
                             <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hidalgo esta activo"></i>
-                            <div class="dropdown pull-right">
+                            <div class="dropdown pull-right hide">
                                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Opciones
                                     <span class="caret"></span>
@@ -89,7 +89,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4 class="text-right">
+                    <h4 class="text-right hide ">
                         <a href="#" style="text-decoration:none;">
                             {{--<strong>Price x peson: 123.00$</strong>--}}
                             <strong class="text-warning text-25">Pending: 23.00$</strong>
@@ -625,7 +625,7 @@
                             <div class="col-lg-12 text-center">
                                 <input type="hidden" name="cotizacion_id" value="{{$cotizacion->id}}">
                                 {{csrf_field()}}
-                                <button type="submit" class="btn btn-lg btn-success">Confirmar toda la reserva
+                                <button type="submit" class="btn btn-lg btn-success">Guardar reserva
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                 </button>
                             </div>

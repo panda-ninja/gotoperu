@@ -89,6 +89,17 @@ b{
     margin: 0;
     height: auto;
 }
+.responsive-img2{
+    margin-top: 20px;
+    margin-bottom: 1px;
+    margin-left: 8px;
+    margin-right: 8px;
+    width:215px;
+    height:215px;
+}
+.centrar-todo{
+    text-align: center;
+}
 .table-price-accommodation{
     border-collapse: collapse;
     text-align: center;
