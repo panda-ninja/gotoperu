@@ -2713,30 +2713,41 @@ function calcularPrecio(){
 }
 
 function sumar_servicios_itinerario(){
+    var traveles=0;
+    traveles=$('#txt_travellers').val();
+    if(traveles<=0){
+        swal(
+            'Upps!',
+            'Ingrese el nro de pasajeros!',
+            'danger'
+        )
+        return false;
+    }
     console.log('hola');
     var pqt=$('#pqt_id').val();
     var arreglo
     arreglo=$('#lista_servicios_'+pqt).val().split('/');
     var dat='';
     var suma=0;
-    var traveles=0;
-    traveles=$('#txt_travellers').val();
+
 
     console.log('traveles:'+traveles);
     console.log('servicios:'+arreglo);
 
     $.each(arreglo, function( key, value ) {
         dat=value.split('_');
+
         if(dat[1]=='g'){
-            suma+=Math.round((dat[0]/traveles)*10)/10;
-            console.log('v:'+Math.round((dat[0]/traveles)*10)/10);
+            suma+=Math.round((Math.round(dat[0],2)/traveles)*10)/10;
+            console.log('v:'+Math.round((Math.round(dat[0],2)/traveles)*10)/10);
         }
         else if(dat[1]=='i'){
-            suma+=Math.round(dat[0]*10)/10;
-            console.log('v:'+Math.round(dat[0]*10)/10);
+            suma+=Math.round(Math.round(dat[0],2)*10)/10;
+            console.log('v:'+Math.round(Math.round(dat[0],2)*10)/10);
         }
 
     });
+    console.log('suma:'+suma);
     suma=Math.ceil(suma);
     $('#precio_plantilla').html(suma);
 }

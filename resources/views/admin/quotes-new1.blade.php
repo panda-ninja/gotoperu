@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-md-1 padding-1 no-margin">
                                     <div class="form-group">
-                                        <label for="txt_travellers">Travellers</label>
+                                        <label for="txt_travellers">Pax</label>
                                         <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1" onclick="sumar_servicios_itinerario()" value="{{$travelers}}">
                                     </div>
                                 </div>
@@ -71,20 +71,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-4">
-                                            <label class="text-orange-goto">
-                                                <input type="radio" name="strellas[]" id="strellas_2" value="2" checked="checked" onchange="filtrar_estrellas1('2')">2 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i>
-                                            </label>
-                                            <label class="text-orange-goto">
-                                                <input type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas1('3')">3 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i>
-                                            </label>
-                                            <label class="text-orange-goto">
-                                                <input type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas1('4')">4 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i>
-                                            </label>
-                                            <label class="text-orange-goto">
-                                                <input type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas1('5')">5 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i>
-                                            </label>
-                                    </div>
                                     <div class="col-md-2 text-center">
                                         <div class="caja no-padding no-margin">
                                                 <div class="row">
@@ -158,6 +144,23 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4 caja_datos2">
+                                        <label class="text-grey-goto col-lg-4">
+                                            Stars
+                                        </label>
+                                        <label class="text-orange-goto col-lg-2">
+                                            <input type="radio" name="strellas[]" id="strellas_2" value="2" checked="checked" onchange="filtrar_estrellas1('2')">2
+                                        </label>
+                                        <label class="text-orange-goto col-lg-2">
+                                            <input type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas1('3')">3
+                                        </label>
+                                        <label class="text-orange-goto col-lg-2">
+                                            <input type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas1('4')">4
+                                        </label>
+                                        <label class="text-orange-goto col-lg-2">
+                                            <input type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas1('5')">5
+                                        </label>
                                     </div>
                                 </div>
                             </div>
