@@ -328,3 +328,22 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 .borar_stetica{
   list-style: none;
 }
+.padding-1 {
+  padding: 1px !important;
+}
+.nav-quotes > a{
+  font-size: 18px !important;
+  background: #ddd ;
+  color: #000;
+}
+.nav-quotes.active a,
+.nav-quotes > a:hover,
+.nav-quotes > a:focus
+{
+  font-size: 18px !important;
+  background: #7F8429 !important;
+  color: white !important;
+}
+.margin-right-15{
+  margin-right: 15px;
+}

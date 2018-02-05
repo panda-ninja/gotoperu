@@ -834,10 +834,7 @@
         </div>
     </div>
     <div class="divider margin-top-20"></div>
-
-
             <div>
-
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     @php

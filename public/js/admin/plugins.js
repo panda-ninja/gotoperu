@@ -26960,6 +26960,7 @@ function pasar_dias(){
 }
 function poner_dias() {
     $('#txt_days1').val($('#txt_days').val());
+    $('#dias3').html($('#txt_days').val());
     $('#dias_html').html($('#txt_days').val()+'d');
     $('#dias_html_0').html($('#txt_days').val()+'d');
 
@@ -27506,6 +27507,7 @@ function sumar_servicios_itinerario(){
     var suma=0;
     var traveles=0;
     traveles=$('#txt_travellers').val();
+
     console.log('traveles:'+traveles);
     console.log('servicios:'+arreglo);
 
