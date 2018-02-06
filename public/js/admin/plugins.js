@@ -27073,8 +27073,10 @@ function filtrar_itinerarios_(){
     desti_f=desti_f.substr(0,desti_f.length-1);
     var pos=1;
     $("input[class='lista_itinerarios3']").each(function (index) {
-        $('#itinerario3_'+pos).addClass('hide');
-        pos++;
+        for(var i=2;i<=5;i++){
+            $('#itinerario3_'+i+'_'+pos).addClass('hide');
+            pos++;
+        }
     });
     var pqt='';
     var pos1=1;
@@ -27083,7 +27085,8 @@ function filtrar_itinerarios_(){
         pqt=$(this).val().split('_');
         if(dias_f==pqt[1]){
             if(coinciden(desti_f,pqt[2])){
-                $('#itinerario3_'+pos1).removeClass("hide");
+                console.log('coinciden E:'+desti_f+' O:'+pqt[2]);
+                $('#itinerario3_'+estrellas+'_'+pos1).removeClass("hide");
             }
         }
         pos1++;
@@ -27239,7 +27242,7 @@ function mostrar_datos(cadena) {
     // $('#precio_plantilla').html('$'+total_precio);
     // console.log('precio unitario {2}:'+datos_pqt);
     // $('#precio_plantilla').html('$'+datos_pqt[2]);
-    sumar_servicios_itinerario();
+    sumar_servicios_itinerario(datos_pqt[3]);
 }
 function validar_envio(){
     console.log('hola ');
@@ -27498,7 +27501,7 @@ function calcularPrecio(){
     $("#cost_t").html(total_serv_t);
 }
 
-function sumar_servicios_itinerario(){
+function sumar_servicios_itinerario(pqt_pos){
     var traveles=0;
     traveles=$('#txt_travellers').val();
     if(traveles<=0){
@@ -27507,12 +27510,13 @@ function sumar_servicios_itinerario(){
             'Ingrese el nro de pasajeros!',
             'danger'
         )
+        $('#pqt_'+pqt_pos).prop('checked', false);
         return false;
     }
     console.log('hola');
     var pqt=$('#pqt_id').val();
     var arreglo
-    arreglo=$('#lista_servicios_'+pqt).val().split('/');
+    arreglo=$('#lista_servicios_'+pqt_pos).val().split('/');
     var dat='';
     var suma=0;
 
@@ -27524,12 +27528,12 @@ function sumar_servicios_itinerario(){
         dat=value.split('_');
 
         if(dat[1]=='g'){
-            suma+=Math.round((Math.round(dat[0],2)/traveles)*10)/10;
-            console.log('v:'+Math.round((Math.round(dat[0],2)/traveles)*10)/10);
+            suma+=Math.round((parseFloat(dat[0])/traveles)*10)/10;
+            console.log('v:'+Math.round((parseFloat(dat[0])/traveles)*10)/10);
         }
         else if(dat[1]=='i'){
-            suma+=Math.round(Math.round(dat[0],2)*10)/10;
-            console.log('v:'+Math.round(Math.round(dat[0],2)*10)/10);
+            suma+=Math.round(parseFloat(dat[0])*10)/10;
+            console.log('v:'+Math.round(parseFloat(dat[0])*10)/10);
         }
 
     });
