@@ -12,49 +12,38 @@
         <div class="row no-padding no-margin caja_datos">
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-md-2 padding-1 no-margin">
-                        <div class="form-group">
-                            <label for="txt_name">Name</label>
-                            <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onkeypress="return runScript(event)" value="{{$nombres}}" required>
+                    <div class="col-lg-12">
+                        <div class="col-lg-2 padding-1 no-margin">
+                            <div class="form-group">
+                                <label for="txt_name">Name</label>
+                                <input type="text" class="form-control" id="txt_name" name="txt_name" placeholder="Ingrese el nombre" onkeypress="return runScript(event)" value="{{$nombres}}" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-1 padding-1 no-margin">
-                        <div class="form-group">
-                            <label for="txt_country">Country</label>
-                            <input type="text" class="form-control" id="txt_country" name="txt_country" placeholder="Country" value="{{$nacionalidad}}">
+                        <div class="col-lg-2 padding-1 no-margin">
+                            <div class="form-group">
+                                <label for="txt_country">Country</label>
+                                <input type="text" class="form-control" id="txt_country" name="txt_country" placeholder="Country" value="{{$nacionalidad}}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-2 padding-1 no-margin">
-                        <div class="form-group">
-                            <label for="txt_email">Email</label>
-                            <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email" value="{{$email}}">
+                        <div class="col-lg-2 padding-1 no-margin">
+                            <div class="form-group">
+                                <label for="txt_email">Email</label>
+                                <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email" value="{{$email}}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-1 padding-1 no-margin">
-                        <div class="form-group">
-                            <label for="txt_phone">Phone</label>
-                            <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="Phone" value="{{$telefono}}">
+                        <div class="col-lg-2 padding-1 no-margin">
+                            <div class="form-group">
+                                <label for="txt_phone">Phone</label>
+                                <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="Phone" value="{{$telefono}}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-1 padding-1 no-margin">
-                        <div class="form-group">
-                            <label for="txt_travellers">Pax</label>
-                            <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1" onclick="sumar_servicios_itinerario()" value="{{$travelers}}">
+                        <div class="col-lg-2 padding-1 no-margin">
+                            <div class="form-group">
+                                <label for="txt_travel_date">Travel date</label>
+                                <input type="date" class="form-control" id="txt_travel_date" name="txt_travel_date" placeholder="Travel date" value="{{$fecha}}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-1 padding-1 no-margin">
-                        <div class="form-group">
-                            <label for="txt_days">Days</label>
-                            <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1" onchange="poner_dias()" value="{{$days}}">
-                        </div>
-                    </div>
-                    <div class="col-md-2 padding-1 no-margin">
-                        <div class="form-group">
-                            <label for="txt_travel_date">Travel date</label>
-                            <input type="date" class="form-control" id="txt_travel_date" name="txt_travel_date" placeholder="Travel date" value="{{$fecha}}">
-                        </div>
-                    </div>
-                    <div class="col-md-2 padding-1 no-margin">
+                        <div class="col-lg-2 padding-1 no-margin">
                             <div class="form-group">
                                 <label for="txt_travel_date">Pagina de origen</label>
                                 <select name="web" id="web" class="form-control">
@@ -66,100 +55,139 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-2 text-center">
-                            <div class="caja no-padding no-margin">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <b class="text-20" id="a_s_1">0</b>
-                                            <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <a href="#!" onclick="aumentar_acom('s','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <a href="#!" onclick="aumentar_acom('s','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="caja">
-                                    {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <b class="text-20" id="a_d_1">0</b>
-                                            <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <a href="#!" onclick="aumentar_acom('d','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <a href="#!" onclick="aumentar_acom('d','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="caja">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <b class="text-20" id="a_m_1">0</b>
-                                        <b class="text-20px"><i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i></b>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                        <div class="col-lg-6">
-                                            <a href="#!" onclick="aumentar_acom('m','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <a href="#!" onclick="aumentar_acom('m','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="caja">
-                                {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <b class="text-20" id="a_t_1">0</b>
-                                        <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <a href="#!" onclick="aumentar_acom('t','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <a href="#!" onclick="aumentar_acom('t','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
-                                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2 text-center">
+                                <div class="input-group margin-top-5 text-center">
+                                    <span id="human" class="text-center">
+                                    </span>
                                 </div>
                             </div>
+                            <div class="col-lg-10">
+                                <div class="col-lg-2 padding-1 no-margin">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" min="1" onchange="sumar_servicios_itinerario()" value="{{$travelers}}">
+                                        <span class="input-group-addon" id="basic-addon2">#Pax</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 padding-1 no-margin">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="a_s_1" id="a_s_1" value="0" min="0" onchange="aumentar_acom('s')">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-bed" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="caja no-padding no-margin hide">
+                                        <div class="row ">
+                                            <div class="col-lg-12">
+                                                <b class="text-20" id="a_s_1l">0</b>
+                                                <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('s','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('s','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 padding-1 no-margin">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="a_d_1" id="a_d_1" value="0" min="0" onchange="aumentar_acom('d')">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="caja hide">
+                                        {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <b class="text-20" id="a_d_1l">0</b>
+                                                <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('d','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('d','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 padding-1 no-margin">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="a_m_1" id="a_m_1" min="0" value="0" onchange="aumentar_acom('m')">
+                                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-venus-mars" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="caja hide">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <b class="text-20" id="a_m_1l">0</b>
+                                                <b class="text-20px"><i class="fa fa-venus-mars fa-2x" aria-hidden="true"></i></b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('m','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('m','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 padding-1 no-margin">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="a_t_1" id="a_t_1" min="0" value="0" onchange="aumentar_acom('t')">
+                                        <span class="input-group-addon" id="basic-addon2">
+                                            <i class="fa fa-bed" aria-hidden="true"></i>
+                                            <i class="fa fa-bed" aria-hidden="true"></i>
+                                            <i class="fa fa-bed" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div class="caja hide">
+                                        {{--<input class="destinospack" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">--}}
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <b class="text-20" id="a_t_1l">0</b>
+                                                <b class="text-20px"><i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('t','-')"><i class="fa fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <a href="#!" onclick="aumentar_acom('t','+')"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 caja_datos2">
+                                    <label class="text-grey-goto">
+                                        Star
+                                    </label>
+                                    <label class="text-orange-goto">
+                                        <input type="radio" name="strellas[]" id="strellas_2" value="2" checked="checked" onchange="filtrar_estrellas1('2')">2
+                                    </label>
+                                    <label class="text-orange-goto">
+                                        <input type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas1('3')">3
+                                    </label>
+                                    <label class="text-orange-goto">
+                                        <input type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas1('4')">4
+                                    </label>
+                                    <label class="text-orange-goto">
+                                        <input type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas1('5')">5
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4 caja_datos2">
-                            <label class="text-grey-goto col-lg-4">
-                                Stars
-                            </label>
-                            <label class="text-orange-goto col-lg-2">
-                                <input type="radio" name="strellas[]" id="strellas_2" value="2" checked="checked" onchange="filtrar_estrellas1('2')">2
-                            </label>
-                            <label class="text-orange-goto col-lg-2">
-                                <input type="radio" name="strellas[]" id="strellas_3" value="3" onchange="filtrar_estrellas1('3')">3
-                            </label>
-                            <label class="text-orange-goto col-lg-2">
-                                <input type="radio" name="strellas[]" id="strellas_4" value="4" onchange="filtrar_estrellas1('4')">4
-                            </label>
-                            <label class="text-orange-goto col-lg-2">
-                                <input type="radio" name="strellas[]" id="strellas_5" value="5" onchange="filtrar_estrellas1('5')">5
-                            </label>
-                        </div>
+
+
                     </div>
                 </div>
                 @php
@@ -250,18 +278,19 @@
 
                 <div class="margin-top-15"></div>
                 <div class="row">
-                    <div class="col-lg-2 text-center">
-                        <label>
-                            <b class="text-18">DAYS</b></br>
-                            <b id="dias3" class="text-18">0</b>
-                        </label>
+                    <div class="col-lg-1  text-center">
+                        <div class="form-group">
+                            <label for="txt_travellers">DAYS</label>
+                            <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1" onchange="poner_dias()" value="{{$days}}">
+                        </div>
                     </div>
-                    <div class="col-lg-10">
+
+                    <div class="col-lg-11">
                         @php
                             $deti='';
                         @endphp
                         @foreach($destinos as $destino)
-                            <div class="col-md-3">
+                            <div class="col-lg-3">
                                 <div class="checkbox1">
                                     <label class=" text-unset">
                                         <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->id.'_'.$destino->destino}}" onchange="filtrar_itinerarios1()">
@@ -329,7 +358,7 @@
                                         $pos++;
                                         $hotel0.=$precio0->precio_s.'_'.$precio0->precio_d.'_'.$precio0->precio_m.'_'.$precio0->precio_t.'/';
                                     @endphp
-                                    <div class="col-md-4 no-margin no-padding hide" id="itinerario3_{{$precio0->estrellas}}_{{$pos}}">
+                                    <div class="col-lg-4 no-margin no-padding hide" id="itinerario3_{{$precio0->estrellas}}_{{$pos}}">
                                     <div class="col-lg-12 checkbox1">
 
 
@@ -474,7 +503,7 @@
                                                 </span>
                                                             </div>
                                                             <div class="collapse clearfix" id="collapse_{{$pos_itinerario}}">
-                                                                <div class="col-md-12 well margin-top-5">
+                                                                <div class="col-lg-12 well margin-top-5">
                                                                     {{$itinerario->descripcion}}
                                                                     <h5><b>Services</b></h5>
                                                                     <table class="table table-condensed table-striped">
@@ -580,7 +609,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class='col-md-12 box-list-book2'>
+                                        <div class='col-lg-12 box-list-book2'>
                                             <li value="0" class="borar_stetica">
                                                 <ol id="Lista_itinerario_g" class='simple_with_animation vertical no-padding no-margin'>
 
@@ -634,32 +663,32 @@
 
         <div class="hide">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <h4 class="font-montserrat text-primary"><span class="label bg-primary">1</span> Client</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txt_name2">Name</label>
                     <input type="text" class="form-control" id="txt_name2" name="txt_name2" placeholder="Name" >
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <label for="txt_email">Email</label>
                     <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Email">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <label for="txt_country">Country</label>
                     <input type="text" class="form-control" id="txt_country" name="txt_country" placeholder="Country">
                 </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <label for="txt_phone">Phone</label>
                     <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="Phone">
@@ -667,25 +696,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <h4 class="font-montserrat text-primary"><span class="label bg-primary">2</span> Details</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <label for="txt_travellers">Travellers</label>
                     <input type="number" class="form-control" id="txt_travellers" name="txt_travellers" placeholder="Travellers" min="1">
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2 ">
                 <div class="form-group">
                     <label for="txt_days">Days</label>
                     <input type="number" class="form-control" id="txt_days" name="txt_days" placeholder="Days" min="1" onchange="pasar_dias()">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <label for="txt_travel_date">Travel date</label>
                     <input type="date" class="form-control" id="txt_travel_date" name="txt_travel_date" placeholder="Travel date">
@@ -694,13 +723,13 @@
 
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <h4 class="font-montserrat text-primary"><span class="label bg-primary">3</span> Categories</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
                         <input class="destinospack4" type="checkbox" name="strellas_2" id="strellas_2" value="2" onchange="filtrar_estrellas1(2)">
@@ -708,7 +737,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
                         <input class="destinospack4" type="checkbox" name="strellas_3" id="strellas_3" value="3" onchange="filtrar_estrellas1(3)">
@@ -716,7 +745,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
                         <input class="destinospack4" type="checkbox" name="strellas_4" id="strellas_4" value="4" onchange="filtrar_estrellas1(4)">
@@ -724,7 +753,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="checkbox1">
                     <label class=" text-orange-goto">
                         <input class="destinospack4" type="checkbox" name="strellas_5" id="strellas_5" value="5" onchange="filtrar_estrellas1(5)">
@@ -734,13 +763,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <h4 class="font-montserrat text-primary"><span class="label bg-primary">4</span> Acomodacion</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
                         <input class="destinospack5" type="checkbox" name="acomodacion_s" id="acomodacion_s" value="1">
@@ -748,7 +777,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
                         <input class="destinospack5" type="checkbox" name="acomodacion_d" id="acomodacion_d" value="2">
@@ -756,7 +785,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
                         <input class="destinospack5" type="checkbox" name="acomodacion_m" id="acomodacion_m" value="2">
@@ -764,7 +793,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <div class="checkbox1">
                     <label class=" text-unset">
                         <input class="destinospack5" type="checkbox" name="acomodacion_t" id="acomodacion_t" value="3">
@@ -776,7 +805,7 @@
 
         </div>
         <div id="list-package"  class="row hide">
-            <div class="col-md-3">
+            <div class="col-lg-3">
                 <div class="portada-pdf">
                     <img src="{{asset('img/portada/new-proposal.jpg')}}" alt="" class="img-responsive">
                     <div class="box-dowload">
@@ -788,7 +817,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 hide">
+            <div class="col-lg-3 hide">
                 <div class="portada-pdf">
                     <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                     <div class="box-dowload">
@@ -800,7 +829,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 hide">
+            <div class="col-lg-3 hide">
                 <div class="portada-pdf">
                     <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                     <div class="box-dowload">
@@ -814,7 +843,7 @@
             </div>
         </div>
         <div class="row margin-top-20">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <h4 class="font-montserrat text-primary"><span class="label bg-primary">5</span> Destinations</h4>
                 <div class="divider margin-bottom-20"></div>
             </div>
@@ -822,7 +851,7 @@
         <div class="row">
             {{csrf_field()}}
             @foreach($destinos as $destino)
-                <div class="col-md-3">
+                <div class="col-lg-3">
                     <div class="checkbox1">
                         <label class=" text-unset">
                             <input class="destinospack" type="checkbox" name="destinos[]" value="{{$destino->destino}}">
@@ -833,7 +862,7 @@
             @endforeach
         </div>
         <div class="row margin-top-20">
-            <div class="col-md-12 text-center">
+            <div class="col-lg-12 text-center">
                 {{csrf_field()}}
                 <button type="submit" class="btn btn-lg btn-primary">Create package <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>

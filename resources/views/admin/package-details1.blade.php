@@ -36,25 +36,25 @@
                     @foreach($paquete->paquete_precios as $precio)
                         <b class="text-unset text-20">
                             @if($precio->personas_s>0)
-                                SINGLE
+                                S |
                                 @php
                                     $s=1;
                                 @endphp
                             @endif
                             @if($precio->personas_d>0)
-                                DOUBLE
+                                D |
                                 @php
                                     $d=1;
                                 @endphp
                             @endif
                             @if($precio->personas_m>0)
-                                MATRIMONIAL
+                                M |
                                 @php
                                     $m=1;
                                 @endphp
                             @endif
                             @if($precio->personas_t>0)
-                                TRIPLE
+                                T
                                 @php
                                     $t=1;
                                 @endphp
@@ -99,16 +99,16 @@
                                     </div>
                                     <div class="col-lg-1 @if($s==0) hide @endif">S</div>
                                     <div class="col-lg-1 @if($d==0) hide @endif">D</div>
+                                    <div class="col-lg-1 @if($m==0) hide @endif">M</div>
                                     <div class="col-lg-1 @if($t==0) hide @endif">T</div>
                                     <div class="col-lg-2 hide"></div>
                                 </div>
                                 <div class="row caja_detalle">
-                                    @php
-                                        $rango='';
-                                    @endphp
+
 
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         @php
+                                            $rango='';
                                             $preciom=0;
                                         @endphp
                                         {{--@if($servicios->precio_grupo==1)--}}
@@ -118,12 +118,15 @@
                                             {{--@endphp--}}
                                         {{--@else--}}
                                         @if($servicios->min_personas<= $cotizacion->nropersonas&&$cotizacion->nropersonas <=$servicios->max_personas)
-                                            @else
-                                            @php
-                                                $rango=' text-danger';
-                                            @endphp
 
+                                        @else
+                                            @if($servicios->servicio->grupo=='MOVILID')
+                                                @php
+                                                    $rango=' text-danger';
+                                                @endphp
+                                            @endif
                                         @endif
+
                                         @if($servicios->precio_grupo==1)
                                         @php
                                             $precio_iti+=round($servicios->precio/$cotizacion->nropersonas,1);
@@ -165,11 +168,15 @@
                                                             <b class="text-primary text-13"><i class="fa fa-question" aria-hidden="true"></i></b>
                                                         @endif
                                                         {{$servicios->nombre}}
+                                                        @if($servicios->servicio->grupo=='MOVILID')
+                                                                <b class="text-primary text-12">{{$servicios->servicio->tipoServicio}} [{{$servicios->min_personas}} - {{$servicios->max_personas}}] p.p.</b>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-1 @if($s==0) hide @endif">$<input type="hidden" class="precio_servicio_s" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                             <div class="col-lg-1 @if($d==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                            <div class="col-lg-1 @if($m==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                             <div class="col-lg-1 @if($t==0) hide @endif">$<input type="hidden" class="precio_servicio_t" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                             <div class="col-lg-1">
                                                 <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
@@ -205,7 +212,7 @@
                                                                     @endforeach
                                                                     @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
                                                                             {{--{{$cotizacion->nropersonas}}  -  {{$servicio->max_personas}}--}}
-                                                                        @if($cotizacion->nropersonas >= $servicio->min_personas AND $cotizacion->nropersonas <= $servicio->max_personas)
+                                                                        @if($servicio->min_personas<=$cotizacion->nropersonas AND $cotizacion->nropersonas <= $servicio->max_personas)
                                                                                 @php
                                                                                     $precio_simgle=0;
                                                                                 @endphp
@@ -247,6 +254,7 @@
                                                                                             @if($grupo=='OTHERS')
                                                                                                 <i class="fa fa-question text-success" aria-hidden="true"></i>
                                                                                             @endif
+                                                                                            {{$servicio->tipoServicio}}
                                                                                         </span><b class="text-warning"> | </b><span class="text-green-goto">${{$precio_simgle}}</span><b class="text-warning"> | </b><span class="text-primary">[{{$servicio->min_personas}} - {{$servicio->max_personas}}] person</span>
                                                                                     </label>
                                                                                 </div>
@@ -401,10 +409,11 @@
                         <div class="col-lg-7"><b>COST</b></div>
                         <div class="col-lg-1 text-warning @if($s==0) hide @endif"><b>$<span id="cost_s">{{ceil($precio_hotel_s)}}</span></b></div>
                         <div class="col-lg-1 text-warning @if($d==0) hide @endif"><b>$<span id="cost_d">{{ceil($precio_hotel_d)}}</span></b></div>
+                        <div class="col-lg-1 text-warning @if($m==0) hide @endif"><b>$<span id="cost_d">{{ceil($precio_hotel_m)}}</span></b></div>
                         <div class="col-lg-1 text-warning @if($t==0) hide @endif"><b>$<span id="cost_t">{{ceil($precio_hotel_t)}}</span></b></div>
                         <div class="col-lg-2"></div>
                     </div>
-                    <div class="col-lg-12 text-right text-warninggit add -">PRICE PER PERSON</div>
+                    <div class="col-lg-12 text-right text-warninggit">PRICE PER PERSON</div>
                 </div>
                 <div class="col-lg-6 text-right">
                     {{csrf_field()}}

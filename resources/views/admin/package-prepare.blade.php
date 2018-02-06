@@ -454,7 +454,7 @@
                     </div>
                     <div class="row text-center">
                         <div class="text-center col-lg-12 total_profit">
-                            <b CLASS="text-15">TOTAL PROFIT $<span id="total_profit">{{ceil($valor)}}</span></b>
+                            <b CLASS="text-15">TOTAL SALE $<span id="total_profit">{{ceil($valor)}}</span></b>
                         </div>
                     </div>
                     <div class="row text-center margin-top-10">

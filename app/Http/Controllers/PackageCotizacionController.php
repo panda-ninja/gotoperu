@@ -1659,9 +1659,7 @@ class PackageCotizacionController extends Controller
     public function show_step1($cliente_id, $cotizacion_id,$pqt_id)
     {
         $cliente=Cliente::FindOrFail($cliente_id);
-//        $destinos=$request->input('txt_destinos1_');
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-
         $m_servicios=M_Servicio::get();
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id]);
     }
@@ -1686,20 +1684,20 @@ class PackageCotizacionController extends Controller
         $id_cotizacion = $request->get('id_cotizacion');
         $id_client = $request->get('id_client');
         $id_paquete = $request->get('id_paquete');
-
+//dd($request->get('op_services'));
         $m_servicios = M_Servicio::where('id', $request->get('op_services'))->get();
         $servicios = ItinerarioServicios::findOrFail($id);
         foreach ($m_servicios as $m_servicio){
-            $servicios->codigo = $m_servicio->codigo;
             $servicios->nombre = $m_servicio->nombre;
             $servicios->precio = $m_servicio->precio_venta;
             $servicios->precio_grupo = $m_servicio->precio_grupo;
-            $servicios->tipoServicio = $m_servicio->tipoServicio;
-            $servicios->localizacion = $m_servicio->localizacion;
-            $servicios->grupo = $m_servicio->grupo;
-            $servicios->clase = $m_servicio->clase;
-            $servicios->salida = $m_servicio->salida;
-            $servicios->llegada = $m_servicio->llegada;
+//            $servicios->tipoServicio = $m_servicio->tipoServicio;
+//            $servicios->localizacion = $m_servicio->localizacion;
+//            $servicios->grupo = $m_servicio->grupo;
+//            $servicios->clase = $m_servicio->clase;
+//            $servicios->salida = $m_servicio->salida;
+//            $servicios->llegada = $m_servicio->llegada;
+            $servicios->m_servicios_id = $m_servicio->id;
             $servicios->min_personas = $m_servicio->min_personas;
             $servicios->max_personas = $m_servicio->max_personas;
             $servicios->save();

@@ -1954,79 +1954,79 @@ function filtrar_estrellas1(estrella){
 function aumentar_acom(tipo,signo){
     // alert(tipo+':'+signo);
     if(tipo=='s'){
-        if(signo=='-'){
-            var valor=$('#a_s').val();
-            valor--;
-            if(valor<0)
-                valor=0;
+        // if(signo=='-'){
+            var valor=$('#a_s_1').val();
+            // valor--;
+            // if(valor<0)
+            //     valor=0;
             $('#a_s').val(valor);
             $('#a_s_').val(valor);
-            $('#a_s_1').html(valor);
-        }
-        else{
-            var valor=$('#a_s').val();
-            valor++;
-            $('#a_s').val(valor);
-            $('#a_s_').val(valor);
-            $('#a_s_1').html(valor);
-        }
+            // $('#a_s_1').val(valor);
+        // }
+        // else{
+        //     var valor=$('#a_s').val();
+        //     valor++;
+        //     $('#a_s').val(valor);
+        //     $('#a_s_').val(valor);
+        //     $('#a_s_1').html(valor);
+        // }
     }
     if(tipo=='d'){
         // console.log('entro a d');
-        if(signo=='-'){
-            var valor=$('#a_d').val();
-            valor--;
+        // if(signo=='-'){
+            var valor=$('#a_d_1').val();
+            // valor--;
             // console.log(valor);
-            if(valor<0)
-                valor=0;
+            // if(valor<0)
+            //     valor=0;
             $('#a_d').val(valor);
             $('#a_d_').val(valor);
-            $('#a_d_1').html(valor);
-        }
-        else{
-            var valor=$('#a_d').val();
-            valor++;
-            // console.log(valor);
-            $('#a_d').val(valor);
-            $('#a_d_').val(valor);
-            $('#a_d_1').html(valor);
-        }
+            // $('#a_d_1').val(valor);
+        // }
+        // else{
+        //     var valor=$('#a_d').val();
+        //     valor++;
+        //     // console.log(valor);
+        //     $('#a_d').val(valor);
+        //     $('#a_d_').val(valor);
+        //     $('#a_d_1').html(valor);
+        // }
     }
     if(tipo=='m'){
-        if(signo=='-'){
-            var valor=$('#a_m').val();
-            valor--;
-            if(valor<0)
-                valor=0;
+        // if(signo=='-'){
+            var valor=$('#a_m_1').val();
+            // valor--;
+            // if(valor<0)
+            //     valor=0;
             $('#a_m').val(valor);
             $('#a_m_').val(valor);
-            $('#a_m_1').html(valor);
-        }
-        else{
-            var valor=$('#a_m').val();
-            valor++;
-            $('#a_m').val(valor);
-            $('#a_m_').val(valor);
-            $('#a_m_1').html(valor);
-        }
+            // $('#a_m_1').val(valor);
+        // }
+        // else{
+        //     var valor=$('#a_m').val();
+        //     valor++;
+        //     $('#a_m').val(valor);
+        //     $('#a_m_').val(valor);
+        //     $('#a_m_1').html(valor);
+        // }
     }
     if(tipo=='t'){
-        if(signo=='-'){
-            var valor=$('#a_t').val();
-            valor--;
-            if(valor<0)
-                valor=0;
+        // if(signo=='-'){
+            var valor=$('#a_t_1').val();
+            // valor--;
+            // if(valor<0)
+            //     valor=0;
             $('#a_t').val(valor);
             $('#a_t_').val(valor);
-            $('#a_t_1').html(valor);
-        }
-        else{
-            var valor=$('#a_t').val();
-            valor++;
-            $('#a_t').val(valor);
-            $('#a_t_').val(valor);
-            $('#a_t_1').html(valor);
-        }
+            // $('#a_t_1').val(valor);
+        // }
+        // else{
+        //     var valor=$('#a_t').val();
+        //     valor++;
+        //     $('#a_t').val(valor);
+        //     $('#a_t_').val(valor);
+        //     $('#a_t_1').html(valor);
+        // }
     }
     //calcular_precio1();
 }
@@ -2707,9 +2707,6 @@ function calcularPrecio(){
         console.log('precio_servicio_t:'+$(this).val());
     });
     console.log('total_serv_t:'+total_serv_t);
-
-
-    precio_servicio_s_h
     $("#cost_s").html(total_serv_s);
     $("#cost_d").html(total_serv_d);
     $("#cost_t").html(total_serv_t);
@@ -2727,6 +2724,16 @@ function sumar_servicios_itinerario(pqt_pos){
         $('#pqt_'+pqt_pos).prop('checked', false);
         return false;
     }
+    var icon_human='';
+    if(traveles<=7){
+        for (var i=1;i<=traveles;i++){
+            icon_human+='<i class="fa fa-male fa-2x" aria-hidden="true"></i> ';
+        }
+    }
+    else{
+        icon_human='<i class="fa fa-male fa-2x" aria-hidden="true"></i> x '+traveles;
+    }
+    $('#human').html(icon_human);
     console.log('hola');
     var pqt=$('#pqt_id').val();
     var arreglo

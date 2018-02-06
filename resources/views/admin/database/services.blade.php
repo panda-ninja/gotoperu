@@ -622,7 +622,11 @@
                                     <tr class="{{$servicio->localizacion}}" id="lista_services_{{$servicio->id}}">
                                     <td class="text-green-goto">{{$servicio->codigo}}</td>
                                         <td class="lista_mo">{{$servicio->localizacion}}</td>
-                                        <td>{{$servicio->tipoServicio}} {{$acom}}</td>
+                                        <td>{{$servicio->tipoServicio}} {{$acom}}
+                                            @if($categoria->nombre=='MOVILID')
+                                                {{'['.$servicio->min_personas.' - '.$servicio->max_personas.']'}}
+                                            @endif
+                                        </td>
                                         <td>{{$servicio->nombre}}</td>
                                         @if($categoria->nombre=='TRAINS') <td>{{$servicio->salida}} - {{$servicio->llegada}}</td> @endif
                                         <td>${{$servicio->precio_venta}}</td>
