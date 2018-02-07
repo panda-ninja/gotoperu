@@ -2812,23 +2812,27 @@ function escojer_pqt(id) {
 }
 
 function mostrar_tabla_destino(grupo){
-    var valor=$("#Destinos_"+grupo).val();
-    console.log('valor:'+valor);
-    var id=valor.split('_');
-    console.log('id:'+id[0]);
-    var todos_destinos=$("#todos_destinos").val();
-    todos_destinos=todos_destinos.split('_');
-    console.log('todos_destinos:'+todos_destinos);
-    $.each(todos_destinos, function( key, value ) {
-        $("#tb_"+value+'_'+grupo).addClass('hide');
-        console.log('Destino :'+value );
-    });
-    $("#tb_"+valor).removeClass('hide');
 
-    // console.log($("#tb_"+grupo+" tbody tr").length);
-    // $("#tb_"+grupo+" tbody tr").each(function(el){
-    //   console.log($(this));
+    // var valor=$("#Destinos_"+grupo).val();
+    // var id=valor.split('_');
+    // var todos_destinos=$("#todos_destinos").val();
+    // todos_destinos=todos_destinos.split('_');
+    // $.each(todos_destinos, function( key, value ) {
+    //     $("#tb_"+value+'_'+grupo).addClass('hide');
     // });
+    // $("#tb_"+valor).removeClass('hide');
+    var  destino=$("#Destinos_"+grupo).val();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('../../admin/productos/lista', 'grupo='+grupo+'&destino='+destino, function(data) {
+        $("#tb_datos_"+grupo).html(data);
+
+    }).fail(function (data) {
+    });
 }
 
 function escojerPos_edit(daybyday,pos,cate) {

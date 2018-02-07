@@ -145,6 +145,7 @@ class ServicesController extends Controller
             $txt_llegada = $request->input('txt_llegada_' . $posTipo);
             $txt_min_personas = $request->input('txt_min_personas_' . $posTipo);
             $txt_max_personas = $request->input('txt_max_personas_' . $posTipo);
+            $txt_codigo = $request->input('txt_codigo_' . $posTipo);
 
             $destino = new M_Servicio();
             $destino->grupo = $cate[$posTipo];
@@ -166,7 +167,7 @@ class ServicesController extends Controller
 //        if(count($found_destino)==0)
             {
                 $destino->save();
-                $destino->codigo = $destino->id;
+                $destino->codigo = $txt_codigo;
                 $destino->save();
                 $destinations=M_Destino::get();
                 $servicios=M_Servicio::get();
@@ -276,5 +277,86 @@ class ServicesController extends Controller
           }
         }
         return response()->json($results);
+    }
+    public function listarServicios_destino(Request $request){
+        $grupo=$request->input('grupo');
+        $destino=$request->input('destino');
+        $destino=explode('_',$destino);
+        $sericios=M_Servicio::where('grupo',$grupo)->where('localizacion',$destino[2])->get();
+$cadena='';
+        $cadena.='<table id="tb_'.$destino[0].'_'.$destino[1].'" class="'.$destino[1].' table table-striped table-bordered table-responsive hide" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Localizacion</th>
+                                <th>';
+                                if($destino[1]=='TRAINS')
+                                    $cadena.=' Clase';
+                                else
+                                    $cadena.=' Tipo';
+
+                      $cadena.='</th>
+                                <th>';
+                      if($destino[1]=='TRAINS')
+                          $cadena.='Ruta';
+                      else
+                          $cadena.='Nombre';
+        $cadena.='</th>';
+                      if($destino[1]=='TRAINS')
+                          $cadena.='<th>Horario</th>';
+        $cadena.='
+                                <th>Precio</th>
+                                <th>Operaciones</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Localizacion</th>';
+        $cadena.='<th>';
+        if($destino[1]=='TRAINS')
+            $cadena.='Clase';
+        else
+            $cadena.='Tipo';
+        $cadena.='</th><th>';
+        if($destino[1]=='TRAINS')
+            $cadena.='Ruta';
+        else
+            $cadena.='Nombre';
+        $cadena.='</th>';
+        if($destino[1]=='TRAINS')
+            $cadena.='<th>Horario</th>';
+        $cadena.='<th>Precio</th>
+                  <th>Operaciones</th>
+                  </tr>
+                  </tfoot>
+                  <tbody>';
+
+foreach($sericios as $servicio) {
+    $cadena .= '<tr class="'.$servicio->localizacion.'" id="lista_services_'.$servicio->id.'">
+    <td class="text-green-goto">' . $servicio->codigo . '</td>
+    <td class="lista_mo">' . $servicio->localizacion . '</td>
+    <td>' . $servicio->tipoServicio;
+    if ($destino[1] == 'MOVILID')
+        $cadena .= '[' . $servicio->min_personas . ' - ' . $servicio->max_personas . ']';
+    $cadena .= '</td>
+    <td>' . $destino[1] . '</td>';
+    if ($destino[1] == 'TRAINS')
+        $cadena .= '<td>' . $servicio->salida . ' - ' . $servicio->llegada . '</td>';
+
+    $cadena .= '<td>$'.$servicio->precio_venta.'</td>
+    <td>
+        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_'.$servicio->id.'">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>';
+    $cadena .= '<button type="button" class="btn btn-danger" onclick="eliminar_servicio(\''.$servicio->localizacion.'\',\'' . $servicio->id . '\',\'' . $servicio->nombre . '\')">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+    </td>
+</tr>';
+}
+$cadena .= '</tbody>
+</table>';
+return $cadena;
     }
 }

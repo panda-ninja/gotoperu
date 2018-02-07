@@ -1,3 +1,13 @@
+@php
+    function concatenar($texto,$nro){
+        $top=4-strlen($nro);
+        $valor='';
+        for($i=0;$i<$top;$i++){
+            $valor.='0';
+        }
+        return $texto.$valor.$nro;
+    }
+@endphp
 @extends('layouts.admin.admin')
 @section('archivos-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
@@ -8,6 +18,7 @@
 @stop
 @section('content')
     @php
+
     $todo_destinos='';
     @endphp
     @foreach($destinations as $destination)
@@ -78,17 +89,19 @@
                                     @endif
                                     <div id="{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="txt_codigo">Codigo</label>
-                                                    <?php
-                                                    $auto=1;
-                                                    if(count($servicios)>0)
-                                                        $auto=($servicios->last()->id)+1;
-                                                    ?>
-                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{$auto}}" readonly>
+                                            @if($categoria->nombre!='HOTELS')
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_codigo">Codigo</label>
+                                                        <?php
+                                                        $auto=concatenar(substr($categoria->nombre,0,3),strval(1));
+                                                        if(count($servicios->where('grupo',$categoria->nombre))>0)
+                                                            $auto=concatenar(substr($categoria->nombre,0,3),strval(count($servicios->where('grupo',$categoria->nombre))+1));
+                                                        ?>
+                                                        <input type="text" class="form-control" id="txt_codigo" name="txt_codigo_{{$pos}}" value="{{$auto}}" readonly>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_codigo">Location</label>
@@ -541,12 +554,14 @@
                                 <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}')">
                                     <option value="0">Escoja la localizacion</option>
                                     @foreach($destinations as $destination)
-                                        <option value="{{$destination->id}}_{{$categoria->nombre}}">{{$destination->destino}}</option>
+                                        <option value="{{$destination->id}}_{{$categoria->nombre}}_{{$destination->destino}}">{{$destination->destino}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+                        <div id="tb_datos_{{$categoria->nombre}}">
 
+                        </div>
                         @foreach($destinations as $destination)
                             <table id="tb_{{$destination->id}}_{{$categoria->nombre}}" class="{{$categoria->nombre}} table table-striped table-bordered table-responsive hide" cellspacing="0" width="100%">
                             <thead>
@@ -682,7 +697,7 @@
                         </table>
                         @foreach($hotel->sortBy('localizacion') as $hotel_)
                         <div class="modal fade bd-example-modal-sm" id="modal_edit_destination_h_{{$hotel_->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-dialog modal-md" role="document">
                                 <div class="modal-content">
                                     <form action="{{route('hotel_edit_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
                                         <div class="modal-header">
@@ -808,7 +823,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_codigo">Codigo</label>
-                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{($servicio->id)}}" readonly>
+                                                    <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{($servicio->codigo)}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">

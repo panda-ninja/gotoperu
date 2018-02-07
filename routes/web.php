@@ -690,3 +690,7 @@ Route::get('admin/current-quotes/plan/total/{id}', [
     'uses' => 'PackageCotizacionController@plan_total',
     'as' => 'mostar_planes_total_path'
 ]);
+Route::post('admin/productos/lista', [
+    'uses' => 'ServicesController@listarServicios_destino',
+    'as' => 'generar_codigo_plantilla_path',
+]);
