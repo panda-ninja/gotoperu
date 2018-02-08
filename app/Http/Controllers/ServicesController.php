@@ -224,16 +224,16 @@ class ServicesController extends Controller
     public function edit(Request $request){
         $id=$request->input('id');
         $posTipo=$request->input('posTipo');
-        $txt_localizacion=$request->input('txt_localizacion_'.$posTipo);
-        $txt_type=$request->input('txt_type_'.$posTipo);
-        $txt_acomodacion=$request->input('txt_acomodacion_'.$posTipo);
-        $txt_product=$request->input('txt_product_'.$posTipo);
-        $txt_price=$request->input('txt_price_'.$posTipo);
-        $txt_tipo_grupo=$request->input('txt_tipo_grupo_'.$posTipo);
-        $txt_salida=$request->input('txt_salida_'.$posTipo);
-        $txt_llegada=$request->input('txt_llegada_'.$posTipo);
-        $txt_min_personas=$request->input('txt_min_personas_'.$posTipo);
-        $txt_max_personas=$request->input('txt_max_personas_'.$posTipo);
+        $txt_localizacion=$request->input('txt_localizacion_'.$id);
+        $txt_type=$request->input('txt_type_'.$id);
+        $txt_acomodacion=$request->input('txt_acomodacion_'.$id);
+        $txt_product=$request->input('txt_product_'.$id);
+        $txt_price=$request->input('txt_price_'.$id);
+        $txt_tipo_grupo=$request->input('txt_tipo_grupo_'.$id);
+        $txt_salida=$request->input('txt_salida_'.$id);
+        $txt_llegada=$request->input('txt_llegada_'.$id);
+        $txt_min_personas=$request->input('txt_min_personas_'.$id);
+        $txt_max_personas=$request->input('txt_max_personas_'.$id);
 
         $destino=M_Servicio::FindOrFail($id);
         $destino->localizacion=$txt_localizacion;
@@ -250,12 +250,10 @@ class ServicesController extends Controller
         elseif($txt_tipo_grupo=='Individual')
             $destino->precio_grupo=0;
         $destino->save();
-        $destinations=M_Destino::get();
-        $servicios=M_Servicio::get();
-        $categorias=M_Category::get();
-        $hotel=Hotel::get();
-        return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
-    }
+//        return json_encode(1);
+        return $txt_type.'_'.$txt_min_personas.'_'.$txt_max_personas.'_'.$txt_price.'_'.$txt_product;
+
+ }
     public function autocomplete()
     {
         $term = Input::get('term');
@@ -279,76 +277,562 @@ class ServicesController extends Controller
         return response()->json($results);
     }
     public function listarServicios_destino(Request $request){
-        $grupo=$request->input('grupo');
         $destino=$request->input('destino');
         $destino=explode('_',$destino);
-        $sericios=M_Servicio::where('grupo',$grupo)->where('localizacion',$destino[2])->get();
-$cadena='';
-        $cadena.='<table id="tb_'.$destino[0].'_'.$destino[1].'" class="'.$destino[1].' table table-striped table-bordered table-responsive hide" cellspacing="0" width="100%">
+        $sericios=M_Servicio::where('grupo',$destino[1])->where('localizacion',$destino[2])->get();
+        $destinations=M_Destino::get();
+//        return $sericios;
+        $cadena='';
+        $cadena.='<table id="tb_'.$destino[0].'_'.$destino[1].'" class="'.$destino[1].' table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Codigo</th>
-                                <th>Localizacion</th>
                                 <th>';
                                 if($destino[1]=='TRAINS')
                                     $cadena.=' Clase';
                                 else
                                     $cadena.=' Tipo';
-
                       $cadena.='</th>
                                 <th>';
-                      if($destino[1]=='TRAINS')
-                          $cadena.='Ruta';
-                      else
-                          $cadena.='Nombre';
-        $cadena.='</th>';
+                                  if($destino[1]=='TRAINS')
+                                      $cadena.='Ruta';
+                                  else
+                                      $cadena.='Nombre';
+                        $cadena.='</th>';
                       if($destino[1]=='TRAINS')
                           $cadena.='<th>Horario</th>';
-        $cadena.='
+                      $cadena.='
                                 <th>Precio</th>
                                 <th>Operaciones</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Codigo</th>
-                                <th>Localizacion</th>';
-        $cadena.='<th>';
-        if($destino[1]=='TRAINS')
-            $cadena.='Clase';
-        else
-            $cadena.='Tipo';
-        $cadena.='</th><th>';
-        if($destino[1]=='TRAINS')
-            $cadena.='Ruta';
-        else
-            $cadena.='Nombre';
-        $cadena.='</th>';
-        if($destino[1]=='TRAINS')
-            $cadena.='<th>Horario</th>';
-        $cadena.='<th>Precio</th>
-                  <th>Operaciones</th>
-                  </tr>
-                  </tfoot>
-                  <tbody>';
-
+                                <th>Codigo</th>';
+                  $cadena.='<th>';
+                        if($destino[1]=='TRAINS')
+                            $cadena.='Clase';
+                        else
+                            $cadena.='Tipo';
+                  $cadena.='</th><th>';
+                        if($destino[1]=='TRAINS')
+                            $cadena.='Ruta';
+                        else
+                            $cadena.='Nombre';
+                  $cadena.='</th>';
+                        if($destino[1]=='TRAINS')
+                            $cadena.='<th>Horario</th>';
+                  $cadena.='<th>Precio</th>
+                              <th>Operaciones</th>
+                              </tr>
+                              </tfoot>
+                              <tbody>';
+        $pos=0;
 foreach($sericios as $servicio) {
-    $cadena .= '<tr class="'.$servicio->localizacion.'" id="lista_services_'.$servicio->id.'">
+    $cadena .= '<tr class="' . $servicio->localizacion . '" id="lista_services_' . $servicio->id . '">
     <td class="text-green-goto">' . $servicio->codigo . '</td>
-    <td class="lista_mo">' . $servicio->localizacion . '</td>
-    <td>' . $servicio->tipoServicio;
+    <td id="tipo_'.$servicio->id.'">' . $servicio->tipoServicio;
     if ($destino[1] == 'MOVILID')
         $cadena .= '[' . $servicio->min_personas . ' - ' . $servicio->max_personas . ']';
     $cadena .= '</td>
-    <td>' . $destino[1] . '</td>';
+    <td id="nombre_'.$servicio->id.'">' . $servicio->nombre . '</td>';
     if ($destino[1] == 'TRAINS')
-        $cadena .= '<td>' . $servicio->salida . ' - ' . $servicio->llegada . '</td>';
+        $cadena .= '<td id="horario_'.$servicio->id.'">' . $servicio->salida . ' - ' . $servicio->llegada . '</td>';
 
-    $cadena .= '<td>$'.$servicio->precio_venta.'</td>
+    $cadena .= '<td id="precio_'.$servicio->id.'">$' . $servicio->precio_venta . '</td>
     <td>
-        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_'.$servicio->id.'">
+        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_producto' . $servicio->id . '">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         </button>';
+
+
+
+
+    $cadena .= '<div class="modal fade bd-example-modal-lg" id="modal_edit_producto' . $servicio->id . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form action="' . route('service_edit_path') . '" method="post" id="modal_edit_producto_' . $servicio->id . '" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Service</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="tab-content">';
+//                                    <div class="row">
+    $cadena .= '<div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Codigo</label>
+                                                <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="' . $servicio->codigo . '" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Location</label>
+                                                <select class="form-control" id="txt_localizacion_'.$servicio->id.'" name="txt_localizacion_'.$servicio->id.'">';
+
+    foreach ($destinations as $destination) {
+        $cadena .= '<option value="' . $destination->destino . '"';
+        if ($servicio->localizacion == $destination->destino) {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>' . $destination->destino . '</option>';
+    }
+    $cadena .= '</select>
+                    <input type="hidden" name="tipoServicio_' . $servicio->id . '" id="tipoServicio_' . $servicio->id . '" value="' . $destino[1] . '">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">';
+
+    if ($destino[1] == 'TOURS') {
+        $cadena .= '<label for="txt_type" > Type</label >
+                    <select class="form-control" id = "txt_type_'.$servicio->id.'" name = "txt_type_'.$servicio->id.'" >
+                        <option value = "GROUP"';
+        if ($servicio->tipoServicio == "GROUP") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>GROUP </option >
+                        <option value = "PRIVATE" ';
+        if ($servicio->tipoServicio == "PRIVATE") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>PRIVATE</option >
+                    </select >';
+    }
+    if ($servicio->grupo == 'MOVILID') {
+        $cadena .= '<label for="txt_type" > Type</label >
+                    <select class="form-control" id = "txt_type_'.$servicio->id.'" name = "txt_type_'.$servicio->id.'" >
+                        <option value = "AUTO"';
+        if ($servicio->tipoServicio == "AUTO") $cadena .= 'selected';
+        $cadena .= '>AUTO </option >
+                        <option value = "SUV"';
+        if ($servicio->tipoServicio == "SUV") $cadena .= 'selected';
+        $cadena .= '>SUV </option >
+                        <option value = "VAN"';
+        if ($servicio->tipoServicio == "VAN") $cadena .= 'selected';
+        $cadena .= '>VAN </option >
+                        <option value = "H1"';
+        if ($servicio->tipoServicio == "H1") $cadena .= 'selected ';
+        $cadena .= '>H1 </option >
+                        <option value = "SPRINTER"';
+        if ($servicio->tipoServicio == "SPRINTER") $cadena .= 'selected';
+        $cadena .= '>SPRINTER </option >
+                        <option value = "BUS"';
+        if ($servicio->tipoServicio == "BUS") $cadena .= 'selected';
+        $cadena .= '>BUS </option >
+                    </select >';
+    }
+
+    if ($servicio->grupo == 'REPRESENT') {
+        $cadena .= '<label for="txt_type" > Type</label >
+        <select class="form-control" id = "txt_type_' . $servicio->id . '" name = "txt_type_' . $servicio->id . '" >
+            <option value = "GUIDE"';
+        if ($servicio->tipoServicio == "GUIDE") $cadena .= 'selected';
+        $cadena .= '>GUIDE </option >
+            <option value = "TRANSFER"';
+        if ($servicio->tipoServicio == "TRANSFER") $cadena .= 'selected';
+        $cadena .= '>TRANSFER </option >
+            <option value = "ASSISTANCE"';
+        if ($servicio->tipoServicio == "ASSISTANCE") $cadena .= 'selected';
+        $cadena .= '>ASSISTANCE </option >
+        </select >';
+    }
+    if ($servicio->grupo == 'ENTRANCES') {
+        $cadena .= '<label for="txt_type" > Type</label >
+                    <select class="form-control" id = "txt_type_'.$servicio->id.'" name = "txt_type_'.$servicio->id.'" >
+                        <option value = "EXTRANJERO"';
+        if ($servicio->tipoServicio == "EXTRANJERO") $cadena .= 'selected ';
+        $cadena .= '>EXTRANJERO </option >
+                        <option value = "NATIONAL"';
+        if ($servicio->tipoServicio == "NATIONAL") $cadena .= 'selected ';
+        $cadena .= '>NATIONAL </option >
+                    </select>';
+    }
+    if ($servicio->grupo == 'FOOD') {
+        $cadena .= '<label for="txt_type" > Type</label >
+                    <select class="form-control" id = "txt_type_' . $servicio->id . '" name = "txt_type_' . $servicio->id . '" >
+                        <option value = "LUNCH"'; if ($servicio->tipoServicio == "LUNCH") $cadena .= 'selected'; $cadena .= '>LUNCH </option >
+                        <option value = "DINNER'; if ($servicio->tipoServicio == "DINNDER") $cadena .= 'selected'; $cadena .= '>DINNER </option >
+                        <option value = "BOX LUNCH'; if ($servicio->tipoServicio == "BOX LUNCH") $cadena .= 'selected'; $cadena .= '>BOX LUNCH </option >
+                    </select >';
+    }
+    if ($servicio->grupo == 'TRAINS') {
+        $cadena .= '<label for="txt_type">Class</label>
+                        <select class="form-control" id="txt_type_' . $servicio->id . '" name="txt_type_' . $servicio->id . '">
+                        <option value="EXPEDITION"';
+        if ($servicio->tipoServicio == "EXPEDITION") $cadena .= 'selected';
+        $cadena .= '>EXPEDITION</option>
+                        <option value="VISITADOME"';
+        if ($servicio->tipoServicio == "VISITADOME") $cadena .= 'selected';
+        $cadena .= '>VISITADOME</option>
+                        <option value="EJECUTIVO"';
+        if ($servicio->tipoServicio == "EJECUTIVO") $cadena .= 'selected';
+        $cadena .= '>EJECUTIVO</option>
+                        <option value="FIRST CLASS"';
+        if ($servicio->tipoServicio == "FIRST CLASS") $cadena .= 'selected';
+        $cadena .= '>PRIMERA CLASE</option>
+                        <option value="HIRAN BINGHAN"';
+        if ($servicio->tipoServicio == "HIRAN BINGHAN") $cadena .= 'selected';
+        $cadena .= '>HIRAN BINGHAN</option>
+                        <option value="PRESIDENTIAL"';
+        if ($servicio->tipoServicio == "PRESIDENTIAL") $cadena .= 'selected';
+        $cadena .= '>PRESIDENTIAL</option>
+                    </select>';
+    }
+    if ($servicio->grupo == 'FLIGHTS') {
+        $cadena .= '<label for="txt_type">Type</label>
+                    <select class="form-control" id="txt_type_' . $servicio->id . '" name="txt_type_' . $servicio->id . '">
+                        <option value="NATIONAL"';
+        if ($servicio->tipoServicio == "NATIONAL") $cadena .= 'selected';
+        $cadena .= '>NATIONAL</option>
+                        <option value="INTERNATIONAL';
+        if ($servicio->tipoServicio == "INTERNATIONAL") $cadena .= 'selected';
+        $cadena .= '>INTERNATIONAL</option>
+                    </select>';
+    }
+    if ($servicio->grupo == 'OTHERS') {
+        $cadena .= '<label for="txt_type">Type</label>
+                    <input type="text" class="form-control" id="txt_type_' . $servicio->id . '" name="txt_type_' . $servicio->id . '" placeholder="Type" value="' . $servicio->tipoServicio . '">';
+    }
+
+    $cadena .= '</div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">';
+    if ($servicio->grupo == 'TRAINS' || $servicio->grupo == 'FLIGHTS')
+        $cadena .= '<label for="txt_product">Ruta</label>';
+    else
+        $cadena .= '<label for="txt_product">Product</label>';
+
+    $cadena .= '<input type="text" class="form-control" id="txt_product_' . $servicio->id . '" name="txt_product_' . $servicio->id . '" placeholder="Product" value="' . $servicio->nombre . '">
+                </div>
+            </div>';
+    if ($servicio->grupo == 'TRAINS' || $servicio->grupo == 'FLIGHTS') {
+        $cadena .= '<div class="col-md-4" >
+                <div class="form-group" >
+                    <label for="txt_price" > Salida</label >
+                    <input type = "text" class="form-control" id = "txt_salida_' . $servicio->id . '" name = "txt_salida_' . $servicio->id . '" placeholder = "Salida"  value = "' . $servicio->salida . '" >
+                </div >
+            </div >
+            <div class="col-md-4" >
+            
+            
+                <div class="form-group" >
+                    <label for="txt_price" > Llegada</label >
+                    <input type = "text" class="form-control" id = "txt_llegada_' . $servicio->id . '" name = "txt_llegada_' . $servicio->id . '" placeholder = "Llegada"  value = "' . $servicio->llegada . '" >
+                </div>
+            </div>';
+    }
+//
+//
+    $cadena .= '<div class="col-md-4">
+                <div class="form-group">
+                    <label for="txt_price">Price</label>
+                    <input type="number" class="form-control" id="txt_price_' . $servicio->id . '" name="txt_price_' . $servicio->id . '" placeholder="Price"  value="' . $servicio->precio_venta . '" min="0">
+                </div>
+            </div>';
+    if ($servicio->grupo == 'MOVILID') {
+        $cadena .= '<div class="col-md-2" >
+                <div class="form-group" >
+                    <label for="txt_price" > Min Personas </label >
+                    <input type = "number" class="form-control" id = "txt_min_personas_' . $servicio->id . '" name = "txt_min_personas_' . $servicio->id . '" placeholder = "Min" min = "0" value = "' . $servicio->min_personas . '" >
+                </div >
+            </div >
+            <div class="col-md-2" >
+                <div class="form-group" >
+                    <label for="txt_price" > Max Personas </label >
+                    <input type = "number" class="form-control" id = "txt_max_personas_' . $servicio->id . '" name = "txt_max_personas_' . $servicio->id . '" placeholder = "Min" min = "0" value = "' . $servicio->max_personas . '" >
+                </div >
+            </div >';
+    }
+//
+    if ($servicio->grupo == 'TOURS') {
+        $cadena .= '<div class="col-md-6"><div class="row">';
+        if ($servicio->precio_grupo == 1) {
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" checked = "checked" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" >
+                    Precio es individual
+                </label >
+                    </div >';}
+        else{
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" checked = "checked" >
+                    Precio es individual
+                </label >
+                    </div >';
+        }
+        $cadena .= '</div >
+            </div >';
+    }
+    if ($servicio->grupo == 'MOVILID'){
+        $cadena .= '<div class="col-md-6"><div class="row">';
+        if($servicio->precio_grupo == 1){
+            $cadena .= '<div class="col-md-6">
+                        <label class=" text-green-goto">
+                            <input type="radio" name="txt_tipo_grupo_'.$servicio->id.'" value="Absoluto" checked="checked">
+                            Precio es absoluto
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=" text-green-goto">
+                            <input type="radio" name="txt_tipo_grupo_'.$servicio->id.'" value="Individual">
+                            Precio es individual
+                        </label>
+                    </div>';
+        }
+        else{
+            $cadena .= '<div class="col-md-6">
+                        <label class=" text-green-goto">
+                            <input type="radio" name="txt_tipo_grupo_'.$servicio->id.'" value="Absoluto">
+                            Precio es absoluto
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class=" text-green-goto">
+                            <input type="radio" name="txt_tipo_grupo_'.$servicio->id.'" value="Individual" checked="checked">
+                            Precio es individual
+                        </label>
+                    </div>';
+        }
+        $cadena .= ' </div>
+            </div>';
+    }
+    if ($servicio->grupo == 'REPRESENT') {
+        $cadena .= '<div class="col-md-6"><div class="row" >';
+        if ($servicio->precio_grupo == 1) {
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" checked = "checked" >
+                            Precio es absoluto
+                        </label >
+                    </div >
+                    <div class="col-md-6 hide" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" >
+                            Precio es individual
+                        </label >
+                    </div >';}
+        else{
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" >
+                            Precio es absoluto
+                        </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" checked = "checked" >
+                            Precio es individual
+                        </label >
+                    </div >';
+        }
+        $cadena .= '</div >
+            </div >';
+    }
+    if ($servicio->grupo == 'ENTRANCES'){
+        $cadena .= '<div class="col-md-6"><div class="row" >';
+        if ($servicio->precio_grupo == 1) {
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" checked = "checked" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" >
+                    Precio es individual
+                </label >
+                    </div >';}
+        else{
+            $cadena .= '<div class="col-md-6 hide" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" checked = "checked" >
+                    Precio es individual
+                </label >
+                    </div >';
+        }
+        $cadena .= '</div >
+            </div >';
+    }
+    if ($servicio->grupo == 'FOOD') {
+        $cadena .= '<div class="col-md-6" >
+                <div class="row" >';
+        if ($servicio->precio_grupo == 1) {
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" checked = "checked" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" >
+                    Precio es individual
+                </label >
+                    </div >';}
+        else{
+            $cadena .= '<div class="col-md-6 hide" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" checked = "checked" >
+                    Precio es individual
+                </label >
+                    </div >';
+        }
+        $cadena .= '</div >
+            </div >';
+    }
+    if ($servicio->grupo == 'TRAINS') {
+        $cadena .= '<div class="col-md-6"><div class="row" >';
+        if ($servicio->precio_grupo == 1) {
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" checked = "checked" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" >
+                    Precio es individual
+                </label >
+                    </div >';}
+        else{
+            $cadena .= '<div class="col-md-6 hide" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" checked = "checked" >
+                    Precio es individual
+                </label >
+                    </div >';
+        }
+        $cadena .= '</div >
+            </div >';
+    }
+    if ($servicio->grupo == 'FLIGHTS') {
+        $cadena .= '<div class="col-md-6" >
+                <div class="row" >';
+        if ($servicio->precio_grupo == 1) {
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" checked = "checked" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" >
+                    Precio es individual
+                </label >
+                    </div >';}
+        else{
+            $cadena .= '<div class="col-md-6 hide" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" checked = "checked" >
+                    Precio es individual
+                </label >
+                    </div >';
+        }
+        $cadena .= '</div >
+            </div >';
+    }
+    if ($servicio->grupo == 'OTHERS') {
+        $cadena .= '<div class="col-md-6" >
+                <div class="row" >';
+        if ($servicio->precio_grupo == 1) {
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" checked = "checked" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" >
+                    Precio es individual
+                </label >
+                    </div >';}
+        else{
+            $cadena .= '<div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Absoluto" >
+                    Precio es absoluto
+                </label >
+                    </div >
+                    <div class="col-md-6" >
+                        <label class=" text-green-goto" >
+                            <input type = "radio" name = "txt_tipo_grupo_'.$servicio->id.'" value = "Individual" checked = "checked" >
+                    Precio es individual
+                </label >
+                    </div >';
+        }
+        $cadena .= '</div >
+            </div >';
+    }
+//    $cadena .= '</div></div>';
+    $pos++;
+//
+//}
+//
+                $cadena .= '</div>
+                        </div>
+                        <div class="modal-footer">
+                            '.csrf_field().'
+                            <input type="hidden" name="id" value="'.$servicio->id.'">
+                            <input type="hidden" name="posTipo" id="posTipo" value="0">
+                            <input type="hidden" name="grupo_'.$servicio->id.'" id="grupo_'.$servicio->id.'" value="'.$destino[1].'">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="editar_producto('.$servicio->id.')">Save changes</button>
+                        </div>
+                        <div id="result_'.$servicio->id.'" class="bg-success text-15 text-center"></div>
+                    </form>
+                </div>
+            </div>
+        </div>';
+
+
+
+
+
     $cadena .= '<button type="button" class="btn btn-danger" onclick="eliminar_servicio(\''.$servicio->localizacion.'\',\'' . $servicio->id . '\',\'' . $servicio->nombre . '\')">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
             </button>
@@ -358,5 +842,9 @@ foreach($sericios as $servicio) {
 $cadena .= '</tbody>
 </table>';
 return $cadena;
+
+
     }
+
+
 }

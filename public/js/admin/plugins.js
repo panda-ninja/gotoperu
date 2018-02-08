@@ -27608,13 +27608,13 @@ function mostrar_tabla_destino(grupo){
     // });
     // $("#tb_"+valor).removeClass('hide');
     var  destino=$("#Destinos_"+grupo).val();
-
+    console.log('mostrar_tabla_destino:'+destino);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('../../admin/productos/lista', 'grupo='+grupo+'&destino='+destino, function(data) {
+    $.post('../../admin/productos/lista', 'destino='+destino, function(data) {
         $("#tb_datos_"+grupo).html(data);
 
     }).fail(function (data) {
