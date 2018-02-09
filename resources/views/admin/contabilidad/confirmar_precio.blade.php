@@ -183,9 +183,19 @@
                         <tbody>
 
                         {{csrf_field()}}
-
+                        @php
+                            $sumaTotal_hotel= array();
+                            $pagadoTotal_hotel= array();
+                        @endphp
                         @foreach($cotizaciones->paquete_cotizaciones as $paquetes)
-                            @if($paquetes->estado==2)
+                            {{--@foreach($paquetes->pagos_hotel as $pagos_hotel)--}}
+                                {{--@if($pagos_hotel->estado=='1')--}}
+                                    {{--@php--}}
+                                        {{--$pagadoTotal_hotel[$pagos_hotel->proveedor_id]+=$pagos_hotel->a_cuenta;--}}
+                                    {{--@endphp--}}
+                                {{--@endif--}}
+                            {{--@endforeach--}}
+                                @if($paquetes->estado==2)
                                 @foreach($paquetes->itinerario_cotizaciones as $itinerario)
                                     <tr>
                                         <td class=" bg-info" colspan="9"><b class="text-primary text-18">Dia {{$itinerario->dias}}: {{fecha_letra($itinerario->fecha)}}</b></td>
@@ -199,15 +209,15 @@
                                                 {{$servicios->precio}}
                                                         <sup><small>$usd</small></sup></b></td>
                                             @else
-                                                <td class="text-right"><b class="text-18">
+                                                <td class="text-right col-sm-2"><b class="text-18">
                                                         {{$cotizaciones->nropersonas}} X  {{$servicios->precio}}
-                                                        <sup><small>$usd</small></sup></b></td>
+                                                       </td>
                                                 <td class="text-right"><b class="text-18">
                                                     {{$cotizaciones->nropersonas * $servicios->precio}}
                                                 <sup><small>$usd</small></sup></b></td>
                                             @endif
                                             <td class="text-right"><b class="text-18">{{$servicios->precio_proveedor}}<sup><small>$usd</small></sup></b></td>
-                                            <td>
+                                            <td class="col-lg-2">
                                                 @if($servicios->precio_c==0 OR $servicios->precio_c=='')
                                                     @php $precio_c =  $servicios->precio_proveedor; @endphp
                                                 @else
@@ -218,12 +228,26 @@
                                                     <span class="input-group-addon">$</span>
                                                 </div>
                                             </td>
-                                            <td>
-
-                                            </td>
-                                            <td></td>
+                                            @php
+                                                $pagos_suma=0;
+                                            @endphp
+                                            @foreach($servicios->pagos as $pagos)
+                                                @if($pagos->estado=='1')
+                                                    @php
+                                                        $pagos_suma+=$pagos->a_cuenta;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
                                             <td class="text-center">
-                                                @if($servicios->precio_c > 0)
+                                                {{--<b>{{$pagos_suma}}</b>--}}
+                                            </td>
+                                            <td class="text-center">
+{{--                                                <b>{{$precio_c-$pagos_suma}}</b>--}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if($precio_c==$pagos_suma)
+                                                    <button class="btn btn-success btn-sm"><i class="fa fa-check text-18"></i></button>
+                                                @elseif($servicios->precio_c > 0)
                                                     <button class="btn btn-warning display-block btn-sm hide" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
                                                     <a href="{{route('pagar_servicios_conta_path', [$cotizaciones->id, $servicios->id])}}" class="btn btn-primary display-block btn-sm" id="btn_p_{{$servicios->id}}">Pagar</a>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_{{$servicios->id}}"></i>
@@ -238,6 +262,57 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @php
+                                        $precio_s_c1=0;
+                                        $precio_d_c1=0;
+                                        $precio_m_c1=0;
+                                        $precio_t_c1=0;
+                                    @endphp
+                                    @foreach($itinerario->hotel as $hotel)
+                                        @if($hotel->proveedor_id>0 OR $hotel->proveedor_id!='')
+                                            @if($hotel->precio_s_c>0 OR $hotel->precio_s_c!='')
+                                                @php
+                                                    $precio_s_c1=  $hotel->precio_s_c;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $precio_s_c1 =  $hotel->precio_s_r;
+                                                @endphp
+                                            @endif
+
+                                            @if($hotel->precio_d_c>0 OR $hotel->precio_d_c!='')
+                                                @php $precio_d_c1=  $hotel->precio_d_c; @endphp
+                                            @else
+                                                @php $precio_d_c1 =  $hotel->precio_d_r; @endphp
+                                            @endif
+
+                                            @if($hotel->precio_m_c>0 OR $hotel->precio_m_c!='')
+                                                @php $precio_m_c1=  $hotel->precio_m_c; @endphp
+                                            @else
+                                                @php $precio_m_c1 =  $hotel->precio_m_r; @endphp
+                                            @endif
+
+                                            @if($hotel->precio_t_c>0 OR $hotel->precio_t_c!='')
+                                                @php $precio_t_c1=  $hotel->precio_t_c; @endphp
+                                            @else
+                                                @php $precio_t_c1 =  $hotel->precio_t_r; @endphp
+                                            @endif
+                                            @php
+                                            $total_ho=$precio_s_c1+$precio_d_c1+$precio_m_c1+$precio_t_c1;
+                                            @endphp
+                                            @if(array_key_exists($hotel->proveedor_id,$sumaTotal_hotel))
+                                                @php
+                                                    $sumaTotal_hotel[$hotel->proveedor_id]+=$total_ho;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $sumaTotal_hotel[$hotel->proveedor_id]=$total_ho;
+                                                @endphp
+                                            @endif
+
+                                        @endif
+                                    @endforeach
+
                                     @foreach($itinerario->hotel as $hotel)
                                         <tr>
                                             <td>
@@ -357,7 +432,24 @@
                                                     </div>
                                                     @php $t=$hotel->personas_t; @endphp
                                                 @endif
-
+                                            </td>
+                                            <td class="text-center">
+                                                @if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))
+                                                    <b>{{$pagadoTotal_hotel[$hotel->proveedor_id]}}</b>
+                                                @else
+                                                    <b>0</b>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if(array_key_exists($hotel->proveedor_id,$sumaTotal_hotel))
+                                                    @if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))
+                                                        <b>{{$sumaTotal_hotel[$hotel->proveedor_id]-$pagadoTotal_hotel[$hotel->proveedor_id]}}</b>
+                                                    @else
+                                                    <b>0</b>
+                                                    @endif
+                                                @else
+                                                    <b>0</b>
+                                                @endif
                                             </td>
                                             <td class="text-center">
                                                 @if($hotel->precio_s_c > 0)

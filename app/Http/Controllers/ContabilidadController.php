@@ -185,7 +185,6 @@ class ContabilidadController extends Controller
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
-
         return view('admin.contabilidad.confirmar_precio',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
 
