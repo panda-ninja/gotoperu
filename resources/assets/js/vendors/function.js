@@ -2886,7 +2886,7 @@ function CierraPopup(id) {
 function segunda_confirmada(id,valor){
     swal({
         title: 'MENSAJE DEL SISTEMA',
-        text: "¿Estas seguro de guardar los cambios?",
+        text: "¿Estas seguro de reconfirmar este servicio?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

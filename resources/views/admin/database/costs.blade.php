@@ -393,26 +393,28 @@
                                     </tfoot>
                                     <tbody>
                                     @foreach($productos as $proveedor)
-                                        @foreach($proveedor->productos  as $producto)
-                                            @if($producto->grupo==$categoria->nombre)
-                                            <tr id="lista_services_{{$producto->id}}">
-                                                <td><b class="text-success"><i class="fa fa-bus fa-2x" aria-hidden="true"></i></b></td>
-                                                <td>{{$producto->localizacion}}</td>
-                                                <td>{{$producto->tipo_producto}}</td>
-                                                <td><b class="bg-green-goto text-grey-goto">{{$proveedor->codigo}}</b> {{$proveedor->razon_social}}</td>
-                                                <td><b class="bg-orange-goto text-grey-goto">{{$producto->codigo}}</b>{{$producto->nombre}}</td>
-                                                <td>${{$producto->precio_costo}}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$producto->id}}">
-                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger" onclick="eliminar_producto('{{$producto->id}}','{{$producto->nombre}}')">
-                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            @endif
-                                        @endforeach
+                                        @if(count($proveedor->productos)>0)
+                                            @foreach($proveedor->productos  as $producto)
+                                                @if($producto->grupo==$categoria->nombre)
+                                                <tr id="lista_services_{{$producto->id}}">
+                                                    <td><b class="text-success"><i class="fa fa-bus fa-2x" aria-hidden="true"></i></b></td>
+                                                    <td>{{$producto->localizacion}}</td>
+                                                    <td>{{$producto->tipo_producto}}</td>
+                                                    <td><b class="bg-green-goto text-grey-goto">{{$proveedor->codigo}}</b> {{$proveedor->razon_social}}</td>
+                                                    <td><b class="bg-orange-goto text-grey-goto">{{$producto->codigo}}</b>{{$producto->nombre}}</td>
+                                                    <td>${{$producto->precio_costo}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$producto->id}}">
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger" onclick="eliminar_producto('{{$producto->id}}','{{$producto->nombre}}')">
+                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     @endforeach
                                     </tbody>
                                 </table>
@@ -524,7 +526,7 @@
                             </div>
                             <div class="modal-footer">
                                 {{csrf_field()}}
-                                <input type="hidden" name="id" id="id" value="{{$producto->id}}">
+                                {{--<input type="hidden" name="id" id="id" value="{{$producto->id}}">--}}
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>

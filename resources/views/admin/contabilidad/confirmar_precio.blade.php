@@ -1,3 +1,54 @@
+@php
+    function fecha_letra($fecha){
+        $fecha=explode('-',$fecha);
+        $mes='';
+        switch ($fecha[1]){
+            case '01':
+                $mes='ENERO';
+                break;
+            case '02':
+                $mes='FEBRERO';
+                break;
+            case '03':
+                $mes='MARZO';
+                break;
+
+            case '04':
+                $mes='ABRIL';
+                break;
+
+            case '05':
+                $mes='MAYO';
+                break;
+            case '06':
+                $mes='JUNIO';
+                break;
+
+            case '07':
+                $mes='JULIO';
+                break;
+
+            case '08':
+                $mes='AGOSTO';
+                break;
+            case '09':
+                $mes='SEPTIEMBRE';
+                break;
+
+            case '10':
+                $mes='OCTUBRE';
+                break;
+
+            case '11':
+                $mes='NOVIEMBRE';
+                break;
+            case '12':
+                $mes='DICIEMBRE';
+                break;
+        }
+        return $mes.' '.$fecha[2].' DEL '.$fecha[0];
+    }
+@endphp
 @extends('layouts.admin.contabilidad')
 @section('content')
     <div class="row margin-top-40">
@@ -15,7 +66,7 @@
                         <div class="col-md-12">
                             @foreach($cotizacion as $cotizaciones)
                                 @foreach($cotizaciones->cotizaciones_cliente as $clientes)
-                                    <h2 class="panel-title pull-left" style="font-size:30px;">{{$clientes->cliente->nombres}} {{$clientes->cliente->apellidos}} x {{$cotizaciones->nropersonas}} {{date_format(date_create($cotizaciones->fecha), ' l jS F Y')}}</h2>
+                                    <h2 class="panel-title pull-left" style="font-size:30px;">{{$clientes->cliente->nombres}} {{$clientes->cliente->apellidos}} x {{$cotizaciones->nropersonas}} {{fecha_letra($cotizaciones->fecha)}}</h2>
                                     <b class="text-warning padding-left-10"> (X{{$cotizaciones->nropersonas}})</b>
                                 @endforeach
                                 {{--@foreach($cotizacion->cotizaciones_cliente as $clientes)--}}
@@ -96,7 +147,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 hide">
                             <span class="pull-left pax-nav">
                                 <b>Travel date: no se</b>
                             </span>
@@ -121,10 +172,12 @@
                         <thead>
                         <tr>
                             <th class="text-18 text-grey-goto text-center">Services</th>
-                            <th class="text-18 text-grey-goto text-center">Quote Price</th>
-                            <th class="text-18 text-grey-goto text-center">Book Price</th>
-                            <th class="text-18 text-grey-goto text-center">Cont. Price</th>
-
+                            <th class="text-18 text-grey-goto text-center">Calculo</th>
+                            <th class="text-18 text-grey-goto text-center">Cotizado</th>
+                            <th class="text-18 text-grey-goto text-center">Reservado</th>
+                            <th class="text-18 text-grey-goto text-center">Contabilidad</th>
+                            <th class="text-18 text-grey-goto text-center">Pagado</th>
+                            <th class="text-18 text-grey-goto text-center">Por pagar</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -135,21 +188,24 @@
                             @if($paquetes->estado==2)
                                 @foreach($paquetes->itinerario_cotizaciones as $itinerario)
                                     <tr>
-                                        <td class="text-center bg-info" colspan="9"><b class="text-primary text-18">Dia {{$itinerario->dias}}: </b></td>
+                                        <td class=" bg-info" colspan="9"><b class="text-primary text-18">Dia {{$itinerario->dias}}: {{fecha_letra($itinerario->fecha)}}</b></td>
                                     </tr>
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
-
                                             <td><b>{{ucwords(strtolower($servicios->nombre))}}</b></td>
-                                            <td class="text-right"><b class="text-18">
-
-                                                    @if($servicios->precio_grupo==1)
-                                                        {{$servicios->precio}}
-                                                    @else
-                                                       {{$cotizaciones->nropersonas}} X  {{$servicios->precio}} = {{$cotizaciones->nropersonas * $servicios->precio}}
-                                                    @endif
-
-                                                    <sup><small>$usd</small></sup></b></td>
+                                            @if($servicios->precio_grupo==1)
+                                                <td></td>
+                                                <td class="text-right"><b class="text-18">
+                                                {{$servicios->precio}}
+                                                        <sup><small>$usd</small></sup></b></td>
+                                            @else
+                                                <td class="text-right"><b class="text-18">
+                                                        {{$cotizaciones->nropersonas}} X  {{$servicios->precio}}
+                                                        <sup><small>$usd</small></sup></b></td>
+                                                <td class="text-right"><b class="text-18">
+                                                    {{$cotizaciones->nropersonas * $servicios->precio}}
+                                                <sup><small>$usd</small></sup></b></td>
+                                            @endif
                                             <td class="text-right"><b class="text-18">{{$servicios->precio_proveedor}}<sup><small>$usd</small></sup></b></td>
                                             <td>
                                                 @if($servicios->precio_c==0 OR $servicios->precio_c=='')
@@ -162,6 +218,10 @@
                                                     <span class="input-group-addon">$</span>
                                                 </div>
                                             </td>
+                                            <td>
+
+                                            </td>
+                                            <td></td>
                                             <td class="text-center">
                                                 @if($servicios->precio_c > 0)
                                                     <button class="btn btn-warning display-block btn-sm hide" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
@@ -179,9 +239,7 @@
                                         </tr>
                                     @endforeach
                                     @foreach($itinerario->hotel as $hotel)
-
                                         <tr>
-
                                             <td>
                                                 <b>
                                                     @if($hotel->personas_s>0)
@@ -200,16 +258,31 @@
                                             </td>
                                             <td class="text-right"><b class="text-18">
                                                     @if($hotel->personas_s>0)
-                                                        <p>{{$hotel->personas_s}} x {{$hotel->precio_s}} = {{$hotel->personas_s*$hotel->precio_s}}<sup><small>$usd</small></sup></p>
+                                                        <p>{{$hotel->personas_s}} x {{$hotel->precio_s}}</p>
                                                     @endif
                                                     @if($hotel->personas_d>0)
-                                                        <p> {{$hotel->personas_d}} x {{$hotel->precio_d}} = {{$hotel->personas_d*$hotel->precio_d}}<sup><small>$usd</small></sup></p>
+                                                        <p> {{$hotel->personas_d}} x {{$hotel->precio_d}}</p>
                                                     @endif
                                                     @if($hotel->personas_m>0)
-                                                        <p>{{$hotel->personas_m}} x {{$hotel->precio_m}} = {{$hotel->personas_m*$hotel->precio_m}}<sup><small>$usd</small></sup></p>
+                                                        <p>{{$hotel->personas_m}} x {{$hotel->precio_m}}</p>
                                                     @endif
                                                     @if($hotel->personas_t>0)
-                                                        <p>{{$hotel->personas_t}} x {{$hotel->precio_t}} = {{$hotel->personas_t*$hotel->precio_t}}<sup><small>$usd</small></sup></p>
+                                                        <p>{{$hotel->personas_t}} x {{$hotel->precio_t}}</p>
+                                                    @endif
+                                                </b>
+                                            </td>
+                                            <td class="text-right"><b class="text-18">
+                                                    @if($hotel->personas_s>0)
+                                                        <p>{{$hotel->personas_s*$hotel->precio_s}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                        <p>{{$hotel->personas_d*$hotel->precio_d}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                        <p>{{$hotel->personas_m*$hotel->precio_m}}<sup><small>$usd</small></sup></p>
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                        <p>{{$hotel->personas_t*$hotel->precio_t}}<sup><small>$usd</small></sup></p>
                                                     @endif
                                                 </b>
                                             </td>

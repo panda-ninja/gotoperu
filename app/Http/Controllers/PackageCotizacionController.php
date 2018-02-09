@@ -795,8 +795,6 @@ class PackageCotizacionController extends Controller
             $cliente_id=$request->input('cliente_id_1');
         }
 
-
-
         $txt_day=$request->input('txt_days1');
         $txt_code=strtoupper('GTP-'.$txt_day.'00');
         $txt_title=strtoupper('New package');
@@ -1035,19 +1033,45 @@ class PackageCotizacionController extends Controller
                 $p_servicio=new ItinerarioServicios();
                 $p_servicio->nombre=$servicios->itinerario_servicios_servicio->nombre;
                 $p_servicio->observacion='';
-//                if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-//                    $p_servicio->precio=round($servicios->itinerario_servicios_servicio->precio_venta/$nro_personas);
-//                else
                 $p_servicio->precio=$servicios->itinerario_servicios_servicio->precio_venta;
                 $st+=$p_servicio->precio;
                 $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
-//                $p_servicio->user_id=auth()->guard('admin')->user()->id;
+                $p_servicio->user_id=auth()->guard('admin')->user()->id;
                 $p_servicio->precio_grupo=$servicios->itinerario_servicios_servicio->precio_grupo;
+                $p_servicio->min_personas=$servicios->itinerario_servicios_servicio->min_personas;
+                $p_servicio->max_personas=$servicios->itinerario_servicios_servicio->max_personas;
                 $p_servicio->precio_c=0;
-                $p_servicio->user_id=1;
+//                $p_servicio->user_id=1;
                 $p_servicio->estado=1;
                 $p_servicio->m_servicios_id=$servicios->m_servicios_id;
                 $p_servicio->save();
+                if($servicios->itinerario_servicios_servicio->precio_grupo==1 && $servicios->itinerario_servicios_servicio->grupo=='MOVILID'){
+                    if($servicios->itinerario_servicios_servicio->min_personas<=$nro_personas&&$nro_personas<=$servicios->itinerario_servicios_servicio->max_personas)
+                    {
+                        $servicios_list=M_Servicio::where('grupo',$servicios->itinerario_servicios_servicio->grupo)
+                                        ->where('localizacion',$servicios->itinerario_servicios_servicio->localizacion)
+                                        ->where('tipoServicio',$servicios->itinerario_servicios_servicio->tipoServicio)
+                                        ->where('min_personas','>=',$servicios->itinerario_servicios_servicio->min_personas)
+                                        ->where('max_personas','<=',$servicios->itinerario_servicios_servicio->max_personas)
+                                        ->get();
+                        foreach($servicios_list->take(1) as $servi){
+                            $st-=$p_servicio->precio;
+                            $p_servicio1=ItinerarioServicios::FindOrFail($p_servicio->id);
+                            $p_servicio1->nombre=$servi->nombre;
+                            $p_servicio1->observacion='';
+                            $p_servicio1->precio=$servi->precio_venta;
+                            $st+=$p_servicio1->precio;
+                            $p_servicio1->itinerario_cotizaciones_id=$p_itinerario->id;
+                            $p_servicio1->precio_grupo=$servi->precio_grupo;
+                            $p_servicio1->min_personas=$servi->min_personas;
+                            $p_servicio1->max_personas=$servi->max_personas;
+                            $p_servicio1->precio_c=0;
+                            $p_servicio1->estado=1;
+                            $p_servicio1->m_servicios_id=$servi->id;
+                            $p_servicio1->save();
+                        }
+                    }
+                }
             }
             $p_itinerario->precio=$st;
             $p_itinerario->save();
@@ -1172,7 +1196,7 @@ class PackageCotizacionController extends Controller
 
         $p_paquete_id=$request->input('pqt_id');
         $p_paquete=P_Paquete::where('id',$p_paquete_id)->get();
-
+        $nro_personas=$request->input('txt_travelers1_');
         $txt_day=$request->input('txt_days1_');
 
         $txt_code=strtoupper('GTP-'.$txt_day.'00');
@@ -1401,12 +1425,41 @@ class PackageCotizacionController extends Controller
                     }
                     $st+=$p_servicio->precio;
                     $p_servicio->itinerario_cotizaciones_id=$p_itinerario->id;
-                    $p_servicio->user_id=auth()->guard('admin')->user()->id;
                     $p_servicio->precio_grupo=$servicios->precio_grupo;
+                    $p_servicio->min_personas=$servicios->min_personas;
+                    $p_servicio->max_personas=$servicios->max_personas;
                     $p_servicio->precio_c=0;
-                    $p_servicio->user_id=1;
+//                    $p_servicio->user_id=1;
+                    $p_servicio->user_id=auth()->guard('admin')->user()->id;
                     $p_servicio->m_servicios_id=$servicios->m_servicios_id;
                     $p_servicio->save();
+                    if($servicios->precio_grupo==1 && $servicios->grupo=='MOVILID'){
+                        if($servicios->min_personas<=$nro_personas&&$nro_personas<=$servicios->max_personas)
+                        {
+                            $servicios_list=M_Servicio::where('grupo',$servicios->grupo)
+                                ->where('localizacion',$servicios->localizacion)
+                                ->where('tipoServicio',$servicios->tipoServicio)
+                                ->where('min_personas','>=',$servicios->min_personas)
+                                ->where('max_personas','<=',$servicios->max_personas)
+                                ->get();
+                            foreach($servicios_list->take(1) as $servi){
+                                $st-=$p_servicio->precio;
+                                $p_servicio1=ItinerarioServicios::FindOrFail($p_servicio->id);
+                                $p_servicio1->nombre=$servi->nombre;
+                                $p_servicio1->observacion='';
+                                $p_servicio1->precio=$servi->precio_venta;
+                                $st+=$p_servicio1->precio;
+                                $p_servicio1->itinerario_cotizaciones_id=$p_itinerario->id;
+                                $p_servicio1->precio_grupo=$servi->precio_grupo;
+                                $p_servicio1->min_personas=$servi->min_personas;
+                                $p_servicio1->max_personas=$servi->max_personas;
+                                $p_servicio1->precio_c=0;
+                                $p_servicio1->estado=1;
+                                $p_servicio1->m_servicios_id=$servi->id;
+                                $p_servicio1->save();
+                            }
+                        }
+                    }
                 }
                 $p_itinerario->precio=$st;
                 $p_itinerario->save();
