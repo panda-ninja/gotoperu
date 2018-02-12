@@ -845,6 +845,14 @@ return $cadena;
 
 
     }
+    public function eliminar_servicio_hotel(Request $request){
+        $id=$request->input('id');
+        $servicio=Hotel::FindOrFail($id);
+        if($servicio->delete())
+            return 1;
+        else
+            return 0;
+    }
 
 
 }

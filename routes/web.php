@@ -694,3 +694,19 @@ Route::post('admin/productos/lista', [
     'uses' => 'ServicesController@listarServicios_destino',
     'as' => 'generar_codigo_plantilla_path',
 ]);
+Route::post('admin/hotel/delete', [
+    'uses' => 'ServicesController@eliminar_servicio_hotel',
+    'as' => 'eliminar_hotel_producto_path',
+]);
+Route::get('admin/hotel/proveedor/edit/{id1}/{id2}', [
+    'uses' => 'HotelProveedorController@editar_hotel_proveedor',
+    'as' => 'editar_hotel_proveedor_path',
+]);
+Route::post('admin/hotel/proveedor/edit', [
+    'uses' => 'HotelProveedorController@update_hotel_proveedor',
+    'as' => 'hotel_proveedor_edit_path',
+]);
+Route::post('/admin/cost/hotel/proveedor/delete', [
+    'uses' => 'HotelProveedorController@delete',
+    'as' => 'hotel_proveedor_delete_path',
+]);

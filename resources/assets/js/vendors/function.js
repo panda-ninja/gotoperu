@@ -1560,7 +1560,7 @@ function eliminar_servicio_h(id,servicio) {
         $.post('/admin/hotel/delete', 'id='+id, function(data) {
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
-                $("#lista_services_h_"+id).fadeOut( "slow");
+                $("#lista_services_h_"+id).fadeOut( "low");
             }
         }).fail(function (data) {
 
@@ -2989,3 +2989,31 @@ function segunda_confirmada_hotel(id,valor){
 //         return false;
 //     });
 // }
+
+function eliminar_hotel_pro(pos,id,hotel,loca) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar los precios para el hotel "+hotel+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/cost/hotel/proveedor/delete', 'id='+id+'&loca='+loca, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#h_p_"+pos).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+}

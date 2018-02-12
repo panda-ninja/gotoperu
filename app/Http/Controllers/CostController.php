@@ -30,6 +30,8 @@ class CostController extends Controller
         $destinations=M_Destino::get();
         $categorias=M_Category::get();
         $hotel=HotelProveedor::get();
+        $hotel_solo=Hotel::get();
+
         $proveedores=[];
         foreach ($hotel as $hotel_){
             if(!in_array($hotel_->localizacion.'_'.$hotel_->proveedor_id,$proveedores)){
@@ -37,6 +39,7 @@ class CostController extends Controller
             }
         }
 //        dd($array);
+        $proveedor_db=Proveedor::get();
         $productos=Proveedor::with(['productos'])->get();
 //        dd($productos_hotels);
 
@@ -47,7 +50,7 @@ class CostController extends Controller
             'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
             'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
             'destinations'=>$destinations,'categorias'=>$categorias,
-            'productos'=>$productos,'hotel'=>$hotel,'proveedores'=>$proveedores]);
+            'productos'=>$productos,'hotel'=>$hotel,'proveedores'=>$proveedores,'hotel_solo'=>$hotel_solo,'proveedor_db'=>$proveedor_db]);
     }
     public function store(Request $request){
         $categorias=M_Category::get();
@@ -115,28 +118,8 @@ class CostController extends Controller
             $producto->m_servicios_id = $txt_code;
             $producto->save();
 
-            $valor='';
-            $productos_hotels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','HOTELS');}])->get();
-            $productos_tours=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TOURS');}])->get();
-            $productos_transp=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRANSPORTATION');}])->get();
-            $productos_guides=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','GUIDES_ASSIST');}])->get();
-            $productos_entrances=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','ENTRANCES');}])->get();
-            $productos_food=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','FOOD');}])->get();
-            $productos_trains=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAINS');}])->get();
-            $productos_travels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAVELS');}])->get();
-            $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
-            $destinations=M_Destino::get();
-            $categorias=M_Category::get();
-            $productos=Proveedor::with(['productos'])->get();
-//        dd($productos_hotels);
-            return view('admin.database.costs',['productos_hotels'=>$productos_hotels,
-                'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
-                'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,
-                'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
-                'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
-                'destinations'=>$destinations,'categorias'=>$categorias,
-                'productos'=>$productos]);
-            }
+            return redirect()->route('costs_index_path');
+        }
         }
         else{
             $localizacion='txt_localizacion_'.$posTipo;
@@ -144,10 +127,9 @@ class CostController extends Controller
             $provider='txt_provider_'.$posTipo;
             $txt_provider=explode(' ',$request->input($provider));
             $proveedor=Proveedor::where('codigo',$txt_provider[0])->get();
-
+            $proveedor_id=0;
             if(count($proveedor)>0) {
-                $proveedor_id=0;
-                foreach ($proveedor as $pro){
+                foreach ($proveedor->take(1) as $pro){
                     $proveedor_id=$pro->id;
                 }
             $S_2=$request->input('S_2');
@@ -246,28 +228,7 @@ class CostController extends Controller
             $hotel_proveedor_5->estado=1;
             $hotel_proveedor_5->hotel_id=$request->input('hotel_id_5');
             $hotel_proveedor_5->save();
-
-            $valor='';
-            $productos_hotels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','HOTELS');}])->get();
-            $productos_tours=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TOURS');}])->get();
-            $productos_transp=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRANSPORTATION');}])->get();
-            $productos_guides=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','GUIDES_ASSIST');}])->get();
-            $productos_entrances=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','ENTRANCES');}])->get();
-            $productos_food=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','FOOD');}])->get();
-            $productos_trains=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAINS');}])->get();
-            $productos_travels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAVELS');}])->get();
-            $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
-            $destinations=M_Destino::get();
-            $categorias=M_Category::get();
-            $productos=Proveedor::with(['productos'])->get();
-//        dd($productos_hotels);
-            return view('admin.database.costs',['productos_hotels'=>$productos_hotels,
-                'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
-                'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,
-                'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
-                'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
-                'destinations'=>$destinations,'categorias'=>$categorias,
-                'productos'=>$productos]);
+            return redirect()->route('costs_index_path');
             }
         }
     }
@@ -344,27 +305,7 @@ class CostController extends Controller
             $producto->proveedor_id = $proveedor_id;
             $producto->save();
 
-            $valor='';
-            $productos_hotels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','HOTELS');}])->get();
-            $productos_tours=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TOURS');}])->get();
-            $productos_transp=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRANSPORTATION');}])->get();
-            $productos_guides=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','GUIDES_ASSIST');}])->get();
-            $productos_entrances=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','ENTRANCES');}])->get();
-            $productos_food=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','FOOD');}])->get();
-            $productos_trains=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAINS');}])->get();
-            $productos_travels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAVELS');}])->get();
-            $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
-            $destinations=M_Destino::get();
-            $categorias=M_Category::get();
-            $productos=Proveedor::with(['productos'])->get();
-//        dd($productos_hotels);
-            return view('admin.database.costs',['productos_hotels'=>$productos_hotels,
-                'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
-                'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,
-                'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
-                'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
-                'destinations'=>$destinations,'categorias'=>$categorias,
-                'productos'=>$productos]);
+            return redirect()->route('costs_index_path');
         }
     }
     public function mostrar_hotel(Request $request){

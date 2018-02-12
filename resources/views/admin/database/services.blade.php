@@ -7,7 +7,15 @@
         }
         return $texto.$valor.$nro;
     }
+    $destinos_usados=array();
 @endphp
+@foreach($hotel as $hotel_)
+    @if(!in_array($hotel_->localizacion,$destinos_usados))
+        @php
+            $destinos_usados[]=$hotel_->localizacion;
+        @endphp
+    @endif
+@endforeach
 @extends('layouts.admin.admin')
 @section('archivos-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
@@ -101,19 +109,39 @@
                                                         <input type="text" class="form-control" id="txt_codigo" name="txt_codigo_{{$pos}}" value="{{$auto}}" readonly>
                                                     </div>
                                                 </div>
-                                            @endif
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="txt_codigo">Location</label>
-                                                    {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                    <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
-                                                        @foreach($destinations as $destination)
-                                                            <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_codigo">Location</label>
+                                                        {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                                        <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
+                                                            @foreach($destinations as $destination)
+                                                                <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
+                                            @if($categoria->nombre=='HOTELS')
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txt_codigo">Location</label>
+                                                        {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                                        <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
+                                                            <option value="0">Escoja el destino</option>
+                                                            @foreach($destinations as $destination)
+                                                                @if(!in_array($destination->destino,$destinos_usados))
+                                                                    <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                                @else
+                                                                    <option value="{{$destination->destino}}" disabled="disabled">{{$destination->destino}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                        <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
+                                                    </div>
+                                                </div>
+                                            @endif
+
                                             <div class="col-md-12">
                                                 @if($categoria->nombre=='HOTELS')
                                                     <table class="table table-responsive table-striped table-condensed">
@@ -535,9 +563,11 @@
                 $pos++;
                 ?>
             @endforeach
-
         </ul>
         <div class="tab-content margin-top-20">
+            <?php
+            $pos=0;
+            ?>
             @foreach($categorias as $categoria)
                 <?php
                 $activo='';
@@ -548,6 +578,7 @@
                     ?>
                 @endif
                 <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
+
                     @if($categoria->nombre!='HOTELS')
                         <div class="col-lg-12">
                             <div class="col-lg-4 padding-left-0">

@@ -1,3 +1,14 @@
+@php
+    $destinos_usados=array();
+@endphp
+@foreach($hotel_solo as $hotel_)
+    @if(!in_array($hotel_->localizacion,$destinos_usados))
+        @php
+            $destinos_usados[]=$hotel_->localizacion;
+        @endphp
+    @endif
+@endforeach
+
 @extends('layouts.admin.admin')
 @section('archivos-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
@@ -67,24 +78,45 @@
                                     @endif
                                     <div id="{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="txt_codigo">Location</label>
-                                                        {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                        <select class="form-control" id="txt_localizacion_{{$pos0}}" name="txt_localizacion_{{$pos0}}" onchange="mostrar_hoteles('{{$pos0}}')">
-                                                            @foreach($destinations as $destination)
-                                                                <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                            @endforeach
-                                                        </select>
-
-                                                        <input type="hidden" name="tipoServicio_{{$pos0}}" id="tipoServicio_{{$pos0}}" value="{{$categoria->nombre}}">
-                                                    </div>
-                                                </div>
-                                                @if($categoria->nombre=='HOTELS')
+                                                @if($categoria->nombre!='HOTELS')
                                                     <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="txt_codigo">Location</label>
+                                                            {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                                            <select class="form-control" id="txt_localizacion_{{$pos0}}" name="txt_localizacion_{{$pos0}}" onchange="mostrar_hoteles('{{$pos0}}')">
+                                                                @foreach($destinations as $destination)
+                                                                    <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                                @endforeach
+                                                            </select>
+
+                                                            <input type="hidden" name="tipoServicio_{{$pos0}}" id="tipoServicio_{{$pos0}}" value="{{$categoria->nombre}}">
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if($categoria->nombre=='HOTELS')
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="txt_codigo">Location</label>
+                                                                {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                                                <select class="form-control" id="txt_localizacion_{{$pos0}}" name="txt_localizacion_{{$pos0}}" onchange="mostrar_hoteles('{{$pos0}}')">
+                                                                    <option value="0">Escoja el destino</option>
+                                                                    @foreach($destinations as $destination)
+                                                                        @if(in_array($destination->destino,$destinos_usados))
+                                                                            <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                                        @else
+                                                                            <option value="{{$destination->destino}}" disabled="disabled">{{$destination->destino}} -> agregar los producto</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+
+                                                                <input type="hidden" name="tipoServicio_{{$pos0}}" id="tipoServicio_{{$pos0}}" value="{{$categoria->nombre}}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
                                                         <div class="form-group col-md-9">
                                                             <label for="txt_precio">Provider</label>
-                                                            <input type="text" class="form-control" id="txt_provider_{{$pos0}}" name="txt_provider_{{$pos0}}" placeholder="Provider" required>
+                                                            <input type="text" class="form-control" id="txt_provider_{{$pos0}}" name="txt_provider_{{$pos0}}" placeholder="Provider" >
                                                         </div>
                                                         <div class="col-md-3 margin-top-25 ">
                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
@@ -320,10 +352,10 @@
                             </div>
                             {{csrf_field()}}
                             <input type="hidden" name="posTipo" id="posTipo" value="0">
-                            <input type="text" name="hotel_id_2" id="hotel_id_2" value="0">
-                            <input type="text" name="hotel_id_3" id="hotel_id_3" value="0">
-                            <input type="text" name="hotel_id_4" id="hotel_id_4" value="0">
-                            <input type="text" name="hotel_id_5" id="hotel_id_5" value="0">
+                            <input type="hidden" name="hotel_id_2" id="hotel_id_2" value="0">
+                            <input type="hidden" name="hotel_id_3" id="hotel_id_3" value="0">
+                            <input type="hidden" name="hotel_id_4" id="hotel_id_4" value="0">
+                            <input type="hidden" name="hotel_id_5" id="hotel_id_5" value="0">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
@@ -426,7 +458,6 @@
                                 <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>Location</th>
                                         <th>Provider</th>
                                         <th>Operations</th>
@@ -434,7 +465,6 @@
                                     </thead>
                                     <tfoot>
                                     <tr>
-                                        <th>#</th>
                                         <th>Location</th>
                                         <th>Provider</th>
                                         <th>Operations</th>
@@ -448,17 +478,27 @@
                                         @php
                                           $pos++;
                                           $dato=explode('_',$proveedores_);
+                                          $pro_sa='';
                                         @endphp
 {{--                                        @foreach($hotel->where('Proveedores_id',$proveedores_) as $hotel_)--}}
-                                        <tr>
-                                            <td></td>
+                                        <tr id="h_p_{{$pos}}">
                                             <td>{{$dato[0]}}</td>
-                                            <td>{{$dato[1]}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_hotel_{{$pos}}">
+                                                @foreach($proveedor_db->where('id',$dato[1]) as $proveedor_db_)
+                                                    {{$proveedor_db_->razon_social}}
+                                                    @php
+                                                        $pro_sa=$proveedor_db_->razon_social;
+                                                    @endphp
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <a type="button" class="btn btn-warning" href="{{route('editar_hotel_proveedor_path',[$dato[0],$dato[1]])}}">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger" onclick="eliminar_hotel_pro('{{$pos}}','{{$dato[1]}}')">
+                                                </a>
+                                                {{--<button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_hotel_{{$pos}}">--}}
+                                                    {{--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
+                                                {{--</button>--}}
+                                                <button type="button" class="btn btn-danger" onclick="eliminar_hotel_pro('{{$pos}}','{{$dato[1]}}','{{$pro_sa}}','{{$dato[0]}}')">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </button>
                                             </td>
