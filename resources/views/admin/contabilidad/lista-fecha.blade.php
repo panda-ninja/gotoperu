@@ -20,11 +20,11 @@
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <label for="f_ini">From</label>
-                                    <input type="date" class="form-control" placeholder="from" name="txt_ini" id="f_ini" required>
+                                    <input type="date" class="form-control" placeholder="from" name="txt_ini" id="f_ini" value="{{$ini}}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="f_fin">To</label>
-                                    <input type="date" class="form-control" placeholder="to" name="txt_fin" id="f_fin" required>
+                                    <input type="date" class="form-control" placeholder="to" name="txt_fin" id="f_fin" value="{{$fin}}" required>
                                 </div>
                                 <button type="submit" class="btn btn-default">Filter</button>
                             </form>

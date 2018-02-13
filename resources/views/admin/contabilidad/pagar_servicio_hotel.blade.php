@@ -1,3 +1,64 @@
+@php
+$array_total_x_proveedor=array();
+@endphp
+@foreach($itinerarios as $itinerario)
+    @foreach($itinerario->hotel as $hotel1)
+        @if($hotel1->personas_s>0)
+            @if($hotel1->precio_s_c>0)
+
+
+                @if(array_key_exists($hotel1->proveedor_id,$array_total_x_proveedor))
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]+=$hotel1->personas_s*$hotel1->precio_s_c;
+                    @endphp
+                @else
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]=$hotel1->personas_s*$hotel1->precio_s_c;
+                    @endphp
+                @endif
+            @endif
+        @endif
+        @if($hotel1->personas_d>0)
+            @if($hotel1->precio_d_c>0)
+                @if(array_key_exists($hotel1->proveedor_id,$array_total_x_proveedor))
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]+=$hotel1->personas_d*$hotel1->precio_d_c;
+                    @endphp
+                @else
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]=$hotel1->personas_d*$hotel1->precio_d_c;
+                    @endphp
+                @endif
+            @endif
+        @endif
+        @if($hotel1->personas_m>0)
+            @if($hotel1->precio_m_c>0)
+                @if(array_key_exists($hotel1->proveedor_id,$array_total_x_proveedor))
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]+=$hotel1->personas_m*$hotel1->precio_m_c;
+                    @endphp
+                @else
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]=$hotel1->personas_m*$hotel1->precio_m_c;
+                    @endphp
+                @endif
+            @endif
+        @endif
+        @if($hotel1->personas_t>0)
+            @if($hotel1->precio_t_c>0)
+                @if(array_key_exists($hotel1->proveedor_id,$array_total_x_proveedor))
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]+=$hotel1->personas_t*$hotel1->precio_t_c;
+                    @endphp
+                @else
+                    @php
+                        $array_total_x_proveedor[$hotel1->proveedor_id]=$hotel1->personas_t*$hotel1->precio_t_c;
+                    @endphp
+                @endif
+            @endif
+        @endif
+    @endforeach
+@endforeach
 @extends('layouts.admin.contabilidad')
 @section('content')
     <div class="row margin-top-40">
@@ -91,14 +152,13 @@
                                 <hr>
                             </div>
                             <div class="col-lg-12">
-                                @foreach($hotel as $hotel_)
-                                    @foreach($proveedores->where('id',$hotel_->proveedor_id)  as $proveeodor)
+                                    @foreach($proveedores->where('id',$prov_id)  as $proveeodor)
                                         <div class="nombres"><b>PROVEEDOR:</b> {{$proveeodor->razon_social}}</div>
                                         <div class="nombres"><b>RUC:</b> {{$proveeodor->ruc}}</div>
                                         <div class="nacionalidad"><b>DIRECCION:</b> {{$proveeodor->direccion}}</div>
                                         <div class="nacionalidad"><b>TELEFONO:</b> {{$proveeodor->telefono}}</div>
                                     @endforeach
-                                @endforeach
+
                             </div>
                             <div class="col-lg-12 margin-top-10">
                                 {{--<button class="btn btn-warning btn-sm">Pagar</button> <button class="btn btn-warning btn-sm"></button>--}}
@@ -118,12 +178,12 @@
                                     <tbody>
                                     @php $total=0; @endphp
                                     @foreach($hotel as $hotel_)
-                                        @if($hotel_->pagos->count()>0)
-                                            @foreach($hotel_->pagos as $pagos)
+                                        @if(count($pagos)>0)
+                                            @foreach($pagos as $pago)
                                                 @php
-                                                    $total = $total + $pagos->a_cuenta
+                                                    $total = $total + $pago->a_cuenta
                                                 @endphp
-                                                @if($pagos->estado == 1)
+                                                @if($pago->estado == 1)
                                                     <tr>
                                                         <td>
                                                             @php
@@ -153,14 +213,18 @@
                                                                     $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
                                                                 @endphp
                                                             @endif
+                                                            <div class="divider"></div>
+                                                            <p>Por noche <span class="text-success"> = {{$total_h}}$</span></p>
+                                                            <p>Por {{$noches}} noches <span class="text-success"> = {{$array_total_x_proveedor[$hotel_->proveedor_id]}}$</span></p>
+
                                                         </td>
-                                                        <td>{{$pagos->medio}}</td>
-                                                        <td>{{$pagos->transaccion}}</td>
-                                                        <td>{{$pagos->updated_at}}</td>
-                                                        <td class='text-right'>{{$pagos->a_cuenta}}</td>
+                                                        <td>{{$pago->medio}}</td>
+                                                        <td>{{$pago->transaccion}}</td>
+                                                        <td>{{$pago->updated_at}}</td>
+                                                        <td class='text-right'>{{$pago->a_cuenta}}</td>
                                                         <td class="text-center"><i class="fa fa-check text-primary"></i></td>
                                                     </tr>
-                                                @elseif($pagos->estado == 0 AND ($pagos->fecha_a_pagar=="" OR $pagos->fecha_a_pagar==NULL))
+                                                @elseif($pago->estado == 0 AND ($pago->fecha_a_pagar=="" OR $pago->fecha_a_pagar==NULL))
                                                     <tr>
                                                         <td>Cusco Catedral</td>
                                                         <td></td>
@@ -169,7 +233,7 @@
                                                         <td><input type="text" class="form-control input-sm text-right" value="{{$hotel_->precio_s_c - $total}}"></td>
                                                         <td class="text-center"><button class="btn btn-sm btn-warning display-block"><i>Save</i></button></td>
                                                     </tr>
-                                                @elseif($pagos->estado == 0 AND isset($pagos->fecha_a_pagar))
+                                                @elseif($pago->estado == 0 AND isset($pago->fecha_a_pagar))
                                                     <tr>
                                                         <td>
                                                             @php
@@ -199,19 +263,22 @@
                                                                     $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
                                                                 @endphp
                                                             @endif
+                                                            <div class="divider"></div>
+                                                            <p>Por noche <span class="text-success"> = {{$total_h}}$</span></p>
+                                                            <p>Por {{$noches}} noches <span class="text-success"> = {{$array_total_x_proveedor[$hotel_->proveedor_id]}}$</span></p>
+
                                                         </td>
                                                         <td><input type="text" class="form-control input-sm" id="p_medio"></td>
                                                         <td><input type="text" class="form-control input-sm" id="p_transaccion"></td>
-                                                        <td><input type="date" class="form-control input-sm text-right" value="{{$pagos->fecha_a_pagar}}" id="p_fecha"></td>
-                                                        <td><input type="text" class="form-control input-sm text-right" value="{{$pagos->a_cuenta}}" id="p_pago" onkeyup="fecha_pago($('#p_pago').val(), {{$total_h}}, {{$pagos->a_cuenta}})"></td>
+                                                        <td><input type="date" class="form-control input-sm text-right" value="{{$pago->fecha_a_pagar}}" id="p_fecha"></td>
+                                                        <td><input type="text" class="form-control input-sm text-right" value="{{$pago->a_cuenta}}" id="p_pago" onkeyup="fecha_pago($('#p_pago').val(), {{$total_h}}, {{$pago->a_cuenta}})"></td>
                                                         <td class="text-center">
-                                                            <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$hotel_->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$total_h }},{{$total}}, {{$pagos->id}}, {{$pagos->a_cuenta}})"><i>Pagar</i></button>
+                                                            <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$hotel_->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$total_h }},{{$total}}, {{$pago->id}}, {{$pago->a_cuenta}},'{{$pqt_id}}','{{$prov_id}}')"><i>Pagar</i></button>
                                                             <i class="fa fa-check text-primary hide" id="f_check"></i>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="btn_load"></i>
                                                             <span class="sr-only">Loading...</span>
                                                         </td>
                                                     </tr>
-
                                                     <tr class="hide" id="i_save">
                                                         <td>
                                                             @php
@@ -241,13 +308,17 @@
                                                                     $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
                                                                 @endphp
                                                             @endif
+                                                            <div class="divider"></div>
+                                                            <p>Por noche <span class="text-success"> = {{$total_h}}$</span></p>
+                                                            <p>Por {{$noches}} noches <span class="text-success"> = {{$array_total_x_proveedor[$hotel_->proveedor_id]}}$</span></p>
+
                                                         </td>
                                                         <td></td>
                                                         <td></td>
                                                         <td class="has-error"><input type="date" class="form-control input-sm text-right" id="f_date"></td>
                                                         <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly></td>
                                                         <td class="text-center">
-                                                            <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$hotel_->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
+                                                            <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$hotel_->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val(),'{{$pqt_id}}','{{$prov_id}}')"><i>Save</i></button>
 
                                                             <i class="fa fa-check text-primary hide" id="f_btncheck"></i>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="f_btnload"></i>
@@ -255,7 +326,6 @@
 
                                                         </td>
                                                     </tr>
-
                                                     <tr>
                                                         <td colspan="3"></td>
                                                         <td class="list-style-none">
@@ -267,7 +337,7 @@
 
                                                             {{--<li><b>{{$total}}</b></li>--}}
                                                             <li>{{$total_h}}</li>
-                                                            <li><b id="f_deuda">{{$pagos->a_cuenta}}</b></li>
+                                                            <li><b id="f_deuda">{{$pago->a_cuenta}}</b></li>
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -302,13 +372,16 @@
                                                             $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
                                                         @endphp
                                                     @endif
+                                                    <div class="divider"></div>
+                                                        <p>Por noche <span class="text-success"> = {{$total_h}}$</span></p>
+                                                        <p>Por {{$noches}} noches <span class="text-success"> = {{$array_total_x_proveedor[$hotel_->proveedor_id]}}$</span></p>
                                                 </td>
                                                 <td><input type="text" class="form-control input-sm" id="p_medio"></td>
                                                 <td><input type="text" class="form-control input-sm" id="p_transaccion"></td>
                                                 <td><input type="date" class="form-control input-sm text-right" id="p_fecha"></td>
-                                                <td><input type="text" class="form-control input-sm text-right" id="p_pago" value="{{$total_h}}" onkeyup="fecha_pago($('#p_pago').val(), {{$total_h}}, {{$total}})"></td>
+                                                <td><input type="text" class="form-control input-sm text-right" id="p_pago" value="{{$array_total_x_proveedor[$hotel_->proveedor_id]}}" onkeyup="fecha_pago($('#p_pago').val(), {{$array_total_x_proveedor[$hotel_->proveedor_id]}},{{$total}})"></td>
                                                 <td class="text-center">
-                                                    <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$hotel_->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$total_h}}, {{$total}}, 0, 0)"><i>Pagar</i></button>
+                                                    <button class="btn btn-sm btn-success display-block" id="btn_pago" onclick="pagar_proveedor({{$hotel_->id}},{{$idcotizacion}},$('#p_medio').val(), $('#p_transaccion').val(), $('#p_fecha').val(), $('#p_pago').val(), {{$array_total_x_proveedor[$hotel_->proveedor_id]}},{{$total}}, 0, 0,'{{$pqt_id}}','{{$prov_id}}')"><i>Pagar</i></button>
                                                     <i class="fa fa-check text-primary hide" id="f_check"></i>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="btn_load"></i>
                                                     <span class="sr-only">Loading...</span>
@@ -344,13 +417,17 @@
                                                             $total_h+=$hotel_->personas_t*$hotel_->precio_t_c;
                                                         @endphp
                                                     @endif
+                                                    <div class="divider"></div>
+                                                    <p>Por noche <span class="text-success"> = {{$total_h}}$</span></p>
+                                                    <p>Por {{$noches}} noches <span class="text-success"> = {{$array_total_x_proveedor[$hotel_->proveedor_id]}}$</span></p>
+
                                                 </td>
                                                 <td></td>
                                                 <td></td>
                                                 <td class="has-error"><input type="date" class="form-control input-sm text-right" id="f_date"></td>
                                                 <td><input type="text" class="form-control input-sm text-right" id="f_pago" value="0" readonly="readonly"></td>
                                                 <td class="text-center">
-                                                    <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$hotel_->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val())"><i>Save</i></button>
+                                                    <button class="btn btn-sm btn-warning display-block" id="f_btnpago" onclick="pagar_acuenta({{$hotel_->id}},{{$idcotizacion}},$('#f_pago').val(),$('#f_date').val(),'{{$pqt_id}}','{{$prov_id}}')"><i>Save</i></button>
 
                                                     <i class="fa fa-check text-primary hide" id="f_btncheck"></i>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="f_btnload"></i>
@@ -369,8 +446,8 @@
                                                 <td class='text-right list-style-none'>
 
                                                     {{--<li><b>{{$total}}</b></li>--}}
-                                                    <li>{{$total_h}}</li>
-                                                    <li><b id="f_deuda">{{$total_h-$total}}</b></li>
+                                                    <li>{{$array_total_x_proveedor[$hotel_->proveedor_id]}}</li>
+                                                    <li><b id="f_deuda">{{$array_total_x_proveedor[$hotel_->proveedor_id]-$total}}</b></li>
                                                 </td>
                                             </tr>
 
@@ -461,7 +538,7 @@
                 }
             }
         }
-        function pagar_acuenta(id, idcot, pago, fecha){
+        function pagar_acuenta(id, idcot, pago, fecha,idpqt,idpro){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('[name="_token"]').val()
@@ -482,7 +559,9 @@
                     "txt_id" : id,
                     "txt_idcot" : idcot,
                     "txt_fecha" : fecha,
-                    "txt_pago" : pago
+                    "txt_pago" : pago,
+                    "txt_idpqt" : idpqt,
+                    "txt_idpro" : idpro
                 };
                 $.ajax({
                     data:  datos,
@@ -505,7 +584,7 @@
             }
 
         }
-        function pagar_proveedor(id, idcot, medio, transaccion, fecha, pago, p_conta, total, idpago, acuenta){
+        function pagar_proveedor(id, idcot, medio, transaccion, fecha, pago, p_conta, total, idpago, acuenta,idpqt,idpro){
             var c_total = parseFloat(total);//es 0 xq no hay ningun pago
             var c_conta = parseFloat(p_conta);// total que se debe
             $.ajaxSetup({
@@ -520,16 +599,11 @@
             }else{
                 sendPay = "true"
             }
-            // if (pago.length == 0 ){
-            //     $('#p_pago').css("border-bottom", "2px solid #FF0000");
-            //     var sendPay = "false";
-            // }else{
-            //     sendPay = "true"
-            // }
 
             if(sendPay == "true"){
                 // si se esta haciendo el pago total
                 if (c_conta == pago && idpago == 0){
+                    console.log('entro');
                     var datos = {
                         "txt_id" : id,
                         "txt_idcot" : idcot,
@@ -537,7 +611,9 @@
                         "txt_transaccion" : transaccion,
                         "txt_fecha" : fecha,
                         "txt_pago" : pago,
-                        "txt_idpago" : idpago
+                        "txt_idpago" : idpago,
+                        "txt_idpqt" : idpqt,
+                        "txt_idpro" : idpro
                     };
                     $.ajax({
                         data:  datos,
@@ -557,6 +633,7 @@
                 }
                 //-- si el pago es menor al total
                 if (c_conta > pago && idpago == 0){
+                    console.log('pagando una parte');
                     var datos = {
                         "txt_id" : id,
                         "txt_idcot" : idcot,
@@ -564,7 +641,9 @@
                         "txt_transaccion" : transaccion,
                         "txt_fecha" : fecha,
                         "txt_pago" : pago,
-                        "txt_idpago" : idpago
+                        "txt_idpago" : idpago,
+                        "txt_idpqt" : idpqt,
+                        "txt_idpro" : idpro
                     };
                     $.ajax({
                         data:  datos,
@@ -592,7 +671,9 @@
                         "txt_transaccion" : transaccion,
                         "txt_fecha" : fecha,
                         "txt_pago" : pago,
-                        "txt_idpago" : idpago
+                        "txt_idpago" : idpago,
+                        "txt_idpqt" : idpqt,
+                        "txt_idpro" : idpro
                     };
                     $.ajax({
                         data:  datos,
@@ -619,7 +700,9 @@
                         "txt_transaccion" : transaccion,
                         "txt_fecha" : fecha,
                         "txt_pago" : pago,
-                        "txt_idpago" : idpago
+                        "txt_idpago" : idpago,
+                        "txt_idpqt" : idpqt,
+                        "txt_idpro" : idpro
                     };
                     $.ajax({
                         data:  datos,

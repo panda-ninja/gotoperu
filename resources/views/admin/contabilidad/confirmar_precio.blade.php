@@ -184,18 +184,24 @@
 
                         {{csrf_field()}}
                         @php
-                            $sumaTotal_hotel= array();
-                            $pagadoTotal_hotel= array();
+                            $sumaTotal_hotel= [];
+                            $pagadoTotal_hotel= [];
                         @endphp
                         @foreach($cotizaciones->paquete_cotizaciones as $paquetes)
-                            {{--@foreach($paquetes->pagos_hotel as $pagos_hotel)--}}
-                                {{--@if($pagos_hotel->estado=='1')--}}
-                                    {{--@php--}}
-                                        {{--$pagadoTotal_hotel[$pagos_hotel->proveedor_id]+=$pagos_hotel->a_cuenta;--}}
-                                    {{--@endphp--}}
-                                {{--@endif--}}
-                            {{--@endforeach--}}
-                                @if($paquetes->estado==2)
+                            @foreach($paquetes->pagos_hotel as $pagos_hotel)
+                                @if($pagos_hotel->estado=='1')
+                                    @if(array_key_exists($pagos_hotel->proveedor_id,$pagadoTotal_hotel))
+                                        @php
+                                            $pagadoTotal_hotel[$pagos_hotel->proveedor_id]+=$pagos_hotel->a_cuenta;
+                                        @endphp
+                                    @else
+                                        @php
+                                            $pagadoTotal_hotel[$pagos_hotel->proveedor_id]=$pagos_hotel->a_cuenta;
+                                        @endphp
+                                    @endif
+                                @endif
+                            @endforeach
+                            @if($paquetes->estado==2)
                                 @foreach($paquetes->itinerario_cotizaciones as $itinerario)
                                     <tr>
                                         <td class=" bg-info" colspan="9"><b class="text-primary text-18">Dia {{$itinerario->dias}}: {{fecha_letra($itinerario->fecha)}}</b></td>
@@ -245,7 +251,9 @@
 {{--                                                <b>{{$precio_c-$pagos_suma}}</b>--}}
                                             </td>
                                             <td class="text-center">
-                                                @if($precio_c==$pagos_suma)
+                                                @if($servicios->precio_proveedor == 0)
+                                                    <button class="btn btn-unset btn-sm"><i class="fa fa-clock-o text-18"></i></button>
+                                                @elseif($precio_c==$pagos_suma)
                                                     <button class="btn btn-success btn-sm"><i class="fa fa-check text-18"></i></button>
                                                 @elseif($servicios->precio_c > 0)
                                                     <button class="btn btn-warning display-block btn-sm hide" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
@@ -270,35 +278,36 @@
                                     @endphp
                                     @foreach($itinerario->hotel as $hotel)
                                         @if($hotel->proveedor_id>0 OR $hotel->proveedor_id!='')
-                                            @if($hotel->precio_s_c>0 OR $hotel->precio_s_c!='')
-                                                @php
-                                                    $precio_s_c1=  $hotel->precio_s_c;
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $precio_s_c1 =  $hotel->precio_s_r;
-                                                @endphp
+                                            @if($hotel->personas_s>0)
+                                                @if($hotel->precio_s_c>0 OR $hotel->precio_s_c!='')
+                                                    @php $precio_s_c1=  $hotel->precio_s_c; @endphp
+                                                @else
+                                                    @php $precio_s_c1 =  $hotel->precio_s_r; @endphp
+                                                @endif
                                             @endif
-
-                                            @if($hotel->precio_d_c>0 OR $hotel->precio_d_c!='')
-                                                @php $precio_d_c1=  $hotel->precio_d_c; @endphp
-                                            @else
-                                                @php $precio_d_c1 =  $hotel->precio_d_r; @endphp
+                                            @if($hotel->personas_d>0)
+                                                @if($hotel->precio_d_c>0 OR $hotel->precio_d_c!='')
+                                                    @php $precio_d_c1=  $hotel->precio_d_c; @endphp
+                                                @else
+                                                    @php $precio_d_c1 =  $hotel->precio_d_r; @endphp
+                                                @endif
                                             @endif
-
-                                            @if($hotel->precio_m_c>0 OR $hotel->precio_m_c!='')
-                                                @php $precio_m_c1=  $hotel->precio_m_c; @endphp
-                                            @else
-                                                @php $precio_m_c1 =  $hotel->precio_m_r; @endphp
+                                            @if($hotel->personas_m>0)
+                                                @if($hotel->precio_m_c>0 OR $hotel->precio_m_c!='')
+                                                    @php $precio_m_c1=  $hotel->precio_m_c; @endphp
+                                                @else
+                                                    @php $precio_m_c1 =  $hotel->precio_m_r; @endphp
+                                                @endif
                                             @endif
-
-                                            @if($hotel->precio_t_c>0 OR $hotel->precio_t_c!='')
-                                                @php $precio_t_c1=  $hotel->precio_t_c; @endphp
-                                            @else
-                                                @php $precio_t_c1 =  $hotel->precio_t_r; @endphp
+                                            @if($hotel->personas_t>0)
+                                                @if($hotel->precio_t_c>0 OR $hotel->precio_t_c!='')
+                                                    @php $precio_t_c1=  $hotel->precio_t_c; @endphp
+                                                @else
+                                                    @php $precio_t_c1 =  $hotel->precio_t_r; @endphp
+                                                @endif
                                             @endif
                                             @php
-                                            $total_ho=$precio_s_c1+$precio_d_c1+$precio_m_c1+$precio_t_c1;
+                                                $total_ho=$precio_s_c1+$precio_d_c1+$precio_m_c1+$precio_t_c1;
                                             @endphp
                                             @if(array_key_exists($hotel->proveedor_id,$sumaTotal_hotel))
                                                 @php
@@ -309,10 +318,9 @@
                                                     $sumaTotal_hotel[$hotel->proveedor_id]=$total_ho;
                                                 @endphp
                                             @endif
-
+                                            {{--<p>{{$hotel->proveedor_id}}-{{$precio_s_c1}}+{{$precio_d_c1}}+{{$precio_m_c1}}+{{$precio_t_c1}}->{{$sumaTotal_hotel[$hotel->proveedor_id]}}</p>--}}
                                         @endif
                                     @endforeach
-
                                     @foreach($itinerario->hotel as $hotel)
                                         <tr>
                                             <td>
@@ -434,32 +442,32 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                @if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))
-                                                    <b>{{$pagadoTotal_hotel[$hotel->proveedor_id]}}</b>
-                                                @else
-                                                    <b>0</b>
-                                                @endif
+                                                {{--@if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))--}}
+                                                    {{--<b>{{$pagadoTotal_hotel[$hotel->proveedor_id]}}</b>--}}
+                                                {{--@else--}}
+                                                    {{--<b>0</b>--}}
+                                                {{--@endif--}}
                                             </td>
                                             <td class="text-center">
-                                                @if(array_key_exists($hotel->proveedor_id,$sumaTotal_hotel))
-                                                    @if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))
-                                                        <b>{{$sumaTotal_hotel[$hotel->proveedor_id]-$pagadoTotal_hotel[$hotel->proveedor_id]}}</b>
-                                                    @else
-                                                    <b>0</b>
-                                                    @endif
-                                                @else
-                                                    <b>0</b>
-                                                @endif
+                                                {{--@if(array_key_exists($hotel->proveedor_id,$sumaTotal_hotel))--}}
+                                                    {{--@if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))--}}
+                                                        {{--<b>{{$sumaTotal_hotel[$hotel->proveedor_id]-$pagadoTotal_hotel[$hotel->proveedor_id]}}</b>--}}
+                                                    {{--@else--}}
+                                                    {{--<b>{{$sumaTotal_hotel[$hotel->proveedor_id]}}</b>--}}
+                                                    {{--@endif--}}
+                                                {{--@else--}}
+                                                    {{--<b>0</b>--}}
+                                                {{--@endif--}}
                                             </td>
                                             <td class="text-center">
-                                                @if($hotel->precio_s_c > 0)
+                                                @if($hotel->precio_s_c > 0 || $hotel->precio_d_c > 0 || $hotel->precio_m_c > 0 || $hotel->precio_t_c > 0)
                                                     <button class="btn btn-warning display-block btn-sm hide" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h_{{$hotel->id}}">Save</button>
-                                                    <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizaciones->id, $hotel->id])}}" class="btn btn-primary display-block btn-sm" id="btn_p_h{{$hotel->id}}">Pagar</a>
+                                                    <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizaciones->id, $hotel->id,$paquetes->id,$hotel->proveedor_id])}}" class="btn btn-primary display-block btn-sm" id="btn_p_h{{$hotel->id}}">Pagar</a>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_h{{$hotel->id}}"></i>
                                                     <span class="sr-only">Loading...</span>
                                                 @else
                                                     <button class="btn btn-warning display-block btn-sm" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h{{$hotel->id}}">Save</button>
-                                                    <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizaciones->id, $hotel->id])}}" class="btn btn-primary display-block btn-sm hide" id="btn_p_h{{$hotel->id}}">Pagar</a>
+                                                    <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizaciones->id, $hotel->id,$paquetes->id,$hotel->proveedor_id])}}" class="btn btn-primary display-block btn-sm hide" id="btn_p_h{{$hotel->id}}">Pagar</a>
                                                     <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_h{{$hotel->id}}"></i>
                                                     <span class="sr-only">Loading...</span>
                                                 @endif
@@ -566,12 +574,13 @@
 
                     $("#btn_s_h"+id).attr("disabled", true);
 
-                    var p_s=$("#p_conta_h_s_"+id).val();
-                    var p_d=$("#p_conta_h_d_"+id).val();
-                    var p_m=$("#p_conta_h_m_"+id).val();
-                    var p_t=$("#p_conta_h_t_"+id).val();
+                    var p_s=0;
+                    var p_d=0;
+                    var p_m=0;
+                    var p_t=0;
                     var i=1;
                     if(s>0) {
+                        p_s=$("#p_conta_h_s_"+id).val()
                         if (p_s.length == 0) {
                             $('#p_conta_h_s_' + id).css("border-bottom", "2px solid #FF0000");
                             var sendPrice_s = "false";
@@ -583,6 +592,7 @@
                         }
                     }
                     if(d>0) {
+                        p_d=$("#p_conta_h_d_"+id).val();
                         if (p_d.length == 0) {
                             $('#p_conta_h_d_' + id).css("border-bottom", "2px solid #FF0000");
                             var sendPrice_d = "false";
@@ -594,6 +604,7 @@
                         }
                     }
                     if(m>0) {
+                        p_m=$("#p_conta_h_m_"+id).val();
                         if (p_m.length == 0) {
                             $('#p_conta_h_m_' + id).css("border-bottom", "2px solid #FF0000");
                             var sendPrice_m = "false";
@@ -605,6 +616,7 @@
                         }
                     }
                     if(t>0) {
+                        p_t=$("#p_conta_h_t_"+id).val();
                         if (p_t.length == 0) {
                             $('#p_conta_h_t_' + id).css("border-bottom", "2px solid #FF0000");
                             var sendPrice_t = "false";

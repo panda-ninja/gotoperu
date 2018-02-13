@@ -8,6 +8,7 @@ use App\ConsultaPagoHotel;
 use App\Cotizacion;
 use App\CotizacionesCliente;
 use App\HotelProveedor;
+use App\ItinerarioCotizaciones;
 use App\ItinerarioServicioProveedor;
 use App\ItinerarioServicios;
 use App\ItinerarioServiciosPagos;
@@ -438,17 +439,22 @@ class ContabilidadController extends Controller
         $i_hotel->save();
         return ("ok");
     }
-    public function pagar_servicios_conta_hotel($idcotizacion, $idhotel)
+    public function pagar_servicios_conta_hotel($idcotizacion, $idhotel,$pqt_id,$prov_id)
     {
         $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
         $hotel =PrecioHotelReserva::where('id', $idhotel)->get();
         $proveedores=Proveedor::get();
-//        dd($cotizacion);
+        $itinerarios=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_id)->get();
+        $noches=PrecioHotelReserva::where('proveedor_id',$prov_id)->count();
+        $pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->where('proveedor_id',$prov_id)->get();
+//        dd($hotel);
 //        $productos=M_Producto::get();
 //        $proveedores=Proveedor::get();
 //        $hotel_proveedor=HotelProveedor::get();
 
-        return view('admin.contabilidad.pagar_servicio_hotel',['cotizacion'=>$cotizacion,'hotel'=>$hotel, 'idcotizacion'=>$idcotizacion,'proveedores'=>$proveedores]);
+        return view('admin.contabilidad.pagar_servicio_hotel',['cotizacion'=>$cotizacion,
+            'hotel'=>$hotel, 'idcotizacion'=>$idcotizacion,'proveedores'=>$proveedores,
+            'itinerarios'=>$itinerarios,'pqt_id'=>$pqt_id,'prov_id'=>$prov_id,'noches'=>$noches,'pagos'=>$pagos]);
     }
     public function pay_price_hotel_conta(){
         $id = $_POST['txt_id'];
@@ -458,6 +464,8 @@ class ContabilidadController extends Controller
         $transaccion = $_POST['txt_transaccion'];
         $fecha = $_POST['txt_fecha'];
         $pago = $_POST['txt_pago'];
+        $idpqt = $_POST['txt_idpqt'];
+        $idpro = $_POST['txt_idpro'];
 
         if ($idpago>0){
             $p_hotel_reserva = PrecioHotelReservaPagos::FindOrFail($idpago);
@@ -466,8 +474,8 @@ class ContabilidadController extends Controller
             $p_hotel_reserva->medio = $medio;
             $p_hotel_reserva->transaccion = $transaccion;
             $p_hotel_reserva->estado = 1;
-            $p_hotel_reserva->precio_hotel_reserva_id = $id;
-
+            $p_hotel_reserva->paquete_cotizaciones_id = $idpqt;
+            $p_hotel_reserva->proveedor_id = $idpro;
             $p_hotel_reserva->save();
             return "ok update";
         }else{
@@ -477,7 +485,8 @@ class ContabilidadController extends Controller
             $p_hotel_reserva->medio = $medio;
             $p_hotel_reserva->transaccion = $transaccion;
             $p_hotel_reserva->estado = 1;
-            $p_hotel_reserva->precio_hotel_reserva_id = $id;
+            $p_hotel_reserva->paquete_cotizaciones_id = $idpqt;
+            $p_hotel_reserva->proveedor_id = $idpro;
             $p_hotel_reserva->save();
             return "ok save";
         }
@@ -490,12 +499,15 @@ class ContabilidadController extends Controller
 //        $idcot = $_POST['txt_idcot'];
         $fecha = $_POST['txt_fecha'];
         $pago = $_POST['txt_pago'];
+        $idpqt = $_POST['txt_idpqt'];
+        $idpro = $_POST['txt_idpro'];
 
         $p_hotel_reserva = new PrecioHotelReservaPagos();
         $p_hotel_reserva->a_cuenta = $pago;
         $p_hotel_reserva->fecha_a_pagar = $fecha;
         $p_hotel_reserva->estado = 0;
-        $p_hotel_reserva->precio_hotel_reserva_id = $id;
+        $p_hotel_reserva->paquete_cotizaciones_id = $idpqt;
+        $p_hotel_reserva->proveedor_id = $idpro;
         $p_hotel_reserva->save();
         return "ok";
     }

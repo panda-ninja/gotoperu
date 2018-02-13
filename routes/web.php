@@ -633,7 +633,7 @@ Route::post('/admin/contabilidad/update_price_conta_hotel', [
     'uses' => 'ContabilidadController@update_price_conta_hotel',
     'as' => 'update_price_conta_hotel_path',
 ]);
-Route::get('/admin/contabilidad/show-hotel/{idcotizacion}/{idhotel}', [
+Route::get('/admin/contabilidad/show-hotel/{idcotizacion}/{idhotel}/{iditinerario}/{idproveedor}', [
     'uses' => 'ContabilidadController@pagar_servicios_conta_hotel',
     'as' => 'pagar_servicios_conta_hotel_path',
 ]);
