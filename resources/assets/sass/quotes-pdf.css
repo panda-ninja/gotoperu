@@ -97,6 +97,14 @@ b{
     width:215px;
     height:215px;
 }
+.responsive-img3{
+    margin-top: 20px;
+    margin-bottom: 1px;
+    margin-left: 8px;
+    margin-right: 8px;
+    width:180px;
+    height:180px;
+}
 .centrar-todo{
     text-align: center;
 }

@@ -211,7 +211,7 @@
                         @if($cotizacion_->posibilidad=="0")
                             <?php
                             $date = date_create($cotizacion_->fecha);
-                            $fecha=date_format($date, 'jS F Y');
+                            $fecha=date_format($date, 'F jS, Y');
                             $titulo='';
                             ?>
 
