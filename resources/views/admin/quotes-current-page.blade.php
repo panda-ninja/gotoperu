@@ -225,7 +225,7 @@
                                                 ?>
                                                 <strong>
                                                     <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
-                                                    {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}}: {{$cotizacion_->nropersonas}} days: {{$fecha}}
+                                                    {{$cliente_coti->cliente->nombres}} {{$cliente_coti->cliente->apellidos}} x {{$cotizacion_->nropersonas}} {{$fecha}}
                                                 </strong>
                                                 <small>
                                                     {{$valor}}$
