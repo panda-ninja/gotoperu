@@ -128,6 +128,10 @@ class ProveedorController extends Controller
         $txt_r_telefono=$request->input('txt_r_telefono_'.$nro_grupo);
         $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'.$nro_grupo));
         $txt_c_telefono=$request->input('txt_c_telefono_'.$nro_grupo);
+        $txt_plazo=$request->input('txt_plazo_'.$nro_grupo);
+        $txt_desci=$request->input('txt_desci_'.$nro_grupo);
+
+
         $proveedor=new Proveedor();
         $proveedor->ruc=$txt_ruc;
         $proveedor->razon_social=$txt_razon_social;
@@ -141,6 +145,9 @@ class ProveedorController extends Controller
         $proveedor->c_telefono=$txt_c_telefono;
         $proveedor->localizacion=$txt_localizacion;
         $proveedor->grupo=$txt_grupo;
+        $proveedor->plazo=$txt_plazo;
+        $proveedor->desci=$txt_desci;
+
         if($proveedor->save()){
             $proveedor->codigo=$txt_grupo_cod.$proveedor->id;
             $proveedor->save();
@@ -170,7 +177,8 @@ class ProveedorController extends Controller
         $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'));
         $txt_c_telefono=$request->input('txt_c_telefono_');
         $txt_categoria=$request->input('txt_categoria_');
-
+        $txt_plazo=$request->input('txt_plazo_');
+        $txt_desci=$request->input('txt_desci_');
         $proveedor=Proveedor::findOrFail($id);
         $proveedor->ruc=$txt_ruc;
         $proveedor->razon_social=$txt_razon_social;
@@ -184,7 +192,8 @@ class ProveedorController extends Controller
         $proveedor->c_telefono=$txt_c_telefono;
         $proveedor->localizacion=$txt_localizacion;
         $proveedor->categoria=$txt_categoria;
-
+        $proveedor->plazo=$txt_plazo;
+        $proveedor->desci=$txt_desci;
 //        $proveedor->codigo=$txt_grupo_cod.$proveedor->id;
         if($proveedor->save()){
             $proveedor->codigo=$txt_grupo_cod.$id;

@@ -149,6 +149,24 @@
                                                 <input type="text" class="form-control" id="txt_c_telefono_{{$in_pos}}" name="txt_c_telefono_{{$in_pos}}" placeholder="Tel. o Cel.">
                                             </div>
                                         </div>
+                                            <div class="col-md-4">
+                                                <label for="txt_price">Plazo a pagar en dias</label>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" class="col-lg-1 form-control" id="txt_plazo_{{$in_pos}}" name="txt_plazo_{{$in_pos}}" min="0" value="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5  no-padding">
+                                                        <div class="form-group">
+                                                            <select class="form-control" id="txt_desci_{{$in_pos}}" name="txt_desci_{{$in_pos}}">
+                                                                <option value="antes">Antes</option>
+                                                                <option value="despues">Despues</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <?php
@@ -207,12 +225,13 @@
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         @if($tipoServicio_=='HOTELS')
-                                        <th>Cat</th>
+                                        <th class="hide">Cat</th>
                                         @endif
                                         <th>Tel./Cel.</th>
                                         <th>Email</th>
                                         <th>Reservas</th>
                                         <th>Contabilidad</th>
+                                        <th>Plazo</th>
                                         <th>Operations</th>
                                     </tr>
                                     </thead>
@@ -223,12 +242,13 @@
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         @if($tipoServicio_=='HOTELS')
-                                        <th>Cat</th>
+                                        <th class="hide">Cat</th>
                                         @endif
                                         <th>Tel./Cel.</th>
                                         <th>Email</th>
                                         <th>Reservas</th>
                                         <th>Contabilidad</th>
+                                        <th>Plazo</th>
                                         <th>Operations</th>
                                     </tr>
                                     </tfoot>
@@ -241,12 +261,13 @@
                                                 <td>{{$provider->ruc}}</td>
                                                 <td>{{$provider->razon_social}}</td>
                                                 @if($tipoServicio_=='HOTELS')
-                                                <td class="text-warning"><b>{{$provider->categoria}}</b> <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></td>
+                                                <td class="text-warning hide"><b>{{$provider->categoria}}</b> <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></td>
                                                 @endif
                                                 <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
                                                 <td>{{$provider->email}}</td>
                                                 <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
                                                 <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
+                                                <td>{{$provider->plazo}} dias {{$provider->desci}}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -331,7 +352,7 @@
                                                                 </div>
                                                             </div>
                                                             @if($tipoServicio_=='HOTELS')
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-4 hide">
                                                                 <div class="form-group">
                                                                     <label for="txt_codigo">Categoria</label>
                                                                     <select class="form-control" id="txt_categoria_" name="txt_categoria_">
@@ -401,6 +422,24 @@
                                                                 <div class="form-group">
                                                                     <label for="txt_price">Contabilidad Tel/Cel</label>
                                                                     <input type="text" class="form-control" id="txt_c_telefono_" name="txt_c_telefono_" placeholder="Tel. o Cel." value="<?php if($tipoServicio_==$provider->grupo) echo $provider->c_telefono;?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="txt_price">Plazo a pagar en dias</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="col-lg-1 form-control" id="txt_plazo_" name="txt_plazo_" min="0" value="{{$provider->plazo}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-5  no-padding">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control" id="txt_desci_" name="txt_desci_">
+                                                                                <option value="antes" @if($provider->desci=='antes') selected @endif>Antes</option>
+                                                                                <option value="despues" @if($provider->desci=='despues') selected @endif>Despues</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
