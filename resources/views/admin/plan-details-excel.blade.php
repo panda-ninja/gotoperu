@@ -92,6 +92,7 @@
                             <div class="col-lg-7">{{$itinerario->titulo}}</div>
                             <div class="col-lg-1 @if($s==0) hide @endif">S</div>
                             <div class="col-lg-1 @if($d==0) hide @endif">D</div>
+                            <div class="col-lg-1 @if($m==0) hide @endif">D</div>
                             <div class="col-lg-1 @if($t==0) hide @endif">T</div>
                             <div class="col-lg-2 hide"></div>
                         </div>
@@ -138,6 +139,7 @@
                                     </div>
                                     <div class="col-lg-1 @if($s==0) hide @endif">$<input type="hidden" class="precio_servicio_s" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                     <div class="col-lg-1 @if($d==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                    <div class="col-lg-1 @if($m==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                     <div class="col-lg-1 @if($t==0) hide @endif">$<input type="hidden" class="precio_servicio_t" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                     <div class="col-lg-1 hide">
                                         <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
@@ -286,6 +288,7 @@
                         <div class="col-lg-7"><b>COST</b></div>
                         <div class="col-lg-1 text-warning @if($s==0) hide @endif"><b>$<span id="cost_s">{{ceil($precio_hotel_s)}}</span></b></div>
                         <div class="col-lg-1 text-warning @if($d==0) hide @endif"><b>$<span id="cost_d">{{ceil($precio_hotel_d)}}</span></b></div>
+                        <div class="col-lg-1 text-warning @if($m==0) hide @endif"><b>$<span id="cost_d">{{ceil($precio_hotel_m)}}</span></b></div>
                         <div class="col-lg-1 text-warning @if($t==0) hide @endif"><b>$<span id="cost_t">{{ceil($precio_hotel_t)}}</span></b></div>
                         <div class="col-lg-2"></div>
                     </div>
