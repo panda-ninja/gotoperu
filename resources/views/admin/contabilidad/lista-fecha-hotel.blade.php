@@ -1,3 +1,18 @@
+@php
+    $arra_prov_pagos=[];
+@endphp
+@foreach($pagos as $pago1)
+    @if(array_key_exists($pago1->proveedor_id,$arra_prov_pagos))
+        @php
+            $arra_prov_pagos[$pago1->proveedor_id]+=$total_h;
+        @endphp
+    @else
+        @php
+            $arra_prov_pagos[$pago1->proveedor_id]=$total_h;
+        @endphp
+    @endif
+@endforeach
+
 @extends('layouts.admin.contabilidad')
 @section('content')
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -49,9 +64,8 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th class="text-18 text-grey-goto text-center">Proveedor</th>
-                                    {{--<th class="text-18 text-grey-goto text-center">Servicio</th>--}}
                                     <th class="text-18 text-grey-goto text-center">Cotización</th>
+                                    <th class="text-18 text-grey-goto text-center">Proveedor</th>
                                     <th class="text-18 text-grey-goto text-center">Fecha de Servicio</th>
                                     <th class="text-18 text-grey-goto text-center">Fecha a Pagar</th>
                                     <th class="text-18 text-grey-goto text-center">Cont. Price</th>
@@ -65,8 +79,11 @@
                                         {{--$ini = date(2018-01-19);--}}
                                         {{--$fin = date('2018-01-19');--}}
                                 {{--@endphp--}}
-                                @foreach($cotizacion as $cotizaciones)
-                                    @foreach($cotizaciones->paquete_cotizaciones as $paquetes)
+                                @foreach($cotizacion->where('estado','2') as $cotizaciones)
+                                    @foreach($cotizaciones->paquete_cotizaciones->where('estado','2') as $paquetes)
+                                        @php
+                                            $arra_prov_total=[];
+                                        @endphp
                                         @foreach($paquetes->itinerario_cotizaciones as $itinerario)
                                             @php
                                                 $dia = $itinerario->dias - 1;
@@ -98,6 +115,15 @@
                                                                 $precio_c_confirm2++;
                                                             @endphp
                                                         @endif
+                                                        @if(array_key_exists($hotel->proveedor_id,$arra_prov_total))
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]+=$total_h;
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]=$total_h;
+                                                            @endphp
+                                                        @endif
                                                     @endif
                                                     @if($hotel->personas_d>0)
                                                         @php
@@ -107,6 +133,15 @@
                                                             @php
                                                                 $total_h+=$hotel->personas_d*$hotel->precio_d_c;
                                                                 $precio_c_confirm2++;
+                                                            @endphp
+                                                        @endif
+                                                        @if(array_key_exists($hotel->proveedor_id,$arra_prov_total))
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]+=$total_h;
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]=$total_h;
                                                             @endphp
                                                         @endif
                                                     @endif
@@ -120,6 +155,15 @@
                                                                 $precio_c_confirm2++;
                                                             @endphp
                                                         @endif
+                                                        @if(array_key_exists($hotel->proveedor_id,$arra_prov_total))
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]+=$total_h;
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]=$total_h;
+                                                            @endphp
+                                                        @endif
                                                     @endif
                                                     @if($hotel->personas_t>0)
                                                         @php
@@ -129,6 +173,15 @@
                                                             @php
                                                                 $total_h+=$hotel->personas_t*$hotel->precio_t_c;
                                                                 $precio_c_confirm2++;
+                                                            @endphp
+                                                        @endif
+                                                        @if(array_key_exists($hotel->proveedor_id,$arra_prov_total))
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]+=$total_h;
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $arra_prov_total[$hotel->proveedor_id]=$total_h;
                                                             @endphp
                                                         @endif
                                                     @endif
@@ -183,7 +236,6 @@
                                                             @if($pagos->fecha_a_pagar >= date($ini) AND  $pagos->fecha_a_pagar <= date($fin))
                                                                 @if($pagos->estado == 0)
                                                                     <tr>
-
                                                                         <td class="text-center"><input type="checkbox"  onclick="if (this.checked) sumar({{$pago_a_cuenta}}); else restar({{$pago_a_cuenta}})" name="chk_id[]" value="{{$hotel->id}}"></td>
                                                                         @if(isset($hotel->proveedor))
                                                                             <td><b>{{ucwords(strtolower($hotel->proveedor->razon_social))}}</b></td>
