@@ -1048,12 +1048,15 @@ class PackageCotizacionController extends Controller
                 if($servicios->itinerario_servicios_servicio->precio_grupo==1 && $servicios->itinerario_servicios_servicio->grupo=='MOVILID'){
                     if($servicios->itinerario_servicios_servicio->min_personas<=$nro_personas&&$nro_personas<=$servicios->itinerario_servicios_servicio->max_personas)
                     {
+
+                    }
+                    else{
                         $servicios_list=M_Servicio::where('grupo',$servicios->itinerario_servicios_servicio->grupo)
-                                        ->where('localizacion',$servicios->itinerario_servicios_servicio->localizacion)
-                                        ->where('tipoServicio',$servicios->itinerario_servicios_servicio->tipoServicio)
-                                        ->where('min_personas','>=',$servicios->itinerario_servicios_servicio->min_personas)
-                                        ->where('max_personas','<=',$servicios->itinerario_servicios_servicio->max_personas)
-                                        ->get();
+                            ->where('localizacion',$servicios->itinerario_servicios_servicio->localizacion)
+                            ->where('tipoServicio',$servicios->itinerario_servicios_servicio->tipoServicio)
+                            ->where('min_personas','<=',$nro_personas)
+                            ->where('max_personas','>=',$nro_personas)
+                            ->get();
                         foreach($servicios_list->take(1) as $servi){
                             $st-=$p_servicio->precio;
                             $p_servicio1=ItinerarioServicios::FindOrFail($p_servicio->id);

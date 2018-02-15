@@ -119,7 +119,7 @@
                                         {{--@else--}}
                                         @if($servicios->min_personas<= $cotizacion->nropersonas&&$cotizacion->nropersonas <=$servicios->max_personas)
 
-                                        @else
+                                        @elseif($servicios->servicio->precio_grupo=='1')
                                             @if($servicios->servicio->grupo=='MOVILID')
                                                 @php
                                                     $rango=' text-danger';
