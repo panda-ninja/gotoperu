@@ -568,6 +568,37 @@ function sumar_servicios_edit(grupo){
 
 }
 function  filtrar_grupos_edit(itinerario){
+    $("input[class='servicios']").each(function (index1) {
+        var dato3 = $(this).val();
+        var servicio3 = dato3.split('_');
+        var esta=0;
+        $("input[class='grupo']").each(function (index) {
+            if($(this).is(':checked')) {
+                var dato = $(this).val();
+                var destino1 = dato.split('_');
+                if(destino1[1] == servicio3[3]) {/*-- si el destino es igual al destino que tiene el servicio*/
+                    esta=1;
+                }
+            }
+        });
+        if(esta==1) {
+            $('#service_'+servicio3[2]).removeClass("hide");
+            $('#service_'+servicio3[2]).fadeIn("slow");
+
+        }
+        else {
+            $(this).prop("checked", "");
+            $('#service_'+servicio3[2]).fadeOut("slow");
+        }
+    });
+
+    $("input[class='servicios']").each(function (index2) {
+        var dato3 = $(this).val();
+        var servicio3 = dato3.split('_');
+        sumar_servicios(servicio3[0]);
+    });
+
+
 
     $("input[class='servicios_edit']").each(function (index1) {
         var dato3 = $(this).val();
@@ -592,9 +623,10 @@ function  filtrar_grupos_edit(itinerario){
                 // console.log('no borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
             else {
-                //$(this).prop("checked", "");
-                //$('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
-                // console.log('borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
+                $(this).prop("checked", "");
+                $('#service_edit_'+itinerario+'_'+servicio3[2]).addClass("hide");
+                $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
+                console.log('borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
         }
     });
