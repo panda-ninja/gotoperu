@@ -1053,7 +1053,7 @@ class PackageCotizacionController extends Controller
                     else{
                         $servicios_list=M_Servicio::where('grupo',$servicios->itinerario_servicios_servicio->grupo)
                             ->where('localizacion',$servicios->itinerario_servicios_servicio->localizacion)
-                            ->where('tipoServicio',$servicios->itinerario_servicios_servicio->tipoServicio)
+//                            ->where('tipoServicio',$servicios->itinerario_servicios_servicio->tipoServicio)
                             ->where('min_personas','<=',$nro_personas)
                             ->where('max_personas','>=',$nro_personas)
                             ->get();
