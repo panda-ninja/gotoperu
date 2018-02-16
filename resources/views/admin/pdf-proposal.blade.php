@@ -166,7 +166,7 @@
                 @endforeach
 
                 <h4>Day {{$itinerario->dias}} - {{$itinerario->titulo}}</h4>
-                <p>{{$itinerario->descripcion}}</p>
+                {!! $itinerario->descripcion !!}
                 <div class="row">
                     <div class="col-lg-12 text-center centrar-todo">
                         @if (Storage::disk('itinerary')->has($itinerario->imagen))

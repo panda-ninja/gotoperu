@@ -5,6 +5,7 @@
 @section('archivos-js')
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js")}}"></script>
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js")}}"></script>
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 @stop
 @section('content')
     <div class="row">
@@ -21,20 +22,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="txt_titulo">Titulo</label>
                                 <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo" value="{{$itinerario->titulo}}">
 
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label for="txt_descripcion">Descripcion</label>
                                 <textarea class="form-control" name="txt_descripcion" id="txt_descripcion" cols="30" rows="5">{{$itinerario->descripcion}}</textarea>
+
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -1515,5 +1516,10 @@
             }
         }
 
+    </script>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'txt_descripcion' );
     </script>
 @stop

@@ -5,6 +5,7 @@
 @section('archivos-js')
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js")}}"></script>
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js")}}"></script>
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 @stop
 @section('content')
     <div class="row">
@@ -33,7 +34,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -43,10 +44,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="txt_descripcion">Descripcion</label>
-                                        <textarea class="form-control" name="txt_descripcion" id="txt_descripcion" cols="30" rows="5"></textarea>
+                                        <textarea class="form-control textarea" name="txt_descripcion" id="txt_descripcion" cols="30" rows="5"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -892,7 +893,7 @@
                                     @if(in_array($destino->destino,$arreglo_dest))
                                         <tr id="lista_itinerary_{{$itinerario->id}}">
                                         <td>{{$itinerario->titulo}}</td>
-                                        <td>{{substr($itinerario->descripcion,0,50)}}...</td>
+                                        <td>{!! substr($itinerario->descripcion,0,50) !!}...</td>
                                         <td>
                                             @foreach($itinerario->destinos as $destinos)
                                                 <label for="" class="text-10 text-orange-goto">{{$destinos->destino}},</label>
@@ -1024,6 +1025,10 @@
                 img.src = URL.createObjectURL(uploadFile);
             }
         }
-
+    </script>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'txt_descripcion' );
     </script>
 @stop
