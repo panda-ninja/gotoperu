@@ -1,4 +1,7 @@
 @extends('.layouts.admin.admin')
+@section('archivos-js')
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+@stop
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -1890,5 +1893,7 @@
 
             }
         });
+        CKEDITOR.replace('txta_include');
+        CKEDITOR.replace('txta_notinclude');
     </script>
 @stop

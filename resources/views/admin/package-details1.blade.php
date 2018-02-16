@@ -386,7 +386,7 @@
 
                             </div>
                             <div class="col-lg-6">
-                                <textarea name="" id="" cols="70" rows="8">{{$itinerario->descripcion}}</textarea>
+                                <textarea name="" id="" cols="70" rows="8">{!! $itinerario->descripcion !!}</textarea>
                             </div>
                         </div>
                     @endforeach
