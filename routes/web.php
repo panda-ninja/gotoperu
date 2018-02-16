@@ -710,3 +710,11 @@ Route::post('/admin/cost/hotel/proveedor/delete', [
     'uses' => 'HotelProveedorController@delete',
     'as' => 'hotel_proveedor_delete_path',
 ]);
+Route::get('admin/reportes', [
+    'uses' => 'ReportesController@index',
+    'as' => 'reportes_path',
+]);
+Route::get('admin/reportes/view/{id}', [
+    'uses' => 'ReportesController@view',
+    'as' => 'ver_cotizacion_path',
+]);

@@ -727,6 +727,12 @@ margin-bottom: 5px;
   color: #333333 !important;
   margin: 0 35px;
 }
+.reportes{
+  border-top: 5px solid #d11a70;
+  background: white;
+  color: #333333 !important;
+  margin: 0 35px;
+}
 .bg-white{
   background: white;
 }
@@ -820,4 +826,62 @@ ol li.highlight {
 }
 .padding-left-0{
   padding-left: 0px !important;
+}
+.cabecera-res{
+  border: 1px solid #2c2c2c;
+  //border-left: 1px solid #2c2c2c;
+  //border-right: 1px solid #2c2c2c;
+  text-align: center;
+  color: #2c2c2c;
+  font-weight: bold;
+  margin: 0px 2px;
+  font-size: 18px;
+  border-radius: 5px 5px 0px 0px;
+}
+.cabecera-res-lat-invi{
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  margin: 0px 2px;
+}
+.cabecera-res-lat{
+  border-left: 1px solid #2c2c2c;
+  border-right: 1px solid #2c2c2c;
+  border-bottom: 1px inset #ddd;
+
+  text-align: center;
+  color: #2c2c2c;
+  font-weight: bold;
+  margin: 0px 2px;
+  font-size: 16px;
+}
+.cabecera-res-total{
+  border: 2px solid #2c2c2c;
+  text-align: center;
+  color: #2c2c2c;
+  font-weight: bold;
+  margin: 0px 2px;
+  font-size: 18px;
+}
+.cabecera-res-total-por{
+  border-left: 1px solid #2c2c2c;
+  border-right: 1px solid #2c2c2c;
+  border-bottom: 1px solid #2c2c2c;
+  text-align: center;
+  color: #000000;
+  font-weight: bold;
+  margin: 0px 2px;
+  font-size: 18px;
+}
+.bg-verde{
+  background: #55dd45;
+}
+.bg-naranja{
+  background: #dd8909;
+}
+.bg-sombra{
+  background: #d0d0d0;
+}
+.borde-verde{
+  border: 1px solid #55dd45;
 }

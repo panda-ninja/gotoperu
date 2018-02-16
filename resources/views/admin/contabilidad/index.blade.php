@@ -22,7 +22,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-4 no-padding box-list-book">
             @php
@@ -180,6 +179,4 @@
             </div>
         </div>
     </div>
-
-
 @stop
