@@ -17,6 +17,7 @@ class ProveedorController extends Controller
         $destinations=M_Destino::get();
         $providers=Proveedor::get();
         $categorias=M_Category::get();
+        session()->put('menu-lateral', 'Sproviders');
         return view('admin.database.provider',['destinations'=>$destinations,'providers'=>$providers,'categorias'=>$categorias]);
     }
     public function autocomplete()

@@ -11,6 +11,7 @@ class CategoryController extends Controller
     public function show(Request $request)
     {
         $categorias = M_Category::get();
+        session()->put('menu-lateral', 'Scategories');
         return view('admin.database.category', ['categorias' => $categorias]);
     }
     public function store(Request $request){

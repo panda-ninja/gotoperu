@@ -30,6 +30,7 @@ class ContabilidadController extends Controller
     public function index()
     {
         $cotizacion=Cotizacion::where('confirmado_r','ok')->get();
+        session()->put('menu','contabilidad');
         return view('admin.contabilidad.index',['cotizacion'=>$cotizacion]);
     }
     public function list_proveedores()
@@ -399,7 +400,6 @@ class ContabilidadController extends Controller
         $id=$request->input('id');
         $imagen=$request->file('foto');
 //        dd($request->file('input_file'));
-
         if($imagen){
             $objeto=ItinerarioServiciosPagos::FindOrFail($id);
             $filename ='pago-servicio-'.$id.'.jpg';
@@ -411,7 +411,6 @@ class ContabilidadController extends Controller
         else{
             return json_encode(0);
         }
-
     }
     public function getImageName($filename){
         $file = Storage::disk('imagen_pago_servicio')->get($filename);
@@ -445,13 +444,11 @@ class ContabilidadController extends Controller
         $hotel =PrecioHotelReserva::where('id', $idhotel)->get();
         $proveedores=Proveedor::get();
         $itinerarios=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_id)->get();
-        $noches=PrecioHotelReserva::where('proveedor_id',$prov_id)->count();
+        $noches=0;
+        foreach($itinerarios as $iti){
+            $noches+=count($iti->hotel);
+        }
         $pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->where('proveedor_id',$prov_id)->get();
-//        dd($hotel);
-//        $productos=M_Producto::get();
-//        $proveedores=Proveedor::get();
-//        $hotel_proveedor=HotelProveedor::get();
-
         return view('admin.contabilidad.pagar_servicio_hotel',['cotizacion'=>$cotizacion,
             'hotel'=>$hotel, 'idcotizacion'=>$idcotizacion,'proveedores'=>$proveedores,
             'itinerarios'=>$itinerarios,'pqt_id'=>$pqt_id,'prov_id'=>$prov_id,'noches'=>$noches,'pagos'=>$pagos]);
@@ -459,7 +456,6 @@ class ContabilidadController extends Controller
     public function pay_price_hotel_conta(){
         $id = $_POST['txt_id'];
         $idpago = $_POST['txt_idpago'];
-//        $idcot = $_POST['txt_idcot'];
         $medio = $_POST['txt_medio'];
         $transaccion = $_POST['txt_transaccion'];
         $fecha = $_POST['txt_fecha'];

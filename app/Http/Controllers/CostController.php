@@ -43,7 +43,7 @@ class CostController extends Controller
         $productos=Proveedor::with(['productos'])->get();
 //        dd($productos_hotels);
 
-
+        session()->put('menu-lateral', 'Scosts');
         return view('admin.database.costs',['productos_hotels'=>$productos_hotels,
             'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
             'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,

@@ -33,8 +33,12 @@ Route::get('/logout',[
     'uses' => 'UserAuthController@destroy',
     'as' => 'logout_path',
 ]);
+//Route::get('/ventas',[
+//    'uses' => 'IndexController@ventas',
+//    'as' => 'ventas_path',
+//]);
 Route::get('/ventas',[
-    'uses' => 'IndexController@ventas',
+    'uses' => 'IndexController@index',
     'as' => 'ventas_path',
 ]);
 Route::get('/contabilidad', [
@@ -45,6 +49,10 @@ Route::get('/reservas', [
     'uses' => 'IndexController@reservas',
     'as' => 'reservas_path',
 ]);
+//Route::get('/reservas', [
+//    'uses' => 'IndexController@index',
+//    'as' => 'reservas_path',
+//]);
 
 Route::get('admin/',[
     'uses' => 'IndexController@index',
@@ -714,7 +722,7 @@ Route::get('admin/reportes', [
     'uses' => 'ReportesController@index',
     'as' => 'reportes_path',
 ]);
-Route::get('admin/reportes/view/{id}', [
+Route::get('admin/reportes/view/{id}',[
     'uses' => 'ReportesController@view',
     'as' => 'ver_cotizacion_path',
 ]);

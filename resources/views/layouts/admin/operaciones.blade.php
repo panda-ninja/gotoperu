@@ -22,7 +22,8 @@
 </head>
 <body>
 
-@include('layouts.admin.nav-operaciones')
+{{--@include('layouts.admin.nav-operaciones')--}}
+@include('layouts.admin.nav')
 @php
     function activar_link2($link){
         $activo='';
@@ -36,20 +37,23 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-            <div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">QUOTES</a></div>
-            <div class="menu-lista text-center {{activar_link2('admin/quotes/new/profile')}}"><a href="{{route("quotes_new1_path")}}" class="link text-grey-goto">New</a></div>
-            <div class="menu-lista text-center {{activar_link2('admin/current-quote')}}"><a href="{{route('current_quote_page_path', 'gotoperu.com')}}" class="link text-grey-goto">Current</a></div>
-            <div class="menu-titulo text-center"><a href="!#" class="link text-grey-goto">SALES</a></div>
-            <div class="menu-lista text-center"><a class="link text-grey-goto"><b>ITIN</b></a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/destination')}}"><a href="{{route('destination_index_path')}}" class="link text-grey-goto">Destination</a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/itinerary')}}"><a href="{{route("itinerari_index_path")}}" class="link text-grey-goto">Day by day</a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/package')}}"><a href="{{route("package_create_path")}}" class="link text-grey-goto">Itineraries->New</a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/itineraries')}}"><a href="{{route("show_itineraries_path")}}" class="link text-grey-goto">Itineraries->List</a></div>
-            <div class="menu-lista text-center"><a class="link text-grey-goto"><b>$</b></a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/categories')}}"><a href="{{route('category_index_path')}}" class="link text-grey-goto">Categories</a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/products')}}"><a href="{{route('service_index_path')}}" class="link text-grey-goto">Products</a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/providers')}}"><a href="{{route('provider_index_path')}}" class="link text-grey-goto">Providers</a></div>
-            <div class="menu-lista text-center{{activar_link2('admin/costs')}}"><a href="{{route('costs_index_path')}}" class="link text-grey-goto">Costs</a></div>
+            @include('layouts.menu-lateral')
+        </div>
+        <div class="hide col-sm-3 col-md-2 sidebar">
+            <div class="menu-titulo text-center"><a href="#!"  class="link text-grey-goto">QUOTES</a></div>
+            {{--<div class="menu-lista text-center {{activar_link2('admin/quotes/new/profile')}}"><a href="{{route("quotes_new1_path")}}" class="link text-grey-goto">New</a></div>--}}
+            {{--<div class="menu-lista text-center {{activar_link2('admin/current-quote')}}"><a href="{{route('current_quote_page_path', 'gotoperu.com')}}" class="link text-grey-goto">Current</a></div>--}}
+            {{--<div class="menu-titulo text-center"><a href="!#" class="link text-grey-goto">SALES</a></div>--}}
+            {{--<div class="menu-lista text-center"><a class="link text-grey-goto"><b>ITIN</b></a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/destination')}}"><a href="{{route('destination_index_path')}}" class="link text-grey-goto">Destination</a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/itinerary')}}"><a href="{{route("itinerari_index_path")}}" class="link text-grey-goto">Day by day</a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/package')}}"><a href="{{route("package_create_path")}}" class="link text-grey-goto">Itineraries->New</a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/itineraries')}}"><a href="{{route("show_itineraries_path")}}" class="link text-grey-goto">Itineraries->List</a></div>--}}
+            {{--<div class="menu-lista text-center"><a class="link text-grey-goto"><b>$</b></a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/categories')}}"><a href="{{route('category_index_path')}}" class="link text-grey-goto">Categories</a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/products')}}"><a href="{{route('service_index_path')}}" class="link text-grey-goto">Products</a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/providers')}}"><a href="{{route('provider_index_path')}}" class="link text-grey-goto">Providers</a></div>--}}
+            {{--<div class="menu-lista text-center{{activar_link2('admin/costs')}}"><a href="{{route('costs_index_path')}}" class="link text-grey-goto">Costs</a></div>--}}
 
 
             <ul class="nav nav-sidebar margin-bottom-0 hide">

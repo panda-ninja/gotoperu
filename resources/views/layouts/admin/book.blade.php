@@ -22,28 +22,29 @@
 </head>
 <body>
 
-@include('layouts.admin.nav-book')
-
+{{--@include('layouts.admin.nav-book')--}}
+@include('layouts.admin.nav')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="hide col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar margin-bottom-0">
-                <li class="padding-side-20 bg-green-goto text-white text-20">Book</li>
-                <li class="divider"></li>
-                <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Arrival</b></li>
-                <li class="divider"></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> January</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> February </a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> March</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> April</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> May</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Jane</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> July</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> August</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> September</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> October</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> November</a></li>
-                <li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> December</a></li>
+                {{--<li class="padding-side-20 bg-green-goto text-white text-20">Book</li>--}}
+                {{--<li class="divider"></li>--}}
+                {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Arrival</b></li>--}}
+                {{--<li class="divider"></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> January</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> February </a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> March</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> April</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> May</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Jane</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> July</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> August</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> September</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> October</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> November</a></li>--}}
+                {{--<li ><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> December</a></li>--}}
+
                 {{--<li class="divider"></li>--}}
                 {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Quotes</b></li>--}}
                 {{--<li class="divider"></li>--}}
@@ -66,6 +67,9 @@
                 <li><a href="{{route('provider_index_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Providers</a></li>
 {{--                <li><a href="{{route('costs_index_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Costs</a></li>--}}
             </ul>
+        </div>
+        <div class="col-sm-3 col-md-2 sidebar">
+            @include('layouts.menu-lateral')
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             @yield('content')

@@ -8,12 +8,8 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav margin-left-60">
-                <li><a class="ventas activo" href="{{route('index_path')}}">Ventas</a></li>
-                <li><a class="reservas" href="{{route('book_path')}}">Reservas</a></li>
-                <li><a class="contabilidad" href="{{route('contabilidad_index_path')}}">Contabilidad</a></li>
-                <li><a class="operaciones" href="{{route('operaciones_path')}}">Operaciones</a></li>
-                <li><a class="reportes" href="{{route('reportes_path')}}">Reportes</a></li>
-                {{--<li class="dropdown">--}}
+                @include('layouts.menu')
+                    {{--<li class="dropdown">--}}
                     {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--}}
                     {{--<ul class="dropdown-menu">--}}
                         {{--<li><a href="#">Action</a></li>--}}

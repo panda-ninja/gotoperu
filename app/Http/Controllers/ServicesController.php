@@ -22,7 +22,7 @@ class ServicesController extends Controller
         $categorias=M_Category::get();
         $hotel=Hotel::get();
 //        dd($servicios);
-
+        session()->put('menu-lateral', 'Sproducts');
         return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations,'hotel'=>$hotel]);
     }
     public function store(Request $request){

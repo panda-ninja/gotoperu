@@ -73,7 +73,7 @@ class IndexController extends Controller
             ->responsive(true)
             ->height(250)
             ->width(0);
-
+        session()->put('menu', 'ventas');
         return view('admin.index',['chart' => $chart,'chart1' => $chart1,'chart2' => $chart2,'chart3' => $chart3,'chart4' => $chart4]);
     }
 
@@ -330,6 +330,7 @@ public function inicio()
         $cliente = Cliente::get();
         $cotizacion_cat=Cotizacion::where('estado',2)
             ->whereBetween('categorizado',['C','S'])->get();
+        session()->put('menu', 'ventas');
         return view('admin.book.book1', ['paquete_cotizacion'=>$paquete_cotizacion, 'cot_cliente'=>$cot_cliente, 'cliente'=>$cliente,'cotizacion_cat'=>$cotizacion_cat]);
     }
 

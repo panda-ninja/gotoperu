@@ -1,6 +1,6 @@
 @extends('layouts.admin.book')
 @section('content')
-    <div class="row">
+    <div class="row margin-top-40">
         <div class="col-md-4 no-padding">
             <div class="box-header-book">
                 <h4 class="no-margin">New

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top bg-grey-goto">
+<nav class="navbar bg-white">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="nav-brand-goto margin-top-10" href="/">
@@ -8,7 +8,8 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav margin-left-60">
-                <li class="active"><a href="{{route('index_path')}}">Ventas <span class="sr-only">(current)</span></a></li>
+                <li><a class="ventas activo" href="{{route('index_path')}}">Ventas</a></li>
+                {{--<li class="active"><a href="{{route('index_path')}}">Ventas <span class="sr-only">(current)</span></a></li>--}}
                 {{--<li class="dropdown">--}}
                 {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--}}
                 {{--<ul class="dropdown-menu">--}}

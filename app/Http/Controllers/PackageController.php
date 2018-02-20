@@ -49,6 +49,7 @@ class PackageController extends Controller
         $m_servicios=M_Servicio::get();
         $hotel=Hotel::get();
         $itinerarios_d=M_ItinerarioDestino::get();
+        session()->put('menu-lateral', 'sales/iti/new');
 //        dd($servicios);
         return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel,'itinerarios_d'=>$itinerarios_d]);
     }
@@ -263,6 +264,7 @@ class PackageController extends Controller
     public function itineraries()
     {
         $itineraries=P_Paquete::get();
+        session()->put('menu-lateral', 'sales/iti/list');
         return view('admin.show-itineraries',['itineraries'=>$itineraries]);
     }
     public function show_itinerary($id)

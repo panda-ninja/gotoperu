@@ -157,6 +157,7 @@ class QouteController extends Controller
         $days=0;
         $fecha='';
         $web='gotoperu.com';
+        session()->put('menu-lateral', 'quotes/new');
         return view('admin.quotes-new1',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'p_paquete'=>$p_paquete, 'itinerarios_d'=>$itinerarios_d,'hotel'=>$hotel,
             'plan'=>$plan,
             'coti_id'=>$id,

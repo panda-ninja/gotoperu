@@ -14,11 +14,12 @@ class ReportesController extends Controller
     public function index()
     {
         $cotizacion=Cotizacion::where('confirmado_r','ok')->get();
+        session()->put('menu','reportes');
         return view('admin.reportes.reportes',['cotizacion'=>$cotizacion]);
     }
     public function view($id)
     {
-        $cotizacion=Cotizacion::FindOrFail($id)->get();
+        $cotizacion = Cotizacion::FindOrFail($id);
         return view('admin.reportes.view',['cotizacion'=>$cotizacion]);
     }
 

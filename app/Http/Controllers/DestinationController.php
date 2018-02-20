@@ -13,6 +13,7 @@ class DestinationController extends Controller
     //
     public function index(){
         $destinos=M_Destino::get();
+        session()->put('menu-lateral', 'sales/iti/destinations');
         return view('admin.database.destination',['destinos'=>$destinos]);
     }
     public function store(Request $request){

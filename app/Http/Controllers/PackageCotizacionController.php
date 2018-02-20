@@ -374,6 +374,7 @@ class PackageCotizacionController extends Controller
     public function current_cotizacion_page($page)
     {
         $cotizacion=Cotizacion::where('web', $page)->get();
+        session()->put('menu-lateral', 'quotes/current');
         return view('admin.quotes-current-page',['cotizacion'=>$cotizacion, 'page'=>$page]);
     }
     
@@ -1561,8 +1562,6 @@ class PackageCotizacionController extends Controller
         $paquete->noincluye=$no_incluye;
         $paquete->estado=1;
         $paquete->save();
-
-
 
         $paquete_precio=PaquetePrecio::FindOrFail($paquete_precio_id);
         $paquete_precio->utilidad_s=$pro_s;

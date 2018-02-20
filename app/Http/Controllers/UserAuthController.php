@@ -22,11 +22,12 @@ class UserAuthController extends Controller
             if($usuario1->tipo_user=='admin')
                 return redirect()->route('index_path');
             if($usuario1->tipo_user=='ventas')
-                return redirect()->route('ventas_path');
+                return redirect()->route('index_path');
             if($usuario1->tipo_user=='contabilidad')
-                return redirect()->route('contabilidad1_path');
+                return redirect()->route('contabilidad_index_path');
             if($usuario1->tipo_user=='reservas')
-                return redirect()->route('reservas_path');
+                return redirect()->route('book_path');
+
         }
         else{
             return redirect()->route('inicio_path')

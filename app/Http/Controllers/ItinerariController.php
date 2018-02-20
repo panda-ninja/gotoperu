@@ -22,6 +22,7 @@ class ItinerariController extends Controller
         $services=M_Servicio::get();
         $itinerarios=M_Itinerario::get();
         $categorias=M_Category::get();
+        session()->put('menu-lateral', 'sales/iti/daybyday');
         return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
 

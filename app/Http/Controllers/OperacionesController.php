@@ -27,6 +27,7 @@ class OperacionesController extends Controller
         $clientes2=Cliente::get();
         $m_servicios=M_Servicio::get();
         $proveedores=Proveedor::get();
+        session()->put('menu','operaciones');
         return view('admin.operaciones.operaciones',compact('cotizaciones','desde','hasta','clientes2','m_servicios','proveedores'));
     }
     public function Lista_fechas(Request $request)

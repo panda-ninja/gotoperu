@@ -30,6 +30,7 @@ class BookController extends Controller
         $cliente = Cliente::get();
         $cotizacion_cat=Cotizacion::where('estado',2)
             ->whereBetween('categorizado',['C','S'])->get();
+        session()->put('menu', 'reservas');
         return view('admin.book.book', ['paquete_cotizacion'=>$paquete_cotizacion, 'cot_cliente'=>$cot_cliente, 'cliente'=>$cliente,'cotizacion_cat'=>$cotizacion_cat]);
     }
 

@@ -12,7 +12,7 @@
                 <li><a class="reservas activo" href="{{route('book_path')}}">Reservas</a></li>
                 <li><a class="contabilidad" href="{{route('contabilidad_index_path')}}">Contabilidad</a></li>
                 <li><a class="operaciones" href="{{route('operaciones_path')}}">Operaciones</a></li>
-
+                <li><a class="reportes" href="{{route('reportes_path')}}">Reportes</a></li>
             </ul>
 
             <!-- Split button -->
