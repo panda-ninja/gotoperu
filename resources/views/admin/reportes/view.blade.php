@@ -230,14 +230,14 @@
                 @endphp
             @endforeach
 
-
-
             @foreach($iti->itinerario_servicios as $servicio)
                 @if($servicio->servicio->grupo=='TOURS')
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $tour_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $tour_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
@@ -265,10 +265,12 @@
                     @php
                         $movilid_total++;
                     @endphp
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $movilid_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $movilid_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
@@ -293,10 +295,12 @@
                     @php
                         $represent_total++;
                     @endphp
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $represent_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $represent_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_c>0)
                         @php
@@ -321,10 +325,12 @@
                     @php
                         $entr_total++;
                     @endphp
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $entr_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $entr_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_c>0)
                         @php
@@ -349,10 +355,12 @@
                     @php
                         $food_total++;
                     @endphp
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $food_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $food_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_c>0)
                         @php
@@ -377,10 +385,12 @@
                     @php
                         $train_total++;
                     @endphp
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $train_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $train_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_c>0)
                         @php
@@ -405,10 +415,12 @@
                     @php
                         $flight_total++;
                     @endphp
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $flight_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $flight_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_c>0)
                         @php
@@ -433,10 +445,12 @@
                     @php
                         $other_total++;
                     @endphp
-                    @if($servicio->proveedor_id>0)
-                        @php
-                            $other_confirm++;
-                        @endphp
+                    @if($servicio->proveedor_id)
+                        @if($servicio->proveedor_id>0)
+                            @php
+                                $other_confirm++;
+                            @endphp
+                        @endif
                     @endif
                     @if($servicio->precio_c>0)
                         @php
