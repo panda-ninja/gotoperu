@@ -933,7 +933,7 @@
                     <b>{{$porc_reserva_total}}</b><b>%</b>
                 </div>
                 <div class="col-lg-3 cabecera-res-total-por bg-naranja">
-                    <b>94</b><b>%</b>
+                    <b>{{$porc_conta_total}}</b><b>%</b>
                 </div>
             </div>
         </div>
@@ -955,7 +955,7 @@
             <div class="row">
                 <div class="col-lg-6">CONTABILIDAD</div>
                 <div class="col-lg-4"><b>$</b><b>{{$total_contabilizado}}</b></div>
-                <div class="col-lg-2 bg-naranja"><b>94</b><b>%</b></div>
+                <div class="col-lg-2 bg-naranja"><b>{{$porc_conta_total}}</b><b>%</b></div>
             </div>
             <div class="row borde-verde">
                 <div class="col-lg-6">PROFIT</div>
