@@ -356,19 +356,19 @@
                     <div class="col-lg-9">
                         <div class="col-lg-7"></div>
                         <div class="col-lg-1 @if($s==0) hide @endif">
-                            <span name="pro_s" id="pro_s">${{$utilidad_s}}</span>
+                            <span name="pro_s" id="pro_s">${{round($utilidad_s,0)}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_s">{{$utilidad_por_s}}</span>%</b></p>
                         </div>
                         <div class="col-lg-1 @if($d==0) hide @endif">
-                            <span name="pro_d" id="pro_d">${{$utilidad_d}}</span>
+                            <span name="pro_d" id="pro_d">${{round($utilidad_d,0)}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_d">{{$utilidad_por_d}}</span>%</b></p>
                         </div>
                         <div class="col-lg-1 @if($m==0) hide @endif">
-                            <span name="pro_m" id="pro_m">${{$utilidad_m}}</span>
+                            <span name="pro_m" id="pro_m">${{round($utilidad_m,0)}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_m">{{$utilidad_por_m}}</span>%</b></p>
                         </div>
                         <div class="col-lg-1 @if($t==0) hide @endif">
-                            <span name="pro_t" id="pro_t" >${{$utilidad_t}}</span>
+                            <span name="pro_t" id="pro_t" >${{round($utilidad_t,0)}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_t">{{$utilidad_por_t}}</span>%</b></p>
                         </div>
                     </div>
