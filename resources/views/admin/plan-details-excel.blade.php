@@ -17,6 +17,10 @@
                 $d=0;
                 $m=0;
                 $t=0;
+                $utilidad_s=0;
+                $utilidad_d=0;
+                $utilidad_m=0;
+                $utilidad_t=0;
             @endphp
             @foreach($cotizaciones as $cotizacion)
                 <b class="text-warning text-25">{{$cotizacion->nropersonas}} PAXS {{$cotizacion->star_2}}{{$cotizacion->star_3}}{{$cotizacion->star_4}}{{$cotizacion->star_5}} STARS:</b>
@@ -27,24 +31,28 @@
                                 SINGLE
                                 @php
                                     $s=1;
+                                    $utilidad_s=$precio->utilidad_s;
                                 @endphp
                             @endif
                             @if($precio->personas_d>0)
                                 DOUBLE
                                 @php
                                     $d=1;
+                                    $utilidad_d=$precio->utilidad_d;
                                 @endphp
                             @endif
                             @if($precio->personas_m>0)
                                 MATRIMONIAL
                                 @php
                                     $m=1;
+                                    $utilidad_m=$precio->utilidad_m;
                                 @endphp
                             @endif
                             @if($precio->personas_t>0)
                                 TRIPLE
                                 @php
                                     $t=1;
+                                    $utilidad_t=$precio->utilidad_t;
                                 @endphp
                             @endif
                         </b>
@@ -68,13 +76,9 @@
         $precio_hotel_m=0;
         $precio_hotel_t=0;
         $cotizacion_id='';
-        $utilidad_s=0;
         $utilidad_por_s=0;
-        $utilidad_d=0;
         $utilidad_por_d=0;
-        $utilidad_m=0;
         $utilidad_por_m=0;
-        $utilidad_t=0;
         $utilidad_por_t=0;
     @endphp
     @foreach($cotizaciones as $cotizacion)
