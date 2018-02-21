@@ -113,7 +113,7 @@
                                                     <div class="form-group">
                                                         <label for="txt_codigo">Location</label>
                                                         {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                        <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
+                                                        <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}" onchange="">
                                                             @foreach($destinations as $destination)
                                                                 <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                                             @endforeach

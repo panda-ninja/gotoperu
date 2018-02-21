@@ -48,21 +48,25 @@
             @if($precio->personas_s>0)
                 @php
                     $s=1;
+                    $utilidad_s=$precio->utilidad_s;
                 @endphp
             @endif
             @if($precio->personas_d>0)
                 @php
                     $d=1;
+                    $utilidad_d=$precio->utilidad_d;
                 @endphp
             @endif
             @if($precio->personas_m>0)
                 @php
                     $m=1;
+                    $utilidad_m=$precio->utilidad_m;
                 @endphp
             @endif
             @if($precio->personas_t>0)
                 @php
                     $t=1;
+                    $utilidad_t=$precio->utilidad_t;
                 @endphp
             @endif
 
