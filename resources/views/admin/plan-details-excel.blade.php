@@ -21,6 +21,10 @@
                 $utilidad_d=0;
                 $utilidad_m=0;
                 $utilidad_t=0;
+                $utilidad_por_s=0;
+                $utilidad_por_d=0;
+                $utilidad_por_m=0;
+                $utilidad_por_t=0;
             @endphp
             @foreach($cotizaciones as $cotizacion)
                 <b class="text-warning text-25">{{$cotizacion->nropersonas}} PAXS {{$cotizacion->star_2}}{{$cotizacion->star_3}}{{$cotizacion->star_4}}{{$cotizacion->star_5}} STARS:</b>
@@ -32,6 +36,7 @@
                                 @php
                                     $s=1;
                                     $utilidad_s=$precio->utilidad_s;
+                                    $utilidad_por_s=$precio->utilidad_por_s;
                                 @endphp
                             @endif
                             @if($precio->personas_d>0)
@@ -39,6 +44,7 @@
                                 @php
                                     $d=1;
                                     $utilidad_d=$precio->utilidad_d;
+                                    $utilidad_por_d=$precio->utilidad_por_d;
                                 @endphp
                             @endif
                             @if($precio->personas_m>0)
@@ -46,6 +52,7 @@
                                 @php
                                     $m=1;
                                     $utilidad_m=$precio->utilidad_m;
+                                    $utilidad_por_m=$precio->utilidad_por_m;
                                 @endphp
                             @endif
                             @if($precio->personas_t>0)
@@ -53,6 +60,7 @@
                                 @php
                                     $t=1;
                                     $utilidad_t=$precio->utilidad_t;
+                                    $utilidad_por_t=$precio->utilidad_por_t;
                                 @endphp
                             @endif
                         </b>
@@ -76,10 +84,7 @@
         $precio_hotel_m=0;
         $precio_hotel_t=0;
         $cotizacion_id='';
-        $utilidad_por_s=0;
-        $utilidad_por_d=0;
-        $utilidad_por_m=0;
-        $utilidad_por_t=0;
+
     @endphp
     @foreach($cotizaciones as $cotizacion)
         @php
@@ -351,19 +356,19 @@
                     <div class="col-lg-9">
                         <div class="col-lg-7"></div>
                         <div class="col-lg-1 @if($s==0) hide @endif">
-                            <span name="pro_s" id="pro_s">{{$utilidad_s}}</span>
+                            <span name="pro_s" id="pro_s">${{$utilidad_s}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_s">{{$utilidad_por_s}}</span>%</b></p>
                         </div>
                         <div class="col-lg-1 @if($d==0) hide @endif">
-                            <span name="pro_d" id="pro_d">{{$utilidad_d}}</span>
+                            <span name="pro_d" id="pro_d">${{$utilidad_d}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_d">{{$utilidad_por_d}}</span>%</b></p>
                         </div>
                         <div class="col-lg-1 @if($m==0) hide @endif">
-                            <span name="pro_m" id="pro_m">{{$utilidad_m}}</span>
+                            <span name="pro_m" id="pro_m">${{$utilidad_m}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_m">{{$utilidad_por_m}}</span>%</b></p>
                         </div>
                         <div class="col-lg-1 @if($t==0) hide @endif">
-                            <span name="pro_t" id="pro_t" >{{$utilidad_t}}</span>
+                            <span name="pro_t" id="pro_t" >${{$utilidad_t}}</span>
                             <p><b CLASS="text-warning text-15"><span id="porc_t">{{$utilidad_por_t}}</span>%</b></p>
                         </div>
                     </div>
