@@ -100,9 +100,11 @@ class CostController extends Controller
             }
             $prod__precio_g=0;
             $prod_nombre='';
+            $pro_id=0;
             foreach ($prod as $pro){
                 $prod__precio_g=$pro->precio_grupo;
                 $prod_nombre=$pro->nombre;
+                $pro_id=$pro->id;
             }
             $producto = new M_Producto();
             $producto->codigo = $txt_code;
@@ -115,7 +117,7 @@ class CostController extends Controller
             $producto->acomodacion = $txt_acomodacion;
             $producto->precio_grupo = $prod__precio_g;
             $producto->proveedor_id = $proveedor_id;
-            $producto->m_servicios_id = $prod->id;
+            $producto->m_servicios_id = $pro_id;
             $producto->save();
 
             return redirect()->route('costs_index_path');
