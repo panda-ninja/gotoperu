@@ -166,22 +166,22 @@
         @foreach($pqt->paquete_precios as $paquete_precios)
             @if($paquete_precios->personas_s>0)
                 @php
-                    $profit+=$paquete_precios->personas_s*$paquete_precios->precio_s;
+                    $profit+=$paquete_precios->personas_s*$paquete_precios->utilidad_s;
                 @endphp
             @endif
             @if($paquete_precios->personas_d>0)
                 @php
-                    $profit+=$paquete_precios->personas_d*$paquete_precios->precio_d;
+                    $profit+=$paquete_precios->personas_d*$paquete_precios->utilidad_d*2;
                 @endphp
             @endif
             @if($paquete_precios->personas_m>0)
                 @php
-                    $profit+=$paquete_precios->personas_m*$paquete_precios->precio_m;
+                    $profit+=$paquete_precios->personas_m*$paquete_precios->utilidad_m*2;
                 @endphp
             @endif
             @if($paquete_precios->personas_t>0)
                 @php
-                    $profit+=$paquete_precios->personas_t*$paquete_precios->precio_t;
+                    $profit+=$paquete_precios->personas_t*$paquete_precios->utilidad_t*3;
                 @endphp
             @endif
         @endforeach
@@ -710,16 +710,17 @@
     $porc_train_c=0;
     $porc_flight_c=0;
     $porc_other_c=0;
+    $total_coti=$hotel_p_coti_t+$tours_p_coti_t+$movilid_p_coti_t+$represent_p_coti_t+$entr_p_coti_t+$food_p_coti_t+$train_p_coti_t+$flight_p_coti_t+$other_p_coti_t;
     @endphp
-    @if($hotel_total>0)@php$porc_hotel=round(($hotel_confirm/$hotel_total)*100); @endphp @endif
-    @if($tour_total>0)@php$porc_tour=round(($tour_confirm/$tour_total)*100); @endphp @endif
-    @if($movilid_total>0)@php$porc_movilid=round(($movilid_confirm/$movilid_total)*100); @endphp @endif
-    @if($represent_total>0)@php$porc_represent=round(($represent_confirm/$represent_total)*100); @endphp @endif
-    @if($entr_total>0)@php$porc_entr=round(($entr_confirm/$entr_total)*100); @endphp @endif
-    @if($food_total>0)@php$porc_food=round(($food_confirm/$food_total)*100); @endphp @endif
-    @if($train_total>0)@php$porc_train=round(($train_confirm/$train_total)*100); @endphp @endif
-    @if($flight_total>0)@php$porc_flight=round(($flight_confirm/$flight_total)*100); @endphp @endif
-    @if($other_total>0)@php$porc_other=round(($other_confirm/$other_total)*100); @endphp @endif
+    @if($hotel_p_coti_t>0)@php$porc_hotel=round(($hotel_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($tours_p_coti_t>0)@php$porc_tour=round(($tours_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($movilid_p_coti_t>0)@php$porc_movilid=round(($movilid_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($represent_p_coti_t>0)@php$porc_represent=round(($represent_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($entr_p_coti_t>0)@php$porc_entr=round(($entr_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($food_p_coti_t>0)@php$porc_food=round(($food_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($train_p_coti_t>0)@php$porc_train=round(($train_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($flight_p_coti_t>0)@php$porc_flight=round(($flight_p_coti_t/$total_coti)*100,2); @endphp @endif
+    @if($other_p_coti_t>0)@php$porc_other=round(($other_p_coti_t/$total_coti)*100,2); @endphp @endif
 
     @if($hotel_total>0)@php$porc_hotel_c=round(($hotel_confirm_c/$hotel_total)*100); @endphp @endif
     @if($tour_total>0)@php$porc_tour_c=round(($tour_confirm_c/$tour_total)*100); @endphp @endif
@@ -749,153 +750,153 @@
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_hotel}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>HOTELS</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>HOTELS</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$hotel_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($signo_coti_res=='+')text-success @elseif($signo_coti_res=='-') text-danger @endif">{{$signo_coti_res}}$</b><b class="@if($signo_coti_res=='+')text-success @elseif($signo_coti_res=='-') text-danger @endif">@if($signo_coti_res=='-'){{(-1)*$p_coti_res}}@else{{$p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($signo_coti_res=='+')text-success @elseif($signo_coti_res=='-') text-danger @endif">{{$signo_coti_res}}$</b><b class="@if($signo_coti_res=='+')text-success @elseif($signo_coti_res=='-') text-danger @endif">@if($signo_coti_res=='-'){{(-1)*$p_coti_res}}@else{{$p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$hotel_p_res_t}}</b></div>
                     </div>
                 </div>
-                <div class="col-lg-3 cabecera-res-lat">
+                <div class="col-lg-3 cabecera-res-lat ">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($signo_res_con=='+')text-success @elseif($signo_res_con=='-') text-danger @endif">{{$signo_res_con}}$</b><b class="@if($signo_res_con=='+')text-success @elseif($signo_res_con=='-') text-danger @endif">@if($signo_res_con=='-'){{(-1)*$p_res_con}}@else{{$p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($signo_res_con=='+')text-success @elseif($signo_res_con=='-') text-danger @endif">{{$signo_res_con}}$</b><b class="@if($signo_res_con=='+')text-success @elseif($signo_res_con=='-') text-danger @endif">@if($signo_res_con=='-'){{(-1)*$p_res_con}}@else{{$p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$hotel_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_hotel}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>TOURS</b></div>
+                <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_tour}}%</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>TOURS</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$tours_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($tours_signo_coti_res=='+')text-success @elseif($tours_signo_coti_res=='-') text-danger @endif">{{$tours_signo_coti_res}}$</b><b class="@if($tours_signo_coti_res=='+')text-success @elseif($tours_signo_coti_res=='-') text-danger @endif">@if($tours_signo_coti_res=='-'){{(-1)*$tours_p_coti_res}}@else{{$tours_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($tours_signo_coti_res=='+')text-success @elseif($tours_signo_coti_res=='-') text-danger @endif">{{$tours_signo_coti_res}}$</b><b class="@if($tours_signo_coti_res=='+')text-success @elseif($tours_signo_coti_res=='-') text-danger @endif">@if($tours_signo_coti_res=='-'){{(-1)*$tours_p_coti_res}}@else{{$tours_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$tours_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($tours_signo_res_con=='+')text-success @elseif($tours_signo_res_con=='-') text-danger @endif">{{$tours_signo_res_con}}$</b><b class="@if($tours_signo_res_con=='+')text-success @elseif($tours_signo_res_con=='-') text-danger @endif">@if($tours_signo_res_con=='-'){{(-1)*$tours_p_res_con}}@else{{$tours_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($tours_signo_res_con=='+')text-success @elseif($tours_signo_res_con=='-') text-danger @endif">{{$tours_signo_res_con}}$</b><b class="@if($tours_signo_res_con=='+')text-success @elseif($tours_signo_res_con=='-') text-danger @endif">@if($tours_signo_res_con=='-'){{(-1)*$tours_p_res_con}}@else{{$tours_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$tours_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_movilid}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>MOVILID</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>MOVILID</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$movilid_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($movilid_signo_coti_res=='+')text-success @elseif($movilid_signo_coti_res=='-') text-danger @endif">{{$movilid_signo_coti_res}}$</b><b class="@if($movilid_signo_coti_res=='+')text-success @elseif($movilid_signo_coti_res=='-') text-danger @endif">@if($movilid_signo_coti_res=='-'){{(-1)*$movilid_p_coti_res}}@else{{$movilid_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($movilid_signo_coti_res=='+')text-success @elseif($movilid_signo_coti_res=='-') text-danger @endif">{{$movilid_signo_coti_res}}$</b><b class="@if($movilid_signo_coti_res=='+')text-success @elseif($movilid_signo_coti_res=='-') text-danger @endif">@if($movilid_signo_coti_res=='-'){{(-1)*$movilid_p_coti_res}}@else{{$movilid_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$movilid_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($movilid_signo_res_con=='+')text-success @elseif($movilid_signo_res_con=='-') text-danger @endif">{{$movilid_signo_res_con}}$</b><b class="@if($movilid_signo_res_con=='+')text-success @elseif($movilid_signo_res_con=='-') text-danger @endif">@if($movilid_signo_res_con=='-'){{(-1)*$movilid_p_res_con}}@else{{$movilid_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($movilid_signo_res_con=='+')text-success @elseif($movilid_signo_res_con=='-') text-danger @endif">{{$movilid_signo_res_con}}$</b><b class="@if($movilid_signo_res_con=='+')text-success @elseif($movilid_signo_res_con=='-') text-danger @endif">@if($movilid_signo_res_con=='-'){{(-1)*$movilid_p_res_con}}@else{{$movilid_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$movilid_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_represent}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>REPRESENT</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>REPRESENT</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$represent_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($represent_signo_coti_res=='+')text-success @elseif($represent_signo_coti_res=='-') text-danger @endif">{{$represent_signo_coti_res}}$</b><b class="@if($represent_signo_coti_res=='+')text-success @elseif($represent_signo_coti_res=='-') text-danger @endif">@if($represent_signo_coti_res=='-'){{(-1)*$represent_p_coti_res}}@else{{$represent_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($represent_signo_coti_res=='+')text-success @elseif($represent_signo_coti_res=='-') text-danger @endif">{{$represent_signo_coti_res}}$</b><b class="@if($represent_signo_coti_res=='+')text-success @elseif($represent_signo_coti_res=='-') text-danger @endif">@if($represent_signo_coti_res=='-'){{(-1)*$represent_p_coti_res}}@else{{$represent_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$represent_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($represent_signo_res_con=='+')text-success @elseif($represent_signo_res_con=='-') text-danger @endif">{{$represent_signo_res_con}}$</b><b class="@if($represent_signo_res_con=='+')text-success @elseif($represent_signo_res_con=='-') text-danger @endif">@if($represent_signo_res_con=='-'){{(-1)*$represent_p_res_con}}@else{{$represent_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($represent_signo_res_con=='+')text-success @elseif($represent_signo_res_con=='-') text-danger @endif">{{$represent_signo_res_con}}$</b><b class="@if($represent_signo_res_con=='+')text-success @elseif($represent_signo_res_con=='-') text-danger @endif">@if($represent_signo_res_con=='-'){{(-1)*$represent_p_res_con}}@else{{$represent_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$represent_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_entr}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>ENTRANCES</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>ENTRANCES</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$entr_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($entr_signo_coti_res=='+')text-success @elseif($entr_signo_coti_res=='-') text-danger @endif">{{$entr_signo_coti_res}}$</b><b class="@if($entr_signo_coti_res=='+')text-success @elseif($entr_signo_coti_res=='-') text-danger @endif">@if($entr_signo_coti_res=='-'){{(-1)*$entr_p_coti_res}}@else{{$entr_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($entr_signo_coti_res=='+')text-success @elseif($entr_signo_coti_res=='-') text-danger @endif">{{$entr_signo_coti_res}}$</b><b class="@if($entr_signo_coti_res=='+')text-success @elseif($entr_signo_coti_res=='-') text-danger @endif">@if($entr_signo_coti_res=='-'){{(-1)*$entr_p_coti_res}}@else{{$entr_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$entr_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($entr_signo_res_con=='+')text-success @elseif($entr_signo_res_con=='-') text-danger @endif">{{$entr_signo_res_con}}$</b><b class="@if($entr_signo_res_con=='+')text-success @elseif($entr_signo_res_con=='-') text-danger @endif">@if($entr_signo_res_con=='-'){{(-1)*$entr_p_res_con}}@else{{$entr_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($entr_signo_res_con=='+')text-success @elseif($entr_signo_res_con=='-') text-danger @endif">{{$entr_signo_res_con}}$</b><b class="@if($entr_signo_res_con=='+')text-success @elseif($entr_signo_res_con=='-') text-danger @endif">@if($entr_signo_res_con=='-'){{(-1)*$entr_p_res_con}}@else{{$entr_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$entr_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_food}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>FOOD</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>FOOD</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$food_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($food_signo_coti_res=='+')text-success @elseif($food_signo_coti_res=='-') text-danger @endif">{{$food_signo_coti_res}}$</b><b class="@if($food_signo_coti_res=='+')text-success @elseif($food_signo_coti_res=='-') text-danger @endif">@if($food_signo_coti_res=='-'){{(-1)*$food_p_coti_res}}@else{{$food_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($food_signo_coti_res=='+')text-success @elseif($food_signo_coti_res=='-') text-danger @endif">{{$food_signo_coti_res}}$</b><b class="@if($food_signo_coti_res=='+')text-success @elseif($food_signo_coti_res=='-') text-danger @endif">@if($food_signo_coti_res=='-'){{(-1)*$food_p_coti_res}}@else{{$food_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$food_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($food_signo_res_con=='+')text-success @elseif($food_signo_res_con=='-') text-danger @endif">{{$food_signo_res_con}}$</b><b class="@if($food_signo_res_con=='+')text-success @elseif($food_signo_res_con=='-') text-danger @endif">@if($food_signo_res_con=='-'){{(-1)*$food_p_res_con}}@else{{$food_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($food_signo_res_con=='+')text-success @elseif($food_signo_res_con=='-') text-danger @endif">{{$food_signo_res_con}}$</b><b class="@if($food_signo_res_con=='+')text-success @elseif($food_signo_res_con=='-') text-danger @endif">@if($food_signo_res_con=='-'){{(-1)*$food_p_res_con}}@else{{$food_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$food_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_train}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>TRAINS</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>TRAINS</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$train_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($train_signo_coti_res=='+')text-success @elseif($train_signo_coti_res=='-') text-danger @endif">{{$train_signo_coti_res}}$</b><b class="@if($train_signo_coti_res=='+')text-success @elseif($train_signo_coti_res=='-') text-danger @endif">@if($train_signo_coti_res=='-'){{(-1)*$train_p_coti_res}}@else{{$train_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($train_signo_coti_res=='+')text-success @elseif($train_signo_coti_res=='-') text-danger @endif">{{$train_signo_coti_res}}$</b><b class="@if($train_signo_coti_res=='+')text-success @elseif($train_signo_coti_res=='-') text-danger @endif">@if($train_signo_coti_res=='-'){{(-1)*$train_p_coti_res}}@else{{$train_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$train_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($train_signo_res_con=='+')text-success @elseif($train_signo_res_con=='-') text-danger @endif">{{$train_signo_res_con}}$</b><b class="@if($train_signo_res_con=='+')text-success @elseif($train_signo_res_con=='-') text-danger @endif">@if($train_signo_res_con=='-'){{(-1)*$train_p_res_con}}@else{{$train_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($train_signo_res_con=='+')text-success @elseif($train_signo_res_con=='-') text-danger @endif">{{$train_signo_res_con}}$</b><b class="@if($train_signo_res_con=='+')text-success @elseif($train_signo_res_con=='-') text-danger @endif">@if($train_signo_res_con=='-'){{(-1)*$train_p_res_con}}@else{{$train_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$train_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_flight}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>FLIGHTS</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>FLIGHTS</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$flight_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($flight_signo_coti_res=='+')text-success @elseif($flight_signo_coti_res=='-') text-danger @endif">{{$flight_signo_coti_res}}$</b><b class="@if($flight_signo_coti_res=='+')text-success @elseif($flight_signo_coti_res=='-') text-danger @endif">@if($flight_signo_coti_res=='-'){{(-1)*$flight_p_coti_res}}@else{{$flight_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($flight_signo_coti_res=='+')text-success @elseif($flight_signo_coti_res=='-') text-danger @endif">{{$flight_signo_coti_res}}$</b><b class="@if($flight_signo_coti_res=='+')text-success @elseif($flight_signo_coti_res=='-') text-danger @endif">@if($flight_signo_coti_res=='-'){{(-1)*$flight_p_coti_res}}@else{{$flight_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$flight_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($flight_signo_res_con=='+')text-success @elseif($flight_signo_res_con=='-') text-danger @endif">{{$flight_signo_res_con}}$</b><b class="@if($flight_signo_res_con=='+')text-success @elseif($flight_signo_res_con=='-') text-danger @endif">@if($flight_signo_res_con=='-'){{(-1)*$flight_p_res_con}}@else{{$flight_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($flight_signo_res_con=='+')text-success @elseif($flight_signo_res_con=='-') text-danger @endif">{{$flight_signo_res_con}}$</b><b class="@if($flight_signo_res_con=='+')text-success @elseif($flight_signo_res_con=='-') text-danger @endif">@if($flight_signo_res_con=='-'){{(-1)*$flight_p_res_con}}@else{{$flight_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$flight_p_con_t}}</b></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-1 cabecera-res-lat"><b>{{$porc_other}}%</b></div>
-                <div class="col-lg-2 cabecera-res-lat"><b>OTHERS</b></div>
+                <div class="col-lg-2 cabecera-res-lat aling-izq"><b>OTHERS</b></div>
                 <div class="col-lg-2 cabecera-res-lat"><b>$</b><b>{{$other_p_coti_t}}</b></div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($other_signo_coti_res=='+')text-success @elseif($other_signo_coti_res=='-') text-danger @endif">{{$other_signo_coti_res}}$</b><b class="@if($other_signo_coti_res=='+')text-success @elseif($other_signo_coti_res=='-') text-danger @endif">@if($other_signo_coti_res=='-'){{(-1)*$other_p_coti_res}}@else{{$other_p_coti_res}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($other_signo_coti_res=='+')text-success @elseif($other_signo_coti_res=='-') text-danger @endif">{{$other_signo_coti_res}}$</b><b class="@if($other_signo_coti_res=='+')text-success @elseif($other_signo_coti_res=='-') text-danger @endif">@if($other_signo_coti_res=='-'){{(-1)*$other_p_coti_res}}@else{{$other_p_coti_res}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$other_p_res_t}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
-                        <div class="col-lg-4"><b class="@if($other_signo_res_con=='+')text-success @elseif($other_signo_res_con=='-') text-danger @endif">{{$other_signo_res_con}}$</b><b class="@if($other_signo_res_con=='+')text-success @elseif($other_signo_res_con=='-') text-danger @endif">@if($other_signo_res_con=='-'){{(-1)*$other_p_res_con}}@else{{$other_p_res_con}}@endif</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($other_signo_res_con=='+')text-success @elseif($other_signo_res_con=='-') text-danger @endif">{{$other_signo_res_con}}$</b><b class="@if($other_signo_res_con=='+')text-success @elseif($other_signo_res_con=='-') text-danger @endif">@if($other_signo_res_con=='-'){{(-1)*$other_p_res_con}}@else{{$other_p_res_con}}@endif</b></div>
                         <div class="col-lg-8"><b>$</b><b>{{$other_p_con_t}}</b></div>
                     </div>
                 </div>
@@ -914,14 +915,14 @@
                 <div class="col-lg-2 cabecera-res-total"><b>$</b><b>{{$total_cotizado}}</b></div>
                 <div class="col-lg-3 cabecera-res-total">
                     <div class="row">
-                        <div class="col-lg-6"><b class="@if($t_r>0){{'text-success'}} @elseif($t_r==0){{''}}@else {{'text-danger'}}@endif">@if($t_r>0){{'+'}} @elseif($t_r==0){{''}}@else {{'-'}}@endif$</b><b class="@if($t_r>0){{'text-success'}} @elseif($t_r==0){{''}}@else {{'text-danger'}}@endif">{{$t_r}}</b></div>
-                        <div class="col-lg-6"><b>$</b><b>{{$total_reservado}}</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($t_r>0){{'text-success'}} @elseif($t_r==0){{''}}@else {{'text-danger'}}@endif">@if($t_r>0){{'+'}} @elseif($t_r==0){{''}}@else {{'-'}}@endif$</b><b class="@if($t_r>0){{'text-success'}} @elseif($t_r==0){{''}}@else {{'text-danger'}}@endif">{{$t_r}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>{{$total_reservado}}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-total">
                     <div class="row">
-                        <div class="col-lg-6"><b class="@if($t_c>0){{'text-success'}} @elseif($t_c==0){{''}}@else {{'text-danger'}}@endif">@if($t_c>0){{'+'}} @elseif($t_c==0){{''}}@else {{'-'}}@endif$</b><b class="@if($t_c>0){{'text-success'}} @elseif($t_c==0){{''}}@else {{'text-danger'}}@endif">{{$t_c}}</b></div>
-                        <div class="col-lg-6"><b>$</b><b>{{$total_contabilizado}}</b></div>
+                        <div class="col-lg-4 precio_g_p"><b class="@if($t_c>0){{'text-success'}} @elseif($t_c==0){{''}}@else {{'text-danger'}}@endif">@if($t_c>0){{'+'}} @elseif($t_c==0){{''}}@else {{'-'}}@endif$</b><b class="@if($t_c>0){{'text-success'}} @elseif($t_c==0){{''}}@else {{'text-danger'}}@endif">{{$t_c}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>{{$total_contabilizado}}</b></div>
                     </div>
                 </div>
             </div>
@@ -938,6 +939,22 @@
             </div>
         </div>
         <div class="col-lg-3">
+            @php
+                $profit_total=$total_cotizado-$total_contabilizado;
+                $color_pro='text-info';
+                $borde='borde-cyan';
+            @endphp
+            @if($profit_total>0)
+                @php
+                $color_pro='text-success';
+                $borde='borde-success';
+                @endphp
+                @elseif($profit_total<0)
+                @php
+                $color_pro='text-danger';
+                $borde='borde-danger';
+                @endphp
+            @endif
             <h2 class=" text-center">
                 @foreach($cotizacion->cotizaciones_cliente as $clientes)
                     @if($clientes->estado==1)
@@ -949,17 +966,17 @@
             <div class="divider"></div>
             <div class="row">
                 <div class="col-lg-6">VENTAS</div>
-                <div class="col-lg-4"><b>$</b><b>{{$total_cotizado}}</b></div>
+                <div class="col-lg-4 text-right"><b>$</b><b>{{$total_cotizado}}</b></div>
                 <div class="col-lg-4"></div>
             </div>
             <div class="row">
                 <div class="col-lg-6">CONTABILIDAD</div>
-                <div class="col-lg-4"><b>$</b><b>{{$total_contabilizado}}</b></div>
+                <div class="col-lg-4 text-right"><b>$</b><b>{{$total_contabilizado}}</b></div>
                 <div class="col-lg-2 bg-naranja"><b>{{$porc_conta_total}}</b><b>%</b></div>
             </div>
-            <div class="row borde-verde">
+            <div class="row {{$borde}}">
                 <div class="col-lg-6">PROFIT</div>
-                <div class="col-lg-4"><b>$</b><b>{{$total_cotizado-$total_contabilizado}}</b></div>
+                <div class="col-lg-4 text-right {{$color_pro}}"><b>$</b><b>{{$profit_total}}</b></div>
                 <div class="col-lg-2"></div>
             </div>
         </div>

@@ -115,7 +115,7 @@ class CostController extends Controller
             $producto->acomodacion = $txt_acomodacion;
             $producto->precio_grupo = $prod__precio_g;
             $producto->proveedor_id = $proveedor_id;
-            $producto->m_servicios_id = $txt_code;
+            $producto->m_servicios_id = $prod->id;
             $producto->save();
 
             return redirect()->route('costs_index_path');

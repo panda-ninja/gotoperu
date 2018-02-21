@@ -706,8 +706,8 @@ margin-bottom: 5px;
   margin: 0 35px;
 }
 .activo{
-  background: white !important;
-  background: #82d1ce !important;
+  //background: white !important;
+  background: #d4d4d4 !important;
 }
 .contabilidad{
   border-top: 5px solid #f17e54;
@@ -849,15 +849,15 @@ ol li.highlight {
   border-right: 1px solid #2c2c2c;
   border-bottom: 1px inset #ddd;
 
-  text-align: center;
+  text-align: right;
   color: #2c2c2c;
   font-weight: bold;
   margin: 0px 2px;
-  font-size: 13px;
+  font-size: 16px;
 }
 .cabecera-res-total{
   border: 2px solid #2c2c2c;
-  text-align: center;
+  text-align: right;
   color: #2c2c2c;
   font-weight: bold;
   margin: 0px 2px;
@@ -882,6 +882,18 @@ ol li.highlight {
 .bg-sombra{
   background: #2579a9;
 }
-.borde-verde{
+.borde-success{
   border: 1px solid #55dd45;
+}
+.borde-info{
+  border: 1px solid #328ed1;
+}
+.borde-danger{
+  border: 1px solid #dd060f;
+}
+.precio_g_p{
+  font-size: 10px !important;
+}
+.aling-izq{
+  text-align: left !important;
 }
