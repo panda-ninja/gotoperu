@@ -181,12 +181,17 @@
         $other_total=0;
         $other_total_c=0;
 
-    $total_servicios_confirm=0;
-    $total_srevicios=0;
-    $profit=0;
+        $total_servicios_confirm=0;
+        $total_srevicios=0;
+        $profit=0;
+        $total_pagos_hotel=0;
     @endphp
     @foreach($cotizacion->paquete_cotizaciones->where('estado','2') as $pqt)
+        @php
+            $total_pagos_hotel=$pqt->pagos_hotel->where('estado',1)->sum('a_cuenta');
+        @endphp
         @foreach($pqt->paquete_precios as $paquete_precios)
+
             @if($paquete_precios->personas_s>0)
                 @php
                     $profit+=$paquete_precios->personas_s*$paquete_precios->utilidad_s;
@@ -801,7 +806,7 @@
     @if($flight_total>0)@php $nroservicios++; $porc_flight_r=round(($flight_confirm_r/$flight_total)*100); @endphp @endif
     @if($other_total>0)@php $nroservicios++; $porc_other_r=round(($other_confirm_r/$other_total)*100); @endphp @endif
 
-    @if($hotel_total>0)@php$porc_hotel_c=round(($hotel_confirm_c/$hotel_total)*100); @endphp @endif
+    @if($hotel_p_con_t>0)@php$porc_hotel_c=round(($total_pagos_hotel/$hotel_p_con_t)*100); @endphp @endif
     @if($tour_total_c>0)@php$porc_tour_c=round(($tours_p_con_t/$tour_total_c)*100); @endphp @endif
     @if($movilid_total_c>0)@php$porc_movilid_c=round(($movilid_p_con_t/$movilid_total_c)*100); @endphp @endif
     @if($represent_total_c>0)@php$porc_represent_c=round(($represent_p_con_t/$represent_total_c)*100); @endphp @endif
