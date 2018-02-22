@@ -138,33 +138,48 @@
         $tour_confirm_r=0;
         $tour_confirm_c=0;
         $tour_total=0;
+        $tour_total_c=0;
+
         $movilid_confirm=0;
         $movilid_confirm_r=0;
         $movilid_confirm_c=0;
         $movilid_total=0;
+        $movilid_total_c=0;
+
         $represent_confirm=0;
         $represent_confirm_r=0;
         $represent_confirm_c=0;
         $represent_total=0;
+        $represent_total_c=0;
+
         $entr_confirm=0;
         $entr_confirm_r=0;
         $entr_confirm_c=0;
         $entr_total=0;
+        $entr_total_c=0;
+
         $food_confirm=0;
         $food_confirm_r=0;
         $food_confirm_c=0;
         $food_total=0;
+        $food_total_c=0;
+
         $train_confirm=0;
         $train_confirm_r=0;
         $train_confirm_c=0;
         $train_total=0;
+        $train_total_c=0;
+
         $flight_confirm=0;
         $flight_confirm_r=0;
         $flight_confirm_c=0;
         $flight_total=0;
+        $flight_total_c=0;
+
         $other_confirm=0;
         $other_confirm_=0;
         $other_total=0;
+        $other_total_c=0;
 
     $total_servicios_confirm=0;
     $total_srevicios=0;
@@ -254,23 +269,23 @@
                         @php
                             $tours_p_coti_t+=$servicio->precio;
                             $tours_p_res_t+=$servicio->precio_proveedor;
-                            $tours_total_c+=$servicio->precio_c;
+                            $tour_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $tours_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $tours_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $tours_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $tour_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                     @if($servicio->precio_c>0)
                         @php
                             $tour_confirm_c++;
-                            $tours_p_con_t+=$servicio->pagos->where('estado',1)->sum();
+                            $tours_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
-
                 @endif
+
                 @if($servicio->servicio->grupo=='MOVILID')
                     @php
                         $movilid_total++;
@@ -292,14 +307,13 @@
                         @php
                             $movilid_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $movilid_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $movilid_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $movilid_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                     @if($servicio->precio_c>0)
                         @php
-                            $movilid_total+=$servicio->precio_c;
                             $movilid_confirm_c++;
-                            $movilid_p_con_t+=$servicio->pagos->where('estado',1)->sum();
+                            $movilid_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
                 @endif
@@ -316,22 +330,21 @@
                     @endif
                     @if($servicio->precio_c>0)
                         @php
-                            $represent_total+=$servicio->precio_c;
                             $represent_confirm_c++;
-                            $represent_p_con_t+=$servicio->pagos->where('estado',1)->sum();
+                            $represent_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
                             $represent_p_coti_t+=$servicio->precio;
                             $represent_p_res_t+=$servicio->precio_proveedor;
-{{--                            $represent_p_con_t+=$servicio->precio_c;--}}
+                            $represent_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $represent_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $represent_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-{{--                            $represent_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;--}}
+                            $represent_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                 @endif
@@ -349,19 +362,20 @@
                     @if($servicio->precio_c>0)
                         @php
                             $entr_confirm_c++;
+                            $entr_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
                             $entr_p_coti_t+=$servicio->precio;
                             $entr_p_res_t+=$servicio->precio_proveedor;
-                            $entr_p_con_t+=$servicio->precio_c;
+                            $entr_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $entr_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $entr_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $entr_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $entr_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                 @endif
@@ -379,19 +393,20 @@
                     @if($servicio->precio_c>0)
                         @php
                             $food_confirm_c++;
+                            $food_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
                             $food_p_coti_t+=$servicio->precio;
                             $food_p_res_t+=$servicio->precio_proveedor;
-                            $food_p_con_t+=$servicio->precio_c;
+                            $food_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $food_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $food_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $food_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $food_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                 @endif
@@ -409,19 +424,20 @@
                     @if($servicio->precio_c>0)
                         @php
                             $train_confirm_c++;
+                            $train_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
                             $train_p_coti_t+=$servicio->precio;
                             $train_p_res_t+=$servicio->precio_proveedor;
-                            $train_p_con_t+=$servicio->precio_c;
+                            $train_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $train_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $train_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $train_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $train_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                 @endif
@@ -439,19 +455,20 @@
                     @if($servicio->precio_c>0)
                         @php
                             $flight_confirm_c++;
+                            $flight_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
                             $flight_p_coti_t+=$servicio->precio;
                             $flight_p_res_t+=$servicio->precio_proveedor;
-                            $flight_p_con_t+=$servicio->precio_c;
+                            $flight_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $flight_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $flight_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $flight_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $flight_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                 @endif
@@ -469,19 +486,20 @@
                     @if($servicio->precio_c>0)
                         @php
                             $other_confirm_c++;
+                            $other_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
                         @endphp
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
                             $other_p_coti_t+=$servicio->precio;
                             $other_p_res_t+=$servicio->precio_proveedor;
-                            $other_p_con_t+=$servicio->precio_c;
+                            $other_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $other_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $other_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $other_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $other_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                 @endif
@@ -534,11 +552,11 @@
     @endphp
     @if($tours_p_res_con>0)
         @php
-            $tours_p_res_con='+';
+            $tours_signo_res_con='+';
         @endphp
     @elseif($tours_p_res_con<0)
         @php
-            $tours_p_res_con='-';
+            $tours_signo_res_con='-';
         @endphp
     @endif
 
@@ -561,14 +579,40 @@
     @endphp
     @if($movilid_p_res_con>0)
         @php
-            $movilid_p_res_con='+';
+            $movilid_signo_res_con='+';
         @endphp
     @elseif($movilid_p_res_con<0)
         @php
-            $movilid_p_res_con='-';
+            $movilid_signo_res_con='-';
         @endphp
     @endif
 
+    {{--calculos para represent--}}
+    @php
+        $represent_p_coti_res=($represent_p_coti_t-$represent_p_res_t);
+    @endphp
+    @if($represent_p_coti_res>0)
+        @php
+            $represent_signo_coti_res='+';
+        @endphp
+    @elseif($represent_p_coti_res<0)
+        @php
+            $represent_signo_coti_res='-';
+        @endphp
+    @endif
+
+    @php
+        $represent_p_res_con=($represent_p_res_t-$represent_p_con_t);
+    @endphp
+    @if($represent_p_res_con>0)
+        @php
+            $represent_signo_res_con='+';
+        @endphp
+    @elseif($represent_p_res_con<0)
+        @php
+            $represent_signo_res_con='-';
+        @endphp
+    @endif
     {{--calculos para entr--}}
     @php
         $entr_p_coti_res=($entr_p_coti_t-$entr_p_res_t);
@@ -669,11 +713,11 @@
     @endphp
     @if($flight_p_res_con>0)
         @php
-            $flight_p_res_con='+';
+            $flight_signo_res_con='+';
         @endphp
     @elseif($flight_p_res_con<0)
         @php
-            $flight_p_res_con='-';
+            $flight_signo_res_con='-';
         @endphp
     @endif
 
@@ -696,11 +740,11 @@
     @endphp
     @if($other_p_res_con>0)
         @php
-            $other_p_res_con='+';
+            $other_signo_res_con='+';
         @endphp
     @elseif($other_p_res_con<0)
         @php
-            $other_p_res_con='-';
+            $other_signo_res_con='-';
         @endphp
     @endif
 
@@ -747,7 +791,6 @@
     @if($flight_p_coti_t>0)@php$porc_flight=round(($flight_p_coti_t/$total_coti)*100,2); @endphp @endif
     @if($other_p_coti_t>0)@php$porc_other=round(($other_p_coti_t/$total_coti)*100,2); @endphp @endif
 
-
     @if($hotel_total>0)@php $nroservicios++; $porc_hotel_r=round(($hotel_confirm_r/$hotel_total)*100); @endphp @endif
     @if($tour_total>0)@php $nroservicios++; $porc_tour_r=round(($tour_confirm_r/$tour_total)*100); @endphp @endif
     @if($movilid_total>0)@php $nroservicios++; $porc_movilid_r=round(($movilid_confirm_r/$movilid_total)*100); @endphp @endif
@@ -759,14 +802,14 @@
     @if($other_total>0)@php $nroservicios++; $porc_other_r=round(($other_confirm_r/$other_total)*100); @endphp @endif
 
     @if($hotel_total>0)@php$porc_hotel_c=round(($hotel_confirm_c/$hotel_total)*100); @endphp @endif
-    @if($tour_total>0)@php$porc_tour_c=round(($tour_confirm_c/$tour_total)*100); @endphp @endif
-    @if($movilid_total>0)@php$porc_movilid_c=round(($movilid_confirm_c/$movilid_total)*100); @endphp @endif
-    @if($represent_total>0)@php$porc_represent_c=round(($represent_confirm_c/$represent_total)*100); @endphp @endif
-    @if($entr_total>0)@php$porc_entr_c=round(($entr_confirm_c/$entr_total)*100); @endphp @endif
-    @if($food_total>0)@php$porc_food_c=round(($food_confirm_c/$food_total)*100); @endphp @endif
-    @if($train_total>0)@php$porc_train_c=round(($train_confirm_c/$train_total)*100); @endphp @endif
-    @if($flight_total>0)@php$porc_flight_c=round(($flight_confirm_c/$flight_total)*100); @endphp @endif
-    @if($other_total>0)@php$porc_other_c=round(($other_confirm_c/$other_total)*100); @endphp @endif
+    @if($tour_total_c>0)@php$porc_tour_c=round(($tours_p_con_t/$tour_total_c)*100); @endphp @endif
+    @if($movilid_total_c>0)@php$porc_movilid_c=round(($movilid_p_con_t/$movilid_total_c)*100); @endphp @endif
+    @if($represent_total_c>0)@php$porc_represent_c=round(($represent_p_con_t/$represent_total_c)*100); @endphp @endif
+    @if($entr_total_c>0)@php$porc_entr_c=round(($entr_p_con_t/$entr_total_c)*100); @endphp @endif
+    @if($food_total_c>0)@php$porc_food_c=round(($food_p_con_t/$food_total_c)*100); @endphp @endif
+    @if($train_total_c>0)@php$porc_train_c=round(($train_p_con_t/$train_total_c)*100); @endphp @endif
+    @if($flight_total_c>0)@php$porc_flight_c=round(($flight_p_con_t/$flight_total_c)*100); @endphp @endif
+    @if($other_total_c>0)@php$porc_other_c=round(($other_p_con_t/$other_total_c)*100); @endphp @endif
 
     @php
 
