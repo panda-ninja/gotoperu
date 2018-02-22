@@ -240,6 +240,9 @@
 
             @foreach($iti->itinerario_servicios as $servicio)
                 @if($servicio->servicio->grupo=='TOURS')
+                    @php
+                    $tour_total++;
+                    @endphp
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
@@ -251,23 +254,22 @@
                         @php
                             $tours_p_coti_t+=$servicio->precio;
                             $tours_p_res_t+=$servicio->precio_proveedor;
-                            $tours_p_con_t+=$servicio->precio_c;
+                            $tours_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
                             $tours_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $tours_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $tours_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+                            $tours_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
                     @if($servicio->precio_c>0)
                         @php
                             $tour_confirm_c++;
+                            $tours_p_con_t+=$servicio->pagos->where('estado',1)->sum();
                         @endphp
                     @endif
-                    @php
-                        $tour_total++;
-                    @endphp
+
                 @endif
                 @if($servicio->servicio->grupo=='MOVILID')
                     @php
@@ -284,7 +286,7 @@
                         @php
                             $movilid_p_coti_t+=$servicio->precio;
                             $movilid_p_res_t+=$servicio->precio_proveedor;
-                            $movilid_p_con_t+=$servicio->precio_c;
+                            $movilid_total_c+=$servicio->precio_c;
                         @endphp
                     @else
                         @php
@@ -295,7 +297,9 @@
                     @endif
                     @if($servicio->precio_c>0)
                         @php
+                            $movilid_total+=$servicio->precio_c;
                             $movilid_confirm_c++;
+                            $movilid_p_con_t+=$servicio->pagos->where('estado',1)->sum();
                         @endphp
                     @endif
                 @endif
@@ -312,20 +316,22 @@
                     @endif
                     @if($servicio->precio_c>0)
                         @php
+                            $represent_total+=$servicio->precio_c;
                             $represent_confirm_c++;
+                            $represent_p_con_t+=$servicio->pagos->where('estado',1)->sum();
                         @endphp
                     @endif
                     @if($servicio->precio_grupo==1)
                         @php
                             $represent_p_coti_t+=$servicio->precio;
                             $represent_p_res_t+=$servicio->precio_proveedor;
-                            $represent_p_con_t+=$servicio->precio_c;
+{{--                            $represent_p_con_t+=$servicio->precio_c;--}}
                         @endphp
                     @else
                         @php
                             $represent_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
                             $represent_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
-                            $represent_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;
+{{--                            $represent_p_con_t+=$servicio->precio_c*$cotizacion->nropersonas;--}}
                         @endphp
                     @endif
                 @endif
@@ -769,7 +775,7 @@
         $porc_reserva_total=round($porc_reserva_total/$nroservicios);
 
         $porc_conta_total=$porc_hotel_c+$porc_tour_c+$porc_movilid_c+$porc_represent_c+$porc_entr_c+$porc_food_c+$porc_train_c+$porc_flight_c+$porc_other;
-        $porc_conta_total=round($porc_conta_total/9);
+        $porc_conta_total=round($porc_conta_total/$nroservicios);
     @endphp
     <div class="row">
         <div class="col-lg-9">

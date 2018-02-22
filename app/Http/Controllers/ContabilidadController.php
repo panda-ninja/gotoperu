@@ -183,7 +183,6 @@ class ContabilidadController extends Controller
     public function show($id)
     {
         $cotizacion=Cotizacion::where('id', $id)->get();
-//        dd($cotizacion);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();

@@ -1,12 +1,12 @@
 @php
-    $arra_iconos['TOURS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
-    $arra_iconos['MOVILID']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
-    $arra_iconos['REPRESENT']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
-    $arra_iconos['ENTRANCES']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
-    $arra_iconos['FOOD']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
-    $arra_iconos['TRAINS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
-    $arra_iconos['FLIGHTS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
-    $arra_iconos['OTHERS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['TOURS']='<i class="fa fa-map-o text-info" aria-hidden="true"></i>';
+    $arra_iconos['MOVILID']='<i class="fa fa-bus text-warning" aria-hidden="true"></i>';
+    $arra_iconos['REPRESENT']='<i class="fa fa-users text-success" aria-hidden="true"></i>';
+    $arra_iconos['ENTRANCES']='<i class="fa fa-ticket text-warning" aria-hidden="true"></i>';
+    $arra_iconos['FOOD']='<i class="fa fa-cutlery text-danger" aria-hidden="true"></i>';
+    $arra_iconos['TRAINS']='<i class="fa fa-train text-info" aria-hidden="true"></i>';
+    $arra_iconos['FLIGHTS']='<i class="fa fa-plane text-primary" aria-hidden="true"></i>';
+    $arra_iconos['OTHERS']='<i class="fa fa-question text-success" aria-hidden="true"></i>';
     function fecha_letra($fecha){
         $fecha=explode('-',$fecha);
         $mes='';
@@ -216,7 +216,10 @@
                                     </tr>
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         <tr>
-                                            <td><b>{{ucwords(strtolower($servicios->nombre))}}</b></td>
+                                            <td>
+                                                {!! $arra_iconos[$servicios->servicio->grupo]!!}
+                                                <b>{{ucwords(strtolower($servicios->nombre))}}</b>
+                                            </td>
                                             @if($servicios->precio_grupo==1)
                                                 <td></td>
                                                 <td class="text-right"><b class="text-18">
