@@ -131,27 +131,35 @@
         $con_total=0;
 
         $hotel_confirm=0;
+        $hotel_confirm_r=0;
         $hotel_confirm_c=0;
         $hotel_total=0;
         $tour_confirm=0;
+        $tour_confirm_r=0;
         $tour_confirm_c=0;
         $tour_total=0;
         $movilid_confirm=0;
+        $movilid_confirm_r=0;
         $movilid_confirm_c=0;
         $movilid_total=0;
         $represent_confirm=0;
+        $represent_confirm_r=0;
         $represent_confirm_c=0;
         $represent_total=0;
         $entr_confirm=0;
+        $entr_confirm_r=0;
         $entr_confirm_c=0;
         $entr_total=0;
         $food_confirm=0;
+        $food_confirm_r=0;
         $food_confirm_c=0;
         $food_total=0;
         $train_confirm=0;
+        $train_confirm_r=0;
         $train_confirm_c=0;
         $train_total=0;
         $flight_confirm=0;
+        $flight_confirm_r=0;
         $flight_confirm_c=0;
         $flight_total=0;
         $other_confirm=0;
@@ -217,7 +225,7 @@
                 @endif
                 @if($hotel->proveedor_id>0 )
                     @php
-                        $hotel_confirm++;
+                        $hotel_confirm_r++;
                     @endphp
                 @endif
                 @if($hotel->precio_t_c>0 )
@@ -235,7 +243,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $tour_confirm++;
+                                $tour_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -268,7 +276,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $movilid_confirm++;
+                                $movilid_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -298,7 +306,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $represent_confirm++;
+                                $represent_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -328,7 +336,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $entr_confirm++;
+                                $entr_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -358,7 +366,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $food_confirm++;
+                                $food_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -388,7 +396,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $train_confirm++;
+                                $train_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -418,7 +426,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $flight_confirm++;
+                                $flight_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -448,7 +456,7 @@
                     @if($servicio->proveedor_id)
                         @if($servicio->proveedor_id>0)
                             @php
-                                $other_confirm++;
+                                $other_confirm_r++;
                             @endphp
                         @endif
                     @endif
@@ -701,6 +709,16 @@
     $porc_flight=0;
     $porc_other=0;
 
+    $porc_hotel_r=0;
+    $porc_tour_r=0;
+    $porc_movilid_r=0;
+    $porc_represent_r=0;
+    $porc_entr_r=0;
+    $porc_food_r=0;
+    $porc_train_r=0;
+    $porc_flight_r=0;
+    $porc_other_r=0;
+
     $porc_hotel_c=0;
     $porc_tour_c=0;
     $porc_movilid_c=0;
@@ -722,6 +740,17 @@
     @if($flight_p_coti_t>0)@php$porc_flight=round(($flight_p_coti_t/$total_coti)*100,2); @endphp @endif
     @if($other_p_coti_t>0)@php$porc_other=round(($other_p_coti_t/$total_coti)*100,2); @endphp @endif
 
+
+    @if($hotel_total>0)@php$porc_hotel_r=round(($hotel_confirm_r/$hotel_total)*100); @endphp @endif
+    @if($tour_total>0)@php$porc_tour_r=round(($tour_confirm_r/$tour_total)*100); @endphp @endif
+    @if($movilid_total>0)@php$porc_movilid_r=round(($movilid_confirm_r/$movilid_total)*100); @endphp @endif
+    @if($represent_total>0)@php$porc_represent_r=round(($represent_confirm_r/$represent_total)*100); @endphp @endif
+    @if($entr_total>0)@php$porc_entr_r=round(($entr_confirm_r/$entr_total)*100); @endphp @endif
+    @if($food_total>0)@php$porc_food_r=round(($food_confirm_r/$food_total)*100); @endphp @endif
+    @if($train_total>0)@php$porc_train_r=round(($train_confirm_r/$train_total)*100); @endphp @endif
+    @if($flight_total>0)@php$porc_flight_r=round(($flight_confirm_r/$flight_total)*100); @endphp @endif
+    @if($other_total>0)@php$porc_other_r=round(($other_confirm_r/$other_total)*100); @endphp @endif
+
     @if($hotel_total>0)@php$porc_hotel_c=round(($hotel_confirm_c/$hotel_total)*100); @endphp @endif
     @if($tour_total>0)@php$porc_tour_c=round(($tour_confirm_c/$tour_total)*100); @endphp @endif
     @if($movilid_total>0)@php$porc_movilid_c=round(($movilid_confirm_c/$movilid_total)*100); @endphp @endif
@@ -733,7 +762,7 @@
     @if($other_total>0)@php$porc_other_c=round(($other_confirm_c/$other_total)*100); @endphp @endif
 
     @php
-        $porc_reserva_total=$porc_hotel+$porc_tour+$porc_movilid+$porc_represent+$porc_entr+$porc_food+$porc_train+$porc_flight+$porc_other;
+        $porc_reserva_total=$porc_hotel_r+$porc_tour_r+$porc_movilid_r+$porc_represent_r+$porc_entr_r+$porc_food_r+$porc_train_r+$porc_flight_r+$porc_other_r;
         $porc_reserva_total=round($porc_reserva_total/9);
 
         $porc_conta_total=$porc_hotel_c+$porc_tour_c+$porc_movilid_c+$porc_represent_c+$porc_entr_c+$porc_food_c+$porc_train_c+$porc_flight_c+$porc_other;

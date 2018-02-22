@@ -1,4 +1,12 @@
 @php
+    $arra_iconos['TOURS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['MOVILID']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['REPRESENT']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['ENTRANCES']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['FOOD']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['TRAINS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['FLIGHTS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
+    $arra_iconos['OTHERS']='<i class="fa fa-map-o fa-3x" aria-hidden="true"></i>';
     function fecha_letra($fecha){
         $fecha=explode('-',$fecha);
         $mes='';
