@@ -20,7 +20,6 @@ class ReportesController extends Controller
     public function view($id)
     {
         $cotizacion = Cotizacion::FindOrFail($id);
-//        dd($cotizacion);
         return view('admin.reportes.view',['cotizacion'=>$cotizacion]);
     }
 

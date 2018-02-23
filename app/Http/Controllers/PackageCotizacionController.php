@@ -1824,8 +1824,11 @@ class PackageCotizacionController extends Controller
         $codigo=$request->input('code_'.$id);
         $servicio=ItinerarioServicios::FindOrFail($id);
         $servicio->codigo_verificacion=$codigo;
-        $servicio->save();
-        return redirect()->route('book_show_path',$coti_id);
+        if($servicio->save())
+            return 1;
+        else
+            return 0;
+//        return redirect()->route('book_show_path',$coti_id);
     }
     public function add_time(Request $request)
     {
@@ -1834,8 +1837,11 @@ class PackageCotizacionController extends Controller
         $codigo=$request->input('hora_'.$id);
         $servicio=ItinerarioServicios::FindOrFail($id);
         $servicio->hora_llegada=$codigo;
-        $servicio->save();
-        return redirect()->route('book_show_path',$coti_id);
+        if($servicio->save())
+            return 1;
+        else
+            return 0;
+//        return redirect()->route('book_show_path',$coti_id);
     }
     public function add_cod_hotel_verif(Request $request)
     {
@@ -1844,8 +1850,13 @@ class PackageCotizacionController extends Controller
         $codigo=$request->input('code_'.$id);
         $hotel=PrecioHotelReserva::FindOrFail($id);
         $hotel->codigo_verificacion=$codigo;
-        $hotel->save();
-        return redirect()->route('book_show_path',$coti_id);
+
+        if($hotel->save())
+            return 1;
+        else
+            return 0;
+//        return redirect()->route('book_show_path',$coti_id);
+
     }
     public function add_hora_hotel_verif(Request $request)
     {
@@ -1854,8 +1865,11 @@ class PackageCotizacionController extends Controller
         $codigo=$request->input('hora_'.$id);
         $hotel=PrecioHotelReserva::FindOrFail($id);
         $hotel->hora_llegada=$codigo;
-        $hotel->save();
-        return redirect()->route('book_show_path',$coti_id);
+        if($hotel->save())
+            return 1;
+        else
+            return 0;
+//        return redirect()->route('book_show_path',$coti_id);
     }
     public function clonar_plan(Request $request)
     {

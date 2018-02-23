@@ -3049,3 +3049,163 @@ function eliminar_hotel_pro(pos,id,hotel,loca) {
 
     })
 }
+function Enviar_codigo_reserva(id) {
+    $('#add_cod_verif_path_'+id).submit(function() {
+
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#btn_'+id).removeClass('btn-primary');
+                    $('#btn_'+id).addClass('btn-warning');
+                    $('#btn_'+id).html('<i class="fa fa-edit" aria-hidden="true"></i>');
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Codigo guardado correctamente',
+                        'success'
+                    )
+                }
+                else{
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Error al guardar el codigo',
+                        'warning'
+                    )
+                }
+            }
+        })
+        return false;
+    });
+}
+function Enviar_codigo_reserva_hotel(id) {
+    $('#add_cod_verif_hotel_path_'+id).submit(function() {
+
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#btn_h_'+id).removeClass('btn-primary');
+                    $('#btn_h_'+id).addClass('btn-warning');
+                    $('#btn_h_'+id).html('<i class="fa fa-edit" aria-hidden="true"></i>');
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Codigo guardada correctamente',
+                        'success'
+                    )
+                }
+                else{
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Error al guardar el codigo',
+                        'warning'
+                    )
+                }
+            }
+        })
+        return false;
+    });
+}
+function Enviar_hora_reserva(id) {
+    $('#add_time_path_'+id).submit(function() {
+
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#btn_hora_'+id).removeClass('btn-primary');
+                    $('#btn_hora_'+id).addClass('btn-warning');
+                    $('#btn_hora_'+id).html('<i class="fa fa-edit" aria-hidden="true"></i>');
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Hora guardada correctamente',
+                        'success'
+                    )
+                }
+                else{
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Error al guardar la hora',
+                        'warning'
+                    )
+                }
+            }
+        })
+        return false;
+    });
+}
+function Enviar_hora_reserva_hotel(id) {
+    $('#add_hora_hotel_path_'+id).submit(function() {
+
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#btn_hora_h_'+id).removeClass('btn-primary');
+                    $('#btn_hora_h_'+id).addClass('btn-warning');
+                    $('#btn_hora_h_'+id).html('<i class="fa fa-edit" aria-hidden="true"></i>');
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Hora guardado correctamente',
+                        'success'
+                    )
+                }
+                else{
+                    swal(
+                        'MENSAJE DEL SISTEMA',
+                        'Error al guardar la hora',
+                        'warning'
+                    )
+                }
+            }
+        })
+        return false;
+    });
+}
+var dato_producto_id=0;
+function Guardar_proveedor(id) {
+    $('#asignar_proveedor_path_'+id).submit(function() {
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            asi
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#rpt_book_proveedor_'+id).html('Proveedor asignado correctamente!');
+                    $('#book_precio_asig_'+id).html($('#book_price_'+dato_producto_id).val()+' $');
+                    $('#book_proveedor_'+id).html($('#proveedor_servicio_'+dato_producto_id).html());
+                    $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                }
+                else{
+                    $('#rpt_book_proveedor_'+id).removeClass('text-success');
+                    $('#rpt_book_proveedor_'+id).addClass('text-danger');
+                    $('#rpt_book_proveedor_'+id).html('Error al asignar al proveedor!');
+                }
+            }
+        })
+        return false;
+    });
+}
+
+function dato_producto(valor){
+    dato_producto_id=valor;
+    console.log('valor:'+valor);
+}

@@ -140,8 +140,13 @@ class BookController extends Controller
         $itinerario1->precio_proveedor=$dato[3];
         $itinerario1->proveedor_id=$dato[2];
         $itinerario1->proveedor_id_nuevo=$itinerario_serv_pro->id;
-        $itinerario1->save();
-        return redirect()->route('book_show_path',$dato[0]);
+
+        if($itinerario1->save())
+            return 1;
+        else
+            return 0;
+
+//        return redirect()->route('book_show_path',$dato[0]);
 
 //        $cotizacion=Cotizacion::FindOrFail($dato[0]);
 //        $productos=M_Producto::get();
