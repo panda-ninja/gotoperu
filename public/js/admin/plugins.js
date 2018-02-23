@@ -27971,7 +27971,6 @@ function Guardar_proveedor(id) {
             type: 'POST',
             url: $(this).attr('action'),
             data: $(this).serialize(),
-            asi
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 if(data==1){
