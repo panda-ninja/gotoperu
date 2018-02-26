@@ -106,25 +106,15 @@ class BookController extends Controller
     }
     function asignar_proveedor(Request $request){
         $dat=$request->input('precio')[0];
-//        dd($dat);
         $dato=explode('_',$dat);
-//        dd($dato);
         $itinerario=ItinerarioServicios::FindOrFail($dato[1]);
-
         $proveedor=Proveedor::FindOrFail($dato[2]);
-//dd($proveedor);
         $itinerario_serv_pro=new ItinerarioServicioProveedor();
         $itinerario_serv_pro->codigo=$proveedor->codigo;
         $itinerario_serv_pro->grupo=$proveedor->grupo;
         $itinerario_serv_pro->localizacion=$proveedor->localizacion;
-//        $itinerario_serv_pro->tipo_producto=$proveedor->;
         $itinerario_serv_pro->nombre=$itinerario->nombre;
-//        $itinerario_serv_pro->descripcion=$proveedor->localizacion;
-//        $itinerario_serv_pro->precio_costo=$proveedor->localizacion;
-//        $itinerario_serv_pro->precio_venta=$proveedor->localizacion;
-//        $itinerario_serv_pro->proveedor_codigo=$proveedor->localizacion;
         $itinerario_serv_pro->proveedor_razon_social=$proveedor->razon_social;
-//        $itinerario_serv_pro->categoria=$proveedor->localizacion;
         $itinerario_serv_pro->ruc=$proveedor->ruc;
         $itinerario_serv_pro->razon_social=$proveedor->razon_social;
         $itinerario_serv_pro->direccion=$proveedor->direccion;
@@ -164,13 +154,17 @@ class BookController extends Controller
         $hotel_reservado->precio_m_r=$hotel_proveedor->matrimonial;
         $hotel_reservado->precio_t_r=$hotel_proveedor->triple;
         $hotel_reservado->proveedor_id=$dato[2];
-        $hotel_reservado->save();
-        $cotizacion=Cotizacion::FindOrFail($dato[0]);
-        $productos=M_Producto::get();
-        $proveedores=Proveedor::get();
-        $hotel_proveedor=HotelProveedor::get();
-        $m_servicios=M_Servicio::get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
+        if($hotel_reservado->save())
+            return 1;
+        else
+            return 0;
+
+//        $cotizacion=Cotizacion::FindOrFail($dato[0]);
+//        $productos=M_Producto::get();
+//        $proveedores=Proveedor::get();
+//        $hotel_proveedor=HotelProveedor::get();
+//        $m_servicios=M_Servicio::get();
+//        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
     }
     public function confirmar(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');

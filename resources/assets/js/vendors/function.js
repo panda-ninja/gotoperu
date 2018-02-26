@@ -3179,18 +3179,22 @@ function Enviar_hora_reserva_hotel(id) {
 }
 var dato_producto_id=0;
 function Guardar_proveedor(id) {
-    $('#asignar_proveedor_path_'+id).submit(function() {
+    // $('#asignar_proveedor_path_'+id).submit(function() {
         // Enviamos el formulario usando AJAX
+    var prove='';
         $.ajax({
             type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
+            url: $('#asignar_proveedor_path_'+id).attr('action'),
+            data: $('#asignar_proveedor_path_'+id).serialize(),
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 if(data==1){
                     $('#rpt_book_proveedor_'+id).html('Proveedor asignado correctamente!');
                     $('#book_precio_asig_'+id).html($('#book_price_'+dato_producto_id).val()+' $');
-                    $('#book_proveedor_'+id).html($('#proveedor_servicio_'+dato_producto_id).html());
+                    prove=$('#proveedor_servicio_'+dato_producto_id).val();
+                    $('#boton_prove_'+id).fadeOut();
+                    $('#book_proveedor_'+id).html(prove);
+                    $('#book_proveedor_'+id).fadeIn();
                     $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
                 }
                 else{
@@ -3201,10 +3205,48 @@ function Guardar_proveedor(id) {
             }
         })
         return false;
-    });
+    // });
 }
 
 function dato_producto(valor){
     dato_producto_id=valor;
+    console.log('valor:'+valor);
+}
+
+
+var dato_producto_hotel_id=0;
+function Guardar_proveedor_hotel(id) {
+    // $('#asignar_proveedor_path_'+id).submit(function() {
+    // Enviamos el formulario usando AJAX
+    var prove='';
+    $.ajax({
+        type: 'POST',
+        url: $('#asignar_proveedor_hotel_path_'+id).attr('action'),
+        data: $('#asignar_proveedor_hotel_path_'+id).serialize(),
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            if(data==1){
+                $('#rpt_book_proveedor_hotel_'+id).html('Proveedor asignado correctamente!');
+                $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html()+' $');
+                prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
+                $('#boton_prove_hotel_'+id).fadeOut();
+                $('#book_proveedor_hotel_'+id).html(prove);
+
+                $('#book_proveedor_hotel_'+id).fadeIn();
+                $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+            }
+            else{
+                $('#rpt_book_proveedor_hotel_'+id).removeClass('text-success');
+                $('#rpt_book_proveedor_hotel_'+id).addClass('text-danger');
+                $('#rpt_book_proveedor_hotel_'+id).html('Error al asignar al proveedor!');
+            }
+        }
+    })
+    return false;
+    // });
+}
+
+function dato_producto_hotel(valor){
+    dato_producto_hotel_id=valor;
     console.log('valor:'+valor);
 }

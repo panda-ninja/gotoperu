@@ -351,3 +351,6 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   width: 100%;
   height: 20px;
 }
+.tb > tbody >tr >td{
+  padding: 0px !important;
+}
