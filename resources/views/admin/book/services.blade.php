@@ -348,7 +348,7 @@
                                                                                         @endif
                                                                                         @if(($servicios->precio*$valor) < $producto->precio_costo)
                                                                                             <div class="col-md-6">
-                                                                                                <div class="checkbox11 caja_dia">
+                                                                                                <div class="checkbox11 text-left bg-info">
                                                                                                     <label class="text-danger">
                                                                                                         <p class="text-primary" >{{$producto->proveedor->razon_social}}</p>
                                                                                                         <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">
@@ -366,7 +366,7 @@
                                                                                             </div>
                                                                                         @else
                                                                                             <div class="col-md-6">
-                                                                                                <div class="checkbox11 caja_dia">
+                                                                                                <div class="checkbox11 text-left bg-info">
                                                                                                     <label class="text-green-goto">
                                                                                                         <p class="text-primary">{{$producto->proveedor->razon_social}}</p>
                                                                                                         <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">
