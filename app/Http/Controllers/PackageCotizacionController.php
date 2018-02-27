@@ -6,6 +6,7 @@ use App\Cliente;
 use App\Cotizacion;
 use App\CotizacionesCliente;
 use App\Hotel;
+use App\HotelProveedor;
 use App\ItinerarioCotizaciones;
 use App\ItinerarioDestinos;
 use App\ItinerarioServicios;
@@ -1088,45 +1089,43 @@ class PackageCotizacionController extends Controller
         $pos=1;
         $paquetePrecio=PaquetePrecio::FindOrFail($paquete_precio_id);
         foreach ($itinerario_cotizaciones as $itinerario_cotizacion) {
+            $arra_destinos=array();
+            foreach ($itinerario_cotizacion->itinerario_destinos as $iti_destino){
+                $arra_destinos[]=$iti_destino->destino;
+            }
             if ($pos < $nroDias){
-                $preio_hotel = new PrecioHotelReserva();
-                $preio_hotel->estrellas = $estrela;
-                $preio_hotel->precio_s = $paquetePrecio->precio_s;
-                $preio_hotel->personas_s = $paquetePrecio->personas_s;
-                $preio_hotel->precio_d = $paquetePrecio->precio_d;
-                $preio_hotel->personas_d = $paquetePrecio->personas_d;
-                $preio_hotel->precio_m = $paquetePrecio->precio_m;
-                $preio_hotel->personas_m = $paquetePrecio->personas_m;
-                $preio_hotel->precio_t = $paquetePrecio->precio_t;
-                $preio_hotel->personas_t = $paquetePrecio->personas_t;
-                $preio_hotel->utilidad = $paquetePrecio->utilidad;
-                $preio_hotel->estado = $paquetePrecio->estado;
-                $preio_hotel->hotel_id = $paquetePrecio->hotel_id;
-                $preio_hotel->itinerario_cotizaciones_id = $itinerario_cotizacion->id;
-                $preio_hotel->utilidad_s=$paquetePrecio->utilidad_s;
-                $preio_hotel->utilidad_d=$paquetePrecio->utilidad_d;
-                $preio_hotel->utilidad_m=$paquetePrecio->utilidad_m;
-                $preio_hotel->utilidad_t=$paquetePrecio->utilidad_t;
-
-                $preio_hotel->utilidad_por_s=$paquetePrecio->utilidad_por_s;
-                $preio_hotel->utilidad_por_d=$paquetePrecio->utilidad_por_d;
-                $preio_hotel->utilidad_por_m=$paquetePrecio->utilidad_por_m;
-                $preio_hotel->utilidad_por_t=$paquetePrecio->utilidad_por_t;
-                $preio_hotel->save();
+                $hotelesxdestinoes=Hotel::where('estrellas',$estrela)->whereIn('localizacion',$arra_destinos)->get();
+                foreach ($hotelesxdestinoes as $hotelxdestinos){
+                    $preio_hotel = new PrecioHotelReserva();
+                    $preio_hotel->estrellas = $estrela;
+                    $preio_hotel->precio_s = $hotelxdestinos->single;
+                    $preio_hotel->personas_s = $paquetePrecio->personas_s;
+                    $preio_hotel->precio_d = $hotelxdestinos->doble;
+                    $preio_hotel->personas_d = $paquetePrecio->personas_d;
+                    $preio_hotel->precio_m = $hotelxdestinos->matrimonial;
+                    $preio_hotel->personas_m = $paquetePrecio->personas_m;
+                    $preio_hotel->precio_t = $hotelxdestinos->triple;
+                    $preio_hotel->personas_t = $paquetePrecio->personas_t;
+                    $preio_hotel->utilidad = $paquetePrecio->utilidad;
+                    $preio_hotel->estado = $hotelxdestinos->estado;
+                    $preio_hotel->hotel_id = $hotelxdestinos->id;
+                    $preio_hotel->itinerario_cotizaciones_id = $itinerario_cotizacion->id;
+                    $preio_hotel->utilidad_s=$paquetePrecio->utilidad_s;
+                    $preio_hotel->utilidad_d=$paquetePrecio->utilidad_d;
+                    $preio_hotel->utilidad_m=$paquetePrecio->utilidad_m;
+                    $preio_hotel->utilidad_t=$paquetePrecio->utilidad_t;
+                    $preio_hotel->utilidad_por_s=$paquetePrecio->utilidad_por_s;
+                    $preio_hotel->utilidad_por_d=$paquetePrecio->utilidad_por_d;
+                    $preio_hotel->utilidad_por_m=$paquetePrecio->utilidad_por_m;
+                    $preio_hotel->utilidad_por_t=$paquetePrecio->utilidad_por_t;
+                    $preio_hotel->localizacion=$hotelxdestinos->localizacion;
+                    $preio_hotel->save();
+                }
                 $pos++;
             }
         }
 
-//        $cliente=Cliente::FindOrFail($cliente_id);
-//        $destinos=$request->input('txt_destinos1');
-//        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-//
-//        $p_paquete=P_Paquete::where('duracion',$request->input('txt_day1'))->get();
-//        dd($p_paquete);
-//        $m_servicios=M_Servicio::get();
-//        $imprimir=$request->input('imprimir');
-//        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
-        return redirect()->route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete->id]);
+     return redirect()->route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete->id]);
     }
     public function nuevo_paquete_(Request $request)
     {
@@ -1484,44 +1483,44 @@ class PackageCotizacionController extends Controller
 //        }
 //        dd($valo);
             foreach ($itinerario_cotizaciones as $iti_coti) {
+                $arra_destinos=[];
+                foreach ($iti_coti->itinerario_destinos as $iti_destino){
+                    $arra_destinos[]=$iti_destino->destino;
+                }
             if ($pos < $nroDias){
-                $preio_hotel = new PrecioHotelReserva();
-                $preio_hotel->estrellas = $estrela;
-                $preio_hotel->precio_s = $paquetePrecio->precio_s;
-                $preio_hotel->personas_s = $paquetePrecio->personas_s;
-                $preio_hotel->precio_d = $paquetePrecio->precio_d;
-                $preio_hotel->personas_d = $paquetePrecio->personas_d;
-                $preio_hotel->precio_m = $paquetePrecio->precio_m;
-                $preio_hotel->personas_m = $paquetePrecio->personas_m;
-                $preio_hotel->precio_t = $paquetePrecio->precio_t;
-                $preio_hotel->personas_t = $paquetePrecio->personas_t;
-                $preio_hotel->utilidad = $paquetePrecio->utilidad;
-                $preio_hotel->estado = $paquetePrecio->estado;
-                $preio_hotel->hotel_id = $paquetePrecio->hotel_id;
-                $preio_hotel->utilidad_s=$paquetePrecio->utilidad_s;
-                $preio_hotel->utilidad_d=$paquetePrecio->utilidad_d;
-                $preio_hotel->utilidad_m=$paquetePrecio->utilidad_m;
-                $preio_hotel->utilidad_t=$paquetePrecio->utilidad_t;
-                $preio_hotel->utilidad_por_s=$paquetePrecio->utilidad_por_s;
-                $preio_hotel->utilidad_por_d=$paquetePrecio->utilidad_por_d;
-                $preio_hotel->utilidad_por_m=$paquetePrecio->utilidad_por_m;
-                $preio_hotel->utilidad_por_t=$paquetePrecio->utilidad_por_t;
-//                $preio_hotel->itinerario_cotizaciones_id=19;
-                $preio_hotel->itinerario_cotizaciones_id=intval($iti_coti->id);
+                $hotelesxdestinoes=Hotel::where('estrellas',$estrela)->whereIn('localizacion',$arra_destinos)->get();
+                foreach ($hotelesxdestinoes as $hotelxdestinos){
+                    $preio_hotel = new PrecioHotelReserva();
+                    $preio_hotel->estrellas = $estrela;
+                    $preio_hotel->precio_s = $hotelxdestinos->single;
+                    $preio_hotel->personas_s = $paquetePrecio->personas_s;
+                    $preio_hotel->precio_d = $hotelxdestinos->doble;
+                    $preio_hotel->personas_d = $paquetePrecio->personas_d;
+                    $preio_hotel->precio_m = $hotelxdestinos->matrimonial;
+                    $preio_hotel->personas_m = $paquetePrecio->personas_m;
+                    $preio_hotel->precio_t = $hotelxdestinos->triple;
+                    $preio_hotel->personas_t = $paquetePrecio->personas_t;
+                    $preio_hotel->utilidad = $paquetePrecio->utilidad;
+                    $preio_hotel->estado = $hotelxdestinos->estado;
+                    $preio_hotel->hotel_id = $hotelxdestinos->id;
+                    $preio_hotel->itinerario_cotizaciones_id = $iti_coti->id;
+                    $preio_hotel->utilidad_s=$paquetePrecio->utilidad_s;
+                    $preio_hotel->utilidad_d=$paquetePrecio->utilidad_d;
+                    $preio_hotel->utilidad_m=$paquetePrecio->utilidad_m;
+                    $preio_hotel->utilidad_t=$paquetePrecio->utilidad_t;
+                    $preio_hotel->utilidad_por_s=$paquetePrecio->utilidad_por_s;
+                    $preio_hotel->utilidad_por_d=$paquetePrecio->utilidad_por_d;
+                    $preio_hotel->utilidad_por_m=$paquetePrecio->utilidad_por_m;
+                    $preio_hotel->utilidad_por_t=$paquetePrecio->utilidad_por_t;
+                    $preio_hotel->localizacion=$hotelxdestinos->localizacion;
+                    $preio_hotel->save();
+                }
 
-                $preio_hotel->save();
-//                dd($preio_hotel->itinerario_cotizaciones_id);
                 $pos++;
             }
         }
 
-//        $cliente=Cliente::FindOrFail($cliente_id);
-//        $destinos=$request->input('txt_destinos1_');
-//        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-//
-//        $m_servicios=M_Servicio::get();
-//        return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,'destinos'=>$destinos,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$paquete->id]);
-            return redirect()->route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete->id]);
+        return redirect()->route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete->id]);
     }
     public function editar_cotizacion1(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');

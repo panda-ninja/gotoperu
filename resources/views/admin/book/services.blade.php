@@ -116,7 +116,7 @@
                             <input type="hidden" id="nro_servicios_total" value="{{$nro_servicios_total}}">
 
                             <div class="progress">
-                                <div id="barra_porc" class="progress-bar {{$colo_progres}}" role="progressbar" aria-valuenow="{{$porc_avance}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porc_avance}}%;min-width: 2em;">
+                                <div id="barra_porc" class="progress-bar {{$colo_progres}} progress-bar-striped active" role="progressbar" aria-valuenow="{{$porc_avance}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porc_avance}}%;min-width: 2em;">
                                     {{$porc_avance}}%
                                 </div>
                             </div>
@@ -503,6 +503,9 @@
                                                 <b>{{$hotel->estrellas}} <i class="fa fa-star text-warning" aria-hidden="true"></i></b>
                                             </td>
                                             <td>
+                                                <b class="text-13">Hotel</b>
+                                                <span class="text-10 text-warning">({{$hotel->localizacion}})</span>
+                                                <br>
                                                 {{--{{$hotel->id}}--}}
                                                 @php
                                                     $total=0;
@@ -566,7 +569,7 @@
                                                     <span class="margin-bottom-5"><b>{{$hotel->personas_t}}</b> <span class="stick"><i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i></span></span>
                                                 @endif
                                             </td>
-                                            <td class="rights">
+                                            <td class="rights"><br>
                                                 {!! $cadena_total !!}
                                                 <p class="hide"><i class="fa fa-users" aria-hidden="true"></i> {{$total}}
                                                     <a id="hpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
@@ -576,7 +579,7 @@
                                             @php
                                                 $sumatotal_v_r+=$total_book
                                             @endphp
-                                            <td id="book_precio_asig_hotel_{{$hotel->id}}"  class="rights">
+                                            <td id="book_precio_asig_hotel_{{$hotel->id}}"  class="rights"><br>
                                                 {!! $cadena_total_book !!}
                                                 <p class="hide"> {{$total_book}}
                                                     <a id="h_rpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total_book}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>

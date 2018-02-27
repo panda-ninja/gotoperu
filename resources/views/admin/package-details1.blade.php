@@ -305,7 +305,8 @@
                                     <div id="caja_detalle_{{$hotel->id}}" class="row caja_detalle_hotel margin-bottom-15">
                                     <div class="col-lg-7">
                                             <div class="row">
-                                                <div class="col-lg-10">HOTEL</div>
+                                                <div class="col-lg-10 text-12">HOTEL | <span class="text-11">{{strtoupper($hotel->estrellas) }}STARS</span> | <span class="text-11">{{$hotel->localizacion}}</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-1 @if($hotel->personas_s==0) hide @endif">${{round(explode('.00',$hotel->precio_s)[0],2)}}</div>
