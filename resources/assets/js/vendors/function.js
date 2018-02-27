@@ -3177,6 +3177,38 @@ function Enviar_hora_reserva_hotel(id) {
         return false;
     });
 }
+function mostrar_barra_avance(){
+
+
+
+    var $nro_servicios_reservados=$('#nro_servicios_reservados').val();
+    var $nro_servicios_total=$('#nro_servicios_total').val();
+
+    var $porc_avance=parseFloat(parseInt($nro_servicios_reservados)/parseInt($nro_servicios_total)).toFixed(2);
+    var $porc_avance=$porc_avance*100;
+    var $colo_progres='progress-bar-danger';
+    if(25<$porc_avance&&$porc_avance<=50)
+        $colo_progres='progress-bar-warning';
+
+    if(50<$porc_avance&&$porc_avance<=75)
+        $colo_progres='progress-bar-info';
+
+    if(50<$porc_avance&&$porc_avance<=100)
+        $colo_progres='progress-bar-success';
+
+    $('#barra_porc').removeClass('progress-bar-danger');
+    $('#barra_porc').removeClass('progress-bar-warning');
+    $('#barra_porc').removeClass('progress-bar-info');
+    $('#barra_porc').removeClass('progress-bar-success');
+
+    console.log('nro_servicios_reservados:'+$nro_servicios_reservados+'-'+'nro_servicios_total:'+$nro_servicios_total);
+    console.log('$colo_progres:'+$colo_progres+'-'+'porc_avance:'+$porc_avance);
+
+    $('#barra_porc').addClass($colo_progres);
+    $('#barra_porc').attr('aria-valuenow', $porc_avance).css('width',$porc_avance+'%');
+    $('#barra_porc').html($porc_avance+'%');
+
+}
 var dato_producto_id=0;
 function Guardar_proveedor(id) {
     // $('#asignar_proveedor_path_'+id).submit(function() {
@@ -3196,6 +3228,8 @@ function Guardar_proveedor(id) {
                     $('#book_proveedor_'+id).html(prove);
                     $('#book_proveedor_'+id).fadeIn();
                     $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                    $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                    mostrar_barra_avance();
                 }
                 else{
                     $('#rpt_book_proveedor_'+id).removeClass('text-success');
@@ -3231,9 +3265,11 @@ function Guardar_proveedor_hotel(id) {
                 prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
                 $('#boton_prove_hotel_'+id).fadeOut();
                 $('#book_proveedor_hotel_'+id).html(prove);
-
                 $('#book_proveedor_hotel_'+id).fadeIn();
                 $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+
+                $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                mostrar_barra_avance();
             }
             else{
                 $('#rpt_book_proveedor_hotel_'+id).removeClass('text-success');

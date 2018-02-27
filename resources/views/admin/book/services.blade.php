@@ -112,8 +112,11 @@
 
                         @endphp
                         <div class="col-md-12 margin-top-10">
+                            <input type="hidden" id="nro_servicios_reservados" value="{{$nro_servicios_reservados}}">
+                            <input type="hidden" id="nro_servicios_total" value="{{$nro_servicios_total}}">
+
                             <div class="progress">
-                                <div class="progress-bar {{$colo_progres}}" role="progressbar" aria-valuenow="{{$porc_avance}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porc_avance}}%;min-width: 2em;">
+                                <div id="barra_porc" class="progress-bar {{$colo_progres}}" role="progressbar" aria-valuenow="{{$porc_avance}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porc_avance}}%;min-width: 2em;">
                                     {{$porc_avance}}%
                                 </div>
                             </div>
@@ -142,7 +145,7 @@
                                 <th width="120px">Book Price</th>
                                 <th>Provider</th>
                                 <th>Verification Code</th>
-                                <th width="119px">Hora</th>
+                                <th width="100px">Hora</th>
                                 <th class="hide">S/P</th>
                                 <th></th>
                             </tr>
@@ -169,8 +172,8 @@
                                     @endforeach
                                     <tr>
                                         {{--<td rowspan="{{$nro_servicios}}"><b class="text-primary">Day {{$itinerario->dias}}</b></td>--}}
-                                        <td colspan="2"><b class="text-primary">Day {{$itinerario->dias}}: {{date("d/m/Y",strtotime($itinerario->fecha))}}</b></td>
-                                        <td colspan="6"></td>
+                                        <td class="text-primary text-center" colspan="8"><b>Day {{$itinerario->dias}}: {{date("d/m/Y",strtotime($itinerario->fecha))}}</b></td>
+
                                     </tr>
 
                                     @foreach($itinerario->itinerario_servicios as $servicios)
@@ -213,12 +216,12 @@
                                                     <i class="fa fa-question fa-text-success" aria-hidden="true"></i>
                                                 @endif
                                             </td>
-                                            <td>
-                                                <span class="text-12"><b>{{$servicios->nombre}}</b></span><br>
+                                            <td  class="lefts">
+                                                <span class="text-11"><b>{{$servicios->nombre}}</b></span><br>
                                                 <span class="text-10 text-warning">({{$destino}})</span>
                                                 <span class="text-10 text-primary">{{$tipoServicio}}</span>
                                             </td>
-                                            <td class="text-right">
+                                            <td  class="rights">
                                                 @php
                                                     $mate='';
                                                 @endphp
@@ -263,10 +266,12 @@
                                                 {{--</p>--}}
                                             </td>
                                             {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
-                                            <td class="text-right" id="book_precio_asig_{{$servicios->id}}">
-                                                {{$servicios->precio_proveedor}} $
+                                            <td class="rights" id="book_precio_asig_{{$servicios->id}}">
+                                                @if($servicios->precio_proveedor)
+                                                    {{$servicios->precio_proveedor}} $
+                                                @endif
                                             </td>
-                                            <td>
+                                            <td class="boton">
                                                 <b class="text-11" id="book_proveedor_{{$servicios->id}}">
                                                     @if($servicios->itinerario_proveedor)
                                                         {{$servicios->itinerario_proveedor->razon_social}}
@@ -396,7 +401,7 @@
                                                     </div>
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td class="boton">
                                                 @php
                                                     $codigo='primary';
                                                     $icon='save';
@@ -439,7 +444,7 @@
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td>
+                                            <td class="boton">
                                                 <form id="add_time_path_{{$servicios->id}}" class="{{$mostrar}} form-inline" action="{{route('add_time_path')}}" method="post">
                                                     <div class="row">
                                                         {{csrf_field()}}
@@ -482,7 +487,7 @@
                                                     @endif
                                                 @endif
                                             </td>
-                                            <td id="estado_proveedor_serv_{{$servicios->id}}">
+                                            <td class="boton" id="estado_proveedor_serv_{{$servicios->id}}">
                                                 @if($servicios->itinerario_proveedor)
                                                         <i class="fa fa-check fa-2x text-success"></i>
                                                 @else
@@ -510,7 +515,9 @@
                                                         $total+=$hotel->personas_s*$hotel->precio_s;
                                                         $total_book+=$hotel->personas_s*$hotel->precio_s_r;
                                                         $cadena_total.="<span>".$hotel->personas_s." x ".$hotel->precio_s." =".($hotel->personas_s*$hotel->precio_s*1)."$</span><br>";
-                                                        $cadena_total_book.="<span>".$hotel->personas_s." x ".$hotel->precio_s_r." =".($hotel->personas_s*$hotel->precio_s_r*1)."$</span><br>";
+                                                        if($hotel->precio_s_r)
+                                                            $cadena_total_book.="<span>".$hotel->personas_s." x ".$hotel->precio_s_r." =".($hotel->personas_s*$hotel->precio_s_r*1)."$</span><br>";
+
                                                         $sumatotal_v+=$hotel->personas_s*$hotel->precio_s;
 {{--                                                        $sumatotal_v_r+=$hotel->personas_s*$hotel->precio_s_r;--}}
                                                     @endphp
@@ -522,7 +529,9 @@
                                                         $total+=$hotel->personas_d*$hotel->precio_d;
                                                         $total_book+=$hotel->personas_d*$hotel->precio_d_r;
                                                         $cadena_total.="<span>".$hotel->personas_d." x ".($hotel->precio_d)." =".($hotel->personas_d*$hotel->precio_d)."$</span><br>";
+                                                        if($hotel->precio_d_r)
                                                         $cadena_total_book.="<span>".$hotel->personas_d." x ".($hotel->precio_d_r)." =".($hotel->personas_d*$hotel->precio_d_r)."$</span><br>";
+
                                                         $sumatotal_v+=$hotel->personas_d*$hotel->precio_d;
 {{--                                                        $sumatotal_v_r+=$hotel->personas_d*$hotel->precio_d_r;--}}
                                                     @endphp
@@ -534,7 +543,9 @@
                                                         $total+=$hotel->personas_m*$hotel->precio_m;
                                                         $total_book+=$hotel->personas_m*$hotel->precio_m_r;
                                                         $cadena_total.="<p>".$hotel->personas_m." x ".($hotel->precio_m)." =".($hotel->personas_m*$hotel->precio_m)."$</p><br>";
+                                                        if($hotel->precio_m_r)
                                                         $cadena_total_book.="<p>".$hotel->personas_m." x ".($hotel->precio_m_r)." =".($hotel->personas_m*$hotel->precio_m_r)."$</p><br>";
+
                                                         $sumatotal_v+=$hotel->personas_m*$hotel->precio_m;
 {{--                                                        $sumatotal_v_r+=$hotel->personas_m*$hotel->precio_m_r;--}}
                                                     @endphp
@@ -546,14 +557,16 @@
                                                         $total+=$hotel->personas_t*$hotel->precio_t;
                                                         $total_book+=$hotel->personas_t*$hotel->precio_t_r;
                                                         $cadena_total.="<span>".$hotel->personas_t." x ".($hotel->precio_t)." =".($hotel->personas_t*$hotel->precio_t)."$</span><br>";
+                                                        if($hotel->precio_t_r)
                                                         $cadena_total_book.="<span>".$hotel->personas_t." x ".($hotel->precio_t_r)." =".($hotel->personas_t*$hotel->precio_t_r)."$</span><br>";
+
                                                         $sumatotal_v+=$hotel->personas_t*$hotel->precio_t;
 {{--                                                        $sumatotal_v_r+=$hotel->personas_t*$hotel->precio_t_r;--}}
                                                     @endphp
                                                     <span class="margin-bottom-5"><b>{{$hotel->personas_t}}</b> <span class="stick"><i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i></span></span>
                                                 @endif
                                             </td>
-                                            <td class="text-right">
+                                            <td class="rights">
                                                 {!! $cadena_total !!}
                                                 <p class="hide"><i class="fa fa-users" aria-hidden="true"></i> {{$total}}
                                                     <a id="hpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
@@ -563,13 +576,13 @@
                                             @php
                                                 $sumatotal_v_r+=$total_book
                                             @endphp
-                                            <td id="book_precio_asig_hotel_{{$hotel->id}}"  class="text-right">
+                                            <td id="book_precio_asig_hotel_{{$hotel->id}}"  class="rights">
                                                 {!! $cadena_total_book !!}
                                                 <p class="hide"> {{$total_book}}
                                                     <a id="h_rpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total_book}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
                                                 </p>
                                             </td>
-                                            <td>
+                                            <td class="boton">
                                                 <b class="text-11" id="book_proveedor_hotel_{{$hotel->id}}">
                                                     @if($hotel->proveedor)
                                                         {{$hotel->proveedor->razon_social}}
@@ -648,7 +661,7 @@
                                                     </div>
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td class="boton">
                                                 @php
                                                     $codigo_ho='primary';
                                                     $icon_ho='save';
@@ -683,7 +696,7 @@
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td>
+                                            <td class="boton">
                                                 <form id="add_hora_hotel_path" class="form-inline" action="{{route('add_hora_hotel_path')}}" method="post">
                                                     <div class="row">
                                                         {{csrf_field()}}
@@ -700,7 +713,7 @@
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td id="estado_proveedor_serv_hotel_{{$hotel->id}}">
+                                            <td class="boton" id="estado_proveedor_serv_hotel_{{$hotel->id}}">
                                                 @if($hotel->proveedor)
                                                     <i class="fa fa-check fa-2x text-success"></i>
                                                 @else
