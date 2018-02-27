@@ -697,7 +697,7 @@
                                                 </form>
                                             </td>
                                             <td class="boton">
-                                                <form id="add_hora_hotel_path" class="form-inline" action="{{route('add_hora_hotel_path')}}" method="post">
+                                                <form id="add_hora_hotel_path_{{$hotel->id}}" class="form-inline" action="{{route('add_hora_hotel_path')}}" method="post">
                                                     <div class="row">
                                                         {{csrf_field()}}
                                                         <input type="hidden" name="id" value="{{$hotel->id}}">

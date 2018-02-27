@@ -222,7 +222,7 @@
                                                             <label for="txt_type">Type</label>
                                                             <select class="form-control" id="txt_type_0" name="txt_type_{{$pos0}}">
                                                                 <option value="AUTO">AUTO</option>
-                                                                <option value="SUBARU">SUBARU</option>
+                                                                <option value="SUV">SUV</option>
                                                                 <option value="VAN">VAN</option>
                                                                 <option value="H1">H1</option>
                                                                 <option value="SPRINTER">SPRINTER</option>
@@ -634,7 +634,7 @@
                                                                 @if($producto->grupo=='MOVILID')
                                                                     <select class="form-control" id="txt_type_0" name="txt_type_0">
                                                                         <option value="AUTO" @if($producto->tipo_producto=='AUTO') {{'selected'}} @endif>AUTO</option>
-                                                                        <option value="SUBARU" @if($producto->tipo_producto=='SUBARU') {{'selected'}} @endif>SUBARU</option>
+                                                                        <option value="SUV" @if($producto->tipo_producto=='SUV') {{'selected'}} @endif>SUV</option>
                                                                         <option value="VAN" @if($producto->tipo_producto=='VAN') {{'selected'}} @endif>VAN</option>
                                                                         <option value="H1" @if($producto->tipo_producto=='H1') {{'selected'}} @endif>H1</option>
                                                                         <option value="SPRINTER" @if($producto->tipo_producto=='SPRINTER') {{'selected'}} @endif>SPRINTER</option>
