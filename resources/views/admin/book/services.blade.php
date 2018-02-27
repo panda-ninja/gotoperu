@@ -144,7 +144,7 @@
                                 {{--<th>Math Price</th>--}}
                                 <th width="120px">Book Price</th>
                                 <th>Provider</th>
-                                <th>Verification Code</th>
+                                <th width="130px">Verification Code</th>
                                 <th width="100px">Hora</th>
                                 <th class="hide">S/P</th>
                                 <th></th>
