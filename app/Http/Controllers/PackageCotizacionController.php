@@ -1045,6 +1045,8 @@ class PackageCotizacionController extends Controller
                 $p_servicio->precio_c=0;
 //                $p_servicio->user_id=1;
                 $p_servicio->estado=1;
+                $p_servicio->salida=$servicios->itinerario_servicios_servicio->salida;
+                $p_servicio->llegada=$servicios->itinerario_servicios_servicio->llegada;
                 $p_servicio->m_servicios_id=$servicios->m_servicios_id;
                 $p_servicio->save();
                 if($servicios->itinerario_servicios_servicio->precio_grupo==1 && $servicios->itinerario_servicios_servicio->grupo=='MOVILID'){
@@ -1072,6 +1074,8 @@ class PackageCotizacionController extends Controller
                             $p_servicio1->max_personas=$servi->max_personas;
                             $p_servicio1->precio_c=0;
                             $p_servicio1->estado=1;
+                            $p_servicio1->salida=$servi->salida;
+                            $p_servicio1->llegada=$servi->llegada;
                             $p_servicio1->m_servicios_id=$servi->id;
                             $p_servicio1->save();
                         }
@@ -1431,6 +1435,8 @@ class PackageCotizacionController extends Controller
                     $p_servicio->precio_grupo=$servicios->precio_grupo;
                     $p_servicio->min_personas=$servicios->min_personas;
                     $p_servicio->max_personas=$servicios->max_personas;
+                    $p_servicio->salida=$servicios->salida;
+                    $p_servicio->llegada=$servicios->llegada;
                     $p_servicio->precio_c=0;
 //                    $p_servicio->user_id=1;
                     $p_servicio->user_id=auth()->guard('admin')->user()->id;
@@ -1459,6 +1465,8 @@ class PackageCotizacionController extends Controller
                                 $p_servicio1->max_personas=$servi->max_personas;
                                 $p_servicio1->precio_c=0;
                                 $p_servicio1->estado=1;
+                                $p_servicio1->salida=$servi->salida;
+                                $p_servicio1->llegada=$servi->llegada;
                                 $p_servicio1->m_servicios_id=$servi->id;
                                 $p_servicio1->save();
                             }
