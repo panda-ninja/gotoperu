@@ -28072,3 +28072,29 @@ function dato_producto_hotel(valor){
     dato_producto_hotel_id=valor;
     console.log('valor:'+valor);
 }
+
+function guardar_reserva(){
+    // $('#form_guardar_reserva').submit(function() {
+        var nro_servicios_total=parseInt($('#nro_servicios_total').val());
+        var nro_ser_reservado=parseInt($('#nro_servicios_reservados').val());
+        if (nro_ser_reservado<nro_servicios_total) {
+            swal(
+                'Oops...',
+                'Para enviar la reserva a contabilidad, debe asignar todos los proveedores!',
+                'error'
+            )
+            return false;
+        }
+
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $('#form_guardar_reserva').attr('action'),
+            data: $('#form_guardar_reserva').serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+
+            }
+        })
+    // });
+}

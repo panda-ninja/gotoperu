@@ -11,6 +11,7 @@ use App\HotelProveedor;
 use App\ItinerarioCotizaciones;
 use App\ItinerarioServicioProveedor;
 use App\ItinerarioServicios;
+use App\ItinerarioServiciosAcumPago;
 use App\ItinerarioServiciosPagos;
 use App\M_Producto;
 use App\PaqueteCotizaciones;
@@ -182,11 +183,18 @@ class ContabilidadController extends Controller
 
     public function show($id)
     {
-        $cotizacion=Cotizacion::where('id', $id)->get();
+        $cotizacion=Cotizacion::FindOrFail($id);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
-        return view('admin.contabilidad.confirmar_precio',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
+        $pqt_coti=PaqueteCotizaciones::where('cotizaciones_id',$id)->where('estado',2)->get();
+        $pqt_id=0;
+        foreach ($pqt_coti as $pqt){
+            $pqt_id=$pqt->id;
+        }
+        $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
+        $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
+        return view('admin.contabilidad.confirmar_precio',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos]);
     }
 
     public function update_price_conta(){
