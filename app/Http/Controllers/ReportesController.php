@@ -17,6 +17,7 @@ class ReportesController extends Controller
         session()->put('menu','reportes');
         return view('admin.reportes.reportes',['cotizacion'=>$cotizacion]);
     }
+    
     public function view($id)
     {
         $cotizacion = Cotizacion::FindOrFail($id);
