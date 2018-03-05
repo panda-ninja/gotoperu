@@ -256,25 +256,43 @@ class BookController extends Controller
         foreach ($array_servicios as $key => $array_servicio) {
             $proveedor_id = explode('_', $key);
             if($proveedor_id[1]> 0) {
-            $itinerario_servicios_acum_pago=new ItinerarioServiciosAcumPago();
-            $itinerario_servicios_acum_pago->a_cuenta=$array_servicio;
-            $itinerario_servicios_acum_pago->estado=0;
-            $itinerario_servicios_acum_pago->proveedor_id=$proveedor_id[1];
-            $itinerario_servicios_acum_pago->paquete_cotizaciones_id=$pqt_coti;
-            $itinerario_servicios_acum_pago->grupo=$array_servicios_grupo[$key];
-            $itinerario_servicios_acum_pago->fecha_servicio=$array_servicios_fecha[$key];
-            $itinerario_servicios_acum_pago->save();
+                $itinerario_servicios_acum_pago_=ItinerarioServiciosAcumPago::where('proveedor_id',$proveedor_id[1])
+                    ->where('paquete_cotizaciones_id',$pqt_coti)
+                    ->where('grupo',$array_servicios_grupo[$key])->get();
+                if(count($itinerario_servicios_acum_pago_)>0){
+                    $itinerario_servicios_acum_pago_->a_cuenta=$array_servicio;
+                    $itinerario_servicios_acum_pago_->save();
+                }
+                else{
+                    $itinerario_servicios_acum_pago=new ItinerarioServiciosAcumPago();
+                    $itinerario_servicios_acum_pago->a_cuenta=$array_servicio;
+                    $itinerario_servicios_acum_pago->estado=0;
+                    $itinerario_servicios_acum_pago->proveedor_id=$proveedor_id[1];
+                    $itinerario_servicios_acum_pago->paquete_cotizaciones_id=$pqt_coti;
+                    $itinerario_servicios_acum_pago->grupo=$array_servicios_grupo[$key];
+                    $itinerario_servicios_acum_pago->fecha_servicio=$array_servicios_fecha[$key];
+                    $itinerario_servicios_acum_pago->save();
+                }
             }
         }
         //-- agregarmos para itinerario_servicios_acum_pago
         foreach ($array_hotel as $key => $array_hotel_){
             if($key>0){
-                $precio_hotel_reserv=new PrecioHotelReservaPagos();
-                $precio_hotel_reserv->a_cuenta=$array_servicio;
-                $precio_hotel_reserv->estado=0;
-                $precio_hotel_reserv->proveedor_id=$key;
-                $precio_hotel_reserv->paquete_cotizaciones_id=$pqt_coti;
-                $precio_hotel_reserv->save();
+                $precio_hotel_reserv_=PrecioHotelReservaPagos::where('proveedor_id',$key)
+                    ->where('paquete_cotizaciones_id',$pqt_coti)->get();
+                if(count($precio_hotel_reserv_)>0){
+                    $precio_hotel_reserv_->a_cuenta=$array_hotel_;
+                    $precio_hotel_reserv_->save();
+                }
+                else
+                {
+                    $precio_hotel_reserv=new PrecioHotelReservaPagos();
+                    $precio_hotel_reserv->a_cuenta=$array_hotel_;
+                    $precio_hotel_reserv->estado=0;
+                    $precio_hotel_reserv->proveedor_id=$key;
+                    $precio_hotel_reserv->paquete_cotizaciones_id=$pqt_coti;
+                    $precio_hotel_reserv->save();
+                }
             }
         }
 

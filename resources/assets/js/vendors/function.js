@@ -3317,5 +3317,10 @@ function guardar_reserva(){
 
             }
         })
+        swal(
+            'Genial...',
+            'Su reserva se acaba de enviar al area contable para gestionar los pagos!',
+            'success'
+        )
     })
 }
