@@ -530,17 +530,18 @@
                             <table class="table table-bordered tb table-striped table-responsive table-hover">
                                 <thead>
                                 <tr>
-                                    <th>GRUPO</th>
+                                    <th width="85px">GRUPO</th>
                                     <th>PROVEEDOR</th>
                                     <th>NOMBRE COMERCIAL</th>
-                                    <th>FECHA DE SERVICIO</th>
+                                    <th width="120px">FECHA DE SERVICIO</th>
                                     <th>CATEGORIA</th>
-                                    <th>FECHA PROGRAMADA</th>
-                                    <th>TOTAL</th>
+                                    <th width="90px">FECHA PROGRAMADA</th>
+                                    <th width="80px">TOTAL</th>
+                                    <th>OPERACIONES</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($ItinerarioServiciosAcumPagos->sortBy('grupo') as $ItinerarioServiciosAcumPago)
+                                @foreach($ItinerarioServiciosAcumPagos->sortBy('grupo')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                     <tr>
                                         <td>
                                             <span class="text-11">
@@ -579,9 +580,20 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <input type="date" name="fecha_a_pagar" id="fecha_a_pagar" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}">
+                                            <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
-                                        <td>{{$ItinerarioServiciosAcumPago->a_cuenta}}</td>
+                                        <td>
+                                            <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
+                                        </td>
+                                        <td>
+                                            {{csrf_field()}}
+                                            @if($ItinerarioServiciosAcumPago->estado==-2)
+                                                <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success display-block btn-sm hide">Pagar</a>
+                                            @elseif($ItinerarioServiciosAcumPago->estado==-1)
+                                                <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success display-block btn-sm" >Pagar</a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

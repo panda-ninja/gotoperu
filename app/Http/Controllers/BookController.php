@@ -266,7 +266,7 @@ class BookController extends Controller
                 else{
                     $itinerario_servicios_acum_pago=new ItinerarioServiciosAcumPago();
                     $itinerario_servicios_acum_pago->a_cuenta=$array_servicio;
-                    $itinerario_servicios_acum_pago->estado=0;
+                    $itinerario_servicios_acum_pago->estado=-1;
                     $itinerario_servicios_acum_pago->proveedor_id=$proveedor_id[1];
                     $itinerario_servicios_acum_pago->paquete_cotizaciones_id=$pqt_coti;
                     $itinerario_servicios_acum_pago->grupo=$array_servicios_grupo[$key];

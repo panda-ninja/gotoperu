@@ -3324,3 +3324,40 @@ function guardar_reserva(){
         )
     })
 }
+function guardarPrecio(valor,id,fecha){
+    console.log('valor:'+valor+',id:'+id+',fecha:'+fecha);
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de guardar este precio?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '../../../contabilidad/servicios/guardar-total',
+            data: 'id='+id+'&valor='+valor+'&fecha='+fecha,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                console.log('data:'+data);
+                if(data==1) {
+                    $('#btn_save_'+id).addClass('hide');
+                    swal(
+                        'Genial...',
+                        'El precio se guardo correctamente!',
+                        'success'
+                    )
+                    $('#btn_pagar_'+id).removeClass('hide');
+                }
+
+            }
+        })
+    })
+}

@@ -689,4 +689,29 @@ class ContabilidadController extends Controller
         $consulta = ConsultaPagoHotel::where('id', $codigos)->get();
         return view('admin.contabilidad.lista-fecha-hotel-rango', ['proveedor'=>$proveedor, 'hoteles'=>$hoteles, 'pagos'=>$pagos, 'cotizacion'=>$cotizacion, 'ids'=>$ids, 'codigos'=>$codigos, 'consulta'=>$consulta]);
     }
+    public function servicios_guardar(Request $request)
+    {
+        $id=$request->input('id');
+//        return $id;
+        $valor=$request->input('valor');
+        $fecha_a_pagar=$request->input('fecha');
+
+        $isap=ItinerarioServiciosAcumPago::FindOrFail($id);
+        $isap->fecha_a_pagar=$fecha_a_pagar;
+        $isap->a_cuenta=$valor;
+        $isap->estado=-1;
+        if($isap->save())
+            return 1;
+        else
+            return 0;
+
+    }
+    public function pagar_servicios_conta_pagos($idcotizacion, $Iti_Serv_Acum_Pago,$proveedor_id)
+    {
+        $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
+        $total =ItinerarioServiciosAcumPago::where('id',$Iti_Serv_Acum_Pago)->where('estado',-1)->get();
+        $pagos =ItinerarioServiciosAcumPago::where('id',$Iti_Serv_Acum_Pago)->whereIn('estado', [0,1])->get();
+        $proveedor=Proveedor::FindOrFail($proveedor_id);
+        return view('admin.contabilidad.pagar_servicio-pagos',['cotizacion'=>$cotizacion,'pagos'=>$pagos, 'idcotizacion'=>$idcotizacion,'proveedor'=>$proveedor,'total'=>$total]);
+    }
 }

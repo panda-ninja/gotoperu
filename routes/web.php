@@ -726,3 +726,12 @@ Route::get('admin/reportes/view/{id}',[
     'uses' => 'ReportesController@view',
     'as' => 'ver_cotizacion_path',
 ]);
+
+Route::post('/contabilidad/servicios/guardar-total',[
+    'uses' => 'ContabilidadController@servicios_guardar',
+    'as' => 'contabilidad_servicios_guardar_path',
+]);
+Route::get('/admin/contabilidad/show/pagos/{idcotizacion}/{idservicio}/{proveedor_id}', [
+    'uses' => 'ContabilidadController@pagar_servicios_conta_pagos',
+    'as' => 'pagar_servicios_conta_pagos_path',
+]);
