@@ -735,3 +735,8 @@ Route::get('/admin/contabilidad/show/pagos/{idcotizacion}/{idservicio}/{proveedo
     'uses' => 'ContabilidadController@pagar_servicios_conta_pagos',
     'as' => 'pagar_servicios_conta_pagos_path',
 ]);
+
+Route::post('/admin/contabilidad/pagar_a_cuenta', [
+    'uses' => 'ContabilidadController@pagar_a_cuenta',
+    'as' => 'pagar_a_cuenta_path',
+]);

@@ -710,8 +710,52 @@ class ContabilidadController extends Controller
     {
         $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
         $total =ItinerarioServiciosAcumPago::where('id',$Iti_Serv_Acum_Pago)->where('estado',-1)->get();
+//        dd($total);
         $pagos =ItinerarioServiciosAcumPago::where('id',$Iti_Serv_Acum_Pago)->whereIn('estado', [0,1])->get();
+//        dd($pagos);
         $proveedor=Proveedor::FindOrFail($proveedor_id);
         return view('admin.contabilidad.pagar_servicio-pagos',['cotizacion'=>$cotizacion,'pagos'=>$pagos, 'idcotizacion'=>$idcotizacion,'proveedor'=>$proveedor,'total'=>$total]);
+    }
+    public function pagar_a_cuenta(Request $request){
+        $id =$request->input('id');
+        $a_cuenta =$request->input('a_cuenta');
+        $estado =$request->input('estado');
+        if($estado==1) {
+            $medio = $request->input('medio');
+            $transaccion =$request->input('transaccion');
+
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =new ItinerarioServiciosAcumPago();
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->medio= $medio;
+            $p_servicio->transaccion = $transaccion;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
+        else if($estado==0){
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =new ItinerarioServiciosAcumPago();
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
     }
 }

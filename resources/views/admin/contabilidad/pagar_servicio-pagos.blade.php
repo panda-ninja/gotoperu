@@ -101,21 +101,68 @@
                                     {{--<caption>Detalle de pagos realizados und = unidad, Cod: codigo del paquete, Precio = precio total del paquete, Total = Pagos realizados por el cliente</caption>--}}
                                     <thead>
                                     <tr>
-                                        {{--<th>Codigo</th>--}}
-                                        {{--<th>Und</th>--}}
                                         <th>Concepto</th>
                                         <th>Medio Pago</th>
                                         <th>Transaccion</th>
                                         <th>Fecha Pago</th>
                                         <th>Pagos</th>
+                                        <th>Operaciones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @php $total=0; @endphp
-                                    holas2
-                                    @foreach($pagos as $pago)
+                                    @if(count($pagos)>0)
+                                        @foreach($pagos as $pago)
+                                            @if($pago->estado == 1)
+                                                <tr>
+                                                    <td>{{ucwords(strtolower('Servicio'))}}</td>
+                                                    <td>{{$pago->medio}}</td>
+                                                    <td>{{$pago->transaccion}}</td>
+                                                    <td>{{$pago->fecha_a_pagar}}</td>
+                                                    <td class='text-right'>
+                                                        {{$pago->a_cuenta}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-check text-primary"></i>
+                                                    </td>
+                                                </tr>
+                                            @else
 
-                                    @endforeach
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @if(count($total)>0)
+                                            @foreach($total as $total_)
+                                                    <tr>
+                                                        <td>{{ucwords(strtolower('Servicio'))}}</td>
+                                                        <td><input class="form-control" type="text" id="medio_"></td>
+                                                        <td><input class="form-control" type="text" id="transaccion_"></td>
+                                                        <td><input class="form-control" type="date" id="fecha_a_pagar_" value="{{$total_->fecha_a_pagar}}" readonly="readonly"></td>
+                                                        <td class='text-right'>
+                                                            <input  class="form-control" type="text" id="a_cuenta_" value="{{$total_->a_cuenta}}">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button id="btn_pagar" class="btn btn-sm btn-warning display-block" onclick="pagar_servicio(0,{{$total_->paquete_cotizaciones_id}},{{$total_->proveedor_id}},$('#medio_').val(),$('#transaccion_').val(),$('#a_cuenta_').val(),{{$total_->a_cuenta}},$('#fecha_a_pagar_').val(),'{{$total_->grupo}}')"><i>Pagar</i></button>
+                                                            <i class="fa fa-check text-primary hide" id="btn_check"></i>
+                                                            <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="btn_load"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="hide" id="caja_resto">
+                                                        <td>{{ucwords(strtolower('Servicio'))}}</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><input class="form-control" type="date" id="fecha_a_pagar_resto_" value="{{date("Y-m-d")}}"></td>
+                                                        <td class='text-right'>
+                                                            <input  class="form-control" type="text" id="a_cuenta_resto_" value="0">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button id="btn_guardar_resto_" class="btn btn-sm btn-warning display-block" onclick="guardar_servicio(0,{{$total_->paquete_cotizaciones_id}},{{$total_->proveedor_id}},'','',$('#a_cuenta_resto_').val(),{{$total_->a_cuenta}},$('#fecha_a_pagar_resto_').val(),'{{$total_->grupo}}')"><i>Guardar</i></button>
+                                                            <i class="fa fa-check text-primary hide" id="btn_check_resto_"></i>
+                                                            <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="btn_load_resto_"></i>
+                                                        </td>
+                                                    </tr>
+                                            @endforeach
+                                        @endif
+                                    @endif
                                     {{--@foreach($servicio as $servicios)--}}
                                         {{--@if($servicios->pagos->count()>0)--}}
                                             {{--@foreach($servicios->pagos as $pagos)--}}
@@ -259,6 +306,113 @@
         </div>
     </div>
     <script>
+        function pagar_servicio(iti_serv_acum_pago_id,paquete_cotizaciones_id,proveedor_id,medio,transaccion,a_cuenta,total,fecha_a_pagar_resto,grupo){
+            console.log('iti_serv_acum_pago_id:'+iti_serv_acum_pago_id+',paquete_cotizaciones_id:'+paquete_cotizaciones_id+',proveedor_id:'+proveedor_id+',medio:'+medio+',transaccion:'+transaccion+',a_cuenta:'+a_cuenta+',total:'+total+',fecha_a_pagar_resto:'+fecha_a_pagar_resto+',grupo:'+grupo);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('[name="_token"]').val()
+                }
+            });
+            //-- se realiza el pago total
+            if(a_cuenta==total){
+                var datos = {
+                    "id" : iti_serv_acum_pago_id,
+                    "paquete_cotizaciones_id" : paquete_cotizaciones_id,
+                    "proveedor_id" : proveedor_id,
+                    "a_cuenta" : a_cuenta,
+                    "medio" : medio,
+                    "transaccion" : transaccion,
+                    "estado" : 1,
+                    "fecha_a_pagar" : fecha_a_pagar_resto,
+                    "grupo" : grupo
+                };
+                $.ajax({
+                    data:  datos,
+                    url:   "{{route('pagar_a_cuenta_path')}}",
+                    type:  'post',
+
+                    beforeSend: function () {
+                        $('#btn_pagar').addClass('hide');
+                        $('#btn_load').removeClass('hide');
+                    },
+                    success:  function (response) {
+                        $('#btn_check').removeClass('hide');
+                        $('#btn_load').addClass('hide');
+                    }
+                });
+            }
+            else if(a_cuenta<total){
+
+                $('#a_cuenta_resto_').val(total-a_cuenta);
+                $('#caja_resto').removeClass('hide');
+                $('#a_cuenta_').prop('readonly', true);
+                $('#medio_').prop('readonly', true);
+                $('#transaccion_').prop('readonly', true);
+                $('#a_cuenta_resto_').prop('readonly', true);
+                var datos = {
+                    "id" : iti_serv_acum_pago_id,
+                    "paquete_cotizaciones_id" : paquete_cotizaciones_id,
+                    "proveedor_id" : proveedor_id,
+                    "a_cuenta" : a_cuenta,
+                    "medio" : medio,
+                    "transaccion" : transaccion,
+                    "estado" : 1,
+                    "fecha_a_pagar" : fecha_a_pagar_resto,
+                    "grupo" : grupo
+                };
+                $.ajax({
+                    data:  datos,
+                    url:   "{{route('pagar_a_cuenta_path')}}",
+                    type:  'post',
+
+                    beforeSend: function () {
+                        $('#btn_pagar').addClass('hide');
+                        $('#btn_load').removeClass('hide');
+                    },
+                    success:  function (response) {
+                        $('#btn_check').removeClass('hide');
+                        $('#btn_load').addClass('hide');
+                    }
+                });
+
+            }
+        }
+        function guardar_servicio(iti_serv_acum_pago_id,paquete_cotizaciones_id,proveedor_id,medio,transaccion,a_cuenta,total,fecha_a_pagar_resto,grupo){
+            console.log('iti_serv_acum_pago_id:'+iti_serv_acum_pago_id+',paquete_cotizaciones_id:'+paquete_cotizaciones_id+',proveedor_id:'+proveedor_id+',medio:'+medio+',transaccion:'+transaccion+',a_cuenta:'+a_cuenta+',total:'+total+',fecha_a_pagar_resto:'+fecha_a_pagar_resto+',grupo:'+grupo);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('[name="_token"]').val()
+                }
+            });
+            //-- se realiza el guardado del pago restante
+
+                var datos = {
+                "id" : iti_serv_acum_pago_id,
+                "a_cuenta" : a_cuenta,
+                "paquete_cotizaciones_id" : paquete_cotizaciones_id,
+                "proveedor_id" : proveedor_id,
+                "estado" : 0,
+                "fecha_a_pagar" : fecha_a_pagar_resto,
+                "grupo" : grupo
+                };
+                $.ajax({
+                    data:  datos,
+                    url:   "{{route('pagar_a_cuenta_path')}}",
+                    type:  'post',
+                    beforeSend: function () {
+                        $('#btn_guardar_resto_').addClass('hide');
+                        $('#btn_load_resto_').removeClass('hide');
+                    },
+                    success:  function (response) {
+                        $('#btn_load_resto_').addClass('hide');
+                        $('#btn_check_resto_').removeClass('hide');
+                    }
+                });
+
+        }
+
+
+
         function fecha_pago(pago, p_conta, total) {
             var precio = parseFloat(p_conta);
             var pago = parseFloat(pago);
