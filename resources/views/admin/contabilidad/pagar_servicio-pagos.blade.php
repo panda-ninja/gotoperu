@@ -112,6 +112,7 @@
                                     </thead>
                                     <tbody>
                                     @php $total=0; @endphp
+                                    holas
                                     @foreach($pagos as $pago)
 
                                     @endforeach
