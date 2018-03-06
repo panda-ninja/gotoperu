@@ -112,7 +112,7 @@
                                     </thead>
                                     <tbody>
                                     @php $total=0; @endphp
-                                    holas
+                                    holas2
                                     @foreach($pagos as $pago)
 
                                     @endforeach
