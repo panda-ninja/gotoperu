@@ -731,12 +731,33 @@ Route::post('/contabilidad/servicios/guardar-total',[
     'uses' => 'ContabilidadController@servicios_guardar',
     'as' => 'contabilidad_servicios_guardar_path',
 ]);
-Route::get('/admin/contabilidad/show/pagos/{idcotizacion}/{idservicio}/{proveedor_id}', [
+Route::get('/admin/contabilidad/show/servicios/pagos/{idcotizacion}/{idservicio}/{proveedor_id}', [
     'uses' => 'ContabilidadController@pagar_servicios_conta_pagos',
     'as' => 'pagar_servicios_conta_pagos_path',
 ]);
-
 Route::post('/admin/contabilidad/pagar_a_cuenta', [
     'uses' => 'ContabilidadController@pagar_a_cuenta',
     'as' => 'pagar_a_cuenta_path',
+]);
+Route::post('/admin/contabilidad/pagar_a_cuenta_1', [
+    'uses' => 'ContabilidadController@pagar_a_cuenta_1',
+    'as' => 'pagar_a_cuenta_1_path',
+]);
+
+
+Route::post('/contabilidad/hotels/guardar-total',[
+    'uses' => 'ContabilidadController@hotels_guardar',
+    'as' => 'contabilidad_hotels_guardar_path',
+]);
+Route::get('/admin/contabilidad/show/hotels/pagos/{idcotizacion}/{idservicio}/{proveedor_id}', [
+    'uses' => 'ContabilidadController@pagar_hotels_conta_pagos',
+    'as' => 'pagar_hotels_conta_pagos_path',
+]);
+Route::post('/admin/contabilidad/hotel/pagar_a_cuenta', [
+    'uses' => 'ContabilidadController@pagar_a_cuenta_hotel',
+    'as' => 'pagar_a_cuenta_hotel_path',
+]);
+Route::post('/admin/contabilidad/hotel/pagar_a_cuenta_1', [
+    'uses' => 'ContabilidadController@pagar_a_cuenta_hotel_1',
+    'as' => 'pagar_a_cuenta_hotel_1_path',
 ]);

@@ -194,6 +194,7 @@ class ContabilidadController extends Controller
         }
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
+//        dd($ItinerarioHotleesAcumPagos);
         return view('admin.contabilidad.confirmar_precio',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos]);
     }
 
@@ -709,12 +710,18 @@ class ContabilidadController extends Controller
     public function pagar_servicios_conta_pagos($idcotizacion, $Iti_Serv_Acum_Pago,$proveedor_id)
     {
         $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
+        $pqt_c=PaqueteCotizaciones::where('cotizaciones_id',$idcotizacion)->where('estado',2)->get();
+        $pqt_coti_id=0;
+        foreach ($pqt_c as $pqt_c_){
+            $pqt_coti_id    =$pqt_c_->id;
+        }
         $total =ItinerarioServiciosAcumPago::where('id',$Iti_Serv_Acum_Pago)->where('estado',-1)->get();
 //        dd($total);
-        $pagos =ItinerarioServiciosAcumPago::where('id',$Iti_Serv_Acum_Pago)->whereIn('estado', [0,1])->get();
+        $pagos =ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_coti_id)->where('proveedor_id',$proveedor_id)->whereIn('estado', [0,1])->get();
 //        dd($pagos);
         $proveedor=Proveedor::FindOrFail($proveedor_id);
-        return view('admin.contabilidad.pagar_servicio-pagos',['cotizacion'=>$cotizacion,'pagos'=>$pagos, 'idcotizacion'=>$idcotizacion,'proveedor'=>$proveedor,'total'=>$total]);
+        $itinerario_cotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_coti_id)->get();
+        return view('admin.contabilidad.pagar_servicio-pagos',['cotizacion'=>$cotizacion,'pagos'=>$pagos, 'idcotizacion'=>$idcotizacion,'proveedor'=>$proveedor,'total'=>$total,'itinerario_cotizaciones'=>$itinerario_cotizaciones]);
     }
     public function pagar_a_cuenta(Request $request){
         $id =$request->input('id');
@@ -748,6 +755,165 @@ class ContabilidadController extends Controller
             $grupo=$request->input('grupo');
 
             $p_servicio =new ItinerarioServiciosAcumPago();
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
+    }
+    public function pagar_a_cuenta_1(Request $request){
+        $id =$request->input('id');
+        $a_cuenta =$request->input('a_cuenta');
+        $estado =$request->input('estado');
+        if($estado==1) {
+            $medio = $request->input('medio');
+            $transaccion =$request->input('transaccion');
+
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =ItinerarioServiciosAcumPago::findOrFail($id);
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->medio= $medio;
+            $p_servicio->transaccion = $transaccion;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
+        else if($estado==0){
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =new ItinerarioServiciosAcumPago();
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
+    }
+    public function hotels_guardar(Request $request)
+    {
+        $id=$request->input('id');
+//        return $id;
+        $valor=$request->input('valor');
+        $fecha_a_pagar=$request->input('fecha');
+
+        $isap=PrecioHotelReservaPagos::FindOrFail($id);
+        $isap->fecha_a_pagar=$fecha_a_pagar;
+        $isap->a_cuenta=$valor;
+        $isap->estado=-1;
+        if($isap->save())
+            return 1;
+        else
+            return 0;
+
+    }
+    public function pagar_hotels_conta_pagos($idcotizacion, $Iti_Serv_Acum_Pago,$proveedor_id)
+    {
+        $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
+        $pqt_c=PaqueteCotizaciones::where('cotizaciones_id',$idcotizacion)->where('estado',2)->get();
+        $pqt_coti_id=0;
+        foreach ($pqt_c as $pqt_c_){
+            $pqt_coti_id    =$pqt_c_->id;
+        }
+        $total =PrecioHotelReservaPagos::where('id',$Iti_Serv_Acum_Pago)->where('estado',-1)->get();
+//        dd($total);
+        $pagos =PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_coti_id)->where('proveedor_id',$proveedor_id)->whereIn('estado', [0,1])->get();
+//        dd($pagos);
+        $proveedor=Proveedor::FindOrFail($proveedor_id);
+        $itinerario_cotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_coti_id)->get();
+        return view('admin.contabilidad.pagar_hotels-pagos',['cotizacion'=>$cotizacion,'pagos'=>$pagos, 'idcotizacion'=>$idcotizacion,'proveedor'=>$proveedor,'total'=>$total,'itinerario_cotizaciones'=>$itinerario_cotizaciones]);
+    }
+    public function pagar_a_cuenta_hotel(Request $request){
+        $id =$request->input('id');
+        $a_cuenta =$request->input('a_cuenta');
+        $estado =$request->input('estado');
+        if($estado==1) {
+            $medio = $request->input('medio');
+            $transaccion =$request->input('transaccion');
+
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =new PrecioHotelReservaPagos();
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->medio= $medio;
+            $p_servicio->transaccion = $transaccion;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
+        else if($estado==0){
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =new PrecioHotelReservaPagos();
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
+    }
+    public function pagar_a_cuenta_hotel_1(Request $request){
+        $id =$request->input('id');
+        $a_cuenta =$request->input('a_cuenta');
+        $estado =$request->input('estado');
+        if($estado==1) {
+            $medio = $request->input('medio');
+            $transaccion =$request->input('transaccion');
+
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =PrecioHotelReservaPagos::findOrFail($id);
+            $p_servicio->a_cuenta = $a_cuenta;
+            $p_servicio->estado = $estado;
+            $p_servicio->fecha_a_pagar=$fecha_a_pagar;
+            $p_servicio->medio= $medio;
+            $p_servicio->transaccion = $transaccion;
+            $p_servicio->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+            $p_servicio->proveedor_id=$proveedor_id;
+            $p_servicio->grupo=$grupo;
+            $p_servicio->save();
+            return "ok";
+        }
+        else if($estado==0){
+            $fecha_a_pagar =$request->input('fecha_a_pagar');
+            $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+            $proveedor_id=$request->input('proveedor_id');
+            $grupo=$request->input('grupo');
+
+            $p_servicio =new PrecioHotelReservaPagos();
             $p_servicio->a_cuenta = $a_cuenta;
             $p_servicio->estado = $estado;
             $p_servicio->fecha_a_pagar=$fecha_a_pagar;

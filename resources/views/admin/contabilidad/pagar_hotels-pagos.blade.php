@@ -1,3 +1,9 @@
+@php
+function fechaPeru($fecha){
+$fecha=explode('-',$fecha);
+return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+}
+@endphp
 @extends('layouts.admin.contabilidad')
 @section('content')
     <div class="row margin-top-40">
@@ -106,20 +112,47 @@
                                     <thead>
                                     <tr>
                                         <th>Servicio</th>
+                                        <th>Fecha de servicio</th>
                                         <th>Costo</th>
                                     </tr>
                                     <tbody>
                                     @foreach($itinerario_cotizaciones as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$proveedor->id) as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->hotel->where('proveedor_id',$proveedor->id) as $hotel)
                                             <tr>
-                                                <td>{{$itinerario_servicio->nombre}}</td>
-                                                <td>${{$itinerario_servicio->precio_proveedor}}
+                                                <td>
+                                                    @if($hotel->personas_s>0)
+                                                        <p>Single room</p>
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                            <p>Double room</p>
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                            <p>Matrimonial room</p>
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                            <p>Triple room</p>
+                                                    @endif
+                                                </td>
+                                                <td>{{fechaPeru($itinerario_cotizacion->fecha)}}</td>
+                                                <td>
+                                                    @if($hotel->personas_s>0)
+                                                        <p><b>${{$hotel->personas_s*$hotel->precio_s_r}}</b></p>
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                        <p><b>${{$hotel->personas_d*$hotel->precio_d_r}}</b></p>
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                        <p><b>${{$hotel->personas_m*$hotel->precio_m_r}}</b></p>
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                        <p><b>${{$hotel->personas_t*$hotel->precio_t_r}}</b></p>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @endforeach
                                     <tr>
-                                        <td><b>TOTAL</b></td>
+                                        <td colspan="2"><b>TOTAL</b></td>
                                         <td>$
                                             @if(count($total)>0)
                                                 @foreach($total as $total_)
@@ -393,7 +426,7 @@
                 };
                 $.ajax({
                     data:  datos,
-                    url:   "{{route('pagar_a_cuenta_path')}}",
+                    url:   "{{route('pagar_a_cuenta_hotel_path')}}",
                     type:  'post',
 
                     beforeSend: function () {
@@ -427,7 +460,7 @@
                 };
                 $.ajax({
                     data:  datos,
-                    url:   "{{route('pagar_a_cuenta_path')}}",
+                    url:   "{{route('pagar_a_cuenta_hotel_path')}}",
                     type:  'post',
 
                     beforeSend: function () {
@@ -462,7 +495,7 @@
                 };
                 $.ajax({
                     data:  datos,
-                    url:   "{{route('pagar_a_cuenta_path')}}",
+                    url:   "{{route('pagar_a_cuenta_hotel_path')}}",
                     type:  'post',
                     beforeSend: function () {
                         $('#btn_guardar_resto_'+flag).addClass('hide');
@@ -498,7 +531,7 @@
                 };
                 $.ajax({
                     data:  datos,
-                    url:   "{{route('pagar_a_cuenta_1_path')}}",
+                    url:   "{{route('pagar_a_cuenta_hotel_1_path')}}",
                     type:  'post',
 
                     beforeSend: function () {
@@ -532,7 +565,7 @@
                 };
                 $.ajax({
                     data:  datos,
-                    url:   "{{route('pagar_a_cuenta_1_path')}}",
+                    url:   "{{route('pagar_a_cuenta_hotel_1_path')}}",
                     type:  'post',
 
                     beforeSend: function () {

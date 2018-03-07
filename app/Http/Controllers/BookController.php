@@ -197,6 +197,7 @@ class BookController extends Controller
         $array_servicios_grupo=[];
         $array_servicios_fecha=[];
         $array_hotel=[];
+        $array_hotel_fecha=[];
 
         foreach ($paquete_cotizacion as $pqt){
             foreach ($pqt->itinerario_cotizaciones as $itinerario_cotizaciones){
@@ -210,9 +211,7 @@ class BookController extends Controller
                         elseif ($itinerario_servicios->precio_grupo == 0) {
                             $array_servicios[$ids] = $itinerario_servicios->precio * $coti->nropersonas;
                             $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
-
                         }
-
                         $array_servicios_fecha[$ids]=$itinerario_cotizaciones->fecha;
                     }
                     else{
@@ -238,6 +237,7 @@ class BookController extends Controller
                         $sutbTotal+=$hotel->personas_t*$hotel->precio_t_r;
                     if(!array_key_exists($hotel->proveedor_id,$array_hotel)) {
                         $array_hotel[$hotel->proveedor_id] = $sutbTotal;
+                        $array_hotel_fecha[$hotel->proveedor_id]=$itinerario_cotizaciones->fecha;
                     }
                     else{
                         $array_hotel[$hotel->proveedor_id] += $sutbTotal;
@@ -266,7 +266,7 @@ class BookController extends Controller
                 else{
                     $itinerario_servicios_acum_pago=new ItinerarioServiciosAcumPago();
                     $itinerario_servicios_acum_pago->a_cuenta=$array_servicio;
-                    $itinerario_servicios_acum_pago->estado=-1;
+                    $itinerario_servicios_acum_pago->estado=-2;
                     $itinerario_servicios_acum_pago->proveedor_id=$proveedor_id[1];
                     $itinerario_servicios_acum_pago->paquete_cotizaciones_id=$pqt_coti;
                     $itinerario_servicios_acum_pago->grupo=$array_servicios_grupo[$key];
@@ -288,9 +288,11 @@ class BookController extends Controller
                 {
                     $precio_hotel_reserv=new PrecioHotelReservaPagos();
                     $precio_hotel_reserv->a_cuenta=$array_hotel_;
-                    $precio_hotel_reserv->estado=0;
+                    $precio_hotel_reserv->estado=-2;
                     $precio_hotel_reserv->proveedor_id=$key;
                     $precio_hotel_reserv->paquete_cotizaciones_id=$pqt_coti;
+                    $precio_hotel_reserv->grupo='HOTELS';
+                    $precio_hotel_reserv->fecha_servicio=$array_hotel_fecha[$key];
                     $precio_hotel_reserv->save();
                 }
             }
