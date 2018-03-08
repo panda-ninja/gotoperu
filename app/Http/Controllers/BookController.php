@@ -42,9 +42,14 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function crear_liquidacion()
     {
-        //
+        $fecha_ini=date("Y-m-d");
+        $fecha_fin=date("Y-m-d");
+        $liquidaciones=Cotizacion::where('liquidacion',0)->get();
+//        dd($liquidaciones);
+        return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin]);
+
     }
 
     /**
@@ -300,5 +305,12 @@ class BookController extends Controller
 
 //        dd($array_servicios);
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
+    }
+    function crear_liquidacion_storage(Request $request){
+        $fecha_ini=$request->input('fecha_ini');
+        $fecha_fin=$request->input('fecha_fin');
+        $liquidaciones=Cotizacion::where('liquidacion',0)->get();
+//        dd($liquidaciones);
+        return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin]);
     }
 }

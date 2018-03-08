@@ -146,6 +146,7 @@ class ServicesController extends Controller
             $txt_min_personas = $request->input('txt_min_personas_' . $posTipo);
             $txt_max_personas = $request->input('txt_max_personas_' . $posTipo);
             $txt_codigo = $request->input('txt_codigo_' . $posTipo);
+            $txt_clase= $request->input('txt_clase_' . $posTipo);
 
             $destino = new M_Servicio();
             $destino->grupo = $cate[$posTipo];
@@ -156,6 +157,7 @@ class ServicesController extends Controller
             $destino->precio_venta = $txt_price;
             $destino->salida = $txt_salida;
             $destino->llegada = $txt_llegada;
+            $destino->clase = $txt_clase;
             $destino->min_personas = $txt_min_personas;
             $destino->max_personas = $txt_max_personas;
 
@@ -234,6 +236,8 @@ class ServicesController extends Controller
         $txt_llegada=$request->input('txt_llegada_'.$id);
         $txt_min_personas=$request->input('txt_min_personas_'.$id);
         $txt_max_personas=$request->input('txt_max_personas_'.$id);
+        $txt_clase=$request->input('txt_clase_'.$id);
+//        return $txt_clase;
 
         $destino=M_Servicio::FindOrFail($id);
         $destino->localizacion=$txt_localizacion;
@@ -245,11 +249,14 @@ class ServicesController extends Controller
         $destino->llegada=$txt_llegada;
         $destino->min_personas=$txt_min_personas;
         $destino->max_personas=$txt_max_personas;
+        $destino->clase=$txt_clase;
+
         if($txt_tipo_grupo=='Absoluto')
             $destino->precio_grupo=1;
         elseif($txt_tipo_grupo=='Individual')
             $destino->precio_grupo=0;
         $destino->save();
+//        return dd($destino);
 //        return json_encode(1);
         return $txt_type.'_'.$txt_min_personas.'_'.$txt_max_personas.'_'.$txt_price.'_'.$txt_product;
 
@@ -383,6 +390,38 @@ foreach($sericios as $servicio) {
                     <input type="hidden" name="tipoServicio_' . $servicio->id . '" id="tipoServicio_' . $servicio->id . '" value="' . $destino[1] . '">
                 </div>
             </div>
+            <div class="col-md-4"><div class="form-group">';
+    if ($destino[1] == 'ENTRANCES') {
+        $cadena .= '<label for="txt_type" > Clase</label >
+                    <select class="form-control" id = "txt_clase_'.$servicio->id.'" name = "txt_clase_'.$servicio->id.'" >
+                        <option value = "OTROS"';
+        if ($servicio->clase == "OTROS") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>OTROS </option >
+                        <option value = "BTG" ';
+        if ($servicio->clase== "BTG") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>BOLETO TURISTICO</option>
+                        <option value = "CAT"';
+        if ($servicio->clase== "CAT") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>CATEDRAL</option>
+                        <option value = "KORI"';
+        if ($servicio->clase== "KORI") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>KORICANCHA</option>
+                        <option value = "MAPI"';
+        if ($servicio->clase== "MAPI") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>MACHUPICCHU</option >
+                    </select >';
+    }
+    $cadena.='</div></div>   
             <div class="col-md-4">
                 <div class="form-group">';
 

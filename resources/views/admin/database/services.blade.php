@@ -141,7 +141,18 @@
                                                     </div>
                                                 </div>
                                             @endif
-
+                                                @if($categoria->nombre=='ENTRANCES')
+                                                    <div class="col-md-4">
+                                                        <label for="txt_type">Clase</label>
+                                                        <select class="form-control" id="txt_clase_{{$pos}}" name="txt_clase_{{$pos}}">
+                                                            <option value="OTROS">OTROS</option>
+                                                            <option value="BTG">BOLETO TURISTICO</option>
+                                                            <option value="CAT">CATEDRAL</option>
+                                                            <option value="KORI">KORICANCHA</option>
+                                                            <option value="MAPI">MACHUPICCHU</option>
+                                                        </select>
+                                                    </div>
+                                                @endif
                                             <div class="col-md-12">
                                                 @if($categoria->nombre=='HOTELS')
                                                     <table class="table table-responsive table-striped table-condensed">
@@ -215,6 +226,7 @@
                                                     </table>
                                                 @endif
                                             </div>
+
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     @if($categoria->nombre=='HOTELS')
@@ -238,6 +250,7 @@
                                                             <option value="BUS">BUS</option>
                                                         </select>
                                                     @endif
+
                                                     @if($categoria->nombre=='REPRESENT')
                                                         <label for="txt_type">Type</label>
                                                         <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">

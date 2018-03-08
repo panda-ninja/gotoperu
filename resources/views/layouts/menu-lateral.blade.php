@@ -18,19 +18,29 @@
     @endif
     @if(session()->get('menu')=='reservas')
     {{--menu lateral para operaciones--}}
-    <div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">BOOK</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">January</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">February</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">March</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">April</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">May</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">Jane</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">July</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">August</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">September</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">October</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">November</a></div>
-    <div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">December</a></div>
+    <ul class="nav nav-sidebar margin-bottom-0">
+        <li class="padding-side-20 bg-green-goto text-white text-20">Menu</li>
+        <li class="divider"></li>
+        <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>
+        <li class="divider"></li>
+        <li ><a href="{{route('crear_liquidacion_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Crear Liquidacion</a></li>
+        <li class="divider"></li>
+        <li ><a href="{{route('rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>
+        <li class="divider"></li>
+    </ul>
+        {{--<div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">BOOK</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">January</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">February</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">March</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">April</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">May</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">Jane</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">July</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">August</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">September</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">October</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">November</a></div>--}}
+        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">December</a></div>--}}
     @endif
 
     @if(session()->get('menu')=='contabilidad')

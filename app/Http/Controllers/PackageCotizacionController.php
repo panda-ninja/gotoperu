@@ -1047,6 +1047,7 @@ class PackageCotizacionController extends Controller
                 $p_servicio->estado=1;
                 $p_servicio->salida=$servicios->itinerario_servicios_servicio->salida;
                 $p_servicio->llegada=$servicios->itinerario_servicios_servicio->llegada;
+                $p_servicio->clase=$servicios->itinerario_servicios_servicio->clase;
                 $p_servicio->m_servicios_id=$servicios->m_servicios_id;
                 $p_servicio->save();
                 if($servicios->itinerario_servicios_servicio->precio_grupo==1 && $servicios->itinerario_servicios_servicio->grupo=='MOVILID'){
@@ -1763,6 +1764,7 @@ class PackageCotizacionController extends Controller
             $servicios->m_servicios_id = $m_servicio->id;
             $servicios->min_personas = $m_servicio->min_personas;
             $servicios->max_personas = $m_servicio->max_personas;
+            $servicios->clase = $m_servicio->clase;
             $servicios->save();
         }
         return redirect()->route('show_step1_ser_path', [$id_client,$id_cotizacion,$id_paquete,$id]);

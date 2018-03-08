@@ -761,3 +761,11 @@ Route::post('/admin/contabilidad/hotel/pagar_a_cuenta_1', [
     'uses' => 'ContabilidadController@pagar_a_cuenta_hotel_1',
     'as' => 'pagar_a_cuenta_hotel_1_path',
 ]);
+Route::get('/admin/reservas/crear-liquidacion', [
+    'uses' => 'BookController@crear_liquidacion',
+    'as' => 'crear_liquidacion_path',
+]);
+Route::post('/admin/reservas/crear-liquidacion', [
+    'uses' => 'BookController@crear_liquidacion_storage',
+    'as' => 'filtrar_liquidacion_reservas_path',
+]);
