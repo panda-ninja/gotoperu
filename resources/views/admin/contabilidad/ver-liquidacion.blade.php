@@ -26,6 +26,7 @@
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -54,6 +55,7 @@
                                                     <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}</td>
                                                 <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                                 <td>{{$liquidacion->nropersonas}}</td>
                                                 <td>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -88,7 +90,7 @@
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_BTG}}
                             </td>
@@ -103,6 +105,7 @@
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -131,6 +134,7 @@
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
                                                 <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                                 <td>{{$liquidacion->nropersonas}}</td>
                                                 <td>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -153,7 +157,7 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <i class="fa fa-clock-o text-unset fa-2x"></i>
+                                                        <button class="btn btn-primary">Pagar</button>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -165,7 +169,7 @@
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_CAT}}
                             </td>
@@ -180,6 +184,7 @@
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -208,6 +213,7 @@
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
                                                 <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                                 <td>{{$liquidacion->nropersonas}}</td>
                                                 <td>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -230,7 +236,7 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <i class="fa fa-clock-o text-unset fa-2x"></i>
+                                                        <button class="btn btn-primary">Pagar</button>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -242,7 +248,7 @@
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_KORI}}
                             </td>
@@ -257,6 +263,7 @@
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -285,6 +292,7 @@
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
                                                 <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                                 <td>{{$liquidacion->nropersonas}}</td>
                                                 <td>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -307,7 +315,7 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <i class="fa fa-clock-o text-unset fa-2x"></i>
+                                                        <button class="btn btn-primary">Pagar</button>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -319,31 +327,115 @@
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_MAPI}}
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <div class="col-lg-12 text-right hide">
-                        {{csrf_field()}}
-                        <input type="hidden" name="desde" value="{{$fecha_ini}}">
-                        <input type="hidden" name="hasta" value="{{$fecha_fin}}">
+                </div>
+                <div class="col-lg-12">
+                    <h4>LIQUIDACION DE ENTRADAS A OTROS LUGARES</h4>
+                    <table class="table table-bordered table-striped table-responsive table-hover">
+                        <thead>
+                        <tr>
+                            <th>FECHA</th>
+                            <th>CLASE</th>
+                            <th>SERVICIO</th>
+                            <th>AD</th>
+                            <th>PAX</th>
+                            <th>$ AD</th>
+                            <th>TOTAL</th>
+                            <th>CATEGORIA</th>
+                            <th>ESTADO</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         @php
-                            $cotisa='';
+                            $total_OTROS=0;
                         @endphp
-                        @foreach($array_cotizaciones as $array_cotizacion)
-                            @php
-                                $cotisa.=$array_cotizacion.'_';
-                            @endphp
+                        @foreach($liquidaciones->sortBy('fecha') as $liquidacion)
+                            @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
+                                @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
+                                    @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','OTROS') as $servicio)
+                                            @if(!in_array($liquidacion->id,$array_cotizaciones))
+                                                @php
+                                                    $array_cotizaciones[]=$liquidacion->id;
+                                                @endphp
+                                            @endif
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
+                                                    {{fecha_peru($itinerario_cotizacion->fecha)}}
+                                                </td>
+                                                <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
+                                                <td>{{$liquidacion->nropersonas}}</td>
+                                                <td>
+                                                    @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
+                                                        {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
+                                                    @endforeach
+                                                </td>
+                                                <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                                <td>
+                                                    ${{$itinerario_servicio->precio_proveedor}}
+                                                    @php
+                                                        $total_MAPI+=$itinerario_servicio->precio_proveedor;
+                                                    @endphp
+                                                </td>
+                                                <td>
+                                                    @if($liquidacion->categorizado=='S')
+                                                        {{'Sin factura'}}
+                                                    @elseif($liquidacion->categorizado=='C')
+                                                        {{'Con factura'}}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($itinerario_servicio->liquidacion==1)
+                                                        <button class="btn btn-primary">Pagar</button>
+                                                    @elseif($itinerario_servicio->liquidacion==2)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
+                            @endforeach
                         @endforeach
+                        <tr>
+                            <td colspan="6"><b>Total</b></td>
+                            <td>$
+                                {{$total_OTROS}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12 text-right padding-15">
+                    <h2 class="text-grey-goto">
+                        TOTAL: ${{($total_BTG+$total_CAT+$total_KORI+$total_MAPI)}}
+                    </h2>
+                </div>
+                <div class="col-lg-12 text-right hide">
+                    {{csrf_field()}}
+                    <input type="hidden" name="desde" value="{{$fecha_ini}}">
+                    <input type="hidden" name="hasta" value="{{$fecha_fin}}">
+                    @php
+                        $cotisa='';
+                    @endphp
+                    @foreach($array_cotizaciones as $array_cotizacion)
                         @php
-                            $cotisa=substr($array_cotizacion,0,strlen($array_cotizacion));
+                            $cotisa.=$array_cotizacion.'_';
                         @endphp
-                        <input type="hidden" name="cotis" value="{{$cotisa}}">
-                        <button type="submit" class="btn btn-primary" id="buscar" name="buscar">Enviar liquidacion</button>
-                    </div>
+                    @endforeach
+                    @php
+                        $cotisa=substr($array_cotizacion,0,strlen($array_cotizacion));
+                    @endphp
+                    <input type="hidden" name="cotis" value="{{$cotisa}}">
+                    <button type="submit" class="btn btn-primary" id="buscar" name="buscar">Enviar liquidacion</button>
                 </div>
             </form>
         </div>

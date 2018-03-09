@@ -90,7 +90,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_BTG}}
                             </td>
@@ -169,7 +169,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_CAT}}
                             </td>
@@ -248,7 +248,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_KORI}}
                             </td>
@@ -327,7 +327,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_MAPI}}
                             </td>
@@ -406,13 +406,18 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                             @endforeach
                         @endforeach
                         <tr>
-                            <td colspan="5"><b>Total</b></td>
+                            <td colspan="6"><b>Total</b></td>
                             <td>$
                                 {{$total_OTROS}}
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <div class="col-lg-12 text-right padding-15">
+                        <h2 class="text-grey-goto">
+                            TOTAL: ${{($total_BTG+$total_CAT+$total_KORI+$total_MAPI)}}
+                        </h2>
+                    </div>
                     <div class="col-lg-12 text-right hide">
                         {{csrf_field()}}
                         <input type="hidden" name="desde" value="{{$fecha_ini}}">
