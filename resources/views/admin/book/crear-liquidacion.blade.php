@@ -42,6 +42,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -68,6 +69,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                     <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}</td>
                                                 <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                                 <td>{{$liquidacion->nropersonas}}</td>
                                                 <td>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -110,6 +112,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -136,6 +139,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                 {{fecha_peru($itinerario_cotizacion->fecha)}}
                                             </td>
                                             <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                             <td>{{$liquidacion->nropersonas}}</td>
                                             <td>
                                             @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -178,6 +182,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -204,6 +209,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
                                                 <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                                 <td>{{$liquidacion->nropersonas}}</td>
                                                 <td>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -246,6 +252,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                         <tr>
                             <th>FECHA</th>
                             <th>CLASE</th>
+                            <th>SERVICIO</th>
                             <th>AD</th>
                             <th>PAX</th>
                             <th>$ AD</th>
@@ -272,6 +279,78 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
                                                 <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
+                                                <td>{{$liquidacion->nropersonas}}</td>
+                                                <td>
+                                                    @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
+                                                        {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
+                                                    @endforeach
+                                                </td>
+                                                <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                                <td>
+                                                    ${{$itinerario_servicio->precio_proveedor}}
+                                                    @php
+                                                        $total_MAPI+=$itinerario_servicio->precio_proveedor;
+                                                    @endphp
+                                                </td>
+                                                <td>
+                                                    @if($liquidacion->categorizado=='S')
+                                                        {{'Sin factura'}}
+                                                    @elseif($liquidacion->categorizado=='C')
+                                                        {{'Con factura'}}
+                                                    @endif
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
+                            @endforeach
+                        @endforeach
+                        <tr>
+                            <td colspan="5"><b>Total</b></td>
+                            <td>$
+                                {{$total_MAPI}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12">
+                    <h4>LIQUIDACION DE ENTRADAS OTROS</h4>
+                    <table class="table table-bordered table-striped table-responsive table-hover">
+                        <thead>
+                        <tr>
+                            <th>FECHA</th>
+                            <th>CLASE</th>
+                            <th>SERVICIO</th>
+                            <th>AD</th>
+                            <th>PAX</th>
+                            <th>$ AD</th>
+                            <th>TOTAL</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php
+                            $total_OTROS=0;
+                        @endphp
+                        @foreach($liquidaciones->sortBy('fecha') as $liquidacion)
+                            @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
+                                @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
+                                    @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','OTROS') as $servicio)
+                                            @if(!in_array($liquidacion->id,$array_cotizaciones))
+                                                @php
+                                                    $array_cotizaciones[]=$liquidacion->id;
+                                                @endphp
+                                            @endif
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
+                                                    {{fecha_peru($itinerario_cotizacion->fecha)}}
+                                                </td>
+                                                <td>{{$servicio->clase}}</td>
+                                                <td>{{$itinerario_servicio->nombre}}</td>
                                                 <td>{{$liquidacion->nropersonas}}</td>
                                                 <td>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
@@ -307,6 +386,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                         </tr>
                         </tbody>
                     </table>
+
                     <div class="col-lg-12 text-right">
                         {{csrf_field()}}
                         <input type="hidden" name="desde" value="{{$fecha_ini}}">
