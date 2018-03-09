@@ -10,12 +10,14 @@ use App\ItinerarioCotizaciones;
 use App\ItinerarioServicioProveedor;
 use App\ItinerarioServicios;
 use App\ItinerarioServiciosAcumPago;
+use App\Liquidacion;
 use App\M_Producto;
 use App\M_Servicio;
 use App\PaqueteCotizaciones;
 use App\PrecioHotelReserva;
 use App\PrecioHotelReservaPagos;
 use App\Proveedor;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -47,9 +49,9 @@ class BookController extends Controller
         $fecha_ini=date("Y-m-d");
         $fecha_fin=date("Y-m-d");
         $liquidaciones=Cotizacion::where('liquidacion',0)->get();
-//        dd($liquidaciones);
-        return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin]);
-
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
 
     /**
@@ -309,8 +311,54 @@ class BookController extends Controller
     function crear_liquidacion_storage(Request $request){
         $fecha_ini=$request->input('fecha_ini');
         $fecha_fin=$request->input('fecha_fin');
-        $liquidaciones=Cotizacion::where('liquidacion',0)->get();
-//        dd($liquidaciones);
-        return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin]);
+        $liquidaciones=Cotizacion::get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
+    function guardar_liquidacion_storage(Request $request){
+        $cotis=$request->input('cotis');
+        $cotizaciones_ids=explode('_',$cotis);
+//        dd($cotizaciones_ids);
+        if(count($cotizaciones_ids)>0) {
+            //-- se guardara el rango de fechas donde se envia la liquidacion semanal
+            $fecha_ini = $request->input('desde');
+            $fecha_fin = $request->input('hasta');
+            $liquidaciones = new Liquidacion();
+            $liquidaciones->ini = $fecha_ini;
+            $liquidaciones->fin = $fecha_fin;
+            $liquidaciones->user_id = auth()->guard('admin')->user()->id;
+            $liquidaciones->estado = 1;
+            $liquidaciones->save();
+            //-- se cmbiara como estado =1 los servicios(entrances,tikects) para ser liquidados por contablidad
+            $servicio_liquidacion = $request->input('servicio_liquidacion');
+            foreach ($servicio_liquidacion as $servicio_liquidacion_) {
+                $iti_servicio = ItinerarioServicios::findOrfail($servicio_liquidacion_);
+                $iti_servicio->liquidacion = 1;
+                $iti_servicio->save();
+            }
+            foreach ($cotizaciones_ids as $cotizaciones_id) {
+                $cotizacion_temp = Cotizacion::findOrfail($cotizaciones_id);
+                $cotizacion_temp->liquidacion = 1;
+                $cotizacion_temp->save();
+            }
+            return redirect()->route('liquidaciones_hechas_path');
+        }
+    }
+    function liquidaciones(){
+        $cotizaciones=Cotizacion::where('liquidacion',1)->get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $liquidaciones=Liquidacion::where('estado',1)->get();
+        $users=User::get();
+
+        return view('admin.book.liquidaciones',['cotizaciones'=>$cotizaciones,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'liquidaciones'=>$liquidaciones,'users'=>$users]);
+    }
+    function ver_liquidaciones($fecha_ini,$fecha_fin){
+        $liquidaciones=Cotizacion::get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        return view('admin.book.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
+    }
+
 }

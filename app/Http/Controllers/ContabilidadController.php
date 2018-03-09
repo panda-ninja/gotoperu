@@ -13,11 +13,14 @@ use App\ItinerarioServicioProveedor;
 use App\ItinerarioServicios;
 use App\ItinerarioServiciosAcumPago;
 use App\ItinerarioServiciosPagos;
+use App\Liquidacion;
 use App\M_Producto;
+use App\M_Servicio;
 use App\PaqueteCotizaciones;
 use App\PrecioHotelReserva;
 use App\PrecioHotelReservaPagos;
 use App\Proveedor;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -923,5 +926,20 @@ class ContabilidadController extends Controller
             $p_servicio->save();
             return "ok";
         }
+    }
+    function liquidaciones(){
+        $cotizaciones=Cotizacion::where('liquidacion',1)->get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $liquidaciones=Liquidacion::where('estado',1)->get();
+        $users=User::get();
+
+        return view('admin.contabilidad.liquidaciones',['cotizaciones'=>$cotizaciones,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'liquidaciones'=>$liquidaciones,'users'=>$users]);
+    }
+    function ver_liquidaciones($fecha_ini,$fecha_fin){
+        $liquidaciones=Cotizacion::get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        return view('admin.contabilidad.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
 }

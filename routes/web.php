@@ -769,3 +769,25 @@ Route::post('/admin/reservas/crear-liquidacion', [
     'uses' => 'BookController@crear_liquidacion_storage',
     'as' => 'filtrar_liquidacion_reservas_path',
 ]);
+
+Route::post('/admin/reservas/guardar-liquidacion', [
+    'uses' => 'BookController@guardar_liquidacion_storage',
+    'as' => 'guardar_liquidacion_reservas_path',
+]);
+Route::get('/admin/reservas/liquidaciones', [
+    'uses' => 'BookController@liquidaciones',
+    'as' => 'liquidaciones_hechas_path',
+]);
+Route::get('/admin/reservas/liquidaciones/show/{desde}/{hasta}', [
+    'uses' => 'BookController@ver_liquidaciones',
+    'as' => 'ver_liquidacion_path',
+]);
+
+Route::get('/admin/contabilidad/liquidaciones/semana', [
+    'uses' => 'ContabilidadController@liquidaciones',
+    'as' => 'liquidaciones_hechas_conta_path',
+]);
+Route::get('/admin/contabilidad/liquidaciones/show/{desde}/{hasta}', [
+    'uses' => 'ContabilidadController@ver_liquidaciones',
+    'as' => 'contabilidad_ver_liquidacion_path',
+]);

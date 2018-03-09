@@ -25,7 +25,7 @@
         <li class="divider"></li>
         <li ><a href="{{route('crear_liquidacion_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Crear Liquidacion</a></li>
         <li class="divider"></li>
-        <li ><a href="{{route('rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>
+        <li ><a href="{{route('liquidaciones_hechas_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>
         <li class="divider"></li>
     </ul>
         {{--<div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">BOOK</a></div>--}}
@@ -54,6 +54,10 @@
             <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Hoteles</b></li>
             <li class="divider"></li>
             <li ><a href="{{route('rango_fecha_hotel_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por fechas</a></li>
+            <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>
+            <li class="divider"></li>
+            <li ><a href="{{route('liquidaciones_hechas_conta_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>
+            <li class="divider"></li>
         </ul>
         <ul class="nav nav-sidebar">
             <li class="padding-side-20 bg-green-goto text-white text-20">Database</li>
