@@ -141,6 +141,15 @@
                                                     </div>
                                                 </div>
                                             @endif
+                                                @if($categoria->nombre=='MOVILID')
+                                                    <div class="col-md-4">
+                                                        <label for="txt_type">Clase</label>
+                                                        <select class="form-control" id="txt_clase_{{$pos}}" name="txt_clase_{{$pos}}">
+                                                            <option value="DEFAULT">DEFAULT</option>
+                                                            <option value="BOLETO">BOLETO</option>
+                                                        </select>
+                                                    </div>
+                                                @endif
                                                 @if($categoria->nombre=='ENTRANCES')
                                                     <div class="col-md-4">
                                                         <label for="txt_type">Clase</label>

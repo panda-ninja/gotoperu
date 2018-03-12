@@ -421,6 +421,21 @@ foreach($sericios as $servicio) {
         $cadena .= '>MACHUPICCHU</option >
                     </select >';
     }
+    if ($destino[1] == 'MOVILID') {
+        $cadena .= '<label for="txt_type" > Clase</label >
+                    <select class="form-control" id = "txt_clase_'.$servicio->id.'" name = "txt_clase_'.$servicio->id.'" >
+                        <option value = "DEFAULT"';
+        if ($servicio->clase == "DEFAULT") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>DEFAULT </option >
+                        <option value = "BOLETO" ';
+        if ($servicio->clase== "BOLETO") {
+            $cadena .= 'selected';
+        }
+        $cadena .= '>BOLETO</option>
+                    </select >';
+    }
     $cadena.='</div></div>   
             <div class="col-md-4">
                 <div class="form-group">';
