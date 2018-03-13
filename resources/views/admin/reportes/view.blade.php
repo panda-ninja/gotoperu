@@ -185,11 +185,95 @@
         $total_srevicios=0;
         $profit=0;
         $total_pagos_hotel=0;
+        $hotel_hotel=0;
+        $total_pagos_tour=0;
+        $total_tours=0;
+        $total_pagos_movilid=0;
+        $total_movilid=0;
+        $total_pagos_movilid_serv=0;
+        $total_movilid_serv=0;
+
+        $total_pagos_represent=0;
+        $total_represent=0;
+        $total_pagos_entrances=0;
+        $total_entrances=0;
+        $total_pagos_food=0;
+        $total_food=0;
+        $total_pagos_trains=0;
+        $total_trains=0;
+        $total_pagos_flights=0;
+        $total_flights=0;
+        $total_pagos_others=0;
+        $total_others=0;
     @endphp
     @foreach($cotizacion->paquete_cotizaciones->where('estado','2') as $pqt)
         @php
             $total_pagos_hotel=$pqt->pagos_hotel->where('estado',1)->sum('a_cuenta');
+            $hotel_hotel=$pqt->pagos_hotel->where('estado',-1)->sum('a_cuenta');
         @endphp
+        @php
+            $total_pagos_tour=$pqt->pagos_servicios->where('grupo','TOURS')->where('estado',1)->sum('a_cuenta');
+            $total_tours=$pqt->pagos_servicios->where('grupo','TOURS')->where('estado',-1)->sum('a_cuenta');
+        @endphp
+        @php
+            $total_pagos_movilid=$pqt->pagos_servicios->where('grupo','MOVILID')->where('estado',1)->sum('a_cuenta');
+            $total_movilid=$pqt->pagos_servicios->where('grupo','MOVILID')->where('estado',-1)->sum('a_cuenta');
+        @endphp
+
+        @foreach($pqt->itinerario_cotizaciones as $iti)
+            @foreach($iti->itinerario_servicios as $servicio)
+                @if($servicio->servicio->grupo=='MOVILID' &&$servicio->servicio->clase=='BOLETO')
+                    @if($servicio->liquidacion==1)
+                        @php
+                            $total_movilid_serv+=$servicio->precio_proveedor;
+                        @endphp
+                     @elseif($servicio->liquidacion==2)
+                        @php
+                            $total_pagos_movilid_serv+=$servicio->precio_proveedor;
+                        @endphp
+                    @endif
+                @endif
+            @endforeach
+        @endforeach
+        @php
+            $total_pagos_represent=$pqt->pagos_servicios->where('grupo','REPRESENT')->where('estado',1)->sum('a_cuenta');
+            $total_represent=$pqt->pagos_servicios->where('grupo','REPRESENT')->where('estado',-1)->sum('a_cuenta');
+        @endphp
+
+        @foreach($pqt->itinerario_cotizaciones as $iti)
+            @foreach($iti->itinerario_servicios as $servicio)
+                @if($servicio->servicio->grupo=='ENTRANCES')
+                    @if($servicio->liquidacion==0||$servicio->liquidacion==1)
+                        @php
+                            $total_entrances+=$servicio->precio_proveedor;
+                        @endphp
+                    @elseif($servicio->liquidacion==2)
+                        @php
+                                $total_pagos_entrances+=$servicio->precio_proveedor;
+                        @endphp
+                    @endif
+                @endif
+            @endforeach
+        @endforeach
+
+        @php
+            $total_pagos_food=$pqt->pagos_servicios->where('grupo','FOOD')->where('estado',1)->sum('a_cuenta');
+            $total_food=$pqt->pagos_servicios->where('grupo','FOOD')->where('estado',-1)->sum('a_cuenta');
+        @endphp
+
+        @php
+            $total_pagos_trains=$pqt->pagos_servicios->where('grupo','TRAINS')->where('estado',1)->sum('a_cuenta');
+            $total_trains=$pqt->pagos_servicios->where('grupo','TRAINS')->where('estado',-1)->sum('a_cuenta');
+        @endphp
+        @php
+            $total_pagos_flights=$pqt->pagos_servicios->where('grupo','FLIGHTS')->where('estado',1)->sum('a_cuenta');
+            $total_flights=$pqt->pagos_servicios->where('grupo','FLIGHTS')->where('estado',-1)->sum('a_cuenta');
+        @endphp
+        @php
+            $total_pagos_others=$pqt->pagos_servicios->where('grupo','OTHERS')->where('estado',1)->sum('a_cuenta');
+            $total_others=$pqt->pagos_servicios->where('grupo','OTHERS')->where('estado',-1)->sum('a_cuenta');
+        @endphp
+
         @foreach($pqt->paquete_precios as $paquete_precios)
 
             @if($paquete_precios->personas_s>0)
@@ -286,12 +370,13 @@
                     @if($servicio->precio_c>0)
                         @php
                             $tour_confirm_c++;
-                            $tours_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');
+{{--                            $tours_p_con_t+=$servicio->pagos->where('estado',1)->sum('a_cuenta');--}}
                         @endphp
                     @endif
+
                 @endif
 
-                @if($servicio->servicio->grupo=='MOVILID')
+                @if($servicio->servicio->grupo=='MOVILID'&&$servicio->servicio->clase!='BOLETO')
                     @php
                         $movilid_total++;
                     @endphp
@@ -379,7 +464,7 @@
                     @else
                         @php
                             $entr_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $entr_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $entr_p_res_t+=$servicio->precio_proveedor; /* *$cotizacion->nropersonas;*/
                             $entr_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
@@ -410,7 +495,7 @@
                     @else
                         @php
                             $food_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $food_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $food_p_res_t+=$servicio->precio_proveedor;
                             $food_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
@@ -441,7 +526,7 @@
                     @else
                         @php
                             $train_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $train_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $train_p_res_t+=$servicio->precio_proveedor;
                             $train_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
@@ -472,7 +557,7 @@
                     @else
                         @php
                             $flight_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $flight_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $flight_p_res_t+=$servicio->precio_proveedor; /* *$cotizacion->nropersonas;*/
                             $flight_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
@@ -503,7 +588,7 @@
                     @else
                         @php
                             $other_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $other_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $other_p_res_t+=$servicio->precio_proveedor; /* *$cotizacion->nropersonas;*/
                             $other_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
@@ -526,7 +611,8 @@
     @endif
 
     @php
-        $p_res_con=($hotel_p_res_t-$hotel_p_con_t);
+        $p_res_con=$hotel_p_res_t-$total_pagos_hotel;
+{{--        $p_res_con=($hotel_p_res_t-$hotel_p_con_t);--}}
     @endphp
     @if($p_res_con>0)
         @php
@@ -553,7 +639,8 @@
     @endif
 
     @php
-        $tours_p_res_con=($tours_p_res_t-$tours_p_con_t);
+        {{--$tours_p_res_con=($tours_p_res_t-$tours_p_con_t);--}}
+        $tours_p_res_con=$tours_p_res_t-$total_pagos_tour;
     @endphp
     @if($tours_p_res_con>0)
         @php
@@ -580,7 +667,9 @@
     @endif
 
     @php
-        $movilid_p_res_con=($movilid_p_res_t-$movilid_p_con_t);
+        {{--$movilid_p_res_con=($movilid_p_res_t-$movilid_p_con_t);--}}
+        $movilid_p_res_con=($total_movilid-$total_pagos_movilid);
+
     @endphp
     @if($movilid_p_res_con>0)
         @php
@@ -594,7 +683,7 @@
 
     {{--calculos para represent--}}
     @php
-        $represent_p_coti_res=($represent_p_coti_t-$represent_p_res_t);
+    $represent_p_coti_res=($represent_p_coti_t-$represent_p_res_t);
     @endphp
     @if($represent_p_coti_res>0)
         @php
@@ -607,7 +696,9 @@
     @endif
 
     @php
-        $represent_p_res_con=($represent_p_res_t-$represent_p_con_t);
+        {{--$represent_p_res_con=($represent_p_res_t-$represent_p_con_t);--}}
+        $represent_p_res_con=($total_represent-$total_pagos_represent);
+
     @endphp
     @if($represent_p_res_con>0)
         @php
@@ -619,6 +710,7 @@
         @endphp
     @endif
     {{--calculos para entr--}}
+
     @php
         $entr_p_coti_res=($entr_p_coti_t-$entr_p_res_t);
     @endphp
@@ -633,7 +725,8 @@
     @endif
 
     @php
-        $entr_p_res_con=($entr_p_res_t-$entr_p_con_t);
+        {{--$entr_p_res_con=($entr_p_res_t-$entr_p_con_t);--}}
+        $entr_p_res_con=($total_entrances-$total_pagos_entrances);
     @endphp
     @if($entr_p_res_con>0)
         @php
@@ -660,7 +753,8 @@
     @endif
 
     @php
-        $food_p_res_con=($food_p_res_t-$food_p_con_t);
+{{--        $food_p_res_con=($food_p_res_t-$food_p_con_t);--}}
+    $food_p_res_con=($total_food-$total_pagos_food);
     @endphp
     @if($food_p_res_con>0)
         @php
@@ -687,7 +781,8 @@
     @endif
 
     @php
-        $train_p_res_con=($train_p_res_t-$train_p_con_t);
+{{--        $train_p_res_con=($train_p_res_t-$train_p_con_t);--}}
+    $train_p_res_con=($total_trains-$total_pagos_trains);
     @endphp
     @if($train_p_res_con>0)
         @php
@@ -714,7 +809,8 @@
     @endif
 
     @php
-        $flight_p_res_con=($flight_p_res_t-$flight_p_con_t);
+{{--        $flight_p_res_con=($flight_p_res_t-$flight_p_con_t);--}}
+    $flight_p_res_con=($total_flights-$total_pagos_flights);
     @endphp
     @if($flight_p_res_con>0)
         @php
@@ -741,7 +837,8 @@
     @endif
 
     @php
-        $other_p_res_con=($other_p_res_t-$other_p_con_t);
+{{--        $other_p_res_con=($other_p_res_t-$other_p_con_t);--}}
+    $other_p_res_con=($total_others-$total_pagos_others);
     @endphp
     @if($other_p_res_con>0)
         @php
@@ -806,15 +903,15 @@
     @if($flight_total>0)@php $nroservicios++; $porc_flight_r=round(($flight_confirm_r/$flight_total)*100); @endphp @endif
     @if($other_total>0)@php $nroservicios++; $porc_other_r=round(($other_confirm_r/$other_total)*100); @endphp @endif
 
-    @if($hotel_p_con_t>0)@php$porc_hotel_c=round(($total_pagos_hotel/$hotel_p_con_t)*100); @endphp @endif
-    @if($tour_total_c>0)@php$porc_tour_c=round(($tours_p_con_t/$tour_total_c)*100); @endphp @endif
-    @if($movilid_total_c>0)@php$porc_movilid_c=round(($movilid_p_con_t/$movilid_total_c)*100); @endphp @endif
-    @if($represent_total_c>0)@php$porc_represent_c=round(($represent_p_con_t/$represent_total_c)*100); @endphp @endif
-    @if($entr_total_c>0)@php$porc_entr_c=round(($entr_p_con_t/$entr_total_c)*100); @endphp @endif
-    @if($food_total_c>0)@php$porc_food_c=round(($food_p_con_t/$food_total_c)*100); @endphp @endif
-    @if($train_total_c>0)@php$porc_train_c=round(($train_p_con_t/$train_total_c)*100); @endphp @endif
-    @if($flight_total_c>0)@php$porc_flight_c=round(($flight_p_con_t/$flight_total_c)*100); @endphp @endif
-    @if($other_total_c>0)@php$porc_other_c=round(($other_p_con_t/$other_total_c)*100); @endphp @endif
+    @if($hotel_hotel>0)@php$porc_hotel_c=round(($total_pagos_hotel/$hotel_hotel)*100); @endphp @endif
+    @if($total_tours>0)@php$porc_tour_c=round(($total_pagos_tour/$total_tours)*100); @endphp @endif
+    @if($total_movilid>0)@php$porc_movilid_c=round(($total_pagos_movilid/$total_movilid)*100); @endphp @endif
+    @if($total_represent>0)@php$porc_represent_c=round(($total_pagos_represent/$total_represent)*100); @endphp @endif
+    @if($total_entrances>0)@php$porc_entr_c=round(($total_pagos_entrances/$total_entrances)*100); @endphp @endif
+    @if($total_food>0)@php$porc_food_c=round(($total_pagos_food/$total_food)*100); @endphp @endif
+    @if($total_trains>0)@php$porc_train_c=round(($total_pagos_trains/$total_trains)*100); @endphp @endif
+    @if($total_flights>0)@php$porc_flight_c=round(($total_pagos_flights/$total_flights)*100); @endphp @endif
+    @if($total_others>0)@php$porc_other_c=round(($total_pagos_others/$total_others)*100); @endphp @endif
 
     @php
 
@@ -822,6 +919,7 @@
         $porc_reserva_total=$porc_hotel_r+$porc_tour_r+$porc_movilid_r+$porc_represent_r+$porc_entr_r+$porc_food_r+$porc_train_r+$porc_flight_r+$porc_other_r;
         $porc_reserva_total=round($porc_reserva_total/$nroservicios);
 
+{{--        $porc_conta_total=$porc_hotel_c+$porc_tour_c+$porc_movilid_c+$porc_represent_c+$porc_entr_c+$porc_food_c+$porc_train_c+$porc_flight_c+$porc_other;--}}
         $porc_conta_total=$porc_hotel_c+$porc_tour_c+$porc_movilid_c+$porc_represent_c+$porc_entr_c+$porc_food_c+$porc_train_c+$porc_flight_c+$porc_other;
         $porc_conta_total=round($porc_conta_total/$nroservicios);
     @endphp
@@ -847,7 +945,10 @@
                 <div class="col-lg-3 cabecera-res-lat ">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($signo_res_con=='+')text-success @elseif($signo_res_con=='-') text-danger @endif">{{$signo_res_con}}$</b><b class="@if($signo_res_con=='+')text-success @elseif($signo_res_con=='-') text-danger @endif">@if($signo_res_con=='-'){{(-1)*$p_res_con}}@else{{$p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$hotel_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$hotel_p_con_t}}--}}
+                             {{$total_pagos_hotel}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -864,7 +965,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($tours_signo_res_con=='+')text-success @elseif($tours_signo_res_con=='-') text-danger @endif">{{$tours_signo_res_con}}$</b><b class="@if($tours_signo_res_con=='+')text-success @elseif($tours_signo_res_con=='-') text-danger @endif">@if($tours_signo_res_con=='-'){{(-1)*$tours_p_res_con}}@else{{$tours_p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$tours_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$tours_p_con_t}}--}}
+                            {{$total_pagos_tour}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -881,7 +985,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($movilid_signo_res_con=='+')text-success @elseif($movilid_signo_res_con=='-') text-danger @endif">{{$movilid_signo_res_con}}$</b><b class="@if($movilid_signo_res_con=='+')text-success @elseif($movilid_signo_res_con=='-') text-danger @endif">@if($movilid_signo_res_con=='-'){{(-1)*$movilid_p_res_con}}@else{{$movilid_p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$movilid_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$movilid_p_con_t}}--}}
+                                {{$total_pagos_movilid}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -898,7 +1005,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($represent_signo_res_con=='+')text-success @elseif($represent_signo_res_con=='-') text-danger @endif">{{$represent_signo_res_con}}$</b><b class="@if($represent_signo_res_con=='+')text-success @elseif($represent_signo_res_con=='-') text-danger @endif">@if($represent_signo_res_con=='-'){{(-1)*$represent_p_res_con}}@else{{$represent_p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$represent_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$represent_p_con_t}}--}}
+                                {{$total_pagos_represent}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -915,7 +1025,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($entr_signo_res_con=='+')text-success @elseif($entr_signo_res_con=='-') text-danger @endif">{{$entr_signo_res_con}}$</b><b class="@if($entr_signo_res_con=='+')text-success @elseif($entr_signo_res_con=='-') text-danger @endif">@if($entr_signo_res_con=='-'){{(-1)*$entr_p_res_con}}@else{{$entr_p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$entr_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$entr_p_con_t}}--}}
+                                {{$total_pagos_entrances}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -932,7 +1045,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($food_signo_res_con=='+')text-success @elseif($food_signo_res_con=='-') text-danger @endif">{{$food_signo_res_con}}$</b><b class="@if($food_signo_res_con=='+')text-success @elseif($food_signo_res_con=='-') text-danger @endif">@if($food_signo_res_con=='-'){{(-1)*$food_p_res_con}}@else{{$food_p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$food_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$food_p_con_t}}--}}
+                                {{$total_pagos_food}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -949,7 +1065,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($train_signo_res_con=='+')text-success @elseif($train_signo_res_con=='-') text-danger @endif">{{$train_signo_res_con}}$</b><b class="@if($train_signo_res_con=='+')text-success @elseif($train_signo_res_con=='-') text-danger @endif">@if($train_signo_res_con=='-'){{(-1)*$train_p_res_con}}@else{{$train_p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$train_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$train_p_con_t}}--}}
+                            {{$total_pagos_trains}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -966,7 +1085,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($flight_signo_res_con=='+')text-success @elseif($flight_signo_res_con=='-') text-danger @endif">{{$flight_signo_res_con}}$</b><b class="@if($flight_signo_res_con=='+')text-success @elseif($flight_signo_res_con=='-') text-danger @endif">@if($flight_signo_res_con=='-'){{(-1)*$flight_p_res_con}}@else{{$flight_p_res_con}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$flight_p_con_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+{{--                                {{$flight_p_con_t}}--}}
+                                {{$total_pagos_flights}}
+                            </b></div>
                     </div>
                 </div>
             </div>
@@ -977,7 +1099,10 @@
                 <div class="col-lg-3 cabecera-res-lat">
                     <div class="row">
                         <div class="col-lg-4 precio_g_p"><b class="@if($other_signo_coti_res=='+')text-success @elseif($other_signo_coti_res=='-') text-danger @endif">{{$other_signo_coti_res}}$</b><b class="@if($other_signo_coti_res=='+')text-success @elseif($other_signo_coti_res=='-') text-danger @endif">@if($other_signo_coti_res=='-'){{(-1)*$other_p_coti_res}}@else{{$other_p_coti_res}}@endif</b></div>
-                        <div class="col-lg-8"><b>$</b><b>{{$other_p_res_t}}</b></div>
+                        <div class="col-lg-8"><b>$</b><b>
+                                {{--{{$other_p_res_t}}--}}
+                                {{$total_pagos_others}}
+                            </b></div>
                     </div>
                 </div>
                 <div class="col-lg-3 cabecera-res-lat">
@@ -994,7 +1119,9 @@
                 $total_cotizado=($hotel_p_coti_t+$tours_p_coti_t+$movilid_p_coti_t+$represent_p_coti_t+$entr_p_coti_t+$food_p_coti_t+$train_p_coti_t+$flight_p_coti_t+$other_p_coti_t);
                 $total_cotizado+=$profit;
                 $total_reservado=($hotel_p_res_t+$tours_p_res_t+$movilid_p_res_t+$represent_p_res_t+$entr_p_res_t+$food_p_res_t+$train_p_res_t+$flight_p_res_t+$other_p_res_t);
-                $total_contabilizado=($hotel_p_con_t+$tours_p_con_t+$movilid_p_con_t+$represent_p_con_t+$entr_p_con_t+$food_p_con_t+$train_p_con_t+$flight_p_con_t+$other_p_con_t);
+                $total_contabilizado=$total_pagos_hotel+$total_pagos_tour+$total_pagos_movilid+$total_pagos_represent+
+                                     $total_pagos_entrances+$total_pagos_food+$total_pagos_trains+$total_pagos_flights+$total_pagos_others;
+{{--                $total_contabilizado=($hotel_p_con_t+$tours_p_con_t+$movilid_p_con_t+$represent_p_con_t+$entr_p_con_t+$food_p_con_t+$train_p_con_t+$flight_p_con_t+$other_p_con_t);--}}
                 @endphp
                 <div class="col-lg-1 cabecera-res-lat-invi"></div>
                 <div class="col-lg-2 cabecera-res-lat-invi"></div>

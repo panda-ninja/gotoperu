@@ -864,7 +864,7 @@
                                     </tr>
                                 @endforeach
                                 @foreach($ItinerarioServiciosAcumPagos->where('grupo','ENTRANCES')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
-                                    <tr>
+                                    <tr class="hide">
                                         <td>
                                             <span class="text-11">
                                             @if($ItinerarioServiciosAcumPago->grupo!='')

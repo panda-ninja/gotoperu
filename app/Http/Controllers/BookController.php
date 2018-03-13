@@ -50,7 +50,7 @@ class BookController extends Controller
         $fecha_fin=date("Y-m-d");
         $liquidaciones=Cotizacion::where('liquidacion',0)->get();
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
-        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
 
@@ -209,27 +209,58 @@ class BookController extends Controller
         foreach ($paquete_cotizacion as $pqt){
             foreach ($pqt->itinerario_cotizaciones as $itinerario_cotizaciones){
                 foreach ($itinerario_cotizaciones->itinerario_servicios as $itinerario_servicios){
-                    $ids=$itinerario_servicios->servicio->grupo.'_'.$itinerario_servicios->proveedor_id;
-                    if(!array_key_exists($ids,$array_servicios)) {
-                        if ($itinerario_servicios->precio_grupo == 1) {
-                            $array_servicios[$ids] = $itinerario_servicios->precio;
-                            $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                    if($itinerario_servicios->servicio->grupo!='ENTRANCES'){
+                        if($itinerario_servicios->servicio->grupo=='MOVILID'){
+                            if($itinerario_servicios->servicio->clase!='BOLETO'){
+                                $ids=$itinerario_servicios->servicio->grupo.'_'.$itinerario_servicios->proveedor_id;
+                                if(!array_key_exists($ids,$array_servicios)) {
+                                    if ($itinerario_servicios->precio_grupo == 1) {
+                                        $array_servicios[$ids] = $itinerario_servicios->precio_proveedor;
+                                        $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                    }
+                                    elseif ($itinerario_servicios->precio_grupo == 0) {
+                                        $array_servicios[$ids] = $itinerario_servicios->precio_proveedor;/* * $coti->nropersonas;*/
+                                        $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                    }
+                                    $array_servicios_fecha[$ids]=$itinerario_cotizaciones->fecha;
+                                }
+                                else{
+                                    if ($itinerario_servicios->precio_grupo == 1) {
+                                        $array_servicios[$ids] += $itinerario_servicios->precio_proveedor;
+                                        $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                    }
+                                    elseif ($itinerario_servicios->precio_grupo == 0) {
+                                        $array_servicios[$ids] += $itinerario_servicios->precio_proveedor;/* * $coti->nropersonas;*/
+                                        $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                    }
+                                }
+                            }
                         }
-                        elseif ($itinerario_servicios->precio_grupo == 0) {
-                            $array_servicios[$ids] = $itinerario_servicios->precio * $coti->nropersonas;
-                            $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                        else{
+                            $ids=$itinerario_servicios->servicio->grupo.'_'.$itinerario_servicios->proveedor_id;
+                            if(!array_key_exists($ids,$array_servicios)) {
+                                if ($itinerario_servicios->precio_grupo == 1) {
+                                    $array_servicios[$ids] = $itinerario_servicios->precio_proveedor;
+                                    $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                }
+                                elseif ($itinerario_servicios->precio_grupo == 0) {
+                                    $array_servicios[$ids] = $itinerario_servicios->precio_proveedor;/* * $coti->nropersonas;*/
+                                    $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                }
+                                $array_servicios_fecha[$ids]=$itinerario_cotizaciones->fecha;
+                            }
+                            else{
+                                if ($itinerario_servicios->precio_grupo == 1) {
+                                    $array_servicios[$ids] += $itinerario_servicios->precio_proveedor;
+                                    $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                }
+                                elseif ($itinerario_servicios->precio_grupo == 0) {
+                                    $array_servicios[$ids] += $itinerario_servicios->precio_proveedor; /* * $coti->nropersonas;*/
+                                    $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
+                                }
+                            }
                         }
-                        $array_servicios_fecha[$ids]=$itinerario_cotizaciones->fecha;
-                    }
-                    else{
-                        if ($itinerario_servicios->precio_grupo == 1) {
-                            $array_servicios[$ids] += $itinerario_servicios->precio;
-                            $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
-                        }
-                        elseif ($itinerario_servicios->precio_grupo == 0) {
-                            $array_servicios[$ids] += $itinerario_servicios->precio * $coti->nropersonas;
-                            $array_servicios_grupo[$ids]=$itinerario_servicios->servicio->grupo;
-                        }
+
                     }
                 }
                 $sutbTotal=0;
@@ -313,7 +344,7 @@ class BookController extends Controller
         $fecha_fin=$request->input('fecha_fin');
         $liquidaciones=Cotizacion::get();
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
-        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         return view('admin.book.crear-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
     function guardar_liquidacion_storage(Request $request){
@@ -357,7 +388,7 @@ class BookController extends Controller
     function ver_liquidaciones($fecha_ini,$fecha_fin){
         $liquidaciones=Cotizacion::get();
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
-        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         return view('admin.book.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
 

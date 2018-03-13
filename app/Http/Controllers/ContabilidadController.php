@@ -710,6 +710,22 @@ class ContabilidadController extends Controller
             return 0;
 
     }
+    public function entrada_pagar(Request $request)
+    {
+        $id=$request->input('id');
+//        return $id;
+        $valor=$request->input('valor');
+
+        $isap=ItinerarioServicios::FindOrFail($id);
+        $isap->liquidacion=2;
+//        $isap->a_cuenta=$valor;
+//        $isap->estado=-1;
+        if($isap->save())
+            return 1;
+        else
+            return 0;
+
+    }
     public function pagar_servicios_conta_pagos($idcotizacion, $Iti_Serv_Acum_Pago,$proveedor_id)
     {
         $cotizacion=Cotizacion::where('id', $idcotizacion)->get();
@@ -929,17 +945,18 @@ class ContabilidadController extends Controller
     }
     function liquidaciones(){
         $cotizaciones=Cotizacion::where('liquidacion',1)->get();
-        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->orwhere('clase','BOLETO')->get();
         $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
         $liquidaciones=Liquidacion::where('estado',1)->get();
         $users=User::get();
-
+//        $iti_serv_pagos=ItinerarioServiciosAcumPago::where('estado',-1)->get();
+//        $iti_serv_pagados=ItinerarioServiciosAcumPago::where('estado',1)->get();
         return view('admin.contabilidad.liquidaciones',['cotizaciones'=>$cotizaciones,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'liquidaciones'=>$liquidaciones,'users'=>$users]);
     }
     function ver_liquidaciones($fecha_ini,$fecha_fin){
         $liquidaciones=Cotizacion::get();
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
-        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         return view('admin.contabilidad.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
 }

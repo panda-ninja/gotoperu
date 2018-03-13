@@ -33,4 +33,9 @@ class PaqueteCotizaciones extends Model
     {
         return $this->hasMany(PrecioHotelReservaPagos::class, 'paquete_cotizaciones_id');
     }
+    public function pagos_servicios()
+    {
+        return $this->hasMany(ItinerarioServiciosAcumPago::class, 'paquete_cotizaciones_id');
+    }
+
 }
