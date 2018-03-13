@@ -363,7 +363,7 @@
                     @else
                         @php
                             $tours_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $tours_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $tours_p_res_t+=$servicio->precio_proveedor;/* *$cotizacion->nropersonas;*/
                             $tour_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif

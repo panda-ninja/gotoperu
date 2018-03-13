@@ -519,7 +519,7 @@
             {{--</form>--}}
         </div>
     </div>
-    <script>
+    <script>                       pagar_entrada                 +                     +++
         function pagar_entrada(id,valor){
             console.log('valor:'+valor+',id:'+id);
             swal({
