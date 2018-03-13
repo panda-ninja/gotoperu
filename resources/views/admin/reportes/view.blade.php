@@ -396,7 +396,7 @@
                     @else
                         @php
                             $movilid_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $movilid_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $movilid_p_res_t+=$servicio->precio_proveedor; /* *$cotizacion->nropersonas;*/
                             $movilid_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
@@ -433,7 +433,7 @@
                     @else
                         @php
                             $represent_p_coti_t+=$servicio->precio*$cotizacion->nropersonas;
-                            $represent_p_res_t+=$servicio->precio_proveedor*$cotizacion->nropersonas;
+                            $represent_p_res_t+=$servicio->precio_proveedor; /* *$cotizacion->nropersonas*/;
                             $represent_total_c+=$servicio->precio_c*$cotizacion->nropersonas;
                         @endphp
                     @endif
