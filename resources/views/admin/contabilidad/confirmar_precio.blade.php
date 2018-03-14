@@ -9,54 +9,57 @@
     $arra_iconos['FLIGHTS']='<i class="fa fa-plane text-primary" aria-hidden="true"></i>';
     $arra_iconos['OTHERS']='<i class="fa fa-question text-success" aria-hidden="true"></i>';
         function fecha_letra($fecha){
+            if(strlen($fecha)>0){
             $fecha=explode('-',$fecha);
             $mes='';
             switch ($fecha[1]){
                 case '01':
-                    $mes='ENERO';
+                    $mes='ENE';
                     break;
                 case '02':
-                    $mes='FEBRERO';
+                    $mes='FEB';
                     break;
                 case '03':
-                    $mes='MARZO';
+                    $mes='MAR';
                     break;
 
                 case '04':
-                    $mes='ABRIL';
+                    $mes='ABRL';
                     break;
 
                 case '05':
-                    $mes='MAYO';
+                    $mes='MAY';
                     break;
                 case '06':
-                    $mes='JUNIO';
+                    $mes='JUN';
                     break;
 
                 case '07':
-                    $mes='JULIO';
+                    $mes='JUL';
                     break;
 
                 case '08':
-                    $mes='AGOSTO';
+                    $mes='AGO';
                     break;
                 case '09':
-                    $mes='SEPTIEMBRE';
+                    $mes='SEP';
                     break;
 
                 case '10':
-                    $mes='OCTUBRE';
+                    $mes='OCT';
                     break;
 
                 case '11':
-                    $mes='NOVIEMBRE';
+                    $mes='NOV';
                     break;
                 case '12':
-                    $mes='DICIEMBRE';
+                    $mes='DIC';
                     break;
             }
-            return $mes.' '.$fecha[2].' DEL '.$fecha[0];
+            return $fecha[2].' de '.$mes.' del '.$fecha[0];
+            }
         }
+
 @endphp
 @extends('layouts.admin.contabilidad')
 @section('content')
@@ -74,7 +77,6 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#detalle">Detalle</a></li>
                         <li><a data-toggle="tab" href="#resumen">Pagos</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Compras</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="detalle" class="tab-pane fade in active">
@@ -557,6 +559,7 @@
                                     </div>
                                 </div>
                                 @php
+                                    $total_contabilidad=0;
                                     $nro_servicios_total=0;
                                     $nro_servicios_reservados=0;
                                 @endphp
@@ -669,7 +672,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioHotleesAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioHotleesAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -685,6 +688,9 @@
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" value="{{$ItinerarioHotleesAcumPago->fecha_a_pagar}}" @if($ItinerarioHotleesAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioHotleesAcumPago->a_cuenta;
+                                            @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" name="total_h_{{$ItinerarioHotleesAcumPago->id}}" id="total_h_{{$ItinerarioHotleesAcumPago->id}}" value="{{$ItinerarioHotleesAcumPago->a_cuenta}}"  @if($ItinerarioHotleesAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -724,7 +730,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -737,6 +743,9 @@
                                             </span>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioServiciosAcumPago->a_cuenta;
+                                            @endphp
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -779,7 +788,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -795,6 +804,9 @@
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioServiciosAcumPago->a_cuenta;
+                                            @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -834,7 +846,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -850,6 +862,9 @@
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioServiciosAcumPago->a_cuenta;
+                                            @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -863,6 +878,87 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @php
+                                    $array_entradas=[];
+                                    $array_entradas_fecha_serv=[];
+                                    $array_entradas_cat=[];
+{{--                                    $array_entradas_fecha_programada=[];--}}
+                                @endphp
+                                @foreach($cotizaciones as $cotizacion_)
+                                    @foreach($cotizacion_->paquete_cotizaciones->where('estado',2) as $pqt)
+                                        @foreach($pqt->itinerario_cotizaciones as $iti)
+                                            @foreach($iti->itinerario_servicios as $servicio)
+                                                @if($servicio->servicio->grupo=='ENTRANCES'||($servicio->servicio->grupo=='MOVILID' && $servicio->servicio->clase=='BOLETO'))
+                                                    {{--@if($servicio->liquidacion==1 || $servicio->liquidacion==0)--}}
+                                                        @if(!array_key_exists($servicio->proveedor_id,$array_entradas))
+                                                            @php
+                                                                $array_entradas[$servicio->proveedor_id]=$servicio->precio_proveedor;
+                                                                $array_entradas_fecha_serv[$servicio->proveedor_id]=$iti->fecha;
+                                                                $array_entradas_cat[$servicio->proveedor_id]=$cotizacion->categorizado;
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $array_entradas[$servicio->proveedor_id]+=$servicio->precio_proveedor;
+                                                            @endphp
+                                                        @endif
+                                                    {{--@endif--}}
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
+                                @foreach($array_entradas as $key => $array_entradas_)
+                                    <tr>
+                                        <td>
+                                            <span class="text-11">
+                                            @if($ItinerarioServiciosAcumPago->grupo!='')
+                                                    {!! $arra_iconos['ENTRANCES']!!}
+                                                @endif
+                                                ENTRANCES
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-11">
+                                                @foreach($proveedores->where('id',$key) as $proveedor)
+                                                    {{$proveedor->r_nombres}}
+                                                @endforeach
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-11">
+                                            @foreach($proveedores->where('id',$key) as $proveedor)
+                                                    {{$proveedor->razon_social}}
+                                                @endforeach
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-11">
+                                                {{fecha_letra($array_entradas_fecha_serv[$key])}}
+                                            </span>
+                                        </td>
+                                        <td class="hide">
+                                            <span class="text-11">
+                                            @if($cotizacion->categorizado=='C')
+                                                    {{'Con factura'}}
+                                                @elseif($cotizacion->categorizado=='S')
+                                                    {{'Sin factura'}}
+                                                @endif
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="date" name="fecha_a_pagar" readonly>
+                                        </td>
+                                        <td>
+                                            @php
+                                                $total_contabilidad+=$array_entradas_;
+                                            @endphp
+                                            <input type="number" step="0.01" min="0" class="form-control" value="{{$array_entradas_}}" readonly>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                                 @foreach($ItinerarioServiciosAcumPagos->where('grupo','ENTRANCES')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                     <tr class="hide">
                                         <td>
@@ -889,7 +985,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -944,7 +1040,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -960,6 +1056,9 @@
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioServiciosAcumPago->a_cuenta;
+                                            @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -999,7 +1098,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -1015,6 +1114,9 @@
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioServiciosAcumPago->a_cuenta;
+                                            @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -1054,7 +1156,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -1070,6 +1172,9 @@
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioServiciosAcumPago->a_cuenta;
+                                            @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -1109,7 +1214,7 @@
                                         </td>
                                         <td>
                                             <span class="text-11">
-                                                {{$ItinerarioServiciosAcumPago->fecha_servicio}}
+                                                {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                             </span>
                                         </td>
                                         <td class="hide">
@@ -1125,6 +1230,9 @@
                                             <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->fecha_a_pagar}}" @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
+                                            @php
+                                                $total_contabilidad+=$ItinerarioServiciosAcumPago->a_cuenta;
+                                            @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                         </td>
                                         <td>
@@ -1137,13 +1245,14 @@
                                             @endif
                                         </td>
                                     </tr>
+
                                 @endforeach
+                                <tr><td colspan="5"><b class="text-right">TOTAL</b> </td><td class="text-right"><b class="text-20">${{$total_contabilidad}}</b></td><td></td></tr>
                                 </tbody>
                             </table>
 
                         </div>
-                        <div id="menu2" class="tab-pane fade">
-                        </div>
+
                     </div>
                 </div>
         </div>

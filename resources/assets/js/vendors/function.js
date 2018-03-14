@@ -3399,3 +3399,48 @@ function guardarPrecio_h(valor,id,fecha){
     })
 }
 
+function pagar_entrada(id,valor){
+    if(valor=='' ||valor==0 ){
+        swal(
+            'Ups...',
+            'No se reservo este servicio!',
+            'warning'
+        )
+        return false;
+    }
+    console.log('valor:'+valor+',id:'+id);
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de guardar el pago?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '../../../../contabilidad/entradas/pagar',
+        data: 'id='+id+'&valor='+valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+            console.log('data:'+data);
+            if(data==1) {
+                $('#btn_pagar_'+id).addClass('hide');
+                swal(
+                    'Genial...',
+                    'El pago se guardo correctamente!',
+                    'success'
+                )
+                $('#check_'+id).removeClass('hide');
+            }
+
+        }
+    })
+    })
+}

@@ -1,8 +1,8 @@
 @php
-function fecha_peru($fecha){
-$fecha=explode('-',$fecha);
-return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
-}
+    function fecha_peru($fecha){
+    $fecha=explode('-',$fecha);
+    return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+    }
 @endphp
 @extends('layouts.admin.book')
 @section('content')
@@ -35,14 +35,27 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                         $total_pagado=0;
                         $total_monto=0;
                         $total_pagado_monto=0;
-
                     @endphp
                     @foreach($cotizaciones as $cotizacion)
                         @foreach($cotizacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizaciones)
                             @foreach($paquete_cotizaciones->itinerario_cotizaciones->where('fecha','>=',$liquidacion->ini)->where('fecha','<=',$liquidacion->fin)->sortBy('fecha') as $itinerario_cotizacion)
                                 @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
                                     @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id) as $serv)
-                                        @if($serv->clase=='BTG' || $serv->clase=='CAT'||$serv->clase=='KORI'||$serv->clase=='MAPI'||$serv->clase=='OTROS'||$serv->clase=='BOLETO')
+                                        @if($serv->clase=='BTG' || $serv->clase=='CAT'||$serv->clase=='KORI'||$serv->clase=='MAPI'||$serv->clase=='OTROS')
+                                            @php
+                                                $total+=1;
+                                                $total_monto+=$itinerario_servicio->precio_proveedor;
+                                            @endphp
+                                            @if($itinerario_servicio->liquidacion==2)
+                                                @php
+                                                    $total_pagado+=1;
+                                                    $total_pagado_monto+=$itinerario_servicio->precio_proveedor;
+                                                @endphp
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                    @foreach($servicios_movi->where('id',$itinerario_servicio->m_servicios_id) as $serv)
+                                        @if($serv->clase=='BOLETO')
                                             @php
                                                 $total+=1;
                                                 $total_monto+=$itinerario_servicio->precio_proveedor;
@@ -71,10 +84,8 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                         <td>${{$total_monto-$total_pagado_monto}}</td>
 
                         <td>
-
-
                             @php
-                                $pagado_porc=($total_pagado/$total)*100;
+                                $pagado_porc=round(($total_pagado/$total)*100,2);
                                 $color_porc='progress-bar-danger';
                             @endphp
                             @if(25<$pagado_porc&&$pagado_porc<=50)
@@ -93,7 +104,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                 @endphp
                             @endif
                             <div class="progress">
-                                <div class="progress-bar {{$color_porc}} progress-bar-striped" role="progressbar" aria-valuenow="{{$pagado_porc}}" aria-valuemin="0" aria-valuemax="100"  style="min-width: 2em; width: {{$pagado_porc}}%">
+                                <div class="progress-bar {{$color_porc}} progress-bar-striped" role="progressbar" aria-valuenow="{{$pagado_porc}}" aria-valuemin="0" aria-valuemax="100"  style="min-width: 3em; width: {{$pagado_porc}}%">
                                     {{$pagado_porc}}%
                                 </div>
                             </div>

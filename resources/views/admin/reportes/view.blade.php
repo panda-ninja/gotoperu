@@ -242,7 +242,7 @@
 
         @foreach($pqt->itinerario_cotizaciones as $iti)
             @foreach($iti->itinerario_servicios as $servicio)
-                @if($servicio->servicio->grupo=='ENTRANCES')
+                    @if($servicio->servicio->grupo=='ENTRANCES' || ($servicio->servicio->grupo=='MOVILID'&&$servicio->servicio->clase=='BOLETO'))
                     @if($servicio->liquidacion==0||$servicio->liquidacion==1)
                         @php
                             $total_entrances+=$servicio->precio_proveedor;
@@ -438,7 +438,7 @@
                         @endphp
                     @endif
                 @endif
-                @if($servicio->servicio->grupo=='ENTRANCES')
+                @if($servicio->servicio->grupo=='ENTRANCES' ||($servicio->servicio->grupo=='MOVILID'&&$servicio->servicio->clase=='BOLETO'))
                     @php
                         $entr_total++;
                     @endphp

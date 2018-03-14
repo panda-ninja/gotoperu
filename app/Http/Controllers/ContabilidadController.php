@@ -176,21 +176,20 @@ class ContabilidadController extends Controller
                 $p_servicio_2->estado = 0;
                 $p_servicio_2->itinerario_servicios_id = $idservicio;
                 $p_servicio_2->save();
-
                 return "cuenta <> 0  id <> 0 ".$idpago."/".$p_servicio_1->id;
-
             }
         }
-
     }
 
     public function show($id)
     {
         $cotizacion=Cotizacion::FindOrFail($id);
+        $cotizaciones=Cotizacion::where('id',$id)->get();
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
         $pqt_coti=PaqueteCotizaciones::where('cotizaciones_id',$id)->where('estado',2)->get();
+
         $pqt_id=0;
         foreach ($pqt_coti as $pqt){
             $pqt_id=$pqt->id;
@@ -198,7 +197,8 @@ class ContabilidadController extends Controller
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
 //        dd($ItinerarioHotleesAcumPagos);
-        return view('admin.contabilidad.confirmar_precio',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos]);
+//        dd($cotizaciones);
+        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos]);
     }
 
     public function update_price_conta(){
@@ -945,8 +945,8 @@ class ContabilidadController extends Controller
     }
     function liquidaciones(){
         $cotizaciones=Cotizacion::where('liquidacion',1)->get();
-        $servicios=M_Servicio::where('grupo','ENTRANCES')->orwhere('clase','BOLETO')->get();
-        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         $liquidaciones=Liquidacion::where('estado',1)->get();
         $users=User::get();
 //        $iti_serv_pagos=ItinerarioServiciosAcumPago::where('estado',-1)->get();

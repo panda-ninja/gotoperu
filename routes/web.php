@@ -792,7 +792,7 @@ Route::get('/admin/contabilidad/liquidaciones/show/{desde}/{hasta}', [
     'as' => 'contabilidad_ver_liquidacion_path',
 ]);
 
-Route::post('/contabilidad/entradas/pagar',[
+Route::post('/admin/contabilidad/entradas/pagar',[
     'uses' => 'ContabilidadController@entrada_pagar',
     'as' => 'contabilidad_entrada_guardar_path',
 ]);

@@ -379,7 +379,7 @@ class BookController extends Controller
     function liquidaciones(){
         $cotizaciones=Cotizacion::where('liquidacion',1)->get();
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
-        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         $liquidaciones=Liquidacion::where('estado',1)->get();
         $users=User::get();
 

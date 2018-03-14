@@ -78,7 +78,8 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <button class="btn btn-primary" onclick="pagar_entrada({{$itinerario_servicio->id}},{{$itinerario_servicio->precio_proveedor}})">Pagar</button>
+                                                        <button id="btn_pagar_{{$itinerario_servicio->id}}" class="btn btn-primary" onclick="pagar_entrada('{{$itinerario_servicio->id}}','{{$itinerario_servicio->precio_proveedor}}')">Pagar</button>
+                                                        <i id="check_{{$itinerario_servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -157,7 +158,8 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <button class="btn btn-primary" onclick="pagar_entrada({{$itinerario_servicio->id}},{{$itinerario_servicio->precio_proveedor}})">Pagar</button>
+                                                        <button id="btn_pagar_{{$itinerario_servicio->id}}" class="btn btn-primary" onclick="pagar_entrada('{{$itinerario_servicio->id}}','{{$itinerario_servicio->precio_proveedor}}')">Pagar</button>
+                                                        <i id="check_{{$itinerario_servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -236,7 +238,8 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <button class="btn btn-primary" onclick="pagar_entrada({{$itinerario_servicio->id}},{{$itinerario_servicio->precio_proveedor}})">Pagar</button>
+                                                        <button id="btn_pagar_{{$itinerario_servicio->id}}" class="btn btn-primary" onclick="pagar_entrada('{{$itinerario_servicio->id}}','{{$itinerario_servicio->precio_proveedor}}')">Pagar</button>
+                                                        <i id="check_{{$itinerario_servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -315,7 +318,8 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <button class="btn btn-primary" onclick="pagar_entrada({{$itinerario_servicio->id}},{{$itinerario_servicio->precio_proveedor}})">Pagar</button>
+                                                        <button id="btn_pagar_{{$itinerario_servicio->id}}" class="btn btn-primary" onclick="pagar_entrada('{{$itinerario_servicio->id}}','{{$itinerario_servicio->precio_proveedor}}')">Pagar</button>
+                                                        <i id="check_{{$itinerario_servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -394,7 +398,8 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <button class="btn btn-primary" onclick="pagar_entrada({{$itinerario_servicio->id}},{{$itinerario_servicio->precio_proveedor}})">Pagar</button>
+                                                        <button id="btn_pagar_{{$itinerario_servicio->id}}" class="btn btn-primary" onclick="pagar_entrada('{{$itinerario_servicio->id}}','{{$itinerario_servicio->precio_proveedor}}')">Pagar</button>
+                                                        <i id="check_{{$itinerario_servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -473,7 +478,8 @@
                                                 </td>
                                                 <td>
                                                     @if($itinerario_servicio->liquidacion==1)
-                                                        <button class="btn btn-primary" onclick="pagar_entrada({{$itinerario_servicio->id}},{{$itinerario_servicio->precio_proveedor}})">Pagar</button>
+                                                        <button id="btn_pagar_{{$itinerario_servicio->id}}" class="btn btn-primary" onclick="pagar_entrada('{{$itinerario_servicio->id}}','{{$itinerario_servicio->precio_proveedor}}')">Pagar</button>
+                                                        <i id="check_{{$itinerario_servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
@@ -519,43 +525,4 @@
             {{--</form>--}}
         </div>
     </div>
-    <script>                       pagar_entrada                 +                     +++
-        function pagar_entrada(id,valor){
-            console.log('valor:'+valor+',id:'+id);
-            swal({
-                title: 'MENSAJE DEL SISTEMA',
-                text: "¿Estas seguro de guardar el pago?",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
-            }).then(function () {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('[name="_token"]').val()
-                    }
-                });
-                $.ajax({
-                    type: 'POST',
-                    url: {{route('contabilidad_entrada_guardar_path')}},
-                    data: 'id='+id+'&valor='+valor,
-                    // Mostramos un mensaje con la respuesta de PHP
-                    success: function(data) {
-                        console.log('data:'+data);
-                        if(data==1) {
-                            // $('#btn_save_'+id).addClass('hide');
-                            swal(
-                                'Genial...',
-                                'El pago se guardo correctamente!',
-                                'success'
-                            )
-                            // $('#btn_pagar_'+id).removeClass('hide');
-                        }
-
-                    }
-                })
-            })
-        }
-    </script>
 @stop
