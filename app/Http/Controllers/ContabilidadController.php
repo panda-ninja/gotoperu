@@ -196,9 +196,15 @@ class ContabilidadController extends Controller
         }
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
+        $serviciosAcum=1;
+        if(count($ItinerarioServiciosAcumPagos)==0)
+            $serviciosAcum=0;
+        $hotelesAcum=1;
+        if(count($ItinerarioHotleesAcumPagos)==0)
+            $hotelesAcum=0;
+
 //        dd($ItinerarioHotleesAcumPagos);
-//        dd($cotizaciones);
-        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos]);
+        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'hotelesAcum'=>$hotelesAcum,'serviciosAcum'=>$serviciosAcum]);
     }
 
     public function update_price_conta(){
