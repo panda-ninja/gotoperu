@@ -560,6 +560,9 @@
                                 </div>
                                 @php
                                     $total_contabilidad=0;
+                                    $total_contabilidad_a_cuenta=0;
+                                    $total_contabilidad_saldo=0;
+
                                     $nro_servicios_total=0;
                                     $nro_servicios_reservados=0;
                                 @endphp
@@ -698,10 +701,14 @@
                                         <td class="text-right">
                                             @php
                                                 $pagado_Hotel=$ItinerarioHotleesAcumPagos->where('paquete_cotizaciones_id',$ItinerarioHotleesAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioHotleesAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                $total_contabilidad_a_cuenta+=$pagado_Hotel;
                                             @endphp
                                             ${{$pagado_Hotel}}
                                         </td>
                                         <td class="text-right">
+                                            @php
+                                                $total_contabilidad_saldo+=$ItinerarioHotleesAcumPago->a_cuenta-$pagado_Hotel;
+                                            @endphp
                                             ${{$ItinerarioHotleesAcumPago->a_cuenta-$pagado_Hotel}}
                                         </td>
                                         <td class="text-center">
@@ -771,10 +778,14 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
                                                 ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
@@ -842,10 +853,14 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
                                                 ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
@@ -913,10 +928,14 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
                                                 ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
@@ -1019,6 +1038,9 @@
                                         <td class="text-right">
                                             @if($array_entradas_pagado[$key]==2)
                                                 {{$array_entradas_}}
+                                                @php
+                                                    $total_contabilidad_a_cuenta+=$array_entradas_;
+                                                @endphp
                                             @else
                                                 {{'0.00'}}
                                             @endif
@@ -1027,6 +1049,9 @@
                                             @if($array_entradas_pagado[$key]==2)
                                                 {{'0.00'}}
                                             @else
+                                                @php
+                                                    $total_contabilidad_saldo+=$array_entradas_;
+                                                @endphp
                                                 {{$array_entradas_}}
                                             @endif
                                         </td>
@@ -1085,11 +1110,15 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
-                                                ${{$ItinerarioServiciosAcumPagos->a_cuenta-$pagado_Serv}}
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
                                                 {{csrf_field()}}
@@ -1156,10 +1185,14 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
                                                 ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
@@ -1227,10 +1260,14 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
                                                 ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
@@ -1298,10 +1335,14 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
                                                 ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
@@ -1369,10 +1410,14 @@
                                             <td class="text-right">
                                                 @php
                                                     $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                    $total_contabilidad_a_cuenta+=$pagado_Serv;
                                                 @endphp
                                                 ${{$pagado_Serv}}
                                             </td>
                                             <td class="text-right">
+                                                @php
+                                                    $total_contabilidad_saldo+=$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv;
+                                                @endphp
                                                 ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
                                             </td>
                                             <td class="text-center">
@@ -1391,7 +1436,12 @@
                                         </tr>
                                     @endforeach
                                 {{--@endif--}}
-                                <tr><td colspan="5"><b class="text-right">TOTAL</b> </td><td class="text-right"><b class="text-20">${{$total_contabilidad}}</b></td><td></td></tr>
+                                <tr><td colspan="5"><b class="text-right">TOTAL</b> </td>
+                                    <td class="text-right"><b class="text-20">${{$total_contabilidad}}</b></td>
+                                    <td class="text-right"><b class="text-20">${{$total_contabilidad_a_cuenta}}</b></td>
+                                    <td class="text-right"><b class="text-20">${{$total_contabilidad_saldo}}</b></td>
+                                    <td></td>
+                                </tr>
                                 </tbody>
                             </table>
 
