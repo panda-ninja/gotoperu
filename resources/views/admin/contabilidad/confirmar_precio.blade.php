@@ -75,11 +75,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#detalle">Detalle</a></li>
-                        <li><a data-toggle="tab" href="#resumen">Pagos</a></li>
+                        <li class="@if($activado=='Detalle')active @endif"><a data-toggle="tab" href="#detalle">Detalle</a></li>
+                        <li class="@if($activado=='Resumen')active @endif"><a data-toggle="tab" href="#resumen">Resumen</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="detalle" class="tab-pane fade in active">
+                        <div id="detalle" class="tab-pane fade @if($activado=='Detalle')in active @endif ">
                             <div class="row">
                                 <div class="col-md-12">
                                     @foreach($cotizacion->cotizaciones_cliente as $clientes)
@@ -271,13 +271,13 @@
                                                         @elseif($precio_c==$pagos_suma)
                                                             <button class="btn btn-success btn-sm"><i class="fa fa-check text-18"></i></button>
                                                         @elseif($servicios->precio_c > 0)
-                                                            <button class="btn btn-warning display-block btn-sm hide" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
-                                                            <a href="{{route('pagar_servicios_conta_path', [$cotizacion->id, $servicios->id])}}" class="btn btn-primary display-block btn-sm" id="btn_p_{{$servicios->id}}">Pagar</a>
+                                                            <button class="btn btn-warning  btn-sm hide" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
+                                                            <a href="{{route('pagar_servicios_conta_path', [$cotizacion->id, $servicios->id])}}" class="btn btn-primary  btn-sm" id="btn_p_{{$servicios->id}}">Pagar</a>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_{{$servicios->id}}"></i>
                                                             <span class="sr-only">Loading...</span>
                                                         @else
-                                                            <button class="btn btn-warning display-block btn-sm" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
-                                                            <a href="{{route('pagar_servicios_conta_path', [$cotizacion->id, $servicios->id])}}" class="btn btn-primary display-block btn-sm hide" id="btn_p_{{$servicios->id}}">Pagar</a>
+                                                            <button class="btn btn-warning  btn-sm" onclick="savePrice($('#p_conta_{{$servicios->id}}').val(),{{$servicios->id}})" id="btn_s_{{$servicios->id}}">Save</button>
+                                                            <a href="{{route('pagar_servicios_conta_path', [$cotizacion->id, $servicios->id])}}" class="btn btn-primary  btn-sm hide" id="btn_p_{{$servicios->id}}">Pagar</a>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_{{$servicios->id}}"></i>
                                                             <span class="sr-only">Loading...</span>
                                                         @endif
@@ -476,13 +476,13 @@
                                                     </td>
                                                     <td class="text-center hide">
                                                         @if($hotel->precio_s_c > 0 || $hotel->precio_d_c > 0 || $hotel->precio_m_c > 0 || $hotel->precio_t_c > 0)
-                                                            <button class="btn btn-warning display-block btn-sm hide" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h_{{$hotel->id}}">Save</button>
-                                                            <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizacion->id, $hotel->id,$paquetes->id,$hotel->proveedor_id])}}" class="btn btn-primary display-block btn-sm" id="btn_p_h{{$hotel->id}}">Pagar</a>
+                                                            <button class="btn btn-warning  btn-sm hide" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h_{{$hotel->id}}">Save</button>
+                                                            <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizacion->id, $hotel->id,$paquetes->id,$hotel->proveedor_id])}}" class="btn btn-primary  btn-sm" id="btn_p_h{{$hotel->id}}">Pagar</a>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_h{{$hotel->id}}"></i>
                                                             <span class="sr-only">Loading...</span>
                                                         @else
-                                                            <button class="btn btn-warning display-block btn-sm" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h{{$hotel->id}}">Save</button>
-                                                            <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizacion->id, $hotel->id,$paquetes->id,$hotel->proveedor_id])}}" class="btn btn-primary display-block btn-sm hide" id="btn_p_h{{$hotel->id}}">Pagar</a>
+                                                            <button class="btn btn-warning  btn-sm" onclick="savePrice_h({{$s}},{{$d}},{{$m}},{{$t}},{{$hotel->id}})" id="btn_s_h{{$hotel->id}}">Save</button>
+                                                            <a href="{{route('pagar_servicios_conta_hotel_path', [$cotizacion->id, $hotel->id,$paquetes->id,$hotel->proveedor_id])}}" class="btn btn-primary  btn-sm hide" id="btn_p_h{{$hotel->id}}">Pagar</a>
                                                             <i class="fa fa-spinner fa-pulse text-18 fa-fw hide" id="p_load_h{{$hotel->id}}"></i>
                                                             <span class="sr-only">Loading...</span>
                                                         @endif
@@ -529,7 +529,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div id="resumen" class="tab-pane fade">
+                        <div id="resumen" class="tab-pane fade @if($activado=='Resumen')in active @endif ">
                             <div class="row">
                                 <div class="col-md-12">
                                     @foreach($cotizacion->cotizaciones_cliente as $clientes)
@@ -641,11 +641,12 @@
                                     <th class="hide">CATEGORIA</th>
                                     <th width="90px">FECHA PROGRAMADA</th>
                                     <th width="90px">TOTAL</th>
-                                    <th>OPERACIONES</th>
+                                    <th width="90px">A CUENTA</th>
+                                    <th width="90px">SALDO</th>
+                                    <th>OPERAC.</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-{{--                                @if($hotelesAcum>0)--}}
                                 @foreach($ItinerarioHotleesAcumPagos->whereIn('estado',[-2,-1]) as $ItinerarioHotleesAcumPago)
                                     <tr>
                                         <td>
@@ -691,15 +692,29 @@
                                             @php
                                                 $total_contabilidad+=$ItinerarioHotleesAcumPago->a_cuenta;
                                             @endphp
-                                            <input type="number" step="0.01" min="0" class="form-control" name="total_h_{{$ItinerarioHotleesAcumPago->id}}" id="total_h_{{$ItinerarioHotleesAcumPago->id}}" value="{{$ItinerarioHotleesAcumPago->a_cuenta}}"  @if($ItinerarioHotleesAcumPago->estado==-1){{'readonly'}}@endif>
+
+                                            <input type="number" step="0.01" min="0" class="form-control" name="total_h_{{$ItinerarioHotleesAcumPago->id}}" id="total_h_{{$ItinerarioHotleesAcumPago->id}}" value="{{$ItinerarioHotleesAcumPago->a_cuenta}}"  @if($ItinerarioHotleesAcumPago->estado==-1){{'readonly=\'readonly\''}}@endif>
                                         </td>
-                                        <td>
+                                        <td class="text-right">
+                                            @php
+                                                $pagado_Hotel=$ItinerarioHotleesAcumPagos->where('paquete_cotizaciones_id',$ItinerarioHotleesAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioHotleesAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                            @endphp
+                                            ${{$pagado_Hotel}}
+                                        </td>
+                                        <td class="text-right">
+                                            ${{$ItinerarioHotleesAcumPago->a_cuenta-$pagado_Hotel}}
+                                        </td>
+                                        <td class="text-center">
                                             {{csrf_field()}}
                                             @if($ItinerarioHotleesAcumPago->estado==-2)
-                                                <button id="btn_save_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio_h($('#total_h_{{$ItinerarioHotleesAcumPago->id}}').val(),{{$ItinerarioHotleesAcumPago->id}},$('#fecha_a_pagar_h_{{$ItinerarioHotleesAcumPago->id}}').val())">Guardar</button>
+                                                <button id="btn_save_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio_h($('#total_h_{{$ItinerarioHotleesAcumPago->id}}').val(),{{$ItinerarioHotleesAcumPago->id}},$('#fecha_a_pagar_h_{{$ItinerarioHotleesAcumPago->id}}').val())">Guardar</button>
                                                 <a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                             @elseif($ItinerarioHotleesAcumPago->estado==-1)
-                                                <a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-success  btn-sm" >Pagar</a>
+                                                @if($ItinerarioHotleesAcumPago->a_cuenta==$pagado_Hotel)
+                                                    <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                    <a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-success  btn-sm" >Pagar</a>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>
@@ -753,13 +768,26 @@
                                             <td>
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -811,13 +839,26 @@
                                                 @endphp
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -869,13 +910,26 @@
                                                 @endphp
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -885,6 +939,8 @@
                                     $array_entradas=[];
                                     $array_entradas_fecha_serv=[];
                                     $array_entradas_cat=[];
+                                    $array_entradas_pagado=[];
+                                    $array_entradas_clase=[];
                                 @endphp
                                 @foreach($cotizaciones as $cotizacion_)
                                     @foreach($cotizacion_->paquete_cotizaciones->where('estado',2) as $pqt)
@@ -897,6 +953,9 @@
                                                                 $array_entradas[$servicio->proveedor_id]=$servicio->precio_proveedor;
                                                                 $array_entradas_fecha_serv[$servicio->proveedor_id]=$iti->fecha;
                                                                 $array_entradas_cat[$servicio->proveedor_id]=$cotizacion->categorizado;
+                                                                $array_entradas_pagado[$servicio->proveedor_id]=$servicio->liquidacion;
+                                                                $array_entradas_clase[$servicio->proveedor_id]=$servicio->servicio->clase;
+
                                                             @endphp
                                                         @else
                                                             @php
@@ -914,9 +973,11 @@
                                         <td>
                                             <span class="text-11">
                                                     {!! $arra_iconos['ENTRANCES']!!}
-
                                                 ENTRANCES
-                                            </span>
+                                            </span><br>
+                                            <b class="text-11 text-green-goto padding-15">
+                                                {{$array_entradas_clase[$key]}}
+                                            </b>
                                         </td>
                                         <td>
                                             <span class="text-11">
@@ -955,7 +1016,24 @@
                                             @endphp
                                             <input type="number" step="0.01" min="0" class="form-control" value="{{$array_entradas_}}" readonly>
                                         </td>
-                                        <td>
+                                        <td class="text-right">
+                                            @if($array_entradas_pagado[$key]==2)
+                                                {{$array_entradas_}}
+                                            @else
+                                                {{'0.00'}}
+                                            @endif
+                                        </td>
+                                        <td class="text-right">$
+                                            @if($array_entradas_pagado[$key]==2)
+                                                {{'0.00'}}
+                                            @else
+                                                {{$array_entradas_}}
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if($array_entradas_pagado[$key]==2)
+                                                <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -1004,13 +1082,26 @@
                                             <td>
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPagos->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -1062,13 +1153,26 @@
                                                 @endphp
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -1120,13 +1224,26 @@
                                                 @endphp
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -1178,13 +1295,26 @@
                                                 @endphp
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -1236,13 +1366,26 @@
                                                 @endphp
                                                 <input type="number" step="0.01" min="0" class="form-control" name="total_{{$ItinerarioServiciosAcumPago->id}}" id="total_{{$ItinerarioServiciosAcumPago->id}}" value="{{$ItinerarioServiciosAcumPago->a_cuenta}}"  @if($ItinerarioServiciosAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
-                                            <td>
+                                            <td class="text-right">
+                                                @php
+                                                    $pagado_Serv=$ItinerarioServiciosAcumPagos->where('paquete_cotizaciones_id',$ItinerarioServiciosAcumPago->paquete_cotizaciones_id)->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id)->where('estado',1)->sum('a_cuenta');
+                                                @endphp
+                                                ${{$pagado_Serv}}
+                                            </td>
+                                            <td class="text-right">
+                                                ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}
+                                            </td>
+                                            <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning display-block btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),{{$ItinerarioServiciosAcumPago->id}},$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
-                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
+                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
+                                                        <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>

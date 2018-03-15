@@ -196,17 +196,29 @@ class ContabilidadController extends Controller
         }
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
-        $serviciosAcum=1;
-        if(count($ItinerarioServiciosAcumPagos)==0)
-            $serviciosAcum=0;
-        $hotelesAcum=1;
-        if(count($ItinerarioHotleesAcumPagos)==0)
-            $hotelesAcum=0;
+        $activado='Detalle';
 
 //        dd($ItinerarioHotleesAcumPagos);
-        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'hotelesAcum'=>$hotelesAcum,'serviciosAcum'=>$serviciosAcum]);
+        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'activado'=>$activado]);
     }
+    public function show_back($id)
+    {
+        $cotizacion=Cotizacion::FindOrFail($id);
+        $cotizaciones=Cotizacion::where('id',$id)->get();
+        $productos=M_Producto::get();
+        $proveedores=Proveedor::get();
+        $hotel_proveedor=HotelProveedor::get();
+        $pqt_coti=PaqueteCotizaciones::where('cotizaciones_id',$id)->where('estado',2)->get();
 
+        $pqt_id=0;
+        foreach ($pqt_coti as $pqt){
+            $pqt_id=$pqt->id;
+        }
+        $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
+        $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
+        $activado='Resumen';
+        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'activado'=>$activado]);
+    }
     public function update_price_conta(){
         $id = $_POST['txt_id'];
         $precio = $_POST['txt_precio'];

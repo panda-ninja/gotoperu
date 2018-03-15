@@ -6,7 +6,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
 @endphp
 @extends('layouts.admin.contabilidad')
 @section('content')
-    <div class="row margin-top-40">
+    <div class="row margin-top-5">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li>Contabilidad</li>
@@ -77,12 +77,20 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4 class="text-right">
-                        <a href="#" style="text-decoration:none;">
-                            <span class="display-block margin-bottom-10"><button class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> </button> <button class="btn btn-info"><i class="fa fa-mail-forward"></i> </button></span>
-                            {{--<strong class="text-warning text-25">Cusco Catedral</strong>--}}
-                        </a>
-                    </h4>
+                    <div class="text-left col-lg-6">
+                        <span class="display-block margin-bottom-10">
+                            <a href="{{route('contabilidad_resumen_back_path',$idcotizacion)}}" class="btn btn-info"><i class="fa fa-arrow-circle-left fa-2x"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="text-right col-lg-6">
+                        <span class="display-block margin-bottom-10">
+                            <button class="btn btn-danger"><i class="fa fa-file-pdf-o"></i>
+                            </button>
+                            <button class="btn btn-info"><i class="fa fa-send"></i>
+                            </button>
+                        </span>
+                    </div>
                     <hr>
 
 

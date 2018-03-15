@@ -796,3 +796,8 @@ Route::post('/admin/contabilidad/entradas/pagar',[
     'uses' => 'ContabilidadController@entrada_pagar',
     'as' => 'contabilidad_entrada_guardar_path',
 ]);
+
+Route::get('/admin/contabilidad/show-back/{id}', [
+    'uses' => 'ContabilidadController@show_back',
+    'as' => 'contabilidad_resumen_back_path',
+]);
