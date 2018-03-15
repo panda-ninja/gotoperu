@@ -801,3 +801,8 @@ Route::get('/admin/contabilidad/show-back/{id}', [
     'uses' => 'ContabilidadController@show_back',
     'as' => 'contabilidad_resumen_back_path',
 ]);
+
+Route::get('/cotizacion/current/paquete/edit/{id}', [
+    'uses' => 'PackageCotizacionController@show_current_paquete_edit',
+    'as' => 'show_current_paquete_edit_path',
+]);

@@ -239,20 +239,19 @@
             $total_pagos_represent=$pqt->pagos_servicios->where('grupo','REPRESENT')->where('estado',1)->sum('a_cuenta');
             $total_represent=$pqt->pagos_servicios->where('grupo','REPRESENT')->where('estado',-1)->sum('a_cuenta');
         @endphp
-
         @foreach($pqt->itinerario_cotizaciones as $iti)
             @foreach($iti->itinerario_servicios as $servicio)
-                    @if($servicio->servicio->grupo=='ENTRANCES' || ($servicio->servicio->grupo=='MOVILID'&&$servicio->servicio->clase=='BOLETO'))
-                    @if($servicio->liquidacion==0||$servicio->liquidacion==1)
-                        @php
-                            $total_entrances+=$servicio->precio_proveedor;
-                        @endphp
-                    @elseif($servicio->liquidacion==2)
-                        @php
-                                $total_pagos_entrances+=$servicio->precio_proveedor;
-                        @endphp
+                    @if($servicio->servicio->grupo=='ENTRANCES' )
+                        @if($servicio->liquidacion==0||$servicio->liquidacion==1)
+                            @php
+                                $total_entrances+=$servicio->precio_proveedor;
+                            @endphp
+                        @elseif($servicio->liquidacion==2)
+                            @php
+                                    $total_pagos_entrances+=$servicio->precio_proveedor;
+                            @endphp
+                        @endif
                     @endif
-                @endif
             @endforeach
         @endforeach
 

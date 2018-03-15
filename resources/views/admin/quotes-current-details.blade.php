@@ -200,6 +200,7 @@
                                 <img src="{{asset('img/portada/proposal-martin-pdf.jpg')}}" alt="" class="img-responsive">
                                 <div class="box-dowload1">
                                     <b class="margin-top-5"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Plan</b>
+                                    <a href="{{route('show_current_paquete_edit_path',$paquete->id)}}" class=" pull-right btn btn-default btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                     <form id="generar_plantilla" name="generar_plantilla" action="{{route('generar_pantilla_path')}}" method="post">
                                         {{csrf_field()}}
                                         <input type="hidden" name="pqt_id" id="pqt_id" value="{{$paquete->id}}">

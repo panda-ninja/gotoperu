@@ -3290,14 +3290,14 @@ function dato_producto_hotel(valor){
 function guardar_reserva(){
     var nro_servicios_total=parseInt($('#nro_servicios_total').val());
     var nro_ser_reservado=parseInt($('#nro_servicios_reservados').val());
-    if (nro_ser_reservado<nro_servicios_total) {
-        swal(
-            'Oops...',
-            'Para enviar la reserva a contabilidad, debe asignar todos los proveedores!',
-            'error'
-        )
-        return false;
-    }
+    // if (nro_ser_reservado<nro_servicios_total) {
+    //     swal(
+    //         'Oops...',
+    //         'Para enviar la reserva a contabilidad, debe asignar todos los proveedores!',
+    //         'error'
+    //     )
+    //     return false;
+    // }
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de guardar la reserva?",
