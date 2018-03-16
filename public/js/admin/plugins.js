@@ -28197,7 +28197,7 @@ function pagar_entrada(id,valor){
     console.log('valor:'+valor+',id:'+id);
     swal({
         title: 'MENSAJE DEL SISTEMA',
-        text: "¿Estas seguro de guardar el pago?",
+        text: "¿Estas seguro de realizar el pago?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -28228,5 +28228,59 @@ function pagar_entrada(id,valor){
 
         }
     })
+    })
+}
+function pagar_entrada_pagos(id,valor){
+    if(valor=='' ||valor==0 ){
+        swal(
+            'Ups...',
+            'No se reservo este servicio!',
+            'warning'
+        )
+        return false;
+    }
+    console.log('valor:'+valor+',id:'+id);
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de realizar el pago?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '../../contabilidad/entradas/pagar',
+            data: 'id='+id+'&valor='+valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                console.log('data:'+data);
+                if(data==1) {
+                    var cvalor=parseFloat(valor);
+                    $('#btn_pagar_'+id).addClass('hide');
+                    $('#a_cuenta_r_'+id).html('$'+cvalor);
+                    $('#saldo_r_'+id).html('$0');
+                    var total_a_cuenta = parseFloat($('#total_a_cuenta').html());
+                    var total_saldo = parseFloat($('#total_saldo').html());
+                    total_a_cuenta+=cvalor;
+                    total_saldo+=cvalor;
+                    $('#total_a_cuenta').html(total_a_cuenta);
+                    $('#total_saldo').html(total_saldo);
+                    swal(
+                        'Genial...',
+                        'El pago se guardo correctamente!',
+                        'success'
+                    )
+                    $('#check_'+id).removeClass('hide');
+                }
+
+            }
+        })
     })
 }

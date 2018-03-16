@@ -76,12 +76,12 @@
                 <div class="panel-body">
                     <ul class="nav nav-tabs">
                         <li class="@if($activado=='Detalle')active @endif"><a data-toggle="tab" href="#detalle">Detalle</a></li>
-                        <li class="@if($activado=='Resumen')active @endif"><a data-toggle="tab" href="#resumen">Resumen</a></li>
+                        <li class="@if($activado=='Resumen')active @endif"><a data-toggle="tab" href="#resumen">Pagos</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="detalle" class="tab-pane fade @if($activado=='Detalle')in active @endif ">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 margin-top-5">
                                     @foreach($cotizacion->cotizaciones_cliente as $clientes)
                                         @if($clientes->estado==1)
                                             {{--<h1 class="panel-title pull-left" style="font-size:30px;">Hidalgo <small>hidlgo@gmail.com</small></h1>--}}
@@ -531,7 +531,7 @@
                         </div>
                         <div id="resumen" class="tab-pane fade @if($activado=='Resumen')in active @endif ">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 margin-top-5">
                                     @foreach($cotizacion->cotizaciones_cliente as $clientes)
                                         @if($clientes->estado==1)
                                             {{--<h1 class="panel-title pull-left" style="font-size:30px;">Hidalgo <small>hidlgo@gmail.com</small></h1>--}}
@@ -966,102 +966,182 @@
                                         @foreach($pqt->itinerario_cotizaciones as $iti)
                                             @foreach($iti->itinerario_servicios as $servicio)
                                                 @if($servicio->servicio->grupo=='ENTRANCES'||($servicio->servicio->grupo=='MOVILID' && $servicio->servicio->clase=='BOLETO'))
-                                                    {{--@if($servicio->liquidacion==1 || $servicio->liquidacion==0)--}}
-                                                        @if(!array_key_exists($servicio->proveedor_id,$array_entradas))
+                                                    <tr>
+                                                        <td>
+                                                            <span class="text-11">
+                                                                    {!! $arra_iconos['ENTRANCES']!!}
+                                                                ENTRANCES
+                                                            </span><br>
+                                                            <b class="text-11 text-green-goto padding-15">
+                                                                {{$servicio->servicio->clase}}
+                                                            </b>
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-11">
+                                                                @foreach($proveedores->where('id',$servicio->proveedor_id) as $proveedor)
+                                                                    {{$proveedor->r_nombres}}
+                                                                @endforeach
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-11">
+                                                                @foreach($proveedores->where('id',$servicio->proveedor_id) as $proveedor)
+                                                                    {{$proveedor->razon_social}}
+                                                                @endforeach
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-11">
+                                                                {{$iti->fecha}}
+                                                            </span>
+                                                        </td>
+                                                        <td class="hide">
+                                                            <span class="text-11">
+                                                            @if($cotizacion->categorizado=='C')
+                                                                    {{'Con factura'}}
+                                                                @elseif($cotizacion->categorizado=='S')
+                                                                    {{'Sin factura'}}
+                                                                @endif
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" type="date" name="fecha_a_pagar" readonly>
+                                                        </td>
+                                                        <td>
                                                             @php
-                                                                $array_entradas[$servicio->proveedor_id]=$servicio->precio_proveedor;
-                                                                $array_entradas_fecha_serv[$servicio->proveedor_id]=$iti->fecha;
-                                                                $array_entradas_cat[$servicio->proveedor_id]=$cotizacion->categorizado;
-                                                                $array_entradas_pagado[$servicio->proveedor_id]=$servicio->liquidacion;
-                                                                $array_entradas_clase[$servicio->proveedor_id]=$servicio->servicio->clase;
+                                                                $total_contabilidad+=$servicio->precio_proveedor;
+                                                            @endphp
+                                                            <input type="number" step="0.01" min="0" class="form-control" value="{{$servicio->precio_proveedor}}" readonly>
+                                                        </td>
+                                                        <td class="text-right" id="a_cuenta_r_{{$servicio->id}}">
+                                                            @if($servicio->liquidacion==2)
+                                                                {{$servicio->precio_proveedor}}
+                                                                @php
+                                                                    $total_contabilidad_a_cuenta+=$servicio->precio_proveedor;
+                                                                @endphp
+                                                            @else
+                                                                {{'0.00'}}
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-right" id="saldo_r_{{$servicio->id}}">$
+                                                            @if($servicio->liquidacion==2)
+                                                                {{'0.00'}}
+                                                            @else
+                                                                @php
+                                                                    $total_contabilidad_saldo+=$servicio->precio_proveedor;
+                                                                @endphp
+                                                                {{$servicio->precio_proveedor}}
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @if($servicio->liquidacion==1)
+                                                                <button id="btn_pagar_{{$servicio->id}}" class="btn btn-primary" onclick="pagar_entrada_pagos('{{$servicio->id}}','{{$servicio->precio_proveedor}}')">Pagar</button>
+                                                                <i id="check_{{$servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
+                                                            @elseif($servicio->liquidacion==2)
+                                                                <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
 
-                                                            @endphp
-                                                        @else
-                                                            @php
-                                                                $array_entradas[$servicio->proveedor_id]+=$servicio->precio_proveedor;
-                                                            @endphp
-                                                        @endif
+                                                    {{--@if($servicio->liquidacion==1 || $servicio->liquidacion==0)--}}
+                                                        {{--@if(!array_key_exists($servicio->proveedor_id,$array_entradas))--}}
+                                                            {{--@php--}}
+                                                                {{--$array_entradas[$servicio->proveedor_id]=$servicio->precio_proveedor;--}}
+                                                                {{--$array_entradas_fecha_serv[$servicio->proveedor_id]=$iti->fecha;--}}
+                                                                {{--$array_entradas_cat[$servicio->proveedor_id]=$cotizacion->categorizado;--}}
+                                                                {{--$array_entradas_pagado[$servicio->proveedor_id]=$servicio->liquidacion;--}}
+                                                                {{--$array_entradas_clase[$servicio->proveedor_id]=$servicio->servicio->clase;--}}
+
+                                                            {{--@endphp--}}
+                                                        {{--@else--}}
+                                                            {{--@php--}}
+                                                                {{--$array_entradas[$servicio->proveedor_id]+=$servicio->precio_proveedor;--}}
+                                                            {{--@endphp--}}
+                                                        {{--@endif--}}
                                                     {{--@endif--}}
                                                 @endif
                                             @endforeach
                                         @endforeach
                                     @endforeach
                                 @endforeach
-                                @foreach($array_entradas as $key => $array_entradas_)
-                                    <tr>
-                                        <td>
-                                            <span class="text-11">
-                                                    {!! $arra_iconos['ENTRANCES']!!}
-                                                ENTRANCES
-                                            </span><br>
-                                            <b class="text-11 text-green-goto padding-15">
-                                                {{$array_entradas_clase[$key]}}
-                                            </b>
-                                        </td>
-                                        <td>
-                                            <span class="text-11">
-                                                @foreach($proveedores->where('id',$key) as $proveedor)
-                                                    {{$proveedor->r_nombres}}
-                                                @endforeach
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="text-11">
-                                            @foreach($proveedores->where('id',$key) as $proveedor)
-                                                    {{$proveedor->razon_social}}
-                                                @endforeach
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="text-11">
-                                                {{fecha_letra($array_entradas_fecha_serv[$key])}}
-                                            </span>
-                                        </td>
-                                        <td class="hide">
-                                            <span class="text-11">
-                                            @if($cotizacion->categorizado=='C')
-                                                    {{'Con factura'}}
-                                                @elseif($cotizacion->categorizado=='S')
-                                                    {{'Sin factura'}}
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="date" name="fecha_a_pagar" readonly>
-                                        </td>
-                                        <td>
-                                            @php
-                                                $total_contabilidad+=$array_entradas_;
-                                            @endphp
-                                            <input type="number" step="0.01" min="0" class="form-control" value="{{$array_entradas_}}" readonly>
-                                        </td>
-                                        <td class="text-right">
-                                            @if($array_entradas_pagado[$key]==2)
-                                                {{$array_entradas_}}
-                                                @php
-                                                    $total_contabilidad_a_cuenta+=$array_entradas_;
-                                                @endphp
-                                            @else
-                                                {{'0.00'}}
-                                            @endif
-                                        </td>
-                                        <td class="text-right">$
-                                            @if($array_entradas_pagado[$key]==2)
-                                                {{'0.00'}}
-                                            @else
-                                                @php
-                                                    $total_contabilidad_saldo+=$array_entradas_;
-                                                @endphp
-                                                {{$array_entradas_}}
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            @if($array_entradas_pagado[$key]==2)
-                                                <i class="fa fa-check-square-o text-success fa-2x"></i>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+{{--                                @foreach($array_entradas as $key => $array_entradas_)--}}
+                                    {{--<tr>--}}
+                                        {{--<td>--}}
+                                            {{--<span class="text-11">--}}
+                                                    {{--{!! $arra_iconos['ENTRANCES']!!}--}}
+                                                {{--ENTRANCES--}}
+                                            {{--</span><br>--}}
+                                            {{--<b class="text-11 text-green-goto padding-15">--}}
+                                                {{--{{$array_entradas_clase[$key]}}--}}
+                                            {{--</b>--}}
+                                        {{--</td>--}}
+                                        {{--<td>--}}
+                                            {{--<span class="text-11">--}}
+                                                {{--@foreach($proveedores->where('id',$key) as $proveedor)--}}
+                                                    {{--{{$proveedor->r_nombres}}--}}
+                                                {{--@endforeach--}}
+                                            {{--</span>--}}
+                                        {{--</td>--}}
+                                        {{--<td>--}}
+                                            {{--<span class="text-11">--}}
+                                            {{--@foreach($proveedores->where('id',$key) as $proveedor)--}}
+                                                    {{--{{$proveedor->razon_social}}--}}
+                                                {{--@endforeach--}}
+                                            {{--</span>--}}
+                                        {{--</td>--}}
+                                        {{--<td>--}}
+                                            {{--<span class="text-11">--}}
+                                                {{--{{fecha_letra($array_entradas_fecha_serv[$key])}}--}}
+                                            {{--</span>--}}
+                                        {{--</td>--}}
+                                        {{--<td class="hide">--}}
+                                            {{--<span class="text-11">--}}
+                                            {{--@if($cotizacion->categorizado=='C')--}}
+                                                    {{--{{'Con factura'}}--}}
+                                                {{--@elseif($cotizacion->categorizado=='S')--}}
+                                                    {{--{{'Sin factura'}}--}}
+                                                {{--@endif--}}
+                                            {{--</span>--}}
+                                        {{--</td>--}}
+                                        {{--<td>--}}
+                                            {{--<input class="form-control" type="date" name="fecha_a_pagar" readonly>--}}
+                                        {{--</td>--}}
+                                        {{--<td>--}}
+                                            {{--@php--}}
+                                                {{--$total_contabilidad+=$array_entradas_;--}}
+                                            {{--@endphp--}}
+                                            {{--<input type="number" step="0.01" min="0" class="form-control" value="{{$array_entradas_}}" readonly>--}}
+                                        {{--</td>--}}
+                                        {{--<td class="text-right">--}}
+                                            {{--@if($array_entradas_pagado[$key]==2)--}}
+                                                {{--{{$array_entradas_}}--}}
+                                                {{--@php--}}
+                                                    {{--$total_contabilidad_a_cuenta+=$array_entradas_;--}}
+                                                {{--@endphp--}}
+                                            {{--@else--}}
+                                                {{--{{'0.00'}}--}}
+                                            {{--@endif--}}
+                                        {{--</td>--}}
+                                        {{--<td class="text-right">$--}}
+                                            {{--@if($array_entradas_pagado[$key]==2)--}}
+                                                {{--{{'0.00'}}--}}
+                                            {{--@else--}}
+                                                {{--@php--}}
+                                                    {{--$total_contabilidad_saldo+=$array_entradas_;--}}
+                                                {{--@endphp--}}
+                                                {{--{{$array_entradas_}}--}}
+                                            {{--@endif--}}
+                                        {{--</td>--}}
+                                        {{--<td class="text-center">--}}
+                                            {{--@if($array_entradas_pagado[$key]==1)--}}
+                                                {{--<button id="btn_pagar_{{$itinerario_servicio->id}}" class="btn btn-primary" onclick="pagar_entrada('{{$itinerario_servicio->id}}','{{$itinerario_servicio->precio_proveedor}}')">Pagar</button>--}}
+                                                {{--<i id="check_{{$itinerario_servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>--}}
+                                            {{--@elseif($array_entradas_pagado[$key]==2)--}}
+                                                {{--<i class="fa fa-check-square-o text-success fa-2x"></i>--}}
+                                            {{--@endif--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                {{--@endforeach--}}
                                 {{--@if($ItinerarioServiciosAcumPagos!=1)--}}
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','ENTRANCES')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr class="hide">
@@ -1437,9 +1517,9 @@
                                     @endforeach
                                 {{--@endif--}}
                                 <tr><td colspan="5"><b class="text-right">TOTAL</b> </td>
-                                    <td class="text-right"><b class="text-20">${{$total_contabilidad}}</b></td>
-                                    <td class="text-right"><b class="text-20">${{$total_contabilidad_a_cuenta}}</b></td>
-                                    <td class="text-right"><b class="text-20">${{$total_contabilidad_saldo}}</b></td>
+                                    <td class="text-right"><b class="text-20">$</b><b class="text-20">{{$total_contabilidad}}</b></td>
+                                    <td class="text-right"><b class="text-20">$</b><b class="text-20" id="total_a_cuenta">{{$total_contabilidad_a_cuenta}}</b></td>
+                                    <td class="text-right"><b class="text-20">$</b><b class="text-20" id="total_saldo">{{$total_contabilidad_saldo}}</b></td>
                                     <td></td>
                                 </tr>
                                 </tbody>
