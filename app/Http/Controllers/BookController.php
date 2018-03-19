@@ -262,6 +262,19 @@ class BookController extends Controller
                         }
 
                     }
+                    else{
+                        $proveedor=Proveedor::FindOrFail($itinerario_servicios->proveedor_id);
+                        $iti_temp=ItinerarioServicios::findOrfail($itinerario_servicios->id);
+                        $iti_temp->fecha_uso=$itinerario_cotizaciones->fecha;
+                        $fecha= Carbon::createFromFormat('Y-m-d',$itinerario_cotizaciones->fecha);
+                        if($proveedor->desci='antes')
+                            $fecha->subDays($proveedor->plazo);
+                        else
+                            $fecha->addDays($proveedor->plazo);
+
+                        $iti_temp->fecha_venc=$fecha->toDateString();
+                        $iti_temp->save();
+                    }
                 }
                 $sutbTotal=0;
                 foreach ($itinerario_cotizaciones->hotel as $hotel){
@@ -296,12 +309,20 @@ class BookController extends Controller
             if($proveedor_id[1]> 0) {
                 $itinerario_servicios_acum_pago_=ItinerarioServiciosAcumPago::where('proveedor_id',$proveedor_id[1])
                     ->where('paquete_cotizaciones_id',$pqt_coti)
-                    ->where('grupo',$array_servicios_grupo[$key])->get();
+                    ->where('grupo',$array_servicios_grupo[$key])
+                    ->whereIn('estado',[-2,-1])->get();
                 if(count($itinerario_servicios_acum_pago_)>0){
-                    $itinerario_servicios_acum_pago_->a_cuenta=$array_servicio;
+                    $itinerario_servicios_acum_pago_->a_cuenta = $array_servicio;
                     $itinerario_servicios_acum_pago_->save();
                 }
                 else{
+                    $proveedor=Proveedor::FindOrFail($key);
+                    $fecha= Carbon::createFromFormat('Y-m-d',$array_servicios_fecha[$key]);
+                    if($proveedor->desci='antes')
+                        $fecha->subDays($proveedor->plazo);
+                    else
+                        $fecha->addDays($proveedor->plazo);
+
                     $itinerario_servicios_acum_pago=new ItinerarioServiciosAcumPago();
                     $itinerario_servicios_acum_pago->a_cuenta=$array_servicio;
                     $itinerario_servicios_acum_pago->estado=-2;
@@ -309,6 +330,7 @@ class BookController extends Controller
                     $itinerario_servicios_acum_pago->paquete_cotizaciones_id=$pqt_coti;
                     $itinerario_servicios_acum_pago->grupo=$array_servicios_grupo[$key];
                     $itinerario_servicios_acum_pago->fecha_servicio=$array_servicios_fecha[$key];
+                    $itinerario_servicios_acum_pago->fecha_a_pagar=$fecha;
                     $itinerario_servicios_acum_pago->save();
                 }
             }
@@ -324,6 +346,13 @@ class BookController extends Controller
                 }
                 else
                 {
+                    $proveedor=Proveedor::FindOrFail($key);
+                    $fecha= Carbon::createFromFormat('Y-m-d',$array_hotel_fecha[$key]);
+                    if($proveedor->desci='antes')
+                        $fecha->subDays($proveedor->plazo);
+                    else
+                        $fecha->addDays($proveedor->plazo);
+
                     $precio_hotel_reserv=new PrecioHotelReservaPagos();
                     $precio_hotel_reserv->a_cuenta=$array_hotel_;
                     $precio_hotel_reserv->estado=-2;
@@ -331,6 +360,7 @@ class BookController extends Controller
                     $precio_hotel_reserv->paquete_cotizaciones_id=$pqt_coti;
                     $precio_hotel_reserv->grupo='HOTELS';
                     $precio_hotel_reserv->fecha_servicio=$array_hotel_fecha[$key];
+                    $precio_hotel_reserv->fecha_a_pagar=$fecha;
                     $precio_hotel_reserv->save();
                 }
             }
