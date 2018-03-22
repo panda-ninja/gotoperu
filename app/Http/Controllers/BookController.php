@@ -78,7 +78,6 @@ class BookController extends Controller
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
         $m_servicios=M_Servicio::get();
-
         $pqt_coti=PaqueteCotizaciones::where('cotizaciones_id',$id)->where('estado',2)->get();
         $pqt_id=0;
         foreach ($pqt_coti as $pqt){
@@ -86,8 +85,6 @@ class BookController extends Controller
         }
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
-
-
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos]);
     }
 
@@ -206,6 +203,7 @@ class BookController extends Controller
         $array_hotel=[];
         $array_hotel_fecha=[];
 
+//        dd('hola');
         foreach ($paquete_cotizacion as $pqt){
             foreach ($pqt->itinerario_cotizaciones as $itinerario_cotizaciones){
                 foreach ($itinerario_cotizaciones->itinerario_servicios as $itinerario_servicios){
@@ -263,15 +261,16 @@ class BookController extends Controller
 
                     }
                     else{
-                        $proveedor=Proveedor::FindOrFail($itinerario_servicios->proveedor_id);
                         $iti_temp=ItinerarioServicios::findOrfail($itinerario_servicios->id);
                         $iti_temp->fecha_uso=$itinerario_cotizaciones->fecha;
                         $fecha= Carbon::createFromFormat('Y-m-d',$itinerario_cotizaciones->fecha);
-                        if($proveedor->desci='antes')
-                            $fecha->subDays($proveedor->plazo);
-                        else
-                            $fecha->addDays($proveedor->plazo);
-
+                        if(count($itinerario_servicios->proveedor_id)>0){
+                            $proveedor=Proveedor::FindOrFail($itinerario_servicios->proveedor_id);
+                            if($proveedor->desci='antes')
+                                $fecha->subDays($proveedor->plazo);
+                            else
+                                $fecha->addDays($proveedor->plazo);
+                        }
                         $iti_temp->fecha_venc=$fecha->toDateString();
                         $iti_temp->save();
                     }
@@ -304,6 +303,9 @@ class BookController extends Controller
 //        dd($pqt_coti);
         //-- agregarmos para itinerario_servicios_acum_pago
         $id='';
+
+//        dd($array_servicios);
+//        dd($array_hotel);
         foreach ($array_servicios as $key => $array_servicio) {
             $proveedor_id = explode('_', $key);
             if($proveedor_id[1]> 0) {
@@ -311,18 +313,24 @@ class BookController extends Controller
                     ->where('paquete_cotizaciones_id',$pqt_coti)
                     ->where('grupo',$array_servicios_grupo[$key])
                     ->whereIn('estado',[-2,-1])->get();
-                if(count($itinerario_servicios_acum_pago_)>0){
-                    $itinerario_servicios_acum_pago_->a_cuenta = $array_servicio;
-                    $itinerario_servicios_acum_pago_->save();
+//                dd($itinerario_servicios_acum_pago_);
+                if(count($itinerario_servicios_acum_pago_)>0) {
+                    foreach ($itinerario_servicios_acum_pago_->take(1) as $itinerario_servicios_acum_pago_0){
+                        $itinerario_servicios_acum_pago_1=ItinerarioServiciosAcumPago::findOrFail($itinerario_servicios_acum_pago_0->id);
+                        $itinerario_servicios_acum_pago_1->a_cuenta = $array_servicio;
+                        $itinerario_servicios_acum_pago_1->save();
+                    }
                 }
                 else{
-                    $proveedor=Proveedor::FindOrFail($key);
-                    $fecha= Carbon::createFromFormat('Y-m-d',$array_servicios_fecha[$key]);
-                    if($proveedor->desci='antes')
-                        $fecha->subDays($proveedor->plazo);
-                    else
-                        $fecha->addDays($proveedor->plazo);
+                    $proveedor=Proveedor::FindOrFail($proveedor_id[1]);
 
+                    $fecha= Carbon::createFromFormat('Y-m-d',$array_servicios_fecha[$key]);
+                    if(count($proveedor)>0) {
+                        if ($proveedor->desci = 'antes')
+                            $fecha->subDays($proveedor->plazo);
+                        else
+                            $fecha->addDays($proveedor->plazo);
+                    }
                     $itinerario_servicios_acum_pago=new ItinerarioServiciosAcumPago();
                     $itinerario_servicios_acum_pago->a_cuenta=$array_servicio;
                     $itinerario_servicios_acum_pago->estado=-2;
@@ -339,20 +347,26 @@ class BookController extends Controller
         foreach ($array_hotel as $key => $array_hotel_){
             if($key>0){
                 $precio_hotel_reserv_=PrecioHotelReservaPagos::where('proveedor_id',$key)
-                    ->where('paquete_cotizaciones_id',$pqt_coti)->get();
+                    ->where('paquete_cotizaciones_id',$pqt_coti)
+                    ->whereIn('estado',[-2,-1])->get();
                 if(count($precio_hotel_reserv_)>0){
-                    $precio_hotel_reserv_->a_cuenta=$array_hotel_;
-                    $precio_hotel_reserv_->save();
+                    foreach ($precio_hotel_reserv_ as $precio_hotel_reserv_0) {
+                        $precio_hotel_reserv_1 = PrecioHotelReservaPagos::FindOrFail($precio_hotel_reserv_0->id);
+                        $precio_hotel_reserv_1->a_cuenta = $array_hotel_;
+                        $precio_hotel_reserv_1->save();
+                    }
                 }
                 else
                 {
+
                     $proveedor=Proveedor::FindOrFail($key);
                     $fecha= Carbon::createFromFormat('Y-m-d',$array_hotel_fecha[$key]);
-                    if($proveedor->desci='antes')
-                        $fecha->subDays($proveedor->plazo);
-                    else
-                        $fecha->addDays($proveedor->plazo);
-
+                    if(count($proveedor)>0) {
+                        if ($proveedor->desci = 'antes')
+                            $fecha->subDays($proveedor->plazo);
+                        else
+                            $fecha->addDays($proveedor->plazo);
+                    }
                     $precio_hotel_reserv=new PrecioHotelReservaPagos();
                     $precio_hotel_reserv->a_cuenta=$array_hotel_;
                     $precio_hotel_reserv->estado=-2;
@@ -365,7 +379,6 @@ class BookController extends Controller
                 }
             }
         }
-
 //        dd($array_servicios);
         return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
     }

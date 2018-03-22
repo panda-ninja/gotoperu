@@ -467,10 +467,12 @@
                                                                 <div class="input-group">
                                                                     <input class="form-control" type="text" id="code_{{$servicios->id}}" name="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}">
                                                                     <span class="input-group-btn">
-                                                                    <button type="submit"  onclick="Enviar_codigo_reserva({{$servicios->id}})" id="btn_{{$servicios->id}}"  class="btn btn-{{$codigo}}"><i class="fa fa-{{$icon}}" aria-hidden="true"></i></button>
-                                                            </span>
+                                                                        <button type="submit"  onclick="Enviar_codigo_reserva({{$servicios->id}})" id="btn_{{$servicios->id}}"  class="btn btn-{{$codigo}}"><i class="fa fa-{{$icon}}" aria-hidden="true"></i></button>
+                                                                    </span>
                                                                 </div>
+
                                                             </div>
+
                                                         </div>
                                                     </form>
                                                 </td>
@@ -481,12 +483,18 @@
                                                             <input type="hidden" name="id" value="{{$servicios->id}}">
                                                             <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
                                                             <div class="col-lg-12">
-                                                                <div class="input-group">
+                                                                <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
                                                                     <input class="form-control" type="text" id="hora_{{$servicios->id}}" name="hora_{{$servicios->id}}" value="{{$servicios->hora_llegada}}">
                                                                     <span class="input-group-btn">
-                                                                <button type="submit" id="btn_hora_{{$servicios->id}}" onclick="Enviar_hora_reserva({{$servicios->id}})" class="btn btn-{{$codigo_h}}"><i class="fa fa-{{$icon_h}}" aria-hidden="true"></i></button>
-                                                            </span>
+                                                                        <button type="submit" id="btn_hora_{{$servicios->id}}" onclick="Enviar_hora_reserva({{$servicios->id}})" class="btn btn-{{$codigo_h}}"><i class="fa fa-{{$icon_h}}" aria-hidden="true"></i></button>
+                                                                    </span>
                                                                 </div>
+                                                                {{--<div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">--}}
+                                                                    {{--<input type="text" class="form-control" value="09:30">--}}
+                                                                    {{--<span class="input-group-addon">--}}
+                                                                        {{--<span class="glyphicon glyphicon-time"></span>--}}
+                                                                    {{--</span>--}}
+                                                                {{--</div>--}}
                                                             </div>
                                                         </div>
                                                     </form>
@@ -736,7 +744,7 @@
                                                             <input type="hidden" name="id" value="{{$hotel->id}}">
                                                             <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
                                                             <div class="col-lg-12">
-                                                                <div class="input-group">
+                                                                <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
                                                                     <input class="form-control" type="text" id="hora_{{$hotel->id}}" name="hora_{{$hotel->id}}" value="{{$hotel->hora_llegada}}">
                                                                     <span class="input-group-btn">
                                                                  <button type="submit" onclick="Enviar_hora_reserva_hotel({{$hotel->id}})" id="btn_hora_h_{{$hotel->id}}" class="btn btn-{{$codigo_hora}}"><i class="fa fa-{{$icon_hora}}" aria-hidden="true"></i></button>
@@ -772,7 +780,7 @@
                                 <div class="col-lg-12 text-center">
                                     <input type="hidden" name="cotizacion_id" value="{{$cotizacion->id}}">
                                     {{csrf_field()}}
-                                    <button type="button" class="btn btn-lg btn-success" onclick="guardar_reserva()">Guardar reserva
+                                    <button type="submit" class="btn btn-lg btn-success">Guardar reserva
                                         <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -832,7 +840,49 @@
     </div>
     <script>
         $(document).ready(function() {
-
+            $('.clockpicker').clockpicker()
+                .find('input').change(function(){
+                // TODO: time changed
+                console.log(this.value);
+            });
+//            $('.clockpicker').clockpicker({
+//                placement: 'top',
+//                align: 'left',
+//                donetext: 'Escojer'
+//            }
+//            );
+//            var input = $('.clockpicker').clockpicker({
+//                donetext: 'Done',
+//                init: function() {
+//                    console.log("colorpicker initiated");
+//                },
+//                beforeShow: function() {
+//                    console.log("before show");
+//                },
+//                afterShow: function() {
+//                    console.log("after show");
+//                },
+//                beforeHide: function() {
+//                    console.log("before hide");
+//                },
+//                afterHide: function() {
+//                    console.log("after hide");
+//                },
+//                beforeHourSelect: function() {
+//                    console.log("before hour selected");
+//                },
+//                afterHourSelect: function() {
+//                    console.log("after hour selected");
+//                },
+//                beforeDone: function() {
+//                    console.log("before done");
+//                },
+//                afterDone: function() {
+//                    console.log("after done");
+//                    console.log($(this).val());
+//
+//                }
+//            });
 //                $('[data-toggle="popover"]').popover()
 
             @foreach($cotizacion->paquete_cotizaciones as $paquete)

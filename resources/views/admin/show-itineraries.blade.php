@@ -43,8 +43,17 @@
                     @php
                         $arra_destinos=array();
                         $lista='';
+                        $existe=0;
                     @endphp
                     @foreach($itinerary->itinerarios as $itinerario)
+                        {{--@foreach($itinerarios->where('titulo',$itinerario->titulo) as $iti)--}}
+                        {{--@endforeach--}}
+                        @if($itinerarios->where('titulo',$itinerario->titulo)->count('titulo')>0)
+                            @php
+                                    $existe++;
+                            @endphp
+                        @endif
+
                         @php
                             $lista.="<p class=\"text-12 text-primary\"><b>Dia: ".$itinerario->dias."</b> ".$itinerario->titulo."</p>";
                         @endphp
@@ -55,7 +64,13 @@
                         @endforeach
                     @endforeach
 
-                    <td><a id="propover_{{$itinerary->id}}" href="{{route('show_itinerary_path',$itinerary->id)}}" data-toggle="popover" title="{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS" data-content="{{$lista}}">{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS</a></td>
+                    <td>
+                        <a id="propover_{{$itinerary->id}}" href="{{route('show_itinerary_path',$itinerary->id)}}" data-toggle="popover" title="{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS" data-content="{{$lista}}">{{$itinerary->titulo}} x {{$itinerary->duracion}} DAYS</a>
+                        @if(($itinerary->itinerarios->count()-$existe)>0)
+                            <span class="text-12 text-danger">({{($itinerary->itinerarios->count()-$existe)}} de {{$itinerary->itinerarios->count()}} "Day by Day" se modificaron)</span>
+                        @endif
+                        <p class='text-12 text-success'>Creado: {{$itinerario->created_at}}</p>
+                    </td>
                     <td>
                         @foreach($arra_destinos as $destino)
                                 <p class="text-12 text-unset"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$destino}}</p>

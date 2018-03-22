@@ -264,8 +264,9 @@ class PackageController extends Controller
     public function itineraries()
     {
         $itineraries=P_Paquete::get();
+        $itinerarios=M_Itinerario::get();
         session()->put('menu-lateral', 'sales/iti/list');
-        return view('admin.show-itineraries',['itineraries'=>$itineraries]);
+        return view('admin.show-itineraries',['itineraries'=>$itineraries,'itinerarios'=>$itinerarios]);
     }
     public function show_itinerary($id)
     {

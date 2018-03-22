@@ -147,12 +147,14 @@
                                         @php
                                             $iti_id=0;
                                         @endphp
-                                        @foreach($itinerarios as $itinerario_)
-                                            @if($itinerario->titulo==$itinerario_->titulo)
-                                                @php
-                                                    $iti_id=$itinerario_->id;
-                                                @endphp
-                                                @break
+                                        @foreach($itinerarios->where('titulo',$itinerario->titulo)->take(1) as $itinerario_)
+                                            @if(strlen(trim($itinerario->titulo))>0)
+                                                @if(trim(strtoupper($itinerario->titulo))==trim(strtoupper($itinerario_->titulo)))
+                                                    @php
+                                                        $iti_id=$itinerario_->id;
+                                                    @endphp
+                                                    @break
+                                                @endif
                                             @endif
                                         @endforeach
                                         @php
@@ -179,6 +181,9 @@
                                                         <span class="itinerarios_1 hide">{{$itinerario_total}}</span>
                                                         <span class="txt_itinerarios hide" name="itinerarios1">{{$iti_id}}</span>
                                                         <b class="dias_iti_c2" id="dias_' + total_Itinerarios + '">Dia {{$itinerario->dias}}:</b> {{$itinerario->titulo}}
+                                                        @if($iti_id==0)
+                                                            <span class="text-danger text-12">Este "Day By day" no esixte, cambiar por otro similar</span>
+                                                        @endif
                                                     </strong>
                                                     <small>
                                                         {{$itinerario_total}} $
