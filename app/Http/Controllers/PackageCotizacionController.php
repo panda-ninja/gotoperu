@@ -1723,13 +1723,26 @@ class PackageCotizacionController extends Controller
         $m_servicios=M_Servicio::get();
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id]);
     }
-
+    public function show_step1_editar($cliente_id, $cotizacion_id,$pqt_id)
+    {
+        $cliente=Cliente::FindOrFail($cliente_id);
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+        $m_servicios=M_Servicio::get();
+        return view('admin.package-details1-edit',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id]);
+    }
     public function show_step1_ser($cliente_id, $cotizacion_id,$pqt_id,$id_serv)
     {
         $cliente=Cliente::FindOrFail($cliente_id);
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
         $m_servicios=M_Servicio::get();
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id, 'id_serv'=>$id_serv]);
+    }
+    public function show_step1_ser_edit($cliente_id, $cotizacion_id,$pqt_id,$id_serv)
+    {
+        $cliente=Cliente::FindOrFail($cliente_id);
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+        $m_servicios=M_Servicio::get();
+        return view('admin.package-details1-edit',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id, 'id_serv'=>$id_serv]);
     }
 
 
@@ -1738,7 +1751,10 @@ class PackageCotizacionController extends Controller
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
         return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
     }
-
+    public function show_step2_edit($cotizacion_id, $paquete_precio_id,$imprimir)
+    {
+        return redirect()->route('cotizacion_id_show_path',$cotizacion_id);
+    }
     public function step1_edit(Request $request, $id)
     {
         $id_cotizacion = $request->get('id_cotizacion');
@@ -1764,6 +1780,32 @@ class PackageCotizacionController extends Controller
             $servicios->save();
         }
         return redirect()->route('show_step1_ser_path', [$id_client,$id_cotizacion,$id_paquete,$id]);
+    }
+    public function step1_edit_edit(Request $request, $id)
+    {
+        $id_cotizacion = $request->get('id_cotizacion');
+        $id_client = $request->get('id_client');
+        $id_paquete = $request->get('id_paquete');
+//dd($request->get('op_services'));
+        $m_servicios = M_Servicio::where('id', $request->get('op_services'))->get();
+        $servicios = ItinerarioServicios::findOrFail($id);
+        foreach ($m_servicios as $m_servicio){
+            $servicios->nombre = $m_servicio->nombre;
+            $servicios->precio = $m_servicio->precio_venta;
+            $servicios->precio_grupo = $m_servicio->precio_grupo;
+//            $servicios->tipoServicio = $m_servicio->tipoServicio;
+//            $servicios->localizacion = $m_servicio->localizacion;
+//            $servicios->grupo = $m_servicio->grupo;
+//            $servicios->clase = $m_servicio->clase;
+//            $servicios->salida = $m_servicio->salida;
+//            $servicios->llegada = $m_servicio->llegada;
+            $servicios->m_servicios_id = $m_servicio->id;
+            $servicios->min_personas = $m_servicio->min_personas;
+            $servicios->max_personas = $m_servicio->max_personas;
+            $servicios->clase = $m_servicio->clase;
+            $servicios->save();
+        }
+        return redirect()->route('show_step1_ser_edit_path', [$id_client,$id_cotizacion,$id_paquete,$id]);
     }
     public function delete_hotel_quotes_paso1(Request $request){
         $id = $request->input('id');
@@ -2039,5 +2081,27 @@ class PackageCotizacionController extends Controller
             $m_servicios=M_Servicio::get();
             return view('admin.plan-details-total',['cotizaciones'=>$cotizacion,'m_servicios'=>$m_servicios,'paquete_precio_id'=>$id]);
         }
+    }
+    public function show_current_paquete_edit($pqt_id)
+    {
+        $cotis=PaqueteCotizaciones::FindOrFail($pqt_id);
+        $cotizacion_id=$cotis->cotizaciones_id;
+        $cotizaciones_clientes=CotizacionesCliente::where('cotizaciones_id',$cotizacion_id)->get();
+        $cliente_id=0;
+//        dd($cotizaciones_clientes);
+
+        foreach ($cotizaciones_clientes as $cli){
+            $cliente_id=$cli->clientes_id;
+        }
+//        dd($cotizacion_id);
+//        dd($pqt_id);
+//        dd($cliente_id);
+//      $cliente=Cliente::FindOrFail($cliente_id);
+//      $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+//      $m_servicios=M_Servicio::get();
+//      return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id]);
+
+
+        return redirect()->route('show_step1_editar_path',[$cliente_id,$cotizacion_id,$pqt_id]);
     }
 }

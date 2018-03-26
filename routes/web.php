@@ -545,15 +545,28 @@ Route::get('/admin/quotes/new/step1/{cliente}/{coti_id}/{pqt_id}/{id_serv}', [
     'uses' => 'PackageCotizacionController@show_step1_ser',
     'as' => 'show_step1_ser_path'
 ]);
+Route::get('/admin/quotes/edit/step1/{cliente}/{coti_id}/{pqt_id}/{id_serv}', [
+    'uses' => 'PackageCotizacionController@show_step1_ser_edit',
+    'as' => 'show_step1_ser_edit_path'
+]);
 Route::get('/admin/quotes/new/step2/{coti_id}/{pqt_id}/{imprimir}', [
     'uses' => 'PackageCotizacionController@show_step2',
     'as' => 'show_step2_path'
+]);
+Route::get('/admin/quotes/edit/step2/{coti_id}/{pqt_id}/{imprimir}', [
+    'uses' => 'PackageCotizacionController@show_step2_edit',
+    'as' => 'show_step2_edit_path'
 ]);
 //
 Route::patch('/admin/quotes/new/step1/step1_edit/{id}', [
     'uses' => 'PackageCotizacionController@step1_edit',
     'as' => 'step1_edit_path'
 ])->where('id', '[0-9]+');
+Route::patch('/admin/quotes/edit/step1/step1_edit/{id}', [
+    'uses' => 'PackageCotizacionController@step1_edit_edit',
+    'as' => 'step1_edit_edit_path'
+])->where('id', '[0-9]+');
+
 
 Route::post('/admin/quotes/hotel/delete', [
     'uses' => 'PackageCotizacionController@delete_hotel_quotes_paso1',
@@ -805,4 +818,9 @@ Route::get('/admin/contabilidad/show-back/{id}', [
 Route::get('/cotizacion/current/paquete/edit/{id}', [
     'uses' => 'PackageCotizacionController@show_current_paquete_edit',
     'as' => 'show_current_paquete_edit_path',
+]);
+
+Route::get('/admin/quotes/editar/step1/{cliente}/{coti_id}/{pqt_id}', [
+    'uses' => 'PackageCotizacionController@show_step1_editar',
+    'as' => 'show_step1_editar_path'
 ]);
