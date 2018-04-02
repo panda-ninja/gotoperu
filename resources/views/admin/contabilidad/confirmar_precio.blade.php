@@ -183,11 +183,11 @@
                             <table class="table table-condensed table-bordered margin-top-20 table-hover">
                                 <thead>
                                 <tr>
-                                    <th class="text-18 text-grey-goto text-center">Services</th>
-                                    <th class="text-18 text-grey-goto text-center">Calculo</th>
-                                    <th class="text-18 text-grey-goto text-center">Cotizado</th>
-                                    <th class="text-18 text-grey-goto text-center">Reservado</th>
-                                    <th class="text-18 text-grey-goto text-center hide">Contabilidad</th>
+                                    <th class="text-18 text-grey-goto text-center">SERVICIOS</th>
+                                    <th class="text-18 text-grey-goto text-center">CALCULO</th>
+                                    <th class="text-18 text-grey-goto text-center">COTIZADO</th>
+                                    <th class="text-18 text-grey-goto text-center">RESERVADO</th>
+                                    <th class="text-18 text-grey-goto text-center">PAGADO</th>
                                     <th class="text-18 text-grey-goto text-center hide">Pagado</th>
                                     <th class="text-18 text-grey-goto text-center hide">Por pagar</th>
                                 </tr>
