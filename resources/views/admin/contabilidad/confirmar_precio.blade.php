@@ -259,8 +259,8 @@
                                                             @endphp
                                                         @endif
                                                     @endforeach
-                                                    <td class="text-center hide">
-                                                        {{--<b>{{$pagos_suma}}</b>--}}
+                                                    <td class="text-center">
+                                                        hdhd
                                                     </td>
                                                     <td class="text-center hide">
                                                         {{--                                                <b>{{$precio_c-$pagos_suma}}</b>--}}
