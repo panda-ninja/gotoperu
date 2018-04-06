@@ -993,4 +993,19 @@ class ContabilidadController extends Controller
             return 0;
 
     }
+    function cerrar_balance_hotel(Request $request){
+        $id =$request->input('id');
+        $explicacion =$request->input('explicacion');
+        $valor=$request->input('valor');
+
+        $itinerario_serv_acum=PrecioHotelReservaPagos::FindOrFail($id);
+        $itinerario_serv_acum->explicacion=$explicacion;
+        $itinerario_serv_acum->balance=$valor;
+
+        if($itinerario_serv_acum->save())
+            return 1;
+        else
+            return 0;
+
+    }
 }

@@ -828,3 +828,7 @@ Route::post('/admin/contabilidad/cerrar-balance',[
     'uses' => 'ContabilidadController@cerrar_balance',
     'as' => 'cerrar_balance_conta_path',
 ]);
+Route::post('/admin/contabilidad/hotel/cerrar-balance',[
+    'uses' => 'ContabilidadController@cerrar_balance_hotel',
+    'as' => 'cerrar_balance_hotel_conta_path',
+]);
