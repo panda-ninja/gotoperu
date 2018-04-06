@@ -874,13 +874,17 @@
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm hide">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="hide btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="hide fa fa-check-square-o text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="hide btn btn-success btn-sm" >Pagar</a>
+
                                                 @endif
                                             </td>
                                             <td>
@@ -902,7 +906,7 @@
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
                                                                         <label for="txt_name">Ingrese su motivo</label>
-                                                                        <textarea class="form-control" name="" id="explicacion_{{$ItinerarioServiciosAcumPago->id}}" cols="30" rows="10">
+                                                                        <textarea class="form-control" name="" id="explicacion_{{$ItinerarioServiciosAcumPago->id}}" cols="30" rows="10" onmouseleave="prepara_para_envio({{$ItinerarioServiciosAcumPago->id}},{{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}},1)">
                                                                         </textarea>
                                                                     </div>
                                                                 </div>
@@ -1771,12 +1775,16 @@
                         $('#myModal_'+id).modal('show')
                     }
                 }
+                prepara_para_envio(id,balance,valor);
+            }
+            function prepara_para_envio(id,balance,valor){
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('[name="_token"]').val()
                     }
                 });
                 var explicacion=$('#explicacion_'+id).val();
+                console.log('explicacion:'+explicacion);
                 var datos = {
                     "id" : id,
                     "explicacion" : explicacion,
@@ -1786,7 +1794,7 @@
                     data:  datos,
                     url:   "{{route('cerrar_balance_conta_path')}}",
                     type:  'post',
-                    async,
+                    sync: 'false',
                     beforeSend: function () {
                         $('#btn_s_'+id).addClass('hide');
                         $('#p_load_'+id).removeClass('hide');
@@ -1796,10 +1804,15 @@
                         if(valor==1) {
                             $('#ope_0_' + id).addClass('hide');
                             $("#ope_1_" + id).removeClass("hide");
+                            $("#btn_pagar_" + id).addClass("hide");
+                            $("#check_" + id).removeClass("hide");
                         }
                         else{
                             $('#ope_1_' + id).addClass('hide');
                             $("#ope_0_" + id).removeClass("hide");
+                            $("#btn_pagar_" + id).removeClass("hide");
+                            $("#check_" + id).addClass("hide");
+
                         }
                     }
                 });
