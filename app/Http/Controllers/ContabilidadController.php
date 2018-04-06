@@ -189,7 +189,6 @@ class ContabilidadController extends Controller
         $proveedores=Proveedor::get();
         $hotel_proveedor=HotelProveedor::get();
         $pqt_coti=PaqueteCotizaciones::where('cotizaciones_id',$id)->where('estado',2)->get();
-
         $pqt_id=0;
         foreach ($pqt_coti as $pqt){
             $pqt_id=$pqt->id;
@@ -197,9 +196,10 @@ class ContabilidadController extends Controller
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
         $activado='Detalle';
-
+        $itinerario_cotis=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_id)->get();
 //        dd($ItinerarioHotleesAcumPagos);
-        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'activado'=>$activado]);
+//        dd($ItinerarioHotleesAcumPagos);
+        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'activado'=>$activado,'itinerario_cotis'=>$itinerario_cotis,'pqt_coti'=>$pqt_coti]);
     }
     public function show_back($id)
     {
@@ -217,7 +217,8 @@ class ContabilidadController extends Controller
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
         $activado='Resumen';
-        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'activado'=>$activado]);
+        $itinerario_cotis=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_id)->get();
+        return view('admin.contabilidad.confirmar_precio',['cotizaciones'=>$cotizaciones,'cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'activado'=>$activado,'itinerario_cotis'=>$itinerario_cotis]);
     }
     public function update_price_conta(){
         $id = $_POST['txt_id'];
@@ -976,5 +977,20 @@ class ContabilidadController extends Controller
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
         $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         return view('admin.contabilidad.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
+    }
+    function cerrar_balance(Request $request){
+        $id =$request->input('id');
+        $explicacion =$request->input('explicacion');
+        $valor=$request->input('valor');
+
+        $itinerario_serv_acum=ItinerarioServiciosAcumPago::FindOrFail($id);
+        $itinerario_serv_acum->explicacion=$explicacion;
+        $itinerario_serv_acum->balance=$valor;
+
+        if($itinerario_serv_acum->save())
+            return 1;
+        else
+            return 0;
+
     }
 }

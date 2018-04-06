@@ -824,3 +824,7 @@ Route::get('/admin/quotes/editar/step1/{cliente}/{coti_id}/{pqt_id}', [
     'uses' => 'PackageCotizacionController@show_step1_editar',
     'as' => 'show_step1_editar_path'
 ]);
+Route::post('/admin/contabilidad/cerrar-balance',[
+    'uses' => 'ContabilidadController@cerrar_balance',
+    'as' => 'cerrar_balance_conta_path',
+]);
