@@ -832,3 +832,11 @@ Route::post('/admin/contabilidad/hotel/cerrar-balance',[
     'uses' => 'ContabilidadController@cerrar_balance_hotel',
     'as' => 'cerrar_balance_hotel_conta_path',
 ]);
+Route::get('/admin/ventas/service/new',[
+    'uses' => 'ServicesController@nuevo_producto',
+    'as' => 'nuevo_producto_path',
+]);
+Route::post('/admin/ventas/service/listar-proveedores',[
+    'uses' => 'ServicesController@listar_proveedores_service',
+    'as' => 'listar_proveedores_path',
+]);

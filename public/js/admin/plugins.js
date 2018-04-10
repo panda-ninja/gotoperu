@@ -27629,7 +27629,7 @@ function escojer_pqt(id) {
     });
 }
 
-function mostrar_tabla_destino(grupo){
+function mostrar_tabla_destino(grupo,id){
 
     // var valor=$("#Destinos_"+grupo).val();
     // var id=valor.split('_');
@@ -27646,7 +27646,7 @@ function mostrar_tabla_destino(grupo){
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('../../admin/productos/lista', 'destino='+destino, function(data) {
+    $.post('../../admin/productos/lista', 'destino='+destino+'&id='+id, function(data) {
         $("#tb_datos_"+grupo).html(data);
 
     }).fail(function (data) {
@@ -28282,5 +28282,90 @@ function pagar_entrada_pagos(id,valor){
 
             }
         })
+    })
+}
+
+function Pasar_pro(id){
+    // $('#lista_costos_'+id).append('iti_temp');
+    $("input[name=proveedores]").each(function (index) {
+        if ($(this).is(':checked')) {
+            proveedor = $(this).val().split('_');
+            console.log('proveedor:'+proveedor[1]);
+            if (!existe_proveedor(proveedor[1],id)) {
+                var iti_temp='';
+                iti_temp='<b class="text-green-goto">Proveedor/Costo</b>';
+                console.log('no existe este proveedor');
+                // iti_temp='<tr id="fila_'+proveedor[0]+'">'+
+                //     '<td class="fila_proveedores">'+proveedor[1]+'</td>'+
+                //     '<td><input type="number" class="form-control" style="width: 80px" value="0.00"></td>'+
+                //     '<td>'+
+                //     '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor(\''+proveedor[0]+'\',\''+proveedor[0]+'\')">'+
+                //     '<i class="fa fa-trash-o" aria-hidden="true"></i>'+
+                //     '</button>'+
+                //     '</td>'+
+                //     '</tr>';
+                iti_temp='<div id="fila_'+proveedor[0]+'" class="row">'+
+                            '<div class="col-lg-8 fila_proveedores_'+id+'">'+proveedor[1]+'</div>'+
+                            '<div class="col-lg-2">'+
+                                '<input type="hidden" name="pro_id[]" value="'+proveedor[0]+'"></td>'+
+                                '<input type="number" name="pro_val[]" class="form-control" style="width: 80px" value="0.00"></td>'+
+                            '</div>'+
+                            '<div class="col-lg-2">'+
+                                '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor(\''+proveedor[0]+'\',\''+proveedor[1]+'\')">'+
+                                    '<i class="fa fa-trash-o" aria-hidden="true"></i>'+
+                                '</button>'+
+                            '</div>'+
+                          '</div>';
+                $('#lista_costos_'+id).append(iti_temp);
+                console.log('algo paso por aqui');
+            }
+        }
+    });
+}
+function eliminar_proveedor(id,nombre) {
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar a "+nombre+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $("#fila_"+id).fadeOut( "slow");
+    })
+}
+function existe_proveedor(clave,id){
+    var existe=false;
+    var fila='fila_proveedores_'+id;
+    $("input[class="+fila+"]").each(function (index1) {
+        if(clave==$(this).html()){
+            existe=true;
+        }
+    });
+    return existe;
+}
+
+function nuevos_proveedores(pos,categoria,grupo) {
+    var localizacion=$('#txt_localizacion_'+pos).val();
+    console.log('localizacion:'+localizacion+'_grupo:'+grupo);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '../../ventas/service/listar-proveedores',
+        data: 'localizacion='+localizacion+'&grupo='+grupo,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            console.log(data);
+            $('#lista_proveedores_'+categoria).html(data);
+
+
+
+        }
     })
 }

@@ -212,30 +212,66 @@
                                                                     @endforeach
                                                                     @foreach($m_servicios->where('grupo',$grupo)->where('localizacion',$loca) as $servicio)
                                                                             {{--{{$cotizacion->nropersonas}}  -  {{$servicio->max_personas}}--}}
-                                                                        @if($servicio->min_personas<=$cotizacion->nropersonas AND $cotizacion->nropersonas <= $servicio->max_personas)
+                                                                            @php
+                                                                                $precio_simgle=0;
+                                                                            @endphp
+                                                                            @if($servicio->precio_grupo==1)
                                                                                 @php
-                                                                                    $precio_simgle=0;
+                                                                                    $precio_simgle=round($servicio->precio_venta/$cotizacion->nropersonas,1);
                                                                                 @endphp
-                                                                                @if($servicio->precio_grupo==1)
-                                                                                    @php
-                                                                                        $precio_simgle=round($servicio->precio_venta/$cotizacion->nropersonas,1);
-                                                                                    @endphp
-                                                                                @else
-                                                                                    @php
-                                                                                        $precio_simgle=round($servicio->precio_venta,1);
-                                                                                    @endphp
-                                                                                @endif
+                                                                            @else
+                                                                                @php
+                                                                                    $precio_simgle=round($servicio->precio_venta,1);
+                                                                                @endphp
+                                                                            @endif
+                                                                        @if($servicio->grupo=='MOVILID')
+                                                                            @if($servicio->min_personas<=$cotizacion->nropersonas AND $cotizacion->nropersonas <= $servicio->max_personas)
                                                                                 <div class="checkbox1">
+                                                                                        <label>
+                                                                                            <input type="radio" name="op_services" id="serv_{{$servicio->id}}" value="{{$servicio->id}}" @if($servicios->codigo == $servicio->codigo) checked @endif>
+                                                                                            {{$servicio->nombre}}<br>
+                                                                                            <span class="padding-left-10 text-primary">
+                                                                                            @if($grupo=='TOURS')
+                                                                                                <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                            @if($grupo=='MOVILID')
+                                                                                                <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                                @if($grupo=='REPRESENT')
+                                                                                                    <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                                                @endif
+                                                                                                @if($grupo=='ENTRANCES')
+                                                                                                    <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                                                @endif
+                                                                                                @if($grupo=='FOOD')
+                                                                                                    <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                                                @endif
+                                                                                                @if($grupo=='TRAINS')
+                                                                                                    <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                                                @endif
+                                                                                                @if($grupo=='FLIGHTS')
+                                                                                                    <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                                                @endif
+                                                                                                @if($grupo=='OTHERS')
+                                                                                                    <i class="fa fa-question text-success" aria-hidden="true"></i>
+                                                                                                @endif
+                                                                                                {{$servicio->tipoServicio}}
+                                                                                            </span><b class="text-warning"> | </b><span class="text-green-goto">${{$precio_simgle}}</span><b class="text-warning"> | </b><span class="text-primary">[{{$servicio->min_personas}} - {{$servicio->max_personas}}] person</span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                            @endif
+                                                                        @else
+                                                                            <div class="checkbox1">
                                                                                     <label>
                                                                                         <input type="radio" name="op_services" id="serv_{{$servicio->id}}" value="{{$servicio->id}}" @if($servicios->codigo == $servicio->codigo) checked @endif>
                                                                                         {{$servicio->nombre}}<br>
                                                                                         <span class="padding-left-10 text-primary">
-                                                                                        @if($grupo=='TOURS')
-                                                                                            <i class="fa fa-map-o text-info" aria-hidden="true"></i>
-                                                                                        @endif
-                                                                                        @if($grupo=='MOVILID')
-                                                                                            <i class="fa fa-bus text-warning" aria-hidden="true"></i>
-                                                                                        @endif
+                                                                                            @if($grupo=='TOURS')
+                                                                                                <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                                            @endif
+                                                                                            @if($grupo=='MOVILID')
+                                                                                                <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                                            @endif
                                                                                             @if($grupo=='REPRESENT')
                                                                                                 <i class="fa fa-users text-success" aria-hidden="true"></i>
                                                                                             @endif
@@ -255,7 +291,7 @@
                                                                                                 <i class="fa fa-question text-success" aria-hidden="true"></i>
                                                                                             @endif
                                                                                             {{$servicio->tipoServicio}}
-                                                                                        </span><b class="text-warning"> | </b><span class="text-green-goto">${{$precio_simgle}}</span><b class="text-warning"> | </b><span class="text-primary">[{{$servicio->min_personas}} - {{$servicio->max_personas}}] person</span>
+                                                                                            </span><b class="text-warning"> | </b><span class="text-green-goto">${{$precio_simgle}}</span><b class="text-warning"> | </b><span class="text-primary">[{{$servicio->min_personas}} - {{$servicio->max_personas}}] person</span>
                                                                                     </label>
                                                                                 </div>
                                                                         @endif
