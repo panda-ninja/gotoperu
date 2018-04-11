@@ -62,7 +62,7 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        dd('hola');
+//        dd('hola');
         $txt_day=strtoupper(($request->input('txt_day')));
         $txt_code=strtoupper(($request->input('txt_codigo')));
         $txt_title=strtoupper(($request->input('txt_title')));
@@ -126,7 +126,7 @@ class PackageController extends Controller
         $paquete->estado=1;
         $paquete->preciocosto=$totalItinerario;
         $paquete->save();
-dd($paquete);
+//dd($paquete);
         $paquete_precio2=new P_PaquetePrecio();
         $paquete_precio2->estrellas=2;
         $paquete_precio2->precio_s=$amount_s2;

@@ -1668,7 +1668,7 @@
 
             }
         });
-        CKEDITOR.replace('txta_include');
-        CKEDITOR.replace('txta_notinclude');
+//        CKEDITOR.replace('txta_include');
+//        CKEDITOR.replace('txta_notinclude');
     </script>
 @stop
