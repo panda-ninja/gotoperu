@@ -82,7 +82,7 @@ Route::post('/admin/mostrar_itinerario', [
 ]);
 Route::post('/admin/itinerario/nuevo', [
     'uses' => 'PackageController@store',
-    'as' => 'package_save_path',
+    'as' => 'package_save_new_path',
 ]);
 Route::get('/admin/destination', [
     'uses' => 'DestinationController@index',

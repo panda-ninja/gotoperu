@@ -10,7 +10,7 @@
             <li class="active">Itineraries</li>
         </ol>
     </div>
-    <form action="{{route('package_save_path')}}" method="post" id="package_new_path_id">
+    <form action="{{route('package_save_new_path')}}" method="post" id="package_new_path_id">
         <input type="hidden" id="tipo_plantilla" value="si">
         <div class="row">
             <div class="col-md-1">
