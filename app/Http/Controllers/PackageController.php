@@ -62,6 +62,7 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
+        dd('hola');
         $txt_day=strtoupper(($request->input('txt_day')));
         $txt_code=strtoupper(($request->input('txt_codigo')));
         $txt_title=strtoupper(($request->input('txt_title')));
