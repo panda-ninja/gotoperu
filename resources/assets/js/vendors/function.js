@@ -135,7 +135,7 @@ function Pasar_datos(){
                     '<div class="content-list-book-s">' +
                     '<a href="#!">' +
                     '<strong>' +
-                    '<input type="hidden" class="servicios_new" name="servicios_new_'+total_Itinerarios+'" value="' + itinerario[0] + '">' +
+                    '<input type="hidden" class="servicios_new" name="servicios_new_'+itinerario[0]+'" value="' + itinerario[0] + '">' +
                     '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">' +
                     '<input type="hidden" name="itinerarios_1[]" value="' + itinerario[5] + '">' +
                     '<input type="hidden" name="itinerarios_2[]" value="' + itinerario[0] + '">' +
