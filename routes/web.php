@@ -80,7 +80,7 @@ Route::post('/admin/mostrar_itinerario', [
     'uses' => 'ItinerariController@show_Itineraries',
     'as' => 'package_new_path',
 ]);
-Route::post('/admin/guardar-paquete', [
+Route::post('/admin/itinerario/nuevo', [
     'uses' => 'PackageController@store',
     'as' => 'package_save_path',
 ]);
