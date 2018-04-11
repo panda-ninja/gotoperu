@@ -255,12 +255,8 @@ class PackageController extends Controller
             $p_itinerario->precio=$st;
             $p_itinerario->save();
         }
-        return redirect()->route('show_itineraries_path');
-//        $destinos=M_Destino::get();
-//        $itinerarios=M_Itinerario::get();
-//        $m_servicios=M_Servicio::get();
-//        $hotel=Hotel::get();
-//        return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel]);
+//        return redirect()->route('show_itineraries_path');
+        
     }
     public function itineraries()
     {
