@@ -226,6 +226,7 @@
                                                                 <option value="VAN">VAN</option>
                                                                 <option value="H1">H1</option>
                                                                 <option value="SPRINTER">SPRINTER</option>
+                                                                <option value="BUS">BUS</option>
                                                             </select>
                                                         @endif
                                                         @if($categoria->nombre=='REPRESENT')
@@ -638,6 +639,7 @@
                                                                         <option value="VAN" @if($producto->tipo_producto=='VAN') {{'selected'}} @endif>VAN</option>
                                                                         <option value="H1" @if($producto->tipo_producto=='H1') {{'selected'}} @endif>H1</option>
                                                                         <option value="SPRINTER" @if($producto->tipo_producto=='SPRINTER') {{'selected'}} @endif>SPRINTER</option>
+                                                                        <option value="BUS" @if($producto->tipo_producto=='BUS') {{'selected'}} @endif>BUS</option>
                                                                     </select>
                                                                 @endif
                                                                 @if($producto->grupo=='REPRESENT')
@@ -751,7 +753,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             {{csrf_field()}}
-                                            <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="0">
+                                            <input type="hidden" name="posTipoEditcost_{{$producto->id}}" id="posTipoEditcost_{{$producto->id}}" value="{{$pos0}}">
                                             <input type="hidden" name="id" id="id" value="{{$producto->id}}">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Save changes</button>

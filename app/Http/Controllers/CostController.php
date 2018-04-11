@@ -296,7 +296,7 @@ class CostController extends Controller
             }
             $producto = M_Producto::FindOrFail($id);
             $producto->codigo = $txt_code;
-            $producto->grupo = $tipoServicio[$posTipo];
+//            $producto->grupo = $tipoServicio[$posTipo];
             $producto->localizacion = $txt_localizacion;
             $producto->tipo_producto = $txt_type;
             $producto->nombre = $prod_nombre;
