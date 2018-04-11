@@ -125,7 +125,7 @@ class PackageController extends Controller
         $paquete->estado=1;
         $paquete->preciocosto=$totalItinerario;
         $paquete->save();
-
+dd($paquete);
         $paquete_precio2=new P_PaquetePrecio();
         $paquete_precio2->estrellas=2;
         $paquete_precio2->precio_s=$amount_s2;

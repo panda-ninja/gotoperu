@@ -294,6 +294,30 @@ class ServicesController extends Controller
         elseif ($txt_tipo_grupo == 'Individual')
             $destino->precio_grupo = 0;
         $destino->save();
+
+        $pro_id= $request->input('pro_id');
+        $pro_val= $request->input('pro_val');
+        $posTipo=$request->input('posTipo');
+        foreach ($pro_id as $key => $pro_id_){
+            $proveedor=Proveedor::FindOrFail($pro_id_);
+            $new_service=new M_Producto();
+            $new_service->codigo=$destino->codigo;
+            $new_service->grupo=$destino->grupo;
+            $new_service->localizacion=$txt_localizacion;
+            $new_service->tipo_producto=$request->input('txt_type_'.$posTipo);
+            $new_service->nombre=$destino->nombre;
+            $new_service->precio_costo=$pro_val[$key];
+            $new_service->precio_grupo=$destino->precio_grupo;
+            $new_service->clase=$destino->clase;
+            $new_service->salida=$destino->salida;
+            $new_service->llegada=$destino->llegada;
+            $new_service->min_personas=$destino->min_personas;
+            $new_service->max_personas=$destino->max_personas;
+            $new_service->m_servicios_id=$destino->id;
+            $new_service->proveedor_id=$proveedor->id;
+            $new_service->save();
+        }
+
 //        return dd($destino);
 //        return json_encode(1);
         return $txt_type . '_' . $txt_min_personas . '_' . $txt_max_personas . '_' . $txt_price . '_' . $txt_product;
@@ -416,7 +440,7 @@ class ServicesController extends Controller
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
-                                                <select class="form-control" id="txt_localizacion_' . $servicio->id . '" name="txt_localizacion_' . $servicio->id . '">';
+                                                <select class="form-control" id="txt_localizacion_' . $servicio->id . '" name="txt_localizacion_' . $servicio->id . '" disabled>';
 
             foreach ($destinations as $destination) {
                 $cadena .= '<option value="' . $destination->destino . '"';
@@ -915,7 +939,7 @@ class ServicesController extends Controller
             $cadena .= '<div class="col-lg-12">'.
                         '<div id="lista_proveedores_'.$categoria_id.'" class="col-lg-5">'.
                             '<p><b class="text-green-goto">Proveedores</b></p>';
-            foreach ($proveedores->where('grupo', $destino[1])->where('localizacion', 'CUSCO') as $proveedor){
+            foreach ($proveedores->where('localizacion',$servicio->localizacion) as $proveedor){
                 $cadena .= '<div class="input-group">'.
                                 '<span class="input-group-addon">'.
                                     '<input  type="checkbox" aria-label="..." name="proveedores" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
@@ -931,11 +955,12 @@ class ServicesController extends Controller
             '</div>';
             $cadena .='<div id="lista_costos_'.$categoria_id.'" class="col-lg-6">'.
                 '<p><b class="text-green-goto">Proveedor/Costo</b></p>';
-                foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion', 'CUSCO') as $costo){
+                foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo){
                 $cadena.= '<div id="fila_'.$costo->proveedor->id.'" class="row">'.
                                 '<div class="col-lg-8">'.$costo->proveedor->razon_social.'</div>'.
                                 '<div class="col-lg-2">'.
-                                    '<input type="number" class="form-control" style="width: 80px" value="'.$costo->precio_costo.'">'.
+                                    '<input name="costo_id[]" type="hidden" value="'.$costo->id.'">'.
+                                    '<input name="costo_val[]" type="number" class="form-control" style="width: 80px" value="'.$costo->precio_costo.'">'.
                                 '</div>'.
                                 '<div class="col-lg-2">'.
                                     '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor('.$costo->proveedor->id.','.$costo->proveedor->razon_social.')">'.
