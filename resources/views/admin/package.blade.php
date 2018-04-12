@@ -179,7 +179,7 @@
                                             ?>
                                             <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios_{{$itinerario->id}}" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
                                         </span>
-                                        <input type="text" namaria-multiline="titulo_3[]" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
+                                        <input type="text" namaria-multiline="titulo_{{$itinerario->id}}" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
 
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$itinerario->id}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
