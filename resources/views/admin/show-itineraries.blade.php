@@ -48,7 +48,7 @@
                     @foreach($itinerary->itinerarios as $itinerario)
                         {{--@foreach($itinerarios->where('titulo',$itinerario->titulo) as $iti)--}}
                         {{--@endforeach--}}
-                        @if($itinerarios->where('titulo',$itinerario->titulo)->count('titulo')>0)
+                        @if($itinerario->where('titulo',$itinerario->titulo)->count('titulo')>0)
                             @php
                                     $existe++;
                             @endphp
