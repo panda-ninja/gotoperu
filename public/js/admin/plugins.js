@@ -26600,7 +26600,7 @@ function Pasar_datos1(){
                     '<strong>' +
                     '<input type="hidden" class="servicios_new" name="servicios_new_" value="' + itinerario[0] + '">' +
                     '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">' +
-                    '<input type="hidden" name="itinerarios_1[]" value="' + itinerario[5] + '">' +
+                    // '<input type="hidden" name="itinerarios_1[]" value="' + itinerario[5] + '">' +
                     '<input type="hidden" name="itinerarios_2[]" value="' + itinerario[0] + '">' +
                     '<span class="itinerarios_1 hide">' + itinerario[5] + '</span>' +
                     '<span class="txt_itinerarios hide" name="itinerarios1">' + itinerario[0] + '</span>' +

@@ -177,7 +177,7 @@
                                                 $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
                                                 $servicios1=substr($servicios1,0,strlen($servicios1)-1);
                                             ?>
-                                            <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios_{{$itinerario->id}}" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
+                                            <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios_{{$itinerario->id}}" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_a_{{$precio_iti}}_s">
                                         </span>
                                         <input type="text" namaria-multiline="titulo_{{$itinerario->id}}" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
 
