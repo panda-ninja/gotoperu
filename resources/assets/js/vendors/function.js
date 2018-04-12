@@ -48,7 +48,7 @@ function Pasar_datos(){
     Itis_precio=parseFloat($('#totalItinerario').val());
     total_Itinerarios=$('#nroItinerario').val();
     var itinerario='';
-    $("input[name=itinerarios]").each(function (index){
+    $("input[class=itinerario]").each(function (index){
         if($(this).is(':checked')){
             itinerario=$(this).val().split('_');
             if(!existe(itinerario[0])) {
