@@ -348,7 +348,7 @@
                                             @if($categoria->nombre!='HOTELS')
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="txt_price">PriceA</label>
+                                                    <label for="txt_price">Price</label>
                                                     <input type="number" class="form-control" id="txt_price_{{$pos}}" name="txt_price_{{$pos}}" placeholder="Price" min="0">
                                                 </div>
                                             </div>
@@ -531,14 +531,14 @@
                                             @endif
                                             <div class="divider"></div>
                                             <div class="col-lg-12">
-                                                <div id="lista_proveedores_{{$categoria->id}}" class="col-lg-5">
+                                                <div id="lista_proveedores_{{$categoria->id}}" class="col-lg-5" style="height: 400px; overflow-y: auto;">
                                                     <p><b class="text-green-goto">Proveedores</b></p>
                                                     @foreach($proveedores->where('grupo',$categoria->nombre)->where('localizacion','CUSCO') as $proveedor)
                                                         <div class="input-group">
                                                             <span class="input-group-addon">
-                                                                <input  type="checkbox" aria-label="..." name="proveedores" value="{{$proveedor->id}}_{{$proveedor->razon_social}}">
+                                                                <input class="proveedores"  type="checkbox" aria-label="..." name="proveedores_[]" value="{{$proveedor->id}}_{{$proveedor->razon_social}}">
                                                             </span>
-                                                            <input type="text" class="form-control" aria-label="..." value="{{$proveedor->razon_social}}" readonly="">
+                                                            <input type="text" name="proveedores_nombre[]" class="form-control" aria-label="..." value="{{$proveedor->razon_social}}" readonly="">
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -547,7 +547,7 @@
                                                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                                     </a>
                                                 </div>
-                                                <div id="lista_costos_{{$categoria->id}}" class="col-lg-6">
+                                                <div id="lista_costos_{{$categoria->id}}" class="col-lg-6" style="height: 400px; overflow-y: auto;">
                                                     <p><b class="text-green-goto">Proveedor/Costo</b></p>
                                                     {{--@foreach($costos->where('grupo',$categoria->nombre)->where('localizacion','CUSCO') as $costo)--}}
                                                         {{--<div id="fila_{{$costo->proveedor->id}}" class="row">--}}

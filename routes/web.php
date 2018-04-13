@@ -840,3 +840,7 @@ Route::post('/admin/ventas/service/listar-proveedores',[
     'uses' => 'ServicesController@listar_proveedores_service',
     'as' => 'listar_proveedores_path',
 ]);
+Route::post('/admin/ventas/service/eliminar-proveedor',[
+    'uses' => 'ServicesController@eliminar_proveedores_service',
+    'as' => 'emilinar_service_proveedores_path',
+]);

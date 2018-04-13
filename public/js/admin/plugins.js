@@ -24834,7 +24834,7 @@ function Pasar_datos(){
     Itis_precio=parseFloat($('#totalItinerario').val());
     total_Itinerarios=$('#nroItinerario').val();
     var itinerario='';
-    $("input[class=itinerario]").each(function (index){
+    $("input[class='itinerario']").each(function (index){
         if($(this).is(':checked')){
             itinerario=$(this).val().split('_');
             if(!existe(itinerario[0])) {
@@ -26579,7 +26579,7 @@ function Pasar_datos1(){
     Itis_precio=parseFloat($('#totalItinerario').val());
     total_Itinerarios_camino2=$('#nroItinerario').val();
     var itinerario='';
-    $("input[name=itinerarios]").each(function (index){
+    $("input[name='itinerarios']").each(function (index){
         if($(this).is(':checked')){
             itinerario=$(this).val().split('_');
             if(!existe(itinerario[0])) {
@@ -28287,7 +28287,7 @@ function pagar_entrada_pagos(id,valor){
 
 function Pasar_pro(id){
     // $('#lista_costos_'+id).append('iti_temp');
-    $("input[name=proveedores]").each(function (index) {
+    $("input[class='proveedores']").each(function (index) {
         if ($(this).is(':checked')) {
             proveedor = $(this).val().split('_');
             console.log('proveedor:'+proveedor[1]);
@@ -28332,6 +28332,47 @@ function eliminar_proveedor(id,nombre) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then(function () {
+        $("#fila_"+id).fadeOut( "slow");
+    })
+}
+function eliminar_proveedor_comprobando(costo_id,proveedor_id,nombre) {
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar a "+nombre+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '../../ventas/service/eliminar-proveedor',
+            data: 'costo_id='+costo_id+'&proveedor_id='+proveedor_id,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data=='1'){
+                    // se elimino con exito
+                }
+                else if(data=='2'){
+                    // este costo se esta usado en una cotizacion
+                }
+                else if(data=='0'{
+                    // error al eliminar el proveedor
+                }
+                console.log(data);
+                $('#lista_proveedores_'+categoria).html(data);
+
+
+
+            }
+        })
+
         $("#fila_"+id).fadeOut( "slow");
     })
 }

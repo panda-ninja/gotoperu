@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hotel;
+use App\ItinerarioServicios;
 use App\M_Category;
 use App\M_Producto;
 use App\M_Servicio;
@@ -264,7 +265,7 @@ class ServicesController extends Controller
     {
         $id = $request->input('id');
         $posTipo = $request->input('posTipo');
-        $txt_localizacion = $request->input('txt_localizacion_' . $id);
+//        $txt_localizacion = $request->input('txt_localizacion_' . $id);
         $txt_type = $request->input('txt_type_' . $id);
         $txt_acomodacion = $request->input('txt_acomodacion_' . $id);
         $txt_product = $request->input('txt_product_' . $id);
@@ -278,7 +279,7 @@ class ServicesController extends Controller
 //        return $txt_clase;
 
         $destino = M_Servicio::FindOrFail($id);
-        $destino->localizacion = $txt_localizacion;
+//        $destino->localizacion = $txt_localizacion;
         $destino->tipoServicio = $txt_type;
         $destino->acomodacion = $txt_acomodacion;
         $destino->nombre = $txt_product;
@@ -297,14 +298,13 @@ class ServicesController extends Controller
 
         $pro_id= $request->input('pro_id');
         $pro_val= $request->input('pro_val');
-        $posTipo=$request->input('posTipo');
         foreach ($pro_id as $key => $pro_id_){
             $proveedor=Proveedor::FindOrFail($pro_id_);
             $new_service=new M_Producto();
             $new_service->codigo=$destino->codigo;
             $new_service->grupo=$destino->grupo;
-            $new_service->localizacion=$txt_localizacion;
-            $new_service->tipo_producto=$request->input('txt_type_'.$posTipo);
+            $new_service->localizacion=$destino->localizacion;
+            $new_service->tipo_producto=$txt_type;
             $new_service->nombre=$destino->nombre;
             $new_service->precio_costo=$pro_val[$key];
             $new_service->precio_grupo=$destino->precio_grupo;
@@ -316,6 +316,15 @@ class ServicesController extends Controller
             $new_service->m_servicios_id=$destino->id;
             $new_service->proveedor_id=$proveedor->id;
             $new_service->save();
+        }
+
+        $costo_id= $request->input('costo_id');
+        $costo_val= $request->input('costo_val');
+        foreach ($costo_id as $key => $costo_id_){
+            $producto=M_Producto::FindOrFail($costo_id_);
+            $producto->precio_costo=$costo_val[$key];
+            $producto->tipo_producto=$txt_type;
+            $producto->save();
         }
 
 //        return dd($destino);
@@ -936,15 +945,15 @@ class ServicesController extends Controller
             $costos=M_Producto::get();
 
             $categoria_id = $request->input('id');
-            $cadena .= '<div class="col-lg-12">'.
-                        '<div id="lista_proveedores_'.$categoria_id.'" class="col-lg-5">'.
+            $cadena .= '<div class="col-lg-12" >'.
+                        '<div id="lista_proveedores_'.$categoria_id.'" class="col-lg-5" style="height: 400px; overflow-y: auto;">'.
                             '<p><b class="text-green-goto">Proveedores</b></p>';
             foreach ($proveedores->where('localizacion',$servicio->localizacion) as $proveedor){
                 $cadena .= '<div class="input-group">'.
                                 '<span class="input-group-addon">'.
-                                    '<input  type="checkbox" aria-label="..." name="proveedores" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                                    '<input class="proveedores" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
                                 '</span>'.
-                                '<input type="text" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
+                                '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
                             '</div>';
             }
             $cadena .= '</div>'.
@@ -953,17 +962,17 @@ class ServicesController extends Controller
                     '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.
                 '</a>'.
             '</div>';
-            $cadena .='<div id="lista_costos_'.$categoria_id.'" class="col-lg-6">'.
+            $cadena .='<div id="lista_costos_'.$categoria_id.'" class="col-lg-6" style="height: 400px; overflow-y: auto;">'.
                 '<p><b class="text-green-goto">Proveedor/Costo</b></p>';
                 foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo){
                 $cadena.= '<div id="fila_'.$costo->proveedor->id.'" class="row">'.
                                 '<div class="col-lg-8">'.$costo->proveedor->razon_social.'</div>'.
                                 '<div class="col-lg-2">'.
                                     '<input name="costo_id[]" type="hidden" value="'.$costo->id.'">'.
-                                    '<input name="costo_val[]" type="number" class="form-control" style="width: 80px" value="'.$costo->precio_costo.'">'.
+                                    '<input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="'.$costo->precio_costo.'">'.
                                 '</div>'.
                                 '<div class="col-lg-2">'.
-                                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor('.$costo->proveedor->id.','.$costo->proveedor->razon_social.')">'.
+                                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('{{$costo->id}}','.$costo->proveedor->id.','.$costo->proveedor->razon_social.')">'.
                                         '<i class="fa fa-trash-o" aria-hidden="true"></i>'.
                                     '</button>'.
                                 '</div>'.
@@ -1033,13 +1042,26 @@ class ServicesController extends Controller
         foreach ($proveedores as $proveedor){
             $cadena.='<div class="input-group">'.
                         '<span class="input-group-addon">'.
-                            '<input  type="checkbox" aria-label="..." name="proveedores" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                            '<input class="proveedores" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
                         '</span>'.
-                        '<input type="text" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
+                        '<input type="text" name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
                     '</div>';
         }
         return $cadena;
 
+    }
+    public function eliminar_proveedores_service(Request $request)
+    {
+        $costo_id= $request->input('costo_id');
+        $proveedor_id= $request->input('proveedor_id');
+        $nro_usados=ItinerarioServicios::where('proveedor_id',$proveedor_id)->count('proveedor_id');
+        if($nro_usados>0){
+            return 2;
+        }
+        elseif($nro_usados==0){
+            $costo=M_Producto::FindOrFail($costo_id);
+            return $costo->delete();
+        }
     }
 
 }

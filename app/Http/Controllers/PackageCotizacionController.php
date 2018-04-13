@@ -1810,7 +1810,11 @@ class PackageCotizacionController extends Controller
     public function delete_hotel_quotes_paso1(Request $request){
         $id = $request->input('id');
         $objeto=PrecioHotelReserva::FindOrFail($id);
+        $itinerario_cotizaciones_id=$objeto->itinerario_cotizaciones_id;
+        $localizacion=$objeto->localizacion;
         if($objeto->delete())
+            ItinerarioDestinos::where('itinerario_cotizaciones_id',$itinerario_cotizaciones_id)
+                ->where('destino',$localizacion)->delete();
             return 1;
         else
             return 0;
