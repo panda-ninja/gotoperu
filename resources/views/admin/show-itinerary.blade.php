@@ -331,7 +331,7 @@
                                                             $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
                                                             $servicios1=substr($servicios1,0,strlen($servicios1)-1);
                                                             ?>
-                                                            <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_a_{{$precio_iti}}_s">
+                                                            <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios[]" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_a_{{$precio_iti}}_s">
                                                         </span>
                                                         <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
                                                         <span class="input-group-btn">

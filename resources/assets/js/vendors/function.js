@@ -3146,7 +3146,7 @@ function eliminar_proveedor(id,nombre) {
         $("#fila_"+id).fadeOut( "slow");
     })
 }
-function eliminar_proveedor_comprobando(costo_id,proveedor_id,nombre) {
+function eliminar_proveedor_comprobando(id,costo_id,proveedor_id,nombre) {
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de eliminar a "+nombre+"?",
@@ -3172,6 +3172,7 @@ function eliminar_proveedor_comprobando(costo_id,proveedor_id,nombre) {
                 }
                 else if(data=='2'){
                     // este costo se esta usado en una cotizacion
+                    $('#result_'+id).html('Este proveedor esta siendo usado en una cotizacion');
                 }
                 else if(data=='0'){
                     // error al eliminar el proveedor

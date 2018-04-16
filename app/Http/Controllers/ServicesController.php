@@ -972,7 +972,7 @@ class ServicesController extends Controller
                                     '<input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="'.$costo->precio_costo.'">'.
                                 '</div>'.
                                 '<div class="col-lg-2">'.
-                                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('{{$costo->id}}','.$costo->proveedor->id.','.$costo->proveedor->razon_social.')">'.
+                                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('.$servicio->id.','.$costo->id.','.$costo->proveedor->id.','.$costo->proveedor->razon_social.')">'.
                                         '<i class="fa fa-trash-o" aria-hidden="true"></i>'.
                                     '</button>'.
                                 '</div>'.

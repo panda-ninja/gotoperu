@@ -1813,8 +1813,12 @@ class PackageCotizacionController extends Controller
         $itinerario_cotizaciones_id=$objeto->itinerario_cotizaciones_id;
         $localizacion=$objeto->localizacion;
         if($objeto->delete()){
-            ItinerarioDestinos::where('itinerario_cotizaciones_id',$itinerario_cotizaciones_id)
-                ->where('destino',$localizacion)->delete();
+            $ItinerarioDestinos=ItinerarioDestinos::where('itinerario_cotizaciones_id',$itinerario_cotizaciones_id)
+                ->where('destino',$localizacion)->get();
+            foreach($ItinerarioDestinos as $ItinerarioDestino){
+                $temp=ItinerarioDestinos::FindOrFail($ItinerarioDestino->id);
+                $temp->delete();
+            }
             return 1;
         }
         else
