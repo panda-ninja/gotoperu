@@ -24848,76 +24848,7 @@ function Pasar_datos(){
                 var val_p_g=parseFloat(serv[1]);
             });
             var iti_temp='';
-        //         iti_temp+='<div id="itis_'+itinerario[0]+'" class="box-sortable margin-bottom-10">'+
-        //         '<input type="hidden" name="itinerarios_[]" id="itinerarios_'+itinerario[0]+'" value="'+itinerario[0]+'">'+
-        //         '<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_'+itinerario[0]+'" aria-expanded="false" aria-controls="collapseExample">'+
-        //         '<b>Dia '+total_Itinerarios+':</b> '+itinerario[2]+
-        //     '</a>'+
-        // '<span class="label pull-right">' +
-        //     '<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('+itinerario[0]+','+itinerario[4]+')">' +
-        //         '<i class="fa fa-times-circle" aria-hidden="true"></i>' +
-        //     '</a>'+
-        // '</span>'+
-        // '<span class="label label-success pull-right">($'+itinerario[4]+')</span>'+
-        //             '<div class="collapse clearfix" id="collapseExample_'+itinerario[0]+'">'+
-        //         '<div class="col-md-12"><input type="hidden" name="itinerario" value="'+itinerario[0]+'">'+
-        //             itinerario[3]+
-        //     '<h5><b>Services</b></h5>'+
-        //     '<table class="table table-condensed table-striped">'+
-        //         '<thead>'+
-        //         '<tr class="bg-grey-goto text-white">'+
-        //         '<th colspan="2">Concepts</th>'+
-        //         '<th>Prices</th>'+
-        //         '<th></th>'+
-        //         '</tr>'+
-        //         '</thead>'+
-        //         '<tbody>';
-        //         var servicios_='';
-        //         $.each(servicios, function( key, value ) {
-        //             var serv=value.split('//');
-        //             var val_p_g=serv[1];
-        //             iti_temp+='<tr><td><input type="hidden" name="iti_servicios_'+itinerario[0]+'" value="'+value+'">'+serv[0]+'</td>'+
-        //                         '<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>'+
-        //                         '<td>'+val_p_g+'</td>'+
-        //                         '<td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>'+
-        //                     '</tr>';
-        //         });
-        //     iti_temp+=''+
-        //         '<tr>'+
-        //         '<td class="" colspan="4">'+
-        //         '<a class="hide" href="#add-services'+itinerario[0]+'" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
-        //         '<div class="col-md-12">'+
-        //         '<label for="txta_description">Sugerencias para los servicios</label>'+
-        //         '<textarea class="form-control" id="txt_sugerencia_'+itinerario[0]+'" name="txt_sugerencia[]" rows="3"></textarea>'+
-        //         '</div>'+
-        //         '<div class="collapse" id="add-services'+itinerario[0]+'">'+
-        //         '<div class="row margin-top-10">'+
-        //         '<div class="col-md-6">'+
-        //         '<div class="form-group">'+
-        //         '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">'+
-        //         '</div>'+
-        //         '</div>'+
-        //         '<div class="col-md-4 row">'+
-        //         '<div class="form-group">'+
-        //         '<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">'+
-        //         '</div>'+
-        //         '</div>'+
-        //         '<div class="col-md-2">'+
-        //         '<div class="form-group">'+
-        //         '<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>'+
-        //         '</div>'+
-        //         '</div>'+
-        //         '</div>'+
-        //         '</div>'+
-        //         '</td>'+
-        //         '</tr>'+
-        //         '</tbody>'+
-        //         '</table>'+
-        //         '</div>'+
-        //         '</div>'+
-        //         '</div>';
-
-                iti_temp += '<li class="content-list-book" id="content-list-' + itinerario[0] + '" value="' + itinerario[0] + '">' +
+                    iti_temp += '<li class="content-list-book" id="content-list-' + itinerario[0] + '" value="' + itinerario[0] + '">' +
                     '<div class="content-list-book-s">' +
                     '<a href="#!">' +
                     '<strong>' +
@@ -24951,8 +24882,6 @@ function cambiar_profit(tipo){
     var totalItinerario=parseInt($('#totalItinerario').val());
     var nroDiasItinerario=parseInt($('#txt_day').val());
     nroDiasItinerario=nroDiasItinerario-1;
-    // console.log('totalItinerario:'+totalItinerario);
-    // console.log('nroDiasItinerario:'+nroDiasItinerario);
 
     var profit_0=$('#profit_0').val();
     var profit_2=$('#profit_2').val();
@@ -25078,7 +25007,6 @@ function mostrar_pivot(cate){
 }
 
 function eliminar_servicio(local,id,servicio) {
-    // alert('holaaa');
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de eliminar el servicio "+servicio+"?",
@@ -25106,10 +25034,8 @@ function eliminar_servicio(local,id,servicio) {
 }
 function escojerPosEdit(pos,id) {
     $("#posTipoEdit_"+id).val(pos);
-    // $("#posTipoEdit_id_"+id).val(id);
 }
 function eliminar_producto(id,servicio) {
-    // alert('holaaa');
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de eliminar el producto "+servicio+"?",
@@ -25158,7 +25084,6 @@ function pasar_pos_provider(pos) {
 }
 
 function envia(){
-
         console.log('holaaaaaaaaaaaa');
         $.ajaxSetup({
             header:$('meta[name="_token"]').attr('content')
@@ -25445,38 +25370,7 @@ function  filtrar_itinerarios(){
     });
     destinos=destinos.substr(0,destinos.length-1);
     $('#desti').val(destinos);
-    // filtrar_itinerarios_admin();
 
-    // $("input[class='itinerario']").each(function (index1) {
-    //     var destino1 = $(this).val();
-    //     var destino = destino1.split('_');
-    //     var destinos=destino[1].split('*');
-    //     // if(destino[0]==itinerario){
-    //         var esta=0;
-    //         console.log('entrando a los destinos');
-    //         $("input[class='destinospack']").each(function (index) {
-    //             if($(this).is(':checked')) {
-    //                 var destino = $(this).val();
-    //                 console.log('preguntando si esta:'+destino);
-    //                 console.log('respuesta:'+$.inArray(destino,destinos));
-    //                 if($.inArray(destino,destinos)>=0) {
-    //                     esta=1;
-    //                     console.log('si esta:'+destino);
-    //                 }
-    //             }
-    //         });
-    //         if(esta==1) {
-    //             $('#itinerario'+destino[0]).removeClass("hide");
-    //             $('#itinerario'+destino[0]).fadeIn("slow");
-    //             console.log('no borrando:'+'#itinerario'+destino[0]);
-    //         }
-    //         else {
-    //             $(this).prop("checked", "");
-    //             $('#itinerario'+destino[0]).fadeOut("slow");
-    //             console.log('borrando:'+'#itinerario'+destino[0]);
-    //         }
-    //     // }
-    // });
 
 }
 
@@ -25511,23 +25405,6 @@ function eliminar_iti(id,valor){
         $('#nroItinerario').val(cont);
         calcular_resumen();
     })
-
-    // swal({
-    //     title: 'MENSAJE DEL SISTEMA',
-    //     text: "¿Estas seguro de eliminar el itinerario?",
-    //     type: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes'
-    // }).then(function () {
-    //     $('#itis_'+id).fadeOut();
-    //     $('#itis_'+id).remove();
-    //     Itis_precio=Itis_precio-valor;
-    //     $('#totalItinerario').val(Itis_precio);
-    //     $('#totalItinerario_front').html(Itis_precio);
-    //     calcular_resumen();
-    // })
 }
 
 function calcular_utilidad(){
@@ -25535,16 +25412,11 @@ function calcular_utilidad(){
     var $txt_day=Math.ceil($('#txt_day').val()-1);
     var $txt_utilidad=$('#txt_utilidad').val();
     var $preciox_n_dias=$totalItinerario*($txt_day-1);
-    // console.log('preciox_n_dias='+$preciox_n_dias);
     var $utilidad1=parseFloat($txt_utilidad)*parseFloat(0.01);
-    // console.log('utilidad '+$txt_utilidad+' %='+$utilidad1);
-
     var $preciox_n_dias_venta=$preciox_n_dias+Math.round($preciox_n_dias*$utilidad1);
     $('#totalItinerario_venta').val($preciox_n_dias_venta);
-    // console.log('precio venta='+$preciox_n_dias_venta);
 }
 function eliminar_categoria1(id,categoria) {
-    // alert('holaaa:'+id+'_'+categoria);
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de eliminar la categoria "+categoria+"?",
@@ -25938,18 +25810,10 @@ function activarPlan(paquete_precio_id){
         });
         $.post('/admin/activar-package', 'paquete_precio_id='+paquete_precio_id, function(data) {
             if(data==1){
-                // $("#lista_destinos_"+id).remove();
-                // $("#lista_itinerary_"+id).fadeOut( "slow");
-                // alert('se activo');
-                // $("input[class='planes']").each(function (index) {
-                //     $(this).prop('onclick',null).off('click');
-                //
-                // });
                 var $nro_planes=parseInt($('#nro_planes').val());
                 for(var $d=0;$d<$nro_planes;$d++){
                     $('#plan_'+$d).prop('onclick',null);
                     $('#plan_'+$d).unbind( "click" );
-                    // alert('plan_'+$d);
                 }
 
                 $('#plan_'+plan).removeClass('btn-danger');
@@ -25957,17 +25821,12 @@ function activarPlan(paquete_precio_id){
 
             }
             else if(data==2){
-                // swal(
-                //     'Porque no puedo borar?',
-                //     'El proveedor tiene costos asociados, vaya al modulo "Costs" y borre todos los registros asociados al proveedor.',
-                //     'warning'
-                // )
+
             }
         }).fail(function (data) {
         });
 
     }, function (dismiss) {
-        // dismiss can be 'cancel', 'overlay',
         // 'close', and 'timer'
         if (dismiss === 'cancel') {
 
@@ -26169,12 +26028,6 @@ function mostra_ventas(mes,cat){
         $("#n_mes_dic_s").removeClass('text-uppercase');
         $("#n_mes_"+mes+"_s").addClass('text-primary');
         $("#n_mes_"+mes+"_s").addClass('text-uppercase');
-
-
-
-    // }
-
-
 }
 function existe_ar(valor,arreglo) {
     var o=0;
@@ -26213,8 +26066,6 @@ function categorizar(id,cate) {
             // console.log(data);
             if(data==1){
                 window.location.href = anio;
-                // $("#lista_destinos_"+id).remove();
-                // $("#lista_venta_"+id).fadeOut( "slow");
             }
         }).fail(function (data) {
 
@@ -26556,7 +26407,6 @@ function  filtrar_itinerarios1(){
             var destino = $(this).val();
             $('#group_destino_'+valorci[0]).removeClass("hide");
             $('#group_destino_'+valorci[0]).fadeIn("slow");
-
         }
     });
     destinos=destinos.substr(0,destinos.length-1);
@@ -26748,11 +26598,6 @@ function borrar_iti(id,valor){
 }
 
 function ordenar_itinerarios1(){
-    // var dia=1;
-    // $(".dias").each(function (index) {
-    //     $(this).html(dia);
-    //     dia=dia+1;
-    // });
     var total_Iti=$('#nroItinerario').val();
     var i=1;
     for(i;i<=total_Iti;i++){
@@ -26770,81 +26615,31 @@ function filtrar_estrellas1(estrella){
     filtrar_itinerarios_admin();
 }
 function aumentar_acom(tipo,signo){
-    // alert(tipo+':'+signo);
     if(tipo=='s'){
-        // if(signo=='-'){
             var valor=$('#a_s_1').val();
-            // valor--;
-            // if(valor<0)
-            //     valor=0;
+
             $('#a_s').val(valor);
             $('#a_s_').val(valor);
-            // $('#a_s_1').val(valor);
-        // }
-        // else{
-        //     var valor=$('#a_s').val();
-        //     valor++;
-        //     $('#a_s').val(valor);
-        //     $('#a_s_').val(valor);
-        //     $('#a_s_1').html(valor);
-        // }
+
     }
     if(tipo=='d'){
-        // console.log('entro a d');
-        // if(signo=='-'){
             var valor=$('#a_d_1').val();
-            // valor--;
-            // console.log(valor);
-            // if(valor<0)
-            //     valor=0;
+
             $('#a_d').val(valor);
             $('#a_d_').val(valor);
-            // $('#a_d_1').val(valor);
-        // }
-        // else{
-        //     var valor=$('#a_d').val();
-        //     valor++;
-        //     // console.log(valor);
-        //     $('#a_d').val(valor);
-        //     $('#a_d_').val(valor);
-        //     $('#a_d_1').html(valor);
-        // }
+
     }
     if(tipo=='m'){
-        // if(signo=='-'){
             var valor=$('#a_m_1').val();
-            // valor--;
-            // if(valor<0)
-            //     valor=0;
             $('#a_m').val(valor);
             $('#a_m_').val(valor);
-            // $('#a_m_1').val(valor);
-        // }
-        // else{
-        //     var valor=$('#a_m').val();
-        //     valor++;
-        //     $('#a_m').val(valor);
-        //     $('#a_m_').val(valor);
-        //     $('#a_m_1').html(valor);
-        // }
+
     }
     if(tipo=='t'){
-        // if(signo=='-'){
             var valor=$('#a_t_1').val();
-            // valor--;
-            // if(valor<0)
-            //     valor=0;
             $('#a_t').val(valor);
             $('#a_t_').val(valor);
-            // $('#a_t_1').val(valor);
-        // }
-        // else{
-        //     var valor=$('#a_t').val();
-        //     valor++;
-        //     $('#a_t').val(valor);
-        //     $('#a_t_').val(valor);
-        //     $('#a_t_1').html(valor);
-        // }
+
     }
     //calcular_precio1();
 }
@@ -26961,28 +26756,6 @@ function enviar_form1(){
             )
             return false;
         }
-        // destinos=destinos;
-        console.log('hola '+name1);
-        // $.ajax({
-        //     type: 'POST',
-        //     url: $(this).attr('action'),
-        //     data: $(this).serialize(),
-        //     // Mostramos un mensaje con la respuesta de PHP
-        //     success: function(data) {
-        //         if(data==1){
-        //             // $('#for_'+id).addClass('hide');
-        //             // $('#result_'+id).removeClass('text-danger');
-        //             // $('#result_'+id).addClass('text-success');
-        //             // $('#result_'+id).html('Pago guardado Correctamente!');
-        //         }
-        //         else{
-        //             // $('#result_'+id).removeClass('text-success');
-        //             // $('#result_'+id).addClass('text-danger');
-        //             // $('#result_'+id).html('Error al pagar, intentelo de nuevo');
-        //         }
-        //     }
-        // })
-        // return false;
     });
 }
 
@@ -27040,11 +26813,6 @@ function variar_profit(acom) {
     $('#profit_por_d').val(uti_por_d);
     $('#profit_por_m').val(uti_por_m);
     $('#profit_por_t').val(uti_por_t);
-    // console.log('repercutir:'+pro);
-    // $('#pro_s').val(pro);
-    // $('#pro_d').val(pro);
-    // $('#pro_m').val(pro);
-    // $('#pro_t').val(pro);
 
 }
 function variar_sales(acom){
@@ -27146,134 +26914,7 @@ function filtrar_itinerarios_admin(){
 }
 function mostrar_datos(cadena) {
     var datos_pqt=cadena.split('_');
-    // console.log('datos_pqt:'+datos_pqt);
     $('#pqt_id').val(datos_pqt[0]);
-
-    // var cadena_pqt=$('#datos_paquete_'+datos_pqt[0]).val();
-    //
-    // var precio_t_iti=parseFloat(datos_pqt[2]);
-    // var estella=$('#estrellas_from').val();
-    // console.log('cadena_pqt:'+cadena_pqt);
-    // console.log('precio_t_iti:'+precio_t_iti);
-    // console.log('estella:'+estella);
-    //
-    // var a_s0=parseInt($('#a_s').val());
-    // var a_d0=parseInt($('#a_d').val());
-    // var a_m0=parseInt($('#a_m').val());
-    // var a_t0=parseInt($('#a_t').val());
-    // console.log('a_s0:'+a_s0);
-    // console.log('a_d0:'+a_d0);
-    // console.log('a_m0:'+a_m0);
-    // console.log('a_t0:'+a_t0);
-    //
-    // var precio_hotel_s=0;
-    // var precio_hotel_d=0;
-    // var precio_hotel_m=0;
-    // var precio_hotel_t=0;
-    // cadena_pqt=cadena_pqt.split('/');
-    // if(estella==2) {
-    //     var v_star_2=cadena_pqt[0];
-    //     v_star_2=v_star_2.split('_');
-    //     console.log('v_star_2:'+v_star_2);
-    //     if (a_s0 > 0) {
-    //         precio_hotel_s +=parseFloat(v_star_2[0]);
-    //     }
-    //     if (a_d0 > 0) {
-    //         precio_hotel_d +=parseFloat(v_star_2[1]);
-    //     }
-    //     if (a_m0 > 0) {
-    //         precio_hotel_m +=parseFloat(v_star_2[2]);
-    //     }
-    //     if (a_t0 > 0) {
-    //         precio_hotel_t +=parseFloat(v_star_2[3]);
-    //     }
-    //     console.log('a_s0:'+a_s0);
-    //     console.log('a_d0:'+a_d0);
-    //     console.log('a_m0:'+a_m0);
-    //     console.log('a_t0:'+a_t0);
-    //
-    // }
-    // if(estella==3) {
-    //     var v_star_3=cadena_pqt[1];
-    //     v_star_2=v_star_3.split('_');
-    //     console.log('v_star_2:'+v_star_2);
-    //     if (a_s0 > 0) {
-    //         precio_hotel_s +=parseFloat(v_star_2[0]);
-    //     }
-    //     if (a_d0 > 0) {
-    //         precio_hotel_d +=parseFloat(v_star_2[1]);
-    //     }
-    //     if (a_m0 > 0) {
-    //         precio_hotel_m +=parseFloat(v_star_2[2]);
-    //     }
-    //     if (a_t0 > 0) {
-    //         precio_hotel_t +=parseFloat(v_star_2[3]);
-    //     }
-    //     console.log('a_s0:'+a_s0);
-    //     console.log('a_d0:'+a_d0);
-    //     console.log('a_m0:'+a_m0);
-    //     console.log('a_t0:'+a_t0);
-    // }
-    // if(estella==4) {
-    //     var v_star_3=cadena_pqt[2];
-    //     v_star_2=v_star_3.split('_');
-    //     console.log('v_star_2:'+v_star_2);
-    //     if (a_s0 > 0) {
-    //         precio_hotel_s +=parseFloat(v_star_2[0]);
-    //     }
-    //     if (a_d0 > 0) {
-    //         precio_hotel_d +=parseFloat(v_star_2[1]);
-    //     }
-    //     if (a_m0 > 0) {
-    //         precio_hotel_m +=parseFloat(v_star_2[2]);
-    //     }
-    //     if (a_t0 > 0) {
-    //         precio_hotel_t +=parseFloat(v_star_2[3]);
-    //     }
-    //     console.log('a_s0:'+a_s0);
-    //     console.log('a_d0:'+a_d0);
-    //     console.log('a_m0:'+a_m0);
-    //     console.log('a_t0:'+a_t0);
-    // }
-    // if(estella==5) {
-    //     var v_star_3=cadena_pqt[3];
-    //     v_star_2=v_star_3.split('_');
-    //     console.log('v_star_2:'+v_star_2);
-    //     if (a_s0 > 0) {
-    //         precio_hotel_s +=parseFloat(v_star_2[0]);
-    //     }
-    //     if (a_d0 > 0) {
-    //         precio_hotel_d +=parseFloat(v_star_2[1]);
-    //     }
-    //     if (a_m0 > 0) {
-    //         precio_hotel_m +=parseFloat(v_star_2[2]);
-    //     }
-    //     if (a_t0 > 0) {
-    //         precio_hotel_t +=parseFloat(v_star_2[3]);
-    //     }
-    //     console.log('a_s0:'+a_s0);
-    //     console.log('a_d0:'+a_d0);
-    //     console.log('a_m0:'+a_m0);
-    //     console.log('a_t0:'+a_t0);
-    // }
-    // precio_hotel_s+=precio_t_iti;
-    // precio_hotel_d+=precio_t_iti;
-    // precio_hotel_m+=precio_t_iti;
-    // precio_hotel_t+=precio_t_iti;
-    //
-    // console.log('precio_hotel_s:'+precio_hotel_s);
-    // console.log('precio_hotel_d:'+precio_hotel_d);
-    // console.log('precio_hotel_m:'+precio_hotel_m);
-    // console.log('precio_hotel_t:'+precio_hotel_t);
-    //
-    // console.log('total_precio:'+total_precio);
-
-
-    // var total_precio=parseFloat(precio_hotel_s)+parseFloat(precio_hotel_d)+parseFloat(precio_hotel_m)+parseFloat(precio_hotel_t);
-
-    // $('#precio_plantilla').html('$'+total_precio);
-    // console.log('precio unitario {2}:'+datos_pqt);
-    // $('#precio_plantilla').html('$'+datos_pqt[2]);
     sumar_servicios_itinerario(datos_pqt[3]);
 }
 function validar_envio(){
@@ -27293,22 +26934,13 @@ function validar_envio(){
             cancelButtonClass: 'btn btn-danger',
             buttonsStyling: false,
             reverseButtons: true
-        }).then((resultado) => {
-            if (resultado.value) {
-            $('#generar_plantilla').submit(function() {});
-            // swal(
-            //     'Deleted!',
-            //     'Your file has been deleted.',
-            //     'success'
-            // )
-            // result.dismiss can be 'cancel', 'overlay',
-            // 'close', and 'timer'
+        }).then(function () {
+            if (true) {
+            $('#generar_plantilla').submit(function() {
+              return true;
+            });
+
         } else if (resultado.dismiss === 'cancel') {
-            // swal(
-            //     'Cancelled',
-            //     'Your imaginary file is safe :)',
-            //     'error'
-            // )
             return false;
         }
     })
@@ -27423,19 +27055,6 @@ function enviar_form2(){
             )
             return false;
         }
-        // $.ajax({
-        //     type: 'POST',
-        //     url: $(this).attr('action'),
-        //     data: $(this).serialize(),
-        //     // Mostramos un mensaje con la respuesta de PHP
-        //     success: function(data) {
-        //         if(data==1){
-        //         }
-        //         else{
-        //         }
-        //     }
-        // })
-        // return false;
     });
 }
 
@@ -27555,7 +27174,11 @@ function sumar_servicios_itinerario(pqt_pos){
     console.log('hola');
     var pqt=$('#pqt_id').val();
     var arreglo
-    arreglo=$('#lista_servicios_'+pqt_pos).val().split('/');
+    var valorcito=$('#lista_servicios_'+pqt_pos).val();
+    console.log('valorcito:'+valorcito);
+
+    arreglo=valorcito.split('/');
+
     var dat='';
     var suma=0;
 
@@ -27630,15 +27253,6 @@ function escojer_pqt(id) {
 }
 
 function mostrar_tabla_destino(grupo,id){
-
-    // var valor=$("#Destinos_"+grupo).val();
-    // var id=valor.split('_');
-    // var todos_destinos=$("#todos_destinos").val();
-    // todos_destinos=todos_destinos.split('_');
-    // $.each(todos_destinos, function( key, value ) {
-    //     $("#tb_"+value+'_'+grupo).addClass('hide');
-    // });
-    // $("#tb_"+valor).removeClass('hide');
     var  destino=$("#Destinos_"+grupo).val();
     console.log('mostrar_tabla_destino:'+destino);
     $.ajaxSetup({
@@ -28076,14 +27690,6 @@ function dato_producto_hotel(valor){
 function guardar_reserva(){
     var nro_servicios_total=parseInt($('#nro_servicios_total').val());
     var nro_ser_reservado=parseInt($('#nro_servicios_reservados').val());
-    // if (nro_ser_reservado<nro_servicios_total) {
-    //     swal(
-    //         'Oops...',
-    //         'Para enviar la reserva a contabilidad, debe asignar todos los proveedores!',
-    //         'error'
-    //     )
-    //     return false;
-    // }
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de guardar la reserva?",
@@ -28295,15 +27901,6 @@ function Pasar_pro(id){
                 var iti_temp='';
                 iti_temp='<b class="text-green-goto">Proveedor/Costo</b>';
                 console.log('no existe este proveedor');
-                // iti_temp='<tr id="fila_'+proveedor[0]+'">'+
-                //     '<td class="fila_proveedores">'+proveedor[1]+'</td>'+
-                //     '<td><input type="number" class="form-control" style="width: 80px" value="0.00"></td>'+
-                //     '<td>'+
-                //     '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor(\''+proveedor[0]+'\',\''+proveedor[0]+'\')">'+
-                //     '<i class="fa fa-trash-o" aria-hidden="true"></i>'+
-                //     '</button>'+
-                //     '</td>'+
-                //     '</tr>';
                 iti_temp='<div id="fila_'+proveedor[0]+'" class="row">'+
                             '<div class="col-lg-8 fila_proveedores_'+id+'">'+proveedor[1]+'</div>'+
                             '<div class="col-lg-2">'+
@@ -28362,14 +27959,11 @@ function eliminar_proveedor_comprobando(costo_id,proveedor_id,nombre) {
                 else if(data=='2'){
                     // este costo se esta usado en una cotizacion
                 }
-                else if(data=='0'{
+                else if(data=='0'){
                     // error al eliminar el proveedor
                 }
                 console.log(data);
                 $('#lista_proveedores_'+categoria).html(data);
-
-
-
             }
         })
 
@@ -28404,9 +27998,6 @@ function nuevos_proveedores(pos,categoria,grupo) {
         success: function(data) {
             console.log(data);
             $('#lista_proveedores_'+categoria).html(data);
-
-
-
         }
     })
 }

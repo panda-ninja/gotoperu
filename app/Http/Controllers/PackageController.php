@@ -65,8 +65,9 @@ class PackageController extends Controller
 //        dd('hola');
         $txt_day=strtoupper(($request->input('txt_day')));
         $txt_code=strtoupper(($request->input('txt_codigo')));
-        $txt_title=strtoupper(($request->input('txt_title')));
+//        $txt_title=strtoupper(($request->input('txt_title')));
         $txta_description=$request->input('txta_description');
+        $txt_title=strtoupper($txta_description);
         $txta_include=$request->input('txta_include');
         $txta_notinclude=$request->input('txta_notinclude');
         $totalItinerario=$request->input('totalItinerario');
@@ -290,6 +291,7 @@ class PackageController extends Controller
         $txt_code=strtoupper(($request->input('txt_codigo')));
         $txt_title=strtoupper(($request->input('txt_title')));
         $txta_description=$request->input('txta_description');
+        $txt_title=strtoupper($txta_description);
         $txta_include=$request->input('txta_include');
         $txta_notinclude=$request->input('txta_notinclude');
         $totalItinerario=$request->input('totalItinerario');
@@ -684,8 +686,9 @@ class PackageController extends Controller
         if(isset($btn_guardar)){
         $txt_day=strtoupper(($request->input('txt_day')));
         $txt_code=strtoupper(($request->input('txt_codigo')));
-        $txt_title=strtoupper(($request->input('txt_title')));
+//        $txt_title=strtoupper(($request->input('txt_title')));
         $txta_description=$request->input('txta_description');
+        $txt_title=strtoupper($txta_description);
         $txta_include=$request->input('txta_include');
         $txta_notinclude=$request->input('txta_notinclude');
         $totalItinerario=$request->input('totalItinerario');

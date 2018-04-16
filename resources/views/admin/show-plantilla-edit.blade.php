@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <label for="txta_description">Description</label>
+                        <label for="txta_description">Titulo</label>
                         <input type="text" class="form-control" id="txta_description" name="txta_description"  value="{{$itinerary->descripcion}}">
                     </div>
                 </div>

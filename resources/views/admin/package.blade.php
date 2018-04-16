@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <label for="txta_description">Description</label>
+                <label for="txta_description">Titulo</label>
                 <input type="text" class="form-control" id="txta_description" name="txta_description">
             </div>
         </div>
@@ -163,7 +163,6 @@
                                                         else{
                                                             $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
                                                             $servicios1.=$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
-
                                                         }
                                                     }
                                                 ?>

@@ -1812,10 +1812,11 @@ class PackageCotizacionController extends Controller
         $objeto=PrecioHotelReserva::FindOrFail($id);
         $itinerario_cotizaciones_id=$objeto->itinerario_cotizaciones_id;
         $localizacion=$objeto->localizacion;
-        if($objeto->delete())
+        if($objeto->delete()){
             ItinerarioDestinos::where('itinerario_cotizaciones_id',$itinerario_cotizaciones_id)
                 ->where('destino',$localizacion)->delete();
             return 1;
+        }
         else
             return 0;
     }

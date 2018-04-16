@@ -382,7 +382,7 @@
                                             <input class="paquetespack" type="radio" name="paquetes[]" id="pqt_{{$pos}}" value="{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$array_destinos1.'_'.$precio0->estrellas}}" onchange="mostrar_datos('{{$p_paquete_->id.'_'.$p_paquete_->duracion.'_'.$iti_total.'_'.$pos.'_'.$precio0->estrellas}}')">
                                             <input type="hidden" name="datos_paquete_{{$p_paquete_->id}}" id="datos_paquete_{{$p_paquete_->id}}" value="{{$hotel0}}">
                                             <input type="hidden" class="lista_itinerarios4" id="lista_servicios_{{$pos}}" value="{{$cadena_hiden}}">
-                                             <span class="text-green-goto">{{$p_paquete_->duracion}} {{$p_paquete_->titulo}} </span>{{$precio0->estrellas}} STARS
+                                             <span class="text-green-goto"> {{$p_paquete_->titulo}} </span>{{$precio0->estrellas}} STARS
                                         </label>
                                     </div>
                                     <div class="col-lg-12">
