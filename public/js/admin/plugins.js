@@ -27869,7 +27869,7 @@ function pagar_entrada_pagos(id,valor){
                 console.log('data:'+data);
                 if(data==1) {
                     var cvalor=parseFloat(valor);
-                    $('#btn_pagar_'+id).addClass('hide');
+                    $('#btn_pagar_ticket_'+id).addClass('hide');
                     $('#a_cuenta_r_'+id).html('$'+cvalor);
                     $('#saldo_r_'+id).html('$0');
                     var total_a_cuenta = parseFloat($('#total_a_cuenta').html());
@@ -28002,7 +28002,7 @@ function nuevos_proveedores(pos,categoria,grupo) {
         }
     })
 }
-function guardarPrecio_Ticket(valor,id,fecha){
+function guardarPrecio_Ticket(valor,id,fecha,pax){
     console.log('valor:'+valor+',id:'+id+',fecha:'+fecha);
     swal({
         title: 'MENSAJE DEL SISTEMA',
@@ -28021,7 +28021,7 @@ function guardarPrecio_Ticket(valor,id,fecha){
         $.ajax({
             type: 'POST',
             url: '../../../contabilidad/servicios/guardar-total/ticket',
-            data: 'id='+id+'&valor='+valor+'&fecha='+fecha,
+            data: 'id='+id+'&valor='+valor+'&fecha='+fecha+'&pax='+pax,
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 console.log('data:'+data);

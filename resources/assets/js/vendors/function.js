@@ -3083,7 +3083,7 @@ function pagar_entrada_pagos(id,valor){
                 console.log('data:'+data);
                 if(data==1) {
                     var cvalor=parseFloat(valor);
-                    $('#btn_pagar_'+id).addClass('hide');
+                    $('#btn_pagar_ticket_'+id).addClass('hide');
                     $('#a_cuenta_r_'+id).html('$'+cvalor);
                     $('#saldo_r_'+id).html('$0');
                     var total_a_cuenta = parseFloat($('#total_a_cuenta').html());
