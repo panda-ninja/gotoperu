@@ -1006,6 +1006,21 @@ class ContabilidadController extends Controller
             return 1;
         else
             return 0;
+    }
+    public function servicios_guardar_ticket(Request $request)
+    {
+        $id=$request->input('id');
+        $valor=$request->input('valor');
+        $fecha_a_pagar=$request->input('fecha');
+
+        $isap=ItinerarioServicios::FindOrFail($id);
+        $isap->fecha_venc=$fecha_a_pagar;
+        $isap->precio_c=$valor;
+        $isap->liquidacion=3;
+        if($isap->save())
+            return 1;
+        else
+            return 0;
 
     }
 }

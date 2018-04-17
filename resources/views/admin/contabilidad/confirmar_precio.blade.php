@@ -1306,26 +1306,44 @@
                                                             </span>
                                                         </td>
                                                         <td>
-                                                            <input class="form-control" type="date" name="fecha_a_pagar" readonly>
+                                                            <input id="fecha_a_pagar_ticket_{{$servicio->id}}"class="form-control" type="date" name="fecha_a_pagar" >
                                                         </td>
                                                         <td>
-                                                            @php
-                                                                $total_contabilidad+=$servicio->precio_proveedor;
-                                                            @endphp
-                                                            <input type="number" step="0.01" min="0" class="form-control" value="{{$servicio->precio_proveedor}}" readonly>
+                                                            @if($servicio->liquidacion==1)
+                                                                <input id="total_ticket_{{$servicio->id}}" type="number" step="0.01" min="0" class="form-control" value="{{$servicio->precio_proveedor}}" >
+                                                                @php
+                                                                    $total_contabilidad+=$servicio->precio_proveedor;
+                                                                @endphp
+                                                            @elseif($servicio->liquidacion==3)
+                                                                <input id="total_ticket_{{$servicio->id}}" type="number" step="0.01" min="0" class="form-control" value="{{$servicio->precio_c}}" >
+                                                                @php
+                                                                    $total_contabilidad+=$servicio->precio_c;
+                                                                @endphp
+                                                            @elseif($servicio->liquidacion==2)
+                                                                <input id="total_ticket_{{$servicio->id}}" type="number" step="0.01" min="0" class="form-control" value="{{$servicio->precio_c}}" >
+                                                                @php
+                                                                    $total_contabilidad+=$servicio->precio_c;
+                                                                @endphp
+                                                            @endif
+
                                                         </td>
                                                         <td class="text-right" id="a_cuenta_r_{{$servicio->id}}">
                                                             @if($servicio->liquidacion==2)
-                                                                {{$servicio->precio_proveedor}}
+                                                                {{$servicio->precio_c}}
                                                                 @php
-                                                                    $total_contabilidad_a_cuenta+=$servicio->precio_proveedor;
+                                                                    $total_contabilidad_a_cuenta+=$servicio->precio_c;
+                                                                @endphp
+                                                            @elseif($servicio->liquidacion==1 || $servicio->liquidacion==3)
+                                                                {{$servicio->precio_c}}
+                                                                @php
+                                                                    $total_contabilidad_a_cuenta+=$servicio->precio_c;
                                                                 @endphp
                                                             @else
-                                                                {{'0.00'}}
+                                                            {{'0.00'}}
                                                             @endif
                                                         </td>
                                                         <td class="text-right" id="saldo_r_{{$servicio->id}}">$
-                                                            @if($servicio->liquidacion==2)
+                                                            @if($servicio->liquidacion==2 || $servicio->liquidacion==3)
                                                                 {{'0.00'}}
                                                             @else
                                                                 @php
@@ -1336,7 +1354,11 @@
                                                         </td>
                                                         <td class="text-center">
                                                             @if($servicio->liquidacion==1)
-                                                                <button id="btn_pagar_{{$servicio->id}}" class="btn btn-primary" onclick="pagar_entrada_pagos('{{$servicio->id}}','{{$servicio->precio_proveedor}}')">Pagar</button>
+                                                                <button id="btn_save_ticket_{{$servicio->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio_Ticket($('#total_ticket_{{$servicio->id}}').val(),{{$servicio->id}},$('#fecha_a_pagar_ticket_{{$servicio->id}}').val())">Guardar</button>
+                                                                <button id="btn_pagar_ticket_{{$servicio->id}}" class="btn btn-primary hide" onclick="pagar_entrada_pagos('{{$servicio->id}}','{{$servicio->precio_proveedor}}')">Pagar</button>
+                                                                <i id="check_{{$servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
+                                                            @elseif($servicio->liquidacion==3)
+                                                                <button id="btn_pagar_ticket_{{$servicio->id}}" class="btn btn-primary" onclick="pagar_entrada_pagos('{{$servicio->id}}','{{$servicio->precio_proveedor}}')">Pagar</button>
                                                                 <i id="check_{{$servicio->id}}" class="fa fa-check-square-o text-success fa-2x hide"></i>
                                                             @elseif($servicio->liquidacion==2)
                                                                 <i class="fa fa-check-square-o text-success fa-2x"></i>

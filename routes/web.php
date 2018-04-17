@@ -844,3 +844,8 @@ Route::post('/admin/ventas/service/eliminar-proveedor',[
     'uses' => 'ServicesController@eliminar_proveedores_service',
     'as' => 'emilinar_service_proveedores_path',
 ]);
+
+Route::post('/contabilidad/servicios/guardar-total/ticket',[
+    'uses' => 'ContabilidadController@servicios_guardar_ticket',
+    'as' => 'contabilidad_servicios_ticket_guardar_path',
+]);
