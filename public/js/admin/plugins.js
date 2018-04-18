@@ -27624,7 +27624,9 @@ function Guardar_proveedor(id) {
                     $('#rpt_book_proveedor_'+id).html('Proveedor asignado correctamente!');
                     $('#book_precio_asig_'+id).html($('#book_price_'+dato_producto_id).val()+' $');
                     prove=$('#proveedor_servicio_'+dato_producto_id).val();
-                    $('#boton_prove_'+id).fadeOut();
+                    $('#boton_prove_'+id).html('<i class="fa fa-check text-success"></i>');
+                    $('#boton_prove_'+id).removeClass('btn-primary');
+                    $('#boton_prove_'+id).addClass('btn-warning');
                     $('#book_proveedor_'+id).html(prove);
                     $('#book_proveedor_'+id).fadeIn();
                     $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
@@ -27663,7 +27665,9 @@ function Guardar_proveedor_hotel(id) {
                 $('#rpt_book_proveedor_hotel_'+id).html('Proveedor asignado correctamente!');
                 $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html()+' $');
                 prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
-                $('#boton_prove_hotel_'+id).fadeOut();
+                $('#boton_prove_hotel_'+id).html('<i class="fa fa-check text-success"></i>');
+                $('#boton_prove_hotel_'+id).removeClass('btn-primary');
+                $('#boton_prove_hotel_'+id).addClass('btn-warning');
                 $('#book_proveedor_hotel_'+id).html(prove);
                 $('#book_proveedor_hotel_'+id).fadeIn();
                 $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');

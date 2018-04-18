@@ -440,6 +440,152 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    @else
+                                        <button id="boton_prove_{{$servicios->id}}" type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <div class="modal fade" id="myModal_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form id="asignar_proveedor_path_{{$servicios->id}}" action="{{route('asignar_proveedor_path')}}" method="post">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                @if($grupe=='TOURS')
+                                                                    <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='MOVILID')
+                                                                    <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='REPRESENT')
+                                                                    <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='ENTRANCES')
+                                                                    <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='FOOD')
+                                                                    <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='TRAINS')
+                                                                    <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='FLIGHTS')
+                                                                    <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='OTHERS')
+                                                                    <i class="fa fa-question fa-text-success" aria-hidden="true"></i>
+                                                                @endif
+                                                                Lista de proveedores</h4>
+                                                        </div>
+                                                        <div class="modal-body clearfix">
+                                                            <div class="col-md-12">
+                                                                @if($productos->where('m_servicios_id',$servicios->m_servicios_id)->count()==0)
+                                                                    <b class="text-danger text-15">No tenemos proveedores disponibles!</b>
+                                                                @elseif($servicios->servicio)
+                                                                    @php
+                                                                    $valor_chk='';
+                                                                    @endphp
+                                                                    @foreach($productos as $producto)
+                                                                        @if($producto->proveedor_id==$servicios->proveedor_id)
+                                                                            @php
+                                                                                $valor_chk='checked=\'checked\'';
+                                                                            @endphp
+                                                                        @endif
+                                                                        @if($producto->m_servicios_id==$servicios->m_servicios_id)
+                                                                            @if($producto->precio_grupo==1)
+                                                                                @php
+                                                                                    $valor=$cotizacion->nropersonas;
+                                                                                @endphp
+                                                                            @else
+                                                                                @php
+                                                                                    $valor=1;
+                                                                                @endphp
+                                                                            @endif
+                                                                            @php
+                                                                                $precio_book=$producto->precio_costo*1;
+                                                                            @endphp
+                                                                            @if($producto->precio_grupo==0)
+                                                                                @php
+                                                                                    $precio_book=$producto->precio_costo*$cotizacion->nropersonas;
+                                                                                @endphp
+                                                                            @endif
+                                                                            {{--@if(($servicios->precio*$valor) < $producto->precio_costo)--}}
+                                                                            {{--<div class="col-md-6">--}}
+                                                                            {{--<div class="checkbox11 text-left bg-info">--}}
+                                                                            {{--<label class="text-danger">--}}
+                                                                            {{--<span class="text-12 text-grey-goto">{{$producto->nombre}}</span>--}}
+                                                                            {{--<span class="text-10 text-warning">{{$producto->localizacion}}</span>--}}
+                                                                            {{--<span class="text-10 text-primary">{{$producto->tipo_producto}}</span>--}}
+                                                                            {{--<hr>--}}
+                                                                            {{--<p class="text-primary" >{{$producto->proveedor->razon_social}}--}}
+                                                                            {{--@if($producto->grupo=='TRAINS')--}}
+                                                                            {{--<span class="text-12 text-warning" >[{{$servicios->salida}} - {{$servicios->llegada}}]</span>--}}
+                                                                            {{--@endif--}}
+                                                                            {{--</p>--}}
+                                                                            {{--<input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">--}}
+                                                                            {{--<input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">--}}
+                                                                            {{--@if($producto->precio_grupo==1)--}}
+                                                                            {{--{{$producto->precio_costo*1}}--}}
+                                                                            {{--<input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo*1}}">--}}
+                                                                            {{--@else--}}
+                                                                            {{--{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}--}}
+                                                                            {{--<input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}">--}}
+                                                                            {{--@endif--}}
+                                                                            {{--$--}}
+                                                                            {{--</label>--}}
+                                                                            {{--</div>--}}
+                                                                            {{--</div>--}}
+                                                                            {{--@else--}}
+                                                                            <div class="col-md-6">
+                                                                                <div class="checkbox11 text-left">
+                                                                                    <div class="row">
+                                                                                        <div class="col-lg-12 bg-green-goto">
+                                                                                            <b class="text-13 text-grey-goto text-center">{{$producto->nombre}}</b><br>
+                                                                                            <span class="text-10 text-white">({{$producto->localizacion}})</span>
+                                                                                            <span class="text-10 text-white">{{$producto->tipo_producto}}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-lg-12 bg-orange-goto">
+                                                                                            <label class="text-grey-goto">
+                                                                                                <p class="text-grey-goto">{{$producto->proveedor->razon_social}}
+                                                                                                    @if($producto->grupo=='TRAINS')
+                                                                                                        <span class="text-12 text-grey-goto" >[Sal: {{$servicios->salida}} - Lleg:{{$servicios->llegada}}]</span>
+                                                                                                    @endif
+                                                                                                </p>
+                                                                                                <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">
+                                                                                                <input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}" {!! $valor_chk !!}}>
+                                                                                                @if($producto->precio_grupo==1)
+                                                                                                    {{$producto->precio_costo*1}}
+                                                                                                    <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo*1}}">
+                                                                                                @else
+                                                                                                    {{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}
+                                                                                                    <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}">
+                                                                                                @endif $
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{--@endif--}}
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <b id="rpt_book_proveedor_{{$servicios->id}}" class="text-success text-14"></b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            {{csrf_field()}}
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor({{$servicios->id}})">Guardar cambios</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     @endif
                                 </td>
                                 <td class="boton">
