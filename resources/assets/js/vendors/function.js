@@ -2836,11 +2836,11 @@ function Guardar_proveedor(id) {
             success: function(data) {
                 if(data==1){
                     $('#rpt_book_proveedor_'+id).html('Proveedor asignado correctamente!');
-                    $('#book_precio_asig_'+id).html($('#book_price_'+dato_producto_id).val()+' $');
+                    $('#book_precio_asig_'+id).html('$'+$('#book_price_'+dato_producto_id).val());
                     prove=$('#proveedor_servicio_'+dato_producto_id).val();
                     $('#boton_prove_'+id).html('<i class="fa fa-edit"></i>');
-                    $('#boton_prove_'+id).removeClass('btn-primary');
-                    $('#boton_prove_'+id).addClass('btn-warning');
+                    // $('#boton_prove_'+id).removeClass('btn-primary');
+                    // $('#boton_prove_'+id).addClass('btn-warning');
                     $('#book_proveedor_'+id).html(prove);
                     $('#book_proveedor_'+id).fadeIn();
                     $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
@@ -2857,7 +2857,45 @@ function Guardar_proveedor(id) {
         return false;
     // });
 }
+function Guardar_proveedor_costo(id) {
+    // $('#asignar_proveedor_path_'+id).submit(function() {
+    // Enviamos el formulario usando AJAX
+    var justi=$('#txt_justificacion_'+id).val();
+    if(justi.trim()==''){
+        $('#rpt_book_proveedor_costo_'+id).html('Ingrese su justificacion');
+        return false;
+    }
+    var prove='';
+    $.ajax({
+        type: 'POST',
+        url: $('#asignar_proveedor_costo_path_'+id).attr('action'),
+        data: $('#asignar_proveedor_costo_path_'+id).serialize(),
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            if(data==1){
+                $('#rpt_book_proveedor_costo_'+id).html('Costo editado correctamente!');
+                $('#book_precio_asig_'+id).html('$'+$('#book_price_edit_'+id).val());
 
+                // prove=$('#proveedor_servicio_'+dato_producto_id).val();
+                // $('#boton_prove_'+id).html('<i class="fa fa-edit"></i>');
+                // // $('#boton_prove_'+id).removeClass('btn-primary');
+                // // $('#boton_prove_'+id).addClass('btn-warning');
+                // $('#book_proveedor_'+id).html(prove);
+                // $('#book_proveedor_'+id).fadeIn();
+                // $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                // $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                // mostrar_barra_avance();
+            }
+            else{
+                $('#rpt_book_proveedor_'+id).removeClass('text-success');
+                $('#rpt_book_proveedor_'+id).addClass('text-danger');
+                $('#rpt_book_proveedor_'+id).html('Error al asignar al proveedor!');
+            }
+        }
+    })
+    return false;
+    // });
+}
 function dato_producto(valor){
     dato_producto_id=valor;
     console.log('valor:'+valor);
@@ -2880,8 +2918,8 @@ function Guardar_proveedor_hotel(id) {
                 $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html()+' $');
                 prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
                 $('#boton_prove_hotel_'+id).html('<i class="fa fa-edit"></i>');
-                $('#boton_prove_hotel_'+id).removeClass('btn-primary');
-                $('#boton_prove_hotel_'+id).addClass('btn-warning');
+                // $('#boton_prove_hotel_'+id).removeClass('btn-primary');
+                // $('#boton_prove_hotel_'+id).addClass('btn-warning');
                 $('#book_proveedor_hotel_'+id).html(prove);
                 $('#book_proveedor_hotel_'+id).fadeIn();
                 $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');

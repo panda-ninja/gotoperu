@@ -373,6 +373,10 @@ Route::post('/admin/book/id', [
     'uses' => 'BookController@asignar_proveedor',
     'as' => 'asignar_proveedor_path',
 ]);
+Route::post('/admin/book-costo/id', [
+    'uses' => 'BookController@asignar_proveedor_costo',
+    'as' => 'asignar_proveedor_costo_path',
+]);
 Route::post('/admin/venta/categorizar', [
     'uses' => 'PackageCotizacionController@categorizar',
     'as' => 'categorizar_path',

@@ -183,6 +183,18 @@ class BookController extends Controller
 //        $m_servicios=M_Servicio::get();
 //        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios]);
     }
+    function asignar_proveedor_costo(Request $request){
+        $txt_costo_edit=$request->input('txt_costo_edit');
+        $txt_justificacion=$request->input('txt_justificacion');
+        $id=$request->input('id');
+        $iti=ItinerarioServicios::FindOrFail($id);
+        $iti->precio_proveedor=$txt_costo_edit;
+        $iti->justificacion_precio_proveedor=$txt_justificacion;
+        if($iti->save())
+            return 1;
+        else
+            return 0;
+ }
     public function confirmar(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');
         $coti=Cotizacion::FindOrFail($cotizacion_id);

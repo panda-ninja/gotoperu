@@ -284,10 +284,74 @@
                                     {{$mate_SALE}}
                                 </td>
                                 {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
-                                <td class="rights" id="book_precio_asig_{{$servicios->id}}">
+                                <td class="rights">
                                     @if($servicios->precio_proveedor)
-                                        ${{$servicios->precio_proveedor}}
+                                        <span id="book_precio_asig_{{$servicios->id}}">${{$servicios->precio_proveedor}}</span>
+                                        <a href="#!" id="boton_prove_costo_{{$servicios->id}}" data-toggle="modal" data-target="#myModal_costo_{{$servicios->id}}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <div class="modal fade" id="myModal_costo_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form id="asignar_proveedor_costo_path_{{$servicios->id}}" action="{{route('asignar_proveedor_costo_path')}}" method="post">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                @if($grupe=='TOURS')
+                                                                    <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='MOVILID')
+                                                                    <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='REPRESENT')
+                                                                    <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='ENTRANCES')
+                                                                    <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='FOOD')
+                                                                    <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='TRAINS')
+                                                                    <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='FLIGHTS')
+                                                                    <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                @endif
+                                                                @if($grupe=='OTHERS')
+                                                                    <i class="fa fa-question fa-text-success" aria-hidden="true"></i>
+                                                                @endif
+                                                                Editar Costo</h4>
+                                                        </div>
+                                                        <div class="modal-body clearfix">
+                                                            <div class="col-md-12">
+
+                                                            <div class="form-group col-md-3">
+                                                                <label for="txt_name">Costo actual</label>
+                                                                <input type="number" class="form-control" id="book_price_edit_{{$servicios->id}}" name="txt_costo_edit" value="{{$servicios->precio_proveedor}}">
+                                                            </div>
+                                                            <div class="form-group col-md-9">
+                                                                <label for="txt_name">Justificacion</label>
+                                                                <input type="text" class="form-control" id="txt_justificacion_{{$servicios->id}}" name="txt_justificacion" value="{{$servicios->justificacion_precio_proveedor}}">
+                                                            </div>
+
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <b id="rpt_book_proveedor_costo_{{$servicios->id}}" class="text-success text-14"></b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="id" value="{{$servicios->id}}">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor_costo({{$servicios->id}})">Guardar cambios</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endif
+
                                 </td>
                                 <td class="boton">
                                     <b class="text-10" id="book_proveedor_{{$servicios->id}}">
@@ -304,9 +368,9 @@
                                                 $grupe=$m_ser->grupo;
                                             @endphp
                                         @endforeach
-                                        <button id="boton_prove_{{$servicios->id}}" type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
-                                            Proveedor
-                                        </button>
+                                        <a href="#!" id="boton_prove_{{$servicios->id}}" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
+                                            <i class="fa fa-plus-circle fa-2x"></i>
+                                        </a>
                                         <div class="modal fade" id="myModal_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -441,9 +505,9 @@
                                             </div>
                                         </div>
                                     @else
-                                        <button id="boton_prove_{{$servicios->id}}" type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
+                                        <a id="boton_prove_{{$servicios->id}}" type="button" class="" data-toggle="modal" data-target="#myModal_{{$servicios->id}}">
                                             <i class="fa fa-edit"></i>
-                                        </button>
+                                        </a>
                                         <div class="modal fade" id="myModal_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -482,10 +546,11 @@
                                                                 @if($productos->where('m_servicios_id',$servicios->m_servicios_id)->count()==0)
                                                                     <b class="text-danger text-15">No tenemos proveedores disponibles!</b>
                                                                 @elseif($servicios->servicio)
-                                                                    @php
-                                                                    $valor_chk='';
-                                                                    @endphp
+
                                                                     @foreach($productos as $producto)
+                                                                        @php
+                                                                            $valor_chk='';
+                                                                        @endphp
                                                                         @if($producto->proveedor_id==$servicios->proveedor_id)
                                                                             @php
                                                                                 $valor_chk='checked=\'checked\'';
@@ -616,11 +681,11 @@
                                         @endphp
                                     @endif
                                     <form id="add_cod_verif_path_{{$servicios->id}}" class="form-inline" action="{{route('add_cod_verif_path')}}" method="post">
-                                        <div class="row">
+                                        <div class="row margin-left-0">
                                             {{csrf_field()}}
                                             <input type="hidden" name="id" value="{{$servicios->id}}">
                                             <input type="hidden" name="coti_id" value="{{$cotizacion->id}}">
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-12 ">
                                                 <div class="input-group">
                                                     <input class="form-control" type="text" id="code_{{$servicios->id}}" name="code_{{$servicios->id}}" value="{{$servicios->codigo_verificacion}}">
                                                     <span class="input-group-btn">
@@ -801,10 +866,90 @@
                                             {{$hotel->proveedor->razon_social}}
                                         @endif
                                     </b>
+                                    @if($hotel->proveedor)
+                                        <a href="#!" id="boton_prove_hotel_{{$hotel->id}}" data-toggle="modal" data-target="#myModal_h_{{$hotel->id}}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <div class="modal fade" id="myModal_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form id="asignar_proveedor_hotel_path_{{$hotel->id}}" action="{{route('asignar_proveedor_hotel_path')}}" method="post">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-building" aria-hidden="true"></i> Lista de proveedores para el hotel</h4>
+                                                        </div>
+                                                        <div class="modal-body clearfix">
+                                                            <div class="col-md-12">
+                                                                @foreach($hotel_proveedor->where('hotel_id',$hotel->hotel_id) as $hotel_proveedor_)
+                                                                    @php
+                                                                        $valor_class='';
+                                                                    @endphp
+                                                                    @if($hotel_proveedor_->proveedor_id==$hotel->proveedor_id)
+                                                                        @php
+                                                                            $valor_class='checked=\'checked\'';
+                                                                        @endphp
+                                                                    @endif
+                                                                    {{--
+                                                                                                                                                    {{--@if($hotel_proveedor_->estrellas==$paquete->estrellas)--}}
+                                                                    <div class="col-md-6">
+                                                                        <div class="checkbox11 text-left bg-info">
+                                                                            <label class="text-primary">
+                                                                                <input class="grupo" onchange="dato_producto_hotel({{$hotel_proveedor_->id}})" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}" {!! $valor_class !!}>
+                                                                                <b>{{$hotel_proveedor_->proveedor->razon_social}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></b>
+                                                                                <span class="hide" id="proveedor_servicio_hotel_{{$hotel_proveedor_->id}}">
+                                                                                                {{$hotel_proveedor_->proveedor->razon_social}}
+                                                                                            </span>
+                                                                            </label>
+                                                                            @if($hotel->personas_s>0)
+                                                                                <p class="text-green-goto">Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
+                                                                            @endif
+                                                                            @if($hotel->personas_d>0)
+                                                                                <p class="text-green-goto">Double: ${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
+                                                                            @endif
+                                                                            @if($hotel->personas_m>0)
+                                                                                <p class="text-green-goto">Matrimonial: ${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
+                                                                            @endif
+                                                                            @if($hotel->personas_t>0)
+                                                                                <p class="text-green-goto">Triple: ${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
+                                                                            @endif
+                                                                            <span class="hide" id="book_price_hotel_{{$hotel_proveedor_->id}}">
+                                                                                            @if($hotel->personas_s>0)
+                                                                                    <p class="text-green-goto">{{$hotel->personas_s}} x {{$hotel_proveedor_->single}} ={{($hotel_proveedor_->single*$hotel->personas_s)}}$</p>
+                                                                                @endif
+                                                                                @if($hotel->personas_d>0)
+                                                                                    <p class="text-green-goto">{{$hotel->personas_d}} x {{$hotel_proveedor_->doble}} ={{$hotel_proveedor_->doble*$hotel->personas_d}}$</p>
+                                                                                @endif
+                                                                                @if($hotel->personas_m>0)
+                                                                                    <p class="text-green-goto">{{$hotel->personas_m}} x {{$hotel_proveedor_->matrimonial}} ={{$hotel_proveedor_->matrimonial*$hotel->personas_m}}$</p>
+                                                                                @endif
+                                                                                @if($hotel->personas_t>0)
+                                                                                    <p class="text-green-goto">{{$hotel->personas_t}} x {{$hotel_proveedor_->triple}} ={{$hotel_proveedor_->triple*$hotel->personas_t}}$</p>
+                                                                                @endif
+                                                                                        </span>
+
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <b id="rpt_book_proveedor_hotel_{{$hotel->id}}" class="text-success text-14"></b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="id" value="{{$hotel->id}}">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor_hotel({{$hotel->id}})">Guardar cambios</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     @if(!$hotel->proveedor)
-                                        <button id="boton_prove_hotel_{{$hotel->id}}" type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal_h_{{$hotel->id}}">
-                                            Proveedor
-                                        </button>
+                                        <a href="#!" id="boton_prove_hotel_{{$hotel->id}}" data-toggle="modal" data-target="#myModal_h_{{$hotel->id}}">
+                                            <i class="fa fa-plus-circle fa-2x"></i>
+                                        </a>
                                         <div class="modal fade" id="myModal_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
