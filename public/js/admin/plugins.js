@@ -27933,35 +27933,35 @@ function pagar_entrada_pagos(id,valor){
     })
 }
 
-function Pasar_pro(id){
+function Pasar_pro(id,grupo,idservicio){
     // $('#lista_costos_'+id).append('iti_temp');
-    $("input[class='proveedores']").each(function (index) {
+    var pro='proveedores_'+idservicio;
+    $("input[class="+pro+"]").each(function (index) {
         if ($(this).is(':checked')) {
-            proveedor = $(this).val().split('_');
+            var proveedor = $(this).val().split('_');
             console.log('proveedor:'+proveedor[1]);
             if (!existe_proveedor(proveedor[1],id)) {
-                var iti_temp='';
-                iti_temp='<b class="text-green-goto">Proveedor/Costo</b>';
+                var iti_temp1='';
                 console.log('no existe este proveedor');
-                iti_temp='<div id="fila_'+proveedor[0]+'" class="row">'+
+                iti_temp1='<div id="fila_'+grupo+'_'+id+'_'+idservicio+'_'+proveedor[0]+'" class="row">'+
                             '<div class="col-lg-8 fila_proveedores_'+id+'">'+proveedor[1]+'</div>'+
                             '<div class="col-lg-2">'+
                                 '<input type="hidden" name="pro_id[]" value="'+proveedor[0]+'"></td>'+
                                 '<input type="number" name="pro_val[]" class="form-control" style="width: 80px" value="0.00"></td>'+
                             '</div>'+
                             '<div class="col-lg-2">'+
-                                '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor(\''+proveedor[0]+'\',\''+proveedor[1]+'\')">'+
+                                '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor('+id+','+grupo+','+idservicio+','+proveedor[0]+',\''+proveedor[1]+'\')">'+
                                     '<i class="fa fa-trash-o" aria-hidden="true"></i>'+
                                 '</button>'+
                             '</div>'+
                           '</div>';
-                $('#lista_costos_'+id).append(iti_temp);
+                $('#lista_costos_'+grupo+'_'+id+'_'+idservicio).append(iti_temp1);
                 console.log('algo paso por aqui');
             }
         }
     });
 }
-function eliminar_proveedor(id,nombre) {
+function eliminar_proveedor(id1,grupo,idservicio,id,nombre) {
     swal({
         title: 'MENSAJE DEL SISTEMA',
         text: "¿Estas seguro de eliminar a "+nombre+"?",
@@ -27971,7 +27971,7 @@ function eliminar_proveedor(id,nombre) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then(function () {
-        $("#fila_"+id).fadeOut( "slow");
+        $('#fila_'+grupo+'_'+id1+'_'+idservicio+'_'+id).fadeOut( "slow");
     })
 }
 function eliminar_proveedor_comprobando(id,costo_id,proveedor_id,nombre) {
@@ -27991,22 +27991,20 @@ function eliminar_proveedor_comprobando(id,costo_id,proveedor_id,nombre) {
         });
         $.ajax({
             type: 'POST',
-            url: '../../ventas/service/eliminar-proveedor',
+            url: '../admin/ventas/service/eliminar-proveedor',
             data: 'costo_id='+costo_id+'&proveedor_id='+proveedor_id,
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 if(data=='1'){
+                    $('#fila_p_'+id+'_'+costo_id+'_'+proveedor_id).html(data);
                     // se elimino con exito
                 }
                 else if(data=='2'){
                     // este costo se esta usado en una cotizacion
                     $('#result_'+id).html('Este proveedor esta siendo usado en una cotizacion');
                 }
-                else if(data=='0'){
-                    // error al eliminar el proveedor
-                }
                 console.log(data);
-                $('#lista_proveedores_'+categoria).html(data);
+
             }
         })
 
