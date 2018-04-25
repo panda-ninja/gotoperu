@@ -853,3 +853,11 @@ Route::post('/contabilidad/servicios/guardar-total/ticket',[
     'uses' => 'ContabilidadController@servicios_guardar_ticket',
     'as' => 'contabilidad_servicios_ticket_guardar_path',
 ]);
+Route::get('/admin/book/nuevo-servicio/{id1}/{id}/{dia}',[
+    'uses' => 'BookController@nuevo_servicio',
+    'as' => 'nuevo_servicio_path',
+]);
+Route::post('/admin/book/nuevo-servicio/nuevo',[
+    'uses' => 'BookController@nuevo_servicio_add',
+    'as' => 'nuevo_servicio_add_path',
+]);

@@ -175,7 +175,11 @@
                             <td class="bg-grey-goto text-white text-right " colspan="9">
                                 <b>{{date("d/m/Y",strtotime($itinerario->fecha))}}</b>
                             </td>
-                            <td class="bg-grey-goto text-white"></td>
+                            <td class="bg-grey-goto text-white">
+                                <a href="{{route('nuevo_servicio_path',[$cotizacion->id,$itinerario->id,$itinerario->dias])}}"  class="btn btn-success">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>Servicio
+                                </a>
+                            </td>
                         </tr>
 
                         @foreach($itinerario->itinerario_servicios as $servicios)
@@ -856,6 +860,44 @@
                                 @endphp
                                 <td id="book_precio_asig_hotel_{{$hotel->id}}"  class="rights">
                                     {!! $cadena_total_book !!}
+                                    @if($hotel->proveedor)
+                                        <a href="#!" id="boton_prove_hotel_edit_cost_{{$hotel->id}}" data-toggle="modal" data-target="#myModal_edit_cost_h_{{$hotel->id}}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <div class="modal fade" id="myModal_edit_cost_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form id="asignar_proveedor_hotel_path_{{$hotel->id}}" action="{{route('asignar_proveedor_hotel_path')}}" method="post">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-building" aria-hidden="true"></i> Lista de proveedores para el hotel</h4>
+                                                        </div>
+                                                        <div class="modal-body clearfix">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span class="margin-bottom-5">
+                                                                            <b>1</b>
+                                                                            <span class="stick">
+                                                                                <i class="fa fa-bed" aria-hidden="true"></i>
+                                                                            </span>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td><input type="number" class="form-control" id="book_price_edit_h_2941" name="txt_costo_edit"></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="id" value="{{$hotel->id}}">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor_hotel({{$hotel->id}})">Guardar cambios</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <p class="hide"> {{$total_book}}
                                         <a id="h_rpropover_{{$hotel->id}}" data-toggle="popover" title="Detalle" data-content="{{$cadena_total_book}}"> <i class="fa fa-calculator text-primary" aria-hidden="true"></i></a>
                                     </p>
