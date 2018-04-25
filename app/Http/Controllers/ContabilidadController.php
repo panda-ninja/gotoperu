@@ -1023,4 +1023,17 @@ class ContabilidadController extends Controller
             return 0;
 
     }
+    public function precio_c_add(Request $request)
+    {
+        $id=$request->input('id');
+        $valor=$request->input('precio_c');
+        $itis=ItinerarioServicios::FindOrFail($id);
+        $itis->precio_c=$valor;
+        if($itis->save())
+            return 1;
+        else
+            return 0;
+
+    }
+
 }

@@ -3293,3 +3293,29 @@ function guardarPrecio_Ticket(valor,id,fecha,pax){
         })
     })
 }
+function Enviar_precio_c(id,precio_c) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/contabilidad/confirmar-precio-c', 'id='+id+'&precio_c='+precio_c, function (data) {
+    if(data==1) {
+        $('#btn_'+id).removeClass('btn-primary')
+        $('#btn_'+id).addClass('btn-warning')
+        swal(
+            'MENSAJE DEL SISTEMA',
+            'Costo confirmado',
+            'success'
+        )
+    }
+    else{
+        swal(
+            'MENSAJE DEL SISTEMA',
+            'Error al confirmar el costo, intente de nuevo',
+            'warning'
+        )
+    }
+    }).fail(function (data) {
+    });
+}

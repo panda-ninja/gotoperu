@@ -187,6 +187,7 @@
                                     <th class="text-18 text-grey-goto text-center">CALCULO</th>
                                     <th class="text-18 text-grey-goto text-center">COTIZADO</th>
                                     <th class="text-18 text-grey-goto text-center">RESERVADO</th>
+                                    <th width="150px" class="text-grey-goto text-center">CONFIRMADO</th>
                                     <th class="text-18 text-grey-goto text-center">PAGADO</th>
                                     <th class="text-18 text-grey-goto text-center hide">Pagado</th>
                                     <th class="text-18 text-grey-goto text-center hide">Por pagar</th>
@@ -238,6 +239,29 @@
                                                                 <sup><small>$usd</small></sup></b></td>
                                                     @endif
                                                     <td class="text-right"><b class="text-18">{{$servicios->precio_proveedor}}<sup><small>$usd</small></sup></b></td>
+                                                    <td class="text-right">
+                                                        <b class="text-18">
+                                                            @if($servicios->precio_c>0)
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text" id="precio_c_{{$servicios->id}}" name="precio_c_{{$servicios->id}}" value="{{$servicios->precio_c}}">
+                                                                        <span class="input-group-btn">
+                                                                        <button type="submit" onclick="Enviar_precio_c({{$servicios->id}},$('#precio_c_{{$servicios->id}}').val())" id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                    </span>
+                                                                    </div>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text" id="precio_c_{{$servicios->id}}" name="precio_c_{{$servicios->id}}" value="{{$servicios->precio_proveedor}}">
+                                                                        <span class="input-group-btn">
+                                                                        <button type="submit" onclick="Enviar_precio_c({{$servicios->id}},$('#precio_c_{{$servicios->id}}').val())" id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                    </span>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </b>
+                                                    </td>
                                                     <td class="col-lg-2 hide">
                                                         @if($servicios->precio_c==0 OR $servicios->precio_c=='')
                                                             @php $precio_c =  $servicios->precio_proveedor; @endphp

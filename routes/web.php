@@ -861,3 +861,7 @@ Route::post('/admin/book/nuevo-servicio/nuevo',[
     'uses' => 'BookController@nuevo_servicio_add',
     'as' => 'nuevo_servicio_add_path',
 ]);
+Route::post('/admin/contabilidad/confirmar-precio-c',[
+    'uses' => 'ContabilidadController@precio_c_add',
+    'as' => 'precio_c_add_path',
+]);
