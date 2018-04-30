@@ -187,7 +187,7 @@
                                     <th class="text-18 text-grey-goto text-center">CALCULO</th>
                                     <th class="text-18 text-grey-goto text-center">COTIZADO</th>
                                     <th class="text-18 text-grey-goto text-center">RESERVADO</th>
-                                    <th width="150px" class="text-grey-goto text-center">CONFIRMADO</th>
+                                    <th width="150px" class="text-18 text-grey-goto text-center">CONFIRMADO</th>
                                     <th class="text-18 text-grey-goto text-center">PAGADO</th>
                                     <th class="text-18 text-grey-goto text-center hide">Pagado</th>
                                     <th class="text-18 text-grey-goto text-center hide">Por pagar</th>
@@ -246,7 +246,7 @@
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="text" id="precio_c_{{$servicios->id}}" name="precio_c_{{$servicios->id}}" value="{{$servicios->precio_c}}">
                                                                         <span class="input-group-btn">
-                                                                        <button type="submit" onclick="Enviar_precio_c({{$servicios->id}},$('#precio_c_{{$servicios->id}}').val())" id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        <button type="submit" onclick="Enviar_precio_c({{$servicios->id}},$('#precio_c_{{$servicios->id}}').val())" id="btn_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                     </span>
                                                                     </div>
                                                                 </div>
@@ -523,6 +523,92 @@
                                                             @endif
                                                         @endforeach
                                                     @endforeach
+                                                    <td class="text-center">
+                                                        @if($hotel->personas_s>0)
+                                                            @if($hotel->precio_s_c>0)
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text" id="precio_c_h_s_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_s_c}}">
+                                                                        <span class="input-group-btn">
+                                                                    <button type="submit" onclick="Enviar_precio_c_h('update','s',{{$hotel->id}},$('#precio_c_h_s_{{$hotel->id}}').val())" id="btn_h_s_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                </span>
+                                                                    </div>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text" id="precio_c_h_s_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_s_r}}">
+                                                                        <span class="input-group-btn">
+                                                                    <button type="submit" onclick="Enviar_precio_c_h('nuevo','s',{{$hotel->id}},$('#precio_c_h_s_{{$hotel->id}}').val())" id="btn_h_s_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                </span>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @endif
+                                                        @if($hotel->personas_d>0)
+                                                            @if($hotel->precio_d_c>0)
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text" id="precio_c_h_d_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_d_c}}">
+                                                                        <span class="input-group-btn">
+                                                                        <button type="submit" onclick="Enviar_precio_c_h('update','d',{{$hotel->id}},$('#precio_c_h_d_{{$hotel->id}}').val())" id="btn_h_d_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                    </span>
+                                                                    </div>
+                                                                </div>
+                                                                @else
+                                                                    <div class="col-lg-12 ">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" type="text" id="precio_c_h_d_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_d_r}}">
+                                                                            <span class="input-group-btn">
+                                                                        <button type="submit" onclick="Enviar_precio_c_h('nuevo','d',{{$hotel->id}},$('#precio_c_h_d_{{$hotel->id}}').val())" id="btn_h_d_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
+                                                                        </div>
+                                                                    </div>
+                                                            @endif
+                                                        @endif
+                                                            @if($hotel->personas_m>0)
+                                                                @if($hotel->precio_m_c>0)
+                                                                    <div class="col-lg-12 ">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" type="text" id="precio_c_h_m_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_m_c}}">
+                                                                            <span class="input-group-btn">
+                                                                                <button type="submit" onclick="Enviar_precio_c_h('update','m',{{$hotel->id}},$('#precio_c_h_m_{{$hotel->id}}').val())" id="btn_h_m_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    @else
+                                                                    <div class="col-lg-12 ">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" type="text" id="precio_c_h_m_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_m_r}}">
+                                                                            <span class="input-group-btn">
+                                                                                <button type="submit" onclick="Enviar_precio_c_h('nuevo','m',{{$hotel->id}},$('#precio_c_h_m_{{$hotel->id}}').val())" id="btn_h_m_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @endif
+                                                            @if($hotel->personas_t>0)
+                                                                @if($hotel->precio_t_c>0)
+                                                                    <div class="col-lg-12 ">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" type="text" id="precio_c_h_t_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_t_c}}">
+                                                                            <span class="input-group-btn">
+                                                                                <button type="submit" onclick="Enviar_precio_c_h('update','t',{{$hotel->id}},$('#precio_c_h_t_{{$hotel->id}}').val())" id="btn_h_t_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    @else
+                                                                    <div class="col-lg-12 ">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" type="text" id="precio_c_h_t_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_t_r}}">
+                                                                            <span class="input-group-btn">
+                                                                                <button type="submit" onclick="Enviar_precio_c_h('nuevo','t',{{$hotel->id}},$('#precio_c_h_t_{{$hotel->id}}').val())" id="btn_h_t_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @endif
+                                                    </td>
                                                     <td class="text-right">
                                                         <b class="hide text-danger">{{$total_hotels}}</b>
 
@@ -542,13 +628,8 @@
                                                     <sup><small>$usd</small></sup></b>
                                                     {{--@endif--}}
                                                     </td>
-                                                    <td class="text-center hide">
-                                                        {{--@if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))--}}
-                                                        {{--<b>{{$pagadoTotal_hotel[$hotel->proveedor_id]}}</b>--}}
-                                                        {{--@else--}}
-                                                        {{--<b>0</b>--}}
-                                                        {{--@endif--}}
-                                                    </td>
+
+
                                                     <td class="text-center hide">
                                                         {{--@if(array_key_exists($hotel->proveedor_id,$sumaTotal_hotel))--}}
                                                         {{--@if(array_key_exists($hotel->proveedor_id,$pagadoTotal_hotel))--}}

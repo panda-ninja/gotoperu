@@ -28105,3 +28105,42 @@ function Enviar_precio_c(id,precio_c) {
     }).fail(function (data) {
     });
 }
+function Enviar_precio_c_h(n_u,tipo,id,precio_c){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/contabilidad/confirmar-precio-c-hotel', 'n_u='+n_u+'&tipo='+tipo+'&id='+id+'&precio_c='+precio_c, function (data) {
+        if(data==1) {
+            $('#btn_h_'+tipo+'_'+id).removeClass('btn-primary')
+            $('#btn_h_'+tipo+'_'+id).addClass('btn-warning')
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'Costo confirmado',
+                'success'
+            )
+        }
+        else{
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'Error al confirmar el costo, intente de nuevo',
+                'warning'
+            )
+        }
+    }).fail(function (data) {
+    });
+}
+
+function buscar_hoteles_pagos_pendientes(ini,fin){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/contabilidad/pagos/pendientes/filtrar', 'ini='+ini+'&fin='+fin, function (data) {
+            $('#rpt_hotel').html(data);
+
+    }).fail(function (data) {
+    });
+}

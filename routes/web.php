@@ -865,3 +865,15 @@ Route::post('/admin/contabilidad/confirmar-precio-c',[
     'uses' => 'ContabilidadController@precio_c_add',
     'as' => 'precio_c_add_path',
 ]);
+Route::post('/admin/contabilidad/confirmar-precio-c-hotel',[
+    'uses' => 'ContabilidadController@precio_c_hotel_add',
+    'as' => 'precio_c_hotel_add_path',
+]);
+Route::get('admin/contabilidad/pagos/pendientes', [
+    'uses' => 'ContabilidadController@pagos_pendientes',
+    'as' => 'pagos_pendientes_rango_fecha_path',
+]);
+Route::post('/admin/contabilidad/pagos/pendientes/filtrar', [
+    'uses' => 'ContabilidadController@pagos_pendientes_filtro_datos',
+    'as' => 'pagos_pendientes_rango_fecha_filtro_path',
+]);

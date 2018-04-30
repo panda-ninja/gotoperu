@@ -1,17 +1,17 @@
 @php
     $arra_prov_pagos=[];
 @endphp
-@foreach($pagos as $pago1)
-    @if(array_key_exists($pago1->proveedor_id,$arra_prov_pagos))
-        @php
-            $arra_prov_pagos[$pago1->proveedor_id]+=$total_h;
-        @endphp
-    @else
-        @php
-            $arra_prov_pagos[$pago1->proveedor_id]=$total_h;
-        @endphp
-    @endif
-@endforeach
+{{--@foreach($pagos as $pago1)--}}
+    {{--@if(array_key_exists($pago1->proveedor_id,$arra_prov_pagos))--}}
+        {{--@php--}}
+            {{--$arra_prov_pagos[$pago1->proveedor_id]+=$total_h;--}}
+        {{--@endphp--}}
+    {{--@else--}}
+        {{--@php--}}
+            {{--$arra_prov_pagos[$pago1->proveedor_id]=$total_h;--}}
+        {{--@endphp--}}
+    {{--@endif--}}
+{{--@endforeach--}}
 
 @extends('layouts.admin.contabilidad')
 @section('content')
@@ -186,20 +186,20 @@
                                                         @endif
                                                     @endif
                                                     @php $total = 0; $total2 = 0; $j=0;@endphp
-                                                    @foreach($hotel->pagos->where('estado', 1) as $pagos)
-                                                        @php $total = $total + $pagos->a_cuenta; @endphp
-                                                    @endforeach
+                                                    {{--@foreach($hotel->pagos->where('estado', 1) as $pagos)--}}
+                                                        {{--@php $total = $total + $pagos->a_cuenta; @endphp--}}
+                                                    {{--@endforeach--}}
 
-                                                    @foreach($hotel->pagos as $pagos)
-                                                        @php $total2 = $total2 + $pagos->a_cuenta; @endphp
-                                                    @endforeach
+                                                    {{--@foreach($hotel->pagos as $pagos)--}}
+                                                        {{--@php $total2 = $total2 + $pagos->a_cuenta; @endphp--}}
+                                                    {{--@endforeach--}}
 
                                                     @if($total == 0)
                                                         @php $pago_a_cuenta = $total_h;@endphp
                                                     @else
-                                                        @foreach($hotel->pagos->where('estado', 0) as $pagos)
-                                                            @php $pago_a_cuenta = $pagos->a_cuenta;@endphp
-                                                        @endforeach
+                                                        {{--@foreach($hotel->pagos->where('estado', 0) as $pagos)--}}
+                                                            {{--@php $pago_a_cuenta = $pagos->a_cuenta;@endphp--}}
+                                                        {{--@endforeach--}}
                                                     @endif
 
                                                     @if($precio_c_confirm==$precio_c_confirm2)

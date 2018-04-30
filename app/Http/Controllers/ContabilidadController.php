@@ -1035,5 +1035,114 @@ class ContabilidadController extends Controller
             return 0;
 
     }
+    public function precio_c_hotel_add(Request $request)
+    {
+        $n_u=$request->input('n_u');
+        $tipo=$request->input('tipo');
+        $id=$request->input('id');
+        $valor=$request->input('precio_c');
+        $paquete_cotizaciones_id=$request->input('paquete_cotizaciones_id');
+        $hotel=PrecioHotelReserva::FindOrFail($id);
+        $personas=0;
+        $monto_original=0;
+        if($tipo=='s') {
+            $personas=$hotel->personas_s;
+            $monto_original=$hotel->precio_s_c;
+        }
+        if($tipo=='d') {
+            $personas = $hotel->personas_d;
+            $monto_original = $hotel->precio_d_c;
+        }
+        if($tipo=='m') {
+            $personas = $hotel->personas_m;
+            $monto_original = $hotel->precio_m_c;
+        }
+        if($tipo=='t') {
+            $personas = $hotel->personas_t;
+            $monto_original = $hotel->precio_t_c;
+        }
+        if($n_u=='nuevo'){
+            $nro_hotel_pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$paquete_cotizaciones_id)
+                ->where('proveedor',$hotel->proveedor_id)
+                ->where('estado','-2')->get();
+            if($nro_hotel_pagos->count('id')>0){
+                foreach ($nro_hotel_pagos as $nro_hotel_pago){
+                    $temp=PrecioHotelReservaPagos::FindOrFail($nro_hotel_pago->id);
+                    $temp->a_cuenta=$temp->a_cuenta+($personas*$valor);
+                    $temp->save();
+                }
+            }
+            else{
+                $temp=new PrecioHotelReservaPagos();
+                $temp->a_cuenta=($personas*$valor);
+                $temp->estado=-2;
+                $temp->save();
+            }
+        }
+        elseif($n_u=='update'){
+         $monto_a_guardar=($valor-$monto_original)*$personas;
+            $nro_hotel_pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$paquete_cotizaciones_id)
+                ->where('proveedor',$hotel->proveedor_id)
+                ->where('estado','-2')->get();
+            foreach ($nro_hotel_pagos as $nro_hotel_pago){
+                $temp=PrecioHotelReservaPagos::FindOrFail($nro_hotel_pago->id);
+                $temp->a_cuenta+=$monto_a_guardar;
+                $temp->save();
+            }
+        }
+
+        if($tipo=='s') {
+            $hotel->precio_s_c = $valor;
+        }
+        if($tipo=='d')
+            $hotel->precio_d_c=$valor;
+        if($tipo=='m')
+            $hotel->precio_m_c=$valor;
+        if($tipo=='t')
+            $hotel->precio_t_c=$valor;
+
+        if($hotel->save())
+            return 1;
+        else
+            return 0;
+
+    }
+    public function pagos_pendientes(){
+        $cotizacion=Cotizacion::get();
+        $ini='';
+        $fin='';
+        return view('admin.contabilidad.pagos-pendientes',compact(['cotizacion','ini','fin']));
+
+    }
+    public function pagos_pendientes_filtro(){
+        $cotizacion=Cotizacion::get();
+        $ini='';
+        $fin='';
+        return view('admin.contabilidad.pagos-pendientes',compact(['cotizacion','ini','fin']));
+
+    }
+//    public function list_fechas_hotel($fecha_i, $fecha_f)
+//    {
+//        $ini = $fecha_i;
+//        $fin = $fecha_f;
+//        $cotizacion=Cotizacion::get();
+////        $pagos = ItinerarioServiciosPagos::get();
+//        $pagos =PrecioHotelReservaPagos::get();
+//        $proveedor = ItinerarioServicioProveedor::get();//-- se estara usando ?
+////        $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
+//        $hoteles =PrecioHotelReserva::with('proveedor')->get();
+//        return view('admin.contabilidad.lista-fecha-hotel',compact(['proveedor','hoteles', 'pagos', 'cotizacion', 'ini', 'fin']));
+//    }
+    public function pagos_pendientes_filtro_datos(Request $request)
+    {
+        $ini =$request->input('ini');
+        $fin =$request->input('fin');
+        $cotizacion=Cotizacion::get();
+        $pagos =PrecioHotelReservaPagos::get();
+        $proveedor = ItinerarioServicioProveedor::get();//-- se estara usando ?
+        $hoteles =PrecioHotelReserva::with('proveedor')->get();
+
+        return view('admin.contabilidad.lista-fecha-hotel-filtro',compact(['proveedor','hoteles', 'pagos', 'cotizacion', 'ini', 'fin']));
+    }
 
 }

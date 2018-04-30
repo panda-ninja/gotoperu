@@ -47,6 +47,10 @@
         <ul class="nav nav-sidebar margin-bottom-0">
             <li class="padding-side-20 bg-green-goto text-white text-20">Contabilidad</li>
             <li class="divider"></li>
+            <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Pagos</b></li>
+            <li class="divider"></li>
+            <li ><a href="{{route('pagos_pendientes_rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Pagos pendientes</a></li>
+            <li class="divider"></li>
             <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Servicios</b></li>
             <li class="divider"></li>
             <li ><a href="{{route('rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por fechas</a></li>
