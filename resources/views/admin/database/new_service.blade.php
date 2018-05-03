@@ -536,18 +536,18 @@
                                                     @foreach($proveedores->where('grupo',$categoria->nombre)->where('localizacion','CUSCO') as $proveedor)
                                                         <div class="input-group">
                                                             <span class="input-group-addon">
-                                                                <input class="proveedores"  type="checkbox" aria-label="..." name="proveedores_[]" value="{{$proveedor->id}}_{{$proveedor->razon_social}}">
+                                                                <input class="proveedores_{{$categoria->id}}"  type="checkbox" aria-label="..." name="proveedores_[]" value="{{$proveedor->id}}_{{$proveedor->razon_social}}">
                                                             </span>
                                                             <input type="text" name="proveedores_nombre[]" class="form-control" aria-label="..." value="{{$proveedor->razon_social}}" readonly="">
                                                         </div>
                                                     @endforeach
                                                 </div>
                                                 <div class="col-lg-1">
-                                                    <a href="#!" class="btn btn-primary" onclick="Pasar_pro({{$categoria->id}})">
+                                                    <a href="#!" class="btn btn-primary" onclick="Pasar_pro('0',{{$categoria->id}},{{$categoria->id}})">
                                                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                                     </a>
                                                 </div>
-                                                <div id="lista_costos_{{$categoria->id}}" class="col-lg-6" style="height: 400px; overflow-y: auto;">
+                                                <div id="lista_costos_{{$categoria->id}}_0_{{$categoria->id}}" class="col-lg-6" style="height: 400px; overflow-y: auto;">
                                                     <p><b class="text-green-goto">Proveedor/Costo</b></p>
                                                     {{--@foreach($costos->where('grupo',$categoria->nombre)->where('localizacion','CUSCO') as $costo)--}}
                                                         {{--<div id="fila_{{$costo->proveedor->id}}" class="row">--}}

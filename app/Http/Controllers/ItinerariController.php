@@ -90,6 +90,7 @@ class ItinerariController extends Controller
 
     public function store(Request $request){
         $txt_titulo=strtoupper($request->input('txt_titulo'));
+        $txt_resumen=$request->input('txt_resumen');
         $txt_descripcion=$request->input('txt_descripcion');
         $destinos=$request->input('destinos');
         $servicios=$request->input('servicios');
@@ -100,6 +101,7 @@ class ItinerariController extends Controller
 
         $itinerario=new M_Itinerario();
         $itinerario->titulo=$txt_titulo;
+        $itinerario->resumen=$txt_resumen;
         $itinerario->descripcion=$txt_descripcion;
         $itinerario->precio=$precio_iti;
         $itinerario->imagen=$txt_imagen;
@@ -160,6 +162,7 @@ class ItinerariController extends Controller
         $txt_id=$request->input('itinerario_id');
         $txt_titulo=strtoupper($request->input('txt_titulo'));
         $txt_descripcion=$request->input('txt_descripcion');
+        $txt_resumen=$request->input('txt_resumen');
         $destinos=$request->input('destinos');
         $servicios=$request->input('servicios'.$txt_id);
         $precio_iti=$request->input('precio_itinerario');
@@ -169,6 +172,7 @@ class ItinerariController extends Controller
 
         $itinerario=M_Itinerario::FindOrFail($txt_id);
         $itinerario->titulo=$txt_titulo;
+        $itinerario->resumen=$txt_resumen;
         $itinerario->descripcion=$txt_descripcion;
         $itinerario->precio=$precio_iti;
         $itinerario->save();

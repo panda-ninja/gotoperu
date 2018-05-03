@@ -22,18 +22,23 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="txt_titulo">Titulo</label>
                                 <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo" value="{{$itinerario->titulo}}">
 
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="txt_resumen">Resumen</label>
+                                <textarea class="form-control" name="txt_resumen" id="txt_resumen" cols="30" rows="5">{{$itinerario->resumen}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="txt_descripcion">Descripcion</label>
                                 <textarea class="form-control" name="txt_descripcion" id="txt_descripcion" cols="30" rows="5">{{$itinerario->descripcion}}</textarea>
-
                             </div>
                         </div>
                     </div>
@@ -1521,5 +1526,7 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
         CKEDITOR.replace( 'txt_descripcion' );
+        CKEDITOR.replace( 'txt_resumen' );
+
     </script>
 @stop

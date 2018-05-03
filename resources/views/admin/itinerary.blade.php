@@ -34,7 +34,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -44,7 +44,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txt_resumen">Resumen</label>
+                                        <textarea class="form-control textarea" name="txt_resumen" id="txt_resumen" cols="30" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="txt_descripcion">Descripcion</label>
                                         <textarea class="form-control textarea" name="txt_descripcion" id="txt_descripcion" cols="30" rows="5"></textarea>
@@ -1030,5 +1036,7 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
         CKEDITOR.replace( 'txt_descripcion' );
+        CKEDITOR.replace( 'txt_resumen' );
+
     </script>
 @stop

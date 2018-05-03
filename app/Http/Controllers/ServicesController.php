@@ -203,11 +203,12 @@ class ServicesController extends Controller
                     $new_service->save();
                 }
 
-                $destinations = M_Destino::get();
-                $servicios = M_Servicio::get();
-                $categorias = M_Category::get();
-                $hotel = Hotel::get();
-                return view('admin.database.services', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations, 'hotel' => $hotel]);
+                return redirect()->route('service_index_path');
+//                $destinations = M_Destino::get();
+//                $servicios = M_Servicio::get();
+//                $categorias = M_Category::get();
+//                $hotel = Hotel::get();
+//                return view('admin.database.services', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations, 'hotel' => $hotel]);
             }
 
 
@@ -951,7 +952,7 @@ class ServicesController extends Controller
             $cadena .= '<div class="col-lg-12" >'.
                         '<div id="lista_proveedores_'.$categoria_id.'" class="col-lg-5" style="height: 400px; overflow-y: auto;">'.
                             '<p><b class="text-green-goto">Proveedores</b></p>';
-            foreach ($proveedores->where('localizacion',$servicio->localizacion) as $proveedor){
+            foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor){
                 $cadena .= '<div class="input-group">'.
                                 '<span class="input-group-addon">'.
                                     '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
@@ -1040,12 +1041,14 @@ class ServicesController extends Controller
     {
         $localizacion= $request->input('localizacion');
         $grupo= $request->input('grupo');
+        $categoria= $request->input('categoria');
+
         $proveedores=Proveedor::where('localizacion',$localizacion)->where('grupo',$grupo)->get();
         $cadena='';
         foreach ($proveedores as $proveedor){
             $cadena.='<div class="input-group">'.
                         '<span class="input-group-addon">'.
-                            '<input class="proveedores" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                            '<input class="proveedores_'.$categoria.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
                         '</span>'.
                         '<input type="text" name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
                     '</div>';

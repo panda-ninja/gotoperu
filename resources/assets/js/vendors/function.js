@@ -3175,6 +3175,7 @@ function Pasar_pro(id,grupo,idservicio){
         }
     });
 }
+
 function eliminar_proveedor(id1,grupo,idservicio,id,nombre) {
     swal({
         title: 'MENSAJE DEL SISTEMA',
@@ -3248,7 +3249,7 @@ function nuevos_proveedores(pos,categoria,grupo) {
     $.ajax({
         type: 'POST',
         url: '../../ventas/service/listar-proveedores',
-        data: 'localizacion='+localizacion+'&grupo='+grupo,
+        data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             console.log(data);
