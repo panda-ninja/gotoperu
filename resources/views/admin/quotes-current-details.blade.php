@@ -177,7 +177,7 @@
                         @php
                             $sumatotal=$total_utilidad_s+$total_utilidad_d+$total_utilidad_m+$total_utilidad_t;
                         @endphp
-                        <div class="col-md-3 margin-top-10">
+                        <div class="col-md-4 margin-top-10">
                             <div class="btn-primary text-center text-13">
                                 @php
                                     $date = date_create($cotizacion_->fecha);
@@ -215,7 +215,14 @@
                                     @else
                                         <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
                                     @endif
+                                    <div class="row">
+                                        <div class="col-lg-12 text-14 text-right">
+                                            <i class="text-primary fa fa-link" aria-hidden="true"></i>
+                                            <a class="text-grey-goto" target="_blank" href="http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}">http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}</a>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
                                     <span class="hide text-orange-goto text-40">${{number_format(ceil(122), 2, '.', '')}}</span>
@@ -223,7 +230,7 @@
                             </div>
                         </div>
                     @elseif($paquete->estado==1)
-                        <div class="col-md-3 margin-top-10">
+                        <div class="col-md-4 margin-top-10">
                             <div class="btn-primary text-center text-13">
                                 @php
                                     $date = date_create($cotizacion_->fecha);
@@ -261,6 +268,12 @@
                                     @else
                                         <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
                                     @endif
+                                    <div class="row">
+                                        <div class="col-lg-12 text-14 text-right">
+                                            <i class="text-primary fa fa-link" aria-hidden="true"></i>
+                                            <a class="text-grey-goto" target="_blank" href="http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}">http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -271,7 +284,7 @@
                     @endif
                 @else
                     @if($paquete->estado==2)
-                        <div class="col-md-3 margin-top-10">
+                        <div class="col-md-4 margin-top-10">
                             <div class="btn-primary text-center text-13">
                                 @php
                                     $date = date_create($cotizacion_->fecha);
@@ -309,6 +322,12 @@
                                     @else
                                         <a href="{{route('escojer_pqt_plan',$paquete->id)}}" class="pull-right btn btn-default btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
                                     @endif
+                                    <div class="row">
+                                        <div class="col-lg-12 text-14 text-right">
+                                            <i class="text-primary fa fa-link" aria-hidden="true"></i>
+                                            <a class="text-grey-goto" target="_blank" href="http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}">http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
@@ -316,7 +335,7 @@
                             </div>
                         </div>
                     @elseif($paquete->estado==1)
-                        <div class="col-md-3 margin-top-10">
+                        <div class="col-md-4 margin-top-10">
                             <div class="btn-primary text-center text-13">
                                 @php
                                     $date = date_create($cotizacion_->fecha);
@@ -363,6 +382,12 @@
                                     {{--<button type="button" id="plan_{{$pos_plan}}"  class="planes pull-right btn btn-danger btn-sm" onclick="activarPlan('{{$paquete->id}}','{{$cotizacion_->nombre}}','{{$cotizacion_->id}}','{{$pos_plan}}')">--}}
                                         {{--<i class="fa fa-toggle-off" aria-hidden="true"></i>--}}
                                     {{--</button>--}}
+                                    <div class="row">
+                                        <div class="col-lg-12 text-14 text-right">
+                                            <i class="text-primary fa fa-link" aria-hidden="true"></i>
+                                            <a class="text-grey-goto" target="_blank" href="http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}">http://yourtrip.gotoperu.travel/coti/{{$cotizacion_->id}}-{{$paquete->id}}</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="box-letter-proposal text-center">
                                     <span class="text-orange-goto">{{$planes[$pos_plan]}}</span>
