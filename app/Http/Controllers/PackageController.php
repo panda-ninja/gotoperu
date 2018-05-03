@@ -884,15 +884,16 @@ class PackageController extends Controller
         $duracion=$request->input('duracion');
         $plantillas= P_Paquete::where('duracion',$duracion)->get();
         $nro=count($plantillas);
+//        return $nro;
         $numero_con_ceros = '';
         if($nro>0) {
-            $diferencia = 4 - strlen(count($plantillas));
+            $diferencia = 4 - strlen($nro);
 
             for ($i = 0; $i < $diferencia; $i++) {
                 $numero_con_ceros .= 0;
             }
 
-            $numero_con_ceros .= count($plantillas);
+            $numero_con_ceros .= $nro+1;
         }
         else
             $numero_con_ceros ='0001';

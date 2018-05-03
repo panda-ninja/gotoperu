@@ -25644,12 +25644,13 @@ function calcular_resumen() {
     $("#amount_t5_a_v").html(amount_t5_u_pri);
 
     if($('#tipo_plantilla').val()=='si') {
+        var dias_1=$('#txt_day').val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('[name="_token"]').val()
             }
         });
-        $.post('/admin/package/gererar-codigo', 'duracion=' + $('#txt_day').val(), function (data) {
+        $.post('/admin/package/gererar-codigo', 'duracion='+dias_1 , function (data) {
             $('#txt_codigo').val(data);
         }).fail(function (data) {
         });
