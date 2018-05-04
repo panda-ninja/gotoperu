@@ -1063,7 +1063,7 @@ class ContabilidadController extends Controller
         }
         if($n_u=='nuevo'){
             $nro_hotel_pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$paquete_cotizaciones_id)
-                ->where('proveedor',$hotel->proveedor_id)
+                ->where('proveedor_id',$hotel->proveedor_id)
                 ->where('estado','-2')->get();
             if($nro_hotel_pagos->count('id')>0){
                 foreach ($nro_hotel_pagos as $nro_hotel_pago){
@@ -1082,7 +1082,7 @@ class ContabilidadController extends Controller
         elseif($n_u=='update'){
          $monto_a_guardar=($valor-$monto_original)*$personas;
             $nro_hotel_pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$paquete_cotizaciones_id)
-                ->where('proveedor',$hotel->proveedor_id)
+                ->where('proveedor_id',$hotel->proveedor_id)
                 ->where('estado','-2')->get();
             foreach ($nro_hotel_pagos as $nro_hotel_pago){
                 $temp=PrecioHotelReservaPagos::FindOrFail($nro_hotel_pago->id);
