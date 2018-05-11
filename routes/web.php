@@ -877,3 +877,7 @@ Route::post('/admin/contabilidad/pagos/pendientes/filtrar', [
     'uses' => 'ContabilidadController@pagos_pendientes_filtro_datos',
     'as' => 'pagos_pendientes_rango_fecha_filtro_path',
 ]);
+Route::post('admin/book/servicio/delete', [
+    'uses' => 'BookController@eliminar_servicio_reservas',
+    'as' => 'eliminar_reservas_servicio_path',
+]);

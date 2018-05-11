@@ -505,5 +505,13 @@ class BookController extends Controller
         return redirect()->route('book_show_path',$cotizaciones_id);
 
     }
-
+    public function eliminar_servicio_reservas(Request $request)
+    {
+        $id = $request->input('id');
+        $servicio =ItinerarioServicios::FindOrFail($id);
+        if ($servicio->delete())
+            return 1;
+        else
+            return 0;
+    }
 }

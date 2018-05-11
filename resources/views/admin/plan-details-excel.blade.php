@@ -101,7 +101,7 @@
                             <div class="col-lg-7">{{$itinerario->titulo}}</div>
                             <div class="col-lg-1 @if($s==0) hide @endif">S</div>
                             <div class="col-lg-1 @if($d==0) hide @endif">D</div>
-                            <div class="col-lg-1 @if($m==0) hide @endif">D</div>
+                            <div class="col-lg-1 @if($m==0) hide @endif">M</div>
                             <div class="col-lg-1 @if($t==0) hide @endif">T</div>
                             <div class="col-lg-2 hide"></div>
                         </div>

@@ -145,6 +145,7 @@
                 <th width="100px">HOUR</th>
                 <th class="hide">S/P</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -180,10 +181,11 @@
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i>Servicio
                                 </a>
                             </td>
+                            <td></td>
                         </tr>
 
                         @foreach($itinerario->itinerario_servicios as $servicios)
-                            <tr>
+                            <tr id="servicio_{{$servicios->id}}">
                                 <td class="text-center">
                                     @php
                                         $grupe='ninguno';
@@ -757,6 +759,11 @@
                                     @else
                                         <i class="fa fa-clock-o fa-2x text-unset"></i>
                                     @endif
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" onclick="eliminar_servicio_reservas('{{$servicios->id}}','{{$servicios->nombre}}')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach

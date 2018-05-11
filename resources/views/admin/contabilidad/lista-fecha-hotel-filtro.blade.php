@@ -46,10 +46,7 @@
                                                 $fecha_p = date($fecha_servicio);
                                                 $fecha_pago = strtotime ( '-'.$dia_pago.' day' , strtotime ( $fecha_p ) ) ;
                                                 $fecha_pago = date ( 'Y-m-d' , $fecha_pago );
-
                                             @endphp
-
-
                                                 @foreach($itinerario->hotel as $hotel)
                                                     @php
                                                         $total_h=0;

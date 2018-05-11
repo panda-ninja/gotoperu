@@ -1065,6 +1065,18 @@ class ContabilidadController extends Controller
             $nro_hotel_pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$paquete_cotizaciones_id)
                 ->where('proveedor_id',$hotel->proveedor_id)
                 ->where('estado','-2')->get();
+            $ItinerarioCotizaciones=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$paquete_cotizaciones_id)->get();
+            $fecha_uso='';
+            foreach ($ItinerarioCotizaciones as $ItinerarioCotizacion){
+                foreach ($ItinerarioCotizacion->hotel as $hotel){
+                    if($hotel){
+                        if($hotel->id==$id){
+                            $fecha_uso=$ItinerarioCotizacion->fecha;
+                        }
+                    }
+                }
+            }
+
             if($nro_hotel_pagos->count('id')>0){
                 foreach ($nro_hotel_pagos as $nro_hotel_pago){
                     $temp=PrecioHotelReservaPagos::FindOrFail($nro_hotel_pago->id);
@@ -1073,8 +1085,20 @@ class ContabilidadController extends Controller
                 }
             }
             else{
+                $fecha= Carbon::createFromFormat('Y-m-d',$fecha_uso);
+                    $proveedor=Proveedor::FindOrFail($hotel->proveedor_id);
+                    if($proveedor->desci='antes')
+                        $fecha->subDays($proveedor->plazo);
+                    else
+                        $fecha->addDays($proveedor->plazo);
+                $fecha_a_pagar=$fecha->toDateString();
                 $temp=new PrecioHotelReservaPagos();
                 $temp->a_cuenta=($personas*$valor);
+                $temp->fecha_servicio=$fecha_uso;
+                $temp->fecha_a_pagar=$fecha_a_pagar;
+                $temp->paquete_cotizaciones_id=$paquete_cotizaciones_id;
+                $temp->proveedor_id=$hotel->proveedor_id;
+                $temp->grupo='HOTELS';
                 $temp->estado=-2;
                 $temp->save();
             }
@@ -1119,7 +1143,6 @@ class ContabilidadController extends Controller
         $ini='';
         $fin='';
         return view('admin.contabilidad.pagos-pendientes',compact(['cotizacion','ini','fin']));
-
     }
 //    public function list_fechas_hotel($fecha_i, $fecha_f)
 //    {

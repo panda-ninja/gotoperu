@@ -3360,3 +3360,35 @@ function buscar_hoteles_pagos_pendientes(ini,fin){
     }).fail(function (data) {
     });
 }
+function eliminar_servicio_reservas(id,servicio) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar "+servicio+" ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/book/servicio/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#servicio_"+id).fadeOut( "low");
+                swal(
+                    'Mensaje del sistema',
+                    'Se borro els ervicio '+categoria,
+                    'success'
+                )
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+}
