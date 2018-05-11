@@ -415,6 +415,7 @@
                                                                 @if($productos->where('m_servicios_id',$servicios->m_servicios_id)->count()==0)
                                                                     <b class="text-danger text-15">No tenemos proveedores disponibles!</b>
                                                                 @elseif($servicios->servicio)
+                                                                    <p class="hide">{{$productos->where('m_servicios_id',$servicios->m_servicios_id)->count()}} - {{$servicios->m_servicios_id}}</p>
                                                                     @foreach($productos as $producto)
                                                                         @if($producto->m_servicios_id==$servicios->m_servicios_id)
                                                                             @if($producto->precio_grupo==1)

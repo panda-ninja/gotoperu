@@ -952,13 +952,25 @@ class ServicesController extends Controller
             $cadena .= '<div class="col-lg-12" >'.
                         '<div id="lista_proveedores_'.$categoria_id.'" class="col-lg-5" style="height: 400px; overflow-y: auto;">'.
                             '<p><b class="text-green-goto">Proveedores</b></p>';
-            foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor){
-                $cadena .= '<div class="input-group">'.
-                                '<span class="input-group-addon">'.
-                                    '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
-                                '</span>'.
-                                '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
-                            '</div>';
+            if($destino[1]!='TRAINS'){
+                foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor){
+                    $cadena .= '<div class="input-group">'.
+                                    '<span class="input-group-addon">'.
+                                        '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                                    '</span>'.
+                                    '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
+                                '</div>';
+                }
+            }
+            else{
+                foreach ($proveedores->where('grupo',$destino[1]) as $proveedor){
+                    $cadena .= '<div class="input-group">'.
+                        '<span class="input-group-addon">'.
+                        '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                        '</span>'.
+                        '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
+                        '</div>';
+                }
             }
             $cadena .= '</div>'.
             '<div class="col-lg-1">'.
@@ -1042,8 +1054,12 @@ class ServicesController extends Controller
         $localizacion= $request->input('localizacion');
         $grupo= $request->input('grupo');
         $categoria= $request->input('categoria');
+        $proveedores=nul;
+        if($grupo!='TRAINS')
+            $proveedores=Proveedor::where('localizacion',$localizacion)->where('grupo',$grupo)->get();
+        else
+            $proveedores=Proveedor::where('grupo',$grupo)->get();
 
-        $proveedores=Proveedor::where('localizacion',$localizacion)->where('grupo',$grupo)->get();
         $cadena='';
         foreach ($proveedores as $proveedor){
             $cadena.='<div class="input-group">'.
