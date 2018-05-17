@@ -28162,10 +28162,15 @@ function eliminar_servicio_reservas(id,servicio) {
                 'X-CSRF-TOKEN': $('[name="_token"]').val()
             }
         });
-        $.post('/admin/book/servicio/delete', 'id='+id, function(data) {
+        $.post('/admin/book/servicio/delete', 'id='+id, function(data){
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
                 $("#servicio_"+id).fadeOut( "low");
+                swal(
+                    'Mensaje del sistema',
+                    'Se borro els ervicio '+categoria,
+                    'success'
+                )
             }
         }).fail(function (data) {
 

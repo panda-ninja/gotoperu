@@ -1220,16 +1220,116 @@
                         </div>
                     </div>
                     <div id="hoja" class="tab-pane fade">
-                        <table class="table table-bordered tb table-striped table-responsive table-hover">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @foreach($cotizacion->cotizaciones_cliente as $clientes)
+                                    @if($clientes->estado==1)
+                                        {{--<h1 class="panel-title pull-left" style="font-size:30px;">Hidalgo <small>hidlgo@gmail.com</small></h1>--}}
+                                        <h2 class="panel-title pull-left" style="font-size:30px;">{{$clientes->cliente->nombres}} {{$clientes->cliente->apellidos}} x {{$cotizacion->nropersonas}} {{date_format(date_create($cotizacion->fecha), ' l jS F Y')}}</h2>
+                                        <b class="text-warning padding-left-10"> (X{{$cotizacion->nropersonas}})</b>
+                                        @for($i=0;$i<$cotizacion->nropersonas;$i++)
+                                            <i class="fa fa-male fa-2x"></i>
+                                        @endfor
+                                    @endif
+                                @endforeach
+                                <i class="fa fa-check hide text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hidalgo esta activo"></i>
+                                <b class="text-success text-25">@if($cotizacion->categorizado=='C'){{'Con factura'}}@elseif($cotizacion->categorizado=='S'){{'Sin factura'}}@else{{'No esta filtrado'}}@endif</b>
+                                <div class="dropdown pull-right hide">
+                                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Opciones
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#"><i class="fa fa-fw fa-database" aria-hidden="true"></i> Reservar todo</a></li>
+                                        <li><a href="#"><i class="fa fa-fw fa-check" aria-hidden="true"></i> Friends</a></li>
+                                        <li><a href="#">Work</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#"><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add a new aspect</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            @php
+                                $nro_servicios_total=0;
+                                $nro_servicios_reservados=0;
+                            @endphp
+                            @foreach($cotizacion->paquete_cotizaciones as $paquete)
+                                @if($paquete->estado==2)
+                                    @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                                        @php
+                                            $nro_servicios=0;
+                                        @endphp
+                                        @foreach($itinerario->itinerario_servicios as $servicios)
+                                            @if($servicios->proveedor_id)
+                                                @if($servicios->proveedor_id>0)
+                                                    @php
+                                                        $nro_servicios_reservados++;
+                                                    @endphp
+                                                @endif
+                                            @endif
+                                            @php
+                                                $nro_servicios_total++;
+                                            @endphp
+                                        @endforeach
+                                        @foreach($itinerario->hotel as $hotel)
+                                            @if($hotel->proveedor_id)
+                                                @if($hotel->proveedor_id>0)
+                                                    @php
+                                                        $nro_servicios_reservados++;
+                                                    @endphp
+                                                @endif
+                                            @endif
+                                            @php
+                                                $nro_servicios_total++;
+                                            @endphp
+                                        @endforeach
+                                    @endforeach
+                                @endif
+                            @endforeach
+                            @php
+                                $porc_avance=round($nro_servicios_reservados/$nro_servicios_total,2);
+                                $porc_avance=$porc_avance*100;
+                                $colo_progres='progress-bar-danger';
+                                if(25<$porc_avance&&$porc_avance<=50)
+                                    $colo_progres='progress-bar-warning';
+
+                                if(50<$porc_avance&&$porc_avance<=75)
+                                    $colo_progres='progress-bar-info';
+
+                                if(50<$porc_avance&&$porc_avance<=100)
+                                    $colo_progres='progress-bar-success';
+
+                            @endphp
+                            <div class="col-md-12 margin-top-10">
+                                <input type="hidden" id="nro_servicios_reservados" value="{{$nro_servicios_reservados}}">
+                                <input type="hidden" id="nro_servicios_total" value="{{$nro_servicios_total}}">
+
+                                <div class="progress">
+                                    <div id="barra_porc" class="progress-bar {{$colo_progres}} progress-bar-striped active" role="progressbar" aria-valuenow="{{$porc_avance}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porc_avance}}%;min-width: 2em;">
+                                        {{$porc_avance}}%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 hide">
+                        <span class="pull-left pax-nav">
+                            <b>Travel date: no se</b>
+                        </span>
+                                <span class="pull-right">
+                            {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>--}}
+                                    {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>--}}
+                                    <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
+                        </span>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-responsive">
                             <thead>
                             <tr>
-                                <th width="50px">DIA</th>
-                                <th width="50px">DATE</th>
-                                <th width="60px">SERVICE</th>
-                                <th width="60px">HOUR</th>
-                                <th width="60px">PROVEEDOR</th>
-                                <th width="60px">HOTEL</th>
-                                <th width="60px">OBSERVACIONES</th>
+                                <th class="text-center" width="50px">DIA</th>
+                                <th class="text-center" width="50px">DATE</th>
+                                <th class="text-center" width="60px">HOUR</th>
+                                <th class="text-center" width="60px">SERVICE</th>
+                                <th class="text-center" width="60px">PROVEEDOR</th>
+                                <th class="text-center" width="60px">HOTEL</th>
+                                <th class="text-center" width="60px">OBSERVACIONES</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -1239,14 +1339,19 @@
                                     @foreach($paquete->itinerario_cotizaciones as $itinerario)
                                         @php
                                             $primera_coincidencia=0;
+{{--                                            $primera_coincidencia_hotel=0;--}}
                                             $primera_hora='0';
                                             $nro_filas=0;
+                                            $recorrido_hotel=0;
                                         @endphp
+
                                             @foreach($itinerario->itinerario_servicios->sortby('hora_llegada') as $servicios)
                                             @if($servicios->servicio->grupo!='ENTRANCES'|| ($servicios->servicio->grupo=='MOVILID' &&$servicios->servicio->clase=='BOLETO'))
                                                 @php
                                                     $nro_filas=0;
+                                                    $nro_filas_hotel=0;
                                                     $color='bg-info';
+                                                    $recorrido_hotel++;
                                                 @endphp
                                                 @foreach($itinerario->itinerario_servicios->sortby('hora_llegada') as $servicios1)
                                                     @if($servicios1->servicio->grupo!='ENTRANCES'|| ($servicios1->servicio->grupo=='MOVILID' &&$servicios1->servicio->clase=='BOLETO'))
@@ -1255,18 +1360,39 @@
                                                                 $nro_filas++;
                                                             @endphp
                                                         @endif
+                                                        @php
+                                                            $nro_filas_hotel++;
+                                                        @endphp
                                                     @endif
                                                 @endforeach
+                                                {{--@if($recorrido_hotel==1)--}}
+                                                    {{--@php--}}
+                                                        {{--$primera_coincidencia_hotel==1;--}}
+                                                    {{--@endphp--}}
+                                                {{--@else--}}
+                                                    {{--@php--}}
+                                                        {{--$primera_coincidencia_hotel==0;--}}
+                                                    {{--@endphp--}}
+                                                {{--@endif--}}
                                                 @if($servicios->hora_llegada!=$primera_hora)
                                                     @php
                                                         $primera_hora=$servicios->hora_llegada;
                                                         $primera_coincidencia=1;
-                                                        $color='bg-info';
+
                                                     @endphp
                                                 @else
                                                     @php
                                                         $primera_coincidencia=0;
-                                                        $color='bg-warning';
+
+                                                    @endphp
+                                                @endif
+                                                @if($itinerario->dias%2==0)
+                                                    @php
+                                                    $color='gb-color-zebra';
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                    $color='';
                                                     @endphp
                                                 @endif
                                                 {{--<tr>--}}
@@ -1276,17 +1402,109 @@
                                                     {{--<td @if($primera_coincidencia==0) rowspan="{{$nro_servicios}}" @else class="hide" @endif>{{$servicios->hora_llegada}}</td>--}}
                                                 {{--</tr>--}}
                                                 <tr>
-                                                    <td @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" @else class="hide" @endif>
+                                                    <td  @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" class="{{$color}} text-center" @else class="hide" @endif>
                                                         <span class="hide text-warning">
                                                          @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" @else ocultar @endif
-                                                        </span> {{$itinerario->dias}}
+                                                        </span> <b>{{$itinerario->dias}}</b>
                                                     </td>
-                                                    <td  @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" @else class="hide" @endif>{{$itinerario->fecha}}</td>
-                                                    <td>
-                                                        <b>Nombre:</b> {{$servicios->nombre}}<!-- para transfer,flight,tours,treins --> <br>
-                                                        <b>Tipo Servicio:</b> {{$servicios->servicio->tipoServicio}}<!-- para tours --> <br>
-                                                        <b>Hora:</b> {{$servicios->salida}} {{$servicios->llegada}}<!-- para flights,trains --></td>
-                                                    <td  @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" @else class="hide" @endif>{{$servicios->hora_llegada}}</td>
+                                                    <td  @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" class="{{$color}} text-center" @else class="hide" @endif>
+                                                        <b>{{date("d/m/Y",strtotime($itinerario->fecha))}}</b>
+                                                    </td>
+                                                    <td @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" class="{{$color}} text-center" @else class="hide" @endif>
+                                                        <b>{{$servicios->hora_llegada}}</b>
+                                                    </td>
+
+                                                    <td class="{{$color}}">
+                                                        <table>
+                                                            <tr>
+                                                                <td width="15px">
+                                                                    @if($servicios->servicio->grupo=='FOOD' ||$servicios->servicio->grupo=='MOVILID' || $servicios->servicio->grupo=='REPRESENT' || $servicios->servicio->grupo=='FLIGHT' || $servicios->servicio->grupo=='TOURS' || $servicios->servicio->grupo=='TRAINS')
+                                                                        @if($servicios->servicio->grupo=='TOURS')
+                                                                            <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($servicios->servicio->grupo=='MOVILID' &&$servicios->servicio->clase!='BOLETO')
+                                                                            <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($servicios->servicio->grupo=='REPRESENT')
+                                                                            <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($servicios->servicio->grupo=='ENTRANCES')
+                                                                            <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($servicios->servicio->grupo=='FOOD')
+                                                                            <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($servicios->servicio->grupo=='TRAINS')
+                                                                            <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($servicios->servicio->grupo=='FLIGHTS')
+                                                                            <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                        @endif
+                                                                        @if($servicios->servicio->grupo=='OTHERS')
+                                                                            <i class="fa fa-question fa-text-success" aria-hidden="true"></i>
+                                                                        @endif
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($servicios->servicio->grupo=='FOOD'|| ($servicios->servicio->grupo=='MOVILID' &&$servicios->servicio->clase!='BOLETO') || $servicios->servicio->grupo=='REPRESENT' || $servicios->servicio->grupo=='FLIGHT' || $servicios->servicio->grupo=='TOURS' || $servicios->servicio->grupo=='TRAINS')
+                                                                         <b>Nom.:</b> {{$servicios->nombre}} <span class="text-10 text-warning">@if($servicios->servicio->grupo=='REPRESENT') ({{$servicios->servicio->tipoServicio}}) @endif</span>         <!-- para transfer,flight,tours,treins --> <br>
+                                                                    @endif
+                                                                    @if($servicios->servicio->grupo=='TOURS')
+                                                                         <b>Tipo Servicio:</b> {{$servicios->servicio->tipoServicio}}<!-- para tours --> <br>
+                                                                    @endif
+                                                                    @if($servicios->servicio->grupo=='FLIGHT' || $servicios->servicio->grupo=='TRAINS')
+                                                                         <b>Hora:</b> {{$servicios->salida}} {{$servicios->llegada}}<!-- para flights,trains -->
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    @if($servicios->servicio->grupo=='TOURS'||($servicios->servicio->grupo=='MOVILID'&&$servicios->servicio->clase!='BOLETO')||$servicios->servicio->grupo=='REPRESENT')
+                                                    <td @if($primera_coincidencia==1)  class="{{$color}}" @else class="hide" @endif>
+
+                                                        @if($servicios->servicio->grupo=='MOVILID')
+                                                            @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
+                                                                    <i class="fa fa-bus text-warning" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                            @endforeach
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='REPRESENT')
+                                                            @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
+                                                                    <i class="fa fa-users text-success" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                            @endforeach
+                                                        @endif
+                                                        @if($servicios->servicio->grupo=='TOURS')
+                                                            @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
+                                                                    <i class="fa fa-map-o text-info" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    @else
+                                                        <td @if($primera_coincidencia==1)  class="{{$color}}" @else class="{{$color}}" @endif></td>
+                                                    @endif
+                                                    <td @if($recorrido_hotel==1) rowspan="{{$nro_filas_hotel}}" class="{{$color}}" @else class="hide" @endif>
+                                                        @foreach($itinerario->hotel as $hotel)
+                                                            @foreach($proveedores->where('id',$hotel->proveedor_id)  as $proveedor_serv)
+                                                                <i class="fa fa-building text-primary" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                            @endforeach
+                                                        @endforeach
+                                                    </td>
+                                                    @if($servicios->servicio->grupo=='FOOD1' ||$servicios->servicio->grupo=='REPRESENT' )
+                                                        <td class="{{$color}}">
+                                                            @if($servicios->servicio->grupo=='FOOD')
+                                                                @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
+                                                                   <i class="fa fa-cutlery text-danger" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                                @endforeach
+                                                            @endif
+                                                            @if($servicios->servicio->grupo=='REPRESENT')
+                                                                @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
+                                                                   <i class="fa fa-users text-success" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    @else
+                                                        <td class="{{$color}}" >
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             @endif
                                         @endforeach
