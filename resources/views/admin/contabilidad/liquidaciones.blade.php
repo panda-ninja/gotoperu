@@ -84,6 +84,11 @@
                         <td>${{$total_monto-$total_pagado_monto}}</td>
 
                         <td>
+                            @if($total==0)
+                                @php
+                                    $total=1;
+                                @endphp
+                            @endif
                             @php
                                 $pagado_porc=round(($total_pagado/$total)*100,2);
                                 $color_porc='progress-bar-danger';
