@@ -370,7 +370,7 @@
                                                 <td class="boton">
                                                     <b class="text-10" id="book_proveedor_{{$servicios->id}}">
                                                         @if($servicios->itinerario_proveedor)
-                                                            {{$servicios->itinerario_proveedor->razon_social}}
+                                                            {{$servicios->itinerario_proveedor->nombre_comercial}}
                                                         @endif
                                                     </b>
                                                     @if(!$servicios->itinerario_proveedor)
@@ -451,12 +451,12 @@
                                                                                             {{--<span class="text-10 text-warning">{{$producto->localizacion}}</span>--}}
                                                                                             {{--<span class="text-10 text-primary">{{$producto->tipo_producto}}</span>--}}
                                                                                             {{--<hr>--}}
-                                                                                            {{--<p class="text-primary" >{{$producto->proveedor->razon_social}}--}}
+                                                                                            {{--<p class="text-primary" >{{$producto->proveedor->nombre_comercial}}--}}
                                                                                             {{--@if($producto->grupo=='TRAINS')--}}
                                                                                             {{--<span class="text-12 text-warning" >[{{$servicios->salida}} - {{$servicios->llegada}}]</span>--}}
                                                                                             {{--@endif--}}
                                                                                             {{--</p>--}}
-                                                                                            {{--<input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">--}}
+                                                                                            {{--<input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">--}}
                                                                                             {{--<input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">--}}
                                                                                             {{--@if($producto->precio_grupo==1)--}}
                                                                                             {{--{{$producto->precio_costo*1}}--}}
@@ -482,12 +482,12 @@
                                                                                                     <div class="row">
                                                                                                         <div class="col-lg-12 bg-orange-goto">
                                                                                                             <label class="text-grey-goto">
-                                                                                                                <p class="text-grey-goto">{{$producto->proveedor->razon_social}}
+                                                                                                                <p class="text-grey-goto">{{$producto->proveedor->nombre_comercial}}
                                                                                                                     @if($producto->grupo=='TRAINS')
                                                                                                                         <span class="text-12 text-grey-goto" >[Sal: {{$servicios->salida}} - Lleg:{{$servicios->llegada}}]</span>
                                                                                                                     @endif
                                                                                                                 </p>
-                                                                                                                <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">
+                                                                                                                <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">
                                                                                                                 <input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">
                                                                                                                 @if($producto->precio_grupo==1)
                                                                                                                     {{$producto->precio_costo*1}}
@@ -597,12 +597,12 @@
                                                                                             {{--<span class="text-10 text-warning">{{$producto->localizacion}}</span>--}}
                                                                                             {{--<span class="text-10 text-primary">{{$producto->tipo_producto}}</span>--}}
                                                                                             {{--<hr>--}}
-                                                                                            {{--<p class="text-primary" >{{$producto->proveedor->razon_social}}--}}
+                                                                                            {{--<p class="text-primary" >{{$producto->proveedor->nombre_comercial}}--}}
                                                                                             {{--@if($producto->grupo=='TRAINS')--}}
                                                                                             {{--<span class="text-12 text-warning" >[{{$servicios->salida}} - {{$servicios->llegada}}]</span>--}}
                                                                                             {{--@endif--}}
                                                                                             {{--</p>--}}
-                                                                                            {{--<input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">--}}
+                                                                                            {{--<input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">--}}
                                                                                             {{--<input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">--}}
                                                                                             {{--@if($producto->precio_grupo==1)--}}
                                                                                             {{--{{$producto->precio_costo*1}}--}}
@@ -628,12 +628,12 @@
                                                                                                     <div class="row">
                                                                                                         <div class="col-lg-12 bg-orange-goto">
                                                                                                             <label class="text-grey-goto">
-                                                                                                                <p class="text-grey-goto">{{$producto->proveedor->razon_social}}
+                                                                                                                <p class="text-grey-goto">{{$producto->proveedor->nombre_comercial}}
                                                                                                                     @if($producto->grupo=='TRAINS')
                                                                                                                         <span class="text-12 text-grey-goto" >[Sal: {{$servicios->salida}} - Lleg:{{$servicios->llegada}}]</span>
                                                                                                                     @endif
                                                                                                                 </p>
-                                                                                                                <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->razon_social}}">
+                                                                                                                <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">
                                                                                                                 <input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}" {!! $valor_chk !!}}>
                                                                                                                 @if($producto->precio_grupo==1)
                                                                                                                     {{$producto->precio_costo*1}}
@@ -921,7 +921,7 @@
                                                 <td class="boton">
                                                     <b class="text-11" id="book_proveedor_hotel_{{$hotel->id}}">
                                                         @if($hotel->proveedor)
-                                                            {{$hotel->proveedor->razon_social}}
+                                                            {{$hotel->proveedor->nombre_comercial}}
                                                         @endif
                                                     </b>
                                                     @if($hotel->proveedor)
@@ -953,9 +953,9 @@
                                                                                         <div class="checkbox11 text-left bg-info">
                                                                                             <label class="text-primary">
                                                                                                 <input class="grupo" onchange="dato_producto_hotel({{$hotel_proveedor_->id}})" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}" {!! $valor_class !!}>
-                                                                                                <b>{{$hotel_proveedor_->proveedor->razon_social}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></b>
+                                                                                                <b>{{$hotel_proveedor_->proveedor->nombre_comercial}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></b>
                                                                                                 <span class="hide" id="proveedor_servicio_hotel_{{$hotel_proveedor_->id}}">
-                                                                                                {{$hotel_proveedor_->proveedor->razon_social}}
+                                                                                                {{$hotel_proveedor_->proveedor->nombre_comercial}}
                                                                                             </span>
                                                                                             </label>
                                                                                             @if($hotel->personas_s>0)
@@ -1025,9 +1025,9 @@
                                                                                         <div class="checkbox11 text-left bg-info">
                                                                                             <label class="text-primary">
                                                                                                 <input class="grupo" onchange="dato_producto_hotel({{$hotel_proveedor_->id}})" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}">
-                                                                                                <b>{{$hotel_proveedor_->proveedor->razon_social}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></>
+                                                                                                <b>{{$hotel_proveedor_->proveedor->nombre_comercial}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></>
                                                                                                 <span class="hide" id="proveedor_servicio_hotel_{{$hotel_proveedor_->id}}">
-                                                                                                {{$hotel_proveedor_->proveedor->razon_social}}
+                                                                                                {{$hotel_proveedor_->proveedor->nombre_comercial}}
                                                                                             </span>
                                                                                             </label>
                                                                                             @if($hotel->personas_s>0)
@@ -1196,7 +1196,7 @@
                                         {{--</th>--}}
                                         {{--<th>--}}
                                         {{--@foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)--}}
-                                        {{--{{$proveedor->razon_social}}--}}
+                                        {{--{{$proveedor->nombre_comercial}}--}}
                                         {{--@endforeach--}}
                                         {{--</th>--}}
                                         {{--<th>{{$ItinerarioServiciosAcumPago->fecha_servicio}}</th>--}}
@@ -1320,7 +1320,57 @@
                         </span>
                             </div>
                         </div>
-                        <table class="table table-bordered table-responsive">
+
+                        <table class="table table-striped table-bordered table-responsive ">
+                            <thead>
+                            <tr>
+                                <th class="text-center" width="50px">NOMBRES</th>
+                                <th class="text-center" width="50px">NACIONALIDAD</th>
+                                <th class="text-center" width="60px">NRO DOC.</th>
+                                <th class="text-center" width="60px">SEXO</th>
+                                <th class="text-center" width="60px">HOTEL</th>
+                                <th class="text-center" width="60px">EDAD</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($cotizacion->cotizaciones_cliente as $coti_cliente)
+                                @foreach($clientes1->where('id',$coti_cliente->clientes_id) as $cliente)
+                                    <tr>
+                                        <td>{{$cliente->nombres}} {{$cliente->apellidos}}</td>
+                                        <td>{{$cliente->nacionalidad}}</td>
+                                        <td>{{$cliente->pasaporte}}</td>
+                                        <td>{{$cliente->sexo}}</td>
+                                        <td>
+                                            @foreach($cotizacion->paquete_cotizaciones as $paquete)
+                                                @if($paquete->estado==2)
+                                                    @if($paquete->paquete_precios->count()==0)
+                                                        CTA PAXS
+                                                    @else
+                                                        @foreach($paquete->paquete_precios as $pqt_precio)
+                                                            @if($pqt_precio->personas_s>0)
+                                                                <span class="text-warning">SINGLE</span>
+                                                            @endif
+                                                            @if($pqt_precio->personas_d>0)
+                                                                   | <span class="text-warning">DOBLE</span>
+                                                                @endif
+                                                            @if($pqt_precio->personas_m>0)
+                                                                   | <span class="text-warning">MATRIMONIAL</span>
+                                                                @endif
+                                                            @if($pqt_precio->personas_t>0)
+                                                                   | <span class="text-warning">TRIPLE</span>
+                                                                @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>{{\Carbon\Carbon::parse($cliente->fechanacimiento)->age }} años</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-responsive color-borde">
                             <thead>
                             <tr>
                                 <th class="text-center" width="50px">DIA</th>
@@ -1330,6 +1380,7 @@
                                 <th class="text-center" width="60px">PROVEEDOR</th>
                                 <th class="text-center" width="60px">HOTEL</th>
                                 <th class="text-center" width="60px">OBSERVACIONES</th>
+                                <th class="text-center" width="60px">CONF.</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -1464,46 +1515,95 @@
 
                                                         @if($servicios->servicio->grupo=='MOVILID')
                                                             @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
-                                                                    <i class="fa fa-bus text-warning" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                                    <i class="fa fa-bus text-warning" aria-hidden="true"></i> {{$proveedor_serv->nombre_comercial}}
                                                             @endforeach
                                                         @endif
                                                         @if($servicios->servicio->grupo=='REPRESENT')
                                                             @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
-                                                                    <i class="fa fa-users text-success" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                                    <i class="fa fa-users text-success" aria-hidden="true"></i> {{$proveedor_serv->nombre_comercial}}
                                                             @endforeach
                                                         @endif
                                                         @if($servicios->servicio->grupo=='TOURS')
                                                             @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
-                                                                    <i class="fa fa-map-o text-info" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                                    <i class="fa fa-map-o text-info" aria-hidden="true"></i> {{$proveedor_serv->nombre_comercial}}
                                                             @endforeach
                                                         @endif
                                                     </td>
+                                                        @if($primera_coincidencia==0)
+                                                            <td class="{{$color}}"></td>
+                                                        @endif
                                                     @else
                                                         <td @if($primera_coincidencia==1)  class="{{$color}}" @else class="{{$color}}" @endif></td>
                                                     @endif
-                                                    <td @if($recorrido_hotel==1) rowspan="{{$nro_filas_hotel}}" class="{{$color}}" @else class="hide" @endif>
+                                                    <td valign="middle" @if($recorrido_hotel==1) rowspan="{{$nro_filas_hotel}}" class="{{$color}} text-center" @else class="hide" @endif>
                                                         @foreach($itinerario->hotel as $hotel)
                                                             @foreach($proveedores->where('id',$hotel->proveedor_id)  as $proveedor_serv)
-                                                                <i class="fa fa-building text-primary" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
+                                                                <i class="fa fa-building text-primary" aria-hidden="true"></i> {{$proveedor_serv->nombre_comercial}}
                                                             @endforeach
                                                         @endforeach
                                                     </td>
-                                                    @if($servicios->servicio->grupo=='FOOD1' ||$servicios->servicio->grupo=='REPRESENT' )
-                                                        <td class="{{$color}}">
-                                                            @if($servicios->servicio->grupo=='FOOD')
-                                                                @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
-                                                                   <i class="fa fa-cutlery text-danger" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
-                                                                @endforeach
-                                                            @endif
-                                                            @if($servicios->servicio->grupo=='REPRESENT')
-                                                                @foreach($proveedores->where('id',$servicios->proveedor_id)  as $proveedor_serv)
-                                                                   <i class="fa fa-users text-success" aria-hidden="true"></i> {{$proveedor_serv->razon_social}}
-                                                                @endforeach
+                                                    @if($servicios->servicio->grupo=='TOURS'||($servicios->servicio->grupo=='MOVILID'&&$servicios->servicio->clase!='BOLETO')||$servicios->servicio->grupo=='REPRESENT')
+                                                        <td @if($primera_coincidencia==1)  class="{{$color}}" @else class="hide" @endif>
+                                                            <span id="obs_{{$servicios->id}}">{{$servicios->observacion_hoja_ruta}}</span>
+                                                            <a href="#!" id="boton_prove_costo_{{$servicios->id}}" data-toggle="modal" data-target="#myModal_observaciones_r_{{$servicios->id}}">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                            <div class="modal fade" id="myModal_observaciones_r_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <form id="ingresar_observaciones_hoja_path_{{$servicios->id}}" action="{{route('asignar_proveedor_observaciones_path')}}" method="post">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                <h4 class="modal-title" id="myModalLabel">
+                                                                                    Ingrese sus observaciones
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div class="modal-body clearfix">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group col-md-9">
+                                                                                        <label for="txt_name">Observacion</label>
+                                                                                        <textarea class="form-control" name="txt_observacion_hoja_ruta" id="txt_observacion_hoja_ruta_{{$servicios->id}}" cols="40" rows="10">
+                                                                                            {{$servicios->observacion_hoja_ruta}}
+                                                                                        </textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <b id="rpt_book_hoja_costo_{{$servicios->id}}" class="text-success text-14"></b>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                {{csrf_field()}}
+                                                                                <input type="hidden" name="id" value="{{$servicios->id}}">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                                <button type="button" class="btn btn-primary" onclick="Guardar_observacion_hoja({{$servicios->id}})">Guardar observacion</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    @endif
+                                                    @if($primera_coincidencia==0)
+                                                        <td class="{{$color}}"></td>
+                                                    @endif
+
+                                                    @if($servicios->servicio->grupo=='TOURS'||($servicios->servicio->grupo=='MOVILID'&&$servicios->servicio->clase!='BOLETO')||$servicios->servicio->grupo=='REPRESENT')
+                                                        <td @if($primera_coincidencia==1)  class="{{$color}} text-center" @else class="hide" @endif>
+                                                            @if($servicios->confimacion_envio)
+                                                                <input type="hidden" id="estado_send_{{$servicios->id}}" value="0">
+                                                                <button id="confirm_send_{{$servicios->id}}" type="button" class="btn btn-success" onclick="confirma_envio_servicio_reservas('{{$servicios->id}}','0')">
+                                                                    <i class="fa fa-send" aria-hidden="true"></i>
+                                                                </button>
+                                                            @else
+                                                                <input type="hidden" id="estado_send_{{$servicios->id}}" value="1">
+                                                                <button id="confirm_send_{{$servicios->id}}" type="button" class="btn btn-unset" onclick="confirma_envio_servicio_reservas('{{$servicios->id}}','1')">
+                                                                    <i class="fa fa-send" aria-hidden="true"></i>
+                                                                </button>
                                                             @endif
                                                         </td>
-                                                    @else
-                                                        <td class="{{$color}}" >
-                                                        </td>
+                                                    @endif
+                                                    @if($primera_coincidencia==0)
+                                                        <td class="{{$color}}"></td>
                                                     @endif
                                                 </tr>
                                             @endif

@@ -121,6 +121,8 @@ class ProveedorController extends Controller
         $txt_localizacion_cod=substr($txt_localizacion,0,1);
         $txt_ruc=$request->input('txt_ruc_'.$nro_grupo);
         $txt_razon_social=strtoupper($request->input('txt_razon_social_'.$nro_grupo));
+        $txt_nombre_comercial=strtoupper($request->input('txt_nombre_comercial_'.$nro_grupo));
+
         $txt_direccion=$request->input('txt_direccion_'.$nro_grupo);
         $txt_telefono=$request->input('txt_telefono_'.$nro_grupo);
         $txt_celular=$request->input('txt_celular_'.$nro_grupo);
@@ -136,6 +138,7 @@ class ProveedorController extends Controller
         $proveedor=new Proveedor();
         $proveedor->ruc=$txt_ruc;
         $proveedor->razon_social=$txt_razon_social;
+        $proveedor->nombre_comercial=$txt_nombre_comercial;
         $proveedor->direccion=$txt_direccion;
         $proveedor->telefono=$txt_telefono;
         $proveedor->celular=$txt_celular;
@@ -169,6 +172,7 @@ class ProveedorController extends Controller
         $txt_localizacion_cod=substr($txt_localizacion,0,1);
         $txt_ruc=$request->input('txt_ruc_');
         $txt_razon_social=strtoupper($request->input('txt_razon_social_'));
+        $txt_nombre_comercial=strtoupper($request->input('txt_nombre_comercial_'));
         $txt_direccion=$request->input('txt_direccion_');
         $txt_telefono=$request->input('txt_telefono_');
         $txt_celular=$request->input('txt_celular_');
@@ -183,6 +187,7 @@ class ProveedorController extends Controller
         $proveedor=Proveedor::findOrFail($id);
         $proveedor->ruc=$txt_ruc;
         $proveedor->razon_social=$txt_razon_social;
+        $proveedor->nombre_comercial=$txt_nombre_comercial;
         $proveedor->direccion=$txt_direccion;
         $proveedor->telefono=$txt_telefono;
         $proveedor->celular=$txt_celular;

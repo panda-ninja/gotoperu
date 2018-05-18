@@ -103,6 +103,12 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
+                                                    <label for="txt_type">Nombre comercial</label>
+                                                    <input type="text" class="form-control" id="txt_nombre_comercial_{{$in_pos}}" name="txt_nombre_comercial_{{$in_pos}}" placeholder="Nombre comercial">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
                                                     <label for="txt_precio">Direccion</label>
                                                     <input type="text" class="form-control" id="txt_direccion_{{$in_pos}}" name="txt_direccion_{{$in_pos}}" placeholder="Direccion">
                                                 </div>
@@ -224,6 +230,7 @@
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
+                                        <th>Nombre comercial</th>
                                         @if($tipoServicio_=='HOTELS')
                                         <th class="hide">Cat</th>
                                         @endif
@@ -241,6 +248,7 @@
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
+                                        <th>Nombre comercial</th>
                                         @if($tipoServicio_=='HOTELS')
                                         <th class="hide">Cat</th>
                                         @endif
@@ -260,6 +268,7 @@
                                                 <td>{{$provider->codigo}}</td>
                                                 <td>{{$provider->ruc}}</td>
                                                 <td>{{$provider->razon_social}}</td>
+                                                <td>{{$provider->nombre_comercial}}</td>
                                                 @if($tipoServicio_=='HOTELS')
                                                 <td class="text-warning hide"><b>{{$provider->categoria}}</b> <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></td>
                                                 @endif
@@ -374,6 +383,12 @@
                                                                 <div class="form-group">
                                                                     <label for="txt_type">Razon social</label>
                                                                     <input type="text" class="form-control" id="txt_razon_social_" name="txt_razon_social_" placeholder="Razon social" value="<?php if($tipoServicio_==$provider->grupo) echo $provider->razon_social;?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="txt_type">Nombre comercial</label>
+                                                                    <input type="text" class="form-control" id="txt_nombre_comercial_" name="txt_nombre_comercial_" placeholder="nombre comercial" value="<?php if($tipoServicio_==$provider->grupo) echo $provider->nombre_comercial;?>">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">

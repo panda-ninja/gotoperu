@@ -28178,3 +28178,80 @@ function eliminar_servicio_reservas(id,servicio) {
 
     })
 }
+function Guardar_observacion_hoja(id) {
+    // $('#asignar_proveedor_path_'+id).submit(function() {
+    // Enviamos el formulario usando AJAX
+    var obs=$('#txt_observacion_hoja_ruta_'+id).val();
+    if(obs.trim()==''){
+        $('#rpt_book_hoja_costo_'+id).html('Ingrese su observacion');
+        return false;
+    }
+    var prove='';
+    $.ajax({
+        type: 'POST',
+        url: $('#ingresar_observaciones_hoja_path_'+id).attr('action'),
+        data: $('#ingresar_observaciones_hoja_path_'+id).serialize(),
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            if(data==1){
+                $('#rpt_book_hoja_costo_'+id).html('Observacion guardada correctamente!');
+                $('#obs_'+id).html(obs);
+            }
+            else{
+                $('#rpt_book_hoja_costo_'+id).removeClass('text-success');
+                $('#rpt_book_hoja_costo_'+id).addClass('text-danger');
+                $('#rpt_book_hoja_costo_'+id).html('Error al guardar las observaciones !');
+            }
+        }
+    })
+    return false;
+    // });
+}
+function confirma_envio_servicio_reservas(id,estado1) {
+    // alert('holaaa');
+    var estado=$("#estado_send_"+id).val();
+    var msj="¿Estas seguro que quiere confirmar el envio?";
+    if(estado==0)
+        msj="¿Estas seguro que quiere revertir el envio?";
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: msj,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/book/servicio/envio', 'id='+id+'&estado='+estado, function(data){
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#servicio_"+id).fadeOut( "low");
+                if(estado==1){
+                    // pintamos de verde
+                    $("#estado_send_"+id).val('0');
+                    $("#confirm_send_"+id).removeClass('btn-unset');
+                    $("#confirm_send_"+id).addClass('btn-success');
+                }
+                else if(estado==0){
+                    // pintamos de unset
+                    $("#estado_send_"+id).val('1');
+                    $("#confirm_send_"+id).removeClass('btn-success');
+                    $("#confirm_send_"+id).addClass('btn-unset');
+                }
+                swal(
+                    'Mensaje del sistema',
+                    'Se realiazo la operacion con exito',
+                    'success'
+                )
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
+}

@@ -76,6 +76,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
+        $clientes1=Cliente::get();
         $cotizacion=Cotizacion::FindOrFail($id);
         $productos=M_Producto::get();
         $proveedores=Proveedor::get();
@@ -88,7 +89,7 @@ class BookController extends Controller
         }
         $ItinerarioServiciosAcumPagos=ItinerarioServiciosAcumPago::where('paquete_cotizaciones_id',$pqt_id)->get();
         $ItinerarioHotleesAcumPagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$pqt_id)->get();
-        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos]);
+        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor,'m_servicios'=>$m_servicios,'ItinerarioServiciosAcumPagos'=>$ItinerarioServiciosAcumPagos,'ItinerarioHotleesAcumPagos'=>$ItinerarioHotleesAcumPagos,'clientes1'=>$clientes1]);
     }
 
     /**
@@ -197,7 +198,7 @@ class BookController extends Controller
             return 1;
         else
             return 0;
- }
+    }
     public function confirmar(Request $request){
         $cotizacion_id=$request->input('cotizacion_id');
         $coti=Cotizacion::FindOrFail($cotizacion_id);
@@ -510,6 +511,27 @@ class BookController extends Controller
         $id = $request->input('id');
         $servicio =ItinerarioServicios::FindOrFail($id);
         if ($servicio->delete())
+            return 1;
+        else
+            return 0;
+    }
+    function asignar_proveedor_observacion(Request $request){
+        $txt_observacion_hoja_ruta=$request->input('txt_observacion_hoja_ruta');
+        $id=$request->input('id');
+        $iti=ItinerarioServicios::FindOrFail($id);
+        $iti->observacion_hoja_ruta=$txt_observacion_hoja_ruta;
+        if($iti->save())
+            return 1;
+        else
+            return 0;
+    }
+    public function envio_servicio_reservas(Request $request)
+    {
+        $id = $request->input('id');
+        $estado = $request->input('estado');
+        $servicio =ItinerarioServicios::FindOrFail($id);
+        $servicio->confimacion_envio=$estado;
+        if ($servicio->save())
             return 1;
         else
             return 0;

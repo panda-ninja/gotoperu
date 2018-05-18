@@ -881,3 +881,11 @@ Route::post('admin/book/servicio/delete', [
     'uses' => 'BookController@eliminar_servicio_reservas',
     'as' => 'eliminar_reservas_servicio_path',
 ]);
+Route::post('/admin/book-observaciones/id', [
+    'uses' => 'BookController@asignar_proveedor_observacion',
+    'as' => 'asignar_proveedor_observaciones_path',
+]);
+Route::post('admin/book/servicio/envio', [
+    'uses' => 'BookController@envio_servicio_reservas',
+    'as' => 'envio_reservas_servicio_path',
+]);
