@@ -226,7 +226,7 @@
                                 <table id="tb_{{$tipoServicio_}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        {{--<th>Location</th>--}}
+                                        <th>Location</th>
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
@@ -244,7 +244,7 @@
                                     </thead>
                                     <tfoot>
                                     <tr>
-                                        {{--<th>Location</th>--}}
+                                        <th>Location</th>
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
@@ -264,7 +264,7 @@
                                     @foreach($providers as $provider)
                                         @if($tipoServicio_==$provider->grupo)
                                             <tr id="lista_provider_{{$provider->id}}">
-                                                {{--<td>{{$provider->localizacion}}</td>--}}
+                                                <td>{{$provider->localizacion}}</td>
                                                 <td>{{$provider->codigo}}</td>
                                                 <td>{{$provider->ruc}}</td>
                                                 <td>{{$provider->razon_social}}</td>

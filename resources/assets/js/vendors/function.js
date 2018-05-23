@@ -3081,12 +3081,40 @@ function pagar_entrada(id,valor){
             console.log('data:'+data);
             if(data==1) {
                 $('#btn_pagar_'+id).addClass('hide');
+                $('#btn_revertir_'+id).removeClass('hide');
                 swal(
                     'Genial...',
                     'El pago se guardo correctamente!',
                     'success'
                 )
                 $('#check_'+id).removeClass('hide');
+
+                $('#fecha_'+id).removeClass('bg-danger');
+                $('#fecha_'+id).addClass('bg-success');
+
+                $('#clase_'+id).removeClass('bg-danger');
+                $('#clase_'+id).addClass('bg-success');
+
+                $('#servicio_'+id).removeClass('bg-danger');
+                $('#servicio_'+id).addClass('bg-success');
+
+                $('#ad_'+id).removeClass('bg-danger');
+                $('#ad_'+id).addClass('bg-success');
+
+                $('#pax_'+id).removeClass('bg-danger');
+                $('#pax_'+id).addClass('bg-success');
+
+                $('#ads_'+id).removeClass('bg-danger');
+                $('#ads_'+id).addClass('bg-success');
+
+                $('#total_'+id).removeClass('bg-danger');
+                $('#total_'+id).addClass('bg-success');
+
+                $('#categoria_'+id).removeClass('bg-danger');
+                $('#categoria_'+id).addClass('bg-success');
+
+                $('#estado_'+id).removeClass('bg-danger');
+                $('#estado_'+id).addClass('bg-success');
             }
 
         }
@@ -3468,4 +3496,133 @@ function confirma_envio_servicio_reservas(id,estado1) {
         });
 
     })
+}
+function verificar_reservados(no_rservados){
+
+    $('#form_nuevo_pqt').submit(function(){
+
+
+    });
+}
+// function verificar_reservados(no_rservados){
+//
+//         if (no_rservados > 0) {
+//
+//             swal(
+//                 'Mensaje del sistema',
+//                 'Ups!. Hay ' + no_rservados + ' entradas no reservadas, reservas debe de realizar esta opracion para que se pueda pagar',
+//                 'warning'
+//             )
+//             return false;
+//         }
+//         swal({
+//             title: 'MENSAJE DEL SISTEMA',
+//             text: "¿Estas seguro de pagar todas las entradas?",
+//             type: 'question',
+//             showCancelButton: true,
+//             confirmButtonColor: '#3085d6',
+//             cancelButtonColor: '#d33',
+//             confirmButtonText: 'Yes'
+//         }).then(function () {
+//             $('#form_pagar_entradas_full').submit(function() {});
+//         })
+//
+// }
+function revertir_pago_entrada(id,valor){
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de revertir el pago?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '../../../../contabilidad/entradas/revertir',
+            data: 'id='+id+'&valor='+valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                console.log('data:'+data);
+                if(data==1) {
+                    $('#btn_pagar_'+id).removeClass('hide');
+                    $('#btn_revertir_'+id).addClass('hide');
+
+                    swal(
+                        'Genial...',
+                        'El pago se revirtio correctamente!',
+                        'success'
+                    )
+                    $('#check_'+id).addClass('hide');
+
+                    $('#fecha_'+id).removeClass('bg-success');
+                    $('#fecha_'+id).addClass('bg-danger');
+
+                    $('#clase_'+id).removeClass('bg-success');
+                    $('#clase_'+id).addClass('bg-danger');
+
+                    $('#servicio_'+id).removeClass('bg-success');
+                    $('#servicio_'+id).addClass('bg-danger');
+
+                    $('#ad_'+id).removeClass('bg-success');
+                    $('#ad_'+id).addClass('bg-danger');
+
+                    $('#pax_'+id).removeClass('bg-success');
+                    $('#pax_'+id).addClass('bg-danger');
+
+                    $('#ads_'+id).removeClass('bg-success');
+                    $('#ads_'+id).addClass('bg-danger');
+
+                    $('#total_'+id).removeClass('bg-success');
+                    $('#total_'+id).addClass('bg-danger');
+
+                    $('#categoria_'+id).removeClass('bg-success');
+                    $('#categoria_'+id).addClass('bg-danger');
+
+                    $('#estado_'+id).removeClass('bg-success');
+                    $('#estado_'+id).addClass('bg-danger');
+                }
+
+            }
+        })
+    })
+}
+
+function guardar_cta() {
+    // alert('holaaa');
+    // swal({
+    //     title: 'MENSAJE DEL SISTEMA',
+    //     text: "¿Estas seguro de eliminar el destino "+destino+"?",
+    //     type: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Yes'
+    // }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/destination/delete', 'id='+id, function(data) {
+            if(data==1){
+                swal(
+                    'Mensaje del sistema',
+                    'Se guardo el nro correctamente,
+                    'success'
+                )
+                // $("#lista_destinos_"+id).remove();
+                // $("#lista_destinos_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
+
+    // })
 }

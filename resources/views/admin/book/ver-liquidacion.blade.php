@@ -24,15 +24,15 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <table  class="table table-bordered table-striped table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th>FECHA</th>
-                            <th>CLASE</th>
-                            <th>SERVICIO</th>
-                            <th>AD</th>
-                            <th>PAX</th>
-                            <th>$ AD</th>
-                            <th>TOTAL</th>
-                            <th>CATEGORIA</th>
-                            <th>ESTADO</th>
+                            <th width="75px">FECHA</th>
+                            <th width="60px">CLASE</th>
+                            <th width="250px">SERVICIO</th>
+                            <th width="50px">AD</th>
+                            <th width="180px">PAX</th>
+                            <th width="50px">$ AD</th>
+                            <th width="50px">TOTAL</th>
+                            <th width="60px">CATEGORIA</th>
+                            <th width="300px">ESTADO</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,37 +51,41 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                 @endphp
                                             @endif
                                             <tr>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}</td>
-                                                <td>{{$servicio->clase}}</td>
-                                                <td>{{$itinerario_servicio->nombre}}</td>
-                                                <td>{{$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$servicio->clase}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$itinerario_servicio->nombre}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
                                                         {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
                                                     @endforeach
                                                 </td>
-                                                <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     ${{$itinerario_servicio->precio_proveedor}}
                                                     @php
                                                         $total_BTG+=$itinerario_servicio->precio_proveedor;
                                                     @endphp
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($liquidacion->categorizado=='S')
                                                         {{'Sin factura'}}
                                                     @elseif($liquidacion->categorizado=='C')
                                                     {{'Con factura'}}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($itinerario_servicio->liquidacion==1)
                                                         <i class="fa fa-clock-o text-unset fa-2x"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
                                                     @endif
+                                                    @if($itinerario_servicio->precio_proveedor==0 || $itinerario_servicio->precio_proveedor=='')
+                                                            <span class="text-danger">Falta asignar proveedor para realizar el pago</span>
+                                                    @endif
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -103,15 +107,15 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <table class="table table-bordered table-striped table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th>FECHA</th>
-                            <th>CLASE</th>
-                            <th>SERVICIO</th>
-                            <th>AD</th>
-                            <th>PAX</th>
-                            <th>$ AD</th>
-                            <th>TOTAL</th>
-                            <th>CATEGORIA</th>
-                            <th>ESTADO</th>
+                            <th width="75px">FECHA</th>
+                            <th width="60px">CLASE</th>
+                            <th width="250px">SERVICIO</th>
+                            <th width="50px">AD</th>
+                            <th width="180px">PAX</th>
+                            <th width="50px">$ AD</th>
+                            <th width="50px">TOTAL</th>
+                            <th width="60px">CATEGORIA</th>
+                            <th width="300px">ESTADO</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -129,37 +133,40 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                 @endphp
                                             @endif
                                             <tr>
-                                            <td>
+                                            <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                 <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                 {{fecha_peru($itinerario_cotizacion->fecha)}}
                                             </td>
-                                            <td>{{$servicio->clase}}</td>
-                                                <td>{{$itinerario_servicio->nombre}}</td>
-                                            <td>{{$liquidacion->nropersonas}}</td>
-                                            <td>
+                                            <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$servicio->clase}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$itinerario_servicio->nombre}}</td>
+                                            <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$liquidacion->nropersonas}}</td>
+                                            <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                             @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
                                             {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
                                             @endforeach
                                             </td>
-                                            <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
-                                            <td>
+                                            <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                            <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                 ${{$itinerario_servicio->precio_proveedor}}
                                                 @php
                                                     $total_CAT+=$itinerario_servicio->precio_proveedor;
                                                 @endphp
                                             </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($liquidacion->categorizado=='S')
                                                         {{'Sin factura'}}
                                                     @elseif($liquidacion->categorizado=='C')
                                                     {{'Con factura'}}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($itinerario_servicio->liquidacion==1)
                                                         <i class="fa fa-clock-o text-unset fa-2x"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @endif
+                                                    @if($itinerario_servicio->precio_proveedor==0 || $itinerario_servicio->precio_proveedor=='')
+                                                            <span class="text-danger">Falta asignar proveedor para realizar el pago</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -182,15 +189,15 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <table class="table table-bordered table-striped table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th>FECHA</th>
-                            <th>CLASE</th>
-                            <th>SERVICIO</th>
-                            <th>AD</th>
-                            <th>PAX</th>
-                            <th>$ AD</th>
-                            <th>TOTAL</th>
-                            <th>CATEGORIA</th>
-                            <th>ESTADO</th>
+                            <th width="75px">FECHA</th>
+                            <th width="60px">CLASE</th>
+                            <th width="250px">SERVICIO</th>
+                            <th width="50px">AD</th>
+                            <th width="180px">PAX</th>
+                            <th width="50px">$ AD</th>
+                            <th width="50px">TOTAL</th>
+                            <th width="60px">CATEGORIA</th>
+                            <th width="300px">ESTADO</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -208,37 +215,40 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                 @endphp
                                             @endif
                                             <tr>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
-                                                <td>{{$servicio->clase}}</td>
-                                                <td>{{$itinerario_servicio->nombre}}</td>
-                                                <td>{{$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$servicio->clase}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$itinerario_servicio->nombre}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
                                                         {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
                                                     @endforeach
                                                 </td>
-                                                <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     ${{$itinerario_servicio->precio_proveedor}}
                                                     @php
                                                         $total_KORI+=$itinerario_servicio->precio_proveedor;
                                                     @endphp
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($liquidacion->categorizado=='S')
                                                         {{'Sin factura'}}
                                                     @elseif($liquidacion->categorizado=='C')
                                                     {{'Con factura'}}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($itinerario_servicio->liquidacion==1)
                                                         <i class="fa fa-clock-o text-unset fa-2x"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @endif
+                                                    @if($itinerario_servicio->precio_proveedor==0 || $itinerario_servicio->precio_proveedor=='')
+                                                            <span class="text-danger">Falta asignar proveedor para realizar el pago</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -261,15 +271,15 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <table class="table table-bordered table-striped table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th>FECHA</th>
-                            <th>CLASE</th>
-                            <th>SERVICIO</th>
-                            <th>AD</th>
-                            <th>PAX</th>
-                            <th>$ AD</th>
-                            <th>TOTAL</th>
-                            <th>CATEGORIA</th>
-                            <th>ESTADO</th>
+                            <th width="75px">FECHA</th>
+                            <th width="60px">CLASE</th>
+                            <th width="250px">SERVICIO</th>
+                            <th width="50px">AD</th>
+                            <th width="180px">PAX</th>
+                            <th width="50px">$ AD</th>
+                            <th width="50px">TOTAL</th>
+                            <th width="60px">CATEGORIA</th>
+                            <th width="300px">ESTADO</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -287,37 +297,40 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                 @endphp
                                             @endif
                                             <tr>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
-                                                <td>{{$servicio->clase}}</td>
-                                                <td>{{$itinerario_servicio->nombre}}</td>
-                                                <td>{{$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$servicio->clase}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$itinerario_servicio->nombre}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
                                                         {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
                                                     @endforeach
                                                 </td>
-                                                <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     ${{$itinerario_servicio->precio_proveedor}}
                                                     @php
                                                         $total_MAPI+=$itinerario_servicio->precio_proveedor;
                                                     @endphp
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($liquidacion->categorizado=='S')
                                                         {{'Sin factura'}}
                                                     @elseif($liquidacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($itinerario_servicio->liquidacion==1)
                                                         <i class="fa fa-clock-o text-unset fa-2x"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @endif
+                                                    @if($itinerario_servicio->precio_proveedor==0 || $itinerario_servicio->precio_proveedor=='')
+                                                            <span class="text-danger">Falta asignar proveedor para realizar el pago</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -340,15 +353,15 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <table class="table table-bordered table-striped table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th>FECHA</th>
-                            <th>CLASE</th>
-                            <th>SERVICIO</th>
-                            <th>AD</th>
-                            <th>PAX</th>
-                            <th>$ AD</th>
-                            <th>TOTAL</th>
-                            <th>CATEGORIA</th>
-                            <th>ESTADO</th>
+                            <th width="75px">FECHA</th>
+                            <th width="60px">CLASE</th>
+                            <th width="250px">SERVICIO</th>
+                            <th width="50px">AD</th>
+                            <th width="180px">PAX</th>
+                            <th width="50px">$ AD</th>
+                            <th width="50px">TOTAL</th>
+                            <th width="60px">CATEGORIA</th>
+                            <th width="300px">ESTADO</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -366,37 +379,40 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                 @endphp
                                             @endif
                                             <tr>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
-                                                <td>{{$servicio->clase}}</td>
-                                                <td>{{$itinerario_servicio->nombre}}</td>
-                                                <td>{{$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$servicio->clase}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$itinerario_servicio->nombre}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
                                                         {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
                                                     @endforeach
                                                 </td>
-                                                <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     ${{$itinerario_servicio->precio_proveedor}}
                                                     @php
                                                         $total_OTROS+=$itinerario_servicio->precio_proveedor;
                                                     @endphp
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($liquidacion->categorizado=='S')
                                                         {{'Sin factura'}}
                                                     @elseif($liquidacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($itinerario_servicio->liquidacion==1)
                                                         <i class="fa fa-clock-o text-unset fa-2x"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @endif
+                                                    @if($itinerario_servicio->precio_proveedor==0 || $itinerario_servicio->precio_proveedor=='')
+                                                            <span class="text-danger">Falta asignar proveedor para realizar el pago</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -419,15 +435,15 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <table class="table table-bordered table-striped table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th>FECHA</th>
-                            <th>CLASE</th>
-                            <th>SERVICIO</th>
-                            <th>AD</th>
-                            <th>PAX</th>
-                            <th>$ AD</th>
-                            <th>TOTAL</th>
-                            <th>CATEGORIA</th>
-                            <th>ESTADO</th>
+                            <th width="75px">FECHA</th>
+                            <th width="60px">CLASE</th>
+                            <th width="250px">SERVICIO</th>
+                            <th width="50px">AD</th>
+                            <th width="180px">PAX</th>
+                            <th width="50px">$ AD</th>
+                            <th width="50px">TOTAL</th>
+                            <th width="60px">CATEGORIA</th>
+                            <th width="300px">ESTADO</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -445,37 +461,40 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                                                 @endphp
                                             @endif
                                             <tr>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     <input type="hidden" name="servicio_liquidacion[]" value="{{$itinerario_servicio->id}}">
                                                     {{fecha_peru($itinerario_cotizacion->fecha)}}
                                                 </td>
-                                                <td>{{$servicio->clase}}</td>
-                                                <td>{{$itinerario_servicio->nombre}}</td>
-                                                <td>{{$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$servicio->clase}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$itinerario_servicio->nombre}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>{{$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @foreach($liquidacion->cotizaciones_cliente as $cotizaciones_cliente)
                                                         {{$cotizaciones_cliente->cliente->nombres}} x {{$liquidacion->nropersonas}}
                                                     @endforeach
                                                 </td>
-                                                <td>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>${{$itinerario_servicio->precio_proveedor/$liquidacion->nropersonas}}</td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     ${{$itinerario_servicio->precio_proveedor}}
                                                     @php
                                                         $total_BUSES+=$itinerario_servicio->precio_proveedor;
                                                     @endphp
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger" @endif>
                                                     @if($liquidacion->categorizado=='S')
                                                         {{'Sin factura'}}
                                                     @elseif($liquidacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if($itinerario_servicio->liquidacion==2) class="bg-success"  @else class="bg-danger"  @endif>
                                                     @if($itinerario_servicio->liquidacion==1)
                                                         <i class="fa fa-clock-o text-unset fa-2x"></i>
                                                     @elseif($itinerario_servicio->liquidacion==2)
                                                         <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    @endif
+                                                    @if($itinerario_servicio->precio_proveedor==0 || $itinerario_servicio->precio_proveedor=='')
+                                                            <span class="text-danger">Falta asignar proveedor para realizar el pago</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -521,4 +540,10 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
             </form>
         </div>
     </div>
+    <script>
+        $(function () {
+            $('#propover_exam').popover()
+        })
+    </script>
+
 @stop

@@ -889,3 +889,11 @@ Route::post('admin/book/servicio/envio', [
     'uses' => 'BookController@envio_servicio_reservas',
     'as' => 'envio_reservas_servicio_path',
 ]);
+Route::post('admin/contabilidad/entradadas/pagos-full', [
+    'uses' => 'ContabilidadController@pagos_entradas_full',
+    'as' => 'contabilidad_entradas_pagar_todo_path',
+]);
+Route::post('/admin/contabilidad/entradas/revertir',[
+    'uses' => 'ContabilidadController@entrada_revertir',
+    'as' => 'contabilidad_entrada_revertir_path',
+]);

@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($liquidaciones->where('estado',1)->sortby('desde') as $liquidacion)
+                @foreach($liquidaciones->where('estado',1)->sortByDesc('ini') as $liquidacion)
                     @php
                         $total=0;
                         $total_pagado=0;
@@ -73,7 +73,7 @@
                         @endforeach
                     @endforeach
                     <tr>
-                        <td>{{fecha_peru($liquidacion->fin)}}</td>
+                        <td>{{fecha_peru($liquidacion->ini)}}</td>
                         <td>{{fecha_peru($liquidacion->fin)}}</td>
                         <td>
                             @foreach($users->where('id',$liquidacion->user_id) as $user)

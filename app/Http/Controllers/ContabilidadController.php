@@ -732,18 +732,12 @@ class ContabilidadController extends Controller
     public function entrada_pagar(Request $request)
     {
         $id=$request->input('id');
-//        return $id;
-        $valor=$request->input('valor');
-
         $isap=ItinerarioServicios::FindOrFail($id);
         $isap->liquidacion=2;
-//        $isap->a_cuenta=$valor;
-//        $isap->estado=-1;
         if($isap->save())
             return 1;
         else
             return 0;
-
     }
     public function pagar_servicios_conta_pagos($idcotizacion, $Iti_Serv_Acum_Pago,$proveedor_id)
     {
@@ -1167,5 +1161,35 @@ class ContabilidadController extends Controller
 
         return view('admin.contabilidad.lista-fecha-hotel-filtro',compact(['proveedor','hoteles', 'pagos', 'cotizacion', 'ini', 'fin']));
     }
+    public function pagos_entradas_full(Request $request)
+    {
+        $ini = $request->input('desde');
+        $fin = $request->input('hasta');
+        $liquidaciones = Cotizacion::get();
 
+        foreach ($liquidaciones->sortBy('fecha') as $liquidacion){
+            foreach ($liquidacion->paquete_cotizaciones->where('estado', 2) as $paquete_cotizacion) {
+                foreach ($paquete_cotizacion->itinerario_cotizaciones->where('fecha', '>=', $ini)->where('fecha', '<=', $fin)->sortBy('fecha') as $itinerario_cotizacion) {
+                    foreach ($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio) {
+                        if($itinerario_servicio->precio_proveedor>0 ||$itinerario_servicio->precio_proveedor!=''){
+                            $itinerario_servicio_temp = ItinerarioServicios::FindOrFail($itinerario_servicio->id);
+                            $itinerario_servicio_temp->liquidacion=2;
+                            $itinerario_servicio_temp->save();
+                        }
+                    }
+                }
+            }
+        }
+        return redirect()->route('contabilidad_ver_liquidacion_path',[$ini,$fin]);
+    }
+    public function entrada_revertir(Request $request)
+    {
+        $id=$request->input('id');
+        $isap=ItinerarioServicios::FindOrFail($id);
+        $isap->liquidacion=1;
+        if($isap->save())
+            return 1;
+        else
+            return 0;
+    }
 }

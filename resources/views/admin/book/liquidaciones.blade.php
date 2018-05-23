@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($liquidaciones->where('estado',1)->sortby('desde') as $liquidacion)
+                @foreach($liquidaciones->where('estado',1)->sortByDesc('ini') as $liquidacion)
                     @php
                         $total=0;
                         $total_pagado=0;
@@ -38,7 +38,7 @@
                     @endphp
                     @foreach($cotizaciones as $cotizacion)
                         @foreach($cotizacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizaciones)
-                            @foreach($paquete_cotizaciones->itinerario_cotizaciones->where('fecha','>=',$liquidacion->ini)->where('fecha','<=',$liquidacion->fin)->sortBy('fecha') as $itinerario_cotizacion)
+                            @foreach($paquete_cotizaciones->itinerario_cotizaciones->where('fecha','>=',$liquidacion->ini)->where('fecha','<=',$liquidacion->fin) as $itinerario_cotizacion)
                                 @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
                                     @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id) as $serv)
                                         @if($serv->clase=='BTG' || $serv->clase=='CAT'||$serv->clase=='KORI'||$serv->clase=='MAPI'||$serv->clase=='OTROS')
@@ -73,7 +73,7 @@
                         @endforeach
                     @endforeach
                     <tr>
-                        <td>{{fecha_peru($liquidacion->fin)}}</td>
+                        <td>{{fecha_peru($liquidacion->ini)}}</td>
                         <td>{{fecha_peru($liquidacion->fin)}}</td>
                         <td>
                             @foreach($users->where('id',$liquidacion->user_id) as $user)
