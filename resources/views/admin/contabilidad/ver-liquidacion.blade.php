@@ -9,9 +9,10 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li>Reservas</li>
-            <li>Liquidacion</li>
-            <li class="active">Ver Liquidacion</li>
+            <li>Contabilidad</li>
+            <li>Operaciones</li>
+            <li>Pagos pendientes</li>
+            <li class="active">Entrances</li>
         </ol>
     </div>
     <div class="panel panel-default">
@@ -22,11 +23,11 @@
                 <hr>
             </div>
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#confactura">CON FACTURA</a></li>
-                <li><a data-toggle="tab" href="#sinfactura">SIN FACTURA</a></li>
+                <li @if($tipo_cheque=='C')class="active" @endif><a data-toggle="tab" href="#confactura">CON FACTURA</a></li>
+                <li @if($tipo_cheque=='S')class="active" @endif><a data-toggle="tab" href="#sinfactura">SIN FACTURA</a></li>
             </ul>
             <div class="tab-content">
-                <div id="confactura" class="tab-pane fade in active">
+                <div id="confactura" class="tab-pane fade @if($tipo_cheque=='C') in active @endif">
                     <div class="col-lg-12">
                         <h4>LIQUIDACION DE BOLETOS TURISTICOS</h4>
                         <table  class="table table-bordered table-striped table-responsive table-hover">
@@ -581,25 +582,38 @@
                         </h2>
                     </div>
                     <div class="col-lg-12 text-right">
-                        <form id="form_pagar_entradas_full" action="{{route('contabilidad_entradas_pagar_todo_path')}}" method="post" >
-                            <div class="col-lg-3 text-left">
-                                <div class="form-group">
-                                    <label for="txt_name">Ingrese el nro de cheque <span class="text-danger">(Cta. Banco de credito)</span></label>
-                                    <input type="text" class="form-control" id="nro_cheque_s" name="nro_cheque_s" required="">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                {{--<form action="">--}}
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div class="form-group">
+                                            <label for="txt_name">Ingrese el nro opreracion <span class="text-danger">(Cta. Banco BCP)</span></label>
+                                            <input type="text" class="form-control" id="nro_cheque_c" name="nro_cheque_c" value="{{$nro_cheque_c}}" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 margin-top-20">
+                                        <button type="submit" class="btn btn-primary btn-lg" onclick="guardar_cta_c()">Guardar Cta</button>
+                                    </div>
                                 </div>
+                                {{--</form>--}}
                             </div>
-                            <div class="col-lg-9">
-                                {{csrf_field()}}
-                                <input type="hidden" name="tipo_pago" value="C">
-                                <input type="hidden" name="desde" value="{{$fecha_ini}}">
-                                <input type="hidden" name="hasta" value="{{$fecha_fin}}">
-                                <button type="submit" class="btn btn-primary btn-lg" onclick="verificar_reservados({{$no_reservados}})">Pagar todo</button>
-
+                            <div class="col-lg-6">
+                                <form id="form_pagar_entradas_full" action="{{route('contabilidad_entradas_pagar_todo_path')}}" method="post" >
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="tipo_pago" value="C">
+                                    <input type="hidden" name="desde" value="{{$fecha_ini}}">
+                                    <input type="hidden" name="hasta" value="{{$fecha_fin}}">
+                                    <input type="hidden" name="id" id="id" value="{{$id}}">
+                                    <input type="hidden" name="s" id="s" value="{{$nro_cheque_s}}">
+                                    <input type="hidden" name="c" id="c" value="{{$nro_cheque_c}}">
+                                    <button type="submit" class="btn btn-primary btn-lg" onclick="verificar_reservados({{$no_reservados}})">Pagar todo</button>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-                <div id="sinfactura" class="tab-pane fade">
+                <div id="sinfactura" class="tab-pane fade @if($tipo_cheque=='S') in active @endif">
                     <div class="col-lg-12">
                         <h4>LIQUIDACION DE BOLETOS TURISTICOS</h4>
                         <table  class="table table-bordered table-striped table-responsive table-hover">
@@ -1160,13 +1174,10 @@
                                     <div class="row">
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <label for="txt_name">Ingrese el nro de cheque <span class="text-danger">(Cta. Banco continental)</span></label>
-                                                <input type="text" class="form-control" id="nro_cheque_s" name="nro_cheque_s" required="required">
+                                                <label for="txt_name">Ingrese el nro de operacion <span class="text-danger">(Cta. Banco continental)</span></label>
+                                                <input type="text" class="form-control" id="nro_cheque_s" name="nro_cheque_s" value="{{$nro_cheque_s}}" required="required">
                                             </div>
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="tipo_pago" value="S">
-                                            <input type="hidden" name="desde" value="{{$fecha_ini}}">
-                                            <input type="hidden" name="hasta" value="{{$fecha_fin}}">
+
                                         </div>
                                         <div class="col-lg-3 margin-top-20">
                                             <button type="submit" class="btn btn-primary btn-lg" onclick="guardar_cta()">Guardar Cta</button>
@@ -1176,12 +1187,14 @@
                             </div>
                             <div class="col-lg-6">
                                 <form id="form_pagar_entradas_full" action="{{route('contabilidad_entradas_pagar_todo_path')}}" method="post" >
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="tipo_pago" value="S">
-                                        <input type="hidden" name="desde" value="{{$fecha_ini}}">
-                                        <input type="hidden" name="hasta" value="{{$fecha_fin}}">
-                                        <button type="submit" class="btn btn-primary btn-lg" onclick="verificar_reservados({{$no_reservados}})">Pagar todo</button>
-
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="tipo_pago" value="S">
+                                    <input type="hidden" name="desde" value="{{$fecha_ini}}">
+                                    <input type="hidden" name="hasta" value="{{$fecha_fin}}">
+                                    <input type="hidden" name="id" id="id" value="{{$id}}">
+                                    <input type="hidden" name="s" id="s" value="{{$nro_cheque_s}}">
+                                    <input type="hidden" name="c" id="c" value="{{$nro_cheque_c}}">
+                                    <button type="submit" class="btn btn-primary btn-lg" onclick="verificar_reservados({{$no_reservados}})">Pagar todo</button>
                                 </form>
                             </div>
                         </div>

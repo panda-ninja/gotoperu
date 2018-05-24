@@ -30,8 +30,8 @@
             <ul class="nav nav-sidebar margin-bottom-0">
                 <li class="padding-side-20 bg-green-goto text-white text-20">Contabilidad</li>
                 <li class="divider"></li>
-
-                <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Servicios</b></li>
+                <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Operaciones</b></li>
+                {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Servicios</b></li>--}}
                 <li class="divider"></li>
                 {{--<li ><a href="{{route('contabilidad_index_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> All</a></li>--}}
                 {{--<li ><a href="{{route('list_proveedores_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por Proveedores</a></li>--}}

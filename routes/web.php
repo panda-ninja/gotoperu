@@ -804,7 +804,7 @@ Route::get('/admin/contabilidad/liquidaciones/semana', [
     'uses' => 'ContabilidadController@liquidaciones',
     'as' => 'liquidaciones_hechas_conta_path',
 ]);
-Route::get('/admin/contabilidad/liquidaciones/show/{desde}/{hasta}', [
+Route::get('/admin/contabilidad/liquidaciones/show/{id}/{s}/{c}/{desde}/{hasta}/{tipo}', [
     'uses' => 'ContabilidadController@ver_liquidaciones',
     'as' => 'contabilidad_ver_liquidacion_path',
 ]);
@@ -896,4 +896,8 @@ Route::post('admin/contabilidad/entradadas/pagos-full', [
 Route::post('/admin/contabilidad/entradas/revertir',[
     'uses' => 'ContabilidadController@entrada_revertir',
     'as' => 'contabilidad_entrada_revertir_path',
+]);
+Route::post('/admin/contabilidad/entradas/codigo', [
+    'uses' => 'ContabilidadController@guardar_codigo',
+    'as' => 'contabilidad_liquidacion_guardar_codigo_path',
 ]);

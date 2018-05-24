@@ -5,20 +5,28 @@
     }
 @endphp
 @extends('layouts.admin.book')
+@section('archivos-css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
+@stop
+@section('archivos-js')
+    <script src="{{asset("https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js")}}"></script>
+    <script src="{{asset("https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js")}}"></script>
+@stop
 @section('content')
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li>Reservas</li>
+            <li>Reservas1</li>
             <li>Liquidacion</li>
             <li class="active">Liquidaciones</li>
         </ol>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-            <table  class="table table-bordered table-striped table-responsive table-hover">
+            <table id="lista_liquidaciones"  class="table table-bordered table-striped table-responsive table-hover">
                 <thead>
                 <tr>
+                    <th class="hide">ID</th>
                     <th>DESDE</th>
                     <th>HASTA</th>
                     <th>ENVIADO POR</th>
@@ -73,6 +81,7 @@
                         @endforeach
                     @endforeach
                     <tr>
+                        <td class="hide">{{$liquidacion->id}}</td>
                         <td>{{fecha_peru($liquidacion->ini)}}</td>
                         <td>{{fecha_peru($liquidacion->fin)}}</td>
                         <td>
@@ -114,11 +123,33 @@
                                 </div>
                             </div>
                         </td>
-                        <td><a href="{{route('contabilidad_ver_liquidacion_path',[$liquidacion->ini,$liquidacion->fin])}}" class="btn btn-primary"><i class="fa fa-eye-slash"></i></a></td>
+                        @php
+                        $nro_cheque_s='Ninguno';
+                        $nro_cheque_c='Ninguno';
+
+                        @endphp
+                        @if(strlen($liquidacion->nro_cheque_s)>0 || $liquidacion->nro_cheque_s || $liquidacion->nro_cheque_s!='')
+                            @php
+                                $nro_cheque_s=$liquidacion->nro_cheque_s;
+                            @endphp
+                        @endif
+                        @if(strlen($liquidacion->nro_cheque_c)>0 || $liquidacion->nro_cheque_c || $liquidacion->nro_cheque_c!='')
+                            @php
+                                $nro_cheque_c=$liquidacion->nro_cheque_c;
+                            @endphp
+                        @endif
+                        <td><a href="{{route('contabilidad_ver_liquidacion_path',[$liquidacion->id,$nro_cheque_s,$nro_cheque_c,$liquidacion->ini,$liquidacion->fin,'C'])}}" class="btn btn-primary"><i class="fa fa-eye-slash"></i></a></td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#lista_liquidaciones').DataTable({
+                "order": [[ 0, "desc" ]]
+            });
+        });
+    </script>
 @stop

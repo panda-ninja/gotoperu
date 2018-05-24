@@ -3074,7 +3074,7 @@ function pagar_entrada(id,valor){
         });
         $.ajax({
             type: 'POST',
-            url: '../../../../contabilidad/entradas/pagar',
+            url: '../../../../../../../contabilidad/entradas/pagar',
         data: 'id='+id+'&valor='+valor,
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
@@ -3349,13 +3349,14 @@ function Enviar_precio_c(id,precio_c) {
     }).fail(function (data) {
     });
 }
-function Enviar_precio_c_h(n_u,tipo,id,precio_c){
+function Enviar_precio_c_h(n_u,tipo,id,precio_c,paquete_cotizaciones_id){
+    console.log('n_u:'+n_u+',tipo:'+tipo+',id:'+id+',precio_c:'+precio_c);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('/admin/contabilidad/confirmar-precio-c-hotel', 'n_u='+n_u+'&tipo='+tipo+'&id='+id+'&precio_c='+precio_c, function (data) {
+    $.post('/admin/contabilidad/confirmar-precio-c-hotel', 'n_u='+n_u+'&tipo='+tipo+'&id='+id+'&precio_c='+precio_c+'&paquete_cotizaciones_id='+paquete_cotizaciones_id, function (data) {
         if(data==1) {
             $('#btn_h_'+tipo+'_'+id).removeClass('btn-primary')
             $('#btn_h_'+tipo+'_'+id).addClass('btn-warning')
@@ -3504,30 +3505,30 @@ function verificar_reservados(no_rservados){
 
     });
 }
-// function verificar_reservados(no_rservados){
-//
-//         if (no_rservados > 0) {
-//
-//             swal(
-//                 'Mensaje del sistema',
-//                 'Ups!. Hay ' + no_rservados + ' entradas no reservadas, reservas debe de realizar esta opracion para que se pueda pagar',
-//                 'warning'
-//             )
-//             return false;
-//         }
-//         swal({
-//             title: 'MENSAJE DEL SISTEMA',
-//             text: "¿Estas seguro de pagar todas las entradas?",
-//             type: 'question',
-//             showCancelButton: true,
-//             confirmButtonColor: '#3085d6',
-//             cancelButtonColor: '#d33',
-//             confirmButtonText: 'Yes'
-//         }).then(function () {
-//             $('#form_pagar_entradas_full').submit(function() {});
-//         })
-//
-// }
+function verificar_reservados(no_rservados){
+
+        if (no_rservados > 0) {
+
+            swal(
+                'Mensaje del sistema',
+                'Ups!. Hay ' + no_rservados + ' entradas no reservadas, reservas debe de realizar esta opracion para que se pueda pagar',
+                'warning'
+            )
+            return false;
+        }
+        // swal({
+        //     title: 'MENSAJE DEL SISTEMA',
+        //     text: "¿Estas seguro de pagar todas las entradas?",
+        //     type: 'question',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes'
+        // }).then(function () {
+        //     $('#form_pagar_entradas_full').submit(function() {});
+        // })
+
+}
 function revertir_pago_entrada(id,valor){
     swal({
         title: 'MENSAJE DEL SISTEMA',
@@ -3545,7 +3546,7 @@ function revertir_pago_entrada(id,valor){
         });
         $.ajax({
             type: 'POST',
-            url: '../../../../contabilidad/entradas/revertir',
+            url: '../../../../../../../contabilidad/entradas/revertir',
             data: 'id='+id+'&valor='+valor,
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
@@ -3594,35 +3595,74 @@ function revertir_pago_entrada(id,valor){
     })
 }
 
-function guardar_cta() {
-    // alert('holaaa');
-    // swal({
-    //     title: 'MENSAJE DEL SISTEMA',
-    //     text: "¿Estas seguro de eliminar el destino "+destino+"?",
-    //     type: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes'
-    // }).then(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('[name="_token"]').val()
-            }
-        });
-        $.post('/admin/destination/delete', 'id='+id, function(data) {
+function guardar_cta(){
+    var id=$('#id').val();
+    var nro_cheque=$('#nro_cheque_s').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/admin/contabilidad/entradas/codigo',
+        data: 'id='+id+'&nro_cheque='+nro_cheque+'&tipo=s',
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
             if(data==1){
+                console.log('se guardo');
                 swal(
-                    'Mensaje del sistema',
-                    'Se guardo el nro correctamente,
+                    'Genial...',
+                    'El nro de operacion se guardo correctamente!',
                     'success'
                 )
-                // $("#lista_destinos_"+id).remove();
-                // $("#lista_destinos_"+id).fadeOut( "slow");
             }
-        }).fail(function (data) {
 
-        });
+        }
+    })
+}
+function guardar_cta_c() {
+    var id=$('#id').val();
+    var nro_cheque=$('#nro_cheque_c').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/admin/contabilidad/entradas/codigo',
+        data: 'id='+id+'&nro_cheque='+nro_cheque+'&tipo=c',
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            if(data==1){
+                console.log('se guardo');
+                swal(
+                    'Genial...',
+                    'El nro de operacion se guardo correctamente!',
+                    'success'
+                )
+            }
 
-    // })
+        }
+    })
+    // var id=$('#id').val();
+    // var nro_cheque_c=$('#nro_cheque_c').val();
+    //
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('[name="_token"]').val()
+    //     }
+    // });
+    // $.post('/admin/contabilidad/entradas/codigo', 'id='+id+'&nro_cheque_c='+nro_cheque_c+'&tipo=c', function(data) {
+    //     if(data==1){
+    //         swal(
+    //             'Mensaje del sistema',
+    //             'Se guardo el nro correctamente,
+    //         'success'
+    //     )
+    //     }
+    // }).fail(function (data) {
+    //
+    // });
 }

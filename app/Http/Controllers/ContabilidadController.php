@@ -21,6 +21,7 @@ use App\PrecioHotelReserva;
 use App\PrecioHotelReservaPagos;
 use App\Proveedor;
 use App\User;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -962,15 +963,13 @@ class ContabilidadController extends Controller
         $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         $liquidaciones=Liquidacion::where('estado',1)->get();
         $users=User::get();
-//        $iti_serv_pagos=ItinerarioServiciosAcumPago::where('estado',-1)->get();
-//        $iti_serv_pagados=ItinerarioServiciosAcumPago::where('estado',1)->get();
         return view('admin.contabilidad.liquidaciones',['cotizaciones'=>$cotizaciones,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'liquidaciones'=>$liquidaciones,'users'=>$users]);
     }
-    function ver_liquidaciones($fecha_ini,$fecha_fin){
+    function ver_liquidaciones($id,$nro_cheque_s,$nro_cheque_c,$fecha_ini,$fecha_fin,$tipo_cheque){
         $liquidaciones=Cotizacion::get();
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
         $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
-        return view('admin.contabilidad.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
+        return view('admin.contabilidad.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'id'=>$id,'nro_cheque_s'=>$nro_cheque_s,'nro_cheque_c'=>$nro_cheque_c,'tipo_cheque'=>$tipo_cheque]);
     }
     function cerrar_balance(Request $request){
         $id =$request->input('id');
@@ -1055,6 +1054,9 @@ class ContabilidadController extends Controller
             $personas = $hotel->personas_t;
             $monto_original = $hotel->precio_t_c;
         }
+//        $itinerario_coti_id=0;
+//        $itinerario_coti_id=PrecioHotelReserva::FindOrFail($id)->paquete_cotizaciones_id;
+
         if($n_u=='nuevo'){
             $nro_hotel_pagos=PrecioHotelReservaPagos::where('paquete_cotizaciones_id',$paquete_cotizaciones_id)
                 ->where('proveedor_id',$hotel->proveedor_id)
@@ -1129,8 +1131,14 @@ class ContabilidadController extends Controller
         $cotizacion=Cotizacion::get();
         $ini='';
         $fin='';
-        return view('admin.contabilidad.pagos-pendientes',compact(['cotizacion','ini','fin']));
 
+        $cotizaciones=Cotizacion::where('liquidacion',1)->get();
+        $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
+        $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
+        $liquidaciones=Liquidacion::where('estado',1)->get();
+        $users=User::get();
+        return view('admin.contabilidad.pagos-pendientes',compact(['cotizacion','ini','fin','cotizaciones','servicios','servicios_movi','liquidaciones','users']));
+//        return view('admin.contabilidad.liquidaciones',['cotizaciones'=>$cotizaciones,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'liquidaciones'=>$liquidaciones,'users'=>$users]);
     }
     public function pagos_pendientes_filtro(){
         $cotizacion=Cotizacion::get();
@@ -1165,9 +1173,13 @@ class ContabilidadController extends Controller
     {
         $ini = $request->input('desde');
         $fin = $request->input('hasta');
+        $id = $request->input('id');
+        $s = $request->input('s');
+        $c = $request->input('c');
+        $tipo_pago = $request->input('tipo_pago');
         $liquidaciones = Cotizacion::get();
 
-        foreach ($liquidaciones->sortBy('fecha') as $liquidacion){
+        foreach ($liquidaciones->where('categorizado',$tipo_pago)->sortBy('fecha') as $liquidacion){
             foreach ($liquidacion->paquete_cotizaciones->where('estado', 2) as $paquete_cotizacion) {
                 foreach ($paquete_cotizacion->itinerario_cotizaciones->where('fecha', '>=', $ini)->where('fecha', '<=', $fin)->sortBy('fecha') as $itinerario_cotizacion) {
                     foreach ($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio) {
@@ -1180,7 +1192,7 @@ class ContabilidadController extends Controller
                 }
             }
         }
-        return redirect()->route('contabilidad_ver_liquidacion_path',[$ini,$fin]);
+        return redirect()->route('contabilidad_ver_liquidacion_path',[$id,$s,$c,$ini,$fin,$tipo_pago]);
     }
     public function entrada_revertir(Request $request)
     {
@@ -1188,6 +1200,21 @@ class ContabilidadController extends Controller
         $isap=ItinerarioServicios::FindOrFail($id);
         $isap->liquidacion=1;
         if($isap->save())
+            return 1;
+        else
+            return 0;
+    }
+    public function guardar_codigo(Request $request){
+        $id=$request->input('id');
+        $tipo=$request->input('tipo');
+        $nro_cheque=$request->input('nro_cheque');
+        $liqu=Liquidacion::FindOrFail($id);
+        if($tipo=='s')
+            $liqu->nro_cheque_s=$nro_cheque;
+        else
+            $liqu->nro_cheque_c=$nro_cheque;
+
+        if($liqu->save())
             return 1;
         else
             return 0;
