@@ -88,13 +88,14 @@
                                             <th>HASTA</th>
                                             <th>ENVIADO POR</th>
                                             <th>TOTAL</th>
+                                            <th>PAGADO</th>
                                             <th>SALDO</th>
                                             <th>ESTADO</th>
                                             <th>OPERACIONES</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($liquidaciones->where('estado',1)->sortByDesc('ini') as $liquidacion)
+                                        @foreach($liquidaciones->where('estado',1)->sortByDesc('id') as $liquidacion)
                                             @php
                                                 $total=0;
                                                 $total_pagado=0;
@@ -137,7 +138,7 @@
                                                     @endforeach
                                                 @endforeach
                                             @endforeach
-                                            <tr>
+                                            <tr id="lista_liquidaciones_{{$liquidacion->id}}">
                                                 <td class="hide">{{$liquidacion->id}}</td>
                                                 <td>{{fecha_peru($liquidacion->ini)}}</td>
                                                 <td>{{fecha_peru($liquidacion->fin)}}</td>
@@ -146,8 +147,9 @@
                                                         {{$user->name}} {{$liquidacion->tipo_user}}
                                                     @endforeach
                                                 </td>
-                                                <td>${{$total_monto}}</td>
-                                                <td>${{$total_monto-$total_pagado_monto}}</td>
+                                                <td>{{$total_monto}}$</td>
+                                                <td>{{$total_pagado_monto}}$</td>
+                                                <td>{{$total_monto-$total_pagado_monto}}$</td>
 
                                                 <td>
                                                     @if($total==0)
@@ -195,7 +197,9 @@
                                                         $nro_cheque_c=$liquidacion->nro_cheque_c;
                                                     @endphp
                                                 @endif
-                                                <td><a href="{{route('contabilidad_ver_liquidacion_path',[$liquidacion->id,$nro_cheque_s,$nro_cheque_c,$liquidacion->ini,$liquidacion->fin,'C'])}}" class="btn btn-primary"><i class="fa fa-eye-slash"></i></a></td>
+                                                <td>
+                                                    <a href="{{route('contabilidad_ver_liquidacion_path',[$liquidacion->id,$nro_cheque_s,$nro_cheque_c,$liquidacion->ini,$liquidacion->fin,'C'])}}" class="btn btn-primary"><i class="fa fa-eye-slash"></i></a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

@@ -4,7 +4,7 @@
     return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
     }
 @endphp
-@extends('layouts.admin.book')
+@extends('layouts.admin.contabilidad')
 @section('archivos-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
 @stop
@@ -37,7 +37,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($liquidaciones->where('estado',1)->sortByDesc('ini') as $liquidacion)
+                @foreach($liquidaciones->where('estado',1)->sortByDesc('id') as $liquidacion)
                     @php
                         $total=0;
                         $total_pagado=0;
@@ -47,7 +47,7 @@
                     @foreach($cotizaciones as $cotizacion)
                         @foreach($cotizacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizaciones)
                             @foreach($paquete_cotizaciones->itinerario_cotizaciones->where('fecha','>=',$liquidacion->ini)->where('fecha','<=',$liquidacion->fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                     @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id) as $serv)
                                         @if($serv->clase=='BTG' || $serv->clase=='CAT'||$serv->clase=='KORI'||$serv->clase=='MAPI'||$serv->clase=='OTROS')
                                             @php

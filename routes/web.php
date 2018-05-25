@@ -901,3 +901,7 @@ Route::post('/admin/contabilidad/entradas/codigo', [
     'uses' => 'ContabilidadController@guardar_codigo',
     'as' => 'contabilidad_liquidacion_guardar_codigo_path',
 ]);
+Route::post('/admin/contabilidad/operaciones/pagos-pendientes/delete', [
+    'uses' => 'ContabilidadController@pagos_pendientes_delete',
+    'as' => 'pagos_pendientes_delete_path',
+]);

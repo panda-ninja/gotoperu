@@ -441,7 +441,6 @@ class BookController extends Controller
         $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         $liquidaciones=Liquidacion::where('estado',1)->get();
         $users=User::get();
-
         return view('admin.book.liquidaciones',['cotizaciones'=>$cotizaciones,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'liquidaciones'=>$liquidaciones,'users'=>$users]);
     }
     function ver_liquidaciones($fecha_ini,$fecha_fin){

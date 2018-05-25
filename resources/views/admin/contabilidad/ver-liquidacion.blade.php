@@ -53,7 +53,7 @@
                             @foreach($liquidaciones->where('categorizado','C')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','BTG') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -144,7 +144,7 @@
                             @foreach($liquidaciones->where('categorizado','C')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','CAT') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -235,7 +235,7 @@
                             @foreach($liquidaciones->where('categorizado','C')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','KORI') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -326,7 +326,7 @@
                             @foreach($liquidaciones->where('categorizado','C')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','MAPI') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -417,7 +417,7 @@
                             @foreach($liquidaciones->where('categorizado','C')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','OTROS') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -508,7 +508,7 @@
                             @foreach($liquidaciones->where('categorizado','C')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios_movi->where('id',$itinerario_servicio->m_servicios_id) as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -639,7 +639,7 @@
                             @foreach($liquidaciones->where('categorizado','S')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','BTG') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -730,7 +730,7 @@
                             @foreach($liquidaciones->where('categorizado','S')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','CAT') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -821,7 +821,7 @@
                             @foreach($liquidaciones->where('categorizado','S')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','KORI') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -912,7 +912,7 @@
                             @foreach($liquidaciones->where('categorizado','S')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','MAPI') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -1003,7 +1003,7 @@
                             @foreach($liquidaciones->where('categorizado','S')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios->where('id',$itinerario_servicio->m_servicios_id)->where('clase','OTROS') as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php
@@ -1094,7 +1094,7 @@
                             @foreach($liquidaciones->where('categorizado','S')->sortBy('fecha') as $liquidacion)
                                 @foreach($liquidacion->paquete_cotizaciones->where('estado',2) as $paquete_cotizacion)
                                     @foreach($paquete_cotizacion->itinerario_cotizaciones->where('fecha','>=',$fecha_ini)->where('fecha','<=',$fecha_fin)->sortBy('fecha') as $itinerario_cotizacion)
-                                        @foreach($itinerario_cotizacion->itinerario_servicios as $itinerario_servicio)
+                                        @foreach($itinerario_cotizacion->itinerario_servicios->where('liquidacion','!=','0') as $itinerario_servicio)
                                             @foreach($servicios_movi->where('id',$itinerario_servicio->m_servicios_id) as $servicio)
                                                 @if(!in_array($liquidacion->id,$array_cotizaciones))
                                                     @php

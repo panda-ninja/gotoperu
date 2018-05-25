@@ -1219,4 +1219,13 @@ class ContabilidadController extends Controller
         else
             return 0;
     }
+    public function pagos_pendientes_delete(Request $request)
+    {
+        $id = $request->input('id');
+        $liquidacion =Liquidacion::FindOrFail($id);
+        if ($liquidacion->delete())
+            return 1;
+        else
+            return 0;
+    }
 }

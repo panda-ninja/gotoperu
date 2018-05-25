@@ -26615,7 +26615,26 @@ function filtrar_estrellas1(estrella){
     calcular_precio1();
     filtrar_itinerarios_admin();
 }
+function comprobar_dist_acom(){
+    var total_com=(parseInt($('#a_s_1').val())*1)+(parseInt($('#a_d_1').val())*2)+(parseInt($('#a_m_1').val())*2)+(parseInt($('#a_t_1').val())*3);
+    var total_paxs=$('#txt_travellers').val();
+    if(total_com>total_paxs){
+        swal(
+            'Oops...',
+            'La configuracion de la acomodacion excede la cantidad de paxs!',
+            'error'
+        )
+    }
+    else if(total_com<total_paxs){
+        swal(
+            'Oops...',
+            'La configuracion de la acomodacion es menor a la cantidad de paxs!',
+            'error'
+        )
+    }
+}
 function aumentar_acom(tipo,signo){
+
     if(tipo=='s'){
             var valor=$('#a_s_1').val();
 
@@ -26772,6 +26791,7 @@ function poner_dias() {
 
     //calcular_precio1();
     filtrar_itinerarios_admin();
+    comprobar_dist_acom();
 }
 
 function variar_profit(acom) {
@@ -26913,10 +26933,54 @@ function filtrar_itinerarios_admin(){
         $('#caja_load').addClass("hide");
     }, 3000);
 }
+var paquete_id_21=0;
 function mostrar_datos(cadena) {
     var datos_pqt=cadena.split('_');
     $('#pqt_id').val(datos_pqt[0]);
+    paquete_id_21=datos_pqt[3];
     sumar_servicios_itinerario(datos_pqt[3]);
+}
+function calcular_sumar_servicios(paxs){
+    var resto=paxs;
+    var t=0;
+    var d=0;
+    var s=0;
+    if(paxs==6){
+        t=0;
+        d=3;
+        s=0;
+    }
+    else if(paxs==8){
+        t=0;
+        d=4;
+        s=0;
+    }
+    else {
+        if (resto > 0) {
+            t = parseInt(resto / 3);
+            resto = resto % 3;
+        }
+        if (resto > 0) {
+            d = parseInt(resto / 2);
+            resto = resto % 2;
+        }
+        if (resto > 0) {
+            s = parseInt(resto / 1);
+            resto = resto % 1;
+        }
+    }
+    $('#a_s_1').min = 0;
+    $('#a_s_1').max = paxs/1;
+    $('#a_s_1').val(s);
+
+    $('#a_d_1').min = 0;
+    $('#a_d_1').max = paxs/2;
+    $('#a_d_1').val(d);
+
+    $('#a_t_1').min = 0;
+    $('#a_t_1').max = t;
+    $('#a_t_1').val(t);
+    sumar_servicios_itinerario(paquete_id_21);
 }
 function validar_envio(){
     console.log('hola ');
@@ -27174,7 +27238,7 @@ function sumar_servicios_itinerario(pqt_pos){
     $('#human').html(icon_human);
     console.log('hola');
     var pqt=$('#pqt_id').val();
-    var arreglo
+    var arreglo='';
     var valorcito=$('#lista_servicios_'+pqt_pos).val();
     console.log('valorcito:'+valorcito);
 
@@ -27860,7 +27924,7 @@ function pagar_entrada(id,valor){
         });
         $.ajax({
             type: 'POST',
-            url: '../../../../../../../contabilidad/entradas/pagar',
+            url: '../../../../../../../../contabilidad/entradas/pagar',
         data: 'id='+id+'&valor='+valor,
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
@@ -28135,14 +28199,14 @@ function Enviar_precio_c(id,precio_c) {
     }).fail(function (data) {
     });
 }
-function Enviar_precio_c_h(n_u,tipo,id,precio_c){
+function Enviar_precio_c_h(n_u,tipo,id,precio_c,paquete_cotizaciones_id){
     console.log('n_u:'+n_u+',tipo:'+tipo+',id:'+id+',precio_c:'+precio_c);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('/admin/contabilidad/confirmar-precio-c-hotel', 'n_u='+n_u+'&tipo='+tipo+'&id='+id+'&precio_c='+precio_c, function (data) {
+    $.post('/admin/contabilidad/confirmar-precio-c-hotel', 'n_u='+n_u+'&tipo='+tipo+'&id='+id+'&precio_c='+precio_c+'&paquete_cotizaciones_id='+paquete_cotizaciones_id, function (data) {
         if(data==1) {
             $('#btn_h_'+tipo+'_'+id).removeClass('btn-primary')
             $('#btn_h_'+tipo+'_'+id).addClass('btn-warning')
@@ -28332,7 +28396,7 @@ function revertir_pago_entrada(id,valor){
         });
         $.ajax({
             type: 'POST',
-            url: '../../../../../../../contabilidad/entradas/revertir',
+            url: '../../../../../../../../contabilidad/entradas/revertir',
             data: 'id='+id+'&valor='+valor,
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
@@ -28451,4 +28515,31 @@ function guardar_cta_c() {
     // }).fail(function (data) {
     //
     // });
+}
+
+function eliminar_liquidacion(id,ini,fin) {
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar la liquidacion (Desde:"+ini+" - Hasta:"+fin+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/contabilidad/operaciones/pagos-pendientes/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#lista_liquidaciones_"+id).fadeOut( "slow");
+            }
+        }).fail(function (data) {
+
+        });
+
+    })
 }
