@@ -43,7 +43,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -55,7 +55,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -68,7 +68,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -80,7 +80,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -92,7 +92,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -104,7 +104,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -116,7 +116,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -128,7 +128,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -141,7 +141,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -153,7 +153,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -165,7 +165,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -178,7 +178,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -190,7 +190,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -203,7 +203,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -215,7 +215,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -227,7 +227,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -240,7 +240,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -252,7 +252,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -264,7 +264,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -276,7 +276,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -288,7 +288,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -300,7 +300,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -313,7 +313,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -325,7 +325,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>
@@ -338,7 +338,7 @@
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
-                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}">
+                                <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
                                 {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
                             </label>
                         </div>

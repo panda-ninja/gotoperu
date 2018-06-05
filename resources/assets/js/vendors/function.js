@@ -3794,6 +3794,7 @@ function escojer_servicio(){
                 if($grupo=='TOURS')
                     iti_temp +='<i class="fa fa-map-o text-info" aria-hidden="true"></i>';
                 else if($grupo == 'MOVILID'){
+                    var $clase=itinerario[6];
                     if ($clase == 'BOLETO')
                         iti_temp +='<i class= "fa fa-ticket text-warning" aria-hidden="true"></i>';
                     else
