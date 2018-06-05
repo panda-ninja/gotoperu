@@ -1,12 +1,6 @@
 @extends('layouts.admin.admin')
 @section('archivos-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <style>
-        .ui-autocomplete {
-            z-index: 5000 !important;
-        }
-    </style>
 @stop
 @section('archivos-js')
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js")}}"></script>
@@ -229,11 +223,11 @@
                 $in_pos=0;
                 ?>
                 @foreach($tipoServicio as $tipoServicio_)
-                    <?php
-                    $in_activo='';
-//                    if($in_pos==0)
-//                        $in_activo='in active';
-//                    ?>
+                    @php
+                        $in_activo='';
+{{--                    if($in_pos==0)--}}
+{{--                    $in_activo='in active';--}}
+                    @endphp
                     <div id="tl_{{$tipoServicio_}}" class="tab-pane fade {{$in_activo}}">
                             <div class="margin-top-20">
                                 <table id="tb_{{$tipoServicio_}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
@@ -308,9 +302,9 @@
                                 </table>
                             </div>
                         </div>
-                    <?php
+                    @php
                     $in_pos++;
-                    ?>
+                    @endphp
                 @endforeach
 
             </div>
@@ -504,15 +498,9 @@
 
     <script>
         $(document).ready(function() {
-            $('#tb_HOTELS').DataTable();
-            $('#tb_TOURS').DataTable();
-            $('#tb_TRANSPORTATION').DataTable();
-            $('#tb_GUIDES_ASSIST').DataTable();
-            $('#tb_ENTRANCES').DataTable();
-            $('#tb_FOOD').DataTable();
-            $('#tb_TRAINS').DataTable();
-            $('#tb_TRAVELS').DataTable();
-            $('#tb_OTHERS').DataTable();
+            @foreach($tipoServicio as $tipoServicio_)
+            $('#tb_{{$tipoServicio_}}').DataTable();
+            @endforeach
         } );
 
     </script>

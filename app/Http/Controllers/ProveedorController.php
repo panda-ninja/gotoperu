@@ -59,12 +59,13 @@ class ProveedorController extends Controller
                 if($grupo==$query->grupo){
                     if($grupo=='HOTELS') {
                         if($estrellas==$query->categoria){
-//                          if($localizacion==$query->localizacion)
+                          if($localizacion==$query->localizacion)
                             $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre_comercial];
                         }
                     }
                     else{
-                        $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre_comercial];
+//                        if($localizacion==$query->localizacion)
+                            $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre_comercial];
                     }
                 }
             }
