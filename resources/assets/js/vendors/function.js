@@ -3888,3 +3888,6 @@ function mostrar_hoteles_categoria(pos) {
     $("#dato_su_"+cate).removeClass("hide");
     $("#dato_js_"+cate).removeClass("hide");
 }
+function limpiar_caja_servicios() {
+    $("#list_servicios_grupo").html('');
+}
