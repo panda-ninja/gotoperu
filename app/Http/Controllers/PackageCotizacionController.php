@@ -1049,6 +1049,7 @@ class PackageCotizacionController extends Controller
                 $p_servicio->llegada=$servicios->itinerario_servicios_servicio->llegada;
                 $p_servicio->clase=$servicios->itinerario_servicios_servicio->clase;
                 $p_servicio->m_servicios_id=$servicios->m_servicios_id;
+                $p_servicio->pos=$servicios->pos;
                 $p_servicio->save();
                 if($servicios->itinerario_servicios_servicio->precio_grupo==1 && $servicios->itinerario_servicios_servicio->grupo=='MOVILID'){
                     if($servicios->itinerario_servicios_servicio->min_personas<=$nro_personas&&$nro_personas<=$servicios->itinerario_servicios_servicio->max_personas)
@@ -1445,6 +1446,7 @@ class PackageCotizacionController extends Controller
 //                    $p_servicio->user_id=1;
                     $p_servicio->user_id=auth()->guard('admin')->user()->id;
                     $p_servicio->m_servicios_id=$servicios->m_servicios_id;
+                    $p_servicio->pos=$servicios->pos;
                     $p_servicio->save();
                     if($servicios->precio_grupo==1 && $servicios->grupo=='MOVILID'){
                         if($servicios->min_personas<=$nro_personas&&$nro_personas<=$servicios->max_personas)

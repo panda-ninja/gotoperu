@@ -31,16 +31,13 @@ mix.copy('vendor/clockpicker-gh-pages/dist/bootstrap-clockpicker.js', 'resources
 // mix.copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'resources/assets/js/vendors/dataTables.bootstrap.js');
 //---js admin
 mix.scripts([
-    // 'node_modules/jquery/dist/jquery-ui.js',
-    'resources/assets/js/vendors/jquery-ui.js',
-    'node_modules/jquery-ui/external/requirejs/require.js',
-    'resources/assets/js/vendors/owl.carousel.js',
+    'resources/assets/js/vendors/jquery.js',
+    'resources/assets/js/vendors/jquery-ui-1.js',
+    // 'node_modules/jquery-ui/external/requirejs/require.js',
+    // 'resources/assets/js/vendors/owl.carousel.js',
     //Customized
     'resources/assets/js/vendors/function-admin.js',
     'resources/assets/js/vendors/jquery-sortable.js',
-    // 'resources/assets/js/vendors/sweetalert2.js',
-    // 'resources/assets/js/vendors/jquery.dataTables.js',
-    // 'resources/assets/js/vendors/dataTables.bootstrap.js',
     'resources/assets/js/vendors/function.js',
 ], 'public/js/admin/plugins.js');
 mix.scripts([

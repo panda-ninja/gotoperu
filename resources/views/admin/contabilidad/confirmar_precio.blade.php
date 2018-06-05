@@ -118,7 +118,7 @@
                                             @php
                                                 $nro_servicios=0;
                                             @endphp
-                                            @foreach($itinerario->itinerario_servicios as $servicios)
+                                            @foreach($itinerario->itinerario_servicios->sortBy('pos') as $servicios)
                                                 @if($servicios->proveedor_id)
                                                     @if($servicios->proveedor_id>0)
                                                         @php

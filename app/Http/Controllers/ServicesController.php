@@ -956,9 +956,9 @@ class ServicesController extends Controller
                 foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor){
                     $cadena .= '<div class="input-group">'.
                                     '<span class="input-group-addon">'.
-                                        '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                                        '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->nombre_comercial.'">'.
                                     '</span>'.
-                                    '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
+                                    '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->nombre_comercial.'" readonly="">'.
                                 '</div>';
                 }
             }
@@ -966,9 +966,9 @@ class ServicesController extends Controller
                 foreach ($proveedores->where('grupo',$destino[1]) as $proveedor){
                     $cadena .= '<div class="input-group">'.
                         '<span class="input-group-addon">'.
-                        '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                        '<input class="proveedores_'.$servicio->id.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->nombre_comercial.'">'.
                         '</span>'.
-                        '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
+                        '<input type="text"  name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->nombre_comercial.'" readonly="">'.
                         '</div>';
                 }
             }
@@ -982,13 +982,13 @@ class ServicesController extends Controller
                 '<p><b class="text-green-goto">Proveedor/Costo</b></p>';
                 foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo){
                 $cadena.= '<div id="fila_p_'.$servicio->id.'_'.$costo->id.'_'.$costo->proveedor->id.'" class="row">'.
-                                '<div class="col-lg-8">'.$costo->proveedor->razon_social.'</div>'.
+                                '<div class="col-lg-8">'.$costo->proveedor->nombre_comercial.'</div>'.
                                 '<div class="col-lg-2">'.
                                     '<input name="costo_id[]" type="hidden" value="'.$costo->id.'">'.
                                     '<input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="'.$costo->precio_costo.'">'.
                                 '</div>'.
                                 '<div class="col-lg-2">'.
-                                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('.$servicio->id.','.$costo->id.','.$costo->proveedor->id.',\''.$costo->proveedor->razon_social.'\')">'.
+                                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('.$servicio->id.','.$costo->id.','.$costo->proveedor->id.',\''.$costo->proveedor->nombre_comercial.'\')">'.
                                         '<i class="fa fa-trash-o" aria-hidden="true"></i>'.
                                     '</button>'.
                                 '</div>'.
@@ -1064,9 +1064,9 @@ class ServicesController extends Controller
         foreach ($proveedores as $proveedor){
             $cadena.='<div class="input-group">'.
                         '<span class="input-group-addon">'.
-                            '<input class="proveedores_'.$categoria.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->razon_social.'">'.
+                            '<input class="proveedores_'.$categoria.'" type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->nombre_comercial.'">'.
                         '</span>'.
-                        '<input type="text" name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->razon_social.'" readonly="">'.
+                        '<input type="text" name="proveedores_nombre[]" class="form-control" aria-label="..." value="'.$proveedor->nombre_comercial.'" readonly="">'.
                     '</div>';
         }
         return $cadena;

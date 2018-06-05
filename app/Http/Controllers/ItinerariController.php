@@ -25,7 +25,13 @@ class ItinerariController extends Controller
         session()->put('menu-lateral', 'sales/iti/daybyday');
         return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
-
+    public function day_by_day_new(){
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        $itinerarios=M_Itinerario::get();
+        $categorias=M_Category::get();
+        return view('admin.itinerary-new',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+    }
     public function show_Itineraries(Request $request){
         $destinos=($request->input('destinos'));
         $destinos=explode('_',$destinos);
@@ -92,8 +98,9 @@ class ItinerariController extends Controller
         $txt_titulo=strtoupper($request->input('txt_titulo'));
         $txt_resumen=$request->input('txt_resumen');
         $txt_descripcion=$request->input('txt_descripcion');
-        $destinos=$request->input('destinos');
-        $servicios=$request->input('servicios');
+        $destinos=$request->input('destinos_esc');
+        $destino_gral=$request->input('txt_destino');
+        $servicios=$request->input('servicios_esc');
         $precio_iti=$request->input('precio_itinerario');
         $txt_imagen=$request->file('txt_imagen');
         $txt_imagenB=$request->file('txt_imagenB');
@@ -126,36 +133,51 @@ class ItinerariController extends Controller
             $itinerario->save();
             Storage::disk('itinerary')->put($filename,  File::get($txt_imagenC));
         }
-            foreach ($destinos as $destino){
-                $dato=explode('_',$destino);
-                $m_destino=M_Destino::FindOrFail($dato[0]);
-                $itinerario_destino=new M_ItinerarioDestino();
-                $itinerario_destino->codigo=$m_destino->codigo;
-                $itinerario_destino->destino=$m_destino->destino;
-                $itinerario_destino->departamento=$m_destino->departamento;
-                $itinerario_destino->region=$m_destino->region;
-                $itinerario_destino->pais=$m_destino->pais;
-                $itinerario_destino->descripcion=$m_destino->descripcion;
-                $itinerario_destino->imagen=$m_destino->imagen;
-                $itinerario_destino->estado=1;
-                $itinerario_destino->m_itinerario_id=$itinerario->id;
-                $itinerario_destino->save();
+        $array_destino=array();
+        if($destinos){
+            foreach($destinos as $destino){
+                if(!in_array($destino,$array_destino)){
+                    $array_destino[]=$destino;
+                }
             }
-
+        }
+        else{
+            if(!in_array($destino_gral,$array_destino)){
+                $array_destino[]=$destino_gral;
+            }
+        }
+        foreach ($array_destino as $destino1){
+            $m_destino=M_Destino::FindOrFail($destino1);
+            $itinerario_destino=new M_ItinerarioDestino();
+            $itinerario_destino->codigo=$m_destino->codigo;
+            $itinerario_destino->destino=$m_destino->destino;
+            $itinerario_destino->departamento=$m_destino->departamento;
+            $itinerario_destino->region=$m_destino->region;
+            $itinerario_destino->pais=$m_destino->pais;
+            $itinerario_destino->descripcion=$m_destino->descripcion;
+            $itinerario_destino->imagen=$m_destino->imagen;
+            $itinerario_destino->estado=1;
+            $itinerario_destino->m_itinerario_id=$itinerario->id;
+            $itinerario_destino->save();
+        }
+        $pos=0;
+//        dd($servicios);
+        if($servicios){
             foreach ($servicios as $servicio){
-                $dato=explode('_',$servicio);
-//                dd($dato);
-                $m_servicio=M_Servicio::FindOrFail($dato[2]);
+                $pos++;
+                $m_servicio=M_Servicio::FindOrFail($servicio);
                 $itinerario_servicio=new M_ItinerarioServicio();
                 $itinerario_servicio->m_servicios_id=$m_servicio->id;
                 $itinerario_servicio->m_itinerario_id=$itinerario->id;
+                $itinerario_servicio->pos=$pos;
                 $itinerario_servicio->save();
             }
-            $destinations=M_Destino::get();
-            $services=M_Servicio::get();
-            $itinerarios=M_Itinerario::get();
-            $categorias=M_Category::get();
-            return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+        }
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        $itinerarios=M_Itinerario::get();
+        $categorias=M_Category::get();
+        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
     public function edit(Request $request){
 
@@ -213,13 +235,15 @@ class ItinerariController extends Controller
         }
 
         M_ItinerarioServicio::where('m_itinerario_id',$txt_id)->delete();
-        foreach ($servicios as $servicio){
-            $dato=explode('_',$servicio);
-            $m_servicio=M_Servicio::FindOrFail($dato[2]);
-            $itinerario_servicio=new M_ItinerarioServicio();
-            $itinerario_servicio->m_servicios_id=$m_servicio->id;
-            $itinerario_servicio->m_itinerario_id=$itinerario->id;
-            $itinerario_servicio->save();
+        if($servicios){
+            foreach ($servicios as $servicio){
+                $dato=explode('_',$servicio);
+                $m_servicio=M_Servicio::FindOrFail($dato[2]);
+                $itinerario_servicio=new M_ItinerarioServicio();
+                $itinerario_servicio->m_servicios_id=$m_servicio->id;
+                $itinerario_servicio->m_itinerario_id=$itinerario->id;
+                $itinerario_servicio->save();
+            }
         }
         $destinations=M_Destino::get();
         $services=M_Servicio::get();
@@ -245,6 +269,120 @@ class ItinerariController extends Controller
     public function getItineraryImage($filename){
         $file = Storage::disk('itinerary')->get($filename);
         return new Response($file, 200);
+    }
+    public function call_servicios_grupo(Request $request){
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        $itinerarios=M_Itinerario::get();
+        $categorias=M_Category::get();
+        return view('admin.itinerary-new',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+    }
+    public function call_servicios_grupo_get(Request $request){
+//        $destinations=M_Destino::get();
+//        $services=M_Servicio::get();
+//        $itinerarios=M_Itinerario::get();
+//        $categorias=M_Category::get();
+//        return view('admin.daybyday.itinerario-call-servicios',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+
+        $destino=explode('_',$request->input('destino'));
+        $grupo=$request->input('grupo');
+        $servicios=M_Servicio::where('grupo',$grupo)->where('localizacion',$destino[1])->get();
+//        return dd($servicios);
+        return view('admin.daybyday.itinerario-call-servicios',['servicios'=>$servicios,'grupo'=>$grupo,'destino_id'=>$destino[0],'destino'=>$destino[1]]);
+    }
+    public function call_servicios_grupo_edit($id){
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        $itinerarios=M_Itinerario::FindOrFail($id);
+//        dd($itinerarios);
+        $categorias=M_Category::get();
+        return view('admin.itinerary-new-edit',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+    }
+    public function call_servicios_edit(Request $request){
+        $txt_id=$request->input('itinerario_id');
+        $txt_titulo=strtoupper($request->input('txt_titulo'));
+        $txt_resumen=$request->input('txt_resumen');
+        $txt_descripcion=$request->input('txt_descripcion');
+        $destinos=$request->input('destinos_esc');
+        $destino_gral=$request->input('txt_destino');
+        $servicios=$request->input('servicios_esc');
+        $precio_iti=$request->input('precio_itinerario');
+        $txt_imagen=$request->file('txt_imagen');
+        $txt_imagenB=$request->file('txt_imagenB');
+        $txt_imagenC=$request->file('txt_imagenC');
+
+        $itinerario=M_Itinerario::FindOrFail($txt_id);
+        $itinerario->titulo=$txt_titulo;
+        $itinerario->resumen=$txt_resumen;
+        $itinerario->descripcion=$txt_descripcion;
+        $itinerario->precio=$precio_iti;
+        $itinerario->save();
+        if($txt_imagen){
+            $filename ='itinerary-'.$itinerario->id.'.jpg';
+            $itinerario->imagen=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagen));
+        }
+        if($txt_imagenB){
+            $filename ='itinerary-'.$itinerario->id.'B.jpg';
+            $itinerario->imagenB=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagenB));
+        }
+        if($txt_imagenC){
+            $filename ='itinerary-'.$itinerario->id.'C.jpg';
+            $itinerario->imagenC=$filename;
+            $itinerario->save();
+            Storage::disk('itinerary')->put($filename,  File::get($txt_imagenC));
+        }
+
+        M_ItinerarioDestino::where('m_itinerario_id',$txt_id)->delete();
+        $array_destino=array();
+        if($destinos){
+            foreach($destinos as $destino){
+                if(!in_array($destino,$array_destino)){
+                    $array_destino[]=$destino;
+                }
+            }
+        }
+        else{
+            if(!in_array($destino_gral,$array_destino)){
+                $array_destino[]=$destino_gral;
+            }
+        }
+        foreach ($array_destino as $destino1){
+            $m_destino=M_Destino::FindOrFail($destino1);
+            $itinerario_destino=new M_ItinerarioDestino();
+            $itinerario_destino->codigo=$m_destino->codigo;
+            $itinerario_destino->destino=$m_destino->destino;
+            $itinerario_destino->departamento=$m_destino->departamento;
+            $itinerario_destino->region=$m_destino->region;
+            $itinerario_destino->pais=$m_destino->pais;
+            $itinerario_destino->descripcion=$m_destino->descripcion;
+            $itinerario_destino->imagen=$m_destino->imagen;
+            $itinerario_destino->estado=1;
+            $itinerario_destino->m_itinerario_id=$itinerario->id;
+            $itinerario_destino->save();
+        }
+
+        M_ItinerarioServicio::where('m_itinerario_id',$txt_id)->delete();
+        $pos=0;
+        if($servicios){
+            foreach ($servicios as $servicio){
+                $pos++;
+                $m_servicio=M_Servicio::FindOrFail($servicio);
+                $itinerario_servicio=new M_ItinerarioServicio();
+                $itinerario_servicio->m_servicios_id=$m_servicio->id;
+                $itinerario_servicio->m_itinerario_id=$itinerario->id;
+                $itinerario_servicio->pos=$pos;
+                $itinerario_servicio->save();
+            }
+        }
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        $itinerarios=M_Itinerario::get();
+        $categorias=M_Category::get();
+        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
 }
 

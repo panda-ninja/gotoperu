@@ -12,19 +12,15 @@ use Illuminate\Http\Request;
 class HotelProveedorController extends Controller
 {
     //
-    public function editar_hotel_proveedor($localizacion,$hotel_proveedor_id){
-        $proveedor_escojido=Proveedor::FindOrFail($hotel_proveedor_id);
-        $hotel_proveedor_buscado=HotelProveedor::where('localizacion',$localizacion)
-                                    ->where('proveedor_id',$hotel_proveedor_id)->get();
+    public function editar_hotel_proveedor($hotel_proveedor_id){
         $destinations=M_Destino::get();
         $categorias=M_Category::get();
-        $hotel=HotelProveedor::get();
+        $hotel=HotelProveedor::FindOrFail($hotel_proveedor_id);
+        $proveedor_escojido=Proveedor::FindOrFail($hotel->proveedor_id);
         $hotel_solo=Hotel::get();
-
         $productos=Proveedor::with(['productos'])->get();
         return view('admin.database.hotel-proveedor',['destinations'=>$destinations,'categorias'=>$categorias,
-            'productos'=>$productos,'hotel'=>$hotel,'hotel_solo'=>$hotel_solo,'hotel_proveedor_buscado'=>$hotel_proveedor_buscado,
-            'localizacion'=>$localizacion,'hotel_proveedor_id'=>$hotel_proveedor_id,
+            'productos'=>$productos,'hotel'=>$hotel,'hotel_solo'=>$hotel_solo,'hotel_proveedor_id'=>$hotel_proveedor_id,
             'proveedor_escojido'=>$proveedor_escojido
             ]);
     }
@@ -32,6 +28,7 @@ class HotelProveedorController extends Controller
     {
         $txt_provider_0=$request->input('txt_provider_0');
         $txt_provider_0=explode(' ',$txt_provider_0);
+        $estrellas=$request->input('txt_categoria_0');
         $S_2=$request->input('S_2');
         $D_2=$request->input('D_2');
         $M_2=$request->input('M_2');
@@ -94,50 +91,54 @@ class HotelProveedorController extends Controller
 //        if($hotel_pro_id_5>0)
 //            HotelProveedor::where('id',$hotel_pro_id_5)->delete();
 
-        $objeto= HotelProveedor::FindOrFail($hotel_pro_id_2);
-        $objeto->single=$S_2;
-        $objeto->doble=$D_2;
-        $objeto->matrimonial=$M_2;
-        $objeto->triple=$T_2;
-        $objeto->superior_s=$SS_2;
-        $objeto->superior_d=$SD_2;
-        $objeto->suite=$SU_2;
-        $objeto->jr_suite=$JS_2;
-        $objeto->save();
-
-        $objeto3=HotelProveedor::FindOrFail($hotel_pro_id_3);
-        $objeto3->single=$S_3;
-        $objeto3->doble=$D_3;
-        $objeto3->matrimonial=$M_3;
-        $objeto3->triple=$T_3;
-        $objeto3->superior_s=$SS_3;
-        $objeto3->superior_d=$SD_3;
-        $objeto3->suite=$SU_3;
-        $objeto3->jr_suite=$JS_3;
-        $objeto3->save();
-
-        $objeto4=HotelProveedor::FindOrFail($hotel_pro_id_4);
-        $objeto4->single=$S_4;
-        $objeto4->doble=$D_4;
-        $objeto4->matrimonial=$M_4;
-        $objeto4->triple=$T_4;
-        $objeto4->superior_s=$SS_4;
-        $objeto4->superior_d=$SD_4;
-        $objeto4->suite=$SU_4;
-        $objeto4->jr_suite=$JS_4;
-        $objeto4->save();
-
-        $objeto5=HotelProveedor::FindOrFail($hotel_pro_id_5);
-        $objeto5->single=$S_5;
-        $objeto5->doble=$D_5;
-        $objeto5->matrimonial=$M_5;
-        $objeto5->triple=$T_5;
-        $objeto5->superior_s=$SS_5;
-        $objeto5->superior_d=$SD_5;
-        $objeto5->suite=$SU_5;
-        $objeto5->jr_suite=$JS_5;
-        $objeto5->save();
-
+        if($estrellas==2) {
+            $objeto = HotelProveedor::FindOrFail($hotel_pro_id_2);
+            $objeto->single = $S_2;
+            $objeto->doble = $D_2;
+            $objeto->matrimonial = $M_2;
+            $objeto->triple = $T_2;
+            $objeto->superior_s = $SS_2;
+            $objeto->superior_d = $SD_2;
+            $objeto->suite = $SU_2;
+            $objeto->jr_suite = $JS_2;
+            $objeto->save();
+        }
+        if($estrellas==3) {
+            $objeto3 = HotelProveedor::FindOrFail($hotel_pro_id_3);
+            $objeto3->single = $S_3;
+            $objeto3->doble = $D_3;
+            $objeto3->matrimonial = $M_3;
+            $objeto3->triple = $T_3;
+            $objeto3->superior_s = $SS_3;
+            $objeto3->superior_d = $SD_3;
+            $objeto3->suite = $SU_3;
+            $objeto3->jr_suite = $JS_3;
+            $objeto3->save();
+        }
+        if($estrellas==4) {
+            $objeto4 = HotelProveedor::FindOrFail($hotel_pro_id_4);
+            $objeto4->single = $S_4;
+            $objeto4->doble = $D_4;
+            $objeto4->matrimonial = $M_4;
+            $objeto4->triple = $T_4;
+            $objeto4->superior_s = $SS_4;
+            $objeto4->superior_d = $SD_4;
+            $objeto4->suite = $SU_4;
+            $objeto4->jr_suite = $JS_4;
+            $objeto4->save();
+        }
+        if($estrellas==5) {
+            $objeto5 = HotelProveedor::FindOrFail($hotel_pro_id_5);
+            $objeto5->single = $S_5;
+            $objeto5->doble = $D_5;
+            $objeto5->matrimonial = $M_5;
+            $objeto5->triple = $T_5;
+            $objeto5->superior_s = $SS_5;
+            $objeto5->superior_d = $SD_5;
+            $objeto5->suite = $SU_5;
+            $objeto5->jr_suite = $JS_5;
+            $objeto5->save();
+        }
         return redirect()->route('costs_index_path');
     }
     public function delete(Request $request){

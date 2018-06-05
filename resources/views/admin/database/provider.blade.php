@@ -89,6 +89,19 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            @if($tipoServicio_=='HOTELS')
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txt_codigo">Categoria</label>
+                                                    <select class="form-control" id="txt_categoria_{{$in_pos}}" name="txt_categoria_{{$in_pos}}">
+                                                        <option value="2">2 Stars</option>
+                                                        <option value="3">3 Stars</option>
+                                                        <option value="4">4 Stars</option>
+                                                        <option value="5">5 Stars</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @endif
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="txt_codigo">Ruc</label>
@@ -227,13 +240,13 @@
                                     <thead>
                                     <tr>
                                         <th>Location</th>
+                                        @if($tipoServicio_=='HOTELS')
+                                        <th>Cat</th>
+                                        @endif
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         <th>Nombre comercial</th>
-                                        @if($tipoServicio_=='HOTELS')
-                                        <th class="hide">Cat</th>
-                                        @endif
                                         <th>Tel./Cel.</th>
                                         <th>Email</th>
                                         <th>Reservas</th>
@@ -245,13 +258,13 @@
                                     <tfoot>
                                     <tr>
                                         <th>Location</th>
+                                        @if($tipoServicio_=='HOTELS')
+                                        <th>Cat</th>
+                                        @endif
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         <th>Nombre comercial</th>
-                                        @if($tipoServicio_=='HOTELS')
-                                        <th class="hide">Cat</th>
-                                        @endif
                                         <th>Tel./Cel.</th>
                                         <th>Email</th>
                                         <th>Reservas</th>
@@ -265,6 +278,9 @@
                                         @if($tipoServicio_==$provider->grupo)
                                             <tr id="lista_provider_{{$provider->id}}">
                                                 <td>{{$provider->localizacion}}</td>
+                                                @if($provider->grupo=='HOTELS')
+                                                <td>{{$provider->categoria}} Stars</td>
+                                                @endif
                                                 <td>{{$provider->codigo}}</td>
                                                 <td>{{$provider->ruc}}</td>
                                                 <td>{{$provider->razon_social}}</td>
@@ -361,14 +377,14 @@
                                                                 </div>
                                                             </div>
                                                             @if($tipoServicio_=='HOTELS')
-                                                            <div class="col-md-4 hide">
+                                                            <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="txt_codigo">Categoria</label>
                                                                     <select class="form-control" id="txt_categoria_" name="txt_categoria_">
-                                                                        <option value="2">2 STARS</option>
-                                                                        <option value="3">3 STARS</option>
-                                                                        <option value="4">4 STARS</option>
-                                                                        <option value="5">5 STARS</option>
+                                                                        <option value="2" @if($provider->categoria=='2') selected @endif>2 STARS</option>
+                                                                        <option value="3" @if($provider->categoria=='3') selected @endif>3 STARS</option>
+                                                                        <option value="4" @if($provider->categoria=='4') selected @endif>4 STARS</option>
+                                                                        <option value="5" @if($provider->categoria=='5') selected @endif>5 STARS</option>
                                                                     </select>
                                                                 </div>
                                                             </div>

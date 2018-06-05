@@ -192,26 +192,32 @@
                                             <td></td>
                                         </tr>
 
-                                        @foreach($itinerario->itinerario_servicios as $servicios)
+                                        @foreach($itinerario->itinerario_servicios->sortBy('pos') as $servicios)
                                             <tr id="servicio_{{$servicios->id}}">
                                                 <td class="text-center">
                                                     @php
                                                         $grupe='ninguno';
                                                         $destino='';
                                                         $tipoServicio='';
+                                                        $clase='';
                                                     @endphp
                                                     @foreach($m_servicios->where('id',$servicios->m_servicios_id) as $m_ser)
                                                         @php
                                                             $grupe=$m_ser->grupo;
                                                             $destino=$m_ser->localizacion;
                                                             $tipoServicio=$m_ser->tipoServicio;
+                                                            $clase=$m_ser->clase;
                                                         @endphp
                                                     @endforeach
                                                     @if($grupe=='TOURS')
                                                         <i class="fa fa-map-o text-info" aria-hidden="true"></i>
                                                     @endif
                                                     @if($grupe=='MOVILID')
-                                                        <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                        @if($clase=='BOLETO')
+                                                            <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                        @else
+                                                            <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                        @endif
                                                     @endif
                                                     @if($grupe=='REPRESENT')
                                                         <i class="fa fa-users text-success" aria-hidden="true"></i>
@@ -688,11 +694,11 @@
                                                         @endphp
                                                     @endif
                                                     @php
-                                                        $mostrar='hide';
+                                                        $mostrar='';
                                                     @endphp
-                                                    @if($grupe!='ENTRANCES')
+                                                    @if($grupe=='ENTRANCES' || ($grupe=='MOVILID' && $clase=='BOLETO'))
                                                         @php
-                                                            $mostrar='';
+                                                            $mostrar='hide';
                                                         @endphp
                                                     @endif
                                                     <form id="add_cod_verif_path_{{$servicios->id}}" class="form-inline" action="{{route('add_cod_verif_path')}}" method="post">

@@ -1,13 +1,11 @@
 @php
     $destinos_usados=array();
 @endphp
-@foreach($hotel_solo as $hotel_)
-    @if(!in_array($hotel_->localizacion,$destinos_usados))
+    @if(!in_array($hotel->localizacion,$destinos_usados))
         @php
-            $destinos_usados[]=$hotel_->localizacion;
+            $destinos_usados[]=$hotel->localizacion;
         @endphp
     @endif
-@endforeach
 
 @extends('layouts.admin.admin')
 @section('archivos-css')
@@ -48,7 +46,7 @@
                     <div class="tab-content">
                             <div id="hotel" class="tab-pane fade in active">
                                 <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="txt_codigo">Location</label>
                                                 {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
@@ -58,7 +56,7 @@
                                                             @php
                                                                 $seleccinar='';
                                                             @endphp
-                                                            @if($destination->destino==$localizacion)
+                                                            @if($destination->destino==$hotel->localizacion)
                                                                 @php
                                                                     $seleccinar='selected';
                                                                 @endphp
@@ -74,11 +72,25 @@
                                                 <input type="hidden" name="tipoServicio_{{$pos0}}" id="tipoServicio_{{$pos0}}" value="{{$categoria->nombre}}">
                                             </div>
                                         </div>
-
-                                        <div class="col-md-8">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="txt_codigo">Categoria</label>
+                                            {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
+                                            <select class="form-control" id="txt_categoria_{{$pos0}}" name="txt_categoria_{{$pos0}}" onchange="mostrar_hoteles('{{$pos0}}')" readonly="readonly">
+                                                @php
+                                                    $estrella=$hotel->estrellas;
+                                                @endphp
+                                                <option value="2" @if($hotel->estrellas=='2') selected @endif>2 Stars</option>
+                                                <option value="3" @if($hotel->estrellas=='3') selected @endif>3 Stars</option>
+                                                <option value="4" @if($hotel->estrellas=='4') selected @endif>4 Stars</option>
+                                                <option value="5" @if($hotel->estrellas=='5') selected @endif>5 Stars</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                        <div class="col-md-6">
                                             <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider" value="{{$proveedor_escojido->codigo}} {{$proveedor_escojido->razon_social}}" required>
+                                                <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider" value="{{$proveedor_escojido->codigo}} {{$proveedor_escojido->razon_social}}" required readonly>
                                             </div>
                                             <div class="col-md-3 margin-top-25 ">
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">
@@ -86,7 +98,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-3">
                                             @php
                                                 $S_2=0.00;
                                                 $D_2=0.00;
@@ -137,133 +149,129 @@
                                                 $hotel_pro_id_3=0;
                                                 $hotel_pro_id_4=0;
                                                 $hotel_pro_id_5=0;
-
-
                                             @endphp
-                                            @foreach($hotel_proveedor_buscado as $hotel_pro)
-                                                @if($hotel_pro->estrellas=='2')
+                                                @if($hotel->estrellas=='2')
                                                     @php
-                                                        $hotel_id_2=$hotel_pro->hotel_id;
-                                                        $hotel_pro_id_2=$hotel_pro->id;
-                                                        $S_2=$hotel_pro->single;
-                                                        $D_2=$hotel_pro->doble;
-                                                        $M_2=$hotel_pro->matrimonial;
-                                                        $T_2=$hotel_pro->triple;
-                                                        $SS_2=$hotel_pro->superior_s;
-                                                        $SD_2=$hotel_pro->superior_d;
-                                                        $SU_2=$hotel_pro->suite;
-                                                        $JS_2=$hotel_pro->jr_suite;
+                                                        $hotel_id_2=$hotel->hotel_id;
+                                                        $hotel_pro_id_2=$hotel->id;
+                                                        $S_2=$hotel->single;
+                                                        $D_2=$hotel->doble;
+                                                        $M_2=$hotel->matrimonial;
+                                                        $T_2=$hotel->triple;
+                                                        $SS_2=$hotel->superior_s;
+                                                        $SD_2=$hotel->superior_d;
+                                                        $SU_2=$hotel->suite;
+                                                        $JS_2=$hotel->jr_suite;
                                                     @endphp
                                                 @endif
-                                                @if($hotel_pro->estrellas=='3')
+                                                @if($hotel->estrellas=='3')
                                                     @php
-                                                        $hotel_id_3=$hotel_pro->hotel_id;
-                                                        $hotel_pro_id_3=$hotel_pro->id;
-                                                        $S_3=$hotel_pro->single;
-                                                        $D_3=$hotel_pro->doble;
-                                                        $M_3=$hotel_pro->matrimonial;
-                                                        $T_3=$hotel_pro->triple;
-                                                        $SS_3=$hotel_pro->superior_s;
-                                                        $SD_3=$hotel_pro->superior_d;
-                                                        $SU_3=$hotel_pro->suite;
-                                                        $JS_3=$hotel_pro->jr_suite;
+                                                        $hotel_id_3=$hotel->hotel_id;
+                                                        $hotel_pro_id_3=$hotel->id;
+                                                        $S_3=$hotel->single;
+                                                        $D_3=$hotel->doble;
+                                                        $M_3=$hotel->matrimonial;
+                                                        $T_3=$hotel->triple;
+                                                        $SS_3=$hotel->superior_s;
+                                                        $SD_3=$hotel->superior_d;
+                                                        $SU_3=$hotel->suite;
+                                                        $JS_3=$hotel->jr_suite;
                                                     @endphp
                                                 @endif
-                                                @if($hotel_pro->estrellas=='4')
+                                                @if($hotel->estrellas=='4')
                                                     @php
-                                                        $hotel_id_4=$hotel_pro->hotel_id;
-                                                        $hotel_pro_id_4=$hotel_pro->id;
-                                                        $S_4=$hotel_pro->single;
-                                                        $D_4=$hotel_pro->doble;
-                                                        $M_4=$hotel_pro->matrimonial;
-                                                        $T_4=$hotel_pro->triple;
-                                                        $SS_4=$hotel_pro->superior_s;
-                                                        $SD_4=$hotel_pro->superior_d;
-                                                        $SU_4=$hotel_pro->suite;
-                                                        $JS_4=$hotel_pro->jr_suite;
+                                                        $hotel_id_4=$hotel->hotel_id;
+                                                        $hotel_pro_id_4=$hotel->id;
+                                                        $S_4=$hotel->single;
+                                                        $D_4=$hotel->doble;
+                                                        $M_4=$hotel->matrimonial;
+                                                        $T_4=$hotel->triple;
+                                                        $SS_4=$hotel->superior_s;
+                                                        $SD_4=$hotel->superior_d;
+                                                        $SU_4=$hotel->suite;
+                                                        $JS_4=$hotel->jr_suite;
                                                     @endphp
                                                 @endif
-                                                @if($hotel_pro->estrellas=='5')
+                                                @if($hotel->estrellas=='5')
                                                     @php
-                                                        $hotel_id_5=$hotel_pro->hotel_id;
-                                                        $hotel_pro_id_5=$hotel_pro->id;
-                                                        $S_5=$hotel_pro->single;
-                                                        $D_5=$hotel_pro->doble;
-                                                        $M_5=$hotel_pro->matrimonial;
-                                                        $T_5=$hotel_pro->triple;
-                                                        $SS_5=$hotel_pro->superior_s;
-                                                        $SD_5=$hotel_pro->superior_d;
-                                                        $SU_5=$hotel_pro->suite;
-                                                        $JS_5=$hotel_pro->jr_suite;
+                                                        $hotel_id_5=$hotel->hotel_id;
+                                                        $hotel_pro_id_5=$hotel->id;
+                                                        $S_5=$hotel->single;
+                                                        $D_5=$hotel->doble;
+                                                        $M_5=$hotel->matrimonial;
+                                                        $T_5=$hotel->triple;
+                                                        $SS_5=$hotel->superior_s;
+                                                        $SD_5=$hotel->superior_d;
+                                                        $SU_5=$hotel->suite;
+                                                        $JS_5=$hotel->jr_suite;
                                                     @endphp
                                                 @endif
-                                            @endforeach
                                             <table class="table table-responsive table-striped table-condensed">
                                                 <thead>
                                                 <tr>
                                                     <th class="col-lg-2 text-primary">ACOMODATION</th>
-                                                    <th class="col-lg-2 text-warning text-center text-15">2 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
-                                                    <th class="col-lg-2 text-warning text-center text-15">3 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
-                                                    <th class="col-lg-2 text-warning text-center text-15">4 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
-                                                    <th class="col-lg-2 text-warning text-center text-15">5 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                    <th class="col-lg-2 text-warning text-center text-15 @if($estrella!=2) hide @endif">2 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                    <th class="col-lg-2 text-warning text-center text-15 @if($estrella!=3) hide @endif">3 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                    <th class="col-lg-2 text-warning text-center text-15 @if($estrella!=4) hide @endif">4 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
+                                                    <th class="col-lg-2 text-warning text-center text-15 @if($estrella!=5) hide @endif">5 <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
                                                     <td>SIMGLE</td>
-                                                    <td><input type="number" name="S_2" id="S_2" class="form-control" min="0" step="0.01" value="{{$S_2}}"></td>
-                                                    <td><input type="number" name="S_3" id="S_3" class="form-control" min="0" step="0.01" value="{{$S_3}}"></td>
-                                                    <td><input type="number" name="S_4" id="S_4" class="form-control" min="0" step="0.01" value="{{$S_4}}"></td>
-                                                    <td><input type="number" name="S_5" id="S_5" class="form-control" min="0" step="0.01" value="{{$S_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="S_2" id="S_2" class="form-control" min="0" step="0.01" value="{{$S_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="S_3" id="S_3" class="form-control" min="0" step="0.01" value="{{$S_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="S_4" id="S_4" class="form-control" min="0" step="0.01" value="{{$S_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="S_5" id="S_5" class="form-control" min="0" step="0.01" value="{{$S_5}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>DOUBLE</td>
-                                                    <td><input type="number" name="D_2" id="D_2" class="form-control" min="0" step="0.01" value="{{$D_2}}"></td>
-                                                    <td><input type="number" name="D_3" id="D_3" class="form-control" min="0" step="0.01" value="{{$D_3}}"></td>
-                                                    <td><input type="number" name="D_4" id="D_4" class="form-control" min="0" step="0.01" value="{{$D_4}}"></td>
-                                                    <td><input type="number" name="D_5" id="D_5" class="form-control" min="0" step="0.01" value="{{$D_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="D_2" id="D_2" class="form-control" min="0" step="0.01" value="{{$D_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="D_3" id="D_3" class="form-control" min="0" step="0.01" value="{{$D_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="D_4" id="D_4" class="form-control" min="0" step="0.01" value="{{$D_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="D_5" id="D_5" class="form-control" min="0" step="0.01" value="{{$D_5}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>MATRIMONIAL</td>
-                                                    <td><input type="number" name="M_2" id="M_2" class="form-control" min="0" step="0.01" value="{{$M_2}}"></td>
-                                                    <td><input type="number" name="M_3" id="M_3" class="form-control" min="0" step="0.01" value="{{$M_3}}"></td>
-                                                    <td><input type="number" name="M_4" id="M_4" class="form-control" min="0" step="0.01" value="{{$M_4}}"></td>
-                                                    <td><input type="number" name="M_5" id="M_5" class="form-control" min="0" step="0.01" value="{{$M_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="M_2" id="M_2" class="form-control" min="0" step="0.01" value="{{$M_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="M_3" id="M_3" class="form-control" min="0" step="0.01" value="{{$M_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="M_4" id="M_4" class="form-control" min="0" step="0.01" value="{{$M_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="M_5" id="M_5" class="form-control" min="0" step="0.01" value="{{$M_5}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>TRIPLE</td>
-                                                    <td><input type="number" name="T_2" id="T_2" class="form-control" min="0" step="0.01" value="{{$T_2}}"></td>
-                                                    <td><input type="number" name="T_3" id="T_3" class="form-control" min="0" step="0.01" value="{{$T_3}}"></td>
-                                                    <td><input type="number" name="T_4" id="T_4" class="form-control" min="0" step="0.01" value="{{$T_4}}"></td>
-                                                    <td><input type="number" name="T_5" id="T_5" class="form-control" min="0" step="0.01" value="{{$T_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="T_2" id="T_2" class="form-control" min="0" step="0.01" value="{{$T_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="T_3" id="T_3" class="form-control" min="0" step="0.01" value="{{$T_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="T_4" id="T_4" class="form-control" min="0" step="0.01" value="{{$T_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="T_5" id="T_5" class="form-control" min="0" step="0.01" value="{{$T_5}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>SUPERIOR SIMPLE</td>
-                                                    <td><input type="number" name="SS_2" id="SS_2" class="form-control" min="0" step="0.01" value="{{$SS_2}}"></td>
-                                                    <td><input type="number" name="SS_3" id="SS_3" class="form-control" min="0" step="0.01" value="{{$SS_3}}"></td>
-                                                    <td><input type="number" name="SS_4" id="SS_4" class="form-control" min="0" step="0.01" value="{{$SS_4}}"></td>
-                                                    <td><input type="number" name="SS_5" id="SS_5" class="form-control" min="0" step="0.01" value="{{$SS_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="SS_2" id="SS_2" class="form-control" min="0" step="0.01" value="{{$SS_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="SS_3" id="SS_3" class="form-control" min="0" step="0.01" value="{{$SS_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="SS_4" id="SS_4" class="form-control" min="0" step="0.01" value="{{$SS_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="SS_5" id="SS_5" class="form-control" min="0" step="0.01" value="{{$SS_5}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>SUPERIOR DOUBLE</td>
-                                                    <td><input type="number" name="SD_2" id="SD_2" class="form-control" min="0" step="0.01" value="{{$SD_2}}"></td>
-                                                    <td><input type="number" name="SD_3" id="SD_3" class="form-control" min="0" step="0.01" value="{{$SD_3}}"></td>
-                                                    <td><input type="number" name="SD_4" id="SD_4" class="form-control" min="0" step="0.01" value="{{$SD_4}}"></td>
-                                                    <td><input type="number" name="SD_5" id="SD_5" class="form-control" min="0" step="0.01" value="{{$SD_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="SD_2" id="SD_2" class="form-control" min="0" step="0.01" value="{{$SD_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="SD_3" id="SD_3" class="form-control" min="0" step="0.01" value="{{$SD_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="SD_4" id="SD_4" class="form-control" min="0" step="0.01" value="{{$SD_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="SD_5" id="SD_5" class="form-control" min="0" step="0.01" value="{{$SD_5}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>SUITE</td>
-                                                    <td><input type="number" name="SU_2" id="SU_2" class="form-control" min="0" step="0.01" value="{{$SU_2}}"></td>
-                                                    <td><input type="number" name="SU_3" id="SU_3" class="form-control" min="0" step="0.01" value="{{$SU_3}}"></td>
-                                                    <td><input type="number" name="SU_4" id="SU_4" class="form-control" min="0" step="0.01" value="{{$SU_4}}"></td>
-                                                    <td><input type="number" name="SU_5" id="SU_5" class="form-control" min="0" step="0.01" value="{{$SU_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="SU_2" id="SU_2" class="form-control" min="0" step="0.01" value="{{$SU_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="SU_3" id="SU_3" class="form-control" min="0" step="0.01" value="{{$SU_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="SU_4" id="SU_4" class="form-control" min="0" step="0.01" value="{{$SU_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="SU_5" id="SU_5" class="form-control" min="0" step="0.01" value="{{$SU_5}}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>JR. SUITE</td>
-                                                    <td><input type="number" name="JS_2" id="JS_2" class="form-control" min="0" step="0.01" value="{{$JS_2}}"></td>
-                                                    <td><input type="number" name="JS_3" id="JS_3" class="form-control" min="0" step="0.01" value="{{$JS_3}}"></td>
-                                                    <td><input type="number" name="JS_4" id="JS_4" class="form-control" min="0" step="0.01" value="{{$JS_4}}"></td>
-                                                    <td><input type="number" name="JS_5" id="JS_5" class="form-control" min="0" step="0.01" value="{{$JS_5}}"></td>
+                                                    <td class=" @if($estrella!=2) hide @endif"><input type="number" name="JS_2" id="JS_2" class="form-control" min="0" step="0.01" value="{{$JS_2}}"></td>
+                                                    <td class=" @if($estrella!=3) hide @endif"><input type="number" name="JS_3" id="JS_3" class="form-control" min="0" step="0.01" value="{{$JS_3}}"></td>
+                                                    <td class=" @if($estrella!=4) hide @endif"><input type="number" name="JS_4" id="JS_4" class="form-control" min="0" step="0.01" value="{{$JS_4}}"></td>
+                                                    <td class=" @if($estrella!=5) hide @endif"><input type="number" name="JS_5" id="JS_5" class="form-control" min="0" step="0.01" value="{{$JS_5}}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -274,7 +282,7 @@
                     </div>
                     {{csrf_field()}}
                         <input type="hidden" name="posTipo" id="posTipo" value="0">
-                    <input type="hidden" name="localizacion1_0" id="localizacion1_0" value="{{$localizacion}}">
+                    <input type="hidden" name="localizacion1_0" id="localizacion1_0" value="{{$hotel->localizacion}}">
                     <input type="hidden" name="hotel_pro_id_2" id="hotel_pro_id_2" value="{{$hotel_pro_id_2}}">
                     <input type="hidden" name="hotel_pro_id_3" id="hotel_pro_id_3" value="{{$hotel_pro_id_3}}">
                     <input type="hidden" name="hotel_pro_id_4" id="hotel_pro_id_4" value="{{$hotel_pro_id_4}}">

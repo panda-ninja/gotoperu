@@ -286,11 +286,13 @@ function mostrar_new_cost() {
         desicion=1;
         $("#modal_new_cost").removeClass('hide');
         $("#modal_new_cost").fadeIn( "slow");
+        console.log('mostrando');
     }
     else if(desicion==1){
         desicion=0;
         $("#modal_new_cost").addClass('hide');
         $("#modal_new_cost").fadeOut( "slow");
+        console.log('ocultando');
     }
 }
 function pasar_pos_provider(pos) {
@@ -1384,43 +1386,41 @@ function mostrar_hoteles(pos) {
     $.post('/admin/ventas/hotel/traer-precios', 'loca='+loca, function(data) {
         var data1=data.split('_');
             $('#hotel_id_2').val(data1[0]);
-            $('#S_2').val(data1[1]);
-            $('#D_2').val(data1[2]);
-            $('#M_2').val(data1[3]);
-            $('#T_2').val(data1[4]);
-            $('#SS_2').val(data1[5]);
-            $('#SD_2').val(data1[6]);
-            $('#SU_2').val(data1[7]);
-            $('#JS_2').val(data1[8]);
+            // $('#S_2').val(data1[1]);
+            // $('#D_2').val(data1[2]);
+            // $('#M_2').val(data1[3]);
+            // $('#T_2').val(data1[4]);
+            // $('#SS_2').val(data1[5]);
+            // $('#SD_2').val(data1[6]);
+            // $('#SU_2').val(data1[7]);
+            // $('#JS_2').val(data1[8]);
             $('#hotel_id_3').val(data1[9]);
-            $('#S_3').val(data1[10]);
-            $('#D_3').val(data1[11]);
-            $('#M_3').val(data1[12]);
-            $('#T_3').val(data1[13]);
-            $('#SS_3').val(data1[14]);
-            $('#SD_3').val(data1[15]);
-            $('#SU_3').val(data1[16]);
-            $('#JS_3').val(data1[17]);
+            // $('#S_3').val(data1[10]);
+            // $('#D_3').val(data1[11]);
+            // $('#M_3').val(data1[12]);
+            // $('#T_3').val(data1[13]);
+            // $('#SS_3').val(data1[14]);
+            // $('#SD_3').val(data1[15]);
+            // $('#SU_3').val(data1[16]);
+            // $('#JS_3').val(data1[17]);
             $('#hotel_id_4').val(data1[18]);
-            $('#S_4').val(data1[19]);
-            $('#D_4').val(data1[20]);
-            $('#M_4').val(data1[21]);
-            $('#T_4').val(data1[22]);
-            $('#SS_4').val(data1[23]);
-            $('#SD_4').val(data1[24]);
-            $('#SU_4').val(data1[25]);
-            $('#JS_4').val(data1[26]);
+            // $('#S_4').val(data1[19]);
+            // $('#D_4').val(data1[20]);
+            // $('#M_4').val(data1[21]);
+            // $('#T_4').val(data1[22]);
+            // $('#SS_4').val(data1[23]);
+            // $('#SD_4').val(data1[24]);
+            // $('#SU_4').val(data1[25]);
+            // $('#JS_4').val(data1[26]);
             $('#hotel_id_5').val(data1[27]);
-            $('#S_5').val(data1[28]);
-            $('#D_5').val(data1[29]);
-            $('#M_5').val(data1[30]);
-            $('#T_5').val(data1[31]);
-            $('#SS_5').val(data1[32]);
-            $('#SD_5').val(data1[33]);
-            $('#SU_5').val(data1[34]);
-            $('#JS_5').val(data1[35]);
-
-
+            // $('#S_5').val(data1[28]);
+            // $('#D_5').val(data1[29]);
+            // $('#M_5').val(data1[30]);
+            // $('#T_5').val(data1[31]);
+            // $('#SS_5').val(data1[32]);
+            // $('#SD_5').val(data1[33]);
+            // $('#SU_5').val(data1[34]);
+            // $('#JS_5').val(data1[35]);
     }).fail(function (data) {
         console.log(data);
     });
@@ -2701,7 +2701,7 @@ function segunda_confirmada_hotel(id,valor){
 //     });
 // }
 
-function eliminar_hotel_pro(pos,id,hotel,loca) {
+function eliminar_hotel_pro(hotel,id) {
     // alert('holaaa');
     swal({
         title: 'MENSAJE DEL SISTEMA',
@@ -2720,7 +2720,7 @@ function eliminar_hotel_pro(pos,id,hotel,loca) {
         $.post('/admin/cost/hotel/proveedor/delete', 'id='+id+'&loca='+loca, function(data) {
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
-                $("#h_p_"+pos).fadeOut( "slow");
+                $("#h_p_"+id).fadeOut( "slow");
             }
         }).fail(function (data) {
 
@@ -3756,4 +3756,134 @@ function eliminar_liquidacion(id,ini,fin) {
         });
 
     })
+}
+
+function llamar_servicios(destino,grupo){
+    console.log('destino:'+destino+',grupo:'+grupo);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/ventas/call/servicios/grupo', 'destino='+destino+'&grupo='+grupo, function(data) {
+        $("#list_servicios_grupo").html(data);
+
+    }).fail(function (data) {
+
+    });
+}
+var total_serv=0;
+function escojer_servicio(){
+    total_serv=$('#nroServicios').val();
+    var destino_escoj=$('#destinos_escoj').html();
+    var itinerario='';
+    var iti_temp='';
+    $("input[class='servicios1']").each(function (index){
+        if($(this).is(':checked')){
+            itinerario='';
+            itinerario=$(this).val().split('_');
+            var $grupo=itinerario[5];
+            if(!existe_servicio(itinerario[2]))
+            {
+                total_serv++;
+                iti_temp = '<div id="elto_'+itinerario[2]+'" class="col-lg-11 elemento_sort">'+
+                    '<div class="row">'+
+                '<div class="col-lg-1 text-11 puntero"><span class="text-unset"><i class="fa fa-arrows-alt" aria-hidden="true"></i></span></div>'+
+                '<div class="col-lg-1 pos text-10">'+total_serv+'</div>'+
+                '<div class="col-lg-9 text-12">';
+                if($grupo=='TOURS')
+                    iti_temp +='<i class="fa fa-map-o text-info" aria-hidden="true"></i>';
+                else if($grupo == 'MOVILID'){
+                    if ($clase == 'BOLETO')
+                        iti_temp +='<i class= "fa fa-ticket text-warning" aria-hidden="true"></i>';
+                    else
+                        iti_temp += '<i class= "fa fa-bus text-warning" aria-hidden="true"></i>';
+
+                }
+                else if($grupo == 'REPRESENT')
+                    iti_temp += '<i class = "fa fa-users text-success" aria-hidden = "true" > < / i >';
+                else if($grupo == 'ENTRANCES')
+                    iti_temp += '<i class= "fa fa-ticket text-success" aria-hidden = "true" > < / i >';
+                else if($grupo == 'FOOD')
+                    iti_temp += '<i class = "fa fa-cutlery text-danger" aria-hidden = "true" > < / i >';
+                else if($grupo == 'TRAINS')
+                    iti_temp += '<i class = "fa fa-train text-info" aria-hidden = "true" > < / i >';
+                else if($grupo == 'FLIGHTS')
+                    iti_temp += '<i class = "fa fa-plane text-primary" aria-hidden = "true" > < / i >';
+                else if($grupo == 'OTHERS')
+                    iti_temp += '<i class = "fa fa-question text-success" aria-hidden = "true" > < / i >';
+
+                iti_temp += itinerario[4]+'<input type="hidden" name="servicios_esc[]" value="'+itinerario[2]+'"><input type="hidden" name="destinos_esc[]" value="'+destino_escoj+'"></div>'+
+            '<div class="col-lg-1 text-13 puntero"><span class="text-danger" onclick="borrar_servicios_esc(\''+itinerario[2]+'\',\''+itinerario[4]+'\')"><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>'+
+                '</div>'+
+                '</div>';
+
+                $('#caja_1').append(iti_temp);
+            }
+            $(this).prop("checked", "");
+        }
+    });
+    $('#nroServicios').val(total_serv);
+}
+function existe_servicio(clave){
+    var existe=false;
+    $(".elemento_sort").each(function (index1) {
+        var valor_servicio1=$(this).attr('id');
+        var valor_servicio=valor_servicio1.split('_');
+        if(clave==valor_servicio[1]){
+            existe=true;
+        }
+    });
+    return existe;
+}
+
+function borrar_servicios_esc(id,titulo) {
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar el servicio "+titulo+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $("#elto_"+id).fadeOut("slow");
+        $("#elto_"+id).remove();
+        ordenar_servicios();
+        total_serv=parseInt($('#nroServicios').val());
+        total_serv--;
+        $('#nroServicios').val(total_serv);
+    })
+}
+function ordenar_servicios() {
+    var titles =$('.caja_sort').children('.elemento_sort').children('.row').children('.pos');
+    $(titles).each(function(index, element){
+        var elto=$(element).html();
+        var pos=(index+1);
+        $(element).html(pos);
+    });
+}
+
+function mostrar_hoteles_categoria(pos) {
+    var cate = $('#txt_categoria_' + pos).val();
+    for(var i=2;i<=5;i++) {
+        $("#header_"+i).addClass("hide");
+        $("#dato_s_"+i).addClass("hide");
+        $("#dato_d_"+i).addClass("hide");
+        $("#dato_m_"+i).addClass("hide");
+        $("#dato_t_"+i).addClass("hide");
+        $("#dato_ss_"+i).addClass("hide");
+        $("#dato_sd_"+i).addClass("hide");
+        $("#dato_su_"+i).addClass("hide");
+        $("#dato_js_"+i).addClass("hide");
+    }
+    $("#header_"+cate).removeClass("hide");
+    $("#dato_s_"+cate).removeClass("hide");
+    $("#dato_d_"+cate).removeClass("hide");
+    $("#dato_m_"+cate).removeClass("hide");
+    $("#dato_t_"+cate).removeClass("hide");
+    $("#dato_ss_"+cate).removeClass("hide");
+    $("#dato_sd_"+cate).removeClass("hide");
+    $("#dato_su_"+cate).removeClass("hide");
+    $("#dato_js_"+cate).removeClass("hide");
 }

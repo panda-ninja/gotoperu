@@ -16,9 +16,9 @@
     @yield('archivos-css')
     {{--scripts--}}
     <script src="{{asset("https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.js")}}"></script>
-    @yield('archivos-js')
-    <script src="{{asset("js/admin/plugins.js")}}"></script>
 
+    <script src="{{asset("js/admin/plugins.js")}}"></script>
+    @yield('archivos-js')
 </head>
 <body>
 
@@ -46,6 +46,7 @@
 {{--scripts--}}
 
 <script>
+
     var jumboHeight = $('.jumbotron').outerHeight();
     function parallax(){
         var scrolled = $(window).scrollTop();
@@ -55,6 +56,7 @@
     $(window).scroll(function(e){
         parallax();
     });
+
 </script>
 
 

@@ -50,7 +50,7 @@ class PackageController extends Controller
         $hotel=Hotel::get();
         $itinerarios_d=M_ItinerarioDestino::get();
         session()->put('menu-lateral', 'sales/iti/new');
-//        dd($servicios);
+//        dd($itinerarios_d);
         return view('admin.package',['destinos'=>$destinos,'itinerarios'=>$itinerarios,'m_servicios'=>$m_servicios,'hotel'=>$hotel,'itinerarios_d'=>$itinerarios_d]);
     }
 
@@ -250,7 +250,7 @@ class PackageController extends Controller
                 $st+=$p_servicio->precio;
                 $p_servicio->p_itinerario_id=$p_itinerario->id;
                 $p_servicio->m_servicios_id=$servicios->itinerario_servicios_servicio->id;
-
+                $p_servicio->pos=$servicios->pos;
                 $p_servicio->save();
             }
             $p_itinerario->precio=$st;

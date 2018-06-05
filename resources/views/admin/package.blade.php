@@ -133,13 +133,13 @@
                     @php
                         $pos_itinerario=0;
                     @endphp
-                    @foreach($destinos as $destino)
+                    @foreach($destinos->sortby('destino') as $destino)
                         <div id="group_destino_{{$destino->id}}" class="hide">
                             <div class="row">
                                 <b class="font-montserrat text-orange-goto text-20">{{$destino->destino}}</b>
                             </div>
                             @foreach($itinerarios_d->where('destino', $destino->destino) as $iti)
-                                @foreach($itinerarios->where('id',$iti->m_itinerario_id) as $itinerario)
+                                @foreach($itinerarios->where('id',$iti->m_itinerario_id)->sortBy('titulo') as $itinerario)
                                     @php
                                         $encontrado=1;
                                         $pos_itinerario++;

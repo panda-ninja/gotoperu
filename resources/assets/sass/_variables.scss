@@ -369,3 +369,146 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   vertical-align: middle;
   text-align: left;
 }
+
+/*estilos para los drang and drop*/
+.contenedor {
+  position: relative;
+  margin-top: 60px;
+  margin-left: 60px;
+  margin-right: 60px;
+  padding-bottom: 10px;
+  min-height: 500px;
+  background: #eee;
+  box-shadow: 0px 0px 10px 2px #bbb;
+  width:400px;
+}
+
+.contenedor .title {
+  //position: absolute;
+  //border: 0;
+  //margin: 0;
+  //padding: 0;
+  //padding-top: 14px;
+  ////height: 40px;
+  width: 330px;
+  ////width: 400px;
+  ////max-width: 100px;
+  //text-indent: 20px;
+  //background: #4af;
+  //border-radius: 2px;
+  //box-shadow: 0px 0px 0px 2px #29f;
+  //pointer-events: none;
+  //margin-left: 0px;
+  ////width: 100%;
+  //background: #f7f7f7;
+  //box-shadow: 0px 2px 0px 1px #9bf;
+}
+
+.route {
+  position: relative;
+  list-style-type: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  top: 0px;
+  margin-top: 0px;
+  max-height: 100% !important;
+  width: auto;
+  background: #7F8429;
+  border-radius: 1px;
+  z-index: -1;
+}
+
+.route span {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  //-ms-transform: scale(2);
+  /* IE 9 */
+
+  //-webkit-transform: scale(2);
+  /* Chrome, Safari, Opera */
+
+  //transform: scale(2);
+  z-index: 10px;
+}
+
+.route .title {
+  position: absolute;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  padding-top: 5px;
+  height: 30px;
+  //height: auto;
+  width: 330px;
+  text-indent: 20px;
+  background: #f7f7f7;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0px 1px #dcdcdc;
+  pointer-events: none;
+
+  //padding-top: 14px;
+  //text-indent: 20px;
+  //background: #4af;
+  margin-left: 0px;
+}
+
+.first-title { margin-left: 10px; }
+
+.space {
+  position: relative;
+  list-style-type: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  margin-left: 15px;
+  width: 5px;
+  top: 33px;
+  padding-bottom: 33px;
+  height: 100%;
+  z-index: 1;
+}
+
+.first-space { margin-left: 10px; }
+
+.orden{
+}
+
+.caja_sort{
+  background: white;
+  margin-bottom: 3px;
+  border-radius: 5px ;
+  margin-left: 15px;
+  padding-bottom: 20px;
+  z-index: 1;
+}
+.caja_sort .icon{
+  top: 2px;
+  left: 0px;
+}
+
+.elemento_sort{
+  background: #f7f7f7;
+  border: 1px solid #d1d1d1;
+  margin-left: 15px;
+  margin-bottom: 3px;
+  border-radius: 5px ;
+}
+.pos{
+  color:black;
+}
+.height-300{
+  height: 317px;
+  max-height: 317px;
+  overflow-y: auto;
+}
+.height-400{
+  height: 403px;
+  max-height: 403px;
+  overflow-y: auto;
+}
+
+.puntero:hover{
+  cursor: hand;
+}

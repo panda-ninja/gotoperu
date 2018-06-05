@@ -142,6 +142,10 @@ Route::get('/admin/costs', [
     'uses' => 'CostController@index',
     'as' => 'costs_index_path',
 ]);
+Route::get('/admin/costs/new', [
+    'uses' => 'CostController@new_',
+    'as' => 'mostrar_cost_new_path',
+]);
 Route::post('/admin/costs', [
     'uses' => 'CostController@store',
     'as' => 'costs_save_path',
@@ -723,7 +727,7 @@ Route::post('admin/hotel/delete', [
     'uses' => 'ServicesController@eliminar_servicio_hotel',
     'as' => 'eliminar_hotel_producto_path',
 ]);
-Route::get('admin/hotel/proveedor/edit/{id1}/{id2}', [
+Route::get('admin/hotel/proveedor/edit/{id}', [
     'uses' => 'HotelProveedorController@editar_hotel_proveedor',
     'as' => 'editar_hotel_proveedor_path',
 ]);
@@ -905,3 +909,20 @@ Route::post('/admin/contabilidad/operaciones/pagos-pendientes/delete', [
     'uses' => 'ContabilidadController@pagos_pendientes_delete',
     'as' => 'pagos_pendientes_delete_path',
 ]);
+Route::post('/admin/ventas/call/servicios/grupo',[
+    'uses' => 'ItinerariController@call_servicios_grupo_get',
+    'as' => 'call_servicios_grupo_get_path',
+]);
+Route::get('/admin/itinerary/new',[
+    'uses' => 'ItinerariController@call_servicios_grupo',
+    'as' => 'daybyday_new_path',
+]);
+Route::get('/admin/itinerary/new/edit/{id}',[
+    'uses' => 'ItinerariController@call_servicios_grupo_edit',
+    'as' => 'daybyday_new_edit_path',
+]);
+Route::post('/admin/itinerary/new/edit/',[
+    'uses' => 'ItinerariController@call_servicios_edit',
+    'as' => 'call_servicios_edit_path',
+]);
+

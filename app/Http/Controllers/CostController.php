@@ -52,6 +52,42 @@ class CostController extends Controller
             'destinations'=>$destinations,'categorias'=>$categorias,
             'productos'=>$productos,'hotel'=>$hotel,'proveedores'=>$proveedores,'hotel_solo'=>$hotel_solo,'proveedor_db'=>$proveedor_db]);
     }
+    public function new_(){
+        $valor='';
+        $productos_hotels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','HOTELS');}])->get();
+        $productos_tours=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TOURS');}])->get();
+        $productos_transp=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRANSPORTATION');}])->get();
+        $productos_guides=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','GUIDES_ASSIST');}])->get();
+        $productos_entrances=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','ENTRANCES');}])->get();
+        $productos_food=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','FOOD');}])->get();
+        $productos_trains=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAINS');}])->get();
+        $productos_travels=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','TRAVELS');}])->get();
+        $productos_others=Proveedor::with(['productos'=>function($query)use($valor){$query->where('grupo','OTHERS');}])->get();
+        $destinations=M_Destino::get();
+        $categorias=M_Category::get();
+        $hotel=HotelProveedor::get();
+        $hotel_solo=Hotel::get();
+
+        $proveedores=[];
+        foreach ($hotel as $hotel_){
+            if(!in_array($hotel_->localizacion.'_'.$hotel_->proveedor_id,$proveedores)){
+                $proveedores[]=$hotel_->localizacion.'_'.$hotel_->proveedor_id;
+            }
+        }
+//        dd($array);
+        $proveedor_db=Proveedor::get();
+        $productos=Proveedor::with(['productos'])->get();
+//        dd($productos_hotels);
+
+        session()->put('menu-lateral', 'Scosts');
+        return view('admin.database.costs-new',['productos_hotels'=>$productos_hotels,
+            'productos_tours'=>$productos_tours,'productos_transp'=>$productos_transp,
+            'productos_guides'=>$productos_guides,'productos_entrances'=>$productos_entrances,
+            'productos_food'=>$productos_food,'productos_trains'=>$productos_trains,
+            'productos_travels'=>$productos_travels,'productos_others'=>$productos_others,
+            'destinations'=>$destinations,'categorias'=>$categorias,
+            'productos'=>$productos,'hotel'=>$hotel,'proveedores'=>$proveedores,'hotel_solo'=>$hotel_solo,'proveedor_db'=>$proveedor_db]);
+    }
     public function store(Request $request){
         $categorias=M_Category::get();
         foreach($categorias as $categoria){
@@ -124,6 +160,7 @@ class CostController extends Controller
         }
         }
         else{
+            $txt_categoria='txt_categoria_'.$posTipo;
             $localizacion='txt_localizacion_'.$posTipo;
             $txt_localizacion=strtoupper($request->input($localizacion));
             $provider='txt_provider_'.$posTipo;
@@ -134,102 +171,114 @@ class CostController extends Controller
                 foreach ($proveedor->take(1) as $pro){
                     $proveedor_id=$pro->id;
                 }
-            $S_2=$request->input('S_2');
-            $D_2=$request->input('D_2');
-            $M_2=$request->input('M_2');
-            $T_2=$request->input('T_2');
-            $SS_2=$request->input('SS_2');
-            $SD_2=$request->input('SD_2');
-            $SU_2=$request->input('SU_2');
-            $JS_2=$request->input('JS_2');
-            $S_3=$request->input('S_3');
-            $D_3=$request->input('D_3');
-            $M_3=$request->input('M_3');
-            $T_3=$request->input('T_3');
-            $SS_3=$request->input('SS_3');
-            $SD_3=$request->input('SD_3');
-            $SU_3=$request->input('SU_3');
-            $JS_3=$request->input('JS_3');
-            $S_4=$request->input('S_4');
-            $D_4=$request->input('D_4');
-            $M_4=$request->input('M_4');
-            $T_4=$request->input('T_4');
-            $SS_4=$request->input('SS_4');
-            $SD_4=$request->input('SD_4');
-            $SU_4=$request->input('SU_4');
-            $JS_4=$request->input('JS_4');
-            $S_5=$request->input('S_5');
-            $D_5=$request->input('D_5');
-            $M_5=$request->input('M_5');
-            $T_5=$request->input('T_5');
-            $SS_5=$request->input('SS_5');
-            $SD_5=$request->input('SD_5');
-            $SU_5=$request->input('SU_5');
-            $JS_5=$request->input('JS_5');
-
-            $hotel_proveedor=new HotelProveedor();
-            $hotel_proveedor->localizacion=$txt_localizacion;
-            $hotel_proveedor->estrellas=2;
-            $hotel_proveedor->single=$S_2;
-            $hotel_proveedor->doble=$D_2;
-            $hotel_proveedor->matrimonial=$M_2;
-            $hotel_proveedor->triple=$T_2;
-            $hotel_proveedor->superior_s=$SS_2;
-            $hotel_proveedor->superior_d=$SD_2;
-            $hotel_proveedor->suite=$SU_2;
-            $hotel_proveedor->jr_suite=$JS_2;
-            $hotel_proveedor->proveedor_id=$proveedor_id;
-            $hotel_proveedor->estado=1;
-            $hotel_proveedor->hotel_id=$request->input('hotel_id_2');
-            $hotel_proveedor->save();
-
-            $hotel_proveedor_3=new HotelProveedor();
-            $hotel_proveedor_3->localizacion=$txt_localizacion;
-            $hotel_proveedor_3->estrellas=3;
-            $hotel_proveedor_3->single=$S_3;
-            $hotel_proveedor_3->doble=$D_3;
-            $hotel_proveedor_3->matrimonial=$M_3;
-            $hotel_proveedor_3->triple=$T_3;
-            $hotel_proveedor_3->superior_s=$SS_3;
-            $hotel_proveedor_3->superior_d=$SD_3;
-            $hotel_proveedor_3->suite=$SU_3;
-            $hotel_proveedor_3->jr_suite=$JS_3;
-            $hotel_proveedor_3->proveedor_id=$proveedor_id;
-            $hotel_proveedor_3->estado=1;
-            $hotel_proveedor_3->hotel_id=$request->input('hotel_id_3');
-            $hotel_proveedor_3->save();
-
-            $hotel_proveedor_4=new HotelProveedor();
-            $hotel_proveedor_4->localizacion=$txt_localizacion;
-            $hotel_proveedor_4->estrellas=4;
-            $hotel_proveedor_4->single=$S_4;
-            $hotel_proveedor_4->doble=$D_4;
-            $hotel_proveedor_4->matrimonial=$M_4;
-            $hotel_proveedor_4->triple=$T_4;
-            $hotel_proveedor_4->superior_s=$SS_4;
-            $hotel_proveedor_4->superior_d=$SD_4;
-            $hotel_proveedor_4->suite=$SU_4;
-            $hotel_proveedor_4->jr_suite=$JS_4;
-            $hotel_proveedor_4->proveedor_id=$proveedor_id;
-            $hotel_proveedor_4->estado=1;
-            $hotel_proveedor_4->hotel_id=$request->input('hotel_id_4');
-            $hotel_proveedor_4->save();
-
-            $hotel_proveedor_5=new HotelProveedor();
-            $hotel_proveedor_5->localizacion=$txt_localizacion;
-            $hotel_proveedor_5->estrellas=5;
-            $hotel_proveedor_5->single=$S_5;
-            $hotel_proveedor_5->doble=$D_5;
-            $hotel_proveedor_5->matrimonial=$M_5;
-            $hotel_proveedor_5->triple=$T_5;
-            $hotel_proveedor_5->superior_s=$SS_5;
-            $hotel_proveedor_5->superior_d=$SD_5;
-            $hotel_proveedor_5->suite=$SU_5;
-            $hotel_proveedor_5->jr_suite=$JS_5;
-            $hotel_proveedor_5->proveedor_id=$proveedor_id;
-            $hotel_proveedor_5->estado=1;
-            $hotel_proveedor_5->hotel_id=$request->input('hotel_id_5');
-            $hotel_proveedor_5->save();
+            if($txt_categoria=='2') {
+                $S_2 = $request->input('S_2');
+                $D_2 = $request->input('D_2');
+                $M_2 = $request->input('M_2');
+                $T_2 = $request->input('T_2');
+                $SS_2 = $request->input('SS_2');
+                $SD_2 = $request->input('SD_2');
+                $SU_2 = $request->input('SU_2');
+                $JS_2 = $request->input('JS_2');
+            }
+            if($txt_categoria=='3') {
+                $S_3 = $request->input('S_3');
+                $D_3 = $request->input('D_3');
+                $M_3 = $request->input('M_3');
+                $T_3 = $request->input('T_3');
+                $SS_3 = $request->input('SS_3');
+                $SD_3 = $request->input('SD_3');
+                $SU_3 = $request->input('SU_3');
+                $JS_3 = $request->input('JS_3');
+            }
+            if($txt_categoria=='4') {
+                $S_4 = $request->input('S_4');
+                $D_4 = $request->input('D_4');
+                $M_4 = $request->input('M_4');
+                $T_4 = $request->input('T_4');
+                $SS_4 = $request->input('SS_4');
+                $SD_4 = $request->input('SD_4');
+                $SU_4 = $request->input('SU_4');
+                $JS_4 = $request->input('JS_4');
+            }
+            if($txt_categoria=='5') {
+                $S_5 = $request->input('S_5');
+                $D_5 = $request->input('D_5');
+                $M_5 = $request->input('M_5');
+                $T_5 = $request->input('T_5');
+                $SS_5 = $request->input('SS_5');
+                $SD_5 = $request->input('SD_5');
+                $SU_5 = $request->input('SU_5');
+                $JS_5 = $request->input('JS_5');
+            }
+            if($txt_categoria=='2') {
+                $hotel_proveedor = new HotelProveedor();
+                $hotel_proveedor->localizacion = $txt_localizacion;
+                $hotel_proveedor->estrellas = 2;
+                $hotel_proveedor->single = $S_2;
+                $hotel_proveedor->doble = $D_2;
+                $hotel_proveedor->matrimonial = $M_2;
+                $hotel_proveedor->triple = $T_2;
+                $hotel_proveedor->superior_s = $SS_2;
+                $hotel_proveedor->superior_d = $SD_2;
+                $hotel_proveedor->suite = $SU_2;
+                $hotel_proveedor->jr_suite = $JS_2;
+                $hotel_proveedor->proveedor_id = $proveedor_id;
+                $hotel_proveedor->estado = 1;
+                $hotel_proveedor->hotel_id = $request->input('hotel_id_2');
+                $hotel_proveedor->save();
+            }
+            if($txt_categoria=='3') {
+                $hotel_proveedor_3 = new HotelProveedor();
+                $hotel_proveedor_3->localizacion = $txt_localizacion;
+                $hotel_proveedor_3->estrellas = 3;
+                $hotel_proveedor_3->single = $S_3;
+                $hotel_proveedor_3->doble = $D_3;
+                $hotel_proveedor_3->matrimonial = $M_3;
+                $hotel_proveedor_3->triple = $T_3;
+                $hotel_proveedor_3->superior_s = $SS_3;
+                $hotel_proveedor_3->superior_d = $SD_3;
+                $hotel_proveedor_3->suite = $SU_3;
+                $hotel_proveedor_3->jr_suite = $JS_3;
+                $hotel_proveedor_3->proveedor_id = $proveedor_id;
+                $hotel_proveedor_3->estado = 1;
+                $hotel_proveedor_3->hotel_id = $request->input('hotel_id_3');
+                $hotel_proveedor_3->save();
+            }
+            if($txt_categoria=='4') {
+                $hotel_proveedor_4 = new HotelProveedor();
+                $hotel_proveedor_4->localizacion = $txt_localizacion;
+                $hotel_proveedor_4->estrellas = 4;
+                $hotel_proveedor_4->single = $S_4;
+                $hotel_proveedor_4->doble = $D_4;
+                $hotel_proveedor_4->matrimonial = $M_4;
+                $hotel_proveedor_4->triple = $T_4;
+                $hotel_proveedor_4->superior_s = $SS_4;
+                $hotel_proveedor_4->superior_d = $SD_4;
+                $hotel_proveedor_4->suite = $SU_4;
+                $hotel_proveedor_4->jr_suite = $JS_4;
+                $hotel_proveedor_4->proveedor_id = $proveedor_id;
+                $hotel_proveedor_4->estado = 1;
+                $hotel_proveedor_4->hotel_id = $request->input('hotel_id_4');
+                $hotel_proveedor_4->save();
+            }
+            if($txt_categoria=='5') {
+                $hotel_proveedor_5 = new HotelProveedor();
+                $hotel_proveedor_5->localizacion = $txt_localizacion;
+                $hotel_proveedor_5->estrellas = 5;
+                $hotel_proveedor_5->single = $S_5;
+                $hotel_proveedor_5->doble = $D_5;
+                $hotel_proveedor_5->matrimonial = $M_5;
+                $hotel_proveedor_5->triple = $T_5;
+                $hotel_proveedor_5->superior_s = $SS_5;
+                $hotel_proveedor_5->superior_d = $SD_5;
+                $hotel_proveedor_5->suite = $SU_5;
+                $hotel_proveedor_5->jr_suite = $JS_5;
+                $hotel_proveedor_5->proveedor_id = $proveedor_id;
+                $hotel_proveedor_5->estado = 1;
+                $hotel_proveedor_5->hotel_id = $request->input('hotel_id_5');
+                $hotel_proveedor_5->save();
+            }
             return redirect()->route('costs_index_path');
             }
         }

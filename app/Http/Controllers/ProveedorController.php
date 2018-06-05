@@ -28,15 +28,26 @@ class ProveedorController extends Controller
             $term = Input::get('term');
             $localizacion = Input::get('localizacion');
             $grupo= Input::get('grupo');
+            $estrellas='';
+            if($grupo=='HOTELS'){
+                $estrellas= Input::get('estrellas');
 
+            }
 
 //            $rs =strtoupper($request->get('txt_provider_0'));
             $results = null;
             $results = [];
-            $proveedor = Proveedor::where('codigo', 'like', '%' . $term . '%')
-                ->orWhere('razon_social', 'like', '%' . $term . '%')
-                ->get();
-
+            $proveedor=null;
+            if($grupo=='HOTELS') {
+                $proveedor = Proveedor::where('codigo', 'like', '%' . $term . '%')
+                    ->orWhere('nombre_comercial', 'like', '%' . $term . '%')
+                    ->get();
+            }
+            else{
+                $proveedor = Proveedor::where('codigo', 'like', '%' . $term . '%')
+                    ->orWhere('nombre_comercial', 'like', '%' . $term . '%')
+                    ->get();
+            }
 //            $queries = DB::table('users')
 //                ->where('first_name', 'LIKE', '%'.$term.'%')
 //                ->orWhere('last_name', 'LIKE', '%'.$term.'%')
@@ -46,8 +57,15 @@ class ProveedorController extends Controller
 //                $rpt1=strpos($query->codigo,$term);
 //                $rpt2=strpos($query->razon_social,$term);
                 if($grupo==$query->grupo){
-//                    if($localizacion==$query->localizacion)
-                        $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->razon_social];
+                    if($grupo=='HOTELS') {
+                        if($estrellas==$query->categoria){
+//                          if($localizacion==$query->localizacion)
+                            $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre_comercial];
+                        }
+                    }
+                    else{
+                        $results[] = ['id' => $query->id, 'value' => $query->codigo.' '.$query->nombre_comercial];
+                    }
                 }
             }
             return response()->json($results);
@@ -119,6 +137,7 @@ class ProveedorController extends Controller
         $txt_grupo_cod=substr($txt_grupo,0,2);
         $txt_localizacion=$request->input('txt_localizacion_'.$nro_grupo);
         $txt_localizacion_cod=substr($txt_localizacion,0,1);
+        $txt_categoria=$request->input('txt_categoria_'.$nro_grupo);
         $txt_ruc=$request->input('txt_ruc_'.$nro_grupo);
         $txt_razon_social=strtoupper($request->input('txt_razon_social_'.$nro_grupo));
         $txt_nombre_comercial=strtoupper($request->input('txt_nombre_comercial_'.$nro_grupo));
@@ -136,6 +155,7 @@ class ProveedorController extends Controller
 
 
         $proveedor=new Proveedor();
+        $proveedor->categoria=$txt_categoria;
         $proveedor->ruc=$txt_ruc;
         $proveedor->razon_social=$txt_razon_social;
         $proveedor->nombre_comercial=$txt_nombre_comercial;

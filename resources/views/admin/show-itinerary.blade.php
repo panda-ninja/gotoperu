@@ -284,7 +284,7 @@
                                 $pos_itinerario=0;
                                 $mostrar_servi='';
                             @endphp
-                            @foreach($destinos as $destino)
+                            @foreach($destinos->sortBy('destino') as $destino)
                                 @php
                                     $mostrar_servi='hide';
                                 @endphp
