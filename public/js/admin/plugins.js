@@ -3443,7 +3443,7 @@ function segunda_confirmada_hotel(id,valor){
 //     });
 // }
 
-function eliminar_hotel_pro(pos,id,hotel,loca) {
+function eliminar_hotel_pro(hotel,id) {
     // alert('holaaa');
     swal({
         title: 'MENSAJE DEL SISTEMA',
@@ -3462,7 +3462,7 @@ function eliminar_hotel_pro(pos,id,hotel,loca) {
         $.post('/admin/cost/hotel/proveedor/delete', 'id='+id+'&loca='+loca, function(data) {
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
-                $("#h_p_"+pos).fadeOut( "slow");
+                $("#h_p_"+id).fadeOut( "slow");
             }
         }).fail(function (data) {
 
@@ -4543,17 +4543,17 @@ function escojer_servicio(){
 
                 }
                 else if($grupo == 'REPRESENT')
-                    iti_temp += '<i class = "fa fa-users text-success" aria-hidden = "true" > < / i >';
+                    iti_temp += '<i class = "fa fa-users text-success" aria-hidden="true"></i>';
                 else if($grupo == 'ENTRANCES')
-                    iti_temp += '<i class= "fa fa-ticket text-success" aria-hidden = "true" > < / i >';
+                    iti_temp += '<i class= "fa fa-ticket text-success" aria-hidden="true"></i>';
                 else if($grupo == 'FOOD')
-                    iti_temp += '<i class = "fa fa-cutlery text-danger" aria-hidden = "true" > < / i >';
+                    iti_temp += '<i class = "fa fa-cutlery text-danger" aria-hidden="true"></i>';
                 else if($grupo == 'TRAINS')
-                    iti_temp += '<i class = "fa fa-train text-info" aria-hidden = "true" > < / i >';
+                    iti_temp += '<i class = "fa fa-train text-info" aria-hidden="true"></i>';
                 else if($grupo == 'FLIGHTS')
-                    iti_temp += '<i class = "fa fa-plane text-primary" aria-hidden = "true" > < / i >';
+                    iti_temp += '<i class = "fa fa-plane text-primary" aria-hidden="true"></i>';
                 else if($grupo == 'OTHERS')
-                    iti_temp += '<i class = "fa fa-question text-success" aria-hidden = "true" > < / i >';
+                    iti_temp += '<i class = "fa fa-question text-success" aria-hidden="true"></i>';
 
                 iti_temp += itinerario[4]+'<input type="hidden" name="servicios_esc[]" value="'+itinerario[2]+'"><input type="hidden" name="destinos_esc[]" value="'+destino_escoj+'"></div>'+
             '<div class="col-lg-1 text-13 puntero"><span class="text-danger" onclick="borrar_servicios_esc(\''+itinerario[2]+'\',\''+itinerario[4]+'\')"><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>'+
