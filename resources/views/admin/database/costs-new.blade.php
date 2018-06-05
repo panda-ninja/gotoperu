@@ -377,25 +377,14 @@
 
     <script>
         $(document).ready(function() {
-            <?php
-                $i=0;
-            ?>
-            @foreach($tipoServicio as $tipoServicio_)
-            $("select[id=txt_localizacion_{{$i}}]").change(function(){
-                $('#localizacion1_{{$i}}').val($('select[id=txt_localizacion_{{$i}}]').val());
-            });
 
-            <?php
-                $i++;
-            ?>
+            @foreach($tipoServicio as $tipoServicio_)
+
             $('#tb_{{$tipoServicio_}}').DataTable();
             @endforeach
-
-
             <?php
             $pos0=0;
             ?>
-
             @foreach($productos as $proveedor)
                 @foreach($proveedor->productos  as $producto)
                     $("select[id=etxt_localizacion_{{$pos0}}]").change(function(){
@@ -407,10 +396,6 @@
                 @endforeach
             @endforeach
 
-
-
-        } );
-        $(function () {
             <?php
                 $i=0;
             ?>
