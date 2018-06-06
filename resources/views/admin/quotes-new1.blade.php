@@ -451,7 +451,7 @@
                                     @php
                                         $pos_itinerario=0;
                                     @endphp
-                                    @foreach($destinos as $destino)
+                                    @foreach($destinos->sortBy('destino') as $destino)
                                         <div id="group_destino_{{$destino->id}}" class="hide">
                                             <div class="row">
                                                 <b class="font-montserrat text-orange-goto text-20">{{$destino->destino}}</b>
@@ -504,8 +504,8 @@
                                                             </div>
                                                             <div class="collapse clearfix" id="collapse_{{$pos_itinerario}}">
                                                                 <div class="col-lg-12 well margin-top-5">
-                                                                    {{$itinerario->descripcion}}
-                                                                    <h5><b>Services</b></h5>
+                                                                    {{--{{$itinerario->descripcion}}--}}
+                                                                    {{--<h5><b>Services</b></h5>--}}
                                                                     <table class="table table-condensed table-striped">
                                                                         <thead>
                                                                         <tr class="bg-grey-goto text-white">
@@ -514,10 +514,10 @@
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                                                        @foreach($itinerario->itinerario_itinerario_servicios->sortBy('pos') as $servicios)
                                                                             <tr>
                                                                                 <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
-                                                                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+                                                                                <td></td>
                                                                                 <td>
                                                                                     @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
                                                                                         {{round($servicios->itinerario_servicios_servicio->precio_venta/1,2)}}

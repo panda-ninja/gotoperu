@@ -109,7 +109,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     {{csrf_field()}}
-                    <select class="form-control" name="txt_destino" id="txt_destino">
+                    <select class="form-control" name="txt_destino" id="txt_destino" onchange="limpiar_caja_servicios()">
                         @foreach($destinations as $destino)
                             <option value="{{$destino->id}}_{{$destino->destino}}">{{$destino->destino}}</option>
                         @endforeach

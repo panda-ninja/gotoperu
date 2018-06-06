@@ -2195,6 +2195,12 @@ function calcular_sumar_servicios(paxs){
     $('#a_t_1').max = t;
     $('#a_t_1').val(t);
     sumar_servicios_itinerario(paquete_id_21);
+    aumentar_acom('s');
+    aumentar_acom('d');
+    aumentar_acom('m');
+    aumentar_acom('t');
+
+
 }
 function validar_envio(){
     console.log('hola ');

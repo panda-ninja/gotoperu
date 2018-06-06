@@ -779,6 +779,267 @@
                                                     <button type="button" class="btn btn-danger" onclick="eliminar_servicio_reservas('{{$servicios->id}}','{{$servicios->nombre}}')">
                                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                     </button>
+                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_servicio_{{$servicios->id}}">
+                                                        <i class="fa fa-exchange" aria-hidden="true"></i>
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade bd-example-modal-lg" id="modal_servicio_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+{{--                                                                <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">--}}
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Cambiar servicio</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+
+                                                                                <div class="panel panel-default">
+                                                                                    <div id="list_servicios_grupo" class="panel-body">
+                                                                                        @foreach($m_servicios->where('localizacion',$servicios->localizacion)->where('grupo',$servicios->grupo) as $m_servicio)
+                                                                                            <!-- PARA TOURS -->
+                                                                                            @if($servicios->grupo=='TOURS')
+                                                                                                <ul class="nav nav-tabs">
+                                                                                                    <li class="active"><a class="text-11" href="#private_{{$servicios->id}}" data-toggle="tab">PRIVATE</a></li>
+                                                                                                    <li><a class="text-11" href="#group_{{$servicios->id}}" data-toggle="tab">GROUP</a></li>
+                                                                                                </ul>
+                                                                                                <div class="tab-content height-300">
+                                                                                                    <div id="private_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                        @if($m_servicio->tipoServicio=='PRIVATE')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div id="group_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                        @if($m_servicio->tipoServicio=='GROUP')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            @endif
+                                                                                            <!-- PARA MOVILID -->
+                                                                                            @if($servicios->grupo=='MOVILID')
+                                                                                                <ul class="nav nav-tabs">
+                                                                                                    <li class="active"><a class="text-11" href="#auto_{{$servicios->id}}" data-toggle="tab">AUTO</a></li>
+                                                                                                    <li><a class="text-11" href="#suv_{{$servicios->id}}" data-toggle="tab">SUV</a></li>
+                                                                                                    <li><a class="text-11" href="#van_{{$servicios->id}}" data-toggle="tab">VAN</a></li>
+                                                                                                    <li><a class="text-11" href="#h1_{{$servicios->id}}" data-toggle="tab">H1</a></li>
+                                                                                                    <li><a class="text-11" href="#sprinter_{{$servicios->id}}" data-toggle="tab">SPRINTER</a></li>
+                                                                                                    <li><a class="text-11" href="#bus_{{$servicios->id}}" data-toggle="tab">BUS</a></li>
+                                                                                                </ul>
+                                                                                                <div class="tab-content height-300">
+                                                                                                    <div id="auto_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                        @if($m_servicio->tipoServicio=='AUTO')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div id="suv_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                        @if($m_servicio->tipoServicio=='SUV')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div id="van_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                        @if($m_servicio->tipoServicio=='VAN')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div id="h1_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                        @if($m_servicio->tipoServicio=='H1')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div id="sprinter_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                        @if($m_servicio->tipoServicio=='SPRINTER')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div id="bus_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                        @if($m_servicio->tipoServicio=='BUS')
+                                                                                                            <div class="radio col-lg-6">
+                                                                                                                <label>
+                                                                                                                    <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    {{$servicios->nombre}}
+                                                                                                                </label>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            @endif
+                                                                                            <!-- PARA REPRESENT -->
+                                                                                                @if($servicios->grupo=='REPRESENT')
+                                                                                                    <ul class="nav nav-tabs">
+                                                                                                        <li class="active"><a class="text-11" href="#guide_{{$servicios->id}}" data-toggle="tab">GUIDE</a></li>
+                                                                                                        <li><a class="text-11" href="#tranfer_{{$servicios->id}}" data-toggle="tab">TRANSFER</a></li>
+                                                                                                        <li><a class="text-11" href="#assistance_{{$servicios->id}}" data-toggle="tab">ASSISTANCE</a></li>
+                                                                                                    </ul>
+                                                                                                    <div class="tab-content height-300">
+                                                                                                        <div id="guide_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                            @if($m_servicio->tipoServicio=='GUIDE')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                        <div id="tranfer_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                            @if($m_servicio->tipoServicio=='TRANSFER')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                        <div id="assistance_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                            @if($m_servicio->tipoServicio=='ASSISTANCE')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                @endif
+                                                                                            <!-- PARA ENTRANCES -->
+                                                                                                @if($servicios->grupo=='ENTRANCES')
+                                                                                                    <ul class="nav nav-tabs">
+                                                                                                        <li class="active"><a class="text-11" href="#lunch_{{$servicios->id}}" data-toggle="tab">LUNCH</a></li>
+                                                                                                        <li><a class="text-11" href="#dinner_{{$servicios->id}}" data-toggle="tab">DINNER</a></li>
+                                                                                                        <li><a class="text-11" href="#box_lunch_{{$servicios->id}}" data-toggle="tab">BOX LUNCH</a></li>
+                                                                                                    </ul>
+                                                                                                    <div class="tab-content height-300">
+                                                                                                        <div id="lunch_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                            @if($m_servicio->tipoServicio=='LUNCH')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                        <div id="dinner_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                            @if($m_servicio->tipoServicio=='DINNER')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                        <div id="box_lunch_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                            @if($m_servicio->tipoServicio=='BOX LUNCH')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                @endif
+                                                                                            <!-- PARA ENTRANCES -->
+                                                                                                @if($servicios->grupo=='ENTRANCES')
+                                                                                                    <ul class="nav nav-tabs">
+                                                                                                        <li class="active"><a class="text-11" href="#lunch_{{$servicios->id}}" data-toggle="tab">LUNCH</a></li>
+                                                                                                        <li><a class="text-11" href="#dinner_{{$servicios->id}}" data-toggle="tab">DINNER</a></li>
+                                                                                                        <li><a class="text-11" href="#box_lunch_{{$servicios->id}}" data-toggle="tab">BOX LUNCH</a></li>
+                                                                                                    </ul>
+                                                                                                    <div class="tab-content height-300">
+                                                                                                        <div id="lunch_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                            @if($m_servicio->tipoServicio=='LUNCH')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                        <div id="dinner_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                            @if($m_servicio->tipoServicio=='DINNER')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                        <div id="box_lunch_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                            @if($m_servicio->tipoServicio=='BOX LUNCH')
+                                                                                                                <div class="radio col-lg-6">
+                                                                                                                    <label>
+                                                                                                                        <input type="radio" name="servicio_cambiar[]" id="servicio_cambiar_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        {{$servicios->nombre}}
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                @endif
+                                                                                        @endforeach
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        {{csrf_field()}}
+                                                                        <input type="hidden" id="servicio_pos_{{$servicios->id}}" value="{{$servicios->pos}}">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                {{--</form>--}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

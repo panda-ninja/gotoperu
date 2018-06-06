@@ -1054,7 +1054,7 @@ class ServicesController extends Controller
         $localizacion= $request->input('localizacion');
         $grupo= $request->input('grupo');
         $categoria= $request->input('categoria');
-        $proveedores=nul;
+        $proveedores=null;
         if($grupo!='TRAINS')
             $proveedores=Proveedor::where('localizacion',$localizacion)->where('grupo',$grupo)->get();
         else
