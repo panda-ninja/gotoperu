@@ -183,26 +183,27 @@ class ServicesController extends Controller
                 $destino->save();
 
                 $posTipo=$request->input('posTipo');
-                foreach ($pro_id as $key => $pro_id_){
-                    $proveedor=Proveedor::FindOrFail($pro_id_);
-                    $new_service=new M_Producto();
-                    $new_service->codigo=$destino->codigo;
-                    $new_service->grupo=$destino->grupo;
-                    $new_service->localizacion=$request->input('txt_localizacion_'.$posTipo);
-                    $new_service->tipo_producto=$request->input('txt_type_'.$posTipo);
-                    $new_service->nombre=$destino->nombre;
-                    $new_service->precio_costo=$pro_val[$key];
-                    $new_service->precio_grupo=$destino->precio_grupo;
-                    $new_service->clase=$destino->clase;
-                    $new_service->salida=$destino->salida;
-                    $new_service->llegada=$destino->llegada;
-                    $new_service->min_personas=$destino->min_personas;
-                    $new_service->max_personas=$destino->max_personas;
-                    $new_service->m_servicios_id=$destino->id;
-                    $new_service->proveedor_id=$proveedor->id;
-                    $new_service->save();
+                if($pro_id) {
+                    foreach ($pro_id as $key => $pro_id_) {
+                        $proveedor = Proveedor::FindOrFail($pro_id_);
+                        $new_service = new M_Producto();
+                        $new_service->codigo = $destino->codigo;
+                        $new_service->grupo = $destino->grupo;
+                        $new_service->localizacion = $request->input('txt_localizacion_' . $posTipo);
+                        $new_service->tipo_producto = $request->input('txt_type_' . $posTipo);
+                        $new_service->nombre = $destino->nombre;
+                        $new_service->precio_costo = $pro_val[$key];
+                        $new_service->precio_grupo = $destino->precio_grupo;
+                        $new_service->clase = $destino->clase;
+                        $new_service->salida = $destino->salida;
+                        $new_service->llegada = $destino->llegada;
+                        $new_service->min_personas = $destino->min_personas;
+                        $new_service->max_personas = $destino->max_personas;
+                        $new_service->m_servicios_id = $destino->id;
+                        $new_service->proveedor_id = $proveedor->id;
+                        $new_service->save();
+                    }
                 }
-
                 return redirect()->route('service_index_path');
 //                $destinations = M_Destino::get();
 //                $servicios = M_Servicio::get();
