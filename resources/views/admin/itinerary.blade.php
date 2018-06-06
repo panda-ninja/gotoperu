@@ -150,6 +150,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{csrf_field()}}
                         </div>
                         @if($activo=='active')
                             @php

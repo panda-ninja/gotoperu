@@ -173,11 +173,12 @@ class ItinerariController extends Controller
                 $itinerario_servicio->save();
             }
         }
-        $destinations=M_Destino::get();
-        $services=M_Servicio::get();
-        $itinerarios=M_Itinerario::get();
-        $categorias=M_Category::get();
-        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+        return redirect()->route('itinerari_index_path');
+//        $destinations=M_Destino::get();
+//        $services=M_Servicio::get();
+//        $itinerarios=M_Itinerario::get();
+//        $categorias=M_Category::get();
+//        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
     }
     public function edit(Request $request){
 
@@ -245,11 +246,12 @@ class ItinerariController extends Controller
                 $itinerario_servicio->save();
             }
         }
-        $destinations=M_Destino::get();
-        $services=M_Servicio::get();
-        $itinerarios=M_Itinerario::get();
-        $categorias=M_Category::get();
-        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+//        $destinations=M_Destino::get();
+//        $services=M_Servicio::get();
+//        $itinerarios=M_Itinerario::get();
+//        $categorias=M_Category::get();
+//        return view('admin.itinerary',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
+        return redirect()->route('itinerari_index_path');
     }
     public function delete(Request $request){
         $id=$request->input('id');
