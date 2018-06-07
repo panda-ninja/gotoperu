@@ -143,10 +143,11 @@ class HotelProveedorController extends Controller
     }
     public function delete(Request $request){
         $id=$request->input('id');
-        $loca=$request->input('loca');
-        $servicio=HotelProveedor::where('proveedor_id',$id)
-                    ->where('localizacion',$loca)->delete();
-        return 1;
+        $servicio=HotelProveedor::FindOrFail($id);
+        if($servicio->delete())
+            return 1;
+        else
+            return 0;
     }
 }
 

@@ -2723,7 +2723,7 @@ function eliminar_hotel_pro(hotel,id) {
                 'X-CSRF-TOKEN': $('[name="_token"]').val()
             }
         });
-        $.post('/admin/cost/hotel/proveedor/delete', 'id='+id+'&loca='+loca, function(data) {
+        $.post('/admin/cost/hotel/proveedor/delete', 'id='+id, function(data) {
             if(data==1){
                 // $("#lista_destinos_"+id).remove();
                 $("#h_p_"+id).fadeOut( "slow");
