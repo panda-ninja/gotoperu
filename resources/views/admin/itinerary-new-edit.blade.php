@@ -205,6 +205,7 @@
                                                 <i class="fa fa-question text-success" aria-hidden="true"></i>
                                             @endif
                                             {{$servi}}
+                                            <span class="text-warning"> ({{$desti_nombre}})</span>
                                             <input type="hidden" name="servicios_esc[]" value="{{$itinerario_itinerario_servicio->m_servicios_id}}"><input type="hidden" name="destinos_esc[]" value="{{$desti_id}}"></div>
                                         <div class="col-lg-1 text-13 puntero"><span class="text-danger" onclick="borrar_servicios_esc('{{$itinerario_itinerario_servicio->m_servicios_id}}','{{$servi}}')"><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>
                                     </div>
