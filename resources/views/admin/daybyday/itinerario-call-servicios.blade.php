@@ -44,7 +44,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -179,7 +179,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -216,7 +216,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -228,7 +228,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -241,7 +241,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -253,7 +253,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -265,7 +265,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -277,7 +277,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -289,7 +289,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -314,7 +314,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
@@ -339,7 +339,7 @@
                         <div class="checkbox11">
                             <label>
                                 <input type="checkbox" class="servicios1" name="servicios[]" value="0_11_{{$servicio->id}}_AREQUIPA_{{$servicio->nombre}}_{{$grupo}}_{{$servicio->clase}}">
-                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">{{$servicio->precio_venta}}$ p.p</span>
+                                {{$servicio->nombre}} <span class="text-10 bg-primary"></span>  <span class="text-12 text-orange-goto">@if($servicio->precio_grupo==1){{$servicio->precio_venta/2}} @else {{$servicio->precio_venta}}@endif$ p.p</span>
                             </label>
                         </div>
                     </div>
