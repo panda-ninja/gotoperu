@@ -160,7 +160,8 @@ class CostController extends Controller
         }
         }
         else{
-            $txt_categoria='txt_categoria_'.$posTipo;
+            $categoria='txt_categoria_'.$posTipo;
+            $txt_categoria=$request->input($categoria);
             $localizacion='txt_localizacion_'.$posTipo;
             $txt_localizacion=strtoupper($request->input($localizacion));
             $provider='txt_provider_'.$posTipo;
@@ -171,7 +172,9 @@ class CostController extends Controller
                 foreach ($proveedor->take(1) as $pro){
                     $proveedor_id=$pro->id;
                 }
-            if($txt_categoria=='2') {
+
+
+                if($txt_categoria=='2') {
                 $S_2 = $request->input('S_2');
                 $D_2 = $request->input('D_2');
                 $M_2 = $request->input('M_2');
@@ -190,6 +193,7 @@ class CostController extends Controller
                 $SD_3 = $request->input('SD_3');
                 $SU_3 = $request->input('SU_3');
                 $JS_3 = $request->input('JS_3');
+
             }
             if($txt_categoria=='4') {
                 $S_4 = $request->input('S_4');
@@ -229,6 +233,7 @@ class CostController extends Controller
                 $hotel_proveedor->save();
             }
             if($txt_categoria=='3') {
+
                 $hotel_proveedor_3 = new HotelProveedor();
                 $hotel_proveedor_3->localizacion = $txt_localizacion;
                 $hotel_proveedor_3->estrellas = 3;
@@ -244,6 +249,7 @@ class CostController extends Controller
                 $hotel_proveedor_3->estado = 1;
                 $hotel_proveedor_3->hotel_id = $request->input('hotel_id_3');
                 $hotel_proveedor_3->save();
+//                dd($hotel_proveedor_3);
             }
             if($txt_categoria=='4') {
                 $hotel_proveedor_4 = new HotelProveedor();

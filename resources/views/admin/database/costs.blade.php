@@ -182,9 +182,9 @@
                                             <td>{{$hotel_->estrellas}} Stars</td>
                                             <td>
                                                 @foreach($proveedor_db->where('id',$hotel_->proveedor_id) as $proveedor_db_)
-                                                    {{$proveedor_db_->razon_social}}
+                                                    {{$proveedor_db_->nombre_comercial}}
                                                     @php
-                                                        $pro_sa=$proveedor_db_->razon_social;
+                                                        $pro_sa=$proveedor_db_->nombre_comercial;
                                                     @endphp
                                                 @endforeach
                                             </td>
