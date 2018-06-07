@@ -3782,6 +3782,7 @@ var total_serv=0;
 function escojer_servicio(){
     total_serv=$('#nroServicios').val();
     var destino_escoj=$('#destinos_escoj').html();
+    var destino_escoj_titulo=$('#destinos_escoj_titulo').html();
     var itinerario='';
     var iti_temp='';
     $("input[class='servicios1']").each(function (index){
@@ -3820,7 +3821,7 @@ function escojer_servicio(){
                 else if($grupo == 'OTHERS')
                     iti_temp += '<i class = "fa fa-question text-success" aria-hidden="true"></i>';
 
-                iti_temp += itinerario[4]+'<input type="hidden" name="servicios_esc[]" value="'+itinerario[2]+'"><input type="hidden" name="destinos_esc[]" value="'+destino_escoj+'"></div>'+
+                iti_temp += itinerario[4]+'<span class="text-warning">('+destino_escoj_titulo+')</span><input type="hidden" name="servicios_esc[]" value="'+itinerario[2]+'"><input type="hidden" name="destinos_esc[]" value="'+destino_escoj+'"></div>'+
             '<div class="col-lg-1 text-13 puntero"><span class="text-danger" onclick="borrar_servicios_esc(\''+itinerario[2]+'\',\''+itinerario[4]+'\')"><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>'+
                 '</div>'+
                 '</div>';

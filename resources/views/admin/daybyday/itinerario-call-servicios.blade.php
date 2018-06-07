@@ -334,7 +334,7 @@
             </div>
         @elseif($grupo=='OTHERS')
             <div id="other" class="tab-pane fade in active">
-                @foreach($servicios->where('tipoServicio','OTHERS') as $servicio)
+                @foreach($servicios->sortBy('nombre') as $servicio)
                     <div id="service_{{$servicio->id}}" class="col-md-12 text-11">
                         <div class="checkbox11">
                             <label>
@@ -349,6 +349,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 text-right">
-            <a class="text-12 text-success" href="#destino" data-toggle="tab"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="hide" id="destinos_escoj">{{$destino_id}}</span> {{$destino}}</a>
+            <a class="text-12 text-success" href="#destino" data-toggle="tab"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="hide" id="destinos_escoj">{{$destino_id}}</span><span class="hide" id="destinos_escoj_titulo">{{$destino}}</span>{{$destino}}</a>
         </div>
     </div>
