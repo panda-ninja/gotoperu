@@ -150,7 +150,36 @@
                     @else
                         <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo_}}">
                             <div class="margin-top-20">
-                                <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
+                                            <label for="txt_codigo">Location</label>
+                                            <select class="form-control" name="localizacion" id="localizacion" onchange="mostrar_proveedores_cost($('#localizacion').val(),'{{$categoria->nombre}}')">
+                                                <option value="0_ninguno">Escoja un destino</option>
+                                                @foreach($destinations as $destinos)
+                                                    <option value="{{$destinos->id}}_{{$destinos->destino}}">{{$destinos->destino}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="txt_codigo">Estrellas</label>
+                                            <select class="form-control" name="estrellas" id="estrellas" onchange="mostrar_proveedores_x_estrellas_cost($('#localizacion').val(),'{{$categoria->nombre}}',$('#estrellas').val())">
+                                                <option value="0">Escoja una opcion</option>
+                                                <option value="2">2 Stars</option>
+                                                <option value="3">3 Stars</option>
+                                                <option value="4">4 Stars</option>
+                                                <option value="5">5 Stars</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="caja_listado_cost_proveedores_{{$categoria->nombre}}">
+
+                                </div>
+                                <table id="tb_{{$categoria->nombre}}" class="hide table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>Location</th>

@@ -230,21 +230,66 @@
                     @endphp
                     <div id="tl_{{$tipoServicio_}}" class="tab-pane fade {{$in_activo}}">
                             <div class="margin-top-20">
-                                <table id="tb_{{$tipoServicio_}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                                @if($tipoServicio_=='HOTELS')
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            {{csrf_field()}}
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Location</label>
+                                                <select class="form-control" name="localizacion" id="localizacion" onchange="mostrar_proveedores($('#localizacion').val(),'{{$tipoServicio_}}')">
+                                                    <option value="0_ninguno">Escoja un destino</option>
+                                                    @foreach($destinations as $destinos)
+                                                        <option value="{{$destinos->id}}_{{$destinos->destino}}">{{$destinos->destino}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Estrellas</label>
+                                                <select class="form-control" name="estrellas" id="estrellas" onchange="mostrar_proveedores_x_estrellas($('#localizacion').val(),'{{$tipoServicio_}}',$('#estrellas').val())">
+                                                    <option value="0">Escoja una opcion</option>
+                                                    <option value="2">2 Stars</option>
+                                                    <option value="3">3 Stars</option>
+                                                    <option value="4">4 Stars</option>
+                                                    <option value="5">5 Stars</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            {{csrf_field()}}
+                                            <div class="form-group">
+                                                <label for="txt_codigo">Location</label>
+                                                <select class="form-control" name="localizacion" id="localizacion" onchange="mostrar_proveedores($(this).val(),'{{$tipoServicio_}}')">
+                                                    <option value="0_ninguno">Escoja un destino</option>
+                                                    @foreach($destinations as $destinos)
+                                                        <option value="{{$destinos->id}}_{{$destinos->destino}}">{{$destinos->destino}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                @endif
+                                <div id="caja_listado_proveedores_{{$tipoServicio_}}"></div>
+                                <table id="tb_{{$tipoServicio_}}" class="hide table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>Location</th>
                                         @if($tipoServicio_=='HOTELS')
-                                        <th>Cat</th>
+                                        <th width="50px">Cat</th>
                                         @endif
                                         <th>Codigo</th>
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         <th>Nombre comercial</th>
-                                        <th>Tel./Cel.</th>
-                                        <th>Email</th>
                                         <th>Reservas</th>
                                         <th>Contabilidad</th>
+                                        <th>Operaciones</th>
                                         <th>Plazo</th>
                                         <th>Operations</th>
                                     </tr>
@@ -259,10 +304,9 @@
                                         <th>Ruc</th>
                                         <th>Razon social</th>
                                         <th>Nombre comercial</th>
-                                        <th>Tel./Cel.</th>
-                                        <th>Email</th>
                                         <th>Reservas</th>
                                         <th>Contabilidad</th>
+                                        <th>Operaciones</th>
                                         <th>Plazo</th>
                                         <th>Operations</th>
                                     </tr>
@@ -282,10 +326,18 @@
                                                 @if($tipoServicio_=='HOTELS')
                                                 <td class="text-warning hide"><b>{{$provider->categoria}}</b> <i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></td>
                                                 @endif
-                                                <td>{{$provider->telefono}}<br>{{$provider->celular}}</td>
-                                                <td>{{$provider->email}}</td>
-                                                <td>{{$provider->r_nombres}}<br>{{$provider->r_telefono}}</td>
-                                                <td>{{$provider->c_nombres}}<br>{{$provider->c_telefono}}</td>
+                                                <td>
+                                                    <b>Cel:</b>{{$provider->r_telefono}}<br>
+                                                    <b>Email:</b>{{$provider->r_nombres}}
+                                                </td>
+                                                <td>
+                                                    <b>Cel:</b>{{$provider->c_telefono}}<br>
+                                                    <b>Email:</b>{{$provider->c_nombres}}
+                                                </td>
+                                                <td>
+                                                    <b>Cel:</b>{{$provider->o_telefono}}<br>
+                                                    <b>Email:</b>{{$provider->o_nombres}}
+                                                </td>
                                                 <td>{{$provider->plazo}} dias {{$provider->desci}}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$provider->id}}">

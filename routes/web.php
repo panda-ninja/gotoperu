@@ -925,4 +925,20 @@ Route::post('/admin/itinerary/new/edit/',[
     'uses' => 'ItinerariController@call_servicios_edit',
     'as' => 'call_servicios_edit_path',
 ]);
+Route::post('/admin/provider/filtro/localizacion',[
+    'uses' => 'ProveedorController@call_providers_localizacion',
+    'as' => 'call_providers_localizacion_path',
+]);
+Route::post('/admin/provider/filtro/localizacion/estrellas',[
+    'uses' => 'ProveedorController@call_providers_localizacion_estrellas',
+    'as' => 'call_providers_localizacion_estrellas_path',
+]);
 
+Route::post('/admin/cost-provider/filtro/localizacion',[
+    'uses' => 'CostController@call_cost_providers_localizacion',
+    'as' => 'call_cost_providers_localizacion_path',
+]);
+Route::post('/admin/cost_provider/filtro/localizacion/estrellas',[
+    'uses' => 'CostController@call_cost_providers_localizacion_estrellas',
+    'as' => 'call_cost_providers_localizacion_estrellas_path',
+]);

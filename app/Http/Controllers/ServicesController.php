@@ -369,7 +369,7 @@ class ServicesController extends Controller
         $destinations = M_Destino::get();
 //        return $sericios;
         $cadena = '';
-        $cadena .= '<table id="tb_' . $destino[0] . '_' . $destino[1] . '" class="' . $destino[1] . ' table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+        $cadena .= '<table id="tb_' . $destino[0] . '_' . $destino[1] . '" class="' . $destino[1] . ' table tb table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Codigo</th>

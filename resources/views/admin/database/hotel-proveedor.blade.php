@@ -90,7 +90,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group col-md-9">
                                                 <label for="txt_precio">Provider</label>
-                                                <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider" value="{{$proveedor_escojido->codigo}} {{$proveedor_escojido->razon_social}}" required readonly>
+                                                <input type="text" class="form-control" id="txt_provider_0" name="txt_provider_0" placeholder="Provider" value="{{$proveedor_escojido->codigo}} {{$proveedor_escojido->nombre_comercial}}" required readonly>
                                             </div>
                                             <div class="col-md-3 margin-top-25 ">
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_new_provider" onclick="pasar_pos_provider('0')">

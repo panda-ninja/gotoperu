@@ -183,41 +183,43 @@ class ProveedorController extends Controller
         }
     }
     public function edit(Request $request){
-
-
         $id=$request->input('id');
         $grupo=$request->input('posTipoEditcost_'.$id);
 //        $txt_grupo=$tipoServicio[$nro_grupo];
         $txt_grupo_cod=substr($grupo,0,2);
         $txt_localizacion=$request->input('txt_localizacion_');
+        $txt_categoria=$request->input('txt_categoria_');
         $txt_localizacion_cod=substr($txt_localizacion,0,1);
         $txt_ruc=$request->input('txt_ruc_');
         $txt_razon_social=strtoupper($request->input('txt_razon_social_'));
         $txt_nombre_comercial=strtoupper($request->input('txt_nombre_comercial_'));
         $txt_direccion=$request->input('txt_direccion_');
-        $txt_telefono=$request->input('txt_telefono_');
-        $txt_celular=$request->input('txt_celular_');
-        $txt_email=$request->input('txt_email_');
-        $txt_r_nombres=strtoupper($request->input('txt_r_nombres_'));
         $txt_r_telefono=$request->input('txt_r_telefono_');
-        $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'));
+        $txt_r_email=$request->input('txt_r_email_');
+
         $txt_c_telefono=$request->input('txt_c_telefono_');
-        $txt_categoria=$request->input('txt_categoria_');
+        $txt_c_email=$request->input('txt_c_email_');
+
+        $txt_o_telefono=$request->input('txt_o_telefono_');
+        $txt_o_email=$request->input('txt_o_email_');
+
         $txt_plazo=$request->input('txt_plazo_');
         $txt_desci=$request->input('txt_desci_');
+
         $proveedor=Proveedor::findOrFail($id);
         $proveedor->ruc=$txt_ruc;
         $proveedor->razon_social=$txt_razon_social;
         $proveedor->nombre_comercial=$txt_nombre_comercial;
         $proveedor->direccion=$txt_direccion;
-        $proveedor->telefono=$txt_telefono;
-        $proveedor->celular=$txt_celular;
-        $proveedor->email=$txt_email;
-        $proveedor->r_nombres=$txt_r_nombres;
         $proveedor->r_telefono=$txt_r_telefono;
-        $proveedor->c_nombres=$txt_c_nombres;
+        $proveedor->r_email=$txt_r_email;
+
         $proveedor->c_telefono=$txt_c_telefono;
-        $proveedor->localizacion=$txt_localizacion;
+        $proveedor->c_email=$txt_c_email;
+
+        $proveedor->o_telefono=$txt_o_telefono;
+        $proveedor->o_email=$txt_o_email;
+
         $proveedor->categoria=$txt_categoria;
         $proveedor->plazo=$txt_plazo;
         $proveedor->desci=$txt_desci;
@@ -243,5 +245,21 @@ class ProveedorController extends Controller
         else{
             return 2;
         }
+    }
+    public function call_providers_localizacion(Request $request){
+        $destino=explode('_',$request->input('destino'));
+        $grupo=$request->input('grupo');
+        $proveedores=Proveedor::where('localizacion',$destino[1])->where('grupo',$grupo)->get();
+        $destinations=M_Destino::get();
+        return view('admin.database.get-proveedores',compact(['proveedores','destinations','grupo']));
+    }
+    public function call_providers_localizacion_estrellas(Request $request){
+        $destino=explode('_',$request->input('destino'));
+        $grupo=$request->input('grupo');
+        $estrellas=$request->input('estrellas');
+
+        $proveedores=Proveedor::where('localizacion',$destino[1])->where('grupo',$grupo)->where('categoria',$estrellas)->get();
+        $destinations=M_Destino::get();
+        return view('admin.database.get-proveedores',compact(['proveedores','destinations','grupo']));
     }
 }

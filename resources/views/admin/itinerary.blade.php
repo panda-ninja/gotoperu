@@ -6,6 +6,7 @@
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js")}}"></script>
     <script src="{{asset("https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js")}}"></script>
     <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 @stop
 @section('content')
     <div class="row">
@@ -48,12 +49,11 @@
                             <table id="example{{$destino->id}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
-                                    <th>Titulo</th>
-                                    <th>Descripcion</th>
-                                    <th>Destinos</th>
-                                    <th>Servicios</th>
-                                    <th>Costo</th>
-                                    <th>Operaciones</th>
+                                    <th class="col-lg-4">Titulo</th>
+                                    <th class="col-lg-3">Descripcion</th>
+                                    <th class="col-lg-3">Destinos</th>
+                                    <th class="col-lg-1">Costo</th>
+                                    <th class="col-lg-1">Operaciones</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -61,7 +61,6 @@
                                     <th>Titulo</th>
                                     <th>Descripcion</th>
                                     <th>Destinos</th>
-                                    <th>Servicios</th>
                                     <th>Costo</th>
                                     <th>Operaciones</th>
                                 </tr>
@@ -77,48 +76,66 @@
                                         @endphp
                                     @endforeach
                                     @if(in_array($destino->destino,$arreglo_dest))
+                                        @php
+                                            $servicios='';
+                                        @endphp
+                                        @foreach($itinerario->itinerario_itinerario_servicios as $it_iti_servicio)
+                                            @php
+                                            if($it_iti_servicio->itinerario_servicios_servicio->grupo!='HOTELS'){
+                                                $p_venta=$it_iti_servicio->itinerario_servicios_servicio->precio_venta;
+                                                if($it_iti_servicio->itinerario_servicios_servicio->precio_grupo==1)
+                                                    $p_venta=round($it_iti_servicio->itinerario_servicios_servicio->precio_venta/2,2);
+                                            }
+                                            @endphp
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='TOURS')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-map-o" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='MOVILID')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-bus" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='REPRESENT')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-users" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='ENTRANCES')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-ticket" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='FOOD')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-cutlery" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='TRAINS')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-train" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='FLIGHTS')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-plane" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+                                            @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='OTHERS')
+                                                @php
+                                                    $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-question" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
+                                                @endphp
+                                            @endif
+
+                                        @endforeach
+
                                         <tr id="lista_itinerary_{{$itinerario->id}}">
-                                        <td>{{$itinerario->titulo}}</td>
+                                        <td>{{$itinerario->titulo}} <a href="#" title="Servicios" data-toggle="popover" data-trigger="hover" data-content="{{{ $servicios }}}"><i class="fa fa-eye text-warning" aria-hidden="true"></i></a></td>
                                         <td>{!! substr($itinerario->descripcion,0,50) !!}...</td>
                                         <td>
                                             @foreach($itinerario->destinos as $destinos)
                                                 <label for="" class="text-10 text-orange-goto">{{$destinos->destino}},</label>
-                                            @endforeach
-                                        </td>
-                                        <td class="col-lg-3">
-                                            @foreach($itinerario->itinerario_itinerario_servicios as $it_iti_servicio)
-                                                <?php
-                                                if($it_iti_servicio->itinerario_servicios_servicio->grupo!='HOTELS'){
-                                                    $p_venta=$it_iti_servicio->itinerario_servicios_servicio->precio_venta;
-                                                    if($it_iti_servicio->itinerario_servicios_servicio->precio_grupo==1)
-                                                        $p_venta=round($it_iti_servicio->itinerario_servicios_servicio->precio_venta/2,2);
-                                                }
-                                                ?>
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='TOURS')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-map-o" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='MOVILID')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-bus" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='REPRESENT')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-users" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='ENTRANCES')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-ticket" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='FOOD')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-cutlery" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='TRAINS')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-train" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='FLIGHTS')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-plane" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-                                                @if($it_iti_servicio->itinerario_servicios_servicio->grupo=='OTHERS')
-                                                    <p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-question" aria-hidden="true"></i></b> {{$it_iti_servicio->itinerario_servicios_servicio->nombre}} $ {{$p_venta}}</p>
-                                                @endif
-
                                             @endforeach
                                         </td>
                                         <td>
@@ -135,7 +152,7 @@
                                                 }
                                                 ?>
                                             @endforeach
-                                            <label for="" class="text-16 text-green-goto">${{$total_recio_venta}}</label>
+                                            <label for="" class="text-16 text-green-goto">{{$total_recio_venta}}$</label>
                                         </td>
                                         <td>
                                             <a href="{{route('daybyday_new_edit_path',$itinerario->id)}}" class="btn btn-warning">
@@ -163,6 +180,13 @@
 
     <script>
         $(document).ready(function() {
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover({
+                    placement : 'top',
+                    trigger : 'hover',
+                    html:'true'
+                });
+            });
             @foreach($destinations as $destino)
                 $('#example{{$destino->id}}').DataTable();
             @endforeach

@@ -374,4 +374,11 @@ class CostController extends Controller
         }
         return $cadena;
     }
+    public function call_cost_providers_localizacion(Request $request){
+        $destino=explode('_',$request->input('destino'));
+        $grupo=$request->input('grupo');
+        $proveedores=Proveedor::where('localizacion',$destino[1])->where('grupo',$grupo)->get();
+        $destinations=M_Destino::get();
+        return view('admin.database.get-proveedores',compact(['proveedores','destinations','grupo']));
+    }
 }

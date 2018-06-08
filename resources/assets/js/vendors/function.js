@@ -3898,3 +3898,77 @@ function mostrar_hoteles_categoria(pos) {
 function limpiar_caja_servicios() {
     $("#list_servicios_grupo").html('');
 }
+
+function mostrar_proveedores(destino,grupo){
+    console.log('destino:'+destino+',grupo:'+grupo);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/provider/filtro/localizacion', 'destino='+destino+'&grupo='+grupo, function(data) {
+        $("#caja_listado_proveedores_"+grupo).html(data);
+
+    }).fail(function (data) {
+
+    });
+}
+function mostrar_proveedores_x_estrellas(destino,grupo,estrellas){
+    console.log('destino:'+destino+',grupo:'+grupo);
+    if(destino=='0_ninguno'){
+        swal(
+            'MENSAJE DEL SISTEMA',
+            'Escoja la localizacion.',
+            'warning'
+        )
+        return false;
+    }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/provider/filtro/localizacion/estrellas', 'destino='+destino+'&grupo='+grupo+'&estrellas='+estrellas, function(data) {
+        $("#caja_listado_proveedores_"+grupo).html(data);
+
+    }).fail(function (data) {
+
+    });
+}
+
+function mostrar_proveedores_cost(destino,grupo){
+    console.log('destino:'+destino+',grupo:'+grupo);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/cost-provider/filtro/localizacion', 'destino='+destino+'&grupo='+grupo, function(data) {
+        $("#caja_listado_cost_proveedores_"+grupo).html(data);
+
+    }).fail(function (data) {
+
+    });
+}
+function mostrar_proveedores_x_estrellas_cost(destino,grupo,estrellas){
+    console.log('destino:'+destino+',grupo:'+grupo);
+    if(destino=='0_ninguno'){
+        swal(
+            'MENSAJE DEL SISTEMA',
+            'Escoja la localizacion.',
+            'warning'
+        )
+        return false;
+    }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/cost-provider/filtro/localizacion/estrellas', 'destino='+destino+'&grupo='+grupo+'&estrellas='+estrellas, function(data) {
+        $("#caja_listado_cost_proveedores_"+grupo).html(data);
+
+    }).fail(function (data) {
+
+    });
+}
