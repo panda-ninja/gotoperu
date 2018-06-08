@@ -150,7 +150,7 @@
                     @else
                         <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo_}}">
                             <div class="margin-top-20">
-                                <div class="row">
+                                <div class="row hide">
                                     <div class="col-lg-2">
                                         {{csrf_field()}}
                                         <div class="form-group">
@@ -179,7 +179,7 @@
                                 <div id="caja_listado_cost_proveedores_{{$categoria->nombre}}">
 
                                 </div>
-                                <table id="tb_{{$categoria->nombre}}" class="hide table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                                <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>Location</th>
