@@ -2596,26 +2596,26 @@ function aumentar_acom(tipo,signo){
 
             $('#a_s').val(valor);
             $('#a_s_').val(valor);
-
+        console.log('con cambio para s');
     }
     if(tipo=='d'){
             var valor=$('#a_d_1').val();
 
             $('#a_d').val(valor);
             $('#a_d_').val(valor);
-
+        console.log('con cambio para d');
     }
     if(tipo=='m'){
             var valor=$('#a_m_1').val();
             $('#a_m').val(valor);
             $('#a_m_').val(valor);
-
+        console.log('con cambio para m');
     }
     if(tipo=='t'){
             var valor=$('#a_t_1').val();
             $('#a_t').val(valor);
             $('#a_t_').val(valor);
-
+        console.log('con cambio para t');
     }
     //calcular_precio1();
 }
@@ -3203,9 +3203,9 @@ function sumar_servicios_itinerario(pqt_pos){
     var arreglo='';
     var valorcito=$('#lista_servicios_'+pqt_pos).val();
     console.log('valorcito:'+valorcito);
-
-    arreglo=valorcito.split('/');
-
+    if(valorcito){
+        arreglo = valorcito.split('/');
+    }
     var dat='';
     var suma=0;
 
@@ -4002,7 +4002,7 @@ function Pasar_pro(id,grupo,idservicio){
                             '<div class="col-lg-8 fila_proveedores_'+id+'">'+proveedor[1]+'</div>'+
                             '<div class="col-lg-2">'+
                                 '<input type="hidden" name="pro_id[]" value="'+proveedor[0]+'"></td>'+
-                                '<input type="number" name="pro_val[]" class="form-control" style="width: 80px" value="0.00"></td>'+
+                                '<input type="number" name="pro_val[]" class="form-control" style="width: 80px" value="0.00" min="0" step="0.01"></td>'+
                             '</div>'+
                             '<div class="col-lg-2">'+
                                 '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor('+id+','+grupo+','+idservicio+','+proveedor[0]+',\''+proveedor[1]+'\')">'+
@@ -4013,6 +4013,7 @@ function Pasar_pro(id,grupo,idservicio){
                 $('#lista_costos_'+grupo+'_'+id+'_'+idservicio).append(iti_temp1);
                 console.log('algo paso por aqui');
             }
+            $(this).prop("checked","");
         }
     });
 }
@@ -4052,7 +4053,9 @@ function eliminar_proveedor_comprobando(id,costo_id,proveedor_id,nombre) {
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 if(data=='1'){
-                    $('#fila_p_'+id+'_'+costo_id+'_'+proveedor_id).fadeOut( "slow");
+                    $('#fila_p_'+id+'_'+costo_id+'_'+proveedor_id).fadeOut("slow");
+                    $('#fila_p_'+id+'_'+costo_id+'_'+proveedor_id).remove();
+
                     // se elimino con exito
                 }
                 else if(data=='2'){
@@ -4069,8 +4072,10 @@ function eliminar_proveedor_comprobando(id,costo_id,proveedor_id,nombre) {
 }
 function existe_proveedor(clave,id){
     var existe=false;
-    var fila='fila_proveedores_'+id;
-    $("input[class="+fila+"]").each(function (index1) {
+    var fila='.fila_proveedores_'+id;
+    console.log('preparandonos  para buscar');
+    $(fila).each(function (index1) {
+        console.log('recorremos->'+'clave:'+clave+'==$(this).html():'+$(this).html());
         if(clave==$(this).html()){
             existe=true;
         }
@@ -4676,4 +4681,73 @@ function mostrar_proveedores_x_estrellas(destino,grupo,estrellas){
     }).fail(function (data) {
 
     });
+}
+
+function mostrar_proveedores_cost(destino,grupo){
+    console.log('destino:'+destino+',grupo:'+grupo);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/cost-provider/filtro/localizacion', 'destino='+destino+'&grupo='+grupo, function(data) {
+        $("#caja_listado_cost_proveedores_"+grupo).html(data);
+
+    }).fail(function (data) {
+
+    });
+}
+function mostrar_proveedores_x_estrellas_cost(destino,grupo,estrellas){
+    console.log('destino:'+destino+',grupo:'+grupo);
+    if(destino=='0_ninguno'){
+        swal(
+            'MENSAJE DEL SISTEMA',
+            'Escoja la localizacion.',
+            'warning'
+        )
+        return false;
+    }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/cost-provider/filtro/localizacion/estrellas', 'destino='+destino+'&grupo='+grupo+'&estrellas='+estrellas, function(data) {
+        $("#caja_listado_cost_proveedores_"+grupo).html(data);
+
+    }).fail(function (data) {
+
+    });
+}
+
+function mostrar_class(proveedor_id,array_pro,grupo,id,idservicio) {
+    var array_prove_train = array_pro.split('_');
+    var proveedor = proveedor_id.split('_');
+    if (proveedor_id!='0'){
+        $.each(array_prove_train, function (key, value) {
+            $("#proveedor_" + value).addClass('hide');
+            $("#proveedor_" + value).fadeOut("slow");
+        });
+        $("#proveedor_" + proveedor[0]).removeClass('hide');
+        $("#proveedor_" + proveedor[0]).fadeIn("slow");
+        // $("#fila_"+proveedor_id).removeClass('hide');
+        // $("#fila_"+proveedor_id).fadeIn("slow");
+        var iti_temp1 = '';
+        iti_temp1 = '<div id="fila_' + grupo + '_' + id + '_' + idservicio + '_' + proveedor[0] + '" class="row">' +
+            '<div class="col-lg-8 fila_proveedores_' + id + '">' + proveedor[1] + '</div>' +
+            '<div class="col-lg-2">' +
+            '<input type="hidden" name="pro_id[]" value="' + proveedor[0] + '"></td>' +
+            '<input type="number" name="pro_val[]" class="form-control" style="width: 80px" value="0.00" min="0" step="0.01"></td>' +
+            '</div>' +
+            // '<div class="col-lg-2">'+
+            // '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor('+id+','+grupo+','+idservicio+','+proveedor_id]+',\''+proveedor+'\')">'+
+            // '<i class="fa fa-trash-o" aria-hidden="true"></i>'+
+            // '</button>'+
+            // '</div>'+
+            '</div>';
+        $('#lista_costos_' + grupo + '_' + id + '_' + idservicio).html(iti_temp1);
+    }
+    else {
+        $('#lista_costos_' + grupo + '_' + id + '_' + idservicio).html('');
+    }
 }

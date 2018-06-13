@@ -516,7 +516,29 @@
                                                                         <tbody>
                                                                         @foreach($itinerario->itinerario_itinerario_servicios->sortBy('pos') as $servicios)
                                                                             <tr>
-                                                                                <td>{{$servicios->itinerario_servicios_servicio->nombre}}</td>
+                                                                                <td>
+                                                                                    @if($servicios->itinerario_servicios_servicio->grupo=='TOURS')
+                                                                                        <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='MOVILID')
+                                                                                        @if($servicios->itinerario_servicios_servicio->clase=='BOLETO')
+                                                                                            <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                                        @else
+                                                                                            <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                                        @endif
+                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='REPRESENT')
+                                                                                        <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='ENTRANCES')
+                                                                                        <i class="fa fa-ticket text-success" aria-hidden="true"></i>
+                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='FOOD')
+                                                                                        <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='TRAINS')
+                                                                                        <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='FLIGHTS')
+                                                                                        <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='OTHERS')
+                                                                                        <i class="fa fa-question text-success" aria-hidden="true"></i>
+                                                                                    @endif
+                                                                                    {{$servicios->itinerario_servicios_servicio->nombre}}</td>
                                                                                 <td></td>
                                                                                 <td>
                                                                                     @if($servicios->itinerario_servicios_servicio->precio_grupo==1)

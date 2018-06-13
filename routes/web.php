@@ -600,9 +600,9 @@ Route::post('/admin/reservas/hotel/add-hora', [
     'uses' => 'PackageCotizacionController@add_hora_hotel_verif',
     'as' => 'add_hora_hotel_path',
 ]);
-Route::post('/admin/curret/clonar', [
+Route::get('/admin/curret/clonarr/{id}/{id1}', [
     'uses' => 'PackageCotizacionController@clonar_plan',
-    'as' => 'generar_pantilla_path',
+    'as' => 'generar_pantilla1_path',
 ]);
 Route::get('/admin/curret/clonar/{id}/{id1}', [
     'uses' => 'PackageCotizacionController@clonar_plan_id',

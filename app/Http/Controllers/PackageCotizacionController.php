@@ -905,6 +905,7 @@ class PackageCotizacionController extends Controller
         $paquete->estado=0;
         $paquete->preciocosto=$totalItinerario;
         $paquete->cotizaciones_id=$cotizacion_id;
+        $paquete->proceso_complete=0;
         $paquete->save();
         $paquete_precio_id=0;
         if($estrela==2) {
@@ -1193,6 +1194,7 @@ class PackageCotizacionController extends Controller
             $cotizacion_cliente->cotizaciones_id = $cotizacion_plantilla->id;
             $cotizacion_cliente->clientes_id = $cliente->id;
             $cotizacion_cliente->estado = 1;
+            $cotizacion_cliente->proceso_complete= 1;
             $cotizacion_cliente->save();
             $cotizacion_id=$cotizacion_plantilla->id;
             $cliente_id=$cliente->id;
@@ -1297,6 +1299,7 @@ class PackageCotizacionController extends Controller
         $paquete->preciocosto=$precioCosto;
         $paquete->cotizaciones_id=$cotizacion_id;
         $paquete->estrellas=$estrela;
+        $paquete->proceso_complete=1;
         $paquete->save();
         $paquete_precio_id=0;
 
@@ -1567,6 +1570,7 @@ class PackageCotizacionController extends Controller
         $paquete->incluye=$incluye;
         $paquete->noincluye=$no_incluye;
         $paquete->estado=1;
+        $paquete->proceso_complete=2;
         $paquete->save();
 
         $paquete_precio=PaquetePrecio::FindOrFail($paquete_precio_id);
@@ -1599,9 +1603,114 @@ class PackageCotizacionController extends Controller
         }
         $paquete_precio_id=$request->input('paquete_precio_id');
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
-        $imprimir='si';
+        $imprimir='si_create';
+        $btn=$request->input('create');
+//        dd($btn);
 
-        return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_id,'imprimir'=>$imprimir]);
+        if($btn=='create'){
+            return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_id,'imprimir'=>$imprimir]);
+        }
+        elseif($btn=='create_template'){
+            $imprimir='si_create_temp';
+            $coti_id=$cotizacion_id;
+            $id=$paquete_id;
+            $ogiginal_pqts=PaqueteCotizaciones::where('id',$id)->get();
+            $new_pqt_id=0;
+            foreach($ogiginal_pqts as $ogiginal_pqt){
+                $plantillas= P_Paquete::where('duracion',$ogiginal_pqt->duracion)->get();
+                $nro=count($plantillas);
+                $numero_con_ceros = '';
+                if($nro>0) {
+                    $diferencia = 4 - strlen(count($plantillas));
+
+                    for ($i = 0; $i < $diferencia; $i++) {
+                        $numero_con_ceros .= 0;
+                    }
+
+                    $numero_con_ceros .= count($plantillas);
+                }
+                else
+                    $numero_con_ceros ='001';
+
+                $plantilla_pqt= new P_Paquete();
+                $plantilla_pqt->codigo='GTP'.$ogiginal_pqt->duracion.$numero_con_ceros;
+                $plantilla_pqt->titulo=$plantilla_pqt->titulo;
+                $plantilla_pqt->duracion=$ogiginal_pqt->duracion;
+                $plantilla_pqt->precio_venta=$ogiginal_pqt->precioventa;
+                $plantilla_pqt->utilidad=$ogiginal_pqt->utilidad;
+                $plantilla_pqt->preciocosto=$ogiginal_pqt->preciocosto;
+                $plantilla_pqt->descripcion=$ogiginal_pqt->descripcion;
+                $plantilla_pqt->incluye=$ogiginal_pqt->incluye;
+                $plantilla_pqt->noincluye=$ogiginal_pqt->noincluye;
+                $plantilla_pqt->opcional=$ogiginal_pqt->opcional;
+                $plantilla_pqt->estado=1;
+                $plantilla_pqt->save();
+                $new_pqt_id=$plantilla_pqt->id;
+                foreach ($ogiginal_pqt->paquete_precios as $paquete_precio){
+                    $plantilla_ppqt=new P_PaquetePrecio();
+                    $plantilla_ppqt->estrellas=$paquete_precio->estrellas;
+                    $plantilla_ppqt->precio_s=$paquete_precio->precio_s;
+                    $plantilla_ppqt->personas_s=1;
+                    $plantilla_ppqt->precio_d=$paquete_precio->precio_d;
+                    $plantilla_ppqt->personas_d=1;
+                    $plantilla_ppqt->precio_m=$paquete_precio->precio_m;
+                    $plantilla_ppqt->personas_m=1;
+                    $plantilla_ppqt->precio_t=$paquete_precio->precio_t;
+                    $plantilla_ppqt->personas_t=1;
+                    $plantilla_ppqt->estado=1;
+                    $plantilla_ppqt->utilidad=$paquete_precio->utilidad;
+                    $plantilla_ppqt->p_paquete_id=$plantilla_pqt->id;
+                    $plantilla_ppqt->hotel_id=$paquete_precio->hotel_id;
+                    $plantilla_ppqt->utilidad_s=$paquete_precio->utilidad_s;
+                    $plantilla_ppqt->utilidad_d=$paquete_precio->utilidad_d;
+                    $plantilla_ppqt->utilidad_m=$paquete_precio->utilidad_m;
+                    $plantilla_ppqt->utilidad_t=$paquete_precio->utilidad_t;
+                    $plantilla_ppqt->utilidad_por_s=$paquete_precio->utilidad_por_s;
+                    $plantilla_ppqt->utilidad_por_d=$paquete_precio->utilidad_por_d;
+                    $plantilla_ppqt->utilidad_por_m=$paquete_precio->utilidad_por_m;
+                    $plantilla_ppqt->utilidad_por_t=$paquete_precio->utilidad_por_t;
+                    $plantilla_ppqt->save();
+                }
+                foreach ($ogiginal_pqt->itinerario_cotizaciones as $itinerario_cotizacion){
+                    $plantilla_piti=new P_Itinerario();
+                    $plantilla_piti->titulo=$itinerario_cotizacion->titulo;
+                    $plantilla_piti->descripcion=$itinerario_cotizacion->descripcion;
+                    $plantilla_piti->dias=$itinerario_cotizacion->dias;
+                    $plantilla_piti->fecha=$itinerario_cotizacion->fecha;
+                    $plantilla_piti->precio=$itinerario_cotizacion->precio;
+                    $plantilla_piti->imagen=$itinerario_cotizacion->imagen;
+                    $plantilla_piti->sugerencia='';
+                    $plantilla_piti->estado=1;
+                    $plantilla_piti->p_paquete_id=$plantilla_pqt->id;
+                    $plantilla_piti->save();
+                    foreach ($itinerario_cotizacion->itinerario_servicios as $itinerario_servicios){
+                        $plantilla_pitis=new P_ItinerarioServicios();
+                        $plantilla_pitis->nombre=$itinerario_servicios->nombre;
+                        $plantilla_pitis->observacion=$itinerario_servicios->observacion;
+                        $plantilla_pitis->precio=$itinerario_servicios->precio;
+                        $plantilla_pitis->precio_grupo=$itinerario_servicios->precio_grupo;
+                        $plantilla_pitis->min_personas=$itinerario_servicios->min_personas;
+                        $plantilla_pitis->max_personas=$itinerario_servicios->max_personas;
+                        $plantilla_pitis->p_itinerario_id=$plantilla_piti->id;
+                        $plantilla_pitis->m_servicios_id=$itinerario_servicios->m_servicios_id;
+                        $plantilla_pitis->save();
+                    }
+                    foreach ($itinerario_cotizacion->itinerario_destinos as $itinerario_destino){
+                        $plantilla_pitid=new P_ItinerarioDestino();
+                        $plantilla_pitid->codigo=$itinerario_destino->codigo;
+                        $plantilla_pitid->destino=$itinerario_destino->destino;
+                        $plantilla_pitid->region=$itinerario_destino->region;
+                        $plantilla_pitid->pais=$itinerario_destino->pais;
+                        $plantilla_pitid->descripcion=$itinerario_destino->descripcion;
+                        $plantilla_pitid->imagen=$itinerario_destino->imagen;
+                        $plantilla_pitid->estado=1;
+                        $plantilla_pitid->p_itinerario_id=$plantilla_piti->id;
+                        $plantilla_pitid->save();
+                    }
+                }
+            }
+            return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_id,'imprimir'=>$imprimir]);
+        }
 
     }
     public function delete_servicio_quotes_paso1(Request $request){
@@ -1751,6 +1860,9 @@ class PackageCotizacionController extends Controller
     public function show_step2($cotizacion_id, $paquete_precio_id,$imprimir)
     {
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+        $pqt=PaqueteCotizaciones::FindOrFail($paquete_precio_id);
+        $pqt->proceso_complete=1;
+        $pqt->save();
         return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
     }
     public function show_step2_edit($cotizacion_id, $paquete_precio_id,$imprimir)
@@ -1929,12 +2041,9 @@ class PackageCotizacionController extends Controller
             return 0;
 //        return redirect()->route('book_show_path',$coti_id);
     }
-    public function clonar_plan(Request $request)
+    public function clonar_plan($id,$coti_id)
     {
-        $coti_id=$request->input('coti_id');
-        $id=$request->input('pqt_id');
         $ogiginal_pqts=PaqueteCotizaciones::where('id',$id)->get();
-//        dd($id);
         $new_pqt_id=0;
         foreach($ogiginal_pqts as $ogiginal_pqt){
             $plantillas= P_Paquete::where('duracion',$ogiginal_pqt->duracion)->get();

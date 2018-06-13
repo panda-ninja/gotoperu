@@ -25,4 +25,9 @@ class Proveedor extends Model
     {
         return $this->hasMany(PrecioHotelReserva::class, 'proveedor_id');
     }
+    public function clases()
+    {
+        return $this->hasMany(ProveedorClases::class, 'proveedor_id');
+    }
+
 }

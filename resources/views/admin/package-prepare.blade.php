@@ -467,16 +467,20 @@
                             <input type="hidden" name="profit_por_s" id="profit_por_s" value="40">
                             <input type="hidden" name="profit_por_d" id="profit_por_d" value="40">
                             <input type="hidden" name="profit_por_m" id="profit_por_m" value="40">
-                            <input type="hidden" name="profit_por_t" id="profit_por_t" value="40">
                             <input type="hidden" name="cotizacion_id" value="{{$cotizacion_id1}}">
+                            <input type="hidden" name="profit_por_t" id="profit_por_t" value="40">
 
                             {{csrf_field()}}
                             @if($imprimir=='no')
-                                <button class="btn btn-warning btn-lg" type="submit" name="create">GUARDAR {{$plan[$pos_plan]}}</button>
+                                <button class="btn btn-warning btn-lg" type="submit" name="create" value="create">GUARDAR {{$plan[$pos_plan]}}</button>
+                                <button class="btn btn-warning btn-lg" type="submit" name="create" value="create_template">GUARDAR {{$plan[$pos_plan]}} y CREAR TEMPLATE</button>
                             @else
-
                                 <button class="btn btn-warning btn-lg" type="submit" name="create">EDITAR {{$plan[$pos_plan]}}</button>
-                                <p><b class="text-success text-20">Gracias. Su paquete fue creado correctamente!!!</b></p>
+                                @if($imprimir=='si_create')
+                                    <p><b class="text-success text-20">Gracias. Su paquete fue creado correctamente!!!</b></p>
+                                @else
+                                    <p><b class="text-success text-20">Gracias. Su paquete fue creado correctamente y se creo el template!!!</b></p>
+                                @endif
                                 <p><a class="btn btn-primary text-15" href="{{route('current_quote_page_path',$cotizacion->web)}}">Ver aqui mi paquete</a></p>
                                 <a href="{{route('quotes_pdf_path',$paquete_id)}}" class="hide pull-right btn btn-default btn-lg"><i class="fa fa-download" aria-hidden="true"></i></a>
                             @endif
