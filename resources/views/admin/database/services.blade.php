@@ -90,7 +90,7 @@
                             <div class="col-lg-2 no-padding">
                                 <div class="estilo_form clearfix text-10">
                                     <label class="">
-                                        <input type="radio" name="ida" id="id" value="ida" onclick="mostrar_info('ida_{{$categoria->nombre}}')">
+                                        <input type="radio" name="ida" id="id" value="ida" onclick="mostrar_info('ida_{{$categoria->nombre}}')" checked="checked">
                                         Ida
                                     </label>
                                 </div>
@@ -101,8 +101,8 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div id="ida_{{$categoria->nombre}}">
+                            <div class="col-lg-8">
+                                <div class="col-lg-6" id="ida_{{$categoria->nombre}}">
                                     <div class="form-group">
                                         <label for="">Escoja el destino de ida</label>
                                         <select name="Destinos_ida_{{$categoria->nombre}}" id="Destinos_ida_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino_ida('{{$categoria->nombre}}','{{$categoria->id}}')">
@@ -113,16 +113,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="ida_{{$categoria->nombre}}">
-                                    <div class="form-group">
-                                        <label for="">Escoja el destino de ida</label>
-                                        <select name="Destinos_ida_{{$categoria->nombre}}" id="Destinos_ida_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino_ida('{{$categoria->nombre}}','{{$categoria->id}}')">
-                                            <option value="0">Escoja el destino</option>
-                                            <option value="POROY">POROY</option>
-                                            <option value="AGUAS CALIENTES">AGUAS CALIENTES</option>
-                                            <option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>
-                                        </select>
-                                    </div>
+                                <div class="col-lg-6 hide" id="vuelta_{{$categoria->nombre}}">
                                     <div class="form-group">
                                         <label for="">Escoja el destino de vuelta</label>
                                         <select name="Destinos_vuelta_{{$categoria->nombre}}" id="Destinos_vuelta_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino_ida('{{$categoria->nombre}}','{{$categoria->id}}')">
@@ -135,7 +126,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-
                                 <div class="col-lg-4 padding-left-0">
                                     <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}','{{$categoria->id}}')">
                                         <option value="0">Escoja la localizacion</option>

@@ -105,6 +105,8 @@ class ItinerariController extends Controller
         $txt_imagen=$request->file('txt_imagen');
         $txt_imagenB=$request->file('txt_imagenB');
         $txt_imagenC=$request->file('txt_imagenC');
+        $txt_destino_foco=$request->file('txt_destino_foco');
+        $txt_destino_duerme=$request->file('txt_destino_duerme');
 
         $itinerario=new M_Itinerario();
         $itinerario->titulo=$txt_titulo;
@@ -114,6 +116,9 @@ class ItinerariController extends Controller
         $itinerario->imagen=$txt_imagen;
         $itinerario->imagen=$txt_imagenB;
         $itinerario->imagen=$txt_imagenC;
+        $itinerario->destino_foco=$txt_destino_foco;
+        $itinerario->destino_duerme=$txt_destino_duerme;
+
         $itinerario->save();
         if($txt_imagen){
             $filename ='itinerary-'.$itinerario->id.'.jpg';
@@ -283,7 +288,7 @@ class ItinerariController extends Controller
 //        $destinations=M_Destino::get();
 //        $services=M_Servicio::get();
 //        $itinerarios=M_Itinerario::get();
-//        $categorias=M_Category::get();
+//        $categorias=M_Category::get();store
 //        return view('admin.daybyday.itinerario-call-servicios',['destinations'=>$destinations,'services'=>$services,'itinerarios'=>$itinerarios,'categorias'=>$categorias]);
 
         $destino=explode('_',$request->input('destino'));
@@ -312,12 +317,16 @@ class ItinerariController extends Controller
         $txt_imagen=$request->file('txt_imagen');
         $txt_imagenB=$request->file('txt_imagenB');
         $txt_imagenC=$request->file('txt_imagenC');
+        $txt_destino_foco=$request->file('txt_destino_foco');
+        $txt_destino_duerme=$request->file('txt_destino_duerme');
 
         $itinerario=M_Itinerario::FindOrFail($txt_id);
         $itinerario->titulo=$txt_titulo;
         $itinerario->resumen=$txt_resumen;
         $itinerario->descripcion=$txt_descripcion;
         $itinerario->precio=$precio_iti;
+        $itinerario->destino_foco=$txt_destino_foco;
+        $itinerario->destino_duerme=$txt_destino_duerme;
         $itinerario->save();
         if($txt_imagen){
             $filename ='itinerary-'.$itinerario->id.'.jpg';

@@ -52,6 +52,7 @@
                                     <option value="andesviagens.com" @if($web=='andesviagens.com') selected @endif>andesviagens.com</option>
                                     <option value="machupicchu-galapagos.com" @if($web=='machupicchu-galapagos.com') selected @endif>machupicchu-galapagos.com</option>
                                     <option value="gotolatinamerica.com" @if($web=='gotolatinamerica.com') selected @endif>gotolatinamerica.com</option>
+                                    <option value="expedia.com" @if($web=='expedia.com') selected @endif>expedia.com</option>
                                 </select>
                             </div>
                         </div>
@@ -463,95 +464,99 @@
                                                         $pos_itinerario++;
                                                     @endphp
                                                     @if($encontrado==1)
-                                                        <div id="itinerario{{$itinerario->id}}" class="row margin-bottom-0">
-                                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                @php
-                                                    $servicios1='';
-                                                    $precio_iti=0;
-                                                    $destinos_iti='';
-                                                @endphp
-                                                    @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
-                                                        <?php
-                                                        if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
-                                                            if($servicios->itinerario_servicios_servicio->precio_grupo==1){
-                                                                $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval(1),2);
-                                                                $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(1),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
-                                                            }
-                                                            else{
-                                                                $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
-                                                                $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
-
-                                                            }
-                                                        }
-                                                        ?>
-                                                    @endforeach
-                                                    @foreach($itinerario->destinos as $destino)
-                                                        <?php
-                                                        $destinos_iti.=$destino->destino.'*';
-                                                        ?>
-                                                    @endforeach
-                                                    <?php
-                                                    $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
-                                                    $servicios1=substr($servicios1,0,strlen($servicios1)-1);
-                                                    ?>
-                                                    <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
-                                                </span>
-                                                                <input type="text" class="form-control" aria-label="..." value="{{$itinerario->titulo}}" readonly>
-                                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse_{{$pos_itinerario}}"><b>${{$precio_iti}}</b> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
-                                                </span>
-                                                            </div>
-                                                            <div class="collapse clearfix" id="collapse_{{$pos_itinerario}}">
-                                                                <div class="col-lg-12 well margin-top-5">
-                                                                    {{--{{$itinerario->descripcion}}--}}
-                                                                    {{--<h5><b>Services</b></h5>--}}
-                                                                    <table class="table table-condensed table-striped">
-                                                                        <thead>
-                                                                        <tr class="bg-grey-goto text-white">
-                                                                            <th colspan="2">Concepts</th>
-                                                                            <th>Prices</th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        @foreach($itinerario->itinerario_itinerario_servicios->sortBy('pos') as $servicios)
-                                                                            <tr>
-                                                                                <td>
-                                                                                    @if($servicios->itinerario_servicios_servicio->grupo=='TOURS')
-                                                                                        <i class="fa fa-map-o text-info" aria-hidden="true"></i>
-                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='MOVILID')
-                                                                                        @if($servicios->itinerario_servicios_servicio->clase=='BOLETO')
-                                                                                            <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
-                                                                                        @else
-                                                                                            <i class="fa fa-bus text-warning" aria-hidden="true"></i>
-                                                                                        @endif
-                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='REPRESENT')
-                                                                                        <i class="fa fa-users text-success" aria-hidden="true"></i>
-                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='ENTRANCES')
-                                                                                        <i class="fa fa-ticket text-success" aria-hidden="true"></i>
-                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='FOOD')
-                                                                                        <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
-                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='TRAINS')
-                                                                                        <i class="fa fa-train text-info" aria-hidden="true"></i>
-                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='FLIGHTS')
-                                                                                        <i class="fa fa-plane text-primary" aria-hidden="true"></i>
-                                                                                    @elseif($servicios->itinerario_servicios_servicio->grupo=='OTHERS')
-                                                                                        <i class="fa fa-question text-success" aria-hidden="true"></i>
-                                                                                    @endif
-                                                                                    {{$servicios->itinerario_servicios_servicio->nombre}}</td>
-                                                                                <td></td>
-                                                                                <td>
-                                                                                    @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
-                                                                                        {{round($servicios->itinerario_servicios_servicio->precio_venta/1,2)}}
-                                                                                    @else
-                                                                                        {{$servicios->itinerario_servicios_servicio->precio_venta}}
-                                                                                    @endif
-                                                                                </td>
-                                                                            </tr>
+                                                        <div id="itinerario{{$itinerario->id}}" class="row checkbox1">
+                                                            <div class="col-lg-10">
+                                                                <div class="checkbox2">
+                                                                    <label class=" text-unset">
+                                                                        @php
+                                                                            $servicios1='';
+                                                                            $precio_iti=0;
+                                                                            $destinos_iti='';
+                                                                        @endphp
+                                                                        @foreach($itinerario->itinerario_itinerario_servicios as $servicios)
+                                                                            <?php
+                                                                            if($servicios->itinerario_servicios_servicio->grupo!='HOTELS'){
+                                                                                if($servicios->itinerario_servicios_servicio->precio_grupo==1){
+                                                                                    $precio_iti+=round($servicios->itinerario_servicios_servicio->precio_venta/intval(1),2);
+                                                                                    $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.round($servicios->itinerario_servicios_servicio->precio_venta/intval(1),2).'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                                                }
+                                                                                else{
+                                                                                    $precio_iti+=$servicios->itinerario_servicios_servicio->precio_venta;
+                                                                                    $servicios1.=$servicios->itinerario_servicios_servicio->id.'//'.$servicios->itinerario_servicios_servicio->nombre.'//'.$servicios->itinerario_servicios_servicio->precio_venta.'//'.$servicios->itinerario_servicios_servicio->precio_grupo.'*';
+                                                                                }
+                                                                            }
+                                                                            ?>
                                                                         @endforeach
-                                                                        </tbody>
-                                                                    </table>
+                                                                        @foreach($itinerario->destinos as $destino)
+                                                                            <?php
+                                                                            $destinos_iti.=$destino->destino.'*';
+                                                                            ?>
+                                                                        @endforeach
+                                                                        <?php
+                                                                        $destinos_iti=substr($destinos_iti,0,strlen($destinos_iti)-1);
+                                                                        $servicios1=substr($servicios1,0,strlen($servicios1)-1);
+                                                                        ?>
+                                                                        <input class="itinerario" type="checkbox" aria-label="..." name="itinerarios" value="{{$itinerario->id}}_{{$destinos_iti}}_{{$itinerario->titulo}}_{{$itinerario->descripcion}}_{{$precio_iti}}_{{$servicios1}}">
+                                                                        <span class="text-11"> {{$itinerario->titulo}}</span>
+                                                                    </label>
                                                                 </div>
+                                                            </div>
+                                                            <div class="col-lg-2 text-right">
+                                                                <a href="#!" class="text-grey-goto" data-toggle="collapse" data-target="#collapse_{{$pos_itinerario}}" aria-expanded="false">
+                                                                    <b class="text-success">{{$precio_iti}}$</b>
+                                                                    <i class="fa fa-arrows-v" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="collapse clearfix" id="collapse_{{$pos_itinerario}}">
+                                                            <div class="col-lg-12 well margin-top-5">
+                                                                {!! $itinerario->descripcion !!}
+                                                                {{--<h5><b>Services</b></h5>--}}
+                                                                <table class="table table-condensed table-striped">
+                                                                    <thead>
+                                                                    <tr class="bg-grey-goto text-white">
+                                                                        <th colspan="2">Concepts</th>
+                                                                        <th>Prices</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    @foreach($itinerario->itinerario_itinerario_servicios->sortBy('pos') as $servicios)
+                                                                        <tr>
+                                                                            <td>
+                                                                                @if($servicios->itinerario_servicios_servicio->grupo=='TOURS')
+                                                                                    <i class="fa fa-map-o text-info" aria-hidden="true"></i>
+                                                                                @elseif($servicios->itinerario_servicios_servicio->grupo=='MOVILID')
+                                                                                    @if($servicios->itinerario_servicios_servicio->clase=='BOLETO')
+                                                                                        <i class="fa fa-ticket text-warning" aria-hidden="true"></i>
+                                                                                    @else
+                                                                                        <i class="fa fa-bus text-warning" aria-hidden="true"></i>
+                                                                                    @endif
+                                                                                @elseif($servicios->itinerario_servicios_servicio->grupo=='REPRESENT')
+                                                                                    <i class="fa fa-users text-success" aria-hidden="true"></i>
+                                                                                @elseif($servicios->itinerario_servicios_servicio->grupo=='ENTRANCES')
+                                                                                    <i class="fa fa-ticket text-success" aria-hidden="true"></i>
+                                                                                @elseif($servicios->itinerario_servicios_servicio->grupo=='FOOD')
+                                                                                    <i class="fa fa-cutlery text-danger" aria-hidden="true"></i>
+                                                                                @elseif($servicios->itinerario_servicios_servicio->grupo=='TRAINS')
+                                                                                    <i class="fa fa-train text-info" aria-hidden="true"></i>
+                                                                                @elseif($servicios->itinerario_servicios_servicio->grupo=='FLIGHTS')
+                                                                                    <i class="fa fa-plane text-primary" aria-hidden="true"></i>
+                                                                                @elseif($servicios->itinerario_servicios_servicio->grupo=='OTHERS')
+                                                                                    <i class="fa fa-question text-success" aria-hidden="true"></i>
+                                                                                @endif
+                                                                                {{$servicios->itinerario_servicios_servicio->nombre}}</td>
+                                                                            <td></td>
+                                                                            <td>
+                                                                                @if($servicios->itinerario_servicios_servicio->precio_grupo==1)
+                                                                                    {{round($servicios->itinerario_servicios_servicio->precio_venta/1,2)}}
+                                                                                @else
+                                                                                    {{$servicios->itinerario_servicios_servicio->precio_venta}}
+                                                                                @endif
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     @endif
@@ -893,9 +898,10 @@
         </div>
     {{--</form>--}}
     <script>
-        $(document).ready(function() {
-            calcular_resumen();
-        } );
+        $(document).ready(function(){
+
+        });
+        calcular_resumen();
 
         $(function()
         {

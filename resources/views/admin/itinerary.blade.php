@@ -131,7 +131,9 @@
                                         @endforeach
 
                                         <tr id="lista_itinerary_{{$itinerario->id}}">
-                                        <td>{{$itinerario->titulo}} <a href="#" title="Servicios" data-toggle="popover" data-trigger="hover" data-content="{{{ $servicios }}}"><i class="fa fa-eye text-warning" aria-hidden="true"></i></a></td>
+                                        <td>{{$itinerario->titulo}}
+                                            <a href="#" title="Servicios" data-toggle="popover" data-trigger="hover" data-content="{{{ $servicios }}}"><i class="fa fa-eye text-warning" aria-hidden="true"></i></a>
+                                        </td>
                                         <td>{!! substr($itinerario->descripcion,0,50) !!}...</td>
                                         <td>
                                             @foreach($itinerario->destinos as $destinos)

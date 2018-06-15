@@ -144,13 +144,16 @@ class ProveedorController extends Controller
         $txt_nombre_comercial=strtoupper($request->input('txt_nombre_comercial_'.$nro_grupo));
 
         $txt_direccion=$request->input('txt_direccion_'.$nro_grupo);
-        $txt_telefono=$request->input('txt_telefono_'.$nro_grupo);
-        $txt_celular=$request->input('txt_celular_'.$nro_grupo);
-        $txt_email=$request->input('txt_email_'.$nro_grupo);
-        $txt_r_nombres=strtoupper($request->input('txt_r_nombres_'.$nro_grupo));
         $txt_r_telefono=$request->input('txt_r_telefono_'.$nro_grupo);
-        $txt_c_nombres=strtoupper($request->input('txt_c_nombres_'.$nro_grupo));
+        $txt_r_email=$request->input('txt_r_email_'.$nro_grupo);
+
         $txt_c_telefono=$request->input('txt_c_telefono_'.$nro_grupo);
+        $txt_c_email=$request->input('txt_c_email_'.$nro_grupo);
+
+        $txt_o_telefono=$request->input('txt_o_telefono_'.$nro_grupo);
+        $txt_o_email=$request->input('txt_o_email_'.$nro_grupo);
+
+
         $txt_plazo=$request->input('txt_plazo_'.$nro_grupo);
         $txt_desci=$request->input('txt_desci_'.$nro_grupo);
 
@@ -161,13 +164,16 @@ class ProveedorController extends Controller
         $proveedor->razon_social=$txt_razon_social;
         $proveedor->nombre_comercial=$txt_nombre_comercial;
         $proveedor->direccion=$txt_direccion;
-        $proveedor->telefono=$txt_telefono;
-        $proveedor->celular=$txt_celular;
-        $proveedor->email=$txt_email;
-        $proveedor->r_nombres=$txt_r_nombres;
+
         $proveedor->r_telefono=$txt_r_telefono;
-        $proveedor->c_nombres=$txt_c_nombres;
+        $proveedor->r_email=$txt_r_email;
+
         $proveedor->c_telefono=$txt_c_telefono;
+        $proveedor->c_email=$txt_c_email;
+
+        $proveedor->o_telefono=$txt_o_telefono;
+        $proveedor->o_email=$txt_o_email;
+
         $proveedor->localizacion=$txt_localizacion;
         $proveedor->grupo=$txt_grupo;
         $proveedor->plazo=$txt_plazo;

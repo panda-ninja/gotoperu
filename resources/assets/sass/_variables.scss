@@ -508,7 +508,11 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
   max-height: 403px;
   overflow-y: auto;
 }
-
+.height-350{
+  height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+}
 .puntero:hover{
   cursor: hand;
 }
@@ -557,4 +561,11 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 .estilo_form:hover{
   background: #7F8429 ;
   color:#FFFFFF;
+}
+.estilo_form_new{
+  border: 1px solid #c4c4c4;
+  border-radius: 3px;
+  background: #f5f5f5;
+  margin: 1px;
+  vertical-align: middle;
 }

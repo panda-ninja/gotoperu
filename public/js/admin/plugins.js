@@ -4579,6 +4579,24 @@ function escojer_servicio(){
         }
     });
     $('#nroServicios').val(total_serv);
+
+    if(!existe_destino('#txt_destino_foco option',destino_escoj)) {
+        var destino_foco = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
+        $('#txt_destino_foco').append(destino_foco);
+    }
+    if(!existe_destino('#txt_destino_duerme option',destino_escoj)) {
+        var destino_duerme = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
+        $('#txt_destino_duerme').append(destino_duerme);
+    }
+}
+function existe_destino(cb,clave){
+    var existe=false;
+    $(cb).each(function(){
+        if($(this).attr('value')==clave)
+            existe=true;
+            // alert('opcion '+$(this).text()+' valor '+ $(this).attr('value'))
+    });
+    return existe;
 }
 function existe_servicio(clave){
     var existe=false;

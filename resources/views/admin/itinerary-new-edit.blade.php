@@ -154,9 +154,9 @@
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">SERVICIOS ESCOJIDOS</div>
-                        <div class="panel-body height-400">
+                        <div class="panel-body">
                             <input type="hidden" id="nroServicios" value="{{count($itinerarios->itinerario_itinerario_servicios)}}">
-                            <div id="caja_1" class="row caja_sort">
+                            <div id="caja_1" class="row caja_sort height-350">
                                 @foreach($itinerarios->itinerario_itinerario_servicios as $itinerario_itinerario_servicio)
                                 <div id="elto_{{$itinerario_itinerario_servicio->m_servicios_id}}" class="col-lg-11 elemento_sort">
                                     <div class="row">
@@ -169,6 +169,7 @@
                                                 $desti_nombre='';
                                                 $grupo='';
                                                 $clase='';
+                                                $array_destinos=[];
                                             @endphp
                                             @foreach($services->where('id',$itinerario_itinerario_servicio->m_servicios_id) as $serv)
                                                 @php
@@ -181,7 +182,13 @@
                                             @foreach($destinations->where('destino',$desti_nombre) as $destino)
                                                 @php
                                                     $desti_id=$destino->id;
+                                                    $concat=$destino->id.'_'.$destino->destino;
                                                 @endphp
+                                                @if(!in_array($concat,$array_destinos))
+                                                    @php
+                                                        $array_destinos[]=$concat;
+                                                    @endphp
+                                                @endif
                                             @endforeach
                                             @if($grupo=='TOURS')
                                                 <i class="fa fa-map-o text-info" aria-hidden="true"></i>
@@ -211,6 +218,37 @@
                                     </div>
                                 </div>
                                 @endforeach
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="txt_travel_date">Destino oficial</label>
+                                        <select class="form-control" name="txt_destino_foco" id="txt_destino_foco">
+                                            <option value="0">Escoja un destino</option>
+                                            @foreach($array_destinos as $destins)
+                                                @php
+                                                    $destins_=explode('_',$destins);
+                                                @endphp
+                                                <option value="{{$destins_[0]}}" @if($itinerarios->destino_foco==$destins_[0]){{'selected'}}@endif>{{$destins_[1]}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="txt_travel_date">Lugar donde duerme</label>
+                                        <select class="form-control" name="txt_destino_duerme" id="txt_destino_duerme">
+                                            <option value="0">Escoja un destino</option>
+                                            <option value="NO DUERME">NO DUERME</option>
+                                            @foreach($array_destinos as $destins)
+                                                @php
+                                                    $destins_=explode('_',$destins);
+                                                @endphp
+                                                <option value="{{$destins_[0]}}" @if($itinerarios->destino_duerme==$destins_[0]){{'selected'}}@endif>{{$destins_[1]}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

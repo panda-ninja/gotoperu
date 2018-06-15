@@ -136,9 +136,9 @@
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">SERVICIOS ESCOJIDOS</div>
-                        <div class="panel-body height-400">
+                        <div class="panel-body">
                             <input type="hidden" id="nroServicios" value="0">
-                            <div id="caja_1" class="row caja_sort">
+                            <div id="caja_1" class="row caja_sort height-350">
                                 {{--<div id="elto_1" class="col-lg-11 elemento_sort">--}}
                                 {{--<div class="row">--}}
                                 {{--<div class="col-lg-1"><span class="text-unset"><i class="fa fa-hand-o-up" aria-hidden="true"></i></span></div>--}}
@@ -147,7 +147,25 @@
                                 {{--<div class="col-lg-1"><span class="text-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>--}}
                                 {{--</div>--}}
                                 {{--</div>--}}
-
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="txt_travel_date">Destino oficial</label>
+                                        <select class="form-control" name="txt_destino_foco" id="txt_destino_foco">
+                                            <option value="0">Escoja un destino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="txt_travel_date">Lugar donde duerme</label>
+                                        <select class="form-control" name="txt_destino_duerme" id="txt_destino_duerme">
+                                            <option value="0">Escoja un destino</option>
+                                            <option value="NO DUERME">NO DUERME</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,8 +176,8 @@
                     <label class="text-green-goto">Total(cost without hotel) $<span id="total_ci_0"></span></label>
                 </div>
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    {{--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                    <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
                 </div>
             </div>
             {{csrf_field()}}
