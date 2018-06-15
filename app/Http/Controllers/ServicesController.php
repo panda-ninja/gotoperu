@@ -38,9 +38,9 @@ class ServicesController extends Controller
         }
         $posTipo = $request->input('posTipo');
         $txt_localizacion = $request->input('txt_localizacion_' . $posTipo);
-        if(strlen($txt_localizacion))
+        if($txt_localizacion==null)
             $txt_localizacion='';
-
+//        dd($txt_localizacion);
         if ($posTipo == 0) {
             $S_2 = $request->input('S_2');
             $D_2 = $request->input('D_2');
