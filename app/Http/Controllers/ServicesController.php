@@ -389,6 +389,8 @@ class ServicesController extends Controller
     public function listarServicios_destino(Request $request)
     {
         $destino = $request->input('destino');
+        $id = $request->input('id');
+
         $destino = explode('_', $destino);
         $sericios = M_Servicio::where('grupo', $destino[1])->where('localizacion', $destino[2])->get();
         $destinations = M_Destino::get();
@@ -1140,7 +1142,7 @@ class ServicesController extends Controller
                 '</a>'.
             '</div>';
             $cadena .='<div class="col-lg-6" style="height: 400px; overflow-y: auto;">'.
-                '<p><b class="text-green-goto">Proveedor/Costo</b></p><div id="lista_costos_'.$destino[1].'_'.$servicio->id.'_'.$destino[0].'">';
+                '<p><b class="text-green-goto">Proveedor/Costo</b></p><div id="lista_costos_'.$destino[1].'_'.$id.'_'.$servicio->id.'">';
                 foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo){
                 $cadena.= '<div id="fila_p_'.$servicio->id.'_'.$costo->id.'_'.$costo->proveedor->id.'" class="row">'.
                                 '<div class="col-lg-8">'.$costo->proveedor->nombre_comercial.'</div>'.

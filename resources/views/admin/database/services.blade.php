@@ -86,18 +86,81 @@
                 <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
 
                     @if($categoria->nombre!='HOTELS')
-                        <div class="col-lg-12">
-                            <div class="col-lg-4 padding-left-0">
-                                <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}','{{$categoria->id}}')">
-                                    <option value="0">Escoja la localizacion</option>
-                                    @foreach($destinations as $destination)
-                                        <option value="{{$destination->id}}_{{$categoria->nombre}}_{{$destination->destino}}">{{$destination->destino}}</option>
-                                    @endforeach
-                                </select>
+                        @if($categoria->nombre=='TRAINS')
+                            <div class="col-lg-2 no-padding">
+                                <div class="estilo_form clearfix text-10">
+                                    <label class="">
+                                        <input type="radio" name="ida" id="id" value="ida" onclick="mostrar_info('ida_{{$categoria->nombre}}')">
+                                        Ida
+                                    </label>
+                                </div>
+                                <div class="estilo_form clearfix text-10">
+                                    <label class="">
+                                        <input type="radio" name="ida" id="id" value="ida" onclick="mostrar_info('ida_{{$categoria->nombre}}')">
+                                        Ida y vuelta
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div id="tb_datos_{{$categoria->nombre}}">
-                        </div>
+                            <div class="col-lg-4">
+                                <div id="ida_{{$categoria->nombre}}">
+                                    <div class="form-group">
+                                        <label for="">Escoja el destino de ida</label>
+                                        <select name="Destinos_ida_{{$categoria->nombre}}" id="Destinos_ida_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino_ida('{{$categoria->nombre}}','{{$categoria->id}}')">
+                                            <option value="0">Escoja el destino</option>
+                                            <option value="POROY">POROY</option>
+                                            <option value="AGUAS CALIENTES">AGUAS CALIENTES</option>
+                                            <option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="ida_{{$categoria->nombre}}">
+                                    <div class="form-group">
+                                        <label for="">Escoja el destino de ida</label>
+                                        <select name="Destinos_ida_{{$categoria->nombre}}" id="Destinos_ida_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino_ida('{{$categoria->nombre}}','{{$categoria->id}}')">
+                                            <option value="0">Escoja el destino</option>
+                                            <option value="POROY">POROY</option>
+                                            <option value="AGUAS CALIENTES">AGUAS CALIENTES</option>
+                                            <option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Escoja el destino de vuelta</label>
+                                        <select name="Destinos_vuelta_{{$categoria->nombre}}" id="Destinos_vuelta_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino_ida('{{$categoria->nombre}}','{{$categoria->id}}')">
+                                            <option value="0">Escoja el destino</option>
+                                            <option value="POROY">POROY</option>
+                                            <option value="AGUAS CALIENTES">AGUAS CALIENTES</option>
+                                            <option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+
+                                <div class="col-lg-4 padding-left-0">
+                                    <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}','{{$categoria->id}}')">
+                                        <option value="0">Escoja la localizacion</option>
+                                        @foreach($destinations as $destination)
+                                            <option value="{{$destination->id}}_{{$categoria->nombre}}_{{$destination->destino}}">{{$destination->destino}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="tb_datos_{{$categoria->nombre}}">
+                            </div>
+                        @else
+                            <div class="col-lg-12">
+                                <div class="col-lg-4 padding-left-0">
+                                    <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}','{{$categoria->id}}')">
+                                        <option value="0">Escoja la localizacion</option>
+                                        @foreach($destinations as $destination)
+                                            <option value="{{$destination->id}}_{{$categoria->nombre}}_{{$destination->destino}}">{{$destination->destino}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="tb_datos_{{$categoria->nombre}}">
+                            </div>
+                        @endif
                     @else
 
                         <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
