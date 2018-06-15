@@ -448,33 +448,7 @@
                                                                                                     $precio_book=$producto->precio_costo*$cotizacion->nropersonas;
                                                                                                 @endphp
                                                                                             @endif
-                                                                                            {{--@if(($servicios->precio*$valor) < $producto->precio_costo)--}}
-                                                                                            {{--<div class="col-md-6">--}}
-                                                                                            {{--<div class="checkbox11 text-left bg-info">--}}
-                                                                                            {{--<label class="text-danger">--}}
-                                                                                            {{--<span class="text-10 text-grey-goto">{{$producto->nombre}}</span>--}}
-                                                                                            {{--<span class="text-10 text-warning">{{$producto->localizacion}}</span>--}}
-                                                                                            {{--<span class="text-10 text-primary">{{$producto->tipo_producto}}</span>--}}
-                                                                                            {{--<hr>--}} {{$m_servicio->precio_venta}}$)
-                                                                                            {{--<p class="text-primary" >{{$producto->proveedor->nombre_comercial}}--}}
-                                                                                            {{--@if($producto->grupo=='TRAINS')--}}
-                                                                                            {{--<span class="text-10 text-warning" >[{{$servicios->salida}} - {{$servicios->llegada}}]</span>--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--</p>--}}
-                                                                                            {{--<input type="hidden" {{$m_servicio->precio_venta}}$) id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">--}}
-                                                                                            {{--<input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">--}}
-                                                                                            {{--@if($producto->precio_grupo==1)--}}
-                                                                                            {{--{{$producto->precio_costo*1}}--}}
-                                                                                            {{--<input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo*1}}">--}}
-                                                                                            {{--@else--}}
-                                                                                            {{--{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}--}}
-                                                                                            {{--<input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}">--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--$--}}
-                                                                                            {{--</label>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@else--}}
+
                                                                                             <div class="col-md-6">
                                                                                                 <div class="checkbox11 text-left">
                                                                                                     <div class="row">
@@ -492,7 +466,7 @@
                                                                                                                         <span class="text-10 text-grey-goto" >[Sal: {{$servicios->salida}} - Lleg:{{$servicios->llegada}}]</span>
                                                                                                                     @endif
                                                                                                                 </p>
-                                                                                                                <input type="hidden" id="pro {{$m_servicio->precio_venta}}$)veedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">
+                                                                                                                <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">
                                                                                                                 <input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}">
                                                                                                                 @if($producto->precio_grupo==1)
                                                                                                                     {{$producto->precio_costo*1}}
