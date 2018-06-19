@@ -561,6 +561,10 @@ Route::get('/admin/quotes/new/step2/{coti_id}/{pqt_id}/{imprimir}', [
     'uses' => 'PackageCotizacionController@show_step2',
     'as' => 'show_step2_path'
 ]);
+Route::post('/admin/quotes/new/step2/', [
+    'uses' => 'PackageCotizacionController@show_step2_post',
+    'as' => 'show_step2_post_path'
+]);
 Route::get('/admin/quotes/edit/step2/{coti_id}/{pqt_id}/{imprimir}', [
     'uses' => 'PackageCotizacionController@show_step2_edit',
     'as' => 'show_step2_edit_path'
@@ -938,7 +942,11 @@ Route::post('/admin/cost-provider/filtro/localizacion',[
     'uses' => 'CostController@call_cost_providers_localizacion',
     'as' => 'call_cost_providers_localizacion_path',
 ]);
-Route::post('/admin/cost_provider/filtro/localizacion/estrellas',[
+Route::post('/admin/cost-provider/filtro/localizacion/estrellas',[
     'uses' => 'CostController@call_cost_providers_localizacion_estrellas',
     'as' => 'call_cost_providers_localizacion_estrellas_path',
+]);
+Route::post('/admin/hotel-provider/delete', [
+    'uses' => 'HotelProveedorController@delete',
+    'as' => 'provider_delete_path',
 ]);

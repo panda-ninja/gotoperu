@@ -23,12 +23,14 @@
         $descr='';
         $include='';
         $no_include='';
+        $cliente_id=0;
     @endphp
 
     @foreach($cotizaciones as $cotizacion)
         @foreach($cotizacion->cotizaciones_cliente as $coti_cliente)
             @php
                 $cliente=$coti_cliente->cliente->nombres.' '.$coti_cliente->cliente->apellidos;
+                $cliente_id=$coti_cliente->cliente->id;
             @endphp
         @endforeach
     @endforeach
@@ -42,6 +44,9 @@
                 $t=0;
             @endphp
             @foreach($cotizaciones as $cotizacion)
+                @php
+                    $cotizacion_id=$cotizacion->id;
+                @endphp
                 <p><b>Pagina de origen {{$cotizacion->web}}</b></p>
                 <b class="text-warning text-25">{{$cotizacion->nropersonas}} PAXS {{$cotizacion->star_2}}{{$cotizacion->star_3}}{{$cotizacion->star_4}}{{$cotizacion->star_5}} <i class="fa fa-star" aria-hidden="true"></i>:</b>
                 @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
@@ -78,8 +83,14 @@
         </div>
         <div class="col-lg-6">
             <div class="col-lg-2"></div>
-            <div class="col-lg-1 caja_paso_activo text-30 text-center"><b>1</b></div>
-            <div class="col-lg-1 caja_paso_activo text-30 text-center"><b>2</b></div>
+            <div class="col-lg-1 caja_paso_noactivo text-30 text-center">
+                <a href="{{route('show_step1_path',[$cliente_id,$cotizacion_id,$paquete_id])}}" class="caja_paso_noactivo_ no_stilo">1</a>
+                {{--<b>1</b>--}}
+            </div>
+            <div class="col-lg-1 caja_paso_activo text-30 text-center">
+                <a href="#!" class="caja_paso_activo_ no_stilo">2</a>
+                {{--<b>2</b>--}}
+            </div>
             <div class="col-lg-2"></div>
         </div>
     </div>

@@ -35,7 +35,7 @@
         <div class="margin-top-20 panel panel-default panel-floating panel-floating-inline " id="modal_new_cost">
             <div class="panel-body">
             <form  action="{{route('costs_save_path')}}" method="post" id="service_save_id" enctype="multipart/form-data">
-            @foreach($categorias as $categoria)
+            @foreach($categorias->where('nombre','HOTELS') as $categoria)
                 <?php
                     $tipoServicio[]=$categoria->nombre;
                 ?>
@@ -45,7 +45,7 @@
                     <?php
                     $pos=0;
                     ?>
-                    @foreach($categorias as $categoria)
+                    @foreach($categorias->where('nombre','HOTELS') as $categoria)
                         <?php
                             $activo_='';
                         ?>
@@ -64,7 +64,7 @@
                     <?php
                     $pos0=0;
                     ?>
-                    @foreach($categorias as $categoria)
+                    @foreach($categorias->where('nombre','HOTELS') as $categoria)
                             <?php
                             $activo='';
                             ?>

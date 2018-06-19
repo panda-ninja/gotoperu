@@ -1194,7 +1194,6 @@ class PackageCotizacionController extends Controller
             $cotizacion_cliente->cotizaciones_id = $cotizacion_plantilla->id;
             $cotizacion_cliente->clientes_id = $cliente->id;
             $cotizacion_cliente->estado = 1;
-            $cotizacion_cliente->proceso_complete= 1;
             $cotizacion_cliente->save();
             $cotizacion_id=$cotizacion_plantilla->id;
             $cliente_id=$cliente->id;
@@ -2223,5 +2222,25 @@ class PackageCotizacionController extends Controller
 
 
         return redirect()->route('show_step1_editar_path',[$cliente_id,$cotizacion_id,$pqt_id]);
+    }
+    public function show_step2_post(Request $request)
+    {
+        $cotizacion_id=$request->input('cotizacion_id');
+        $paquete_precio_id=$request->input('paquete_precio_id');
+        $imprimir=$request->input('imprimir');
+
+        $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
+        $pqt=PaqueteCotizaciones::FindOrFail($paquete_precio_id);
+        $pqt->proceso_complete=1;
+        $pqt->save();
+
+        $itis=explode('_',$request->input('itis'));
+        foreach ($itis as $iti){
+            $temp=ItinerarioCotizaciones::FindOrFail($iti);
+            $temp->descripcion=$request->input('txt_descr_'.$iti);
+            $temp->save();
+        }
+
+        return view('admin.package-prepare',['cotizaciones'=>$cotizaciones,'paquete_precio_id'=>$paquete_precio_id,'imprimir'=>$imprimir]);
     }
 }

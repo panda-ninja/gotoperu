@@ -149,5 +149,6 @@ class HotelProveedorController extends Controller
         else
             return 0;
     }
+
 }
 

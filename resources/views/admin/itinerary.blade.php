@@ -49,24 +49,25 @@
                             <table id="example{{$destino->id}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
-                                    <th class="col-lg-4">Titulo</th>
-                                    <th class="col-lg-3">Descripcion</th>
-                                    <th class="col-lg-3">Destinos</th>
-                                    <th class="col-lg-1">Costo</th>
-                                    <th class="col-lg-1">Operaciones</th>
+                                    <th width="100px">Titulo</th>
+                                    <th width="100px">Descripcion</th>
+                                    <th width="100px">Destinos</th>
+                                    <th width="50px">Costo</th>
+                                    <th width="50px">Operaciones</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Titulo</th>
-                                    <th>Descripcion</th>
-                                    <th>Destinos</th>
-                                    <th>Costo</th>
-                                    <th>Operaciones</th>
-                                </tr>
-                                </tfoot>
+                                {{--<tfoot>--}}
+                                {{--<tr>--}}
+                                    {{--<th width="20%">Titulo</th>--}}
+                                    {{--<th width="20%">Descripcion</th>--}}
+                                    {{--<th width="40%">Destinos</th>--}}
+                                    {{--<th width="10%">Costo</th>--}}
+                                    {{--<th width="10%">Operaciones</th>--}}
+                                {{--</tr>--}}
+                                {{--</tfoot>--}}
                                 <tbody>
                                 @foreach($itinerarios as $itinerario)
+{{--                                @foreach($itinerarios->where('destino_foco',$destino->id) as $itinerario)--}}
                                     @php
                                         $arreglo_dest=array();
                                     @endphp
@@ -127,9 +128,7 @@
                                                     $servicios.='<p class="text-unset text-11"><b class="text-primary text-13"><i class="fa fa-question" aria-hidden="true"></i></b> '.$it_iti_servicio->itinerario_servicios_servicio->nombre.' '.$p_venta.'$</p>';
                                                 @endphp
                                             @endif
-
                                         @endforeach
-
                                         <tr id="lista_itinerary_{{$itinerario->id}}">
                                         <td>{{$itinerario->titulo}}
                                             <a href="#" title="Servicios" data-toggle="popover" data-trigger="hover" data-content="{{{ $servicios }}}"><i class="fa fa-eye text-warning" aria-hidden="true"></i></a>
@@ -137,8 +136,21 @@
                                         <td>{!! substr($itinerario->descripcion,0,50) !!}...</td>
                                         <td>
                                             @foreach($itinerario->destinos as $destinos)
-                                                <label for="" class="text-10 text-orange-goto">{{$destinos->destino}},</label>
+                                                @foreach($destinations->where('destino',$destinos->destino) as $destination)
+                                                    @if($itinerario->destino_foco==$destination->id)
+                                                        <b>Destino: </b><label for="" class="text-10 text-green-goto">{{$destinos->destino}}</label>
+                                                    @elseif($itinerario->destino_duerme==$destination->id)
+                                                        | <b>Hotel: </b><label for="" class="text-10 text-green-goto">{{$destinos->destino}}</label>
+                                                    @endif
+
+                                                @endforeach
                                             @endforeach
+                                            <p>
+                                                <b class="text-success"><i class="fa fa-map-marker" aria-hidden="true"></i></b>
+                                                @foreach($itinerario->destinos as $destinos)
+                                                    <label for="" class="text-10 text-orange-goto">{{$destinos->destino}}</label> |
+                                                @endforeach
+                                            </p>
                                         </td>
                                         <td>
                                             <?php

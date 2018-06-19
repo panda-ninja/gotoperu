@@ -157,6 +157,9 @@
                         <div class="panel-body">
                             <input type="hidden" id="nroServicios" value="{{count($itinerarios->itinerario_itinerario_servicios)}}">
                             <div id="caja_1" class="row caja_sort height-350">
+                                @php
+                                    $array_destinos=[];
+                                @endphp
                                 @foreach($itinerarios->itinerario_itinerario_servicios as $itinerario_itinerario_servicio)
                                 <div id="elto_{{$itinerario_itinerario_servicio->m_servicios_id}}" class="col-lg-11 elemento_sort">
                                     <div class="row">
@@ -169,7 +172,7 @@
                                                 $desti_nombre='';
                                                 $grupo='';
                                                 $clase='';
-                                                $array_destinos=[];
+
                                             @endphp
                                             @foreach($services->where('id',$itinerario_itinerario_servicio->m_servicios_id) as $serv)
                                                 @php
@@ -458,7 +461,6 @@
         // instance, using default configuration.
         CKEDITOR.replace( 'txt_descripcion' );
         CKEDITOR.replace( 'txt_resumen' );
-
 
     </script>
 @stop

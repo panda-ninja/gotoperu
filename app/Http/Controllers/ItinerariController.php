@@ -105,8 +105,8 @@ class ItinerariController extends Controller
         $txt_imagen=$request->file('txt_imagen');
         $txt_imagenB=$request->file('txt_imagenB');
         $txt_imagenC=$request->file('txt_imagenC');
-        $txt_destino_foco=$request->file('txt_destino_foco');
-        $txt_destino_duerme=$request->file('txt_destino_duerme');
+        $txt_destino_foco=$request->input('txt_destino_foco');
+        $txt_destino_duerme=$request->input('txt_destino_duerme');
 
         $itinerario=new M_Itinerario();
         $itinerario->titulo=$txt_titulo;
@@ -317,8 +317,8 @@ class ItinerariController extends Controller
         $txt_imagen=$request->file('txt_imagen');
         $txt_imagenB=$request->file('txt_imagenB');
         $txt_imagenC=$request->file('txt_imagenC');
-        $txt_destino_foco=$request->file('txt_destino_foco');
-        $txt_destino_duerme=$request->file('txt_destino_duerme');
+        $txt_destino_foco=$request->input('txt_destino_foco');
+        $txt_destino_duerme=$request->input('txt_destino_duerme');
 
         $itinerario=M_Itinerario::FindOrFail($txt_id);
         $itinerario->titulo=$txt_titulo;

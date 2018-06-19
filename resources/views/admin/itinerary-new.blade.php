@@ -155,6 +155,7 @@
                                         <select class="form-control" name="txt_destino_foco" id="txt_destino_foco">
                                             <option value="0">Escoja un destino</option>
                                         </select>
+                                        <input type="hidden" name="foco" id="foco" value="0">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -164,6 +165,7 @@
                                             <option value="0">Escoja un destino</option>
                                             <option value="NO DUERME">NO DUERME</option>
                                         </select>
+                                        <input type="hidden" name="duerme" id="duerme" value="0">
                                     </div>
                                 </div>
                             </div>

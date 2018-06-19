@@ -678,9 +678,24 @@ body {
   padding: 5px;
   text-align: center;
 }
+.caja_paso_activo_{
+  background: #7F8429;
+  color:white;
+  border: 1px solid #7F8429;
+  padding: 5px;
+  text-align: center;
+}
 .caja_paso_noactivo{
+  background: white;
   color:#333333;
   border: 1px solid #ffa500;
+  padding: 5px;
+  text-align: center;
+}
+.caja_paso_noactivo_{
+  background: white;
+  color:#333333;
+  border: 1px solid white;
   padding: 5px;
   text-align: center;
 }

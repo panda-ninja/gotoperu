@@ -2658,15 +2658,15 @@ function enviar_form1(){
             )
             return false;
         }
-        if($('#txt_phone1').val()==''){
-            $('#txt_phone1').focus();
-            swal(
-                'Oops...',
-                'Ingrese el telefono!',
-                'error'
-            )
-            return false;
-        }
+        // if($('#txt_phone1').val()==''){
+        //     $('#txt_phone1').focus();
+        //     swal(
+        //         'Oops...',
+        //         'Ingrese el telefono!',
+        //         'error'
+        //     )
+        //     return false;
+        // }
         if($('#txt_travelers1').val()==0){
             $('#txt_travelers1').focus();
             swal(
@@ -3012,15 +3012,15 @@ function enviar_form2(){
             )
             return false;
         }
-        if($('#txt_phone1_').val()==''){
-            $('#txt_phone1_').focus();
-            swal(
-                'Oops...',
-                'Ingrese el telefono!',
-                'error'
-            )
-            return false;
-        }
+        // if($('#txt_phone1_').val()==''){
+        //     $('#txt_phone1_').focus();
+        //     swal(
+        //         'Oops...',
+        //         'Ingrese el telefono!',
+        //         'error'
+        //     )
+        //     return false;
+        // }
         if($('#txt_travelers1_').val()==0){
             $('#txt_travelers1_').focus();
             swal(
@@ -3102,15 +3102,16 @@ function borrar_serv_quot_paso1(id,servicio){
         });
         $.post('/admin/quotes/servicio/delete', 'id='+id, function(data) {
             if(data==1){
-                // $("#lista_destinos_"+id).remove();
                 $("#lista_servicios_"+id).fadeOut( "slow");
+                $("#lista_servicios_"+id).remove();
+                calcularPrecio();
             }
         }).fail(function (data) {
 
         });
 
     })
-    calcularPrecio();
+
 }
 function borrar_hotel_quot_paso1(id,dia){
     swal({
@@ -3129,15 +3130,15 @@ function borrar_hotel_quot_paso1(id,dia){
         });
         $.post('/admin/quotes/hotel/delete', 'id='+id, function(data) {
             if(data==1){
-                // $("#lista_destinos_"+id).remove();
                 $("#caja_detalle_"+id).fadeOut( "slow");
+                $("#caja_detalle_"+id).remove();
+                calcularPrecio();
             }
         }).fail(function (data) {
 
         });
 
     })
-    calcularPrecio();
 }
 function calcularPrecio(){
     var total_serv_s=0;
@@ -3159,7 +3160,7 @@ function calcularPrecio(){
     });
     $("input[class='precio_servicio_d_h']").each(function (index) {
         total_serv_d+=parseFloat($(this).val());
-        console.log('precio_servicio_d:'+$(this).val());
+        console.log('precio_servicio_d_h:'+$(this).val());
     });
     console.log('total_serv_d:'+total_serv_d);
     $("input[class='precio_servicio_t']").each(function (index) {
@@ -3170,6 +3171,10 @@ function calcularPrecio(){
         total_serv_t+=parseFloat($(this).val());
         console.log('precio_servicio_t:'+$(this).val());
     });
+    total_serv_s=total_serv_s.toFixed(2);
+    total_serv_d=total_serv_d.toFixed(2);
+    total_serv_t=total_serv_t.toFixed(2);
+
     console.log('total_serv_t:'+total_serv_t);
     $("#cost_s").html(total_serv_s);
     $("#cost_d").html(total_serv_d);
@@ -4768,4 +4773,36 @@ function mostrar_class(proveedor_id,array_pro,grupo,id,idservicio) {
     else {
         $('#lista_costos_' + grupo + '_' + id + '_' + idservicio).html('');
     }
+}
+function eliminar_hotel_provider(id,servicio) {
+    // alert('holaaa');
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de eliminar al proveedor "+servicio+"?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.post('/admin/hotel-provider/delete', 'id='+id, function(data) {
+            if(data==1){
+                // $("#lista_destinos_"+id).remove();
+                $("#lista_provider_"+id).fadeOut( "slow");
+            }
+            else if(data==2){
+                swal(
+                    'Porque no puedo borar?',
+                    'El proveedor se esta usando en alguna cotizacion, no es posible borrar este proveedor.',
+                    'warning'
+                )
+            }
+        }).fail(function (data) {
+        });
+    })
 }

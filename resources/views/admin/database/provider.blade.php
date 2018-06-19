@@ -289,9 +289,7 @@
                                                 </select>
                                             </div>
                                         </div>
-
                                     </div>
-
                                 @endif
                                 <div id="caja_listado_proveedores_{{$tipoServicio_}}"></div>
                              </div>

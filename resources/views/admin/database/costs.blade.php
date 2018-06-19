@@ -35,15 +35,15 @@
         <a href="{{route('mostrar_cost_new_path')}}" type="button" class="btn btn-primary">
             New <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </a>
-        @foreach($categorias as $categoria)
-            <?php
-            $tipoServicio[]=$categoria->nombre;
-            ?>
+        @foreach($categorias->where('nombre','HOTELS') as $categoria)
+            @php
+                $tipoServicio[]=$categoria->nombre;
+            @endphp
         @endforeach
         <?php
         $pos=0;
         ?>
-        @foreach($categorias as $categoria)
+        @foreach($categorias->where('nombre','HOTELS') as $categoria)
             <?php
             $activo_='';
             ?>
@@ -64,7 +64,7 @@
                 <?php
                 $pos=0;
                 ?>
-                @foreach($categorias as $categoria)
+                @foreach($categorias->where('nombre','HOTELS') as $categoria)
                     <?php
                     $activo_='';
                     ?>
@@ -83,7 +83,7 @@
                 <?php
                 $pos=0;
                 ?>
-                @foreach($categorias as $categoria)
+                @foreach($categorias->where('nombre','HOTELS') as $categoria)
                     <?php
                     $activo_='';
                     ?>
@@ -150,7 +150,7 @@
                     @else
                         <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo_}}">
                             <div class="margin-top-20">
-                                <div class="row hide">
+                                <div class="row">
                                     <div class="col-lg-2">
                                         {{csrf_field()}}
                                         <div class="form-group">
@@ -179,85 +179,6 @@
                                 <div id="caja_listado_cost_proveedores_{{$categoria->nombre}}">
 
                                 </div>
-                                <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
-                                    <thead>
-                                    <tr>
-                                        <th>Location</th>
-                                        <th>Categoria</th>
-                                        <th>Provider</th>
-                                        <th>Operations</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Location</th>
-                                        <th>Categoria</th>
-                                        <th>Provider</th>
-                                        <th>Operations</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    @php
-                                        $pos=0;
-                                    @endphp
-{{--                                    @foreach($proveedores as $proveedores_)--}}
-                                        @php
-                                          $pos++;
-                                          $pro_sa='';
-                                        @endphp
-                                        @foreach($hotel as $hotel_)
-                                        <tr id="h_p_{{$hotel_->id}}">
-                                            <td>{{$hotel_->localizacion}}</td>
-                                            <td>{{$hotel_->estrellas}} Stars</td>
-                                            <td>
-                                                @foreach($proveedor_db->where('id',$hotel_->proveedor_id) as $proveedor_db_)
-                                                    {{$proveedor_db_->nombre_comercial}}
-                                                    @php
-                                                        $pro_sa=$proveedor_db_->nombre_comercial;
-                                                    @endphp
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                {{--<a type="button" class="btn btn-warning" href="{{route('editar_hotel_proveedor_path',[$dato[0],$dato[1]],)}}">--}}
-                                                    {{--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
-                                                {{--</a>--}}
-                                                <a type="button" class="btn btn-warning" href="{{route('editar_hotel_proveedor_path',[$hotel_->id])}}">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
-                                                {{--<button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_hotel_{{$pos}}">--}}
-                                                    {{--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
-                                                {{--</button>--}}
-                                                <button type="button" class="btn btn-danger" onclick="eliminar_hotel_pro('{{$pro_sa}}','{{$hotel_->id}}')">
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    {{--@endforeach--}}
-                                    {{--@foreach($productos as $proveedor)--}}
-                                        {{--@foreach($proveedor->productos  as $producto)--}}
-                                            {{--@if($producto->grupo==$categoria->nombre)--}}
-                                                {{--<tr id="lista_services_{{$producto->id}}">--}}
-                                                    {{--<td><b class="text-success"><i class="fa fa-bus fa-2x" aria-hidden="true"></i></b></td>--}}
-                                                    {{--<td>{{$producto->localizacion}}</td>--}}
-                                                    {{--<td>{{$producto->tipo_producto}}</td>--}}
-                                                    {{--<td><b class="bg-green-goto text-grey-goto">{{$proveedor->codigo}}</b> {{$proveedor->razon_social}}</td>--}}
-                                                    {{--<td><b class="bg-orange-goto text-grey-goto">{{$producto->codigo}}</b>{{$producto->nombre}}</td>--}}
-                                                    {{--<td>${{$producto->precio_costo}}</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--<button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_cost_{{$producto->id}}">--}}
-                                                            {{--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
-                                                        {{--</button>--}}
-                                                        {{--<button type="button" class="btn btn-danger" onclick="eliminar_producto('{{$producto->id}}','{{$producto->nombre}}')">--}}
-                                                            {{--<i class="fa fa-trash-o" aria-hidden="true"></i>--}}
-                                                        {{--</button>--}}
-                                                    {{--</td>--}}
-                                                {{--</tr>--}}
-                                            {{--@endif--}}
-                                        {{--@endforeach--}}
-                                    {{--@endforeach--}}
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     @endif
@@ -533,7 +454,7 @@
             <?php
                 $i++;
             ?>
-            $('#tb_{{$tipoServicio_}}').DataTable();
+            {{--$('#tb_{{$tipoServicio_}}').DataTable();--}}
             @endforeach
 
 

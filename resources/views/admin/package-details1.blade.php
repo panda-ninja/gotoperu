@@ -1,4 +1,7 @@
 @extends('layouts.admin.admin')
+@section('archivos-js')
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+@stop
 @section('content')
     @if(isset($id_serv))
         @php
@@ -66,8 +69,14 @@
         </div>
         <div class="col-lg-6">
             <div class="col-lg-2"></div>
-            <div class="col-lg-1 caja_paso_activo text-30 text-center"><b>1</b></div>
-            <div class="col-lg-1 caja_paso_noactivo text-30 text-center"><b>2</b></div>
+            <div class="col-lg-1 caja_paso_activo text-30 text-center">
+                <button class="caja_paso_activo_">1</button>
+                    {{--<b>1</b>--}}
+            </div>
+            <div class="col-lg-1 caja_paso_noactivo text-30 text-center">
+                <button class="caja_paso_noactivo_">2</button>
+                    {{--<b>2</b>--}}
+            </div>
             <div class="col-lg-2"></div>
         </div>
     </div>
@@ -87,6 +96,9 @@
             @endphp
             @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
                 @if($paquete->id==$paquete_precio_id)
+                    @php
+                        $itis='';
+                    @endphp
                     @foreach($paquete->itinerario_cotizaciones as $itinerario)
                         <div class="row caja_items">
                             <div class="col-lg-1 caja_dia_indice">
@@ -176,7 +188,7 @@
                                             </div>
                                             <div class="col-lg-1 @if($s==0) hide @endif">$<input type="hidden" class="precio_servicio_s" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                             <div class="col-lg-1 @if($d==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
-                                            <div class="col-lg-1 @if($m==0) hide @endif">$<input type="hidden" class="precio_servicio_d" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
+                                            <div class="col-lg-1 @if($m==0) hide @endif">$<input type="hidden" class="precio_servicio_m" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                             <div class="col-lg-1 @if($t==0) hide @endif">$<input type="hidden" class="precio_servicio_t" value="{{explode('.00',$preciom)[0]}}">{{explode('.00',$preciom)[0]}}</div>
                                             <div class="col-lg-1">
                                                 <a class="btn" data-toggle="modal" data-target="#modal_new_destination1_{{$servicios->id}}">
@@ -423,14 +435,18 @@
 
                             </div>
                             <div class="col-lg-6">
-                                <textarea name="" id="" cols="70" rows="8">{!! $itinerario->descripcion !!}</textarea>
+                                <textarea form="step1" name="txt_descr_{{$itinerario->id}}"  id="txt_descr_{{$itinerario->id}}" cols="70" rows="8">{!! $itinerario->descripcion !!}</textarea>
                             </div>
                         </div>
+                        @php
+                            $itis.=$itinerario->id.'_';
+                        @endphp
                     @endforeach
                 @endif
             @endforeach
         @endforeach
         @php
+            $itis=substr($itis,0,strlen($itis)-1);
             $precio_hotel_s+=$precio_iti;
             $precio_hotel_d+=$precio_iti;
             $precio_hotel_m+=$precio_iti;
@@ -453,11 +469,20 @@
                     <div class="col-lg-12 text-right text-warninggit">PRICE PER PERSON</div>
                 </div>
                 <div class="col-lg-6 text-right">
-                    {{csrf_field()}}
+                    <form id="step1" action="{{route('show_step2_post_path')}}" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="cotizacion_id" value="{{$cotizacion_id}}">
+                        <input type="hidden" name="paquete_precio_id" value="{{$paquete_precio_id}}">
+                        <input type="hidden" name="imprimir" value="no">
+                        <input type="hidden" name="itis" value="{{$itis}}">
+                        <button class="btn btn-warning" type="submit">CREATE</button>
+{{--                        <a href="{{route('show_step2_path',[$cotizacion_id,$paquete_precio_id,'no'])}}" class="btn btn-warning btn-lg" type="submit" name="create">CREATE</a>--}}
+                    </form>
+
                     {{--<input type="hidden" name="paquete_precio_id" value="{{$paquete_precio_id}}">--}}
                     {{--<input type="hidden" name="cotizacion_id" value="{{$cotizacion_id}}">--}}
                     {{--<input type="hidden" name="imprimir" value="no">--}}
-                    <a href="{{route('show_step2_path',[$cotizacion_id,$paquete_precio_id,'no'])}}" class="btn btn-warning btn-lg" type="submit" name="create">CREATE</a>
+{{--                    <a href="{{route('show_step2_path',[$cotizacion_id,$paquete_precio_id,'no'])}}" class="btn btn-warning btn-lg" type="submit" name="create">CREATE</a>--}}
                 </div>
             </div>
         </div>
@@ -465,6 +490,15 @@
     <script>
         $(document).ready(function() {
             calcular_resumen();
+            @foreach($cotizaciones as $cotizacion)
+                @foreach($cotizacion->paquete_cotizaciones->where('id',$paquete_precio_id) as $paquete)
+                    @if($paquete->id==$paquete_precio_id)
+                        @foreach($paquete->itinerario_cotizaciones as $itinerario)
+                            CKEDITOR.replace('txt_descr_{{$itinerario->id}}');
+                        @endforeach
+                    @endif
+                @endforeach
+            @endforeach
         } );
     </script>
 @stop
