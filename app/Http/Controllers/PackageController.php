@@ -215,6 +215,8 @@ class PackageController extends Controller
             $p_itinerario->imagen=$m_itineario->imagen;
             $p_itinerario->imagenB=$m_itineario->imagenB;
             $p_itinerario->imagenC=$m_itineario->imagenC;
+            $p_itinerario->destino_foco=$m_itineario->destino_foco;
+            $p_itinerario->destino_duerme=$m_itineario->destino_duerme;
             $p_itinerario->sugerencia=$txt_sugerencia[$dia];
             $p_itinerario->estado=1;
             $p_itinerario->p_paquete_id=$paquete->id;
@@ -434,6 +436,8 @@ class PackageController extends Controller
             $p_itinerario->imagen=$m_itineario->imagen;
             $p_itinerario->imagenB=$m_itineario->imagenB;
             $p_itinerario->imagenC=$m_itineario->imagenC;
+            $p_itinerario->destino_foco=$m_itineario->destino_foco;
+            $p_itinerario->destino_duerme=$m_itineario->destino_duerme;
             $p_itinerario->sugerencia=$txt_sugerencia[$dia];
             $p_itinerario->estado=1;
             $p_itinerario->p_paquete_id=$paquete->id;

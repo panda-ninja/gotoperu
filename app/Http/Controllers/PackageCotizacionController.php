@@ -1012,7 +1012,8 @@ class PackageCotizacionController extends Controller
             $p_itinerario->imagen=$m_itineario->imagen;
             $p_itinerario->imagenB=$m_itineario->imagenB;
             $p_itinerario->imagenC=$m_itineario->imagenC;
-
+            $p_itinerario->destino_foco=$m_itineario->destino_foco;
+            $p_itinerario->destino_duerme=$m_itineario->destino_duerme;
             $p_itinerario->observaciones='';
             $p_itinerario->estado=1;
             $p_itinerario->paquete_cotizaciones_id=$paquete->id;
@@ -1096,12 +1097,10 @@ class PackageCotizacionController extends Controller
         $pos=1;
         $paquetePrecio=PaquetePrecio::FindOrFail($paquete_precio_id);
         foreach ($itinerario_cotizaciones as $itinerario_cotizacion) {
-            $arra_destinos=array();
-            foreach ($itinerario_cotizacion->itinerario_destinos as $iti_destino){
-                $arra_destinos[]=$iti_destino->destino;
-            }
+            if($itinerario_cotizacion->destino_duerme>0){
+            $temp_dest=M_Destino::findOrFail($itinerario_cotizacion->destino_duerme);
             if ($pos < $nroDias){
-                $hotelesxdestinoes=Hotel::where('estrellas',$estrela)->whereIn('localizacion',$arra_destinos)->get();
+                $hotelesxdestinoes=Hotel::where('estrellas',$estrela)->where('localizacion',$temp_dest->destino)->get();
                 foreach ($hotelesxdestinoes as $hotelxdestinos){
                     $preio_hotel = new PrecioHotelReserva();
                     $preio_hotel->estrellas = $estrela;
@@ -1129,6 +1128,7 @@ class PackageCotizacionController extends Controller
                     $preio_hotel->save();
                 }
                 $pos++;
+            }
             }
         }
 
@@ -1491,12 +1491,10 @@ class PackageCotizacionController extends Controller
         $pos=1;
         $paquetePrecio=PaquetePrecio::FindOrFail($paquete_precio_id);
         foreach ($itinerario_cotizaciones as $iti_coti) {
-                $arra_destinos=[];
-                foreach ($iti_coti->itinerario_destinos as $iti_destino){
-                    $arra_destinos[]=$iti_destino->destino;
-                }
+            if($iti_coti->destino_duerme>0){
+                $temp_dest=M_Destino::findOrFail($iti_coti->destino_duerme);
                 if ($pos < $nroDias){
-                    $hotelesxdestinoes=Hotel::where('estrellas',$estrela)->whereIn('localizacion',$arra_destinos)->get();
+                    $hotelesxdestinoes=Hotel::where('estrellas',$estrela)->where('localizacion',$temp_dest->destino)->get();
                     foreach ($hotelesxdestinoes as $hotelxdestinos){
                         $preio_hotel = new PrecioHotelReserva();
                         $preio_hotel->estrellas = $estrela;
@@ -1525,6 +1523,7 @@ class PackageCotizacionController extends Controller
 //                        dd($preio_hotel);
                     }
                 $pos++;
+            }
             }
         }
 
