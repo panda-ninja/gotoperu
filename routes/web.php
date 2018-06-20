@@ -950,3 +950,7 @@ Route::post('/admin/hotel-provider/delete', [
     'uses' => 'HotelProveedorController@delete',
     'as' => 'provider_delete_path',
 ]);
+Route::post('/admin/service/change', [
+    'uses' => 'BookController@change_service',
+    'as' => 'cambiar_servicio_path',
+]);

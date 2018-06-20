@@ -535,4 +535,44 @@ class BookController extends Controller
         else
             return 0;
     }
+    public function change_service(Request $request)
+    {
+        $pos = $request->input('pos');
+        $impu= $request->input('impu');
+        $id_antiguo= $request->input('id_antiguo');
+        $id_nuevo= $request->input($impu);
+        $p_itinerario_id=$request->input('p_itinerario_id');
+        $cotizacion_id=$request->input('cotizacion_id');
+
+
+        $new_id=0;
+
+        foreach ($id_nuevo as $id_nuevo_){
+            $new_id=$id_nuevo_;
+        }
+//        dd($new_id);
+        $servicio_antiguo =ItinerarioServicios::FindOrFail($id_antiguo);
+        $servicio_antiguo->delete();
+        $servicios=M_Servicio::FindOrFail($new_id);
+//
+        $p_servicio=new ItinerarioServicios();
+        $p_servicio->nombre=$servicios->nombre;
+        $p_servicio->observacion='';
+        $p_servicio->precio=$servicios->precio_venta;
+        $p_servicio->itinerario_cotizaciones_id=$p_itinerario_id;
+        $p_servicio->user_id=auth()->guard('admin')->user()->id;
+        $p_servicio->precio_grupo=$servicios->precio_grupo;
+        $p_servicio->min_personas=$servicios->min_personas;
+        $p_servicio->max_personas=$servicios->max_personas;
+        $p_servicio->precio_c=0;
+        $p_servicio->estado=1;
+        $p_servicio->salida=$servicios->salida;
+        $p_servicio->llegada=$servicios->llegada;
+        $p_servicio->clase=$servicios->clase;
+        $p_servicio->m_servicios_id=$servicios->id;
+        $p_servicio->pos=$pos;
+        $p_servicio->save();
+        return redirect()->route('book_show_path',$cotizacion_id);
+
+    }
 }

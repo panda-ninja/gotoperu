@@ -759,6 +759,7 @@
                                                     <div class="modal fade bd-example-modal-lg" id="modal_servicio_{{$servicios->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
+                                                                <form action="{{route('cambiar_servicio_path')}}" method="post">
 {{--                                                                <form action="{{route('destination_save_path')}}" method="post" id="destination_save_id" enctype="multipart/form-data">--}}
                                                                     <div class="modal-header">
                                                                         @php
@@ -794,11 +795,11 @@
                                                                                                     @if($m_servicio->tipoServicio=='PRIVATE')
                                                                                                         <div class="col-lg-4 no-padding ">
                                                                                                             <label class="estilo_form clearfix text-10">
-                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
                                                                                                                 {{$m_servicio->nombre}}
                                                                                                             </label>
-
-       <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>                                                                                                 </div>
+                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                        </div>
                                                                                                     @endif
                                                                                                 @endforeach
                                                                                             </div>
@@ -808,7 +809,7 @@
                                                                                                         <div class="col-lg-4 no-padding">
                                                                                                             <div class="estilo_form clearfix text-10">
                                                                                                                 <label class="">
-                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
                                                                                                                     {{$m_servicio->nombre}}
                                                                                                                 </label>
                                                                                                                 <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
@@ -819,361 +820,361 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     @endif
-                                                                                            <!-- PARA MOVILID -->
-                                                                                            @if($grupo=='MOVILID')
-                                                                                                <ul class="nav nav-tabs">
-                                                                                                    <li class="active"><a class="text-11" href="#auto_{{$servicios->id}}" data-toggle="tab">AUTO</a></li>
-                                                                                                    <li><a class="text-11" href="#suv_{{$servicios->id}}" data-toggle="tab">SUV</a></li>
-                                                                                                    <li><a class="text-11" href="#van_{{$servicios->id}}" data-toggle="tab">VAN</a></li>
-                                                                                                    <li><a class="text-11" href="#h1_{{$servicios->id}}" data-toggle="tab">H1</a></li>
-                                                                                                    <li><a class="text-11" href="#sprinter_{{$servicios->id}}" data-toggle="tab">SPRINTER</a></li>
-                                                                                                    <li><a class="text-11" href="#bus_{{$servicios->id}}" data-toggle="tab">BUS</a></li>
-                                                                                                </ul>
-                                                                                                <div class="tab-content height-300">
-                                                                                                    <div id="auto_{{$servicios->id}}" class="tab-pane fade in active">
-                                                                                                        @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                            @if($m_servicio->tipoServicio=='AUTO')
-                                                                                                                <div class="col-lg-4 no-padding">
-                                                                                                                    <div class="estilo_form clearfix text-10">
-                                                                                                                        <label class="">
-                                                                                                                            <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$servicios->id}}" value="{{$servicios->id}}">
-                                                                                                                            {{$m_servicio->nombre}}
-                                                                                                                        </label>
-                                                                                                                        <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                    </div>
+                                                                                    <!-- PARA MOVILID -->
+                                                                                    @if($grupo=='MOVILID')
+                                                                                        <ul class="nav nav-tabs">
+                                                                                            <li class="active"><a class="text-11" href="#auto_{{$servicios->id}}" data-toggle="tab">AUTO</a></li>
+                                                                                            <li><a class="text-11" href="#suv_{{$servicios->id}}" data-toggle="tab">SUV</a></li>
+                                                                                            <li><a class="text-11" href="#van_{{$servicios->id}}" data-toggle="tab">VAN</a></li>
+                                                                                            <li><a class="text-11" href="#h1_{{$servicios->id}}" data-toggle="tab">H1</a></li>
+                                                                                            <li><a class="text-11" href="#sprinter_{{$servicios->id}}" data-toggle="tab">SPRINTER</a></li>
+                                                                                            <li><a class="text-11" href="#bus_{{$servicios->id}}" data-toggle="tab">BUS</a></li>
+                                                                                        </ul>
+                                                                                        <div class="tab-content height-300">
+                                                                                            <div id="auto_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                    @if($m_servicio->tipoServicio=='AUTO')
+                                                                                                        <div class="col-lg-4 no-padding">
+                                                                                                            <div class="estilo_form clearfix text-10">
+                                                                                                                <label class="">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                    {{$m_servicio->nombre}}
+                                                                                                                </label>
+                                                                                                                <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                            <div id="suv_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                    @if($m_servicio->tipoServicio=='SUV')
+                                                                                                        <div class="col-lg-4 no-padding">
+                                                                                                            <div class="estilo_form clearfix text-10">
+                                                                                                                <label class="">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                    {{$m_servicio->nombre}}
+                                                                                                                </label>
+                                                                                                                <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                            <div id="van_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                    @if($m_servicio->tipoServicio=='VAN')
+                                                                                                        <div class="col-lg-4 no-padding">
+                                                                                                            <div class="estilo_form clearfix text-10">
+                                                                                                                <label class="">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                    {{$m_servicio->nombre}}
+                                                                                                                </label>
+                                                                                                                <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                            <div id="h1_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                    @if($m_servicio->tipoServicio=='H1')
+                                                                                                        <div class="col-lg-4 no-padding">
+                                                                                                            <div class="estilo_form clearfix text-10">
+                                                                                                                <label class="">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                    {{$m_servicio->nombre}}
+                                                                                                                </label>
+                                                                                                                <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                            <div id="sprinter_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                    @if($m_servicio->tipoServicio=='SPRINTER')
+                                                                                                        <div class="col-lg-4 no-padding">
+                                                                                                            <div class="estilo_form clearfix text-10">
+                                                                                                                <label class="">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                    {{$m_servicio->nombre}}
+                                                                                                                </label>
+                                                                                                                <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                            <div id="bus_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                    @if($m_servicio->tipoServicio=='BUS')
+                                                                                                        <div class="col-lg-4 no-padding">
+                                                                                                            <div class="estilo_form clearfix text-10">
+                                                                                                                <label class="">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                    {{$m_servicio->nombre}}
+                                                                                                                </label>
+                                                                                                                <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                    <!-- PARA REPRESENT -->
+                                                                                        @if($grupo=='REPRESENT')
+                                                                                            <ul class="nav nav-tabs">
+                                                                                                <li class="active"><a class="text-11" href="#guide_{{$servicios->id}}" data-toggle="tab">GUIDE</a></li>
+                                                                                                <li><a class="text-11" href="#tranfer_{{$servicios->id}}" data-toggle="tab">TRANSFER</a></li>
+                                                                                                <li><a class="text-11" href="#assistance_{{$servicios->id}}" data-toggle="tab">ASSISTANCE</a></li>
+                                                                                            </ul>
+                                                                                            <div class="tab-content height-300">
+                                                                                                <div id="guide_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='GUIDE')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
                                                                                                                 </div>
-                                                                                                            @endif
-                                                                                                        @endforeach
-                                                                                                    </div>
-                                                                                                    <div id="suv_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                        @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                            @if($m_servicio->tipoServicio=='SUV')
-                                                                                                                <div class="col-lg-4 no-padding">
-                                                                                                                    <div class="estilo_form clearfix text-10">
-                                                                                                                        <label class="">
-                                                                                                                            <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                            {{$m_servicio->nombre}}
-                                                                                                                        </label>
-                                                                                                                        <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            @endif
-                                                                                                        @endforeach
-                                                                                                    </div>
-                                                                                                    <div id="van_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                        @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                            @if($m_servicio->tipoServicio=='VAN')
-                                                                                                                <div class="col-lg-4 no-padding">
-                                                                                                                    <div class="estilo_form clearfix text-10">
-                                                                                                                        <label class="">
-                                                                                                                            <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                            {{$m_servicio->nombre}}
-                                                                                                                        </label>
-                                                                                                                        <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            @endif
-                                                                                                        @endforeach
-                                                                                                    </div>
-                                                                                                    <div id="h1_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                        @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                            @if($m_servicio->tipoServicio=='H1')
-                                                                                                                <div class="col-lg-4 no-padding">
-                                                                                                                    <div class="estilo_form clearfix text-10">
-                                                                                                                        <label class="">
-                                                                                                                            <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                            {{$m_servicio->nombre}}
-                                                                                                                        </label>
-                                                                                                                        <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            @endif
-                                                                                                        @endforeach
-                                                                                                    </div>
-                                                                                                    <div id="sprinter_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                        @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                            @if($m_servicio->tipoServicio=='SPRINTER')
-                                                                                                                <div class="col-lg-4 no-padding">
-                                                                                                                    <div class="estilo_form clearfix text-10">
-                                                                                                                        <label class="">
-                                                                                                                            <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                            {{$m_servicio->nombre}}
-                                                                                                                        </label>
-                                                                                                                        <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            @endif
-                                                                                                        @endforeach
-                                                                                                    </div>
-                                                                                                    <div id="bus_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                        @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                            @if($m_servicio->tipoServicio=='BUS')
-                                                                                                                <div class="col-lg-4 no-padding">
-                                                                                                                    <div class="estilo_form clearfix text-10">
-                                                                                                                        <label class="">
-                                                                                                                            <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                            {{$m_servicio->nombre}}
-                                                                                                                        </label>
-                                                                                                                        <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            @endif
-                                                                                                        @endforeach
-                                                                                                    </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
                                                                                                 </div>
-                                                                                            @endif
-                                                                                            <!-- PARA REPRESENT -->
-                                                                                                @if($grupo=='REPRESENT')
-                                                                                                    <ul class="nav nav-tabs">
-                                                                                                        <li class="active"><a class="text-11" href="#guide_{{$servicios->id}}" data-toggle="tab">GUIDE</a></li>
-                                                                                                        <li><a class="text-11" href="#tranfer_{{$servicios->id}}" data-toggle="tab">TRANSFER</a></li>
-                                                                                                        <li><a class="text-11" href="#assistance_{{$servicios->id}}" data-toggle="tab">ASSISTANCE</a></li>
-                                                                                                    </ul>
-                                                                                                    <div class="tab-content height-300">
-                                                                                                        <div id="guide_{{$servicios->id}}" class="tab-pane fade in active">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='GUIDE')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="tranfer_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='TRANSFER')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="assistance_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='ASSISTANCE')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                @endif
-                                                                                            <!-- PARA ENTRANCES -->
-                                                                                                @if($grupo=='ENTRANCES')
-                                                                                                    <ul class="nav nav-tabs">
-                                                                                                        <li class="active"><a class="text-11" href="#extranjero_{{$servicios->id}}" data-toggle="tab">EXTRANJERO</a></li>
-                                                                                                        <li><a class="text-11" href="#national_{{$servicios->id}}" data-toggle="tab">NATIONAL</a></li>
-                                                                                                    </ul>
-                                                                                                    <div class="tab-content height-300">
-                                                                                                        <div id="extranjero_{{$servicios->id}}" class="tab-pane fade in active">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='EXTRANJERO')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="national_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='NATIONAL')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                @endif
-                                                                                            <!-- PARA FOOD -->
-                                                                                                @if($grupo=='FOOD')
-                                                                                                    <ul class="nav nav-tabs">
-                                                                                                        <li class="active"><a class="text-11" href="#lunch_{{$servicios->id}}" data-toggle="tab">LUNCH</a></li>
-                                                                                                        <li><a class="text-11" href="#dinner_{{$servicios->id}}" data-toggle="tab">DINNER</a></li>
-                                                                                                        <li><a class="text-11" href="#box_lunch_{{$servicios->id}}" data-toggle="tab">BOX LUNCH</a></li>
-                                                                                                    </ul>
-                                                                                                    <div class="tab-content height-300">
-                                                                                                        <div id="lunch_{{$servicios->id}}" class="tab-pane fade in active">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='LUNCH')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$servicios->id}}" value="{{$servicios->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="dinner_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='DINNER')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="box_lunch_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='BOX LUNCH')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                @endif
-                                                                                            <!-- PARA TRAINS -->
-                                                                                                @if($grupo=='TRAINS')
-                                                                                                    <ul class="nav nav-tabs">
-                                                                                                        <li class="active"><a class="text-11" href="#expedition_{{$servicios->id}}" data-toggle="tab">EXPEDITION</a></li>
-                                                                                                        <li><a class="text-11" href="#visitadome_{{$servicios->id}}" data-toggle="tab">VISITADOME</a></li>
-                                                                                                        <li><a class="text-11" href="#ejecutivo_{{$servicios->id}}" data-toggle="tab">EJECUTIVO</a></li>
-                                                                                                        <li><a class="text-11" href="#first_class_{{$servicios->id}}" data-toggle="tab">FIRST CLASS</a></li>
-                                                                                                        <li><a class="text-11" href="#hiran_binghan_{{$servicios->id}}" data-toggle="tab">HIRAN BINGHAN</a></li>
-                                                                                                        <li><a class="text-11" href="#presidential_{{$servicios->id}}" data-toggle="tab">PRESIDENTIAL</a></li>
-                                                                                                    </ul>
-                                                                                                    <div class="tab-content height-300">
-                                                                                                        <div id="expedition_{{$servicios->id}}" class="tab-pane fade in active">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='EXPEDITION')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="visitadome_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='VISITADOME')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="ejecutivo_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='EJECUTIVO')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="first_class_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='FIRST CLASS')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="hiran_binghan_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='HIRAN BINGHAN')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                        <div id="presidential_{{$servicios->id}}" class="tab-pane fade">
-                                                                                                            @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
-                                                                                                                @if($m_servicio->tipoServicio=='PRESIDENTIAL')
-                                                                                                                    <div class="col-lg-4 no-padding">
-                                                                                                                        <div class="estilo_form clearfix text-10">
-                                                                                                                            <label class="">
-                                                                                                                                <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
-                                                                                                                                {{$m_servicio->nombre}}
-                                                                                                                            </label>
-                                                                                                                            <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @endforeach
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                @endif
+                                                                                                <div id="tranfer_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='TRANSFER')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="assistance_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='ASSISTANCE')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    <!-- PARA ENTRANCES -->
+                                                                                        @if($grupo=='ENTRANCES')
+                                                                                            <ul class="nav nav-tabs">
+                                                                                                <li class="active"><a class="text-11" href="#extranjero_{{$servicios->id}}" data-toggle="tab">EXTRANJERO</a></li>
+                                                                                                <li><a class="text-11" href="#national_{{$servicios->id}}" data-toggle="tab">NATIONAL</a></li>
+                                                                                            </ul>
+                                                                                            <div class="tab-content height-300">
+                                                                                                <div id="extranjero_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='EXTRANJERO')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="national_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='NATIONAL')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    <!-- PARA FOOD -->
+                                                                                        @if($grupo=='FOOD')
+                                                                                            <ul class="nav nav-tabs">
+                                                                                                <li class="active"><a class="text-11" href="#lunch_{{$servicios->id}}" data-toggle="tab">LUNCH</a></li>
+                                                                                                <li><a class="text-11" href="#dinner_{{$servicios->id}}" data-toggle="tab">DINNER</a></li>
+                                                                                                <li><a class="text-11" href="#box_lunch_{{$servicios->id}}" data-toggle="tab">BOX LUNCH</a></li>
+                                                                                            </ul>
+                                                                                            <div class="tab-content height-300">
+                                                                                                <div id="lunch_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='LUNCH')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="dinner_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='DINNER')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="box_lunch_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='BOX LUNCH')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    <!-- PARA TRAINS -->
+                                                                                        @if($grupo=='TRAINS')
+                                                                                            <ul class="nav nav-tabs">
+                                                                                                <li class="active"><a class="text-11" href="#expedition_{{$servicios->id}}" data-toggle="tab">EXPEDITION</a></li>
+                                                                                                <li><a class="text-11" href="#visitadome_{{$servicios->id}}" data-toggle="tab">VISITADOME</a></li>
+                                                                                                <li><a class="text-11" href="#ejecutivo_{{$servicios->id}}" data-toggle="tab">EJECUTIVO</a></li>
+                                                                                                <li><a class="text-11" href="#first_class_{{$servicios->id}}" data-toggle="tab">FIRST CLASS</a></li>
+                                                                                                <li><a class="text-11" href="#hiran_binghan_{{$servicios->id}}" data-toggle="tab">HIRAN BINGHAN</a></li>
+                                                                                                <li><a class="text-11" href="#presidential_{{$servicios->id}}" data-toggle="tab">PRESIDENTIAL</a></li>
+                                                                                            </ul>
+                                                                                            <div class="tab-content height-300">
+                                                                                                <div id="expedition_{{$servicios->id}}" class="tab-pane fade in active">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='EXPEDITION')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="visitadome_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='VISITADOME')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="ejecutivo_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='EJECUTIVO')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="first_class_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='FIRST CLASS')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="hiran_binghan_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='HIRAN BINGHAN')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <div id="presidential_{{$servicios->id}}" class="tab-pane fade">
+                                                                                                    @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
+                                                                                                        @if($m_servicio->tipoServicio=='PRESIDENTIAL')
+                                                                                                            <div class="col-lg-4 no-padding">
+                                                                                                                <div class="estilo_form clearfix text-10">
+                                                                                                                    <label class="">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
+                                                                                                                        {{$m_servicio->nombre}}
+                                                                                                                    </label>
+                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
                                                                                     <!-- PARA FLIGHTS -->
                                                                                         @if($grupo=='FLIGHTS')
                                                                                             <ul class="nav nav-tabs">
@@ -1187,7 +1188,7 @@
                                                                                                             <div class="col-lg-4 no-padding">
                                                                                                                 <div class="estilo_form clearfix text-10">
                                                                                                                     <label class="">
-                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                        <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
                                                                                                                         {{$m_servicio->nombre}}
                                                                                                                     </label>
                                                                                                                     <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
@@ -1224,10 +1225,12 @@
                                                                                                         <div class="col-lg-4 no-padding">
                                                                                                             <div class="estilo_form clearfix text-10">
                                                                                                                 <label class="">
-                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$servicios->id}}" value="{{$servicios->id}}">
+                                                                                                                    <input type="radio" name="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}[]" id="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}_{{$m_servicio->id}}" value="{{$m_servicio->id}}">
                                                                                                                     {{$m_servicio->nombre}} {{$m_servicio->precio_venta}}$)
-                                                                                                                </labeld
-                                                                                                                    <label class="text-right"> -> {{$m_servicio->precio_venta}}$ iv>
+                                                                                                                </label>
+                                                                                                                <label class="text-right"> -> {{$m_servicio->precio_venta}}$ </label>
+                                                                                                            </div>
+                                                                                                        </div>
                                                                                                     @endforeach
                                                                                                 </div>
                                                                                             </div>
@@ -1239,11 +1242,15 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         {{csrf_field()}}
-                                                                        <input type="hidden" id="servicio_pos_{{$servicios->id}}" value="{{$servicios->pos}}">
+                                                                        <input type="hidden" id="servicio_pos_{{$servicios->id}}" name="pos" value="{{$servicios->pos}}">
+                                                                        <input type="hidden" name="impu" name="impu" value="servicio_cambiar_{{$itinerario->id}}_{{$grupo}}">
+                                                                        <input type="hidden" id="servicio_antiguo_{{$servicios->id}}" name="id_antiguo" value="{{$servicios->id}}">
+                                                                        <input type="hidden" name="p_itinerario_id" value="{{$itinerario->id}}">
+                                                                        <input type="hidden" name="cotizacion_id" value="{{$cotizacion->id}}">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                                                     </div>
-                                                                {{--</form>--}}
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1919,13 +1926,8 @@
                                                     @php
                                                     $color='';
                                                     @endphp
-                                                @endif
-                                                {{--<tr>--}}
-                                                    {{--<td @if($primera_coincidencia==0) rowspan="{{$nro_servicios}}" @else class="hide" @endif><span class="text-warning">{{$nro_filas}}</span> {{$itinerario->dias}}</td>--}}
-                                                    {{--<td @if($primera_coincidencia==0) rowspan="{{$nro_servicios}}" @else class="hide" @endif>{{$itinerario->fecha}}</td>--}}
-                                                    {{--<td><span class="text-primary">{{$servicios->servicio->grupo}}</span> {{$servicios->nombre}}</td>--}}
-                                                    {{--<td @if($primera_coincidencia==0) rowspan="{{$nro_servicios}}" @else class="hide" @endif>{{$servicios->hora_llegada}}</td>--}}
-                                                {{--</tr>--}}
+                                            @endif
+
                                                 <tr>
                                                     <td  @if($primera_coincidencia==1) rowspan="{{$nro_filas}}" class="{{$color}} text-center" @else class="hide" @endif>
                                                         <span class="hide text-warning">
