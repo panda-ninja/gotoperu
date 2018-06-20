@@ -152,8 +152,8 @@
                                 <th width="130px">VERIFICATION CODE</th>
                                 <th width="100px">HOUR</th>
                                 <th class="hide">S/P</th>
-                                <th></th>
-                                <th></th>
+                                <th width="50px"></th>
+                                <th width="64px"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -181,7 +181,7 @@
                                             <td class="bg-grey-goto text-white">
                                                 <b>Day {{$itinerario->dias}}</b>
                                             </td>
-                                            <td class="bg-grey-goto text-white text-right " colspan="9">
+                                            <td class="bg-grey-goto text-white " colspan="9">
                                                 <b>{{date("d/m/Y",strtotime($itinerario->fecha))}}</b>
                                             </td>
                                             <td class="bg-grey-goto text-white">
@@ -189,7 +189,7 @@
                                                     <i class="fa fa-plus-circle" aria-hidden="true"></i>Servicio
                                                 </a>
                                             </td>
-                                            <td></td>
+                                            <td class="bg-grey-goto text-white"></td>
                                         </tr>
 
                                         @foreach($itinerario->itinerario_servicios->sortBy('pos') as $servicios)
@@ -262,13 +262,13 @@
                                                     @endphp
                                                 @endif
                                                 @php
-                                                    $person='';
+                                                    $person='<b class="text-primary">'.$cotizacion->nropersonas.'<i class="fa fa-male"></i></b>';
                                                 @endphp
-                                                @for($i=1;$i<=$cotizacion->nropersonas;$i++)
-                                                    @php
-                                                        $person.=' <i class="fa fa-male"></i>';
-                                                    @endphp
-                                                @endfor
+                                                {{--@for($i=1;$i<=$cotizacion->nropersonas;$i++)--}}
+                                                    {{--@php--}}
+                                                        {{--$person.=' <i class="fa fa-male"></i>';--}}
+                                                    {{--@endphp--}}
+                                                {{--@endfor--}}
 
                                                 @php
                                                     $mate.=" x ".$person;
