@@ -572,3 +572,16 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 .no_stilo{
   text-decoration: none;
 }
+.caja_package{
+  border: 1px solid #949494;
+  background: #dbdbdb;
+  padding: 5px;
+  margin: 5px;
+}
+.caja_package_titulo{
+  color: #000;
+}
+.caja_package_titulo:hover{
+  color: #0063d1;
+  font-size: 13px;
+}

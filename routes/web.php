@@ -954,3 +954,15 @@ Route::post('/admin/service/change', [
     'uses' => 'BookController@change_service',
     'as' => 'cambiar_servicio_path',
 ]);
+Route::post('/admin/contabilidad/confirmar-fecha',[
+    'uses' => 'ContabilidadController@precio_fecha_add',
+    'as' => 'contabilidad_add_fecha_path',
+]);
+Route::post('/admin/contabilidad/actualizar-titulo',[
+    'uses' => 'ContabilidadController@actualizar_daybyday',
+    'as' => 'contabilidad_day_by_day_actualizar_titulo_path',
+]);
+Route::post('/admin/contabilidad/confirmar-fecha-hotel',[
+    'uses' => 'ContabilidadController@precio_fecha_hotel_add',
+    'as' => 'contabilidad_add_fecha_hotel_path',
+]);

@@ -4064,3 +4064,82 @@ function eliminar_hotel_provider(id,servicio) {
         });
     })
 }
+function actualizar_fecha(servicio_id,fecha,proveedor_id,pqt_id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/contabilidad/confirmar-fecha', 'id='+servicio_id+'&fecha='+fecha+'&proveedor_id='+proveedor_id+'&pqt_id='+pqt_id, function (data) {
+        if(data==1) {
+            $('#btn_fecha_'+servicio_id).removeClass('btn-primary')
+            $('#btn_fecha'+servicio_id).addClass('btn-warning')
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'Fecha confirmada',
+                'success'
+            )
+        }
+        else{
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'Error al confirmar la fecha, intente de nuevo',
+                'warning'
+            )
+        }
+    }).fail(function (data) {
+    });
+}
+function actualizar_titulo(itinerario_id,iti_nuevo_id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/contabilidad/actualizar-titulo', 'itinerario_id='+itinerario_id+'&iti_nuevo_id='+iti_nuevo_id, function (data) {
+        var dat=data.split('_');
+        if(dat[0]==1){
+            $('#titulo_'+itinerario_id).html(dat[1]);
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'titulo actualizado',
+                'success'
+            )
+        }
+        else{
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'Error al actualizar el titulo, intente de nuevo',
+                'warning'
+            )
+        }
+    }).fail(function (data) {
+    });
+}
+
+function actualizar_fecha_h(servicio_id,fecha,proveedor_id,pqt_id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/contabilidad/confirmar-fecha-hotel', 'id='+servicio_id+'&fecha='+fecha+'&proveedor_id='+proveedor_id+'&pqt_id='+pqt_id, function (data) {
+        if(data==1) {
+            $('#btn_fecha_h_'+servicio_id).removeClass('btn-primary')
+            $('#btn_fecha_h_'+servicio_id).addClass('btn-warning')
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'Fecha confirmada',
+                'success'
+            )
+        }
+        else{
+            swal(
+                'MENSAJE DEL SISTEMA',
+                'Error al confirmar la fecha, intente de nuevo',
+                'warning'
+            )
+        }
+    }).fail(function (data) {
+    });
+}

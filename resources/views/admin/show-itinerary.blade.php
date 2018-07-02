@@ -146,17 +146,55 @@
                                     @foreach($itinerary->itinerarios as $itinerario)
                                         @php
                                             $iti_id=0;
+                                            $existextitle=-1;
+                                            $existexid=-1;
+                                            $existexservicios=-1;
+                                            $titulo='';
+                                            $mensaje='';
                                         @endphp
-                                        @foreach($itinerarios->where('titulo',$itinerario->titulo)->take(1) as $itinerario_)
-                                            @if(strlen(trim($itinerario->titulo))>0)
-                                                @if(trim(strtoupper($itinerario->titulo))==trim(strtoupper($itinerario_->titulo)))
+                                        @if(strlen(trim($itinerario->titulo))>0)
+                                            @php
+                                                $searchByTitle=$itinerarios->where('titulo',$itinerario->titulo)->count();
+                                            @endphp
+                                            @if($searchByTitle>0)
+                                                @php
+                                                    $existextitle=1;
+                                                @endphp
+                                            @elseif($searchByTitle==0)
+                                                @php
+                                                    $existextitle=0;
+                                                    $searchById=$itinerarios->where('id',$itinerario->m_itinerario_id)->count();
+                                                @endphp
+                                                @if($searchById>0)
                                                     @php
-                                                        $iti_id=$itinerario_->id;
+                                                        $existexid=1;
                                                     @endphp
-                                                    @break
+                                                    {{--buscar que todos los servicios esten presentes--}}
+                                                    @php
+                                                        $lista_servicios=$itinerarios->where('id',$itinerario->m_itinerario_id)->get();
+                                                    @endphp
+                                                    @foreach($lista_servicios->serivicios->where('m_servicios_id',$m_servicios->id) as $servicio)
+
+                                                    @endforeach
+                                                @elseif($searchById==0)
+                                                    @php
+                                                        $existexid=0;
+                                                        $existexservicios=1;
+                                                    @endphp
                                                 @endif
                                             @endif
-                                        @endforeach
+
+                                        @endif
+                                                {{--@foreach($itinerarios->where('titulo',$itinerario->titulo)->take(1) as $itinerario_)--}}
+                                                    {{--@if(strlen(trim($itinerario->titulo))>0)--}}
+                                                        {{--@if(trim(strtoupper($itinerario->titulo))==trim(strtoupper($itinerario_->titulo)))--}}
+                                                            {{--@php--}}
+                                                                {{--$iti_id=$itinerario_->id;--}}
+                                                            {{--@endphp--}}
+                                                    {{--@break--}}
+                                                {{--@endif--}}
+                                            {{--@endif--}}
+                                        {{--@endforeach--}}
                                         @php
                                             $itinerario_total=0;
                                             $nroItinerario++;
@@ -172,7 +210,6 @@
 
                                         <li class="content-list-book" id="content-list-{{$iti_id}}" value="{{$iti_id}}">
                                             <div class="content-list-book-s">
-                                                <a href="#!">
                                                     <strong>
                                                         <input type="hidden" class="servicios_new" name="servicios_new_" value="{{$iti_id}}">
                                                         <img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">
@@ -180,91 +217,27 @@
                                                         <input type="hidden" name="itinerarios_2[]" value="{{$iti_id}}">
                                                         <span class="itinerarios_1 hide">{{$itinerario_total}}</span>
                                                         <span class="txt_itinerarios hide" name="itinerarios1">{{$iti_id}}</span>
-                                                        <b class="dias_iti_c2" id="dias_' + total_Itinerarios + '">Dia {{$itinerario->dias}}:</b> {{$itinerario->titulo}}
-                                                        @if($iti_id==0)
-                                                            <span class="text-danger text-12">Este "Day By day" no esixte, cambiar por otro similar</span>
+                                                        <b class="dias_iti_c2" id="dias_' + total_Itinerarios + '">Dia {{$itinerario->dias}}:</b>
+                                                        <b id="titulo_{{$itinerario->id}}">{{$itinerario->titulo}}
+                                                        @if($existextitle==0)
+                                                            <span class="text-info text-12">Se cambio el titulo, <i class="text-primary puntero" onclick="actualizar_titulo('{{$itinerario->id}}','{{$itinerario->m_itinerario_id}}')">Actualizar</i>
+                                                            </span>
+                                                        @elseif($existexid==0)
+                                                            <span class="text-danger text-12">Este "Day By day" no existe, cambiar por otro similar</span>
+                                                        @elseif($existexservicios==0)
+                                                            <span class="text-warning text-12">El "Day By day" tuvo cambios en sus servicios, revisar</span>
                                                         @endif
+                                                        </b>
                                                     </strong>
                                                     <small>
                                                         {{$itinerario_total}} $
                                                     </small>
-                                                </a>
+
                                                 <div class="icon">
                                                      <a class="text-right" href="#!" onclick="eliminar_iti('{{$iti_id}}','{{$itinerario_total}}')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
                                         </li>
-
-
-                                        {{--<div id="itis_{{$itinerario->id}}" class="box-sortable margin-bottom-10" onmouseleave="ordenar_itinerarios()" >--}}
-                                            {{--<input type="hidden" name="itinerarios_[]" id="itinerarios_{{$iti_id}}" value="{{$iti_id}}">--}}
-                                            {{--<a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample_{{$iti_id}}" aria-expanded="false" aria-controls="collapseExample">--}}
-                                                {{--<b class="lista_dias">Dia {{$itinerario->dias}}:</b> {{$itinerario->titulo}}--}}
-                                            {{--</a>--}}
-                                            {{--<span class="label pull-right">--}}
-                                    {{--<a href="#!" class="text-16 text-danger" onclick="eliminar_iti('{{$iti_id}}','{{$itinerario->precio}}')">--}}
-                                        {{--<i class="fa fa-times-circle" aria-hidden="true"></i>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
-                                            {{--<span class="label label-success pull-right">($ {{$itinerario_total}})</span>--}}
-                                            {{--<div class="collapse clearfix" id="collapseExample_{{$iti_id}}">--}}
-                                                {{--<div class="col-md-12"><input type="hidden" name="itinerario" value="{{$iti_id}}">--}}
-                                                    {{--{{$itinerario->descripcion}}--}}
-                                                    {{--<h5><b>Services</b></h5>--}}
-                                                    {{--<table class="table table-condensed table-striped">--}}
-                                                        {{--<thead>--}}
-                                                        {{--<tr class="bg-grey-goto text-white">--}}
-                                                            {{--<th colspan="2">Concepts</th>--}}
-                                                            {{--<th>Prices</th>--}}
-                                                            {{--<th></th>--}}
-                                                        {{--</tr>--}}
-                                                        {{--</thead>--}}
-                                                        {{--<tbody>--}}
-                                                        {{--@foreach($itinerario->serivicios as $serivicios)--}}
-                                                            {{--@php--}}
-                                                                {{--$valu=$serivicios->nombre.'//'.$serivicios->precio.'//'.$serivicios->precio_grupo;--}}
-                                                            {{--@endphp--}}
-                                                            {{--<tr>--}}
-                                                                {{--<td><input type="hidden" name="iti_servicios_{{$iti_id}}" value="{{$valu}}">{{$serivicios->nombre}}</td>--}}
-                                                                {{--<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>--}}
-                                                                {{--<td>{{$serivicios->precio}}</td>--}}
-                                                                {{--<td><a href="#!" class="text-16 text-danger" onclick="eliminar_iti_servicio()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>--}}
-                                                            {{--</tr>--}}
-                                                        {{--@endforeach--}}
-
-                                                        {{--<tr>--}}
-                                                            {{--<td class="" colspan="4">--}}
-                                                                {{--<a class="hide" href="#add-services{{$iti_id}}" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Add new services <i class="fa fa-plus-circle" aria-hidden="true"></i></a>--}}
-                                                                {{--<div class="col-md-12">--}}
-                                                                    {{--<label for="txta_description">Sugerencias para los servicios</label>--}}
-                                                                    {{--<textarea class="form-control" id="txt_sugerencia_{{$iti_id}}" name="txt_sugerencia[]" rows="3"></textarea>--}}
-                                                                {{--</div>--}}
-                                                                {{--<div class="collapse" id="add-services{{$iti_id}}">--}}
-                                                                    {{--<div class="row margin-top-10">--}}
-                                                                        {{--<div class="col-md-6">--}}
-                                                                            {{--<div class="form-group">--}}
-                                                                                {{--<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Services">--}}
-                                                                            {{--</div>--}}
-                                                                        {{--</div>--}}
-                                                                        {{--<div class="col-md-4 row">--}}
-                                                                            {{--<div class="form-group">--}}
-                                                                                {{--<input type="text" class="form-control input-sm" id="txt_code" name="txt_code" placeholder="Price">--}}
-                                                                            {{--</div>--}}
-                                                                        {{--</div>--}}
-                                                                        {{--<div class="col-md-2">--}}
-                                                                            {{--<div class="form-group">--}}
-                                                                                {{--<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>--}}
-                                                                            {{--</div>--}}
-                                                                        {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                {{--</div>--}}
-                                                            {{--</td>--}}
-                                                        {{--</tr>--}}
-                                                        {{--</tbody>--}}
-                                                    {{--</table>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
                                     @endforeach
                                 </ol>
                             </li>

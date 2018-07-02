@@ -1,64 +1,65 @@
 @php
-    $arra_iconos['HOTELS']='<i class="fa fa-building text-unset" aria-hidden="true"></i>';
-    $arra_iconos['TOURS']='<i class="fa fa-map-o text-info" aria-hidden="true"></i>';
-    $arra_iconos['MOVILID']='<i class="fa fa-bus text-warning" aria-hidden="true"></i>';
-    $arra_iconos['REPRESENT']='<i class="fa fa-users text-success" aria-hidden="true"></i>';
-    $arra_iconos['ENTRANCES']='<i class="fa fa-ticket text-warning" aria-hidden="true"></i>';
-    $arra_iconos['FOOD']='<i class="fa fa-cutlery text-danger" aria-hidden="true"></i>';
-    $arra_iconos['TRAINS']='<i class="fa fa-train text-info" aria-hidden="true"></i>';
-    $arra_iconos['FLIGHTS']='<i class="fa fa-plane text-primary" aria-hidden="true"></i>';
-    $arra_iconos['OTHERS']='<i class="fa fa-question text-success" aria-hidden="true"></i>';
-        function fecha_letra($fecha){
-            if(strlen($fecha)>0){
-            $fecha=explode('-',$fecha);
-            $mes='';
-            switch ($fecha[1]){
-                case '01':
-                    $mes='ENE';
-                    break;
-                case '02':
-                    $mes='FEB';
-                    break;
-                case '03':
-                    $mes='MAR';
-                    break;
+    use Carbon\Carbon;
+        $arra_iconos['HOTELS']='<i class="fa fa-building text-unset" aria-hidden="true"></i>';
+        $arra_iconos['TOURS']='<i class="fa fa-map-o text-info" aria-hidden="true"></i>';
+        $arra_iconos['MOVILID']='<i class="fa fa-bus text-warning" aria-hidden="true"></i>';
+        $arra_iconos['REPRESENT']='<i class="fa fa-users text-success" aria-hidden="true"></i>';
+        $arra_iconos['ENTRANCES']='<i class="fa fa-ticket text-warning" aria-hidden="true"></i>';
+        $arra_iconos['FOOD']='<i class="fa fa-cutlery text-danger" aria-hidden="true"></i>';
+        $arra_iconos['TRAINS']='<i class="fa fa-train text-info" aria-hidden="true"></i>';
+        $arra_iconos['FLIGHTS']='<i class="fa fa-plane text-primary" aria-hidden="true"></i>';
+        $arra_iconos['OTHERS']='<i class="fa fa-question text-success" aria-hidden="true"></i>';
+            function fecha_letra($fecha){
+                if(strlen($fecha)>0){
+                $fecha=explode('-',$fecha);
+                $mes='';
+                switch ($fecha[1]){
+                    case '01':
+                        $mes='ENE';
+                        break;
+                    case '02':
+                        $mes='FEB';
+                        break;
+                    case '03':
+                        $mes='MAR';
+                        break;
 
-                case '04':
-                    $mes='ABRL';
-                    break;
+                    case '04':
+                        $mes='ABRL';
+                        break;
 
-                case '05':
-                    $mes='MAY';
-                    break;
-                case '06':
-                    $mes='JUN';
-                    break;
+                    case '05':
+                        $mes='MAY';
+                        break;
+                    case '06':
+                        $mes='JUN';
+                        break;
 
-                case '07':
-                    $mes='JUL';
-                    break;
+                    case '07':
+                        $mes='JUL';
+                        break;
 
-                case '08':
-                    $mes='AGO';
-                    break;
-                case '09':
-                    $mes='SEP';
-                    break;
+                    case '08':
+                        $mes='AGO';
+                        break;
+                    case '09':
+                        $mes='SEP';
+                        break;
 
-                case '10':
-                    $mes='OCT';
-                    break;
+                    case '10':
+                        $mes='OCT';
+                        break;
 
-                case '11':
-                    $mes='NOV';
-                    break;
-                case '12':
-                    $mes='DIC';
-                    break;
+                    case '11':
+                        $mes='NOV';
+                        break;
+                    case '12':
+                        $mes='DIC';
+                        break;
+                }
+                return $fecha[2].' de '.$mes.' del '.$fecha[0];
+                }
             }
-            return $fecha[2].' de '.$mes.' del '.$fecha[0];
-            }
-        }
 
 @endphp
 @extends('layouts.admin.contabilidad')
@@ -170,14 +171,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 hide">
-                        <span class="pull-left pax-nav">
-                            <b>Travel date: no se</b>
-                        </span>
+                                    <span class="pull-left pax-nav">
+                                        <b>Travel date: no se</b>
+                                    </span>
                                     <span class="pull-right">
-                            {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>--}}
-                                        {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>--}}
+                                    {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>--}}
+                                                {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>--}}
                                         <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                        </span>
+                                    </span>
                                 </div>
                             </div>
                             <table class="table table-condensed table-bordered margin-top-20 table-hover">
@@ -188,6 +189,7 @@
                                     <th class="text-18 text-grey-goto text-center">COTIZADO</th>
                                     <th class="text-18 text-grey-goto text-center">RESERVADO</th>
                                     <th width="150px" class="text-18 text-grey-goto text-center">CONFIRMADO</th>
+                                    <th width="100px" class="text-18 text-grey-goto text-center">FECHA A PAGAR</th>
                                     <th class="text-18 text-grey-goto text-center">PAGADO</th>
                                     <th class="text-18 text-grey-goto text-center hide">Pagado</th>
                                     <th class="text-18 text-grey-goto text-center hide">Por pagar</th>
@@ -215,6 +217,10 @@
                                         @endif
                                     @endforeach
                                     @if($paquetes->estado==2)
+                                        @php
+                                            $array_proveedores=[];
+                                            $array_proveedores_h=[];
+                                        @endphp
                                         @foreach($paquetes->itinerario_cotizaciones as $itinerario)
                                             <tr>
                                                 <td class=" bg-info" colspan="9"><b class="text-primary text-18">Dia {{$itinerario->dias}}: {{fecha_letra($itinerario->fecha)}}</b></td>
@@ -222,8 +228,21 @@
                                             @foreach($itinerario->itinerario_servicios as $servicios)
                                                 <tr>
                                                     <td>
-                                                        {!! $arra_iconos[$servicios->servicio->grupo]!!}
-                                                        <b>{{ucwords(strtolower($servicios->nombre))}}</b>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <b>{!! $arra_iconos[$servicios->servicio->grupo] !!}</b>
+                                                                {{ucwords(strtolower($servicios->nombre))}}
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @if($servicios->proveedor_id)
+                                                                    @foreach($proveedores->where('id',$servicios->proveedor_id) as $provider)
+                                                                        <span class="text-11 text-primary">proveedor ({{$plazo=$provider->nombre_comercial}})</span>
+                                                                    @endforeach
+                                                                @else
+                                                                    <span class="text-11 text-danger">No se reservo este servicio</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     @if($servicios->precio_grupo==1)
                                                         <td></td>
@@ -257,6 +276,119 @@
                                                                         <span class="input-group-btn">
                                                                         <button type="submit" onclick="Enviar_precio_c({{$servicios->id}},$('#precio_c_{{$servicios->id}}').val())" id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                     </span>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </b>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <b class="text-18">
+                                                            @if($servicios->proveedor_id)
+                                                                @if(!in_array($servicios->proveedor_id,$array_proveedores))
+                                                                    @php
+                                                                        $array_proveedores[]=$servicios->proveedor_id;
+                                                                    @endphp
+                                                                    @if($servicios->fecha_venc)
+                                                                        <div class="col-lg-12 ">
+                                                                            <div class="input-group">
+                                                                                <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$servicios->fecha_venc}}">
+                                                                                <span class="input-group-btn">
+                                                                                    <button type="submit" onclick="actualizar_fecha({{$servicios->id}},$('#fecha_venc_{{$servicios->id}}').val(),{{$servicios->proveedor_id}},{{$paquetes->id}})" id="btn_fecha_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    @else
+                                                                        @php
+                                                                            $plazo=0;
+                                                                            $estado_plazo='';
+                                                                        @endphp
+                                                                        @foreach($proveedores->where('id',$servicios->proveedor_id) as $provider)
+                                                                            @php
+                                                                                $plazo=$provider->plazo;
+                                                                                $estado_plazo=$provider->desci;
+                                                                            @endphp
+                                                                        @endforeach
+                                                                        @php
+                                                                            $fecha=\Carbon\Carbon::create($servicios->fecha_uso);
+                                                                        @endphp
+                                                                        @if($estado_plazo=='antes')
+                                                                            @php
+                                                                                $fecha=$fecha->subDays($plazo);
+                                                                            @endphp
+                                                                        @elseif($estado_plazo=='despues')
+                                                                            @php
+                                                                                $fecha=$fecha->addDays($plazo);
+                                                                            @endphp
+                                                                        @endif
+                                                                        @php
+                                                                            $fecha=$fecha->toDateString();
+                                                                        @endphp
+                                                                        <div class="col-lg-12 ">
+                                                                            <div class="input-group">
+                                                                                <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$fecha}}">
+                                                                                <span class="input-group-btn">
+                                                                                    <button type="submit" onclick="actualizar_fecha({{$servicios->id}},$('#fecha_venc_{{$servicios->id}}').val(),{{$servicios->proveedor_id}},{{$paquetes->id}})" id="btn_fecha_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endif
+                                                                @else
+                                                                    @if($servicios->fecha_venc)
+                                                                        <div class="col-lg-12 ">
+                                                                            <div class="input-group">
+                                                                                <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$servicios->fecha_venc}}" readonly>
+                                                                                <span class="input-group-btn">
+                                                                                <button type="submit"  id="btn_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    @else
+                                                                        @php
+                                                                            $plazo=0;
+                                                                            $estado_plazo='';
+                                                                        @endphp
+                                                                        @foreach($proveedores->where('id',$servicios->proveedor_id) as $provider)
+                                                                            @php
+                                                                                $plazo=$provider->plazo;
+                                                                                $estado_plazo=$provider->desci;
+                                                                            @endphp
+                                                                        @endforeach
+                                                                        @php
+                                                                            $fecha=\Carbon\Carbon::create($servicios->fecha_uso);
+                                                                        @endphp
+                                                                        @if($estado_plazo=='antes')
+                                                                            @php
+                                                                                $fecha=$fecha->subDays($plazo);
+                                                                            @endphp
+                                                                        @elseif($estado_plazo=='despues')
+                                                                            @php
+                                                                                $fecha=$fecha->addDays($plazo);
+                                                                            @endphp
+                                                                        @endif
+                                                                        @php
+                                                                            $fecha=$fecha->toDateString();
+                                                                        @endphp
+                                                                        <div class="col-lg-12">
+                                                                            <div class="input-group">
+                                                                                <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$fecha}}" readonly>
+                                                                                <span class="input-group-btn">
+                                                                                <button type="submit"  id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endif
+                                                                @endif
+                                                            @else
+                                                                @php
+                                                                    $today=\Carbon\Carbon::now();
+                                                                    $today=$today->addHours(5);
+                                                                @endphp
+                                                                <div class="col-lg-12">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$today->toDateString()}}" readonly>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit"  id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             @endif
@@ -391,20 +523,33 @@
                                             @foreach($itinerario->hotel as $hotel)
                                                 <tr>
                                                     <td>
-                                                        <b>
-                                                            @if($hotel->personas_s>0)
-                                                                <p>{{$hotel->personas_s}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
-                                                            @endif
-                                                            @if($hotel->personas_d>0)
-                                                                <p>{{$hotel->personas_d}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
-                                                            @endif
-                                                            @if($hotel->personas_m>0)
-                                                                <p>{{$hotel->personas_m}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
-                                                            @endif
-                                                            @if($hotel->personas_t>0)
-                                                                <p>{{$hotel->personas_t}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
-                                                            @endif
-                                                        </b>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <b>
+                                                                    @if($hotel->personas_s>0)
+                                                                        <p>{{$hotel->personas_s}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                                    @endif
+                                                                    @if($hotel->personas_d>0)
+                                                                        <p>{{$hotel->personas_d}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                                    @endif
+                                                                    @if($hotel->personas_m>0)
+                                                                        <p>{{$hotel->personas_m}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                                    @endif
+                                                                    @if($hotel->personas_t>0)
+                                                                        <p>{{$hotel->personas_t}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i> <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
+                                                                    @endif
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @if($hotel->proveedor_id)
+                                                                    @foreach($proveedores->where('id',$hotel->proveedor_id) as $provider)
+                                                                        <span class="text-11 text-primary">proveedor ({{$provider->nombre_comercial}})</span>
+                                                                    @endforeach
+                                                                @else
+                                                                    <span class="text-11 text-danger">No se reservo este hotel</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td class="text-right"><b class="text-18">
                                                             @if($hotel->personas_s>0)
@@ -608,6 +753,118 @@
                                                                     </div>
                                                                 @endif
                                                             @endif
+                                                    </td>
+                                                    <td>
+                                                    @if($hotel->proveedor_id)
+                                                        @if(!in_array($hotel->proveedor_id,$array_proveedores_h))
+                                                            @php
+                                                                $array_proveedores_h[]=$hotel->proveedor_id;
+                                                            @endphp
+                                                            @if($hotel->fecha_venc)
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="date" id="fecha_venc_h_{{$hotel->id}}" name="fecha_venc_h_{{$hotel->id}}" value="{{$hotel->fecha_venc}}">
+                                                                        <span class="input-group-btn">
+                                                                                <button type="submit" onclick="actualizar_fecha_h({{$hotel->id}},$('#fecha_venc_h_{{$hotel->id}}').val(),{{$hotel->proveedor_id}},{{$paquetes->id}})" id="btn_fecha_h_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                            @else
+                                                                @php
+                                                                    $plazo=0;
+                                                                    $estado_plazo='';
+                                                                @endphp
+                                                                @foreach($proveedores->where('id',$hotel->proveedor_id) as $provider)
+                                                                    @php
+                                                                        $plazo=$provider->plazo;
+                                                                        $estado_plazo=$provider->desci;
+                                                                    @endphp
+                                                                @endforeach
+
+                                                                @php
+                                                                    $fechah= Carbon::createFromFormat('Y-m-d',$itinerario->fecha);
+                                                                @endphp
+                                                                @if($estado_plazo=='antes')
+                                                                    @php
+                                                                        $fechah=$fechah->subDays($plazo);
+                                                                    @endphp
+                                                                @elseif($estado_plazo=='despues')
+                                                                    @php
+                                                                        $fechah=$fechah->addDays($plazo);
+                                                                    @endphp
+                                                                @endif
+                                                                @php
+                                                                    $fechah=$fechah->toDateString();
+                                                                @endphp
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="date" id="fecha_venc_h_{{$hotel->id}}" name="fecha_venc_h_{{$hotel->id}}" value="{{$fechah}}">
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit" onclick="actualizar_fecha_h({{$hotel->id}},$('#fecha_venc_h_{{$hotel->id}}').val(),{{$hotel->proveedor_id}},{{$paquetes->id}})" id="btn_fecha_h_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @else
+                                                            @if($hotel->fecha_venc)
+                                                                <div class="col-lg-12 ">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="date" id="fecha_venc_{{$hotel->id}}" name="fecha_venc_{{$hotel->id}}" value="{{$hotel->fecha_venc}}" readonly>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit"  id="btn_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            @else
+                                                                @php
+                                                                    $plazo=0;
+                                                                    $estado_plazo='';
+                                                                @endphp
+                                                                @foreach($proveedores->where('id',$hotel->proveedor_id) as $provider)
+                                                                    @php
+                                                                        $plazo=$provider->plazo;
+                                                                        $estado_plazo=$provider->desci;
+                                                                    @endphp
+                                                                @endforeach
+                                                                @php
+                                                                    $fechah=\Carbon\Carbon::createFromFormat('Y-m-d',$itinerario->fecha);
+                                                                @endphp
+                                                                @if($estado_plazo=='antes')
+                                                                    @php
+                                                                        $fechah=$fechah->subDays($plazo);
+                                                                    @endphp
+                                                                @elseif($estado_plazo=='despues')
+                                                                    @php
+                                                                        $fechah=$fechah->addDays($plazo);
+                                                                    @endphp
+                                                                @endif
+                                                                @php
+                                                                    $fechah=$fechah->toDateString();
+                                                                @endphp
+                                                                <div class="col-lg-12">
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="date" id="fecha_venc_{{$hotel->id}}" name="fecha_venc_{{$hotel->id}}" value="{{$fechah}}" readonly>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit"  id="btn_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @endif
+                                                    @else
+                                                            @php
+                                                                $today=\Carbon\Carbon::now();
+                                                                $today=$today->addHours(5);
+                                                            @endphp
+                                                            <div class="col-lg-12">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" type="date" id="fecha_venc_h_{{$hotel->id}}" name="fecha_venc_h_{{$hotel->id}}" value="{{$today->toDateString()}}" readonly>
+                                                                    <span class="input-group-btn">
+                                                                            <button type="submit"  id="btn_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
+                                                                </div>
+                                                            </div>
+                                                    @endif
                                                     </td>
                                                     <td class="text-right">
                                                         <b class="hide text-danger">{{$total_hotels}}</b>
@@ -2085,7 +2342,6 @@
                             </table>
 
                         </div>
-
                     </div>
                 </div>
         </div>

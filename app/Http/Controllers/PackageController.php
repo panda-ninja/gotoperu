@@ -12,6 +12,7 @@ use App\P_ItinerarioDestino;
 use App\P_ItinerarioServicios;
 use App\P_Paquete;
 use App\P_PaquetePrecio;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Mockery\Exception;
@@ -19,6 +20,8 @@ use PhpParser\Node\Expr\Array_;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Redirect;
 use Psy\Test\Readline\HoaConsoleTest;
+
+
 
 class PackageController extends Controller
 {
@@ -29,6 +32,7 @@ class PackageController extends Controller
      */
     public function index()
     {
+
         //--
     }
 
@@ -219,7 +223,9 @@ class PackageController extends Controller
             $p_itinerario->destino_duerme=$m_itineario->destino_duerme;
             $p_itinerario->sugerencia=$txt_sugerencia[$dia];
             $p_itinerario->estado=1;
+            $p_itinerario->m_itinerario_id=$m_itineario->id;
             $p_itinerario->p_paquete_id=$paquete->id;
+
             $p_itinerario->save();
             $dia++;
             foreach ($m_itineario->destinos as $m_destinos){

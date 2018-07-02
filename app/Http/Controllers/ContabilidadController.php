@@ -14,8 +14,10 @@ use App\ItinerarioServicios;
 use App\ItinerarioServiciosAcumPago;
 use App\ItinerarioServiciosPagos;
 use App\Liquidacion;
+use App\M_Itinerario;
 use App\M_Producto;
 use App\M_Servicio;
+use App\P_Itinerario;
 use App\PaqueteCotizaciones;
 use App\PrecioHotelReserva;
 use App\PrecioHotelReservaPagos;
@@ -1028,6 +1030,7 @@ class ContabilidadController extends Controller
             return 0;
 
     }
+
     public function precio_c_hotel_add(Request $request)
     {
         $n_u=$request->input('n_u');
@@ -1227,5 +1230,47 @@ class ContabilidadController extends Controller
             return 1;
         else
             return 0;
+    }
+    public function precio_fecha_add(Request $request)
+    {
+        $pqt_id=$request->input('pqt_id');
+        $valor=$request->input('fecha');
+        $proveedor_id=$request->input('proveedor_id');
+        $iti_coti=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_id)->get();
+        foreach ($iti_coti as $iti_coti_){
+            foreach ($iti_coti_->itinerario_servicios->where('proveedor_id',$proveedor_id) as $itinerario_servicio){
+                $temp=ItinerarioServicios::find($itinerario_servicio->id);
+                $temp->fecha_venc=$valor;
+                $temp->save();
+            }
+        }
+        return 1;
+    }
+    public function actualizar_daybyday( Request $request){
+        $itinerario_id=$request->input('itinerario_id');
+        $iti_nuevo_id=$request->input('iti_nuevo_id');
+
+        $nuevo=M_Itinerario::Find($iti_nuevo_id);
+        $antiguo=P_Itinerario::Find($itinerario_id);
+        $antiguo->titulo=$nuevo->titulo;
+        if($antiguo->save())
+            return '1_'.$nuevo->titulo;
+        else
+            return '0_';
+    }
+    public function precio_fecha_hotel_add(Request $request)
+    {
+        $pqt_id=$request->input('pqt_id');
+        $valor=$request->input('fecha');
+        $proveedor_id=$request->input('proveedor_id');
+        $iti_coti=ItinerarioCotizaciones::where('paquete_cotizaciones_id',$pqt_id)->get();
+        foreach ($iti_coti as $iti_coti_){
+            foreach ($iti_coti_->hotel->where('proveedor_id',$proveedor_id) as $hotel){
+                $temp=PrecioHotelReserva::find($hotel->id);
+                $temp->fecha_venc=$valor;
+                $temp->save();
+            }
+        }
+        return 1;
     }
 }

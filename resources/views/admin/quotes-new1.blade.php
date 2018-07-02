@@ -359,8 +359,8 @@
                                         $pos++;
                                         $hotel0.=$precio0->precio_s.'_'.$precio0->precio_d.'_'.$precio0->precio_m.'_'.$precio0->precio_t.'/';
                                     @endphp
-                                    <div class="col-lg-4 no-margin no-padding hide" id="itinerario3_{{$precio0->estrellas}}_{{$pos}}">
-                                    <div class="col-lg-12 checkbox1">
+                                    <div class="col-lg-4 no-margin no-padding hide caja_package" id="itinerario3_{{$precio0->estrellas}}_{{$pos}}">
+                                    <div class="col-lg-12 caja_package_titulo">
 
 
                                         @foreach($p_paquete_->itinerarios as $itinerarios0)
