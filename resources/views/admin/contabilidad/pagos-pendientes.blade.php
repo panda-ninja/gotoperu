@@ -1,4 +1,5 @@
 @php
+use Carbon\Carbon;
     function fecha_peru($fecha){
     $fecha=explode('-',$fecha);
     return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
@@ -44,16 +45,19 @@
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="col-lg-12 form-inline">
+                                                    @php
+                                                    $ToDay=new Carbon();
 
+                                                    @endphp
                                                     {{--<form action="{{route('list_fechas_rango_hotel_path')}}" method="post" class="form-inline">--}}
                                                         {{csrf_field()}}
                                                         <div class="form-group">
                                                             <label for="f_ini">From</label>
-                                                            <input type="date" class="form-control" placeholder="from" name="txt_ini" id="f_ini" required>
+                                                            <input type="date" class="form-control" placeholder="from" name="txt_ini" id="f_ini" value="{{$ToDay->toDateString()}}" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="f_fin">To</label>
-                                                            <input type="date" class="form-control" placeholder="to" name="txt_fin" id="f_fin" required>
+                                                            <input type="date" class="form-control" placeholder="to" name="txt_fin" id="f_fin" value="{{$ToDay->toDateString()}}" required>
                                                         </div>
                                                         <button type="button" class="btn btn-default" onclick="buscar_hoteles_pagos_pendientes($('#f_ini').val(),$('#f_fin').val())">Filtrar</button>
                                                     {{--</form>--}}
