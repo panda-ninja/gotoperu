@@ -28,3 +28,4 @@ const app = new Vue({
 
 // resources/assets/js/app.js
 $('.datepicker').datepicker();
+
