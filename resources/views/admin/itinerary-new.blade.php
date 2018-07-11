@@ -163,7 +163,7 @@
                                         <label for="txt_travel_date">Lugar donde duerme</label>
                                         <select class="form-control" name="txt_destino_duerme" id="txt_destino_duerme">
                                             <option value="0">Escoja un destino</option>
-                                            <option value="NO DUERME">NO DUERME</option>
+                                            <option value="-1">NO DUERME</option>
                                         </select>
                                         <input type="hidden" name="duerme" id="duerme" value="0">
                                     </div>

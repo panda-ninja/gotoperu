@@ -78,23 +78,18 @@ class ContabilidadController extends Controller
 
     public function list_fechas_show()
     {
+        $ids = 0;
         if (isset($_POST['chk_id'])) {
             $ids = $_POST['chk_id'];
-        } else {
-            $ids = 0;
         }
+        $codigos = 0;
         if (isset($_POST['txt_codigos'])) {
             $codigos = $_POST['txt_codigos'];
-        } else {
-            $codigos = 0;
         }
-
-        $cotizacion = Cotizacion::get();
-        $pagos = ItinerarioServiciosPagos::get();
-        $proveedor = ItinerarioServicioProveedor::get();
         $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
-        $consulta = ConsultaPago::where('id', $codigos)->get();
-        return view('admin.contabilidad.lista-fecha-rango', ['proveedor' => $proveedor, 'servicios' => $servicios, 'pagos' => $pagos, 'cotizacion' => $cotizacion, 'ids' => $ids, 'codigos' => $codigos, 'consulta' => $consulta]);
+        $consulta = ConsultaPagoHotel::where('id', $codigos)->get();
+        $pagos=PrecioHotelReservaPagos::get();
+        return view('admin.contabilidad.lista-pagos-hoteles',compact(['ids','codigos','consulta','pagos']));
     }
 
     public function consulta_delete($id)
@@ -733,28 +728,17 @@ class ContabilidadController extends Controller
 
     public function list_fechas_show_hotel()
     {
+        $ids = 0;
         if (isset($_POST['chk_id'])) {
             $ids = $_POST['chk_id'];
-        } else {
-            $ids = 0;
         }
-//        if (isset($_POST['txt_codigos'])) {
-//            $codigos = $_POST['txt_codigos'];
-//        } else {
-//            $codigos = 0;
-//        }
-
-        $cotizaciones = Cotizacion::get();
-//        $pagos = ItinerarioServiciosPagos::get();
-//        $pagos = PrecioHotelReservaPagos::get();
-//        $proveedor = ItinerarioServicioProveedor::get();
-////        $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
-//
-//        $hoteles = PrecioHotelReserva::with('proveedor')->get();
-//        $consulta = ConsultaPagoHotel::where('id', $codigos)->get();
-
-//        PrecioHotelReservaPagos::get();
-        return view('admin.contabilidad.lista-pagos-hoteles', ['cotizaciones' => $cotizaciones, 'ids' => $ids]);
+        $codigos = 0;
+        if (isset($_POST['txt_codigos'])) {
+            $codigos = $_POST['txt_codigos'];
+        }
+        $pagos=PrecioHotelReservaPagos::get();
+        $consulta = ConsultaPago::where('id', $codigos)->get();
+        return view('admin.contabilidad.lista-pagos-hoteles',compact(['ids','codigos','consulta','pagos']));
     }
 
     public function servicios_guardar(Request $request)
@@ -1216,13 +1200,15 @@ class ContabilidadController extends Controller
         $cotizacion=Cotizacion::get();
         $ini='';
         $fin='';
-
         $cotizaciones=Cotizacion::where('liquidacion',1)->get();
         $servicios=M_Servicio::where('grupo','ENTRANCES')->get();
         $servicios_movi=M_Servicio::where('grupo','MOVILID')->where('clase','BOLETO')->get();
         $liquidaciones=Liquidacion::where('estado',1)->get();
         $users=User::get();
-        return view('admin.contabilidad.pagos-pendientes',compact(['cotizacion','ini','fin','cotizaciones','servicios','servicios_movi','liquidaciones','users']));
+        $consulta=ConsultaPagoHotel::get();
+        $consulta_serv=ConsultaPago::get();
+
+        return view('admin.contabilidad.pagos-pendientes',compact(['cotizacion','ini','fin','cotizaciones','servicios','servicios_movi','liquidaciones','users','consulta','consulta_serv']));
 //        return view('admin.contabilidad.liquidaciones',['cotizaciones'=>$cotizaciones,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi,'liquidaciones'=>$liquidaciones,'users'=>$users]);
     }
     public function pagos_pendientes_filtro(){
@@ -1355,5 +1341,329 @@ class ContabilidadController extends Controller
             }
         }
         return 1;
+    }
+    public function pagar_a_cuenta_c()
+    {
+        $tipo_pago = $_POST['tipo'];
+        if($tipo_pago=='pago_total') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+
+            $p_hotel_reserva = new PrecioHotelReservaPagos();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = 'HOTELS';
+            $p_hotel_reserva->save();
+            return $p_hotel_reserva->id;
+        }
+        else if($tipo_pago=='pago_con_saldo') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $total= $_POST['total'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $prox_fecha=$_POST['prox_fecha'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+
+            $p_hotel_reserva = new PrecioHotelReservaPagos();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = 'HOTELS';
+            $p_hotel_reserva->save();
+
+            // guardamos el saldo
+            $p_hotel_reserva_saldo = new PrecioHotelReservaPagos();
+            $p_hotel_reserva_saldo->a_cuenta = $total-$acuenta;
+            $p_hotel_reserva_saldo->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva_saldo->fecha_a_pagar= $prox_fecha;
+            $p_hotel_reserva_saldo->estado = 0;
+            $p_hotel_reserva_saldo->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva_saldo->proveedor_id = $prov_id;
+            $p_hotel_reserva_saldo->grupo = 'HOTELS';
+            $p_hotel_reserva_saldo->save();
+            return $p_hotel_reserva->id.'_'.$p_hotel_reserva_saldo->id;
+        }
+    }
+    public function pagar_a_cuenta_c_editar()
+    {
+        $pagos_hotel_id = $_POST['pagos_hotel_id'];
+        $pagos_hotel_id=explode('_',$pagos_hotel_id);
+        foreach ($pagos_hotel_id as $pagos_hotel_id_){
+            $temp=PrecioHotelReservaPagos::find($pagos_hotel_id_);
+            $temp->delete();
+        }
+
+        $tipo_pago = $_POST['tipo'];
+        if($tipo_pago=='pago_total') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+
+            $p_hotel_reserva = new PrecioHotelReservaPagos();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = 'HOTELS';
+            $p_hotel_reserva->save();
+            return $p_hotel_reserva->id;
+        }
+        else if($tipo_pago=='pago_con_saldo') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $total= $_POST['total'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $prox_fecha=$_POST['prox_fecha'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+
+            $p_hotel_reserva = new PrecioHotelReservaPagos();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = 'HOTELS';
+            $p_hotel_reserva->save();
+
+            // guardamos el saldo
+            $p_hotel_reserva_saldo = new PrecioHotelReservaPagos();
+            $p_hotel_reserva_saldo->a_cuenta = $total-$acuenta;
+            $p_hotel_reserva_saldo->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva_saldo->fecha_a_pagar= $prox_fecha;
+            $p_hotel_reserva_saldo->estado = 0;
+            $p_hotel_reserva_saldo->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva_saldo->proveedor_id = $prov_id;
+            $p_hotel_reserva_saldo->grupo = 'HOTELS';
+            $p_hotel_reserva_saldo->save();
+            return $p_hotel_reserva->id.'_'.$p_hotel_reserva_saldo->id;
+        }
+    }
+    public function pagos_pendientes_filtro_datos_servicios(Request $request)
+    {
+        $ini =$request->input('ini');
+        $fin =$request->input('fin');
+        $grupo=$request->input('grupo');
+        $cotizacion=Cotizacion::get();
+        $pagos =ItinerarioServiciosAcumPago::where('grupo',$grupo)->where('estado','1')->get();
+        $proveedores=Proveedor::where('grupo',$grupo)->get();
+        return view('admin.contabilidad.lista-fecha-servicios-filtro',compact(['pagos', 'cotizacion', 'ini', 'fin','proveedores','grupo']));
+    }
+    public function list_fechas_show_servicios()
+    {
+        $grupo = $_POST['grupo'];
+        $ids = 0;
+        if (isset($_POST['chk_id'])) {
+            $ids = $_POST['chk_id'];
+        }
+        $codigos = 0;
+        if (isset($_POST['txt_codigos'])) {
+            $codigos = $_POST['txt_codigos'];
+        }
+        $pagos=ItinerarioServiciosAcumPago::get();
+        $consulta = ConsultaPago::where('id', $codigos)->get();
+        return view('admin.contabilidad.lista-pagos-servicios',compact(['ids','codigos','consulta','pagos','grupo']));
+    }
+    public function pagar_a_cuenta_c_serv()
+    {
+        $tipo_pago = $_POST['tipo'];
+        if($tipo_pago=='pago_total') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+            $grupo=$_POST['grupo'];
+            $p_hotel_reserva = new ItinerarioServiciosAcumPago();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = $grupo;
+            $p_hotel_reserva->save();
+            return $p_hotel_reserva->id;
+        }
+        else if($tipo_pago=='pago_con_saldo') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $total= $_POST['total'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $prox_fecha=$_POST['prox_fecha'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+            $grupo=$_POST['grupo'];
+            $p_hotel_reserva = new ItinerarioServiciosAcumPago();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = $grupo;
+            $p_hotel_reserva->save();
+
+            // guardamos el saldo
+            $p_hotel_reserva_saldo = new ItinerarioServiciosAcumPago();
+            $p_hotel_reserva_saldo->a_cuenta = $total-$acuenta;
+            $p_hotel_reserva_saldo->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva_saldo->fecha_a_pagar= $prox_fecha;
+            $p_hotel_reserva_saldo->estado = 0;
+            $p_hotel_reserva_saldo->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva_saldo->proveedor_id = $prov_id;
+            $p_hotel_reserva_saldo->grupo = $grupo;
+            $p_hotel_reserva_saldo->save();
+            return $p_hotel_reserva->id.'_'.$p_hotel_reserva_saldo->id;
+        }
+    }
+    public function pagar_a_cuenta_c_serv_editar()
+    {
+        $pagos_hotel_id = $_POST['pagos_hotel_id'];
+        $pagos_hotel_id=explode('_',$pagos_hotel_id);
+        foreach ($pagos_hotel_id as $pagos_hotel_id_){
+            $temp=ItinerarioServiciosAcumPago::find($pagos_hotel_id_);
+            $temp->delete();
+        }
+
+        $tipo_pago = $_POST['tipo'];
+        if($tipo_pago=='pago_total') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+            $grupo=$_POST['grupo'];
+            $p_hotel_reserva = new ItinerarioServiciosAcumPago();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = $grupo;
+            $p_hotel_reserva->save();
+            return $p_hotel_reserva->id;
+        }
+        else if($tipo_pago=='pago_con_saldo') {
+            $pqt_id = $_POST['pqt_id'];
+            $prov_id = $_POST['prov_id'];
+            $total= $_POST['total'];
+            $acuenta = $_POST['acuenta'];
+            $fecha_serv=$_POST['fecha_serv'];
+            $prox_fecha=$_POST['prox_fecha'];
+            $medio=$_POST['medio'];
+            $cuenta=$_POST['cuenta'];
+            $transaccion=$_POST['transaccion'];
+            $grupo=$_POST['grupo'];
+            $p_hotel_reserva = new ItinerarioServiciosAcumPago();
+            $p_hotel_reserva->a_cuenta = $acuenta;
+            $p_hotel_reserva->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva->medio = $medio;
+            $p_hotel_reserva->cuenta = $cuenta;
+            $p_hotel_reserva->transaccion = $transaccion;
+            $p_hotel_reserva->estado = 1;
+            $p_hotel_reserva->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva->proveedor_id = $prov_id;
+            $p_hotel_reserva->grupo = $grupo;
+            $p_hotel_reserva->save();
+
+            // guardamos el saldo
+            $p_hotel_reserva_saldo = new ItinerarioServiciosAcumPago();
+            $p_hotel_reserva_saldo->a_cuenta = $total-$acuenta;
+            $p_hotel_reserva_saldo->fecha_servicio = $fecha_serv;
+            $p_hotel_reserva_saldo->fecha_a_pagar= $prox_fecha;
+            $p_hotel_reserva_saldo->estado = 0;
+            $p_hotel_reserva_saldo->paquete_cotizaciones_id = $pqt_id;
+            $p_hotel_reserva_saldo->proveedor_id = $prov_id;
+            $p_hotel_reserva_saldo->grupo = $grupo;
+            $p_hotel_reserva_saldo->save();
+            return $p_hotel_reserva->id.'_'.$p_hotel_reserva_saldo->id;
+        }
+    }
+    public function guardar_imagen_pago_serv(Request $request)
+    {
+        $id =explode('_',$request->input('id'));
+        $imagen = $request->file('foto');
+        if ($imagen) {
+            $objeto =ItinerarioServiciosAcumPago::FindOrFail($id[0]);
+            $filename = 'pago-serv-' . $id[0] . '.jpg';
+            $objeto->imagen = $filename;
+            $objeto->save();
+            Storage::disk('imagen_pago_servicio')->put($filename, File::get($imagen));
+            return json_encode(1);
+        } else {
+            return json_encode(0);
+        }
+    }
+    public function consulta_serv_save()
+    {
+        $cod = $_POST['txt_codigos'];
+
+        $consulta = new ConsultaPago();
+        $consulta->codigos = $cod;
+        $consulta->save();
+
+        return 'ok';
+    }
+    public function list_fechas_serv_show()
+    {
+        $grupo = $_POST['grupo'];
+        $ids = 0;
+        if (isset($_POST['chk_id'])) {
+            $ids = $_POST['chk_id'];
+        }
+        $codigos = 0;
+        if (isset($_POST['txt_codigos'])) {
+            $codigos = $_POST['txt_codigos'];
+        }
+        $servicios = ItinerarioServicios::with('itinerario_servicio_proveedor')->get();
+        $consulta = ConsultaPago::where('id', $codigos)->get();
+        $pagos=ItinerarioServiciosAcumPago::get();
+        return view('admin.contabilidad.lista-pagos-servicios',compact(['ids','codigos','consulta','pagos','grupo']));
     }
 }

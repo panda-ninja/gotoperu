@@ -4004,13 +4004,23 @@ function mostrar_proveedores_x_estrellas_cost(destino,grupo,estrellas){
 function mostrar_class(proveedor_id,array_pro,grupo,id,idservicio) {
     var array_prove_train = array_pro.split('_');
     var proveedor = proveedor_id.split('_');
+    var pos=6;
     if (proveedor_id!='0'){
-        $.each(array_prove_train, function (key, value) {
-            $("#proveedor_" + value).addClass('hide');
-            $("#proveedor_" + value).fadeOut("slow");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
         });
-        $("#proveedor_" + proveedor[0]).removeClass('hide');
-        $("#proveedor_" + proveedor[0]).fadeIn("slow");
+        $.post('../../../admin/productos/lista/empresa/mostrar-clases','proveedor_id='+proveedor_id+'&pos='+pos, function(data) {
+            $("#mostrar_clase").html(data);
+        }).fail(function (data) {
+        });
+        // $.each(array_prove_train, function (key, value) {
+        //     $("#proveedor_" + value).addClass('hide');
+        //     $("#proveedor_" + value).fadeOut("slow");
+        // });
+        // $("#proveedor_" + proveedor[0]).removeClass('hide');
+        // $("#proveedor_" + proveedor[0]).fadeIn("slow");
         // $("#fila_"+proveedor_id).removeClass('hide');
         // $("#fila_"+proveedor_id).fadeIn("slow");
         var iti_temp1 = '';
@@ -4140,6 +4150,33 @@ function actualizar_fecha_h(servicio_id,fecha,proveedor_id,pqt_id) {
                 'warning'
             )
         }
+    }).fail(function (data) {
+    });
+}
+function buscar_servicios_pagos_pendientes(ini,fin,servicio){
+    console.log('ini:'+ini+' - fin:'+fin+' - servicio:'+servicio);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/admin/contabilidad/pagos/servicios/pendientes/filtrar', 'ini='+ini+'&fin='+fin+'&grupo='+servicio, function (data) {
+        $('#rpt_'+servicio).html(data);
+
+    }).fail(function (data) {
+    });
+}
+function mostrar_tabla_empresa(grupo,id,empresa_id){
+    var  destino=$("#Destinos_"+grupo).val();
+    console.log('mostrar_tabla_destino:'+destino);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('../../admin/productos/lista/empresa','id='+id+'&empresa_id='+empresa_id, function(data) {
+        $("#tb_datos_"+grupo).html(data);
+
     }).fail(function (data) {
     });
 }

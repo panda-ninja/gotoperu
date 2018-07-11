@@ -138,24 +138,16 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                @php
-                                                                    $vision=0;
-                                                                @endphp
-                                                                @foreach($proveedores->where('grupo','TRAINS') as $provider)
-                                                                    @php
-                                                                        $vision++;
-                                                                    @endphp
-                                                                    <div id="proveedor_{{$provider->id}}"  class="col-md-6 @if($vision>1) {{'hide'}}@endif">
-                                                                        <div class="form-group">
-                                                                            <label for="txt_codigo">Class</label>
-                                                                            <select class="form-control" id="txt_class_{{$pos}}" name="txt_class_{{$pos}}">
-                                                                                @foreach($provider->clases->where('estado','1') as $provider_clases)
-                                                                                    <option value="{{$provider_clases->clase}}">{{$provider_clases->clase}}</option>
-                                                                                @endforeach
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="txt_codigo">Class</label>
+                                                                        <div id="mostrar_clase">
+                                                                            <select class="form-control" id="txt_type_{{$pos}}" name="txt_type_{{$pos}}">
+                                                                                <option value="0">Escoja una clase</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                @endforeach
+                                                                </div>
                                                             @endif
                                                             @if($categoria->nombre=='HOTELS')
                                                                 <div class="col-md-6">
