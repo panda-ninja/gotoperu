@@ -103,13 +103,23 @@
                                                             @if($categoria->nombre!='TRAINS')
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_codigo">Location</label>
+                                                                        @if($categoria->nombre=='MOVILID')
+                                                                            <label for="txt_codigo">Punto de inicio</label>
+                                                                            <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}" onchange="nuevos_proveedores_movilidad_ruta('{{$pos}}',{{$categoria->id}},'{{$categoria->nombre}}')">
+                                                                                @foreach($destinations as $destination)
+                                                                                    <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        @else
+                                                                            <label for="txt_codigo">Location</label>
+                                                                            <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}" onchange="nuevos_proveedores('{{$pos}}',{{$categoria->id}},'{{$categoria->nombre}}')">
+                                                                                @foreach($destinations as $destination)
+                                                                                    <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        @endif
                                                                         {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                                        <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}" onchange="nuevos_proveedores('{{$pos}}',{{$categoria->id}},'{{$categoria->nombre}}')">
-                                                                            @foreach($destinations as $destination)
-                                                                                <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                                            @endforeach
-                                                                        </select>
+
                                                                         <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
                                                                     </div>
                                                                 </div>
@@ -365,6 +375,26 @@
                                                                     <input type="text" class="form-control" id="txt_code_{{$pos}}" name="txt_code_{{$pos}}" placeholder="Code product">
                                                                 </div>
                                                             </div>
+                                                            @if($categoria->nombre=='MOVILID')
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        {{--<input type="text" class="form-control" id="txt_ruta_salida_{{$pos}}" name="txt_ruta_salida_{{$pos}}" placeholder="ruta de salida">--}}
+                                                                        <div id="rutas_{{$pos}}">
+                                                                            <label for="txt_price">Ruta</label>
+                                                                            <select class="form-control" id="txt_ruta_salida_{{$pos}}" name="txt_ruta_salida_{{$pos}}" required="required">
+                                                                                <option value="ESCOJA UNA RUTA-ESCOJA UNA RUTA">ESCOJA UNA RUTA</option>
+                                                                                <option value="CUSCO-AIRPORT">CUSCO-AIRPORT</option>
+                                                                                <option value="CUSCO-OLLANTA">CUSCO-OLLANTA</option>
+                                                                                <option value="CUSCO-POROY">CUSCO-POROY</option>
+                                                                                <option value="CUSCO-VALLE">CUSCO-VALLE</option>
+                                                                                <option value="AIRPORT-CUSCO">AIRPORT-CUSCO</option>
+                                                                                <option value="POROY-CUSCO">POROY-CUSCO</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            @endif
                                                             @if($categoria->nombre=='TRAINS'||$categoria->nombre=='FLIGHTS')
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">

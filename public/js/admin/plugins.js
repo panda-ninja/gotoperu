@@ -4099,12 +4099,12 @@ function nuevos_proveedores(pos,categoria,grupo) {
     });
     $.ajax({
         type: 'POST',
-        url: '../../ventas/service/listar-proveedores',
+        url: '../admin/ventas/service/listar-proveedores',
         data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             console.log(data);
-            $('#lista_proveedores_'+categoria).html(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
         }
     })
 }
@@ -4921,4 +4921,110 @@ function mostrar_tabla_empresa(grupo,id,empresa_id){
 
     }).fail(function (data) {
     });
+}
+function nuevos_proveedores_movilidad_ruta(pos,categoria,grupo) {
+    var localizacion=$('#txt_localizacion_'+pos).val();
+    console.log('localizacion:'+localizacion+'_grupo:'+grupo);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '../../ventas/service/listar-proveedores',
+        data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            console.log(data);
+            $('#lista_proveedores_'+categoria).html(data);
+        }
+    })
+    $.ajax({
+        type: 'POST',
+        url: '../../ventas/service/listar-movilidad/',
+        data: 'punto_inicio='+localizacion+'&pos='+pos,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            $('#rutas_'+pos).html(data);
+        }
+    })
+}
+function mostrar_tabla_destino_ruta(grupo,id,pos){
+    var  destino=$("#Destinos_"+grupo).val();
+    console.log('mostrar_tabla_destino:'+destino);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('../../admin/productos/lista', 'destino='+destino+'&id='+id, function(data) {
+        $("#tb_datos_"+grupo).html(data);
+
+    }).fail(function (data) {
+    });
+    $.post('../../admin/productos/lista/rutas', 'destino='+destino+'&id='+id+'&grupo='+grupo+'&pos='+pos, function(data) {
+        $("#mostra_rutas_movilid").html(data);
+    }).fail(function (data) {
+    });
+}
+function mostrar_tabla_destino_ruta_datos(grupo,id,ruta,pos){
+    var  destino=$("#Destinos_"+grupo).val();
+    console.log('mostrar_tabla_destino:'+destino);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('../../admin/productos/lista/por-ruta', 'destino='+destino+'&id='+id+'&ruta='+ruta+'&pos='+pos, function(data) {
+        $("#tb_datos_"+grupo).html(data);
+    }).fail(function (data) {
+    });
+    $.post('../../admin/productos/lista/por-ruta/cargar-tipos', 'destino='+destino+'&id='+id+'&ruta='+ruta+'&pos='+pos+'&grupo='+grupo, function(data) {
+        $("#mostra_tipo_"+grupo).html(data);
+    }).fail(function (data) {
+    });
+}
+function mostrar_tabla_destino_ruta_tipo_datos(grupo,id,ruta,tipo,pos){
+    var  destino=$("#Destinos_"+grupo).val();
+    console.log('mostrar_tabla_destino:'+destino);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('../../admin/productos/lista/por-ruta/tipo', 'destino='+destino+'&id='+id+'&ruta='+ruta+'&tipo='+tipo+'&pos='+pos, function(data) {
+        $("#tb_datos_"+grupo).html(data);
+    }).fail(function (data) {
+    });
+}
+function nuevos_proveedores_movilidad_ruta_edit(pos,categoria,grupo) {
+    var localizacion=$('#txt_localizacion_'+pos).val();
+    console.log('localizacion:'+localizacion+'_grupo:'+grupo);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '../admin/ventas/service/listar-proveedores',
+        data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            console.log(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
+        }
+    })
+    $.ajax({
+        type: 'POST',
+        url: '../admin/ventas/service/listar-movilidad/',
+        data: 'punto_inicio='+localizacion+'&pos='+pos,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            $('#rutas_'+pos).html(data);
+        }
+    })
 }

@@ -1010,3 +1010,23 @@ Route::post('admin/productos/lista/empresa/mostrar-clases', [
     'uses' => 'ServicesController@mostrar_clases',
     'as' => 'listar_productos_empresa_clase_path',
 ]);
+Route::post('admin/ventas/service/listar-movilidad',[
+    'uses' => 'ServicesController@listar_rutas_movilidad',
+    'as' => 'listar_movilidad_path',
+]);
+Route::post('admin/productos/lista/rutas', [
+    'uses' => 'ServicesController@listarServicios_destino_show_rutas',
+    'as' => 'lista_rutas_categoria_path',
+]);
+Route::post('admin/productos/lista/por-ruta', [
+    'uses' => 'ServicesController@listarServicios_destino_por_rutas',
+    'as' => 'generar_codigo_por_rutas_plantilla_path',
+]);
+Route::post('admin/productos/lista/por-ruta/cargar-tipos', [
+    'uses' => 'ServicesController@listarServicios_destino_por_rutas_tipos',
+    'as' => 'generar_codigo_por_rutas_tipos_plantilla_path',
+]);
+Route::post('admin/productos/lista/por-ruta/tipo', [
+    'uses' => 'ServicesController@listarServicios_destino_rutas_tipos',
+    'as' => 'generar_codigo_rutas_tipos_plantilla_path',
+]);
