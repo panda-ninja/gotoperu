@@ -331,7 +331,12 @@
 // if(response==1){
 //                            $('#result_'+id).removeClass('text-danger');
 //                            $('#result_'+id).addClass('text-success');
-                            $('#result_'+id).html('producto guardado Correctamente!');
+                        $('#result_'+id).html('Producto guardado Correctamente!');
+                        swal(
+                            'Genial...',
+                            'Producto guardado Correctamente!',
+                            'success'
+                        )
                         if(grupo=='MOVILID')
                             $('#tipo_'+id).html(datox[0]+' ['+datox[1]+'-'+datox[2]+']');
                         else

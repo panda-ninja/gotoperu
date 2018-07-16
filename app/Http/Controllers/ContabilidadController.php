@@ -1643,9 +1643,10 @@ class ContabilidadController extends Controller
     public function consulta_serv_save()
     {
         $cod = $_POST['txt_codigos'];
-
+        $grupo = $_POST['grupo'];
         $consulta = new ConsultaPago();
         $consulta->codigos = $cod;
+        $consulta->nombre = $grupo;
         $consulta->save();
 
         return 'ok';

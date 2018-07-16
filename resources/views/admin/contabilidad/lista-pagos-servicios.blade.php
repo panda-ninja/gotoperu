@@ -22,7 +22,7 @@
                         @foreach($ids as $id)
                             <input type="hidden" id="p_codigos" name="codigos[]" value="{{$id}}">
                         @endforeach
-                        <button class="btn btn-success text-right" type="button" id="btn_guardar" onclick="guardarConsulta()">Guardar Consulta</button>
+                        <button class="btn btn-success text-right" type="button" id="btn_guardar" onclick="guardarConsulta('{{$grupo}}')">Guardar Consulta</button>
                         <i class="fa fa-spinner fa-pulse fa-3x fa-fw hide" id="btn_load"></i>
                         <span class="sr-only">Loading...</span>
                         <i class="fa fa-check fa-3x text-success hide" id="btn_check"></i>
@@ -360,7 +360,7 @@
                 }
             }
         }
-        function guardarConsulta() {
+        function guardarConsulta(grupo) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('[name="_token"]').val()
@@ -386,7 +386,8 @@
 
             if(sendCon == "true"){
                 var datos = {
-                    "txt_codigos" : codigos
+                    "txt_codigos" : codigos,
+                    "grupo":grupo
                 };
                 $.ajax({
                     data:  datos,

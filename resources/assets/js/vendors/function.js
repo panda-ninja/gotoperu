@@ -2550,7 +2550,7 @@ function mostrar_tabla_destino(grupo,id){
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('../../admin/productos/lista', 'destino='+destino+'&id='+id, function(data) {
+    $.post('../../admin/productos/lista', 'destino='+destino+'&id='+id+'&filtro=Normal', function(data) {
         $("#tb_datos_"+grupo).html(data);
 
     }).fail(function (data) {
@@ -4217,7 +4217,7 @@ function mostrar_tabla_destino_ruta(grupo,id,pos){
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('../../admin/productos/lista', 'destino='+destino+'&id='+id, function(data) {
+    $.post('../../admin/productos/lista', 'destino='+destino+'&id='+id+'&filtro=Normal', function(data) {
         $("#tb_datos_"+grupo).html(data);
 
     }).fail(function (data) {
@@ -4235,7 +4235,7 @@ function mostrar_tabla_destino_ruta_datos(grupo,id,ruta,pos){
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('../../admin/productos/lista/por-ruta', 'destino='+destino+'&id='+id+'&ruta='+ruta+'&pos='+pos, function(data) {
+    $.post('../../admin/productos/lista/por-ruta', 'destino='+destino+'&id='+id+'&ruta='+ruta+'&pos='+pos+'&filtro=Movilidad-ruta', function(data) {
         $("#tb_datos_"+grupo).html(data);
     }).fail(function (data) {
     });
@@ -4245,6 +4245,7 @@ function mostrar_tabla_destino_ruta_datos(grupo,id,ruta,pos){
     });
 }
 function mostrar_tabla_destino_ruta_tipo_datos(grupo,id,ruta,tipo,pos){
+    console.log('tipo:'+tipo);
     var  destino=$("#Destinos_"+grupo).val();
     console.log('mostrar_tabla_destino:'+destino);
     $.ajaxSetup({
@@ -4252,7 +4253,7 @@ function mostrar_tabla_destino_ruta_tipo_datos(grupo,id,ruta,tipo,pos){
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('../../admin/productos/lista/por-ruta/tipo', 'destino='+destino+'&id='+id+'&ruta='+ruta+'&tipo='+tipo+'&pos='+pos, function(data) {
+    $.post('../../admin/productos/lista/por-ruta/tipo', 'destino='+destino+'&id='+id+'&ruta='+ruta+'&tipo='+tipo+'&pos='+pos+'&filtro=Movilidad-ruta-tipo', function(data) {
         $("#tb_datos_"+grupo).html(data);
     }).fail(function (data) {
     });
@@ -4283,6 +4284,35 @@ function nuevos_proveedores_movilidad_ruta_edit(pos,categoria,grupo) {
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             $('#rutas_'+pos).html(data);
+        }
+    })
+}
+
+function nuevos_proveedores_trains_ruta(pos,categoria,grupo) {
+    var localizacion=$('#txt_localizacion_'+pos).val();
+    console.log('localizacion:'+localizacion+'_grupo:'+grupo);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '../../ventas/service/listar-train/salida',
+        data: 'punto_inicio='+localizacion+'&pos='+pos,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            $('#ruta_salida_'+pos).html(data);
+        }
+    })
+    $.ajax({
+        type: 'POST',
+        url: '../../ventas/service/listar-train/llegada',
+        data: 'punto_inicio='+localizacion+'&pos='+pos,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            $('#ruta_llegada_'+pos).html(data);
         }
     })
 }

@@ -138,6 +138,16 @@
                                                                 @endphp
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
+                                                                        <label for="txt_codigo">Punto de inicio</label>
+                                                                        <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}" onchange="nuevos_proveedores_trains_ruta('{{$pos}}',{{$categoria->id}},'{{$categoria->nombre}}')">
+                                                                            @foreach($destinations as $destination)
+                                                                                <option value="{{$destination->destino}}">{{$destination->destino}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
                                                                         <label for="txt_codigo">Empresa</label>
                                                                         {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
                                                                         <select class="form-control" id="txt_provider_{{$pos}}" name="txt_provider_{{$pos}}" onchange="mostrar_class($('#txt_provider_{{$pos}}').val(),'{{$array_pro}}',{{$categoria->id}},'0',{{$categoria->id}})">
@@ -354,21 +364,30 @@
                                                                     </div>
                                                                 </div>
                                                             @endif
-                                                            <div class="col-md-6">
+
+                                                            @if($categoria->nombre=='TRAINS')
+                                                            <div class="col-md-12">
                                                                 <div class="form-group">
-                                                                    @if($categoria->nombre=='TRAINS')
-                                                                        <label for="txt_product">Tren</label>
-                                                                        <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
-                                                                    @elseif($categoria->nombre=='FLIGHTS')
-                                                                        <label for="txt_product">Vuelo</label>
-                                                                        <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
-                                                                        {{--@endif--}}
-                                                                    @elseif($categoria->nombre!='HOTELS')
-                                                                        <label for="txt_product">Product</label>
-                                                                        <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
-                                                                    @endif
+                                                                    <label for="txt_product">Tren</label>
+                                                                    <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
                                                                 </div>
                                                             </div>
+                                                            @elseif($categoria->nombre=='FLIGHTS')
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="txt_product">Vuelo</label>
+                                                                    <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
+                                                                </div>
+                                                            </div>
+                                                            @elseif($categoria->nombre!='HOTELS')
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="txt_product">Product</label>
+                                                                    <input type="text" class="form-control" id="txt_product_{{$pos}}" name="txt_product_{{$pos}}" placeholder="Product">
+                                                                </div>
+                                                            </div>
+                                                            @endif
+
                                                             <div class="col-md-4 hide">
                                                                 <div class="form-group">
                                                                     <label for="txt_code">Code product</label>
@@ -397,13 +416,11 @@
                                                             @endif
                                                             @if($categoria->nombre=='TRAINS'||$categoria->nombre=='FLIGHTS')
                                                                 <div class="col-md-6">
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" id="ruta_salida_{{$pos}}">
                                                                         <label for="txt_price">Ruta de salida</label>
                                                                         {{--<input type="text" class="form-control" id="txt_ruta_salida_{{$pos}}" name="txt_ruta_salida_{{$pos}}" placeholder="ruta de salida">--}}
                                                                         <select class="form-control" id="txt_ruta_salida_{{$pos}}" name="txt_ruta_salida_{{$pos}}">
                                                                             <option value="POROY">POROY</option>
-                                                                            <option value="AGUAS CALIENTES">AGUAS CALIENTES</option>
-                                                                            <option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -414,11 +431,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" id="ruta_llegada_{{$pos}}">
                                                                         <label for="txt_price">Ruta de llegada</label>
                                                                         {{--<input type="text" class="form-control" id="txt_ruta_salida_{{$pos}}" name="txt_ruta_salida_{{$pos}}" placeholder="ruta de salida">--}}
                                                                         <select class="form-control" id="txt_ruta_llegada_{{$pos}}" name="txt_ruta_llegada_{{$pos}}">
-                                                                            <option value="POROY">POROY</option>
                                                                             <option value="AGUAS CALIENTES">AGUAS CALIENTES</option>
                                                                             <option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>
                                                                         </select>

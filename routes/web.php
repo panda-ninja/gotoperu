@@ -1030,3 +1030,11 @@ Route::post('admin/productos/lista/por-ruta/tipo', [
     'uses' => 'ServicesController@listarServicios_destino_rutas_tipos',
     'as' => 'generar_codigo_rutas_tipos_plantilla_path',
 ]);
+Route::post('admin/ventas/service/listar-train/salida',[
+    'uses' => 'ServicesController@listar_rutas_train_salida',
+    'as' => 'listar_train_salida_path',
+]);
+Route::post('admin/ventas/service/listar-train/llegada',[
+    'uses' => 'ServicesController@listar_rutas_train_llegada',
+    'as' => 'listar_train_llegada_path',
+]);

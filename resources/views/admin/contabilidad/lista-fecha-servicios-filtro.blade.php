@@ -44,42 +44,73 @@
                                             @foreach($itinerario->itinerario_servicios as $servicio)
                                                 @if($servicio->fecha_venc)
                                                 @if($servicio->servicio->grupo==$grupo)
-                                                    @if(date($ini)<=$servicio->fecha_venc and $servicio->fecha_venc <= date($fin))
-
-                                                        @php
-                                                            $total_h=0;
-                                                            $precio_c_confirm=0;
-                                                            $precio_c_confirm2=0;
-                                                        @endphp
-                                                        @if(!array_key_exists($servicio->proveedor_id,$arra_fecha_serv))
+                                                    @if($servicio->servicio->grupo!='MOVILID')
+                                                        @if(date($ini)<=$servicio->fecha_venc and $servicio->fecha_venc <= date($fin))
                                                             @php
-                                                                $arra_fecha_serv[$servicio->proveedor_id]=$itinerario->fecha;
+                                                                $total_h=0;
+                                                                $precio_c_confirm=0;
+                                                                $precio_c_confirm2=0;
                                                             @endphp
+                                                            @if(!array_key_exists($servicio->proveedor_id,$arra_fecha_serv))
+                                                                @php
+                                                                    $arra_fecha_serv[$servicio->proveedor_id]=$itinerario->fecha;
+                                                                @endphp
+                                                            @endif
+                                                            @if(!array_key_exists($servicio->proveedor_id,$arra_fecha_venc))
+                                                                @php
+                                                                    $arra_fecha_venc[$servicio->proveedor_id]=$servicio->fecha_venc;
+                                                                @endphp
+                                                            @endif
+                                                            @php
+                                                                $total_h+=$servicio->precio_c;
+                                                            @endphp
+                                                            @if(array_key_exists($servicio->proveedor_id,$arra_prov_total))
+                                                                @php
+                                                                    $arra_prov_total[$servicio->proveedor_id]+=$total_h;
+                                                                @endphp
+                                                            @else
+                                                                @php
+                                                                    $arra_prov_total[$servicio->proveedor_id]=$total_h;
+                                                                @endphp
+                                                            @endif
                                                         @endif
-                                                        @if(!array_key_exists($servicio->proveedor_id,$arra_fecha_venc))
-                                                            @php
-                                                                $arra_fecha_venc[$servicio->proveedor_id]=$servicio->fecha_venc;
-                                                            @endphp
-                                                        @endif
-
-                                                        {{--@if(!array_key_exists($servicio->proveedor_id,$arra_grupo))--}}
-                                                            {{--@php--}}
-                                                                {{--$arra_grupo[$servicio->proveedor_id]=$servicio->servicio->grupo;--}}
-                                                            {{--@endphp--}}
-                                                        {{--@endif--}}
-                                                        @php
-                                                            $total_h+=$servicio->precio_c;
-                                                        @endphp
-                                                        @if(array_key_exists($servicio->proveedor_id,$arra_prov_total))
-                                                            @php
-                                                                $arra_prov_total[$servicio->proveedor_id]+=$total_h;
-                                                            @endphp
-                                                        @else
-                                                            @php
-                                                                $arra_prov_total[$servicio->proveedor_id]=$total_h;
-                                                            @endphp
+                                                    @elseif($servicio->servicio->grupo=='MOVILID')
+                                                        @if($servicio->clase!='BOLETO')
+                                                            @if(date($ini)<=$servicio->fecha_venc and $servicio->fecha_venc <= date($fin))
+                                                                @php
+                                                                    $total_h=0;
+                                                                    $precio_c_confirm=0;
+                                                                    $precio_c_confirm2=0;
+                                                                @endphp
+                                                                @if(!array_key_exists($servicio->proveedor_id,$arra_fecha_serv))
+                                                                    @php
+                                                                        $arra_fecha_serv[$servicio->proveedor_id]=$itinerario->fecha;
+                                                                    @endphp
+                                                                @endif
+                                                                @if(!array_key_exists($servicio->proveedor_id,$arra_fecha_venc))
+                                                                    @php
+                                                                        $arra_fecha_venc[$servicio->proveedor_id]=$servicio->fecha_venc;
+                                                                    @endphp
+                                                                @endif
+                                                                @php
+                                                                    $total_h+=$servicio->precio_c;
+                                                                @endphp
+                                                                @if(array_key_exists($servicio->proveedor_id,$arra_prov_total))
+                                                                    @php
+                                                                        $arra_prov_total[$servicio->proveedor_id]+=$total_h;
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $arra_prov_total[$servicio->proveedor_id]=$total_h;
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
                                                         @endif
                                                     @endif
+
+
+
+
                                                 @endif
                                                 @endif
                                             @endforeach
