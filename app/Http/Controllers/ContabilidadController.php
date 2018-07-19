@@ -732,6 +732,7 @@ class ContabilidadController extends Controller
         if (isset($_POST['chk_id'])) {
             $ids = $_POST['chk_id'];
         }
+//        dd($ids);
         $codigos = 0;
         if (isset($_POST['txt_codigos'])) {
             $codigos = $_POST['txt_codigos'];

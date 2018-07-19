@@ -47,7 +47,7 @@
                                 <tbody>
                                 @foreach($ids as $listado)
                                     @php
-                                        $listado_=explode('_',$listado);
+                                        $listado_=explode('(_)',$listado);
                                         $pagado=$pagos->where('paquete_cotizaciones_id',$listado_[0])->where('proveedor_id',$listado_[1])->where('estado','1')->sum('a_cuenta');
                                     @endphp
                                     <tr>
@@ -207,6 +207,7 @@
                             },
                             success:  function (response) {
                                 pagos_hotel_id=response;
+                                console.log('pagos_hotel_id:'+pagos_hotel_id);
                                 $('#btn_guardar_'+pqt_id+'_'+prov_id).addClass('hide');
                                 $('#btn_load_'+pqt_id+'_'+prov_id).addClass('hide');
                                 $('#btn_editar_'+pqt_id+'_'+prov_id).removeClass('hide');

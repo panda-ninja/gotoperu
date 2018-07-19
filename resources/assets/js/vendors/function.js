@@ -2900,39 +2900,7 @@ function mostrar_barra_avance(){
 
 }
 var dato_producto_id=0;
-function Guardar_proveedor(id) {
-    // $('#asignar_proveedor_path_'+id).submit(function() {
-        // Enviamos el formulario usando AJAX
-    var prove='';
-        $.ajax({
-            type: 'POST',
-            url: $('#asignar_proveedor_path_'+id).attr('action'),
-            data: $('#asignar_proveedor_path_'+id).serialize(),
-            // Mostramos un mensaje con la respuesta de PHP
-            success: function(data) {
-                if(data==1){
-                    $('#rpt_book_proveedor_'+id).html('Proveedor asignado correctamente!');
-                    $('#book_precio_asig_'+id).html('$'+$('#book_price_'+dato_producto_id).val());
-                    prove=$('#proveedor_servicio_'+dato_producto_id).val();
-                    $('#boton_prove_'+id).html('<i class="fa fa-edit"></i>');
-                    // $('#boton_prove_'+id).removeClass('btn-primary');
-                    // $('#boton_prove_'+id).addClass('btn-warning');
-                    $('#book_proveedor_'+id).html(prove);
-                    $('#book_proveedor_'+id).fadeIn();
-                    $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
-                    $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
-                    mostrar_barra_avance();
-                }
-                else{
-                    $('#rpt_book_proveedor_'+id).removeClass('text-success');
-                    $('#rpt_book_proveedor_'+id).addClass('text-danger');
-                    $('#rpt_book_proveedor_'+id).html('Error al asignar al proveedor!');
-                }
-            }
-        })
-        return false;
-    // });
-}
+
 function Guardar_proveedor_costo(id) {
     // $('#asignar_proveedor_path_'+id).submit(function() {
     // Enviamos el formulario usando AJAX
@@ -2947,10 +2915,10 @@ function Guardar_proveedor_costo(id) {
         url: $('#asignar_proveedor_costo_path_'+id).attr('action'),
         data: $('#asignar_proveedor_costo_path_'+id).serialize(),
         // Mostramos un mensaje con la respuesta de PHP
-        success: function(data) {
+        success: function(data){
             if(data==1){
                 $('#rpt_book_proveedor_costo_'+id).html('Costo editado correctamente!');
-                $('#book_precio_asig_'+id).html('$'+$('#book_price_edit_'+id).val());
+                $('#costo_servicio_'+id).html('$'+$('#book_price_edit_'+id).val());
 
                 // prove=$('#proveedor_servicio_'+dato_producto_id).val();
                 // $('#boton_prove_'+id).html('<i class="fa fa-edit"></i>');
@@ -2976,9 +2944,124 @@ function dato_producto(valor){
     dato_producto_id=valor;
     console.log('valor:'+valor);
 }
+function Guardar_proveedor(id,url,csrf_field) {
+    // $('#asignar_proveedor_path_'+id).submit(function() {
+    // Enviamos el formulario usando AJAX
+    var csrf='<input type="hidden" name="_token" value="'+csrf_field+'">';
+    var field_id='<input type="hidden" name="id" value="'+id+'">';
+    var prove='';
+    $.ajax({
+        type: 'POST',
+        url: $('#asignar_proveedor_path_'+id).attr('action'),
+        data: $('#asignar_proveedor_path_'+id).serialize(),
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            if(data==1){
+                var precio_pro=$('#book_price_'+dato_producto_id).val();
+                console.log('precio:'+precio_pro+', dato_producto_id:'+dato_producto_id);
+                $('#rpt_book_proveedor_'+id).html('Proveedor asignado correctamente!');
+                var popup='<a href="#!" id="boton_prove_costo_'+id+'" data-toggle="modal" data-target="#myModal_costo_'+id+'">'+
+                    '<i class="fa fa-edit"></i>'+
+                    '</a>'+
+                    '<div class="modal fade" id="myModal_costo_'+id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'+
+                    '<div class="modal-dialog" role="document">'+
+                    '<div class="modal-content">'+
+                    '<form id="asignar_proveedor_costo_path_'+id+'" action="'+url+'" method="post">'+
+                '<div class="modal-header">'+
+                '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+                '<h4 class="modal-title" id="myModalLabel">'+
+                'Editar Costo</h4>'+
+                '</div>'+
+                '<div class="modal-body clearfix">'+
+                '<div class="col-md-12">'+
+                '<div class="form-group col-md-3">'+
+                '<label for="txt_name">Costo actual</label>'+
+                '<input type="number" class="form-control" id="book_price_edit_'+id+'" name="txt_costo_edit" value="'+precio_pro+'">'+
+                '</div>'+
+                '<div class="form-group col-md-9">'+
+                '<label for="txt_name">Justificacion</label>'+
+                '<input type="text" class="form-control" id="txt_justificacion_'+id+'" name="txt_justificacion" value="">'+
+                '</div>'+
 
+                '</div>'+
+                '<div class="col-md-12">'+
+                '<b id="rpt_book_proveedor_costo_'+id+'" class="text-success text-14"></b>'+
+                '</div>'+
+                '</div>'+
+                '<div class="modal-footer">'+field_id+csrf+
+                '<button type="button" class="btn btn-primary" onclick="Guardar_proveedor_costo('+id+')">Guardar cambios</button>'+
+                '</div>'+
+                '</form>'+
+                '</div>'+
+                '</div>'+
+                '</div>';
+
+                $('#book_precio_asig_'+id).html('<span id="costo_servicio_'+id+'">'+precio_pro+'</span>');
+                $('#book_precio_asig_'+id).append(popup);
+                prove=$('#proveedor_servicio_'+dato_producto_id).val();
+                $('#boton_prove_'+id).html('<i class="fa fa-edit"></i>');
+                // $('#boton_prove_'+id).removeClass('btn-primary');
+                // $('#boton_prove_'+id).addClass('btn-warning');
+                $('#book_proveedor_'+id).html(prove);
+                $('#book_proveedor_'+id).fadeIn();
+                $('#estado_proveedor_serv_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                mostrar_barra_avance();
+            }
+            else{
+                $('#rpt_book_proveedor_'+id).removeClass('text-success');
+                $('#rpt_book_proveedor_'+id).addClass('text-danger');
+                $('#rpt_book_proveedor_'+id).html('Error al asignar al proveedor!');
+            }
+        }
+    })
+    return false;
+    // });
+}
 
 var dato_producto_hotel_id=0;
+function Guardar_proveedor_hotel_costo(id,s,d,m,t) {
+    // $('#asignar_proveedor_path_'+id).submit(function() {
+    // Enviamos el formulario usando AJAX
+    var prove='';
+    $.ajax({
+        type: 'POST',
+        url: $('#asignar_proveedor_hotel_path_'+id).attr('action'),
+        data: $('#asignar_proveedor_hotel_path_'+id).serialize(),
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            if(data==1){
+                $('#rpt_precio_proveedor_hotel_'+id).html('Precio editado correctamente!');
+                if(parseInt(s)>0)
+                    $('#book_price_edit_h_s_'+id).html('$'+$('#book_price_edit_h_s_p_'+id).val());
+                if(parseInt(d)>0)
+                    $('#book_price_edit_h_d_'+id).html('$'+$('#book_price_edit_h_d_p_'+id).val());
+                if(parseInt(m)>0)
+                    $('#book_price_edit_h_m_'+id).html('$'+$('#book_price_edit_h_m_p_'+id).val());
+                if(parseInt(t)>0)
+                    $('#book_price_edit_h_t_'+id).html('$'+$('#book_price_edit_h_t_p_'+id).val());
+
+
+                // $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html());
+                // prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
+                // $('#boton_prove_hotel_'+id).html('<i class="fa fa-edit"></i>');
+                // $('#book_proveedor_hotel_'+id).html(prove);
+                // $('#book_proveedor_hotel_'+id).fadeIn();
+                // $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                //
+                // $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                // mostrar_barra_avance();
+            }
+            else{
+                $('#rpt_precio_proveedor_hotel_'+id).removeClass('text-success');
+                $('#rpt_precio_proveedor_hotel_'+id).addClass('text-danger');
+                $('#rpt_precio_proveedor_hotel_'+id).html('Error al editar el precio!');
+            }
+        }
+    })
+    return false;
+    // });
+}
 function Guardar_proveedor_hotel(id) {
     // $('#asignar_proveedor_path_'+id).submit(function() {
     // Enviamos el formulario usando AJAX
@@ -2990,30 +3073,37 @@ function Guardar_proveedor_hotel(id) {
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             if(data==1){
-                $('#rpt_book_proveedor_hotel_'+id).html('Proveedor asignado correctamente!');
-                $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html()+' $');
-                prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
-                $('#boton_prove_hotel_'+id).html('<i class="fa fa-edit"></i>');
-                // $('#boton_prove_hotel_'+id).removeClass('btn-primary');
-                // $('#boton_prove_hotel_'+id).addClass('btn-warning');
-                $('#book_proveedor_hotel_'+id).html(prove);
-                $('#book_proveedor_hotel_'+id).fadeIn();
-                $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                $('#rpt_precio_proveedor_hotel_'+id).html('Precio editado correctamente!');
+                // if(parseInt(s)>0)
+                //     $('#book_price_edit_h_s_'+id).html('$'+$('#book_price_edit_h_s_p_'+id).val());
+                // if(parseInt(d)>0)
+                //     $('#book_price_edit_h_d_'+id).html('$'+$('#book_price_edit_h_d_p_'+id).val());
+                // if(parseInt(m)>0)
+                //     $('#book_price_edit_h_m_'+id).html('$'+$('#book_price_edit_h_m_p_'+id).val());
+                // if(parseInt(t)>0)
+                //     $('#book_price_edit_h_t_'+id).html('$'+$('#book_price_edit_h_t_p_'+id).val());
 
-                $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
-                mostrar_barra_avance();
+
+                // $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html());
+                // prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
+                // $('#boton_prove_hotel_'+id).html('<i class="fa fa-edit"></i>');
+                // $('#book_proveedor_hotel_'+id).html(prove);
+                // $('#book_proveedor_hotel_'+id).fadeIn();
+                // $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                //
+                // $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                // mostrar_barra_avance();
             }
             else{
-                $('#rpt_book_proveedor_hotel_'+id).removeClass('text-success');
-                $('#rpt_book_proveedor_hotel_'+id).addClass('text-danger');
-                $('#rpt_book_proveedor_hotel_'+id).html('Error al asignar al proveedor!');
+                $('#rpt_precio_proveedor_hotel_'+id).removeClass('text-success');
+                $('#rpt_precio_proveedor_hotel_'+id).addClass('text-danger');
+                $('#rpt_precio_proveedor_hotel_'+id).html('Error al editar el precio!');
             }
         }
     })
     return false;
     // });
 }
-
 function dato_producto_hotel(valor){
     dato_producto_hotel_id=valor;
     console.log('valor:'+valor);

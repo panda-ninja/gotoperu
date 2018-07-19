@@ -172,7 +172,7 @@
                                                     @endphp
                                                 @endforeach
                                                 <td class="text-center">
-                                                    <input type="checkbox"  onclick="if (this.checked) sumar({{$arra_prov_total_-$pagado}}); else restar({{$arra_prov_total_-$pagado}})" name="chk_id[]" value="{{$paquetes->id}}_{{$key}}_{{$arra_prov_total_}}_{{$pagado}}_{{$titulo}}_{{$proveedor}}_{{$arra_fecha_serv[$key]}}_{{$arra_fecha_venc[$key]}}">
+                                                    <input type="checkbox"  onclick="if (this.checked) sumar({{$arra_prov_total_-$pagado}}); else restar({{$arra_prov_total_-$pagado}})" name="chk_id[]" value="{{$paquetes->id}}(_){{$key}}(_){{$arra_prov_total_}}(_){{$pagado}}(_){{$titulo}}(_){{$proveedor}}(_){{$arra_fecha_serv[$key]}}(_){{$arra_fecha_venc[$key]}}">
                                                 </td>
                                                 <td>
 
