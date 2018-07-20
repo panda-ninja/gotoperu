@@ -1010,7 +1010,7 @@ Route::post('admin/productos/lista/empresa/mostrar-clases', [
     'uses' => 'ServicesController@mostrar_clases',
     'as' => 'listar_productos_empresa_clase_path',
 ]);
-Route::post('admin/ventas/service/listar-movilidad',[
+Route::post('/admin/ventas/service/listar-movilidad',[
     'uses' => 'ServicesController@listar_rutas_movilidad',
     'as' => 'listar_movilidad_path',
 ]);

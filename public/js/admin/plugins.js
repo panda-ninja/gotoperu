@@ -3762,7 +3762,7 @@ function Guardar_proveedor(id,url,csrf_field) {
 }
 
 var dato_producto_hotel_id=0;
-function Guardar_proveedor_hotel(id,s,d,m,t) {
+function Guardar_proveedor_hotel_costo(id,s,d,m,t) {
     // $('#asignar_proveedor_path_'+id).submit(function() {
     // Enviamos el formulario usando AJAX
     var prove='';
@@ -3804,7 +3804,48 @@ function Guardar_proveedor_hotel(id,s,d,m,t) {
     return false;
     // });
 }
+function Guardar_proveedor_hotel(id) {
+    // $('#asignar_proveedor_path_'+id).submit(function() {
+    // Enviamos el formulario usando AJAX
+    var prove='';
+    $.ajax({
+        type: 'POST',
+        url: $('#asignar_proveedor_hotel_path_'+id).attr('action'),
+        data: $('#asignar_proveedor_hotel_path_'+id).serialize(),
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            if(data==1){
+                $('#rpt_precio_proveedor_hotel_'+id).html('Precio editado correctamente!');
+                // if(parseInt(s)>0)
+                //     $('#book_price_edit_h_s_'+id).html('$'+$('#book_price_edit_h_s_p_'+id).val());
+                // if(parseInt(d)>0)
+                //     $('#book_price_edit_h_d_'+id).html('$'+$('#book_price_edit_h_d_p_'+id).val());
+                // if(parseInt(m)>0)
+                //     $('#book_price_edit_h_m_'+id).html('$'+$('#book_price_edit_h_m_p_'+id).val());
+                // if(parseInt(t)>0)
+                //     $('#book_price_edit_h_t_'+id).html('$'+$('#book_price_edit_h_t_p_'+id).val());
 
+
+                // $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html());
+                // prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
+                // $('#boton_prove_hotel_'+id).html('<i class="fa fa-edit"></i>');
+                // $('#book_proveedor_hotel_'+id).html(prove);
+                // $('#book_proveedor_hotel_'+id).fadeIn();
+                // $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
+                //
+                // $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                // mostrar_barra_avance();
+            }
+            else{
+                $('#rpt_precio_proveedor_hotel_'+id).removeClass('text-success');
+                $('#rpt_precio_proveedor_hotel_'+id).addClass('text-danger');
+                $('#rpt_precio_proveedor_hotel_'+id).html('Error al editar el precio!');
+            }
+        }
+    })
+    return false;
+    // });
+}
 function dato_producto_hotel(valor){
     dato_producto_hotel_id=valor;
     console.log('valor:'+valor);
@@ -4990,9 +5031,14 @@ function nuevos_proveedores_movilidad_ruta(pos,categoria,grupo) {
             $('#lista_proveedores_'+categoria).html(data);
         }
     })
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
     $.ajax({
         type: 'POST',
-        url: '../../ventas/service/listar-movilidad/',
+        url: '../../ventas/service/listar-movilidad',
         data: 'punto_inicio='+localizacion+'&pos='+pos,
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {

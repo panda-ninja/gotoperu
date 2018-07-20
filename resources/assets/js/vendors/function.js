@@ -4289,9 +4289,14 @@ function nuevos_proveedores_movilidad_ruta(pos,categoria,grupo) {
             $('#lista_proveedores_'+categoria).html(data);
         }
     })
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
     $.ajax({
         type: 'POST',
-        url: '../../ventas/service/listar-movilidad/',
+        url: '../../ventas/service/listar-movilidad',
         data: 'punto_inicio='+localizacion+'&pos='+pos,
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
