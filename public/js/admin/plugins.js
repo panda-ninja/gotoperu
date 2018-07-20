@@ -5114,6 +5114,11 @@ function nuevos_proveedores_movilidad_ruta_edit(pos,categoria,grupo) {
             $('#lista_proveedores_'+pos+'_'+categoria).html(data);
         }
     })
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
     $.ajax({
         type: 'POST',
         url: '../admin/ventas/service/listar-movilidad/',
