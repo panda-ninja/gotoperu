@@ -479,6 +479,7 @@ class BookController extends Controller
 
         }
     public function nuevo_servicio_add(Request $request){
+        $origen=$request->input('origen');
         $cotizaciones_id=$request->input('cotizaciones_id');
 
         $txt_id=$request->input('itinerario_id');
@@ -523,8 +524,18 @@ class BookController extends Controller
             $p_servicio->justificacion_precio_proveedor='';
             $p_servicio->save();
         }
-        return redirect()->route('book_show_path',$cotizaciones_id);
+        if($origen=='reservas')
+            return redirect()->route('book_show_path',$cotizaciones_id);
+        elseif($origen=='ventas') {
+            $itineario = ItinerarioCotizaciones::Find($txt_id);
 
+            $clientes = CotizacionesCliente::where('cotizaciones_id', $cotizaciones_id)->where('estado', '1')->get();
+            $cliente = 0;
+            foreach ($clientes as $cliente_) {
+                $cliente = $cliente_->clientes_id;
+            }
+            return redirect()->route('show_step1_path', [$cliente, $cotizaciones_id, $itineario->paquete_cotizaciones_id]);
+        }
     }
     public function eliminar_servicio_reservas(Request $request)
     {
@@ -594,6 +605,14 @@ class BookController extends Controller
         $p_servicio->pos=$pos;
         $p_servicio->save();
         return redirect()->route('book_show_path',$cotizacion_id);
+
+    }
+    function nuevo_servicio_ventas($cotizaciones_id,$itinerartio_cotis_id,$dia){
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        $categorias=M_Category::get();
+        $servicios=array();
+        return view('admin.book.agregar_servicio_dia_ventas',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerartio_cotis_id'=>$itinerartio_cotis_id,'servicios'=>$servicios,'dia'=>$dia,'cotizaciones_id'=>$cotizaciones_id]);
 
     }
 }

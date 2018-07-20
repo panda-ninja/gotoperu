@@ -1157,7 +1157,7 @@
                     <label class="text-green-goto">Total $<span id="total_ci_{{$itinerartio_cotis_id}}">{{$total_pre_ven_edit}}</span></label>
                 </div>
                 <div class="col-lg-6">
-                    <input type="hidden" name="origen" value="reservas">
+                    <input type="hidden" name="origen" value="ventas">
                     <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>

@@ -104,20 +104,24 @@
                             <div class="col-lg-1 caja_dia_indice">
                                 DAY {{$itinerario->dias}}
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-6">
                                 <div class="row caja_dia">
-                                    <div class="col-lg-7">
-                                        {{$itinerario->titulo}}
+                                    <div class="col-lg-11">
+                                        <div class="col-lg-7">
+                                            {{$itinerario->titulo}}
+                                        </div>
+                                        <div class="col-lg-1 @if($s==0) hide @endif">S</div>
+                                        <div class="col-lg-1 @if($d==0) hide @endif">D</div>
+                                        <div class="col-lg-1 @if($m==0) hide @endif">M</div>
+                                        <div class="col-lg-1 @if($t==0) hide @endif">T</div>
                                     </div>
-                                    <div class="col-lg-1 @if($s==0) hide @endif">S</div>
-                                    <div class="col-lg-1 @if($d==0) hide @endif">D</div>
-                                    <div class="col-lg-1 @if($m==0) hide @endif">M</div>
-                                    <div class="col-lg-1 @if($t==0) hide @endif">T</div>
-                                    <div class="col-lg-2 hide"></div>
+                                    <div class="col-lg-1">
+                                       <a href="{{route('nuevo_servicio_ventas_path',[$cotizacion->id,$itinerario->id,$itinerario->dias])}}"  class="btn btn-success">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="row caja_detalle">
-
-
                                     @foreach($itinerario->itinerario_servicios as $servicios)
                                         @php
                                             $rango='';
@@ -351,7 +355,7 @@
                                             @endphp
                                         @endif
                                     <div id="caja_detalle_{{$hotel->id}}" class="row caja_detalle_hotel margin-bottom-15">
-                                    <div class="col-lg-7">
+                                        <div class="col-lg-7">
                                             <div class="row">
                                                 <div class="col-lg-10 text-12">HOTEL | <span class="text-11">{{strtoupper($hotel->estrellas) }}STARS</span> | <span class="text-11">{{$hotel->localizacion}}</span>
                                                 </div>
@@ -434,7 +438,7 @@
                                 @endforeach
 
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-5">
                                 <textarea form="step1" name="txt_descr_{{$itinerario->id}}"  id="txt_descr_{{$itinerario->id}}" cols="70" rows="8">{!! $itinerario->descripcion !!}</textarea>
                             </div>
                         </div>
