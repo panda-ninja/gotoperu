@@ -5121,7 +5121,7 @@ function nuevos_proveedores_movilidad_ruta_edit(pos,categoria,grupo) {
     });
     $.ajax({
         type: 'POST',
-        url: '../admin/ventas/service/listar-movilidad/',
+        url: '../admin/ventas/service/listar-movilidad',
         data: 'punto_inicio='+localizacion+'&pos='+pos,
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
