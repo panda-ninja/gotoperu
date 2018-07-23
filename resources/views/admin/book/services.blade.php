@@ -185,7 +185,7 @@
                                                 <b>{{date("d/m/Y",strtotime($itinerario->fecha))}}</b>
                                             </td>
                                             <td class="bg-grey-goto text-white">
-                                                <a href="{{route('nuevo_servicio_path',[$cotizacion->id,$itinerario->id,$itinerario->dias])}}"  class="btn btn-success">
+                                                <a href="{{route('servicios_add_path',[$cotizacion->id,$itinerario->id,$itinerario->dias])}}"  class="btn btn-success">
                                                     <i class="fa fa-plus-circle" aria-hidden="true"></i>Servicio
                                                 </a>
                                             </td>
