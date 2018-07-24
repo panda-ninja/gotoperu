@@ -166,19 +166,40 @@ class BookController extends Controller
 //        return view('admin.book.services',['cotizacion'=>$cotizacion,'productos'=>$productos,'proveedores'=>$proveedores,'hotel_proveedor'=>$hotel_proveedor]);
     }
     function asignar_proveedor_hotel(Request $request){
-        $dat=$request->input('precio')[0];
-        $dato=explode('_',$dat);
-        $hotel_proveedor=HotelProveedor::FindOrFail($dato[3]);
-        $hotel_reservado=PrecioHotelReserva::FindOrFail($dato[1]);
-        $hotel_reservado->precio_s_r=$hotel_proveedor->single;
-        $hotel_reservado->precio_d_r=$hotel_proveedor->doble;
-        $hotel_reservado->precio_m_r=$hotel_proveedor->matrimonial;
-        $hotel_reservado->precio_t_r=$hotel_proveedor->triple;
-        $hotel_reservado->proveedor_id=$dato[2];
-        if($hotel_reservado->save())
+        $id=$request->input('id');
+        $precio_s_r=$request->input('txt_costo_edit_s');
+        $precio_d_r=$request->input('txt_costo_edit_d');
+        $precio_m_r=$request->input('txt_costo_edit_m');
+        $precio_t_r=$request->input('txt_costo_edit_t');
+
+        $hotel=PrecioHotelReserva::Find($id);
+        if($hotel->personas_s>0)
+            $hotel->precio_s_r=$precio_s_r;
+        if($hotel->personas_d>0)
+            $hotel->precio_d_r=$precio_d_r;
+        if($hotel->personas_m>0)
+            $hotel->precio_m_r=$precio_m_r;
+        if($hotel->personas_t>0)
+            $hotel->precio_t_r=$precio_t_r;
+
+        if($hotel->save())
             return 1;
         else
             return 0;
+
+//        $dat=$request->input('precio')[0];
+//        $dato=explode('_',$dat);
+//        $hotel_proveedor=HotelProveedor::FindOrFail($dato[3]);
+//        $hotel_reservado=PrecioHotelReserva::FindOrFail($dato[1]);
+//        $hotel_reservado->precio_s_r=$hotel_proveedor->single;
+//        $hotel_reservado->precio_d_r=$hotel_proveedor->doble;
+//        $hotel_reservado->precio_m_r=$hotel_proveedor->matrimonial;
+//        $hotel_reservado->precio_t_r=$hotel_proveedor->triple;
+//        $hotel_reservado->proveedor_id=$dato[2];
+//        if($hotel_reservado->save())
+//            return 1;
+//        else
+//            return 0;
 
 //        $cotizacion=Cotizacion::FindOrFail($dato[0]);
 //        $productos=M_Producto::get();
@@ -450,14 +471,14 @@ class BookController extends Controller
         return view('admin.book.ver-liquidacion',['liquidaciones'=>$liquidaciones,'fecha_ini'=>$fecha_ini,'fecha_fin'=>$fecha_fin,'servicios'=>$servicios,'servicios_movi'=>$servicios_movi]);
     }
     function nuevo_servicio($cotizaciones_id,$itinerartio_cotis_id,$dia){
-            $destinations=M_Destino::get();
-            $services=M_Servicio::get();
-            $categorias=M_Category::get();
-            $servicios=array();
-            return view('admin.book.agregar_servicio_dia',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerartio_cotis_id'=>$itinerartio_cotis_id,'servicios'=>$servicios,'dia'=>$dia,'cotizaciones_id'=>$cotizaciones_id]);
-
-        }
+//            $destinations=M_Destino::get();
+//            $services=M_Servicio::get();
+//            $categorias=M_Category::get();
+//            $servicios=array();
+//            return view('admin.book.agregar_servicio_dia',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerartio_cotis_id'=>$itinerartio_cotis_id,'servicios'=>$servicios,'dia'=>$dia,'cotizaciones_id'=>$cotizaciones_id]);
+    }
     public function nuevo_servicio_add(Request $request){
+        $origen=$request->input('origen');
         $cotizaciones_id=$request->input('cotizaciones_id');
 
         $txt_id=$request->input('itinerario_id');
@@ -502,8 +523,18 @@ class BookController extends Controller
             $p_servicio->justificacion_precio_proveedor='';
             $p_servicio->save();
         }
-        return redirect()->route('book_show_path',$cotizaciones_id);
+        if($origen=='reservas')
+            return redirect()->route('book_show_path',$cotizaciones_id);
+        elseif($origen=='ventas') {
+            $itineario = ItinerarioCotizaciones::Find($txt_id);
 
+            $clientes = CotizacionesCliente::where('cotizaciones_id', $cotizaciones_id)->where('estado', '1')->get();
+            $cliente = 0;
+            foreach ($clientes as $cliente_) {
+                $cliente = $cliente_->clientes_id;
+            }
+            return redirect()->route('show_step1_path', [$cliente, $cotizaciones_id, $itineario->paquete_cotizaciones_id]);
+        }
     }
     public function eliminar_servicio_reservas(Request $request)
     {
@@ -573,6 +604,14 @@ class BookController extends Controller
         $p_servicio->pos=$pos;
         $p_servicio->save();
         return redirect()->route('book_show_path',$cotizacion_id);
+
+    }
+    function nuevo_servicio_ventas($cotizaciones_id,$itinerartio_cotis_id,$dia){
+        $destinations=M_Destino::get();
+        $services=M_Servicio::get();
+        $categorias=M_Category::get();
+        $servicios=array();
+        return view('admin.book.agregar_servicio_dia_ventas',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerartio_cotis_id'=>$itinerartio_cotis_id,'servicios'=>$servicios,'dia'=>$dia,'cotizaciones_id'=>$cotizaciones_id]);
 
     }
 }

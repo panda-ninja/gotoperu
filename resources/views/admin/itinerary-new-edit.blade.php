@@ -242,7 +242,7 @@
                                         <label for="txt_travel_date">Lugar donde duerme</label>
                                         <select class="form-control" name="txt_destino_duerme" id="txt_destino_duerme">
                                             <option value="0">Escoja un destino</option>
-                                            <option value="NO DUERME">NO DUERME</option>
+                                            <option value="-1" @if($itinerarios->destino_duerme=='-1'){{'selected'}}@endif>NO DUERME</option>
                                             @foreach($array_destinos as $destins)
                                                 @php
                                                     $destins_=explode('_',$destins);

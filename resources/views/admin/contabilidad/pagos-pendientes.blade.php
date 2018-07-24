@@ -28,13 +28,14 @@ use Carbon\Carbon;
                 <div class="panel-body">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#home">HOTELS</a></li>
-                        <li><a data-toggle="tab" href="#menu1">MOVILID</a></li>
-                        <li><a data-toggle="tab" href="#menu2">REPRESENT</a></li>
-                        <li><a data-toggle="tab" href="#menu3">ENTRANCES</a></li>
-                        <li><a data-toggle="tab" href="#menu4">FOOD</a></li>
-                        <li><a data-toggle="tab" href="#menu5">TRAINS</a></li>
-                        <li><a data-toggle="tab" href="#menu6">FLIGHTS</a></li>
-                        <li><a data-toggle="tab" href="#menu7">OTHERS</a></li>
+                        <li><a data-toggle="tab" href="#menu1">TOURS</a></li>
+                        <li><a data-toggle="tab" href="#menu2">MOVILID</a></li>
+                        <li><a data-toggle="tab" href="#menu3">REPRESENT</a></li>
+                        <li><a data-toggle="tab" href="#menu4">ENTRANCES</a></li>
+                        <li><a data-toggle="tab" href="#menu5">FOOD</a></li>
+                        <li><a data-toggle="tab" href="#menu6">TRAINS</a></li>
+                        <li><a data-toggle="tab" href="#menu7">FLIGHTS</a></li>
+                        <li><a data-toggle="tab" href="#menu8">OTHERS</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -46,20 +47,20 @@ use Carbon\Carbon;
                                             <div class="row">
                                                 <div class="col-lg-12 form-inline">
                                                     @php
-                                                    $ToDay=new Carbon();
+                                                        $ToDay=new Carbon();
 
                                                     @endphp
                                                     {{--<form action="{{route('list_fechas_rango_hotel_path')}}" method="post" class="form-inline">--}}
-                                                        {{csrf_field()}}
-                                                        <div class="form-group">
-                                                            <label for="f_ini">From</label>
-                                                            <input type="date" class="form-control" placeholder="from" name="txt_ini" id="f_ini" value="{{$ToDay->toDateString()}}" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="f_fin">To</label>
-                                                            <input type="date" class="form-control" placeholder="to" name="txt_fin" id="f_fin" value="{{$ToDay->toDateString()}}" required>
-                                                        </div>
-                                                        <button type="button" class="btn btn-default" onclick="buscar_hoteles_pagos_pendientes($('#f_ini').val(),$('#f_fin').val())">Filtrar</button>
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" placeholder="from" name="txt_ini" id="f_ini" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" placeholder="to" name="txt_fin" id="f_fin" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_hoteles_pagos_pendientes($('#f_ini').val(),$('#f_fin').val())">Filtrar</button>
                                                     {{--</form>--}}
                                                 </div>
                                             </div><!-- /.row -->
@@ -72,16 +73,367 @@ use Carbon\Carbon;
                                 <div class="col-md-12" id="rpt_hotel">
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(HOTELS)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="menu1" class="tab-pane fade">
-                            <h3>Menu 1</h3>
-                            <p>Some content in menu 1.</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-inline">
+                                                    @php
+                                                    $ToDay=new Carbon();
+                                                    @endphp
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" name="f_ini_TOURS" id="f_ini_TOURS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" name="f_fin_TOURS" id="f_fin_TOURS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_servicios_pagos_pendientes($('#f_ini_TOURS').val(),$('#f_fin_TOURS').val(),'TOURS')">Filtrar</button>
+                                                </div>
+                                            </div><!-- /.row -->
+                                            {{--<hr>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="rpt_TOURS">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(TOURS)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta_serv->where('nombre','TOURS') as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_serv_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <input type="hidden" name="grupo" value="{{$consultas->nombre}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="menu2" class="tab-pane fade">
-                            <h3>Menu 2</h3>
-                            <p>Some content in menu 1.</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-inline">
+                                                    @php
+                                                        $ToDay=new Carbon();
+                                                    @endphp
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" name="f_ini_MOVILID" id="f_ini_MOVILID" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" name="f_fin_MOVILID" id="f_fin_MOVILID" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_servicios_pagos_pendientes($('#f_ini_MOVILID').val(),$('#f_fin_MOVILID').val(),'MOVILID')">Filtrar</button>
+                                                </div>
+                                            </div><!-- /.row -->
+                                            {{--<hr>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="rpt_MOVILID">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(MOVILID)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta_serv->where('nombre','MOVILID') as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_serv_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <input type="hidden" name="grupo" value="{{$consultas->nombre}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="menu3" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-inline">
+                                                    @php
+                                                        $ToDay=new Carbon();
+                                                    @endphp
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" name="f_ini_REPRESENT" id="f_ini_REPRESENT" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" name="f_fin_REPRESENT" id="f_fin_REPRESENT" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_servicios_pagos_pendientes($('#f_ini_REPRESENT').val(),$('#f_fin_REPRESENT').val(),'REPRESENT')">Filtrar</button>
+                                                </div>
+                                            </div><!-- /.row -->
+                                            {{--<hr>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="rpt_REPRESENT">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(REPRESENT)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta_serv->where('nombre','REPRESENT') as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_serv_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <input type="hidden" name="grupo" value="{{$consultas->nombre}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu4" class="tab-pane fade">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <table id="lista_liquidaciones"  class="table table-bordered table-striped table-responsive table-hover">
@@ -211,21 +563,397 @@ use Carbon\Carbon;
                                 </div>
                             </div>
                         </div>
-                        <div id="menu4" class="tab-pane fade">
-                            <h3>Menu 4</h3>
-                            <p>Some content in menu 1.</p>
-                        </div>
                         <div id="menu5" class="tab-pane fade">
-                            <h3>Menu 5</h3>
-                            <p>Some content in menu 1.</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-inline">
+                                                    @php
+                                                        $ToDay=new Carbon();
+                                                    @endphp
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" name="f_ini_FOOD" id="f_ini_FOOD" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" name="f_fin_FOOD" id="f_fin_FOOD" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_servicios_pagos_pendientes($('#f_ini_FOOD').val(),$('#f_fin_FOOD').val(),'FOOD')">Filtrar</button>
+                                                </div>
+                                            </div><!-- /.row -->
+                                            {{--<hr>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="rpt_FOOD">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(FOOD)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta_serv->where('nombre','FOOD') as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_serv_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <input type="hidden" name="grupo" value="{{$consultas->nombre}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="menu6" class="tab-pane fade">
-                            <h3>Menu 6</h3>
-                            <p>Some content in menu 2.</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-inline">
+                                                    @php
+                                                        $ToDay=new Carbon();
+                                                    @endphp
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" name="f_ini_TRAINS" id="f_ini_TRAINS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" name="f_fin_TRAINS" id="f_fin_TRAINS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_servicios_pagos_pendientes($('#f_ini_TRAINS').val(),$('#f_fin_TRAINS').val(),'TRAINS')">Filtrar</button>
+                                                </div>
+                                            </div><!-- /.row -->
+                                            {{--<hr>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="rpt_TRAINS">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(TRAINS)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta_serv->where('nombre','TRAINS') as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_serv_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <input type="hidden" name="grupo" value="{{$consultas->nombre}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="menu7" class="tab-pane fade">
-                            <h3>Menu 7</h3>
-                            <p>Some content in menu 2.</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-inline">
+                                                    @php
+                                                        $ToDay=new Carbon();
+                                                    @endphp
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" name="f_ini_FLIGHTS" id="f_ini_FLIGHTS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" name="f_fin_FLIGHTS" id="f_fin_FLIGHTS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_servicios_pagos_pendientes($('#f_ini_FLIGHTS').val(),$('#f_fin_FLIGHTS').val(),'FLIGHTS')">Filtrar</button>
+                                                </div>
+                                            </div><!-- /.row -->
+                                            {{--<hr>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="rpt_FLIGHTS">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(FLIGHTS)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta_serv->where('nombre','FLIGHTS') as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_serv_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <input type="hidden" name="grupo" value="{{$consultas->nombre}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu8" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-inline">
+                                                    @php
+                                                        $ToDay=new Carbon();
+                                                    @endphp
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="f_ini">From</label>
+                                                        <input type="date" class="form-control" name="f_ini_OTHERS" id="f_ini_OTHERS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="f_fin">To</label>
+                                                        <input type="date" class="form-control" name="f_fin_OTHERS" id="f_fin_OTHERS" value="{{$ToDay->toDateString()}}" required>
+                                                    </div>
+                                                    <button type="button" class="btn btn-default" onclick="buscar_servicios_pagos_pendientes($('#f_ini_OTHERS').val(),$('#f_fin_OTHERS').val(),'OTHERS')">Filtrar</button>
+                                                </div>
+                                            </div><!-- /.row -->
+                                            {{--<hr>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="rpt_OTHERS">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h2>Consultas Guardadas(OTHERS)</h2>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4 col-md-offset-4 text-center">
+                                                    @if(Session::has('message'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{Session::get('message')}}
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach($consulta_serv->where('nombre','OTHERS') as $consultas)
+                                                    <div class="col-md-2 text-center">
+                                                        <form action="{{route('list_fechas_serv_show_path')}}" method="post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="txt_codigos" value="{{$consultas->id}}">
+                                                            <input type="hidden" name="grupo" value="{{$consultas->nombre}}">
+                                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                                <img src="{{asset('images/database.png')}}" alt="" class="img-responsive">
+                                                                {{--{{strftime("%B, %d", strtotime(str_replace('-','/', $disponibilidad->fecha_disponibilidad)))}} <span class="blue-text">${{$disponibilidad->precio_d}}</span>--}}
+                                                                <span class="font-weight-bold text-18">{{strftime("%A %d de %B de %Y - %H:%M:%S", strtotime(str_replace('-','/', $consultas->updated_at)))}}</span>
+                                                            </a>
+                                                            <a href="#" class="display-block text-danger" data-toggle="modal" data-target="#eliminar_{{$consultas->id}}"><i class="fa fa-trash fa-2x"></i></a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="eliminar_{{$consultas->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                {{--<div class="modal-header">--}}
+                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                                                                {{--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--}}
+                                                                {{--</div>--}}
+                                                                <form action="{{route('consulta_delete_path', $consultas->id)}}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" name="_method" value="delete">
+                                                                    <div class="modal-body">
+                                                                        <p class="text-grey-goto text-18"><b><i class="fa fa-exclamation-triangle fa-pull-left fa-2x text-danger" aria-hidden="true"></i> La consulta se eliminara permanentemente.</b></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

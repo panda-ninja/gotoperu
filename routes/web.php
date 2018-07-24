@@ -702,10 +702,10 @@ Route::get('admin/contabilidad/listar/fechas/hotel/{fecha_i}/{fecha_f}', [
     'uses' => 'ContabilidadController@list_fechas_hotel',
     'as' => 'list_fechas_hotel_path',
 ]);
-Route::post('admin/contabilidad/listar/fechas-hotel/show', [
-    'uses' => 'ContabilidadController@list_fechas_hotel_show',
-    'as' => 'list_fechas_hotel_show_path',
-]);
+//Route::post('admin/contabilidad/listar/fechas-hotel/show', [
+//    'uses' => 'ContabilidadController@list_fechas_hotel_show',
+//    'as' => 'list_fechas_hotel_show_path',
+//]);
 Route::get('storage/contabilidad/hotel/{filename}', [
     'uses' => 'ContabilidadController@getImageName_hotel',
     'as' => 'pago_hotel_image_path'
@@ -874,10 +874,15 @@ Route::post('/contabilidad/servicios/guardar-total/ticket',[
 ]);
 Route::get('/admin/book/nuevo-servicio/{id1}/{id}/{dia}',[
     'uses' => 'BookController@nuevo_servicio',
-    'as' => 'nuevo_servicio_path',
+    'as' => 'nuevo_servicio_show_add_path',
 ]);
+Route::get('/admin/book/servicios/add/{id1}/{id2}/{id3}',[
+    'uses' => 'BookController@servicios_add',
+    'as' => 'servicios_add_path',
+]);
+
 Route::post('/admin/book/nuevo-servicio/nuevo',[
-    'uses' => 'BookController@nuevo_servicio_add',
+    'uses' => 'BookController@nuevo_servicio',
     'as' => 'nuevo_servicio_add_path',
 ]);
 Route::post('/admin/contabilidad/confirmar-precio-c',[
@@ -976,4 +981,80 @@ Route::post('/admin/contabilidad/actualizar-titulo',[
 Route::post('/admin/contabilidad/confirmar-fecha-hotel',[
     'uses' => 'ContabilidadController@precio_fecha_hotel_add',
     'as' => 'contabilidad_add_fecha_hotel_path',
+]);
+
+Route::post('/admin/contabilidad/pagar_a_cuenta',[
+    'uses' => 'ContabilidadController@pagar_a_cuenta_c',
+    'as' => 'pagar_a_cuenta_c_path',
+]);
+Route::post('/admin/contabilidad/pagar_a_cuenta_editar',[
+    'uses' => 'ContabilidadController@pagar_a_cuenta_c_editar',
+    'as' => 'pagar_a_cuenta_c_editar_path',
+]);
+Route::post('/admin/contabilidad/pagos/servicios/pendientes/filtrar', [
+    'uses' => 'ContabilidadController@pagos_pendientes_filtro_datos_servicios',
+    'as' => 'pagos_pendientes_rango_fecha_filtro_servicios_path',
+]);
+Route::post('admin/contabilidad/servicios/listar/fechas/show', [
+    'uses' => 'ContabilidadController@list_fechas_show_servicios',
+    'as' => 'list_fechas_servivios_show_path',
+]);
+Route::post('/admin/contabilidad/pagar_a_cuenta/serv',[
+    'uses' => 'ContabilidadController@pagar_a_cuenta_c_serv',
+    'as' => 'pagar_a_cuenta_c_serv_path',
+]);
+Route::post('/admin/contabilidad/serv/pagar_a_cuenta_editar',[
+    'uses' => 'ContabilidadController@pagar_a_cuenta_c_serv_editar',
+    'as' => 'pagar_a_cuenta_c_serv_editar_path',
+]);
+Route::post('admin/contabilidad/listar-fechas-serv-subir-imagen', [
+    'uses' => 'ContabilidadController@guardar_imagen_pago_serv',
+    'as' => 'guardar_imagen_pago_serv_path',
+]);
+Route::post('/admin/contabilidad/listar/serv/consulta', [
+    'uses' => 'ContabilidadController@consulta_serv_save',
+    'as' => 'consulta_serv_save_path',
+]);
+Route::post('admin/contabilidad/listar/serv/fechas/show', [
+    'uses' => 'ContabilidadController@list_fechas_serv_show',
+    'as' => 'list_fechas_serv_show_path',
+]);
+Route::post('admin/productos/lista/empresa', [
+    'uses' => 'ServicesController@listarServicios_destino_empresa',
+    'as' => 'listar_productos_empresa_path',
+]);
+Route::post('admin/productos/lista/empresa/mostrar-clases', [
+    'uses' => 'ServicesController@mostrar_clases',
+    'as' => 'listar_productos_empresa_clase_path',
+]);
+Route::post('/admin/ventas/service/listar-movilidad',[
+    'uses' => 'ServicesController@listar_rutas_movilidad',
+    'as' => 'listar_movilidad_path',
+]);
+Route::post('admin/productos/lista/rutas', [
+    'uses' => 'ServicesController@listarServicios_destino_show_rutas',
+    'as' => 'lista_rutas_categoria_path',
+]);
+Route::post('admin/productos/lista/por-ruta', [
+    'uses' => 'ServicesController@listarServicios_destino_por_rutas',
+    'as' => 'generar_codigo_por_rutas_plantilla_path',
+]);
+Route::post('admin/productos/lista/por-ruta/cargar-tipos', [
+    'uses' => 'ServicesController@listarServicios_destino_por_rutas_tipos',
+    'as' => 'generar_codigo_por_rutas_tipos_plantilla_path',
+]);
+Route::post('admin/productos/lista/por-ruta/tipo', [
+    'uses' => 'ServicesController@listarServicios_destino_rutas_tipos',
+    'as' => 'generar_codigo_rutas_tipos_plantilla_path',
+]);
+Route::post('admin/ventas/service/listar-train/salida',[
+    'uses' => 'ServicesController@listar_rutas_train_salida',
+    'as' => 'listar_train_salida_path',
+]);
+Route::post('admin/ventas/service/listar-train/llegada',[
+    'uses' => 'ServicesController@listar_rutas_train_llegada',
+    'as' => 'listar_train_llegada_path',
+]);Route::get('/admin/book/nuevo-servicio/{id1}/{id}/{dia}',[
+    'uses' => 'BookController@nuevo_servicio_ventas',
+    'as' => 'nuevo_servicio_ventas_path',
 ]);

@@ -140,6 +140,7 @@
                                             {{--@else--}}
                                             @if($servicios->min_personas<= $cotizacion->nropersonas&&$cotizacion->nropersonas <=$servicios->max_personas)
 
+
                                             @elseif($servicios->servicio->precio_grupo=='1')
                                                 @if($servicios->servicio->grupo=='MOVILID')
                                                     @php
@@ -361,6 +362,7 @@
                                             @endphp
                                         @endif
                                     <div id="caja_detalle_{{$hotel->id}}" class="row caja_detalle_hotel margin-bottom-15">
+
                                     <div class="col-7">
                                             <div class="row">
                                                 <div class="col-10 text-12">HOTEL | <span class="text-11">{{strtoupper($hotel->estrellas) }}STARS</span> | <span class="text-11">{{$hotel->localizacion}}</span>

@@ -71,7 +71,7 @@
                         ?>
                     @endif
                     <li class="nav-item active">
-                        <a data-toggle="tab" href="#t_{{$categoria->nombre}}" class="nav-link show {{$activo}}" role="tab" aria-controls="pills-home" aria-selected="true" onclick="escojerPos({{$pos}},'{{$categoria->nombre}}')">{{$categoria->nombre}}</a>
+                        <a data-toggle="tab" href="#t_{{$categoria->nombre}}" class="nav-link show {{$activo}}" role="tab" aria-controls="pills-home" aria-selected="true" onclick="escojerPos('{{$pos}}','{{$categoria->nombre}}')">{{$categoria->nombre}}</a>
                     </li>
                     <?php
                     $pos++;
@@ -110,7 +110,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="hide col-lg-8">
                                 <div class="col-lg-6" id="ida_{{$categoria->nombre}}">
                                     <div class="form-group">
                                         <label for="">Escoja el destino de ida</label>
@@ -134,8 +134,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="col-lg-4 padding-left-0">
+                            <div class="col-lg-3">
+                                <div class="padding-left-0">
+                                    <select name="empresa_{{$categoria->id}}" id="empresa_{{$categoria->id}}" class="form-control" onchange="mostrar_tabla_empresa('{{$categoria->nombre}}','{{$categoria->id}}',$('#empresa_{{$categoria->id}}').val())">
+                                        <option value="0">Escoja una empresa</option>
+                                        @foreach($proveedores->where('grupo','TRAINS') as $pro)
+                                            <option value="{{$pro->id}}">{{$pro->nombre_comercial}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="padding-left-0">
                                     <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino('{{$categoria->nombre}}','{{$categoria->id}}')">
                                         <option value="0">Escoja la localizacion</option>
                                         @foreach($destinations as $destination)
@@ -146,6 +157,33 @@
                             </div>
                             <div id="tb_datos_{{$categoria->nombre}}">
                             </div>
+
+                        @elseif($categoria->nombre=='MOVILID')
+                            <div class="col-lg-3">
+                                <div class="padding-left-0">
+                                    <label>Localizacion</label>
+                                    <select name="Destinos_{{$categoria->nombre}}" id="Destinos_{{$categoria->nombre}}" class="form-control" onchange="mostrar_tabla_destino_ruta('{{$categoria->nombre}}','{{$categoria->id}}','{{$pos}}')">
+                                        <option value="0">Escoja la localizacion</option>
+                                        @foreach($destinations as $destination)
+                                            <option value="{{$destination->id}}_{{$categoria->nombre}}_{{$destination->destino}}">{{$destination->destino}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" id="mostra_rutas_movilid">
+                                <label>Ruta</label>
+                                <select class="form-control" id="txt_ruta_{{$pos}}" name="txt_ruta_{{$pos}}" onchange="mostrar_tabla_destino_ruta_datos('{{$categoria->nombre}}','{{$categoria->id}}',$('#txt_ruta_{{$pos}}').val())">
+                                    <option value="ESCOJA UNA RUTA-ESCOJA UNA RUTA">ESCOJA UNA RUTA</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3" id="mostra_tipo_{{$categoria->nombre}}">
+                                <label>Tipo</label>
+                                <select class="form-control" id="txt_tipo_{{$pos}}" name="txt_tipo_{{$pos}}" onchange="mostrar_tabla_destino_ruta_tipo_datos('{{$categoria->nombre}}','{{$categoria->id}}',$('#txt_ruta_{{$pos}}').val())">
+                                    <option value="ESCOJA UN TIPO-ESCOJA UN TIPO">ESCOJA EL TIPO</option>
+                                </select>
+                            </div>
+                            <div id="tb_datos_{{$categoria->nombre}}">
+
                             </div>
                         @else
                             <div class="col-lg-12">
@@ -275,6 +313,7 @@
             @endforeach
         </div>
         </div>
+        </div>
     </div>
     <script>
         $(document).ready(function() {
@@ -305,7 +344,12 @@
 // if(response==1){
 //                            $('#result_'+id).removeClass('text-danger');
 //                            $('#result_'+id).addClass('text-success');
-                            $('#result_'+id).html('producto guardado Correctamente!');
+                        $('#result_'+id).html('Producto guardado Correctamente!');
+                        swal(
+                            'Genial...',
+                            'Producto guardado Correctamente!',
+                            'success'
+                        )
                         if(grupo=='MOVILID')
                             $('#tipo_'+id).html(datox[0]+' ['+datox[1]+'-'+datox[2]+']');
                         else

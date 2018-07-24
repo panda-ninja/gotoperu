@@ -9,6 +9,7 @@ use App\M_Producto;
 use App\M_Servicio;
 use App\M_Destino;
 use App\Proveedor;
+use App\ProveedorClases;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
@@ -157,6 +158,12 @@ class ServicesController extends Controller
             $txt_codigo = $request->input('txt_codigo_' . $posTipo);
             $txt_clase = $request->input('txt_clase_' . $posTipo);
 
+            if($cate[$posTipo]=='MOVILID') {
+                $rutaAB = $request->input('txt_ruta_salida_' . $posTipo);
+                $rutaAB = explode('-', $rutaAB);
+                $txt_ruta_salida = $rutaAB[0];
+                $txt_ruta_llegada = $rutaAB[1];
+            }
             $destino = new M_Servicio();
             $destino->grupo = $cate[$posTipo];
             $destino->localizacion = $txt_localizacion;
@@ -212,20 +219,7 @@ class ServicesController extends Controller
                     }
                 }
                 return redirect()->route('service_index_path');
-//                $destinations = M_Destino::get();
-//                $servicios = M_Servicio::get();
-//                $categorias = M_Category::get();
-//                $hotel = Hotel::get();
-//                return view('admin.database.services', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations, 'hotel' => $hotel]);
             }
-
-
-//        else{
-//            $destinations=M_Destino::get();
-//            $servicios=M_Servicio::get();
-//            $categorias=M_Category::get();
-//            return view('admin.database.services',['servicios'=>$servicios,'categorias'=>$categorias,'destinations'=>$destinations]);
-//        }
         }
     }
 
@@ -275,7 +269,7 @@ class ServicesController extends Controller
         $id = $request->input('id');
         $txt_grupo=$request->input('grupo_' . $id);
         $posTipo = $request->input('posTipo');
-//        $txt_localizacion = $request->input('txt_localizacion_' . $id);
+        $txt_localizacion = $request->input('txt_localizacion_' . $id);
         $txt_type = $request->input('txt_type_' . $id);
 //        $txt_class='';
         if($txt_grupo=='TRAINS'){
@@ -294,10 +288,15 @@ class ServicesController extends Controller
         $txt_max_personas = $request->input('txt_max_personas_' . $id);
         $txt_clase = $request->input('txt_clase_' . $id);
 
-//        return $txt_clase;
 
+        if($txt_grupo=='MOVILID') {
+            $rutaAB = $request->input('txt_ruta_salida_' . $id);
+            $rutaAB = explode('-', $rutaAB);
+            $txt_ruta_salida = $rutaAB[0];
+            $txt_ruta_llegada = $rutaAB[1];
+        }
         $destino = M_Servicio::FindOrFail($id);
-//        $destino->localizacion = $txt_localizacion;
+        $destino->localizacion = $txt_localizacion;
         $destino->tipoServicio = $txt_type;
         $destino->acomodacion = $txt_acomodacion;
         $destino->nombre = $txt_product;
@@ -389,16 +388,110 @@ class ServicesController extends Controller
     public function listarServicios_destino(Request $request)
     {
         $destino = $request->input('destino');
+        $filtro = $request->input('filtro');
         $id = $request->input('id');
-
         $destino = explode('_', $destino);
         $sericios = M_Servicio::where('grupo', $destino[1])->where('localizacion', $destino[2])->get();
+        $destinations = M_Destino::get();
+        $proveedores=Proveedor::get();
+        $costos=M_Producto::get();
+        $categoria_id = $id;
+        return view('admin.contabilidad.lista-servicios',compact(['id','destino','destinations','sericios','proveedores','costos','categoria_id','filtro']));
+    }
+
+
+    public function eliminar_servicio_hotel(Request $request)
+    {
+        $id = $request->input('id');
+        $servicio = Hotel::FindOrFail($id);
+        if ($servicio->delete())
+            return 1;
+        else
+            return 0;
+    }
+
+    public function nuevo_producto()
+    {
+        $destinations = M_Destino::get();
+        $servicios = M_Servicio::get();
+        $categorias = M_Category::get();
+        $hotel = Hotel::get();
+        session()->put('menu-lateral', 'Sproducts');
+        $proveedores = Proveedor::get();
+        $costos = M_Producto::get();
+        return view('admin.database.new_service', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations, 'hotel' => $hotel, 'proveedores' => $proveedores, 'costos' => $costos]);
+    }
+    public function listar_proveedores_service(Request $request)
+    {
+        $localizacion= $request->input('localizacion');
+        $grupo= $request->input('grupo');
+        $categoria= $request->input('categoria');
+        $proveedores=null;
+        if($grupo!='TRAINS')
+            $proveedores=Proveedor::where('localizacion',$localizacion)->where('grupo',$grupo)->get();
+        else
+            $proveedores=Proveedor::where('grupo',$grupo)->get();
+
+        $cadena='';
+        foreach ($proveedores as $proveedor){
+            $cadena.='<div class="checkbox1">
+                        <label class="puntero">
+                            <input class="proveedores_'.$categoria.'"  type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->nombre_comercial.'">
+                            '.$proveedor->nombre_comercial.'
+                        </label>
+                    </div>';
+        }
+        if($cadena==''){
+            $cadena='<div class="alert alert-danger text-center">
+                    <p class="text-16">Upp!!! No hay proveedores para este destino</p>
+                    <span>Dirijase a <a target="_blank" href="'.route('provider_index_path').'">Providers</a> para ingresar nuevos proveedores</span>
+                    </div>';
+        }
+        return $cadena;
+
+    }
+    public function eliminar_proveedores_service(Request $request)
+    {
+        $costo_id= $request->input('costo_id');
+        $proveedor_id= $request->input('proveedor_id');
+        $nro_usados=ItinerarioServicios::where('proveedor_id',$proveedor_id)->count('proveedor_id');
+        if($nro_usados>0){
+            return 2;
+        }
+        elseif($nro_usados==0){
+            $costo=M_Producto::FindOrFail($costo_id);
+            $valor=$costo->delete();
+            if($valor>0)
+                return 1;
+            else
+                return 0;
+        }
+    }
+
+    public function listarServicios_destino_empresa(Request $request)
+    {
+//        $destino = $request->input('destino');
+        $proveedor_id = $request->input('empresa_id');
+        $clases=ProveedorClases::where('proveedor_id',$proveedor_id)->get();
+        $clases_=[];
+        foreach($clases->where('estado',1) as $clase){
+            $clases_[]=$clase->clase;
+        }
+        $id = $request->input('id');
+
+
+        $destino = '001_TRAINS';
+        $destino = explode('_', $destino);
+
+//        $sericios = M_Servicio::where('grupo', $destino[1])->where('localizacion', $destino[2])->get();
+        $sericios = M_Servicio::where('grupo', $destino[1])->get();
         $destinations = M_Destino::get();
 //        return $sericios;
         $cadena = '';
         $cadena .= '<table id="tb_' . $destino[0] . '_' . $destino[1] . '" class="' . $destino[1] . ' table tb table-striped table-bordered table-responsive" cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th>Localizacion</th>
                                 <th>Codigo</th>
                                 <th>';
         if ($destino[1] == 'TRAINS')
@@ -441,8 +534,9 @@ class ServicesController extends Controller
                               </tfoot>
                               <tbody>';
         $pos = 0;
-        foreach ($sericios as $servicio) {
+        foreach ($sericios->sortBy('localizacion') as $servicio) {
             $cadena .= '<tr class="' . $servicio->localizacion . '" id="lista_services_' . $servicio->id . '">
+    <td class="text-green-goto">' . $servicio->localizacion . '</td>
     <td class="text-green-goto">' . $servicio->codigo . '</td>
     <td id="tipo_' . $servicio->id . '">' . $servicio->tipoServicio;
             if ($destino[1] == 'MOVILID')
@@ -516,12 +610,12 @@ class ServicesController extends Controller
                             <label for="txt_codigo">Empresa</label>
                             <select class="form-control" id="txt_provider_' . $servicio->id . '" name="txt_provider_' . $servicio->id . '" onchange="mostrar_class($(\'#txt_provider_' . $servicio->id . '\').val(),\'' . $array_pro . '\',\''.$destino[1].'\',\''.$servicio->id.'\','. $destino[0] . ')">
                                 <option value="0">Escoja una empresa</option>';
-                                foreach ($proveedores->where('grupo', 'TRAINS') as $provider) {
-                                    $cadena.= '<option value="' . $provider->id . '_' . $provider->nombre_comercial . '"';
-                                    if($proveedor_id1==$provider->id)
-                                        $cadena.=' selected ';
-                                    $cadena.='>' . $provider->nombre_comercial . '</option>';
-                                }
+                    foreach ($proveedores->where('grupo', 'TRAINS') as $provider) {
+                        $cadena.= '<option value="' . $provider->id . '_' . $provider->nombre_comercial . '"';
+                        if($proveedor_id1==$provider->id)
+                            $cadena.=' selected ';
+                        $cadena.='>' . $provider->nombre_comercial . '</option>';
+                    }
                     $cadena .= '</select>
                         </div>
                     </div>';
@@ -529,27 +623,27 @@ class ServicesController extends Controller
                 $vision = 0;
                 foreach ($proveedores->where('grupo', 'TRAINS') as $provider){
                     $vision++;
-                $cadena .='<div id="proveedor_'.$provider->id.'" class="col-md-2';
+                    $cadena .='<div id="proveedor_'.$provider->id.'" class="col-md-2';
                     if($proveedor_id1!=$provider->id){
-                    $cadena .=' hide';
-                }
-                $cadena .='">
+                        $cadena .=' hide';
+                    }
+                    $cadena .='">
                             <div class="form-group">
                                 <label for="txt_codigo" >Class</label>
                                 <select class="form-control" id="txt_class_'.$servicio->id.'" name = "txt_class_'.$servicio->id.'_'.$provider->id.'">';
-                                foreach ($provider->clases->where('estado', '1') as $provider_clases) {
-                                    $cadena .= '<option value="'.$provider_clases->clase.'"';
-                                    if($servicio->tipoServicio==$provider_clases->clase)
-                                        $cadena.=' selected ';
-                                    $cadena.='>'.$provider_clases->clase.'</option>';
-                                }
-                        $cadena .= '</select>
+                    foreach ($provider->clases->where('estado', '1') as $provider_clases) {
+                        $cadena .= '<option value="'.$provider_clases->clase.'"';
+                        if($servicio->tipoServicio==$provider_clases->clase)
+                            $cadena.=' selected ';
+                        $cadena.='>'.$provider_clases->clase.'</option>';
+                    }
+                    $cadena .= '</select>
                                 </div>
                             </div>';
                 }
             }
             if ($destino[1] == 'ENTRANCES') {
-            $cadena .= '<div class="col-md-2"><div class="form-group">';
+                $cadena .= '<div class="col-md-2"><div class="form-group">';
                 $cadena .= '<label for="txt_type" > Clase</label >
                     <select class="form-control" id = "txt_clase_' . $servicio->id . '" name = "txt_clase_' . $servicio->id . '" >
                         <option value = "OTROS"';
@@ -645,14 +739,14 @@ class ServicesController extends Controller
                 <div class="form-group"><label for="txt_type" > Type</label >
                 <select class="form-control" id = "txt_type_' . $servicio->id . '" name = "txt_type_' . $servicio->id . '" >
                     <option value = "GUIDE"';
-                        if ($servicio->tipoServicio == "GUIDE") $cadena .= 'selected';
-                        $cadena .= '>GUIDE </option >
+                if ($servicio->tipoServicio == "GUIDE") $cadena .= 'selected';
+                $cadena .= '>GUIDE </option >
                     <option value = "TRANSFER"';
-                        if ($servicio->tipoServicio == "TRANSFER") $cadena .= 'selected';
-                        $cadena .= '>TRANSFER </option >
+                if ($servicio->tipoServicio == "TRANSFER") $cadena .= 'selected';
+                $cadena .= '>TRANSFER </option >
                     <option value = "ASSISTANCE"';
-                        if ($servicio->tipoServicio == "ASSISTANCE") $cadena .= 'selected';
-                        $cadena .= '>ASSISTANCE </option >
+                if ($servicio->tipoServicio == "ASSISTANCE") $cadena .= 'selected';
+                $cadena .= '>ASSISTANCE </option >
                 </select ></div></div>';
             }
             if ($servicio->grupo == 'ENTRANCES') {
@@ -741,18 +835,18 @@ class ServicesController extends Controller
                                 <div class="form-group">
                                     <label for="txt_price">Ruta de salida</label>
                                     <select class="form-control" id="txt_ruta_salida_'.$servicio->id.'" name="txt_ruta_salida_'.$servicio->id.'">';
-                                        if($servicio->ruta_salida=='POROY')
-                                            $cadena .= '<option value="POROY" selected>POROY</option>';
-                                        else
-                                            $cadena .= '<option value="POROY">POROY</option>';
-                                        if($servicio->ruta_salida=='AGUAS CALIENTES')
-                                            $cadena .= '<option value="AGUAS CALIENTES" selected>AGUAS CALIENTES</option>';
-                                        else
-                                            $cadena .= '<option value="AGUAS CALIENTES">AGUAS CALIENTES</option>';
-                                        if($servicio->ruta_salida=='OLLANTAYTAMBO')
-                                            $cadena .= '<option value="OLLANTAYTAMBO" selected>OLLANTAYTAMBO</option>';
-                                        else
-                                            $cadena .= '<option value="OALLANTAYTAMBO">OLLANTAYTAMBO</option>';
+                if($servicio->ruta_salida=='POROY')
+                    $cadena .= '<option value="POROY" selected>POROY</option>';
+                else
+                    $cadena .= '<option value="POROY">POROY</option>';
+                if($servicio->ruta_salida=='AGUAS CALIENTES')
+                    $cadena .= '<option value="AGUAS CALIENTES" selected>AGUAS CALIENTES</option>';
+                else
+                    $cadena .= '<option value="AGUAS CALIENTES">AGUAS CALIENTES</option>';
+                if($servicio->ruta_salida=='OLLANTAYTAMBO')
+                    $cadena .= '<option value="OLLANTAYTAMBO" selected>OLLANTAYTAMBO</option>';
+                else
+                    $cadena .= '<option value="OALLANTAYTAMBO">OLLANTAYTAMBO</option>';
 
                 $cadena .= '</select>
                                 </div>
@@ -767,18 +861,18 @@ class ServicesController extends Controller
                                 <div class="form-group">
                                     <label for="txt_price">Ruta de llegada</label>
                                     <select class="form-control" id="txt_ruta_llegada_'.$servicio->id.'" name="txt_ruta_llegada_'.$servicio->id.'">';
-                                        if($servicio->ruta_llegada=='POROY')
-                                            $cadena .= '<option value="POROY" selected>POROY</option>';
-                                        else
-                                            $cadena .= '<option value="POROY">POROY</option>';
-                                        if($servicio->ruta_llegada=='AGUAS CALIENTES')
-                                            $cadena .= '<option value="AGUAS CALIENTES" selected>AGUAS CALIENTES</option>';
-                                        else
-                                            $cadena .= '<option value="AGUAS CALIENTES">AGUAS CALIENTES</option>';
-                                        if($servicio->ruta_llegada=='OLLANTAYTAMBO')
-                                            $cadena .= '<option value="OLLANTAYTAMBO" selected>OLLANTAYTAMBO</option>';
-                                        else
-                                            $cadena .= '<option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>';
+                if($servicio->ruta_llegada=='POROY')
+                    $cadena .= '<option value="POROY" selected>POROY</option>';
+                else
+                    $cadena .= '<option value="POROY">POROY</option>';
+                if($servicio->ruta_llegada=='AGUAS CALIENTES')
+                    $cadena .= '<option value="AGUAS CALIENTES" selected>AGUAS CALIENTES</option>';
+                else
+                    $cadena .= '<option value="AGUAS CALIENTES">AGUAS CALIENTES</option>';
+                if($servicio->ruta_llegada=='OLLANTAYTAMBO')
+                    $cadena .= '<option value="OLLANTAYTAMBO" selected>OLLANTAYTAMBO</option>';
+                else
+                    $cadena .= '<option value="OLLANTAYTAMBO">OLLANTAYTAMBO</option>';
                 $cadena .= '</select>
                                 </div>
                             </div>
@@ -1106,8 +1200,8 @@ class ServicesController extends Controller
 
             $categoria_id = $request->input('id');
             $cadena .= '<div class="col-lg-12" >'.
-                        '<div id="lista_proveedores_'.$categoria_id.'" class="col-lg-5" style="height: 400px; overflow-y: auto;">'.
-                            '<p><b class="text-green-goto">Proveedores</b></p>';
+                '<div id="lista_proveedores_'.$categoria_id.'" class="col-lg-5" style="height: 400px; overflow-y: auto;">'.
+                '<p><b class="text-green-goto">Proveedores</b></p>';
             if($destino[1]!='TRAINS'){
                 foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor){
                     $cadena.='<div class="checkbox1">
@@ -1136,27 +1230,27 @@ class ServicesController extends Controller
 //                }
 //            }
             $cadena .= '</div>'.
-            '<div class="col-lg-1">'.
+                '<div class="col-lg-1">'.
                 '<a href="#!" class="btn btn-primary" onclick="Pasar_pro('.$categoria_id.',\''.$destino[1].'\','.$servicio->id.')">'.
-                    '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.
+                '<i class="fa fa-arrow-right" aria-hidden="true"></i>'.
                 '</a>'.
-            '</div>';
+                '</div>';
             $cadena .='<div class="col-lg-6" style="height: 400px; overflow-y: auto;">'.
                 '<p><b class="text-green-goto">Proveedor/Costo</b></p><div id="lista_costos_'.$destino[1].'_'.$id.'_'.$servicio->id.'">';
-                foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo){
+            foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo){
                 $cadena.= '<div id="fila_p_'.$servicio->id.'_'.$costo->id.'_'.$costo->proveedor->id.'" class="row">'.
-                                '<div class="col-lg-8">'.$costo->proveedor->nombre_comercial.'</div>'.
-                                '<div class="col-lg-2">'.
-                                    '<input name="costo_id[]" type="hidden" value="'.$costo->id.'">'.
-                                    '<input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="'.$costo->precio_costo.'">'.
-                                '</div>'.
-                                '<div class="col-lg-2">'.
-                                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('.$servicio->id.','.$costo->id.','.$costo->proveedor->id.',\''.$costo->proveedor->nombre_comercial.'\')">'.
-                                        '<i class="fa fa-trash-o" aria-hidden="true"></i>'.
-                                    '</button>'.
-                                '</div>'.
-                            '</div>';
-                }
+                    '<div class="col-lg-8">'.$costo->proveedor->nombre_comercial.'</div>'.
+                    '<div class="col-lg-2">'.
+                    '<input name="costo_id[]" type="hidden" value="'.$costo->id.'">'.
+                    '<input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="'.$costo->precio_costo.'">'.
+                    '</div>'.
+                    '<div class="col-lg-2">'.
+                    '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('.$servicio->id.','.$costo->id.','.$costo->proveedor->id.',\''.$costo->proveedor->nombre_comercial.'\')">'.
+                    '<i class="fa fa-trash-o" aria-hidden="true"></i>'.
+                    '</button>'.
+                    '</div>'.
+                    '</div>';
+            }
             $cadena .='</div></div>';
             $cadena .='</div>';
 
@@ -1187,76 +1281,75 @@ class ServicesController extends Controller
         $cadena .= '</tbody>
 </table>';
         return $cadena;
-
-
+    }
+    public function mostrar_clases(Request $request){
+        $proveedor_id=$request->input('proveedor_id');
+        $pos=$request->input('pos');
+        $clases=ProveedorClases::where('proveedor_id',$proveedor_id)->get();
+        return view('admin.contabilidad.lista-clases',compact(['clases','pos']));
+    }
+    public function listar_rutas_movilidad(Request $request){
+        $punto_inicio=$request->input('punto_inicio');
+        $pos=$request->input('pos');
+        return view('admin.contabilidad.lista-ruta',compact(['punto_inicio','pos']));
+    }
+    public function listarServicios_destino_show_rutas(Request $request){
+        $ruta=explode('_',$request->input('destino'));
+//        dd($punto_inicio);
+        $punto_inicio=$ruta[2];
+        $grupo=$request->input('grupo');
+        $id=$request->input('id');
+        $pos=$request->input('pos');
+        return view('admin.contabilidad.lista-ruta-listar',compact(['punto_inicio','grupo','id','pos']));
     }
 
-    public function eliminar_servicio_hotel(Request $request)
+    public function listarServicios_destino_por_rutas(Request $request)
     {
+        $filtro=$request->input('filtro');
+        $destino = $request->input('destino');
+        $ruta = $request->input('ruta');
+        $ruta =explode('-',$ruta);
         $id = $request->input('id');
-        $servicio = Hotel::FindOrFail($id);
-        if ($servicio->delete())
-            return 1;
-        else
-            return 0;
-    }
-
-    public function nuevo_producto()
-    {
+        $destino = explode('_', $destino);
+        $sericios = M_Servicio::where('grupo', $destino[1])->where('localizacion', $destino[2])->get();
         $destinations = M_Destino::get();
-        $servicios = M_Servicio::get();
-        $categorias = M_Category::get();
-        $hotel = Hotel::get();
-        session()->put('menu-lateral', 'Sproducts');
-        $proveedores = Proveedor::get();
-        $costos = M_Producto::get();
-        return view('admin.database.new_service', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations, 'hotel' => $hotel, 'proveedores' => $proveedores, 'costos' => $costos]);
+        $proveedores=Proveedor::get();
+        $costos=M_Producto::get();
+        $categoria_id = $id;
+        return view('admin.contabilidad.lista-servicios',compact(['id','destino','destinations','sericios','proveedores','costos','categoria_id','ruta','filtro']));
     }
-    public function listar_proveedores_service(Request $request)
+    public function listarServicios_destino_por_rutas_tipos(Request $request){
+        $ruta=explode('_',$request->input('destino'));
+        $punto_inicio=$ruta[2];
+        $grupo=$request->input('grupo');
+        $id=$request->input('id');
+        $pos=$request->input('pos');
+        return view('admin.contabilidad.lista-ruta-tipo-listar',compact(['punto_inicio','grupo','id','pos']));
+    }
+    public function listarServicios_destino_rutas_tipos(Request $request)
     {
-        $localizacion= $request->input('localizacion');
-        $grupo= $request->input('grupo');
-        $categoria= $request->input('categoria');
-        $proveedores=null;
-        if($grupo!='TRAINS')
-            $proveedores=Proveedor::where('localizacion',$localizacion)->where('grupo',$grupo)->get();
-        else
-            $proveedores=Proveedor::where('grupo',$grupo)->get();
-
-        $cadena='';
-        foreach ($proveedores as $proveedor){
-            $cadena.='<div class="checkbox1">
-                        <label class="puntero">
-                            <input class="proveedores_'.$categoria.'"  type="checkbox" aria-label="..." name="proveedores_[]" value="'.$proveedor->id.'_'.$proveedor->nombre_comercial.'">
-                            '.$proveedor->nombre_comercial.'
-                        </label>
-                    </div>';
-        }
-        if($cadena==''){
-            $cadena='<div class="alert alert-danger text-center">
-                    <p class="text-16">Upp!!! No hay proveedores para este destino</p>
-                    <span>Dirijase a <a target="_blank" href="'.route('provider_index_path').'">Providers</a> para ingresar nuevos proveedores</span>
-                    </div>';
-        }
-        return $cadena;
-
+        $filtro=$request->input('filtro');
+        $destino = $request->input('destino');
+        $ruta = $request->input('ruta');
+        $ruta =explode('-',$ruta);
+        $tipo = $request->input('tipo');
+        $id = $request->input('id');
+        $destino = explode('_', $destino);
+        $sericios = M_Servicio::where('grupo', $destino[1])->where('localizacion', $destino[2])->get();
+        $destinations = M_Destino::get();
+        $proveedores=Proveedor::get();
+        $costos=M_Producto::get();
+        $categoria_id = $id;
+        return view('admin.contabilidad.lista-servicios',compact(['id','destino','destinations','sericios','proveedores','costos','categoria_id','ruta','filtro','tipo']));
     }
-    public function eliminar_proveedores_service(Request $request)
-    {
-        $costo_id= $request->input('costo_id');
-        $proveedor_id= $request->input('proveedor_id');
-        $nro_usados=ItinerarioServicios::where('proveedor_id',$proveedor_id)->count('proveedor_id');
-        if($nro_usados>0){
-            return 2;
-        }
-        elseif($nro_usados==0){
-            $costo=M_Producto::FindOrFail($costo_id);
-            $valor=$costo->delete();
-            if($valor>0)
-                return 1;
-            else
-                return 0;
-        }
+    public function listar_rutas_train_salida(Request $request){
+        $punto_inicio=$request->input('punto_inicio');
+        $pos=$request->input('pos');
+        return view('admin.contabilidad.lista-ruta-salida',compact(['punto_inicio','pos']));
     }
-
+    public function listar_rutas_train_llegada(Request $request){
+        $punto_inicio=$request->input('punto_inicio');
+        $pos=$request->input('pos');
+        return view('admin.contabilidad.lista-ruta-llegada',compact(['punto_inicio','pos']));
+    }
 }

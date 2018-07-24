@@ -185,7 +185,7 @@
                                                 <b>{{date("d/m/Y",strtotime($itinerario->fecha))}}</b>
                                             </td>
                                             <td class="bg-grey-goto text-white">
-                                                <a href="{{route('nuevo_servicio_path',[$cotizacion->id,$itinerario->id,$itinerario->dias])}}"  class="btn btn-success">
+                                                <a href="{{route('servicios_add_path',[$cotizacion->id,$itinerario->id,$itinerario->dias])}}"  class="btn btn-success">
                                                     <i class="fa fa-plus-circle" aria-hidden="true"></i>Servicio
                                                 </a>
                                             </td>
@@ -304,9 +304,9 @@
                                                     {{$mate_SALE}}
                                                 </td>
                                                 {{--<td class="text-right">@if($servicios->precio_grupo==1){{$servicios->precio*2}}@else {{$servicios->precio}}@endif x {{$cotizacion->nropersonas}} = @if($servicios->precio_grupo==1){{$servicios->precio*2*$cotizacion->nropersonas}}@else {{$servicios->precio*$cotizacion->nropersonas}}@endif $</td>--}}
-                                                <td class="rights">
+                                                <td class="rights" id="book_precio_asig_{{$servicios->id}}">
                                                     @if($servicios->precio_proveedor)
-                                                        <span id="book_precio_asig_{{$servicios->id}}">${{$servicios->precio_proveedor}}</span>
+                                                        <span id="costo_servicio_{{$servicios->id}}">${{$servicios->precio_proveedor}}</span>
                                                         <a href="#!" id="boton_prove_costo_{{$servicios->id}}" data-toggle="modal" data-target="#myModal_costo_{{$servicios->id}}">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
@@ -370,6 +370,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    {{--@else--}}
+                                                        {{--<span id="book_precio_asig_{{$servicios->id}}"></span>--}}
                                                     @endif
                                                 </td>
                                                 <td class="boton">
@@ -473,7 +475,8 @@
                                                                                                                     <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo*1}}">
                                                                                                                 @else
                                                                                                                     {{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}
-                                                                                                                    <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}">
+                                                                                                                    {{--<input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}">--}}
+                                                                                                                    <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo*$cotizacion->nropersonas}}">
                                                                                                                 @endif $
                                                                                                             </label>
                                                                                                         </div>
@@ -492,7 +495,7 @@
                                                                         <div class="modal-footer">
                                                                             {{csrf_field()}}
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor({{$servicios->id}})">Guardar cambios</button>
+                                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor('{{$servicios->id}}','{{route('asignar_proveedor_costo_path')}}','{{csrf_token()}}')">Guardar cambios1</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -613,13 +616,14 @@
                                                                                                                     @endif
                                                                                                                 </p>
                                                                                                                 <input type="hidden" id="proveedor_servicio_{{$producto->id}}" value="{{$producto->proveedor->nombre_comercial}}">
-                                                                                                                <input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}" {!! $valor_chk !!}}>
+                                                                                                                <input class="grupo" type="radio" onchange="dato_producto({{$producto->id}})" name="precio[]" value="{{$cotizacion->id}}_{{$servicios->id}}_{{$producto->proveedor->id}}_{{$precio_book}}" {!! $valor_chk !!}>
                                                                                                                 @if($producto->precio_grupo==1)
                                                                                                                     {{$producto->precio_costo*1}}
                                                                                                                     <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo*1}}">
                                                                                                                 @else
                                                                                                                     {{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}
-                                                                                                                    <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}">
+                                                                                                                    {{--<input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo}}x{{$cotizacion->nropersonas}}={{$producto->precio_costo*$cotizacion->nropersonas}}">--}}
+                                                                                                                    <input type="hidden" id="book_price_{{$producto->id}}" value="{{$producto->precio_costo*$cotizacion->nropersonas}}">
                                                                                                                 @endif $
                                                                                                             </label>
                                                                                                         </div>
@@ -638,7 +642,7 @@
                                                                         <div class="modal-footer">
                                                                             {{csrf_field()}}
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor({{$servicios->id}})">Guardar cambios</button>
+                                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor('{{$servicios->id}}','{{route('asignar_proveedor_costo_path')}}','{{csrf_token()}}')">Guardar cambios</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -1356,7 +1360,28 @@
                                                     $sumatotal_v_r+=$total_book
                                                 @endphp
                                                 <td id="book_precio_asig_hotel_{{$hotel->id}}"  class="rights">
-                                                    {!! $cadena_total_book !!}
+                                                    @if($hotel->personas_s>0)
+                                                        @if($hotel->precio_s_r>0)
+                                                            <p id="book_price_edit_h_s_{{$hotel->id}}">${{$hotel->precio_s_r}}</p>
+                                                        @endif
+                                                    @endif
+                                                    @if($hotel->personas_d>0)
+                                                        @if($hotel->precio_d_r>0)
+                                                            <p id="book_price_edit_h_d_{{$hotel->id}}">${{$hotel->precio_d_r}}</p>
+                                                        @endif
+                                                    @endif
+                                                    @if($hotel->personas_m>0)
+                                                        @if($hotel->precio_m_r>0)
+                                                            <p id="book_price_edit_h_m_{{$hotel->id}}">${{$hotel->precio_m_r}}</p>
+                                                        @endif
+                                                    @endif
+                                                    @if($hotel->personas_t>0)
+                                                        @if($hotel->precio_t_r>0)
+                                                            <p id="book_price_edit_h_t_{{$hotel->id}}">${{$hotel->precio_t_r}}</p>
+                                                        @endif
+                                                    @endif
+
+                                                    {{--{!! $cadena_total_book !!}--}}
                                                     @if($hotel->proveedor)
                                                         <a href="#!" id="boton_prove_hotel_edit_cost_{{$hotel->id}}" data-toggle="modal" data-target="#myModal_edit_cost_h_{{$hotel->id}}">
                                                             <i class="fa fa-edit"></i>
@@ -1367,28 +1392,106 @@
                                                                     <form id="asignar_proveedor_hotel_path_{{$hotel->id}}" action="{{route('asignar_proveedor_hotel_path')}}" method="post">
                                                                         <div class="modal-header">
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-building" aria-hidden="true"></i> Lista de proveedores para el hotel</h4>
+                                                                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-building" aria-hidden="true"></i> Editar costo del hotel</h4>
                                                                         </div>
                                                                         <div class="modal-body clearfix">
                                                                             <table>
-                                                                                <tr>
-                                                                                    <td>
-                                                                        <span class="margin-bottom-5">
-                                                                            <b>1</b>
-                                                                            <span class="stick">
-                                                                                <i class="fa fa-bed" aria-hidden="true"></i>
-                                                                            </span>
-                                                                        </span>
-                                                                                    </td>
-                                                                                    <td><input type="number" class="form-control" id="book_price_edit_h_2941" name="txt_costo_edit"></td>
-                                                                                </tr>
+                                                                                @php
+                                                                                    $s=0;
+                                                                                    $d=0;
+                                                                                    $m=0;
+                                                                                    $t=0;
+                                                                                @endphp
+                                                                                @if($hotel->personas_s>0)
+                                                                                    @php
+                                                                                        $s=$hotel->personas_s;
+                                                                                    @endphp
+                                                                                    @if($hotel->precio_s_r>0)
+                                                                                        <tr class="text-left">
+                                                                                            <td width="100px">
+                                                                                                <span class="margin-bottom-5">
+                                                                                                    <b>{{$hotel->personas_s}}</b>
+                                                                                                    <span class="stick">
+                                                                                                        <i class="fa fa-bed" aria-hidden="true"></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td width="100px">
+                                                                                                <input type="number" class="form-control" id="book_price_edit_h_s_p_{{$hotel->id}}" name="txt_costo_edit_s" value="{{$hotel->precio_s_r}}">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                @endif
+                                                                                @if($hotel->personas_d>0)
+                                                                                    @php
+                                                                                        $d=$hotel->personas_d;
+                                                                                    @endphp
+                                                                                    @if($hotel->precio_d_r>0)
+                                                                                        <tr class="text-left">
+                                                                                            <td width="100px">
+                                                                                            <span class="margin-bottom-5">
+                                                                                                <b>{{$hotel->personas_d}}</b>
+                                                                                                <span class="stick">
+                                                                                                    <i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            </td>
+                                                                                            <td width="100px">
+                                                                                                <input type="number" class="form-control" id="book_price_edit_h_d_p_{{$hotel->id}}" name="txt_costo_edit_d" value="{{$hotel->precio_d_r}}">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                @endif
+                                                                                @if($hotel->personas_m>0)
+                                                                                    @php
+                                                                                        $m=$hotel->personas_m;
+                                                                                    @endphp
+                                                                                    @if($hotel->precio_m_r>0)
+                                                                                        <tr class="text-left">
+                                                                                            <td width="100px">
+                                                                                                <span class="margin-bottom-5">
+                                                                                                    <b>{{$hotel->personas_m}}</b>
+                                                                                                    <span class="stick">
+                                                                                                        <i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td width="100px">
+                                                                                                <input type="number" class="form-control" id="book_price_edit_h_m_p_{{$hotel->id}}" name="txt_costo_edit_d" value="{{$hotel->precio_m_r}}">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                @endif
+                                                                                @if($hotel->personas_t>0)
+                                                                                    @php
+                                                                                        $t=$hotel->personas_t;
+                                                                                    @endphp
+                                                                                    @if($hotel->precio_t_r>0)
+                                                                                        <tr class="text-left">
+                                                                                            <td width="100px">
+                                                                                                <span class="margin-bottom-5">
+                                                                                                    <b>{{$hotel->personas_t}}</b>
+                                                                                                    <span class="stick">
+                                                                                                        <i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td width="100px">
+                                                                                                <input type="number" class="form-control" id="book_price_edit_h_t_p_{{$hotel->id}}" name="txt_costo_edit_t" value="{{$hotel->precio_t_r}}">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                @endif
                                                                             </table>
+                                                                            <div class="col-md-12">
+                                                                                <b id="rpt_precio_proveedor_hotel_{{$hotel->id}}" class="text-success text-14"></b>
+                                                                            </div>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             {{csrf_field()}}
                                                                             <input type="hidden" name="id" value="{{$hotel->id}}">
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor_hotel({{$hotel->id}})">Guardar cambios</button>
+                                                                            <button type="button" class="btn btn-primary" onclick="Guardar_proveedor_hotel_costo({{$hotel->id}},{{$s}},{{$d}},{{$m}},{{$t}})">Guardar cambios</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -1439,6 +1542,12 @@
                                                                                                 {{$hotel_proveedor_->proveedor->nombre_comercial}}
                                                                                             </span>
                                                                                             </label>
+                                                                                            @php
+                                                                                                $s=0;
+                                                                                                $d=0;
+                                                                                                $m=0;
+                                                                                                $t=0;
+                                                                                            @endphp
                                                                                             @if($hotel->personas_s>0)
                                                                                                 <p class="text-green-goto">Single: ${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
                                                                                             @endif
@@ -1453,16 +1562,16 @@
                                                                                             @endif
                                                                                             <span class="hide" id="book_price_hotel_{{$hotel_proveedor_->id}}">
                                                                                             @if($hotel->personas_s>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_s}} x {{$hotel_proveedor_->single}} ={{($hotel_proveedor_->single*$hotel->personas_s)}}$</p>
+                                                                                                    <p class="text-green-goto">${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
                                                                                                 @endif
                                                                                                 @if($hotel->personas_d>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_d}} x {{$hotel_proveedor_->doble}} ={{$hotel_proveedor_->doble*$hotel->personas_d}}$</p>
+                                                                                                    <p class="text-green-goto">${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
                                                                                                 @endif
                                                                                                 @if($hotel->personas_m>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_m}} x {{$hotel_proveedor_->matrimonial}} ={{$hotel_proveedor_->matrimonial*$hotel->personas_m}}$</p>
+                                                                                                    <p class="text-green-goto">${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
                                                                                                 @endif
                                                                                                 @if($hotel->personas_t>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_t}} x {{$hotel_proveedor_->triple}} ={{$hotel_proveedor_->triple*$hotel->personas_t}}$</p>
+                                                                                                    <p class="text-green-goto">${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
                                                                                                 @endif
                                                                                         </span>
 
@@ -1525,16 +1634,16 @@
                                                                                             @endif
                                                                                             <span class="hide" id="book_price_hotel_{{$hotel_proveedor_->id}}">
                                                                                             @if($hotel->personas_s>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_s}} x {{$hotel_proveedor_->single}} ={{($hotel_proveedor_->single*$hotel->personas_s)}}$</p>
+                                                                                                    <p class="text-green-goto">${{($hotel_proveedor_->single*$hotel->personas_s)}}</p>
                                                                                                 @endif
                                                                                                 @if($hotel->personas_d>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_d}} x {{$hotel_proveedor_->doble}} ={{$hotel_proveedor_->doble*$hotel->personas_d}}$</p>
+                                                                                                    <p class="text-green-goto">${{$hotel_proveedor_->doble*$hotel->personas_d}}</p>
                                                                                                 @endif
                                                                                                 @if($hotel->personas_m>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_m}} x {{$hotel_proveedor_->matrimonial}} ={{$hotel_proveedor_->matrimonial*$hotel->personas_m}}$</p>
+                                                                                                    <p class="text-green-goto">${{$hotel_proveedor_->matrimonial*$hotel->personas_m}}</p>
                                                                                                 @endif
                                                                                                 @if($hotel->personas_t>0)
-                                                                                                    <p class="text-green-goto">{{$hotel->personas_t}} x {{$hotel_proveedor_->triple}} ={{$hotel_proveedor_->triple*$hotel->personas_t}}$</p>
+                                                                                                    <p class="text-green-goto">${{$hotel_proveedor_->triple*$hotel->personas_t}}</p>
                                                                                                 @endif
                                                                                         </span>
 
@@ -2095,51 +2204,13 @@
         </div>
     </div>
     <script>
+
         $(document).ready(function() {
             $('.clockpicker').clockpicker()
                 .find('input').change(function(){
                 // TODO: time changed
                 console.log(this.value);
             });
-//            $('.clockpicker').clockpicker({
-//                placement: 'top',
-//                align: 'left',
-//                donetext: 'Escojer'
-//            }
-//            );
-//            var input = $('.clockpicker').clockpicker({
-//                donetext: 'Done',
-//                init: function() {
-//                    console.log("colorpicker initiated");
-//                },
-//                beforeShow: function() {
-//                    console.log("before show");
-//                },
-//                afterShow: function() {
-//                    console.log("after show");
-//                },
-//                beforeHide: function() {
-//                    console.log("before hide");
-//                },
-//                afterHide: function() {
-//                    console.log("after hide");
-//                },
-//                beforeHourSelect: function() {
-//                    console.log("before hour selected");
-//                },
-//                afterHourSelect: function() {
-//                    console.log("after hour selected");
-//                },
-//                beforeDone: function() {
-//                    console.log("before done");
-//                },
-//                afterDone: function() {
-//                    console.log("after done");
-//                    console.log($(this).val());
-//
-//                }
-//            });
-//                $('[data-toggle="popover"]').popover()
 
             @foreach($cotizacion->paquete_cotizaciones as $paquete)
                 @if($paquete->estado==2)
@@ -2157,5 +2228,6 @@
             @endforeach
 
         });
+
     </script>
 @stop

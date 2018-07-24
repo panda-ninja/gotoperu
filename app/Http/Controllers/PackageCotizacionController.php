@@ -1830,6 +1830,7 @@ class PackageCotizacionController extends Controller
         $cliente=Cliente::FindOrFail($cliente_id);
         $cotizaciones=Cotizacion::where('id',$cotizacion_id)->get();
         $m_servicios=M_Servicio::get();
+
         return view('admin.package-details1',['cliente'=>$cliente,'cotizaciones'=>$cotizaciones,/*'destinos'=>$destinos*/'m_servicios'=>$m_servicios,'paquete_precio_id'=>$pqt_id]);
     }
     public function show_step1_editar($cliente_id, $cotizacion_id,$pqt_id)
