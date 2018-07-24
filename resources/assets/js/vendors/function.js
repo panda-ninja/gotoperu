@@ -3066,14 +3066,18 @@ function Guardar_proveedor_hotel(id) {
     // $('#asignar_proveedor_path_'+id).submit(function() {
     // Enviamos el formulario usando AJAX
     var prove='';
+    console.log('se guadara el proveedor');
     $.ajax({
-        type: 'POST',
+        type: 'post',
         url: $('#asignar_proveedor_hotel_path_'+id).attr('action'),
         data: $('#asignar_proveedor_hotel_path_'+id).serialize(),
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
+            console.log('data:'+data);
             if(data==1){
-                $('#rpt_precio_proveedor_hotel_'+id).html('Precio editado correctamente!');
+                $('#rpt_book_proveedor_hotel_'+id).removeClass('text-danger');
+                $('#rpt_book_proveedor_hotel_'+id).addClass('text-success');
+                $('#rpt_book_proveedor_hotel_'+id).html('Precio editado correctamente!');
                 // if(parseInt(s)>0)
                 //     $('#book_price_edit_h_s_'+id).html('$'+$('#book_price_edit_h_s_p_'+id).val());
                 // if(parseInt(d)>0)
@@ -3093,11 +3097,12 @@ function Guardar_proveedor_hotel(id) {
                 //
                 // $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
                 // mostrar_barra_avance();
+
             }
             else{
-                $('#rpt_precio_proveedor_hotel_'+id).removeClass('text-success');
-                $('#rpt_precio_proveedor_hotel_'+id).addClass('text-danger');
-                $('#rpt_precio_proveedor_hotel_'+id).html('Error al editar el precio!');
+                $('#rpt_book_proveedor_hotel_'+id).removeClass('text-success');
+                $('#rpt_book_proveedor_hotel_'+id).addClass('text-danger');
+                $('#rpt_book_proveedor_hotel'+id).html('Error al editar el precio!');
             }
         }
     })

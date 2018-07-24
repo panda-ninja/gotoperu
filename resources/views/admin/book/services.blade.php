@@ -1389,7 +1389,7 @@
                                                         <div class="modal fade" id="myModal_edit_cost_h_{{$hotel->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
-                                                                    <form id="asignar_proveedor_hotel_path_{{$hotel->id}}" action="{{route('asignar_proveedor_hotel_path')}}" method="post">
+                                                                    <form id="asignar_proveedor_hotel_costo_path_{{$hotel->id}}" action="{{route('asignar_proveedor_hotel_costo_path')}}" method="post">
                                                                         <div class="modal-header">
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                             <h4 class="modal-title" id="myModalLabel"><i class="fa fa-building" aria-hidden="true"></i> Editar costo del hotel</h4>
@@ -1536,11 +1536,11 @@
                                                                                     <div class="col-md-6">
                                                                                         <div class="checkbox11 text-left bg-info">
                                                                                             <label class="text-primary">
-                                                                                                <input class="grupo" onchange="dato_producto_hotel({{$hotel_proveedor_->id}})" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}" {!! $valor_class !!}>
+                                                                                                <input class="grupo" onchange="dato_producto_hotel({{$hotel_proveedor_->id}})" type="radio" name="precio" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}" {!! $valor_class !!}>
                                                                                                 <b>{{$hotel_proveedor_->proveedor->nombre_comercial}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></b>
                                                                                                 <span class="hide" id="proveedor_servicio_hotel_{{$hotel_proveedor_->id}}">
-                                                                                                {{$hotel_proveedor_->proveedor->nombre_comercial}}
-                                                                                            </span>
+                                                                                                    {{$hotel_proveedor_->proveedor->nombre_comercial}}
+                                                                                                </span>
                                                                                             </label>
                                                                                             @php
                                                                                                 $s=0;
@@ -1615,7 +1615,7 @@
                                                                                         <div class="checkbox11 text-left bg-info">
                                                                                             <label class="text-primary">
                                                                                                 <input class="grupo" onchange="dato_producto_hotel({{$hotel_proveedor_->id}})" type="radio" name="precio[]" value="{{$cotizacion->id}}_{{$hotel->id}}_{{$hotel_proveedor_->proveedor_id}}_{{$hotel_proveedor_->id}}">
-                                                                                                <b>{{$hotel_proveedor_->proveedor->nombre_comercial}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></>
+                                                                                                <b>{{$hotel_proveedor_->proveedor->nombre_comercial}} | {{$hotel_proveedor_->estrellas}}<i class="fa fa-star text-warning" aria-hidden="true"></i></b>
                                                                                                 <span class="hide" id="proveedor_servicio_hotel_{{$hotel_proveedor_->id}}">
                                                                                                 {{$hotel_proveedor_->proveedor->nombre_comercial}}
                                                                                             </span>
