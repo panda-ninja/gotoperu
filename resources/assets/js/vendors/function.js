@@ -70,8 +70,8 @@ function Pasar_datos(){
                     '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">' +
                     '<input type="hidden" name="itinerarios_1[]" value="' + itinerario[5] + '">' +
                     '<input type="hidden" name="itinerarios_2[]" value="' + itinerario[0] + '">' +
-                    '<span class="itinerarios_1 hide">' + itinerario[5] + '</span>' +
-                    '<span class="txt_itinerarios hide" name="itinerarios1">' + itinerario[0] + '</span>' +
+                    '<span class="itinerarios_1 d-none">' + itinerario[5] + '</span>' +
+                    '<span class="txt_itinerarios d-none" name="itinerarios1">' + itinerario[0] + '</span>' +
                     '<b class="dias_iti_c2" id="dias_' + total_Itinerarios + '">Dia ' + total_Itinerarios + ':</b> ' + itinerario[2] +
                     '</strong>' +
                     '<small>' +
@@ -209,15 +209,15 @@ function escojerPos(pos,cate) {
 
 }
 function mostrar_pivot(cate){
-    $("#t_TOURS").addClass('hide');
-    $("#t_MOVILID").addClass('hide');
-    $("#t_REPRESENT").addClass('hide');
-    $("#t_ENTRANCES").addClass('hide');
-    $("#t_FOOD").addClass('hide');
-    $("#t_TRAINS").addClass('hide');
-    $("#t_FLIGHTS").addClass('hide');
-    $("#t_OTHERS").addClass('hide');
-    $("#t_"+cate).removeClass('hide');
+    $("#t_TOURS").addClass('d-none');
+    $("#t_MOVILID").addClass('d-none');
+    $("#t_REPRESENT").addClass('d-none');
+    $("#t_ENTRANCES").addClass('d-none');
+    $("#t_FOOD").addClass('d-none');
+    $("#t_TRAINS").addClass('d-none');
+    $("#t_FLIGHTS").addClass('d-none');
+    $("#t_OTHERS").addClass('d-none');
+    $("#t_"+cate).removeClass('d-none');
 }
 
 function eliminar_servicio(local,id,servicio) {
@@ -284,13 +284,13 @@ function mostrar_new_cost() {
     console.log('mostrando datos');
     if(desicion==0){
         desicion=1;
-        $("#modal_new_cost").removeClass('hide');
+        $("#modal_new_cost").removeClass('d-none');
         $("#modal_new_cost").fadeIn( "slow");
         console.log('mostrando');
     }
     else if(desicion==1){
         desicion=0;
-        $("#modal_new_cost").addClass('hide');
+        $("#modal_new_cost").addClass('d-none');
         $("#modal_new_cost").fadeOut( "slow");
         console.log('ocultando');
     }
@@ -459,7 +459,7 @@ function  filtrar_grupos(){
             }
         });
         if(esta==1) {
-            $('#service_'+servicio3[2]).removeClass("hide");
+            $('#service_'+servicio3[2]).removeClass("d-none");
             $('#service_'+servicio3[2]).fadeIn("slow");
 
         }
@@ -509,7 +509,7 @@ function  filtrar_grupos_edit(itinerario){
             }
         });
         if(esta==1) {
-            $('#service_'+servicio3[2]).removeClass("hide");
+            $('#service_'+servicio3[2]).removeClass("d-none");
             $('#service_'+servicio3[2]).fadeIn("slow");
 
         }
@@ -545,13 +545,13 @@ function  filtrar_grupos_edit(itinerario){
                 }
             });
             if(esta==1) {
-                $('#service_edit_'+itinerario+'_'+servicio3[2]).removeClass("hide");
+                $('#service_edit_'+itinerario+'_'+servicio3[2]).removeClass("d-none");
                 $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeIn("slow");
                 // console.log('no borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
             else {
                 $(this).prop("checked", "");
-                $('#service_edit_'+itinerario+'_'+servicio3[2]).addClass("hide");
+                $('#service_edit_'+itinerario+'_'+servicio3[2]).addClass("d-none");
                 $('#service_edit_'+itinerario+'_'+servicio3[2]).fadeOut("slow");
                 console.log('borrando:'+'#service_edit_'+itinerario+'_'+servicio3[2]);
             }
@@ -568,7 +568,7 @@ function  filtrar_itinerarios(){
     var destino1 =$('#desti').val().split('/');
     //
     $.each(destino1,function (index1,value){
-        $('#group_destino_'+value).addClass("hide");
+        $('#group_destino_'+value).addClass("d-none");
         $('#group_destino_'+value).fadeOut("slow");
     });
     var esta=0;
@@ -579,7 +579,7 @@ function  filtrar_itinerarios(){
             valorci=$(this).val().split('_');
             console.log('destino escojido:'+valorci[0]);
             destinos+=valorci[0]+'/';
-            $('#group_destino_'+valorci[0]).removeClass("hide");
+            $('#group_destino_'+valorci[0]).removeClass("d-none");
             $('#group_destino_'+valorci[0]).fadeIn("slow");
 
         }
@@ -874,102 +874,102 @@ function calcular_resumen() {
 }
 function filtrar_estrellas(){
     if( $('#strellas_2').prop('checked') ) {
-        $('#precio_2').removeClass('hide');
+        $('#precio_2').removeClass('d-none');
         $('#precio_2').fadeIn();
-        $('#precio_2_t').removeClass('hide');
+        $('#precio_2_t').removeClass('d-none');
         $('#precio_2_t').fadeIn();
-        $('#precio_t_2').removeClass('hide');
+        $('#precio_t_2').removeClass('d-none');
         $('#precio_t_2').fadeIn();
-        $('#precio_d_2').removeClass('hide');
+        $('#precio_d_2').removeClass('d-none');
         $('#precio_d_2').fadeIn();
-        $('#precio_s_2').removeClass('hide');
+        $('#precio_s_2').removeClass('d-none');
         $('#precio_s_2').fadeIn();
     }
     else{
-        $('#precio_2').addClass('hide');
+        $('#precio_2').addClass('d-none');
         $('#precio_2').fadeOut();
-        $('#precio_2_t').addClass('hide');
+        $('#precio_2_t').addClass('d-none');
         $('#precio_2_t').fadeOut();
-        $('#precio_t_2').addClass('hide');
+        $('#precio_t_2').addClass('d-none');
         $('#precio_t_2').fadeOut();
-        $('#precio_d_2').addClass('hide');
+        $('#precio_d_2').addClass('d-none');
         $('#precio_d_2').fadeOut();
-        $('#precio_s_2').addClass('hide');
+        $('#precio_s_2').addClass('d-none');
         $('#precio_s_2').fadeOut();
     }
 
     if( $('#strellas_3').prop('checked') ) {
-        $('#precio_3').removeClass('hide');
+        $('#precio_3').removeClass('d-none');
         $('#precio_3').fadeIn();
-        $('#precio_3_t').removeClass('hide');
+        $('#precio_3_t').removeClass('d-none');
         $('#precio_3_t').fadeIn();
-        $('#precio_t_3').removeClass('hide');
+        $('#precio_t_3').removeClass('d-none');
         $('#precio_t_3').fadeIn();
-        $('#precio_d_3').removeClass('hide');
+        $('#precio_d_3').removeClass('d-none');
         $('#precio_d_3').fadeIn();
-        $('#precio_s_3').removeClass('hide');
+        $('#precio_s_3').removeClass('d-none');
         $('#precio_s_3').fadeIn();
     }
     else{
-        $('#precio_3').addClass('hide');
+        $('#precio_3').addClass('d-none');
         $('#precio_3').fadeOut();
-        $('#precio_3_t').addClass('hide');
+        $('#precio_3_t').addClass('d-none');
         $('#precio_3_t').fadeOut();
-        $('#precio_t_3').addClass('hide');
+        $('#precio_t_3').addClass('d-none');
         $('#precio_t_3').fadeOut();
-        $('#precio_d_3').addClass('hide');
+        $('#precio_d_3').addClass('d-none');
         $('#precio_d_3').fadeOut();
-        $('#precio_s_3').addClass('hide');
+        $('#precio_s_3').addClass('d-none');
         $('#precio_s_3').fadeOut();
     }
 
     if( $('#strellas_4').prop('checked') ) {
-        $('#precio_4').removeClass('hide');
+        $('#precio_4').removeClass('d-none');
         $('#precio_4').fadeIn();
-        $('#precio_4_t').removeClass('hide');
+        $('#precio_4_t').removeClass('d-none');
         $('#precio_4_t').fadeIn();
-        $('#precio_t_4').removeClass('hide');
+        $('#precio_t_4').removeClass('d-none');
         $('#precio_t_4').fadeIn();
-        $('#precio_d_4').removeClass('hide');
+        $('#precio_d_4').removeClass('d-none');
         $('#precio_d_4').fadeIn();
-        $('#precio_s_4').removeClass('hide');
+        $('#precio_s_4').removeClass('d-none');
         $('#precio_s_4').fadeIn();
     }
     else{
-        $('#precio_4').addClass('hide');
+        $('#precio_4').addClass('d-none');
         $('#precio_4').fadeOut();
-        $('#precio_4_t').addClass('hide');
+        $('#precio_4_t').addClass('d-none');
         $('#precio_4_t').fadeOut();
-        $('#precio_t_4').addClass('hide');
+        $('#precio_t_4').addClass('d-none');
         $('#precio_t_4').fadeOut();
-        $('#precio_d_4').addClass('hide');
+        $('#precio_d_4').addClass('d-none');
         $('#precio_d_4').fadeOut();
-        $('#precio_s_4').addClass('hide');
+        $('#precio_s_4').addClass('d-none');
         $('#precio_s_4').fadeOut();
     }
 
     if( $('#strellas_5').prop('checked') ) {
-        $('#precio_5').removeClass('hide');
+        $('#precio_5').removeClass('d-none');
         $('#precio_5').fadeIn();
-        $('#precio_5_t').removeClass('hide');
+        $('#precio_5_t').removeClass('d-none');
         $('#precio_5_t').fadeIn();
-        $('#precio_t_5').removeClass('hide');
+        $('#precio_t_5').removeClass('d-none');
         $('#precio_t_5').fadeIn();
-        $('#precio_d_5').removeClass('hide');
+        $('#precio_d_5').removeClass('d-none');
         $('#precio_d_5').fadeIn();
-        $('#precio_s_5').removeClass('hide');
+        $('#precio_s_5').removeClass('d-none');
         $('#precio_s_5').fadeIn();
     }
     else{
-        $('#precio_5').addClass('hide');
+        $('#precio_5').addClass('d-none');
         $('#precio_5').fadeOut();
-        $('#precio_5_t').addClass('hide');
+        $('#precio_5_t').addClass('d-none');
         $('#precio_5_t').fadeOut();
-        $('#precio_t_5').addClass('hide');
+        $('#precio_t_5').addClass('d-none');
         $('#precio_t_5').fadeOut();
-        $('#precio_d_5').addClass('hide');
+        $('#precio_d_5').addClass('d-none');
         $('#precio_d_5').fadeOut();
-        $('#precio_s_5').addClass('hide');
+        $('#precio_s_5').addClass('d-none');
         $('#precio_s_5').fadeOut();
     }
 }
@@ -1054,11 +1054,11 @@ function mostrar_categoria(plan_id){
     var $categoria=$('#categoria').val();
     var $travelers=$('#travelers').val();
     console.log($categoria+'_'+$travelers);
-    $('#star_2').addClass('hide');
-    $('#star_3').addClass('hide');
-    $('#star_4').addClass('hide');
-    $('#star_5').addClass('hide');
-    $('#star_'+$categoria).removeClass('hide');
+    $('#star_2').addClass('d-none');
+    $('#star_3').addClass('d-none');
+    $('#star_4').addClass('d-none');
+    $('#star_5').addClass('d-none');
+    $('#star_'+$categoria).removeClass('d-none');
     $('#pos').val($categoria);
     var s=0;
     var d=0;
@@ -1166,19 +1166,19 @@ function eliminar_paquete(id,destino) {
 function mostra_ventas(mes,cat){
     // if(cat=='c') {
         // var =$("#t_ene_c").html()
-        $("#t_ene_c").addClass('hide');
-        $("#t_feb_c").addClass('hide');
-        $("#t_mar_c").addClass('hide');
-        $("#t_abr_c").addClass('hide');
-        $("#t_may_c").addClass('hide');
-        $("#t_jun_c").addClass('hide');
-        $("#t_jul_c").addClass('hide');
-        $("#t_ago_c").addClass('hide');
-        $("#t_set_c").addClass('hide');
-        $("#t_oct_c").addClass('hide');
-        $("#t_nov_c").addClass('hide');
-        $("#t_dic_c").addClass('hide');
-        $("#t_"+mes+"_c").removeClass('hide');
+        $("#t_ene_c").addClass('d-none');
+        $("#t_feb_c").addClass('d-none');
+        $("#t_mar_c").addClass('d-none');
+        $("#t_abr_c").addClass('d-none');
+        $("#t_may_c").addClass('d-none');
+        $("#t_jun_c").addClass('d-none');
+        $("#t_jul_c").addClass('d-none');
+        $("#t_ago_c").addClass('d-none');
+        $("#t_set_c").addClass('d-none');
+        $("#t_oct_c").addClass('d-none');
+        $("#t_nov_c").addClass('d-none');
+        $("#t_dic_c").addClass('d-none');
+        $("#t_"+mes+"_c").removeClass('d-none');
         $("#n_mes_ene_c").removeClass('text-primary');
         $("#n_mes_ene_c").removeClass('text-uppercase');
         $("#n_mes_feb_c").removeClass('text-primary');
@@ -1206,19 +1206,19 @@ function mostra_ventas(mes,cat){
         $("#n_mes_"+mes+"_c").addClass('text-primary');
         $("#n_mes_"+mes+"_c").addClass('text-uppercase');
 
-        $("#t_ene_s").addClass('hide');
-        $("#t_feb_s").addClass('hide');
-        $("#t_mar_s").addClass('hide');
-        $("#t_abr_s").addClass('hide');
-        $("#t_may_s").addClass('hide');
-        $("#t_jun_s").addClass('hide');
-        $("#t_jul_s").addClass('hide');
-        $("#t_ago_s").addClass('hide');
-        $("#t_set_s").addClass('hide');
-        $("#t_oct_s").addClass('hide');
-        $("#t_nov_s").addClass('hide');
-        $("#t_dic_s").addClass('hide');
-        $("#t_"+mes+"_s").removeClass('hide');
+        $("#t_ene_s").addClass('d-none');
+        $("#t_feb_s").addClass('d-none');
+        $("#t_mar_s").addClass('d-none');
+        $("#t_abr_s").addClass('d-none');
+        $("#t_may_s").addClass('d-none');
+        $("#t_jun_s").addClass('d-none');
+        $("#t_jul_s").addClass('d-none');
+        $("#t_ago_s").addClass('d-none');
+        $("#t_set_s").addClass('d-none');
+        $("#t_oct_s").addClass('d-none');
+        $("#t_nov_s").addClass('d-none');
+        $("#t_dic_s").addClass('d-none');
+        $("#t_"+mes+"_s").removeClass('d-none');
         $("#n_mes_ene_s").removeClass('text-primary');
         $("#n_mes_ene_s").removeClass('text-uppercase');
         $("#n_mes_feb_s").removeClass('text-primary');
@@ -1333,11 +1333,11 @@ function calcular_saldo(id){
     var $saldo=parseFloat($total-$serv_acta);
     console.log('total:'+$total+'_acta:'+$serv_acta+'_saldo:'+$saldo);
     $('#saldo_'+id).val($saldo);
-    $('#ifecha_pago_'+id).removeClass('hide');
+    $('#ifecha_pago_'+id).removeClass('d-none');
     if($saldo==0)
-        $('#ifecha_pago_'+id).addClass('hide');
+        $('#ifecha_pago_'+id).addClass('d-none');
     else
-        $('#ifecha_pago_'+id).removeClass('hide');
+        $('#ifecha_pago_'+id).removeClass('d-none');
 }
 function enviar_form(id){
     $('#fo_'+id).submit(function() {
@@ -1353,7 +1353,7 @@ function enviar_form(id){
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 if(data==1){
-                    $('#for_'+id).addClass('hide');
+                    $('#for_'+id).addClass('d-none');
                     $('#result_'+id).removeClass('text-danger');
                     $('#result_'+id).addClass('text-success');
                     $('#result_'+id).html('Pago guardado Correctamente!');
@@ -1471,7 +1471,7 @@ function Eliminar_cotizacion(id,titulo) {
         $.post('/admin/cotizacion/delete', 'id='+id, function(data) {
             if(data==1){
                 // $("#coti_new"+id).fadeOut( "slow");
-                $('#content-list-'+id).addClass('hide');
+                $('#content-list-'+id).addClass('d-none');
             }
         }).fail(function (data) {
             console.log(data);
@@ -1584,20 +1584,20 @@ var escojer_consulta1=0;
 function escojer_consulta() {
     if(escojer_consulta1==0) {
         $('#lista').fadeOut();
-        $('#lista').addClass('hide');
+        $('#lista').addClass('d-none');
 
         $('#custon').fadeIn();
-        $('#custon').removeClass('hide');
+        $('#custon').removeClass('d-none');
         escojer_consulta1=1;
         $('#custon1').html('Lista');
         $('#opcion').val('Custon');
     }
     else{
         $('#custon').fadeOut();
-        $('#custon').addClass('hide');
+        $('#custon').addClass('d-none');
 
         $('#lista').fadeIn();
-        $('#lista').removeClass('hide');
+        $('#lista').removeClass('d-none');
         escojer_consulta1=0;
         $('#custon1').html('Custon');
         $('#opcion').val('Lista');
@@ -1608,7 +1608,7 @@ function  filtrar_itinerarios1(){
     var destino1 =$('#desti').val().split('/');
 
     $.each(destino1,function (index1,value){
-        $('#group_destino_'+value).addClass("hide");
+        $('#group_destino_'+value).addClass("d-none");
         $('#group_destino_'+value).fadeOut("slow");
     });
     var esta=0;
@@ -1620,7 +1620,7 @@ function  filtrar_itinerarios1(){
             console.log('destino escojido:'+valorci[0]);
             destinos+=valorci[0]+'/';
             var destino = $(this).val();
-            $('#group_destino_'+valorci[0]).removeClass("hide");
+            $('#group_destino_'+valorci[0]).removeClass("d-none");
             $('#group_destino_'+valorci[0]).fadeIn("slow");
         }
     });
@@ -1667,8 +1667,8 @@ function Pasar_datos1(){
                     '<img src="https://assets.pipedrive.com/images/icons/profile_120x120.svg" alt="">' +
                     // '<input type="hidden" name="itinerarios_1[]" value="' + itinerario[5] + '">' +
                     '<input type="hidden" name="itinerarios_2[]" value="' + itinerario[0] + '">' +
-                    '<span class="itinerarios_1 hide">' + itinerario[5] + '</span>' +
-                    '<span class="txt_itinerarios hide" name="itinerarios1">' + itinerario[0] + '</span>' +
+                    '<span class="itinerarios_1 d-none">' + itinerario[5] + '</span>' +
+                    '<span class="txt_itinerarios d-none" name="itinerarios1">' + itinerario[0] + '</span>' +
                     '<b class="dias_iti_c2" id="dias_' + total_Itinerarios_camino2 + '">Dia ' + total_Itinerarios_camino2 + ':</b> ' + itinerario[2] +
                     '</strong>' +
                     '<small>' +
@@ -2109,7 +2109,7 @@ function filtrar_itinerarios_(){
     var pos=1;
     $("input[class='lista_itinerarios3']").each(function (index) {
         for(var i=2;i<=5;i++){
-            $('#itinerario3_'+i+'_'+pos).addClass('hide');
+            $('#itinerario3_'+i+'_'+pos).addClass('d-none');
             pos++;
         }
     });
@@ -2121,7 +2121,7 @@ function filtrar_itinerarios_(){
         if(dias_f==pqt[1]){
             if(coinciden(desti_f,pqt[2])){
                 console.log('coinciden E:'+desti_f+' O:'+pqt[2]);
-                $('#itinerario3_'+estrellas+'_'+pos1).removeClass("hide");
+                $('#itinerario3_'+estrellas+'_'+pos1).removeClass("d-none");
             }
         }
         pos1++;
@@ -2141,10 +2141,10 @@ function coinciden(escojidos,ofertados) {
         return false;
 }
 function filtrar_itinerarios_admin(){
-    $('#caja_load').removeClass("hide");
+    $('#caja_load').removeClass("d-none");
     filtrar_itinerarios_();
     setTimeout(function(){
-        $('#caja_load').addClass("hide");
+        $('#caja_load').addClass("d-none");
     }, 3000);
 }
 var paquete_id_21=0;
@@ -2563,15 +2563,15 @@ function escojerPos_edit(daybyday,pos,cate) {
 }
 function mostrar_pivot_edit(daybyday,cate){
     console.log('Escojiste:'+cate);
-    $("#t_edit_"+daybyday+"_TOURS").addClass('hide');
-    $("#t_edit_"+daybyday+"_MOVILID").addClass('hide');
-    $("#t_edit_"+daybyday+"_REPRESENT").addClass('hide');
-    $("#t_edit_"+daybyday+"_ENTRANCES").addClass('hide');
-    $("#t_edit_"+daybyday+"_FOOD").addClass('hide');
-    $("#t_edit_"+daybyday+"_TRAINS").addClass('hide');
-    $("#t_edit_"+daybyday+"_FLIGHTS").addClass('hide');
-    $("#t_edit_"+daybyday+"_OTHERS").addClass('hide');
-    $("#t_edit_"+daybyday+"_"+cate).removeClass('hide');
+    $("#t_edit_"+daybyday+"_TOURS").addClass('d-none');
+    $("#t_edit_"+daybyday+"_MOVILID").addClass('d-none');
+    $("#t_edit_"+daybyday+"_REPRESENT").addClass('d-none');
+    $("#t_edit_"+daybyday+"_ENTRANCES").addClass('d-none');
+    $("#t_edit_"+daybyday+"_FOOD").addClass('d-none');
+    $("#t_edit_"+daybyday+"_TRAINS").addClass('d-none');
+    $("#t_edit_"+daybyday+"_FLIGHTS").addClass('d-none');
+    $("#t_edit_"+daybyday+"_OTHERS").addClass('d-none');
+    $("#t_edit_"+daybyday+"_"+cate).removeClass('d-none');
 }
 
 function guardar_obs_servicio(id){
@@ -2601,7 +2601,7 @@ function guardar_obs_servicio(id){
 }
 
 function CierraPopup(id) {
-    $("#myModal_serv"+id).modal('hide');//ocultamos el modal
+    $("#myModal_serv"+id).modal('d-none');//ocultamos el modal
     $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
     $('.modal-backdrop').remove();//eliminamos el backdrop del modal
 }
@@ -3072,13 +3072,13 @@ function guardarPrecio(valor,id,fecha){
             success: function(data) {
                 console.log('data:'+data);
                 if(data==1) {
-                    $('#btn_save_'+id).addClass('hide');
+                    $('#btn_save_'+id).addClass('d-none');
                     swal(
                         'Genial...',
                         'El precio se guardo correctamente!',
                         'success'
                     )
-                    $('#btn_pagar_'+id).removeClass('hide');
+                    $('#btn_pagar_'+id).removeClass('d-none');
                 }
 
             }
@@ -3109,13 +3109,13 @@ function guardarPrecio_h(valor,id,fecha){
             success: function(data) {
                 console.log('data:'+data);
                 if(data==1) {
-                    $('#btn_save_h_'+id).addClass('hide');
+                    $('#btn_save_h_'+id).addClass('d-none');
                     swal(
                         'Genial...',
                         'El precio se guardo correctamente!',
                         'success'
                     )
-                    $('#btn_pagar_h_'+id).removeClass('hide');
+                    $('#btn_pagar_h_'+id).removeClass('d-none');
                 }
 
             }
@@ -3155,14 +3155,14 @@ function pagar_entrada(id,valor){
             success: function(data) {
             console.log('data:'+data);
             if(data==1) {
-                $('#btn_pagar_'+id).addClass('hide');
-                $('#btn_revertir_'+id).removeClass('hide');
+                $('#btn_pagar_'+id).addClass('d-none');
+                $('#btn_revertir_'+id).removeClass('d-none');
                 swal(
                     'Genial...',
                     'El pago se guardo correctamente!',
                     'success'
                 )
-                $('#check_'+id).removeClass('hide');
+                $('#check_'+id).removeClass('d-none');
 
                 $('#fecha_'+id).removeClass('bg-danger');
                 $('#fecha_'+id).addClass('bg-success');
@@ -3229,7 +3229,7 @@ function pagar_entrada_pagos(id,valor){
                 console.log('data:'+data);
                 if(data==1) {
                     var cvalor=parseFloat(valor);
-                    $('#btn_pagar_ticket_'+id).addClass('hide');
+                    $('#btn_pagar_ticket_'+id).addClass('d-none');
                     $('#a_cuenta_r_'+id).html('$'+cvalor);
                     $('#saldo_r_'+id).html('$0');
                     var total_a_cuenta = parseFloat($('#total_a_cuenta').html());
@@ -3243,7 +3243,7 @@ function pagar_entrada_pagos(id,valor){
                         'El pago se guardo correctamente!',
                         'success'
                     )
-                    $('#check_'+id).removeClass('hide');
+                    $('#check_'+id).removeClass('d-none');
                 }
 
             }
@@ -3390,13 +3390,13 @@ function guardarPrecio_Ticket(valor,id,fecha,pax){
             success: function(data) {
                 console.log('data:'+data);
                 if(data==1) {
-                    $('#btn_save_ticket_'+id).addClass('hide');
+                    $('#btn_save_ticket_'+id).addClass('d-none');
                     swal(
                         'Genial...',
                         'El precio se guardo correctamente!',
                         'success'
                     )
-                    $('#btn_pagar_ticket_'+id).removeClass('hide');
+                    $('#btn_pagar_ticket_'+id).removeClass('d-none');
                 }
 
             }
@@ -3632,15 +3632,15 @@ function revertir_pago_entrada(id,valor){
             success: function(data) {
                 console.log('data:'+data);
                 if(data==1) {
-                    $('#btn_pagar_'+id).removeClass('hide');
-                    $('#btn_revertir_'+id).addClass('hide');
+                    $('#btn_pagar_'+id).removeClass('d-none');
+                    $('#btn_revertir_'+id).addClass('d-none');
 
                     swal(
                         'Genial...',
                         'El pago se revirtio correctamente!',
                         'success'
                     )
-                    $('#check_'+id).addClass('hide');
+                    $('#check_'+id).addClass('d-none');
 
                     $('#fecha_'+id).removeClass('bg-success');
                     $('#fecha_'+id).addClass('bg-danger');
@@ -3903,25 +3903,25 @@ function ordenar_servicios() {
 function mostrar_hoteles_categoria(pos) {
     var cate = $('#txt_categoria_' + pos).val();
     for(var i=2;i<=5;i++) {
-        $("#header_"+i).addClass("hide");
-        $("#dato_s_"+i).addClass("hide");
-        $("#dato_d_"+i).addClass("hide");
-        $("#dato_m_"+i).addClass("hide");
-        $("#dato_t_"+i).addClass("hide");
-        $("#dato_ss_"+i).addClass("hide");
-        $("#dato_sd_"+i).addClass("hide");
-        $("#dato_su_"+i).addClass("hide");
-        $("#dato_js_"+i).addClass("hide");
+        $("#header_"+i).addClass("d-none");
+        $("#dato_s_"+i).addClass("d-none");
+        $("#dato_d_"+i).addClass("d-none");
+        $("#dato_m_"+i).addClass("d-none");
+        $("#dato_t_"+i).addClass("d-none");
+        $("#dato_ss_"+i).addClass("d-none");
+        $("#dato_sd_"+i).addClass("d-none");
+        $("#dato_su_"+i).addClass("d-none");
+        $("#dato_js_"+i).addClass("d-none");
     }
-    $("#header_"+cate).removeClass("hide");
-    $("#dato_s_"+cate).removeClass("hide");
-    $("#dato_d_"+cate).removeClass("hide");
-    $("#dato_m_"+cate).removeClass("hide");
-    $("#dato_t_"+cate).removeClass("hide");
-    $("#dato_ss_"+cate).removeClass("hide");
-    $("#dato_sd_"+cate).removeClass("hide");
-    $("#dato_su_"+cate).removeClass("hide");
-    $("#dato_js_"+cate).removeClass("hide");
+    $("#header_"+cate).removeClass("d-none");
+    $("#dato_s_"+cate).removeClass("d-none");
+    $("#dato_d_"+cate).removeClass("d-none");
+    $("#dato_m_"+cate).removeClass("d-none");
+    $("#dato_t_"+cate).removeClass("d-none");
+    $("#dato_ss_"+cate).removeClass("d-none");
+    $("#dato_sd_"+cate).removeClass("d-none");
+    $("#dato_su_"+cate).removeClass("d-none");
+    $("#dato_js_"+cate).removeClass("d-none");
 }
 function limpiar_caja_servicios() {
     $("#list_servicios_grupo").html('');
@@ -4006,12 +4006,12 @@ function mostrar_class(proveedor_id,array_pro,grupo,id,idservicio) {
     var proveedor = proveedor_id.split('_');
     if (proveedor_id!='0'){
         $.each(array_prove_train, function (key, value) {
-            $("#proveedor_" + value).addClass('hide');
+            $("#proveedor_" + value).addClass('d-none');
             $("#proveedor_" + value).fadeOut("slow");
         });
-        $("#proveedor_" + proveedor[0]).removeClass('hide');
+        $("#proveedor_" + proveedor[0]).removeClass('d-none');
         $("#proveedor_" + proveedor[0]).fadeIn("slow");
-        // $("#fila_"+proveedor_id).removeClass('hide');
+        // $("#fila_"+proveedor_id).removeClass('d-none');
         // $("#fila_"+proveedor_id).fadeIn("slow");
         var iti_temp1 = '';
         iti_temp1 = '<div id="fila_' + grupo + '_' + id + '_' + idservicio + '_' + proveedor[0] + '" class="row">' +

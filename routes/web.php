@@ -277,6 +277,11 @@ Route::post('admin/show-cotization/', [
     'as' => 'cotizacion_show_path',
 ]);
 //hidalgo
+//INVENTORY
+Route::get('admin/inventory/', [
+    'uses' => 'IndexController@inventory',
+    'as' => 'inventory_path',
+]);
 //client
 Route::get('admin/pax/', [
     'uses' => 'QouteController@pax',

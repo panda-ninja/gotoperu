@@ -38,39 +38,47 @@
         $todo_destinos=substr($todo_destinos,0,strlen($todo_destinos)-1);
     @endphp
     <input type="hidden" name="todos_destinos" id="todos_destinos" value="{{$todo_destinos}}">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li>Database</li>
-            <li class="active">Products</li>
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white m-0">
+            <li class="breadcrumb-item" aria-current="page"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">Products</li>
         </ol>
+    </nav>
+    <hr>
+
+    <div class="row">
+        <div class="col">
+            <a href="{{route('nuevo_producto_path')}}" class="btn btn-primary">
+                New <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            </a>
+        </div>
     </div>
-    <div class="row margin-top-20">
-        <a href="{{route('nuevo_producto_path')}}" class="btn btn-primary">
-            New <i class="fa fa-plus-circle" aria-hidden="true"></i>
-        </a>
- </div>
-    <div class="row margin-top-20">
-        <ul class="nav nav-tabs">
-            <?php
-            $pos=0;
-            ?>
-            @foreach($categorias as $categoria)
+    <div class="row mt-3">
+        <div class="col">
+            <ul class="nav nav-tabs nav-justified">
                 <?php
-                $activo='';
+                $pos=0;
                 ?>
-                @if($pos==0)
+                @foreach($categorias as $categoria)
                     <?php
-                    $activo='active';
+                    $activo='';
                     ?>
-                @endif
-                <li class="{{$activo}}"><a data-toggle="tab" href="#t_{{$categoria->nombre}}" onclick="escojerPos({{$pos}},'{{$categoria->nombre}}')">{{$categoria->nombre}}</a></li>
-                <?php
-                $pos++;
-                ?>
-            @endforeach
-        </ul>
-        <div class="tab-content margin-top-20">
+                    @if($pos==0)
+                        <?php
+                        $activo='active';
+                        ?>
+                    @endif
+                    <li class="nav-item active">
+                        <a data-toggle="tab" href="#t_{{$categoria->nombre}}" class="nav-link show {{$activo}}" role="tab" aria-controls="pills-home" aria-selected="true" onclick="escojerPos({{$pos}},'{{$categoria->nombre}}')">{{$categoria->nombre}}</a>
+                    </li>
+                    <?php
+                    $pos++;
+                    ?>
+                @endforeach
+            </ul>
+            <div class="tab-content margin-top-20">
             <?php
             $pos=0;
             ?>
@@ -83,11 +91,12 @@
                     $activo='in active';
                     ?>
                 @endif
-                <div id="t_{{$categoria->nombre}}" class="tab-pane fade {{$activo}}">
+                <div id="t_{{$categoria->nombre}}" class="tab-pane fade show {{$activo}}">
 
                     @if($categoria->nombre!='HOTELS')
                         @if($categoria->nombre=='TRAINS')
-                            <div class="col-lg-2 no-padding">
+                            <div class="row">
+                            <div class="col-lg-2">
                                 <div class="estilo_form clearfix text-10">
                                     <label class="">
                                         <input type="radio" name="ida" id="id" value="ida" onclick="mostrar_info('ida_{{$categoria->nombre}}')" checked="checked">
@@ -137,6 +146,7 @@
                             </div>
                             <div id="tb_datos_{{$categoria->nombre}}">
                             </div>
+                            </div>
                         @else
                             <div class="col-lg-12">
                                 <div class="col-lg-4 padding-left-0">
@@ -153,7 +163,7 @@
                         @endif
                     @else
 
-                        <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+                        <table id="tb_{{$categoria->nombre}}" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>Localizacion</th>
@@ -171,14 +181,14 @@
                             <tbody>
                             @foreach($hotel->sortBy('localizacion') as $hotel_)
                                 <tr id="lista_services_h_{{$hotel_->id}}">
-                                    <td class="text-green-goto">{{$hotel_->localizacion}}</td>
-                                    <td class="text-green-goto">{{$hotel_->estrellas}} <b class="text-warning"><i class="fa fa-star-half-o fa-2x" aria-hidden="true"></i></b></td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_h_{{$hotel_->id}}">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    <td class="text-green-goto">{{ucwords(strtolower($hotel_->localizacion))}}</td>
+                                    <td class="text-green-goto">{{$hotel_->estrellas}} <b class="text-warning"><i class="fa fa-star" aria-hidden="true"></i></b></td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-sm btn-warning"  data-toggle="modal" data-target="#modal_edit_destination_h_{{$hotel_->id}}">
+                                            <i class="fas fa-pencil-alt"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger" onclick="eliminar_servicio_h('{{$hotel_->id}}','{{$hotel_->nombre}}')">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="eliminar_servicio_h('{{$hotel_->id}}','{{$hotel_->nombre}}')">
+                                            <i class="fas fa-trash" aria-hidden="true"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -263,6 +273,7 @@
                 $pos++;
                 ?>
             @endforeach
+        </div>
         </div>
     </div>
     <script>

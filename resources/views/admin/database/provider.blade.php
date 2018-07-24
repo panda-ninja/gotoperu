@@ -227,9 +227,8 @@
                 @foreach($tipoServicio as $tipoServicio_)
                     <?php
                     $activo='';
-//                    if($pos==0)
-//                        $activo='active';
-//                    ?>
+
+                    ?>
                     <li class="{{$activo}}"><a data-toggle="tab" href="#tl_{{$tipoServicio_}}">{{$tipoServicio_}}</a></li>
                 <?php
                     $pos++;
@@ -243,8 +242,7 @@
                 @foreach($tipoServicio as $tipoServicio_)
                     @php
                         $in_activo='';
-{{--                    if($in_pos==0)--}}
-{{--                    $in_activo='in active';--}}
+
                     @endphp
                     <div id="tl_{{$tipoServicio_}}" class="tab-pane fade {{$in_activo}}">
                             <div class="margin-top-20">

@@ -17,17 +17,17 @@
         <div class="menu-lista  @if(session()->get('menu-lateral')=='Scosts'){{'menu-lista-activo'}}@endif"><a href="{{route('costs_index_path')}}" class="link text-grey-goto">Costs</a></div>
     @endif
     @if(session()->get('menu')=='reservas')
-    {{--menu lateral para operaciones--}}
-    <ul class="nav nav-sidebar margin-bottom-0">
-        <li class="padding-side-20 bg-green-goto text-white text-20">Menu</li>
-        <li class="divider"></li>
-        <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>
-        <li class="divider"></li>
-        <li ><a href="{{route('crear_liquidacion_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Crear Liquidacion</a></li>
-        <li class="divider"></li>
-        <li ><a href="{{route('liquidaciones_hechas_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>
-        <li class="divider"></li>
-    </ul>
+        {{--menu lateral para operaciones--}}
+        <ul class="nav nav-sidebar margin-bottom-0">
+            <li class="padding-side-20 bg-green-goto text-white text-20">Menu</li>
+            <li class="divider"></li>
+            <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>
+            <li class="divider"></li>
+            <li ><a href="{{route('crear_liquidacion_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Crear Liquidacion</a></li>
+            <li class="divider"></li>
+            <li ><a href="{{route('liquidaciones_hechas_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>
+            <li class="divider"></li>
+        </ul>
         {{--<div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">BOOK</a></div>--}}
         {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">January</a></div>--}}
         {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">February</a></div>--}}
