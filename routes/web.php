@@ -1047,7 +1047,12 @@ Route::get('/admin/book/nuevo-servicio/{id1}/{id}/{dia}',[
     'uses' => 'BookController@nuevo_servicio_ventas',
     'as' => 'nuevo_servicio_ventas_path',
 ]);
-Route::get('/admin/book/hotel/costo/edit',[
-    'uses' => 'BookController@nuevo_servicio_ventas',
-    'as' => 'asignar_proveedor_hotel_costo_path',
+//Route::get('/admin/book/hotel/costo/edit',[
+//    'uses' => 'BookController@nuevo_servicio_ventas',
+//    'as' => 'asignar_proveedor_hotel_costo_path',
+//]);
+Route::post('/admin/book/hotel/costo/edit',[
+    'uses' => 'BookController@asignar_proveedor_costo_hotel',
+    'as' => 'asignar_proveedor_costo_hotel',
 ]);
+

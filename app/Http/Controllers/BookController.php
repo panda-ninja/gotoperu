@@ -169,9 +169,10 @@ class BookController extends Controller
     function asignar_proveedor_hotel(Request $request){
 
         $dat=$request->input('precio');
-        return $dat;
+//        return $dat;
         $dato=explode('_',$dat);
         $hotel_proveedor=HotelProveedor::FindOrFail($dato[3]);
+//        return dd($dat);
         $id=$request->input('id');
         $precio_s_r=$hotel_proveedor->single;
         $precio_d_r=$hotel_proveedor->doble;
@@ -625,5 +626,22 @@ class BookController extends Controller
         $servicios=array();
         return view('admin.book.agregar_servicio_dia_ventas',['destinations'=>$destinations,'services'=>$services,'categorias'=>$categorias,'itinerartio_cotis_id'=>$itinerartio_cotis_id,'servicios'=>$servicios,'dia'=>$dia,'cotizaciones_id'=>$cotizaciones_id]);
 
+    }
+    function asignar_proveedor_costo_hotel(Request $request){
+        $id=$request->input('id');
+        $hotel=PrecioHotelReserva::Find($id);
+        if($hotel->personas_s>0)
+            $hotel->precio_s_r=$request->input('txt_costo_edit_s');
+        if($hotel->personas_d>0)
+            $hotel->precio_d_r=$request->input('txt_costo_edit_d');
+        if($hotel->personas_m>0)
+            $hotel->precio_m_r=$request->input('txt_costo_edit_m');
+        if($hotel->personas_t>0)
+            $hotel->precio_t_r=$request->input('txt_costo_edit_t');
+
+        if($hotel->save())
+            return 1;
+        else
+            return 0;
     }
 }
