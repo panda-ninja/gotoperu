@@ -405,9 +405,11 @@
                                                                                 <option value="CUSCO-AIRPORT">CUSCO-AIRPORT</option>
                                                                                 <option value="CUSCO-OLLANTA">CUSCO-OLLANTA</option>
                                                                                 <option value="CUSCO-POROY">CUSCO-POROY</option>
+                                                                                <option value="CUSCO-STATION">CUSCO-STATION</option>
                                                                                 <option value="CUSCO-VALLE">CUSCO-VALLE</option>
                                                                                 <option value="AIRPORT-CUSCO">AIRPORT-CUSCO</option>
                                                                                 <option value="POROY-CUSCO">POROY-CUSCO</option>
+                                                                                <option value="STATION-CUSCO">STATION-CUSCO</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>

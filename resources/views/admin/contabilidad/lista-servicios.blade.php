@@ -398,12 +398,46 @@
                                                                     <label for="txt_price">Ruta</label>
                                                                     <select class="form-control" id="txt_ruta_salida_{{$servicio->id}}" name="txt_ruta_salida_{{$servicio->id}}" required="required">
                                                                         <option value="ESCOJA UNA RUTA-ESCOJA UNA RUTA">ESCOJA UNA RUTA</option>
-                                                                        <option value="CUSCO-AIRPORT">CUSCO-AIRPORT</option>
-                                                                        <option value="CUSCO-OLLANTA">CUSCO-OLLANTA</option>
-                                                                        <option value="CUSCO-POROY">CUSCO-POROY</option>
-                                                                        <option value="CUSCO-VALLE">CUSCO-VALLE</option>
-                                                                        <option value="AIRPORT-CUSCO">AIRPORT-CUSCO</option>
-                                                                        <option value="POROY-CUSCO">POROY-CUSCO</option>
+                                                                        @if($servicio->ruta_salida=='CUSCO'&&$servicio->ruta_llegada=='AIRPORT')
+                                                                            <option value="CUSCO-AIRPORT" selected>CUSCO-AIRPORT</option>
+                                                                        @else
+                                                                            <option value="CUSCO-AIRPORT">CUSCO-AIRPORT</option>
+                                                                        @endif
+                                                                        @if($servicio->ruta_salida=='CUSCO'&&$servicio->ruta_llegada=='OLLANTA')
+                                                                            <option value="CUSCO-OLLANTA" selected>CUSCO-OLLANTA</option>
+                                                                        @else
+                                                                            <option value="CUSCO-OLLANTA">CUSCO-OLLANTA</option>
+                                                                        @endif
+                                                                        @if($servicio->ruta_salida=='CUSCO'&&$servicio->ruta_llegada=='POROY')
+                                                                            <option value="CUSCO-POROY" selected>CUSCO-POROY</option>
+                                                                        @else
+                                                                            <option value="CUSCO-POROY">CUSCO-POROY</option>
+                                                                        @endif
+                                                                        @if($servicio->ruta_salida=='CUSCO'&&$servicio->ruta_llegada=='STATION')
+                                                                            <option value="CUSCO-STATION" selected>CUSCO-STATION</option>
+                                                                        @else
+                                                                            <option value="CUSCO-STATION">CUSCO-STATION</option>
+                                                                        @endif
+                                                                        @if($servicio->ruta_salida=='CUSCO'&&$servicio->ruta_llegada=='VALLE')
+                                                                            <option value="CUSCO-VALLE" selected>CUSCO-VALLE</option>
+                                                                        @else
+                                                                            <option value="CUSCO-VALLE">CUSCO-VALLE</option>
+                                                                        @endif
+                                                                        @if($servicio->ruta_salida=='AIRPORT'&&$servicio->ruta_llegada=='CUSCO')
+                                                                            <option value="AIRPORT-CUSCO" selected>AIRPORT-CUSCO</option>
+                                                                        @else
+                                                                            <option value="AIRPORT-CUSCO">AIRPORT-CUSCO</option>
+                                                                        @endif
+                                                                        @if($servicio->ruta_salida=='POROY'&&$servicio->ruta_llegada=='CUSCO')
+                                                                            <option value="POROY-CUSCO" selected>POROY-CUSCO</option>
+                                                                        @else
+                                                                            <option value="POROY-CUSCO">POROY-CUSCO</option>
+                                                                        @endif
+                                                                        @if($servicio->ruta_salida=='STATION'&&$servicio->ruta_llegada=='CUSCO')
+                                                                            <option value="STATION-CUSCO" selected>STATION-CUSCO</option>
+                                                                        @else
+                                                                            <option value="STATION-CUSCO">STATION-CUSCO</option>
+                                                                        @endif
                                                                     </select>
                                                                 </div>
                                                             </div>
