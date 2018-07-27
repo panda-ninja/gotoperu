@@ -210,7 +210,7 @@
                                                                 </div>
                                                             @endif
                                                             @if($categoria->nombre=='HOTELS')
-                                                                <div class="hide col-md-12">
+                                                                <div class=" col-md-12">
                                                                     <table class="table table-responsive table-striped table-condensed">
                                                                         <thead>
                                                                         <tr>

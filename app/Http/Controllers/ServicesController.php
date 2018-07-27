@@ -138,11 +138,12 @@ class ServicesController extends Controller
             $hotel_proveedor_5->estado = 1;
             $hotel_proveedor_5->save();
 
-            $destinations = M_Destino::get();
-            $servicios = M_Servicio::get();
-            $categorias = M_Category::get();
-            $hotel = Hotel::get();
-            return view('admin.database.services', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations, 'hotel' => $hotel]);
+//            $destinations = M_Destino::get();
+//            $servicios = M_Servicio::get();
+//            $categorias = M_Category::get();
+//            $hotel = Hotel::get();
+//            return view('admin.database.services', ['servicios' => $servicios, 'categorias' => $categorias, 'destinations' => $destinations, 'hotel' => $hotel]);
+            return redirect()->route('service_index_path');
         } elseif ($posTipo != 0) {
             $txt_type = $request->input('txt_type_' . $posTipo);
             $txt_acomodacion = $request->input('txt_acomodacion_' . $posTipo);
