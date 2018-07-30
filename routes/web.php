@@ -1054,7 +1054,16 @@ Route::post('admin/ventas/service/listar-train/salida',[
 Route::post('admin/ventas/service/listar-train/llegada',[
     'uses' => 'ServicesController@listar_rutas_train_llegada',
     'as' => 'listar_train_llegada_path',
-]);Route::get('/admin/book/nuevo-servicio/{id1}/{id}/{dia}',[
+]);
+Route::get('/admin/book/nuevo-servicio/{id1}/{id}/{dia}',[
     'uses' => 'BookController@nuevo_servicio_ventas',
     'as' => 'nuevo_servicio_ventas_path',
+]);
+//Route::get('/admin/book/hotel/costo/edit',[
+//    'uses' => 'BookController@nuevo_servicio_ventas',
+//    'as' => 'asignar_proveedor_hotel_costo_path',
+//]);
+Route::post('/admin/book/hotel/costo/edit',[
+    'uses' => 'BookController@asignar_proveedor_costo_hotel',
+    'as' => 'asignar_proveedor_costo_hotel',
 ]);

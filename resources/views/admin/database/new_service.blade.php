@@ -396,12 +396,14 @@
                                                 </div>
                                             @endif
 
+
                                             <div class="col-md-4 d-none">
                                                 <div class="form-group">
                                                     <label for="txt_code" class="font-weight-bold text-secondary">Code product</label>
                                                     <input type="text" class="form-control" id="txt_code_{{$pos}}" name="txt_code_{{$pos}}" placeholder="Code product">
                                                 </div>
                                             </div>
+
                                             @if($categoria->nombre=='MOVILID')
                                                 <div class="col-6">
                                                     <div class="form-group">
@@ -417,6 +419,7 @@
                                                                 <option value="AIRPORT-CUSCO">AIRPORT-CUSCO</option>
                                                                 <option value="POROY-CUSCO">POROY-CUSCO</option>
                                                             </select>
+
                                                         </div>
                                                     </div>
                                                 </div>

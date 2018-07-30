@@ -3767,12 +3767,20 @@ function Guardar_proveedor_hotel_costo(id,s,d,m,t) {
     var prove='';
     $.ajax({
         type: 'POST',
-        url: $('#asignar_proveedor_hotel_path_'+id).attr('action'),
-        data: $('#asignar_proveedor_hotel_path_'+id).serialize(),
+        url: $('#asignar_proveedor_hotel_costo_path_'+id).attr('action'),
+        data: $('#asignar_proveedor_hotel_costo_path_'+id).serialize(),
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             if(data==1){
                 $('#rpt_precio_proveedor_hotel_'+id).html('Precio editado correctamente!');
+                // if(parseInt(s)>0)
+                //     $('book_price_edit_h_s_'+id).html('$'+$('book_price_edit_h_s_p_'+id).val());
+
+                // var precio_pro_s=$('#book_price_s_'+dato_producto_hotel_id).html();
+                // var precio_pro_d=$('#book_price_d_'+dato_producto_hotel_id).html();
+                // var precio_pro_m=$('#book_price_m_'+dato_producto_hotel_id).html();
+                // var precio_pro_t=$('#book_price_t_'+dato_producto_hotel_id).html();
+
                 if(parseInt(s)>0)
                     $('#book_price_edit_h_s_'+id).html('$'+$('#book_price_edit_h_s_p_'+id).val());
                 if(parseInt(d)>0)
@@ -3791,7 +3799,7 @@ function Guardar_proveedor_hotel_costo(id,s,d,m,t) {
                 // $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
                 //
                 // $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
-                // mostrar_barra_avance();
+                mostrar_barra_avance();
             }
             else{
                 $('#rpt_precio_proveedor_hotel_'+id).removeClass('text-success');
@@ -3803,42 +3811,144 @@ function Guardar_proveedor_hotel_costo(id,s,d,m,t) {
     return false;
     // });
 }
-function Guardar_proveedor_hotel(id) {
+function Guardar_proveedor_hotel(id,url,csrf_field,s,d,m,t) {
     // $('#asignar_proveedor_path_'+id).submit(function() {
     // Enviamos el formulario usando AJAX
+    var csrf='<input type="hidden" name="_token" value="'+csrf_field+'">';
+    var field_id='<input type="hidden" name="id" value="'+id+'">';
     var prove='';
+    var precio='';
+    console.log('se guadara el proveedor');
     $.ajax({
-        type: 'POST',
+        type: 'post',
         url: $('#asignar_proveedor_hotel_path_'+id).attr('action'),
         data: $('#asignar_proveedor_hotel_path_'+id).serialize(),
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
+            console.log('data:'+data);
             if(data==1){
-                $('#rpt_precio_proveedor_hotel_'+id).html('Precio editado correctamente!');
-                // if(parseInt(s)>0)
-                //     $('#book_price_edit_h_s_'+id).html('$'+$('#book_price_edit_h_s_p_'+id).val());
-                // if(parseInt(d)>0)
-                //     $('#book_price_edit_h_d_'+id).html('$'+$('#book_price_edit_h_d_p_'+id).val());
-                // if(parseInt(m)>0)
-                //     $('#book_price_edit_h_m_'+id).html('$'+$('#book_price_edit_h_m_p_'+id).val());
-                // if(parseInt(t)>0)
-                //     $('#book_price_edit_h_t_'+id).html('$'+$('#book_price_edit_h_t_p_'+id).val());
+                $('#rpt_book_proveedor_hotel_'+id).removeClass('text-danger');
+                $('#rpt_book_proveedor_hotel_'+id).addClass('text-success');
+                $('#rpt_book_proveedor_hotel_'+id).html('Precio editado correctamente!');
+                if(parseInt(s)>0)
+                    precio+='<p id="book_price_edit_h_s_'+id+'">'+$('#book_price_s_'+dato_producto_hotel_id).html()+'</p>';
+                if(parseInt(d)>0)
+                    precio+='<p id="book_price_edit_h_d_'+id+'">'+$('#book_price_d_'+dato_producto_hotel_id).html()+'</p>';
+                if(parseInt(m)>0)
+                    precio+='<p id="book_price_edit_h_m_'+id+'">'+$('#book_price_m_'+dato_producto_hotel_id).html()+'</p>';
+                if(parseInt(t)>0)
+                    precio+='<p id="book_price_edit_h_t_'+id+'">'+$('#book_price_t_'+dato_producto_hotel_id).html()+'</p>';
 
+                precio+='' +
+                    '<a href="#!" id="boton_prove_hotel_edit_cost_'+id+'" data-toggle="modal" data-target="#myModal_edit_cost_h_'+id+'">'+
+                    '<i class="fa fa-edit"></i>'+
+                    '</a>'+
+                    '<div class="modal fade" id="myModal_edit_cost_h_'+id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">'+
+                    '<div class="modal-dialog" role="document">'+
+                    '<div class="modal-content">'+
+                    '<form id="asignar_proveedor_hotel_costo_path_'+id+'" action="'+url+'" method="post">'+
+                    '<div class="modal-header">'+
+                    '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+                '<h4 class="modal-title" id="myModalLabel"><i class="fa fa-building" aria-hidden="true"></i> Editar costo del hotel</h4>'+
+                '</div>'+
+                '<div class="modal-body clearfix">'+
+                    '<table>';
+                if(parseInt(s)>0) {
+                    precio+='' +
+                    '<tr class="text-left">' +
+                    '<td width="100px">' +
+                    '<span class="margin-bottom-5">' +
+                    '<b>' + s + '</b>' +
+                    '<span class="stick">' +
+                    '<i class="fa fa-bed" aria-hidden="true"></i>'+
+                    '</span>' +
+                    '</span>' +
+                    '</td>' +
+                    '<td width="100px">' +
+                    '<input type="number" class="form-control" id="book_price_edit_h_s_p_' + id + '" name="txt_costo_edit_s" value="' + $('#book_price_s_'+dato_producto_hotel_id).html() + '">' +
+                    '</td>' +
+                    '</tr>';
+                }
+                if(parseInt(d)>0) {
+                    precio += '' +
+                    '<tr class="text-left">' +
+                    '<td width="100px">' +
+                    '<span class="margin-bottom-5">' +
+                    '<b>' + d + '</b>' +
+                    '<span class="stick">' +
+                    '<i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i>' +
+                    '</span>' +
+                    '</span>' +
+                    '</td>' +
+                    '<td width="100px">' +
+                    '<input type="number" class="form-control" id="book_price_edit_h_d_p_' + id + '" name="txt_costo_edit_d" value="' + $('#book_price_d_'+dato_producto_hotel_id).html() + '">' +
+                    '</td>' +
+                    '</tr>';
+                }
+                if(parseInt(m)>0) {
+                    precio += '' +
+                    '<tr class="text-left">' +
+                    '<td width="100px">' +
+                    '<span class="margin-bottom-5">' +
+                    '<b>'+m+'</b>' +
+                    '<span class="stick">' +
+                    '<i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i>' +
+                    '</span>' +
+                    '</span>' +
+                    '</td>' +
+                    '<td width="100px">' +
+                    '<input type="number" class="form-control" id="book_price_edit_h_m_p_' + id + '" name="txt_costo_edit_m" value="' + $('#book_price_m_'+dato_producto_hotel_id).html() + '">' +
+                    '</td>' +
+                    '</tr>';
+                }
+                if(parseInt(t)>0) {
+                    precio += '' +
+                    '<tr class="text-left">' +
+                    '<td width="100px">' +
+                    '<span class="margin-bottom-5">' +
+                    '<b>'+t+'</b>' +
+                    '<span class="stick">' +
+                    '<i class="fa fa-bed" aria-hidden="true"></i> <i class="fa fa-bed" aria-hidden="true"></i>' +
+                    '</span>' +
+                    '</span>' +
+                    '</td>' +
+                    '<td width="100px">' +
+                    '<input type="number" class="form-control" id="book_price_edit_h_t_p_{{$hotel->id}}" name="txt_costo_edit_t" value="'+$('#book_price_t_'+dato_producto_hotel_id).html()+'">' +
+                    '</td>' +
+                    '</tr>';
+                }
+                precio += '' +
+                    '</table>'+
+                    '<div class="col-md-12">'+
+                        '<b id="rpt_precio_proveedor_hotel_{{$hotel->id}}" class="text-success text-14"></b>'+
+                    '</div>'+
+                '</div>'+
+                '<div class="modal-footer">'+csrf+
+                    '<input type="hidden" name="id" value="'+id+'">'+
+                    '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>'+
+                    '<button type="button" class="btn btn-primary" onclick="Guardar_proveedor_hotel_costo('+id+','+s+','+d+','+m+','+t+')">Guardar cambios</button>'+
+                '</div>'+
+                '</form>'+
+                '</div>'+
+                '</div>'+
+                '</div>';
 
                 // $('#book_precio_asig_hotel_'+id).html($('#book_price_hotel_'+dato_producto_hotel_id).html());
-                // prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
+                prove=$('#proveedor_servicio_hotel_'+dato_producto_hotel_id).html();
                 // $('#boton_prove_hotel_'+id).html('<i class="fa fa-edit"></i>');
-                // $('#book_proveedor_hotel_'+id).html(prove);
+                $('#book_proveedor_hotel_'+id).html(prove);
                 // $('#book_proveedor_hotel_'+id).fadeIn();
                 // $('#estado_proveedor_serv_hotel_'+id).html('<i class="fa fa-check fa-2x text-success"></i>');
-                //
-                // $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
-                // mostrar_barra_avance();
+
+                $('#book_precio_asig_hotel_'+id).html(precio);
+                $('#nro_servicios_reservados').val(parseInt($('#nro_servicios_reservados').val())+1);
+                mostrar_barra_avance();
+
             }
             else{
-                $('#rpt_precio_proveedor_hotel_'+id).removeClass('text-success');
-                $('#rpt_precio_proveedor_hotel_'+id).addClass('text-danger');
-                $('#rpt_precio_proveedor_hotel_'+id).html('Error al editar el precio!');
+                $('#rpt_book_proveedor_hotel_'+id).removeClass('text-success');
+                $('#rpt_book_proveedor_hotel_'+id).addClass('text-danger');
+                $('#rpt_book_proveedor_hotel'+id).html('Error al editar el precio!');
             }
         }
     })
@@ -4190,6 +4300,26 @@ function nuevos_proveedores(pos,categoria,grupo) {
     $.ajax({
         type: 'POST',
         url: '../admin/ventas/service/listar-proveedores',
+        data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            console.log(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
+        }
+    })
+}
+function nuevos_proveedores_new(pos,categoria,grupo) {
+    var localizacion=$('#txt_localizacion_'+pos).val();
+    console.log('localizacion:'+localizacion+'_grupo:'+grupo);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '../../../admin/ventas/service/listar-proveedores',
         data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
@@ -4675,14 +4805,14 @@ function escojer_servicio(){
     });
     $('#nroServicios').val(total_serv);
 
-    if(!existe_destino('#txt_destino_foco option',destino_escoj)) {
-        var destino_foco = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
-        $('#txt_destino_foco').append(destino_foco);
-    }
-    if(!existe_destino('#txt_destino_duerme option',destino_escoj)) {
-        var destino_duerme = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
-        $('#txt_destino_duerme').append(destino_duerme);
-    }
+    // if(!existe_destino('#txt_destino_foco option',destino_escoj)) {
+    //     var destino_foco = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
+    //     $('#txt_destino_foco').append(destino_foco);
+    // }
+    // if(!existe_destino('#txt_destino_duerme option',destino_escoj)) {
+    //     var destino_duerme = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
+    //     $('#txt_destino_duerme').append(destino_duerme);
+    // }
 }
 function existe_destino(cb,clave){
     var existe=false;
@@ -5038,7 +5168,7 @@ function nuevos_proveedores_movilidad_ruta(pos,categoria,grupo) {
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             console.log(data);
-            $('#lista_proveedores_'+categoria).html(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
         }
     })
     $.ajaxSetup({
@@ -5165,6 +5295,16 @@ function nuevos_proveedores_trains_ruta(pos,categoria,grupo) {
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             $('#ruta_llegada_'+pos).html(data);
+        }
+    })
+    $.ajax({
+        type: 'POST',
+        url: '../../../admin/ventas/service/listar-proveedores',
+        data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            console.log(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
         }
     })
 }

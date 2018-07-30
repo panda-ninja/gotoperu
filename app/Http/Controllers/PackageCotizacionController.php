@@ -1096,7 +1096,7 @@ class PackageCotizacionController extends Controller
 //        dd($nroDias);
         $pos=1;
         $paquetePrecio=PaquetePrecio::FindOrFail($paquete_precio_id);
-        foreach ($itinerario_cotizaciones as $itinerario_cotizacion) {
+        foreach ($itinerario_cotizaciones as $itinerario_cotizacion){
             if($itinerario_cotizacion->destino_duerme>0){
             $temp_dest=M_Destino::findOrFail($itinerario_cotizacion->destino_duerme);
             if ($pos < $nroDias){
@@ -1407,7 +1407,8 @@ class PackageCotizacionController extends Controller
                 $p_itinerario->imagen=$itinerarios_->imagen;
                 $p_itinerario->imagenB=$itinerarios_->imagenB;
                 $p_itinerario->imagenC=$itinerarios_->imagenC;
-
+                $p_itinerario->destino_foco=$itinerarios_->destino_foco;
+                $p_itinerario->destino_duerme=$itinerarios_->destino_duerme;
                 $p_itinerario->observaciones='';
                 $p_itinerario->estado=1;
                 $p_itinerario->paquete_cotizaciones_id=$paquete->id;
