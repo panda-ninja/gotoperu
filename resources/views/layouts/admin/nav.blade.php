@@ -26,16 +26,7 @@
 
                 <ul class="list-unstyled components">
                     {{--<p>VENTAS</p>--}}
-                    <li class="active">
-                        <a href="{{route('inventory_path')}}">Inventory</a>
-                    </li>
-                    <li>
-                        <a href="{{route('current_quote_page_path', 'gotoperu.com')}}">Leads</a>
-
-                    </li>
-                    <li>
-                        <a href="#">Sales</a>
-                    </li>
+                    @include('layouts.menu-lateral')
 
                     <hr>
 

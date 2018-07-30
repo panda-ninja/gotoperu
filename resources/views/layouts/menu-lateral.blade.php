@@ -1,33 +1,55 @@
 @if(session()->has('menu'))
     @if(session()->get('menu')=='ventas')
+        <li class="active">
+            <a href="{{route('inventory_path')}}">Inventory</a>
+        </li>
+        <li>
+            <a href="{{route('current_quote_page_path', 'gotoperu.com')}}">Leads</a>
+
+        </li>
+        <li>
+            <a href="#">Sales</a>
+        </li>
         {{--menu lateral para ventas--}}
-        <div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">QUOTES</a></div>
-        <div class="menu-lista text-center @if(session()->get('menu-lateral')=='quotes/new'){{'menu-lista-activo'}}@endif"><a href="{{route("quotes_new1_path")}}" class="link text-grey-goto">New</a></div>
-        <div class="menu-lista text-center  @if(session()->get('menu-lateral')=='quotes/current'){{'menu-lista-activo'}}@endif"><a href="{{route('current_quote_page_path', 'gotoperu.com')}}" class="link text-grey-goto">Current</a></div>
-        <div class="menu-titulo text-center"><a href="!#" class="link text-grey-goto">SALES</a></div>
-        <div class="menu-lista text-center"><a class="link text-grey-goto"><b>ITIN</b></a></div>
-        <div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/destinations'){{'menu-lista-activo'}}@endif"><a href="{{route('destination_index_path')}}" class="link text-grey-goto">Destination</a></div>
-        <div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/daybyday'){{'menu-lista-activo'}}@endif"><a href="{{route("itinerari_index_path")}}" class="link text-grey-goto">Day by day</a></div>
-        <div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/new'){{'menu-lista-activo'}}@endif"><a href="{{route("package_create_path")}}" class="link text-grey-goto">Itineraries->New</a></div>
-        <div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/list'){{'menu-lista-activo'}}@endif"><a href="{{route("show_itineraries_path")}}" class="link text-grey-goto">Itineraries->List</a></div>
-        <div class="menu-lista text-center"><a class="link text-grey-goto"><b>$</b></a></div>
-        <div class="menu-lista  @if(session()->get('menu-lateral')=='Scategories'){{'menu-lista-activo'}}@endif"><a href="{{route('category_index_path')}}" class="link text-grey-goto">Categories</a></div>
-        <div class="menu-lista  @if(session()->get('menu-lateral')=='Sproducts'){{'menu-lista-activo'}}@endif"><a href="{{route('service_index_path')}}" class="link text-grey-goto">Products</a></div>
-        <div class="menu-lista  @if(session()->get('menu-lateral')=='Sproviders'){{'menu-lista-activo'}}@endif"><a href="{{route('provider_index_path')}}" class="link text-grey-goto">Providers</a></div>
-        <div class="menu-lista  @if(session()->get('menu-lateral')=='Scosts'){{'menu-lista-activo'}}@endif"><a href="{{route('costs_index_path')}}" class="link text-grey-goto">Costs</a></div>
+        {{--<div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">QUOTES</a></div>--}}
+        {{--<div class="menu-lista text-center @if(session()->get('menu-lateral')=='quotes/new'){{'menu-lista-activo'}}@endif"><a href="{{route("quotes_new1_path")}}" class="link text-grey-goto">New</a></div>--}}
+        {{--<div class="menu-lista text-center  @if(session()->get('menu-lateral')=='quotes/current'){{'menu-lista-activo'}}@endif"><a href="{{route('current_quote_page_path', 'gotoperu.com')}}" class="link text-grey-goto">Current</a></div>--}}
+        {{--<div class="menu-titulo text-center"><a href="!#" class="link text-grey-goto">SALES</a></div>--}}
+        {{--<div class="menu-lista text-center"><a class="link text-grey-goto"><b>ITIN</b></a></div>--}}
+        {{--<div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/destinations'){{'menu-lista-activo'}}@endif"><a href="{{route('destination_index_path')}}" class="link text-grey-goto">Destination</a></div>--}}
+        {{--<div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/daybyday'){{'menu-lista-activo'}}@endif"><a href="{{route("itinerari_index_path")}}" class="link text-grey-goto">Day by day</a></div>--}}
+        {{--<div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/new'){{'menu-lista-activo'}}@endif"><a href="{{route("package_create_path")}}" class="link text-grey-goto">Itineraries->New</a></div>--}}
+        {{--<div class="menu-lista text-center @if(session()->get('menu-lateral')=='sales/iti/list'){{'menu-lista-activo'}}@endif"><a href="{{route("show_itineraries_path")}}" class="link text-grey-goto">Itineraries->List</a></div>--}}
+        {{--<div class="menu-lista text-center"><a class="link text-grey-goto"><b>$</b></a></div>--}}
+        {{--<div class="menu-lista  @if(session()->get('menu-lateral')=='Scategories'){{'menu-lista-activo'}}@endif"><a href="{{route('category_index_path')}}" class="link text-grey-goto">Categories</a></div>--}}
+        {{--<div class="menu-lista  @if(session()->get('menu-lateral')=='Sproducts'){{'menu-lista-activo'}}@endif"><a href="{{route('service_index_path')}}" class="link text-grey-goto">Products</a></div>--}}
+        {{--<div class="menu-lista  @if(session()->get('menu-lateral')=='Sproviders'){{'menu-lista-activo'}}@endif"><a href="{{route('provider_index_path')}}" class="link text-grey-goto">Providers</a></div>--}}
+        {{--<div class="menu-lista  @if(session()->get('menu-lateral')=='Scosts'){{'menu-lista-activo'}}@endif"><a href="{{route('costs_index_path')}}" class="link text-grey-goto">Costs</a></div>--}}
     @endif
     @if(session()->get('menu')=='reservas')
         {{--menu lateral para operaciones--}}
-        <ul class="nav nav-sidebar margin-bottom-0">
-            <li class="padding-side-20 bg-green-goto text-white text-20">Menu</li>
-            <li class="divider"></li>
-            <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>
-            <li class="divider"></li>
-            <li ><a href="{{route('crear_liquidacion_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Crear Liquidacion</a></li>
-            <li class="divider"></li>
-            <li ><a href="{{route('liquidaciones_hechas_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>
-            <li class="divider"></li>
-        </ul>
+        <li class="active">
+            <a href="{{route('crear_liquidacion_path')}}">Crear Liquidacion</a>
+        </li>
+        <li>
+            <a href="{{route('liquidaciones_hechas_path')}}">Liquidaciones hechas</a>
+
+        </li>
+        {{--<li>--}}
+            {{--<a href="#">Sales</a>--}}
+        {{--</li>--}}
+
+        {{--<ul class="nav nav-sidebar margin-bottom-0">--}}
+            {{--<li class="padding-side-20 bg-green-goto text-white text-20">Menu</li>--}}
+            {{--<li class="divider"></li>--}}
+            {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>--}}
+            {{--<li class="divider"></li>--}}
+            {{--<li ><a href="{{route('crear_liquidacion_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Crear Liquidacion</a></li>--}}
+            {{--<li class="divider"></li>--}}
+            {{--<li ><a href="{{route('liquidaciones_hechas_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>--}}
+            {{--<li class="divider"></li>--}}
+        {{--</ul>--}}
+
         {{--<div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">BOOK</a></div>--}}
         {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">January</a></div>--}}
         {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">February</a></div>--}}

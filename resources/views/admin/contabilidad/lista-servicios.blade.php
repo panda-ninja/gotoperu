@@ -1,4 +1,5 @@
-<table id="tb_'{{$destino[0]}}_{{$destino[1]}}" class="{{$destino[1]}} table tb table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+
+<table id="tb_'{{$destino[0]}}_{{$destino[1]}}" class="{{$destino[1]}} table table-striped table-bordered table-sm mt-3"  width="100%">
     <thead>
     <tr>
         <th>Localizacion</th>
@@ -24,7 +25,7 @@
             <th>Horario</th>
         @endif
         <th>Precio</th>
-        <th>Operaciones</th>
+        <th class="text-center">Action</th>
     </tr>
     </thead>
     <tfoot>
@@ -49,7 +50,7 @@
                 <th>Horario</th>
             @endif
             <th>Precio</th>
-            <th>Operaciones</th>
+            <th class="text-center">Action</th>
         </tr>
     </tfoot>
     <tbody>
@@ -59,24 +60,24 @@
     @if($filtro=='Normal')
         @foreach ($sericios as $servicio)
         <tr class="{{$servicio->localizacion}}" id="lista_services_{{$servicio->id}}">
-            <td class="text-green-goto">{{$servicio->localizacion}}</td>
-            <td class="text-green-goto">{{$servicio->codigo}}</td>
+            <td class="text-g-green">{{ucwords(strtolower($servicio->localizacion))}}</td>
+            <td class="text-g-green">{{$servicio->codigo}}</td>
             @if($destino[1] == 'MOVILID')
-            <td class="text-green-goto">{{$servicio->ruta_salida}}-{{$servicio->ruta_llegada}}
+            <td class="text-g-green">{{ucwords(strtolower($servicio->ruta_salida))}}-{{ucwords(strtolower($servicio->ruta_llegada))}}
             @endif
-            <td id="tipo_{{$servicio->id}}">{{$servicio->tipoServicio}}
+            <td id="tipo_{{$servicio->id}}">{{ucwords(strtolower($servicio->tipoServicio))}}
                 @if ($destino[1] == 'MOVILID')
                 [{{$servicio->min_personas}} - {{$servicio->max_personas}}]
                 @endif
             </td>
-            <td id="nombre_{{$servicio->id}}">{{$servicio->nombre}}</td>
+            <td id="nombre_{{$servicio->id}}">{{ucwords(strtolower($servicio->nombre))}}</td>
             @if ($destino[1] == 'TRAINS')
                 <td id="horario_{{$servicio->id}}">{{$servicio->salida}} - {{$servicio->llegada}}</td>
             @endif
-            <td id="precio_{{$servicio->id}}">${{$servicio->precio_venta}}</td>
-            <td>
-                <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_producto{{$servicio->id}}">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            <td id="precio_{{$servicio->id}}" class="text-right"><sup>$</sup>{{$servicio->precio_venta}}</td>
+            <td class="text-center">
+                <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#modal_edit_producto{{$servicio->id}}">
+                    <i class="fas fa-pencil-alt"></i>
                 </button>
                 <div class="modal fade bd-example-modal-lg" id="modal_edit_producto{{$servicio->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
@@ -90,48 +91,56 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row margin-top-10">
-                                        <div class="col-lg-5">
-                                            <div class="caja-contenedora clearfix">
+                                        <div class="col-5 d-flex">
+                                            <div class="card p-2 text-left w-100">
                                                 <div class="row">
-                                                    <div class="col-lg-12">
+
                                                     @if($destino[1]!='HOTELS')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="txt_codigo">Codigo</label>
-                                                                <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{$servicio->codigo}}" readonly>
+                                                        <div class="col-12">
+                                                            <div class="row">
+
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label for="txt_codigo" class="text-secondary font-weight-bold">Codigo</label>
+                                                                        <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{$servicio->codigo}}" readonly>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
+
                                                     @endif
                                                     @if($destino[1]!='TRAINS')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                @if($destino[1]=='MOVILID')
-                                                                    <label for="txt_codigo">Punto de inicio</label>
-                                                                    <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}" onchange="nuevos_proveedores_movilidad_ruta_edit('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
-                                                                        @foreach ($destinations as $destination)
-                                                                            <option value="{{$destination->destino}}"
-                                                                            @if ($servicio->localizacion == $destination->destino)
-                                                                                {{'selected'}}
-                                                                                    @endif
-                                                                            >{{$destination->destino}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                @else
-                                                                    <label for="txt_codigo">Location</label>
-                                                                    <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}"  onchange="nuevos_proveedores('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
-                                                                        @foreach ($destinations as $destination)
-                                                                            <option value="{{$destination->destino}}"
-                                                                            @if ($servicio->localizacion == $destination->destino)
-                                                                                {{'selected'}}
-                                                                                    @endif
-                                                                            >{{$destination->destino}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                @endif
 
-                                                                <input type="hidden" name="tipoServicio_{{$servicio->id}}" id="tipoServicio_{{$servicio->id}}" value="{{$destino[1]}}">
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    @if($destino[1]=='MOVILID')
+                                                                        <label for="txt_codigo" class="text-secondary font-weight-bold">Punto de inicio</label>
+                                                                        <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}" onchange="nuevos_proveedores_movilidad_ruta_edit('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
+                                                                            @foreach ($destinations as $destination)
+                                                                                <option value="{{$destination->destino}}"
+                                                                                @if ($servicio->localizacion == $destination->destino)
+                                                                                    {{'selected'}}
+                                                                                        @endif
+                                                                                >{{$destination->destino}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    @else
+                                                                        <label for="txt_codigo" class="font-weight-bold text-secondary">Location</label>
+                                                                        <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}"  onchange="nuevos_proveedores('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
+                                                                            @foreach ($destinations as $destination)
+                                                                                <option value="{{$destination->destino}}"
+                                                                                @if ($servicio->localizacion == $destination->destino)
+                                                                                    {{'selected'}}
+                                                                                        @endif
+                                                                                >{{$destination->destino}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    @endif
+
+                                                                    <input type="hidden" name="tipoServicio_{{$servicio->id}}" id="tipoServicio_{{$servicio->id}}" value="{{$destino[1]}}">
+                                                                </div>
                                                             </div>
-                                                        </div>
+
                                                     @endif
                                                     @if($destino[1]=='TRAINS')
                                                         @php
@@ -153,21 +162,23 @@
                                                             @php
                                                                 $array_pro = $array_pro . substr(0, strlen($array_pro) - 1);
                                                             @endphp
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="txt_codigo">Empresa</label>
-                                                                    <select class="form-control" id="txt_provider_{{$servicio->id}}" name="txt_provider_{{$servicio->id}}" onchange="mostrar_class($('#txt_provider_{{$servicio->id}}').val(),'{{$array_pro}}','{{$destino[1]}}','{{$servicio->id}}','{{$destino[0]}}')">
-                                                                        <option value="0">Escoja una empresa</option>';
-                                                                        @foreach ($proveedores->where('grupo', 'TRAINS') as $provider)
-                                                                            <option value="{{$provider->id}}_{{$provider->nombre_comercial}}"
-                                                                            @if($proveedor_id1==$provider->id)
-                                                                                {{' selected '}}
-                                                                                    @endif
-                                                                            >{{$provider->nombre_comercial}}</option>
-                                                                        @endforeach
-                                                                    </select>
+
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label for="txt_codigo" class="text-secondary font-weight-bold">Empresa</label>
+                                                                        <select class="form-control" id="txt_provider_{{$servicio->id}}" name="txt_provider_{{$servicio->id}}" onchange="mostrar_class($('#txt_provider_{{$servicio->id}}').val(),'{{$array_pro}}','{{$destino[1]}}','{{$servicio->id}}','{{$destino[0]}}')">
+                                                                            <option value="0">Escoja una empresa</option>';
+                                                                            @foreach ($proveedores->where('grupo', 'TRAINS') as $provider)
+                                                                                <option value="{{$provider->id}}_{{$provider->nombre_comercial}}"
+                                                                                @if($proveedor_id1==$provider->id)
+                                                                                    {{' selected '}}
+                                                                                        @endif
+                                                                                >{{$provider->nombre_comercial}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+
                                                         @endif
                                                         @php
                                                             $vision = 0;
@@ -176,30 +187,33 @@
                                                             @php
                                                                 $vision++;
                                                             @endphp
-                                                            <div id="proveedor_{{$provider->id}}" class="col-md-6
-                                                                @if($proveedor_id1!=$provider->id)
-                                                            {{' hide'}}
-                                                            @endif
-                                                                    ">
-                                                                <div class="form-group">
-                                                                    <label for="txt_codigo" >Class</label>
-                                                                    <select class="form-control" id="txt_class_{{$servicio->id}}" name = "txt_class_{{$servicio->id}}_{{$provider->id}}">
-                                                                        @foreach ($provider->clases->where('estado', '1') as $provider_clases)
-                                                                            <option value="{{$provider_clases->clase}}"
-                                                                            @if($servicio->tipoServicio==$provider_clases->clase)
-                                                                                {{' selected '}}
-                                                                                    @endif
-                                                                            >{{$provider_clases->clase}}</option>
-                                                                        @endforeach
-                                                                    </select>
+
+                                                                <div id="proveedor_{{$provider->id}}" class="col-6
+                                                                    @if($proveedor_id1!=$provider->id)
+                                                                    {{' d-none'}}
+                                                                    @endif
+                                                                        ">
+                                                                    <div class="form-group">
+                                                                        <label for="txt_codigo" >Class</label>
+                                                                        <select class="form-control" id="txt_class_{{$servicio->id}}" name = "txt_class_{{$servicio->id}}_{{$provider->id}}">
+                                                                            @foreach ($provider->clases->where('estado', '1') as $provider_clases)
+                                                                                <option value="{{$provider_clases->clase}}"
+                                                                                @if($servicio->tipoServicio==$provider_clases->clase)
+                                                                                    {{' selected '}}
+                                                                                        @endif
+                                                                                >{{$provider_clases->clase}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+
                                                         @endforeach
                                                     @endif
                                                     @if($destino[1] == 'ENTRANCES')
-                                                        <div class="col-md-6">
+
+                                                        <div class="col-6">
                                                             <div class="form-group">
-                                                                <label for="txt_type" > Clase</label >
+                                                                <label for="txt_type" class="text-secondary font-weight-bold"> Clase</label >
                                                                 <select class="form-control" id = "txt_clase_{{$servicio->id}}" name = "txt_clase_{{$servicio->id}}">
                                                                     <option value = "OTROS"
                                                                     @if ($servicio->clase == "OTROS")
@@ -230,48 +244,53 @@
                                                                 </select >
                                                             </div>
                                                         </div>
+
                                                     @endif
                                                     @if ($destino[1] == 'MOVILID')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="txt_type" > Clase</label >
-                                                                <select class="form-control" id = "txt_clase_{{$servicio->id}}" name = "txt_clase_{{$servicio->id}}">
-                                                                    <option value = "DEFAULT"
-                                                                    @if ($servicio->clase == "DEFAULT")
-                                                                        {{'selected'}}
-                                                                            @endif
-                                                                    >DEFAULT </option >
-                                                                    <option value = "BOLETO"
-                                                                    @if ($servicio->clase == "BOLETO")
-                                                                        {{'selected'}}
-                                                                            @endif
-                                                                    >BOLETO</option>
-                                                                </select>
+
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label for="txt_type" class="text-secondary font-weight-bold"> Clase</label >
+                                                                    <select class="form-control" id = "txt_clase_{{$servicio->id}}" name = "txt_clase_{{$servicio->id}}">
+                                                                        <option value = "DEFAULT"
+                                                                        @if ($servicio->clase == "DEFAULT")
+                                                                            {{'selected'}}
+                                                                                @endif
+                                                                        >DEFAULT </option >
+                                                                        <option value = "BOLETO"
+                                                                        @if ($servicio->clase == "BOLETO")
+                                                                            {{'selected'}}
+                                                                                @endif
+                                                                        >BOLETO</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
+
                                                     @endif
 
                                                     @if ($destino[1] == 'TOURS')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group"><label for="txt_type" > Type</label >
-                                                                <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
-                                                                    <option value = "GROUP"
-                                                                    @if ($servicio->tipoServicio == "GROUP")
-                                                                        {{'selected'}}
-                                                                            @endif
-                                                                    >GROUP </option >
-                                                                    <option value = "PRIVATE"
-                                                                    @if ($servicio->tipoServicio == "PRIVATE")
-                                                                        {{'selected'}}
-                                                                            @endif
-                                                                    >PRIVATE</option >
-                                                                </select>
+
+                                                            <div class="col-6">
+                                                                <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
+                                                                    <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
+                                                                        <option value = "GROUP"
+                                                                        @if ($servicio->tipoServicio == "GROUP")
+                                                                            {{'selected'}}
+                                                                                @endif
+                                                                        >GROUP </option >
+                                                                        <option value = "PRIVATE"
+                                                                        @if ($servicio->tipoServicio == "PRIVATE")
+                                                                            {{'selected'}}
+                                                                                @endif
+                                                                        >PRIVATE</option >
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
+
                                                     @endif
                                                     @if ($servicio->grupo == 'MOVILID')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group"><label for="txt_type" > Type</label >
+                                                        <div class="col-6">
+                                                            <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                 <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                     <option value = "AUTO"
                                                                     @if ($servicio->tipoServicio == "AUTO")
@@ -309,8 +328,8 @@
                                                     @endif
 
                                                     @if ($servicio->grupo == 'REPRESENT')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group"><label for="txt_type" > Type</label >
+                                                        <div class="col-6">
+                                                            <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                 <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                     <option value = "GUIDE"
                                                                     @if ($servicio->tipoServicio == "GUIDE") {{'selected'}}@endif
@@ -326,8 +345,8 @@
                                                         </div>
                                                     @endif
                                                     @if ($servicio->grupo == 'ENTRANCES')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group"><label for="txt_type" > Type</label >
+                                                        <div class="col-6">
+                                                            <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                 <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                     <option value = "EXTRANJERO"
                                                                     @if ($servicio->tipoServicio == "EXTRANJERO") {{'selected '}}@endif
@@ -340,8 +359,8 @@
                                                         </div>
                                                     @endif
                                                     @if ($servicio->grupo == 'FOOD')
-                                                        <div class="col-md-6">
-                                                            <div class="form-group"><label for="txt_type" > Type</label >
+                                                        <div class="col-6">
+                                                            <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                 <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                     <option value = "LUNCH"
                                                                     @if ($servicio->tipoServicio == "LUNCH") {{'selected'}}@endif
@@ -358,7 +377,7 @@
                                                     @endif
 
                                                     @if($servicio->grupo == 'FLIGHTS')
-                                                        <div class="col-md-6">
+                                                        <div class="col-6">
                                                             <div class="form-group"><label for="txt_type">Type</label>
                                                                 <select class="form-control" id="txt_type_{{$servicio->id}}" name="txt_type_{{$servicio->id}}">
                                                                     <option value="NATIONAL"
@@ -372,30 +391,30 @@
                                                         </div>
                                                     @endif
                                                     @if ($servicio->grupo == 'OTHERS')
-                                                        <div class="col-md-6">
+                                                        <div class="col-6">
                                                             <div class="form-group"><label for="txt_type">Type</label>
                                                                 <input type="text" class="form-control" id="txt_type_{{$servicio->id}}" name="txt_type_{{$servicio->id}}" placeholder="Type" value="{{$servicio->tipoServicio}}">
                                                             </div>
                                                         </div>
                                                     @endif
-                                                    <div class="col-md-6">
+                                                    <div class="col-12">
                                                         <div class="form-group">
                                                             @if ($servicio->grupo == 'TRAINS')
-                                                                <label for="txt_product">Tren</label>
+                                                                <label for="txt_product" class="text-secondary font-weight-bold">Tren</label>
                                                             @elseif($servicio->grupo == 'FLIGHTS')
-                                                                <label for="txt_product">Ruta</label>
+                                                                <label for="txt_product" class="text-secondary font-weight-bold">Ruta</label>
                                                             @else
-                                                                <label for="txt_product">Product</label>
+                                                                <label for="txt_product" class="text-secondary font-weight-bold">Product</label>
                                                             @endif
                                                             <input type="text" class="form-control" id="txt_product_{{$servicio->id}}" name="txt_product_{{$servicio->id}}" placeholder="Product" value="{{$servicio->nombre}}">
                                                         </div>
                                                     </div>
 
                                                     @if($destino[1]=='MOVILID')
-                                                        <div class="col-md-6">
+                                                        <div class="col-6">
                                                             <div class="form-group">
                                                                 <div id="rutas_{{$servicio->id}}">
-                                                                    <label for="txt_price">Ruta</label>
+                                                                    <label for="txt_price" class="font-weight-bold text-secondary">Ruta</label>
                                                                     <select class="form-control" id="txt_ruta_salida_{{$servicio->id}}" name="txt_ruta_salida_{{$servicio->id}}" required="required">
                                                                         <option value="ESCOJA UNA RUTA-ESCOJA UNA RUTA">ESCOJA UNA RUTA</option>
                                                                         <option value="CUSCO-AIRPORT">CUSCO-AIRPORT</option>
@@ -410,9 +429,9 @@
                                                         </div>
                                                     @endif
                                                     @if ($servicio->grupo == 'TRAINS' || $servicio->grupo == 'FLIGHTS')
-                                                        <div class="col-md-6">
+                                                        <div class="col-6">
                                                             <div class="form-group">
-                                                                <label for="txt_price">Ruta de salida</label>
+                                                                <label for="txt_price" class="font-weight-bold text-secondary">Ruta de salida</label>
                                                                 <select class="form-control" id="txt_ruta_salida_{{$servicio->id}}" name="txt_ruta_salida_{{$servicio->id}}">
                                                                     @if($servicio->ruta_salida=='POROY')
                                                                         <option value="POROY" selected>POROY</option>
@@ -432,15 +451,15 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-6">
                                                             <div class="form-group">
-                                                                <label for="txt_price" > Hora</label >
+                                                                <label for="txt_price" class="font-weight-bold text-secondary"> Hora</label >
                                                                 <input type = "text" class="form-control" id = "txt_salida_{{$servicio->id}}" name = "txt_salida_{{$servicio->id}}" placeholder="06:30" value = "{{$servicio->salida}}">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-6">
                                                             <div class="form-group">
-                                                                <label for="txt_price">Ruta de llegada</label>
+                                                                <label for="txt_price" class="font-weight-bold text-secondary">Ruta de llegada</label>
                                                                 <select class="form-control" id="txt_ruta_llegada_{{$servicio->id}}" name="txt_ruta_llegada_{{$servicio->id}}">
                                                                     @if($servicio->ruta_llegada=='POROY')
                                                                         <option value="POROY" selected>POROY</option>
@@ -460,63 +479,69 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6" >
+                                                        <div class="col-6" >
                                                             <div class="form-group" >
-                                                                <label for="txt_price" > Hora</label >
+                                                                <label for="txt_price" class="font-weight-bold text-secondary"> Hora</label >
                                                                 <input type = "text" class="form-control" id = "txt_llegada_{{$servicio->id}}" name = "txt_llegada_{{$servicio->id}}" placeholder="06:30"  value = "{{$servicio->llegada}}" >
                                                             </div>
                                                         </div>
                                                     @endif
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="txt_price">Price</label>
+                                                            <label for="txt_price" class="text-secondary font-weight-bold">Price</label>
                                                             <input type="number" class="form-control" id="txt_price_{{$servicio->id}}" name="txt_price_{{$servicio->id}}" placeholder="Price"  value="{{$servicio->precio_venta}}" min="0">
                                                         </div>
                                                     </div>
                                                     @if ($servicio->grupo == 'MOVILID')
-                                                        <div class="col-md-6" >
+                                                        <div class="col-6" >
                                                             <div class="form-group" >
-                                                                <label for="txt_price" > Min Personas </label >
+                                                                <label for="txt_price" class="text-secondary font-weight-bold"> Min Personas </label >
                                                                 <input type = "number" class="form-control" id = "txt_min_personas_{{$servicio->id}}" name = "txt_min_personas_{{$servicio->id}}" placeholder = "Min" min = "0" value = "{{$servicio->min_personas}}">
                                                             </div >
                                                         </div >
-                                                        <div class="col-md-6" >
+                                                        <div class="col-6" >
                                                             <div class="form-group" >
-                                                                <label for="txt_price" > Max Personas </label >
+                                                                <label for="txt_price" class="text-secondary font-weight-bold"> Max Personas </label >
                                                                 <input type = "number" class="form-control" id = "txt_max_personas_{{$servicio->id}}" name = "txt_max_personas_{{$servicio->id}}" placeholder = "Min" min = "0" value = "{{$servicio->max_personas}}" >
                                                             </div >
                                                         </div >
                                                     @endif
 
                                                     @if ($servicio->grupo == 'TOURS')
-                                                        <div class="col-md-6"><div class="row">
+                                                        <div class="col-12">
+                                                            <div class="row">
                                                                 @if ($servicio->precio_grupo == 1)
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    {{--<div class="col-12">--}}
+                                                                        {{--<label for="txt_price" class="text-secondary font-weight-bold">Type price</label><br>--}}
+                                                                    {{--</div>--}}
+                                                                    <div class="col-6">
+                                                                        <label class=" text-g-green" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6">
+                                                                        {{--<label for="txt_price" class="text-secondary font-weight-bold">Tipe price</label><br>--}}
+                                                                        <label class=" text-g-green" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                             Precio es individual
                                                                         </label >
                                                                     </div >
                                                                 @else
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    {{--<div class="col-6">--}}
+                                                                        {{--<label for="txt_price" class="text-secondary font-weight-bold">Type price</label><br>--}}
+                                                                    {{--</div>--}}
+                                                                    <div class="col-6">
+                                                                        {{--<label for="txt_price" class="text-secondary font-weight-bold">Tipe price</label><br>--}}
+                                                                        <label class="text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6">
+                                                                        {{--<label for="txt_price" class="text-secondary font-weight-bold">Tipe price</label><br>--}}
+                                                                        <label class="text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                             Precio es individual
                                                                         </label >
@@ -526,30 +551,30 @@
                                                         </div >
                                                     @endif
                                                     @if ($servicio->grupo == 'MOVILID')
-                                                    <div class="col-md-6">
+                                                    <div class="col-12">
                                                         <div class="row">
                                                             @if ($servicio->precio_grupo == 1)
-                                                                <div class="col-md-6">
-                                                                    <label class=" text-green-goto">
+                                                                <div class="col-6">
+                                                                    <label class="text-danger">
                                                                         <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Absoluto" checked="checked">
                                                                         Precio es absoluto
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <label class=" text-green-goto">
+                                                                <div class="col-6">
+                                                                    <label class="text-danger">
                                                                         <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Individual">
                                                                         Precio es individual
                                                                     </label>
                                                                 </div>
                                                             @else
-                                                                <div class="col-md-6">
-                                                                    <label class=" text-green-goto">
+                                                                <div class="col-6">
+                                                                    <label class="text-danger">
                                                                         <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Absoluto">
                                                                         Precio es absoluto
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <label class=" text-green-goto">
+                                                                <div class="col-6">
+                                                                    <label class="text-danger">
                                                                         <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Individual" checked="checked">
                                                                         Precio es individual
                                                                     </label>
@@ -559,34 +584,34 @@
                                                     </div>
                                                     @endif
                                                     @if ($servicio->grupo == 'REPRESENT')
-                                                    <div class="col-md-6">
+                                                    <div class="col-12">
                                                         <div class="row" >
                                                             @if ($servicio->precio_grupo == 1)
-                                                                <div class="col-md-6" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class="text-danger" >
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                         Precio es absoluto
                                                                     </label >
                                                                 </div>
-                                                                <div class="col-md-6 hide" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6 d-none" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class="text-danger">
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                         Precio es individual
                                                                     </label >
                                                                 </div>
                                                             @else
-                                                                <div class="col-md-6" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class=" text-danger" >
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                         Precio es absoluto
                                                                     </label >
                                                                 </div >
-                                                                <div class="col-md-6" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class=" text-danger" >
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                         Precio es individual
                                                                     </label >
@@ -596,33 +621,34 @@
                                                     </div>
                                                     @endif
                                                     @if ($servicio->grupo == 'ENTRANCES')
-                                                    <div class="col-md-6"><div class="row" >
+                                                    <div class="col-12">
+                                                        <div class="row" >
                                                             @if ($servicio->precio_grupo == 1)
-                                                                <div class="col-md-6" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class=" text-danger" >
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                         Precio es absoluto
                                                                     </label >
                                                                 </div >
-                                                                <div class="col-md-6" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class=" text-danger" >
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                         Precio es individual
                                                                     </label >
                                                                 </div >
                                                             @else
-                                                                <div class="col-md-6 hide" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6 d-none" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class=" text-danger" >
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                         Precio es absoluto
                                                                     </label >
                                                                 </div >
-                                                                <div class="col-md-6" >
-                                                                    <label for="txt_price">Tipe price</label><br>
-                                                                    <label class=" text-green-goto" >
+                                                                <div class="col-6" >
+                                                                    {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                    <label class=" text-danger" >
                                                                         <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                         Precio es individual
                                                                     </label >
@@ -632,34 +658,34 @@
                                                     </div >
                                                     @endif
                                                     @if ($servicio->grupo == 'FOOD')
-                                                        <div class="col-md-6" >
+                                                        <div class="col-12" >
                                                             <div class="row" >
                                                                 @if ($servicio->precio_grupo == 1)
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                             Precio es individual
                                                                         </label >
                                                                     </div >
                                                                 @else
-                                                                    <div class="col-md-6 hide" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6 d-none" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                             Precio es individual
                                                                         </label >
@@ -669,33 +695,34 @@
                                                         </div >
                                                     @endif
                                                     @if ($servicio->grupo == 'TRAINS')
-                                                        <div class="col-md-6"><div class="row" >
+                                                        <div class="col-12">
+                                                            <div class="row" >
                                                                 @if ($servicio->precio_grupo == 1)
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                             Precio es individual
                                                                         </label >
                                                                     </div >
                                                                 @else
-                                                                    <div class="col-md-6 hide" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6 d-none" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                             Precio es individual
                                                                         </label >
@@ -705,34 +732,34 @@
                                                         </div >
                                                     @endif
                                                     @if ($servicio->grupo == 'FLIGHTS')
-                                                        <div class="col-md-6" >
+                                                        <div class="col-12" >
                                                             <div class="row" >
                                                                 @if ($servicio->precio_grupo == 1)
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                             Precio es individual
                                                                         </label >
                                                                     </div >
                                                                 @else
-                                                                    <div class="col-md-6 hide" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6 d-none" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                             Precio es individual
                                                                         </label >
@@ -742,34 +769,34 @@
                                                         </div >
                                                     @endif
                                                     @if ($servicio->grupo == 'OTHERS')
-                                                        <div class="col-md-6">
+                                                        <div class="col-12">
                                                             <div class="row" >
                                                                 @if ($servicio->precio_grupo == 1)
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                             Precio es individual
                                                                         </label >
                                                                     </div >
                                                                 @else
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                             Precio es absoluto
                                                                         </label >
                                                                     </div >
-                                                                    <div class="col-md-6" >
-                                                                        <label for="txt_price">Tipe price</label><br>
-                                                                        <label class=" text-green-goto" >
+                                                                    <div class="col-6" >
+                                                                        {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                        <label class=" text-danger" >
                                                                             <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                             Precio es individual
                                                                         </label >
@@ -781,52 +808,62 @@
                                                     @php
                                                         $pos++;
                                                     @endphp
-                                                </div>
+
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-7">
-                                            <div class="caja-contenedora clearfix">
+                                        <div class="col d-flex">
+                                            <div class="card p-2 text-left w-100">
                                                 <div class="row">
-                                                    <div class="col-lg-12">
-                                                    <div id="lista_proveedores_{{$servicio->id}}_{{$destino[0]}}" class="col-lg-5" style="height: 400px; overflow-y: auto;">
-                                                        <p><b class="text-green-goto">Proveedores</b></p>
-                                                        @if($destino[1]!='TRAINS')
-                                                            @foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor)
-                                                                <div class="checkbox1">
-                                                                    <label class="puntero">
-                                                                        <input class="proveedores_{{$servicio->id}}"  type="checkbox" aria-label="..." name="proveedores_[]" value="{{$proveedor->id}}_{{$proveedor->nombre_comercial}}">
-                                                                        {{$proveedor->nombre_comercial}}
-                                                                    </label>
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
+                                                    <div class="col">
+                                                        <p><b class="text-g-green font-weight-bold">Proveedores</b></p>
                                                     </div>
-                                            <div class="col-lg-1">
-                                                <a href="#!" class="btn btn-primary" onclick="Pasar_pro('{{$categoria_id}}','{{$destino[1]}}','{{$servicio->id}}')">
-                                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                            <div class="col-lg-6" style="height: 400px; overflow-y: auto;">
-                                                <p><b class="text-green-goto">Proveedor/Costo</b></p>
-                                                <div id="lista_costos_{{$destino[1]}}_{{$id}}_{{$servicio->id}}">
-                                                @foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo)
-                                                    <div id="fila_p_{{$servicio->id}}_{{$costo->id}}_{{$costo->proveedor->id}}" class="row">
-                                                        <div class="col-lg-6">{{$costo->proveedor->nombre_comercial}}</div>
-                                                        <div class="col-lg-3">
-                                                            <input name="costo_id[]" type="hidden" value="{{$costo->id}}">
-                                                            <input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="{{$costo->precio_costo}}">
-                                                        </div>
-                                                        <div class="col-lg-3">
-                                                            <button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('{{$servicio->id}}','{{$costo->id}}','{{$costo->proveedor->id}}','{{$costo->proveedor->nombre_comercial}}')">
-                                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
+                                                    <div class="col-1"></div>
+                                                    <div class="col-7">
+                                                        <p><b class="text-g-green">Proveedor/Costo</b></p>
                                                     </div>
-                                                @endforeach
                                                 </div>
-                                            </div>
-                                        </div>
+                                                <div class="row align-items-center">
+
+                                                        <div id="lista_proveedores_{{$servicio->id}}_{{$destino[0]}}" class="col">
+                                                            @if($destino[1]!='TRAINS')
+                                                                @foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor)
+                                                                    <div class="">
+                                                                        <label class="text-primary">
+                                                                            <input class="proveedores_{{$servicio->id}}"  type="checkbox" aria-label="..." name="proveedores_[]" value="{{$proveedor->id}}_{{$proveedor->nombre_comercial}}">
+                                                                            {{ucwords(strtolower($proveedor->nombre_comercial))}}
+                                                                        </label>
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <a href="#!" class="btn btn-primary" onclick="Pasar_pro('{{$categoria_id}}','{{$destino[1]}}','{{$servicio->id}}')">
+                                                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-7">
+
+                                                            <div id="lista_costos_{{$destino[1]}}_{{$id}}_{{$servicio->id}}">
+                                                                @foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo)
+                                                                    <div id="fila_p_{{$servicio->id}}_{{$costo->id}}_{{$costo->proveedor->id}}" class="row align-items-center">
+                                                                        <div class="col-5">{{ucwords(strtolower($costo->proveedor->nombre_comercial))}}</div>
+                                                                        <div class="col">
+                                                                            <input name="costo_id[]" type="hidden" value="{{$costo->id}}">
+                                                                            <input name="costo_val[]" type="number" class="form-control form-control-sm my-2" value="{{$costo->precio_costo}}">
+                                                                        </div>
+                                                                        <div class="col-3">
+                                                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminar_proveedor_comprobando('{{$servicio->id}}','{{$costo->id}}','{{$costo->proveedor->id}}','{{$costo->proveedor->nombre_comercial}}')">
+                                                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+
+
+                                                        </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -845,8 +882,8 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->localizacion}}','{{$servicio->id}}','{{$servicio->nombre}}')">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                <button type="button" class="btn btn-danger btn-sm" onclick="eliminar_servicio('{{$servicio->localizacion}}','{{$servicio->id}}','{{$servicio->nombre}}')">
+                    <i class="fa fa-trash"></i>
                 </button>
             </td>
         </tr>
@@ -854,24 +891,24 @@
     @elseif($filtro=='Movilidad-ruta')
         @foreach ($sericios->where('ruta_salida',$ruta[0])->where('ruta_llegada',$ruta[1]) as $servicio)
             <tr class="{{$servicio->localizacion}}" id="lista_services_{{$servicio->id}}">
-                <td class="text-green-goto">{{$servicio->localizacion}}</td>
-                <td class="text-green-goto">{{$servicio->codigo}}</td>
+                <td class="text-g-green">{{ucwords(strtolower($servicio->localizacion))}}</td>
+                <td class="text-g-green">{{$servicio->codigo}}</td>
                 @if($destino[1] == 'MOVILID')
-                    <td class="text-green-goto">{{$servicio->ruta_salida}}-{{$servicio->ruta_llegada}}
+                    <td class="text-g-green">{{ucwords(strtolower($servicio->ruta_salida))}}-{{ucwords(strtolower($servicio->ruta_llegada))}}
                 @endif
                 <td id="tipo_{{$servicio->id}}">{{$servicio->tipoServicio}}
                     @if ($destino[1] == 'MOVILID')
                         [{{$servicio->min_personas}} - {{$servicio->max_personas}}]
                     @endif
                 </td>
-                <td id="nombre_{{$servicio->id}}">{{$servicio->nombre}}</td>
+                <td id="nombre_{{$servicio->id}}">{{ucwords(strtolower($servicio->nombre))}}</td>
                 @if ($destino[1] == 'TRAINS')
-                    <td id="horario_{{$servicio->id}}">{{$servicio->salida}} - {{$servicio->llegada}}</td>
+                    <td id="horario_{{$servicio->id}}">{{ucwords(strtolower($servicio->salida))}} - {{ucwords(strtolower($servicio->llegada))}}</td>
                 @endif
                 <td id="precio_{{$servicio->id}}">${{$servicio->precio_venta}}</td>
                 <td>
-                    <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_producto{{$servicio->id}}">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#modal_edit_producto{{$servicio->id}}">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </button>
                     <div class="modal fade bd-example-modal-lg" id="modal_edit_producto{{$servicio->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -885,23 +922,23 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row margin-top-10">
-                                            <div class="col-lg-5">
-                                                <div class="caja-contenedora clearfix">
+                                            <div class="col-lg-5 d-flex">
+                                                <div class="card p-2 w-100">
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             @if($destino[1]!='HOTELS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_codigo">Codigo</label>
+                                                                        <label for="txt_codigo" class="text-secondary font-weight-bold">Codigo</label>
                                                                         <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{$servicio->codigo}}" readonly>
                                                                     </div>
                                                                 </div>
                                                             @endif
                                                             @if($destino[1]!='TRAINS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
                                                                         @if($destino[1]=='MOVILID')
-                                                                            <label for="txt_codigo">Punto de inicio</label>
+                                                                            <label for="txt_codigo" class="text-secondary font-weight-bold">Punto de inicio</label>
                                                                             <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}" onchange="nuevos_proveedores_movilidad_ruta_edit('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
                                                                                 @foreach ($destinations as $destination)
                                                                                     <option value="{{$destination->destino}}"
@@ -912,7 +949,7 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         @else
-                                                                            <label for="txt_codigo">Location</label>
+                                                                            <label for="txt_codigo" class="font-weight-bold text-secondary">Location</label>
                                                                             <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}"  onchange="nuevos_proveedores('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
                                                                                 @foreach ($destinations as $destination)
                                                                                     <option value="{{$destination->destino}}"
@@ -948,9 +985,9 @@
                                                                     @php
                                                                         $array_pro = $array_pro . substr(0, strlen($array_pro) - 1);
                                                                     @endphp
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-6">
                                                                         <div class="form-group">
-                                                                            <label for="txt_codigo">Empresa</label>
+                                                                            <label for="txt_codigo" class="text-secondary font-weight-bold">Empresa</label>
                                                                             <select class="form-control" id="txt_provider_{{$servicio->id}}" name="txt_provider_{{$servicio->id}}" onchange="mostrar_class($('#txt_provider_{{$servicio->id}}').val(),'{{$array_pro}}','{{$destino[1]}}','{{$servicio->id}}','{{$destino[0]}}')">
                                                                                 <option value="0">Escoja una empresa</option>';
                                                                                 @foreach ($proveedores->where('grupo', 'TRAINS') as $provider)
@@ -971,9 +1008,9 @@
                                                                     @php
                                                                         $vision++;
                                                                     @endphp
-                                                                    <div id="proveedor_{{$provider->id}}" class="col-md-6
+                                                                    <div id="proveedor_{{$provider->id}}" class="col-6
                                                             @if($proveedor_id1!=$provider->id)
-                                                                    {{' hide'}}
+                                                                    {{' d-none'}}
                                                                     @endif
                                                                             ">
                                                                         <div class="form-group">
@@ -992,9 +1029,9 @@
                                                                 @endforeach
                                                             @endif
                                                             @if($destino[1] == 'ENTRANCES')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_type" > Clase</label >
+                                                                        <label for="txt_type" class="font-weight-bold text-secondary"> Clase</label >
                                                                         <select class="form-control" id = "txt_clase_{{$servicio->id}}" name = "txt_clase_{{$servicio->id}}">
                                                                             <option value = "OTROS"
                                                                             @if ($servicio->clase == "OTROS")
@@ -1027,9 +1064,9 @@
                                                                 </div>
                                                             @endif
                                                             @if ($destino[1] == 'MOVILID')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_type" > Clase</label >
+                                                                        <label for="txt_type" class="text-secondary font-weight-bold"> Clase</label >
                                                                         <select class="form-control" id = "txt_clase_{{$servicio->id}}" name = "txt_clase_{{$servicio->id}}">
                                                                             <option value = "DEFAULT"
                                                                             @if ($servicio->clase == "DEFAULT")
@@ -1047,8 +1084,8 @@
                                                             @endif
 
                                                             @if ($destino[1] == 'TOURS')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "GROUP"
                                                                             @if ($servicio->tipoServicio == "GROUP")
@@ -1065,8 +1102,8 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'MOVILID')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "AUTO"
                                                                             @if ($servicio->tipoServicio == "AUTO")
@@ -1104,8 +1141,8 @@
                                                             @endif
 
                                                             @if ($servicio->grupo == 'REPRESENT')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "GUIDE"
                                                                             @if ($servicio->tipoServicio == "GUIDE") {{'selected'}}@endif
@@ -1121,8 +1158,8 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'ENTRANCES')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "EXTRANJERO"
                                                                             @if ($servicio->tipoServicio == "EXTRANJERO") {{'selected '}}@endif
@@ -1135,8 +1172,8 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'FOOD')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "LUNCH"
                                                                             @if ($servicio->tipoServicio == "LUNCH") {{'selected'}}@endif
@@ -1153,7 +1190,7 @@
                                                             @endif
 
                                                             @if($servicio->grupo == 'FLIGHTS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group"><label for="txt_type">Type</label>
                                                                         <select class="form-control" id="txt_type_{{$servicio->id}}" name="txt_type_{{$servicio->id}}">
                                                                             <option value="NATIONAL"
@@ -1167,30 +1204,30 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'OTHERS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group"><label for="txt_type">Type</label>
                                                                         <input type="text" class="form-control" id="txt_type_{{$servicio->id}}" name="txt_type_{{$servicio->id}}" placeholder="Type" value="{{$servicio->tipoServicio}}">
                                                                     </div>
                                                                 </div>
                                                             @endif
-                                                            <div class="col-md-6">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
                                                                     @if ($servicio->grupo == 'TRAINS')
-                                                                        <label for="txt_product">Tren</label>
+                                                                        <label for="txt_product" class="text-secondary font-weight-bold">Tren</label>
                                                                     @elseif($servicio->grupo == 'FLIGHTS')
-                                                                        <label for="txt_product">Ruta</label>
+                                                                        <label for="txt_product" class="text-secondary font-weight-bold">Ruta</label>
                                                                     @else
-                                                                        <label for="txt_product">Product</label>
+                                                                        <label for="txt_product" class="text-secondary font-weight-bold">Product</label>
                                                                     @endif
                                                                     <input type="text" class="form-control" id="txt_product_{{$servicio->id}}" name="txt_product_{{$servicio->id}}" placeholder="Product" value="{{$servicio->nombre}}">
                                                                 </div>
                                                             </div>
 
                                                             @if($destino[1]=='MOVILID')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
                                                                         <div id="rutas_{{$servicio->id}}">
-                                                                            <label for="txt_price">Ruta</label>
+                                                                            <label for="txt_price" class="font-weight-bold text-secondary">Ruta</label>
                                                                             <select class="form-control" id="txt_ruta_salida_{{$servicio->id}}" name="txt_ruta_salida_{{$servicio->id}}" required="required">
                                                                                 <option value="ESCOJA UNA RUTA-ESCOJA UNA RUTA">ESCOJA UNA RUTA</option>
                                                                                 <option value="CUSCO-AIRPORT">CUSCO-AIRPORT</option>
@@ -1205,9 +1242,9 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'TRAINS' || $servicio->grupo == 'FLIGHTS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_price">Ruta de salida</label>
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary">Ruta de salida</label>
                                                                         <select class="form-control" id="txt_ruta_salida_{{$servicio->id}}" name="txt_ruta_salida_{{$servicio->id}}">
                                                                             @if($servicio->ruta_salida=='POROY')
                                                                                 <option value="POROY" selected>POROY</option>
@@ -1227,15 +1264,15 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_price" > Hora</label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Hora</label >
                                                                         <input type = "text" class="form-control" id = "txt_salida_{{$servicio->id}}" name = "txt_salida_{{$servicio->id}}" placeholder="06:30" value = "{{$servicio->salida}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_price">Ruta de llegada</label>
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary">Ruta de llegada</label>
                                                                         <select class="form-control" id="txt_ruta_llegada_{{$servicio->id}}" name="txt_ruta_llegada_{{$servicio->id}}">
                                                                             @if($servicio->ruta_llegada=='POROY')
                                                                                 <option value="POROY" selected>POROY</option>
@@ -1255,63 +1292,64 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6" >
+                                                                <div class="col-6" >
                                                                     <div class="form-group" >
-                                                                        <label for="txt_price" > Hora</label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Hora</label >
                                                                         <input type = "text" class="form-control" id = "txt_llegada_{{$servicio->id}}" name = "txt_llegada_{{$servicio->id}}" placeholder="06:30"  value = "{{$servicio->llegada}}" >
                                                                     </div>
                                                                 </div>
                                                             @endif
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
-                                                                    <label for="txt_price">Price</label>
+                                                                    <label for="txt_price" class="font-weight-bold text-secondary">Price</label>
                                                                     <input type="number" class="form-control" id="txt_price_{{$servicio->id}}" name="txt_price_{{$servicio->id}}" placeholder="Price"  value="{{$servicio->precio_venta}}" min="0">
                                                                 </div>
                                                             </div>
                                                             @if ($servicio->grupo == 'MOVILID')
-                                                                <div class="col-md-6" >
+                                                                <div class="col-6" >
                                                                     <div class="form-group" >
-                                                                        <label for="txt_price" > Min Personas </label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Min Personas </label >
                                                                         <input type = "number" class="form-control" id = "txt_min_personas_{{$servicio->id}}" name = "txt_min_personas_{{$servicio->id}}" placeholder = "Min" min = "0" value = "{{$servicio->min_personas}}">
                                                                     </div >
                                                                 </div >
-                                                                <div class="col-md-6" >
+                                                                <div class="col-6" >
                                                                     <div class="form-group" >
-                                                                        <label for="txt_price" > Max Personas </label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Max Personas </label >
                                                                         <input type = "number" class="form-control" id = "txt_max_personas_{{$servicio->id}}" name = "txt_max_personas_{{$servicio->id}}" placeholder = "Min" min = "0" value = "{{$servicio->max_personas}}" >
                                                                     </div >
                                                                 </div >
                                                             @endif
 
                                                             @if ($servicio->grupo == 'TOURS')
-                                                                <div class="col-md-6"><div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row">
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -1321,30 +1359,30 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'MOVILID')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="row">
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Absoluto" checked="checked">
                                                                                     Precio es absoluto
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Individual">
                                                                                     Precio es individual
                                                                                 </label>
                                                                             </div>
                                                                         @else
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Absoluto">
                                                                                     Precio es absoluto
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Individual" checked="checked">
                                                                                     Precio es individual
                                                                                 </label>
@@ -1354,34 +1392,34 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'REPRESENT')
-                                                                <div class="col-md-6">
+                                                                <div class="col-12">
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div>
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div>
                                                                         @else
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -1391,33 +1429,34 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'ENTRANCES')
-                                                                <div class="col-md-6"><div class="row" >
+                                                                <div class="col-12">
+                                                                    <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -1427,34 +1466,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'FOOD')
-                                                                <div class="col-md-6" >
+                                                                <div class="col-12" >
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -1464,33 +1503,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'TRAINS')
-                                                                <div class="col-md-6"><div class="row" >
+                                                                <div class="col-12">
+                                                                    <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -1500,34 +1540,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'FLIGHTS')
-                                                                <div class="col-md-6" >
+                                                                <div class="col-12" >
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -1537,34 +1577,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'OTHERS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-12">
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
-                                                                                    <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                {{--<label class=" text-g-green" >--}}
+                                                                                    {{--<input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >--}}
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
-                                                                                    <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                {{--<label class=" text-g-green" >--}}
+                                                                                    {{--<input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >--}}
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
-                                                                                    <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                {{--<label class=" text-g-green" >--}}
+                                                                                    {{--<input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >--}}
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -1581,47 +1621,53 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-7">
-                                                <div class="caja-contenedora clearfix">
+                                                <div class="card p-2 text-left w-100">
                                                     <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div id="lista_proveedores_{{$servicio->id}}_{{$destino[0]}}" class="col-lg-5" style="height: 400px; overflow-y: auto;">
-                                                                <p><b class="text-green-goto">Proveedores</b></p>
+                                                        <div class="col">
+                                                            <p><b class="text-g-green font-weight-bold">Proveedores</b></p>
+                                                        </div>
+                                                        <div class="col-1"></div>
+                                                        <div class="col-7">
+                                                            <p><b class="text-g-green">Proveedor/Costo</b></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-items-center">
+                                                            <div id="lista_proveedores_{{$servicio->id}}_{{$destino[0]}}" class="col">
                                                                 @if($destino[1]!='TRAINS')
                                                                     @foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor)
                                                                         <div class="checkbox1">
                                                                             <label class="puntero">
                                                                                 <input class="proveedores_{{$servicio->id}}"  type="checkbox" aria-label="..." name="proveedores_[]" value="{{$proveedor->id}}_{{$proveedor->nombre_comercial}}">
-                                                                                {{$proveedor->nombre_comercial}}
+                                                                                {{ucwords(strtolower($proveedor->nombre_comercial))}}
                                                                             </label>
                                                                         </div>
                                                                     @endforeach
                                                                 @endif
                                                             </div>
-                                                            <div class="col-lg-1">
+                                                            <div class="col-1">
                                                                 <a href="#!" class="btn btn-primary" onclick="Pasar_pro('{{$categoria_id}}','{{$destino[1]}}','{{$servicio->id}}')">
                                                                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                                                 </a>
                                                             </div>
-                                                            <div class="col-lg-6" style="height: 400px; overflow-y: auto;">
-                                                                <p><b class="text-green-goto">Proveedor/Costo</b></p>
+                                                            <div class="col-7">
                                                                 <div id="lista_costos_{{$destino[1]}}_{{$id}}_{{$servicio->id}}">
                                                                     @foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo)
-                                                                        <div id="fila_p_{{$servicio->id}}_{{$costo->id}}_{{$costo->proveedor->id}}" class="row">
-                                                                            <div class="col-lg-6">{{$costo->proveedor->nombre_comercial}}</div>
-                                                                            <div class="col-lg-3">
+                                                                        <div id="fila_p_{{$servicio->id}}_{{$costo->id}}_{{$costo->proveedor->id}}" class="row align-items-center">
+                                                                            <div class="col-5">{{$costo->proveedor->nombre_comercial}}</div>
+                                                                            <div class="col">
                                                                                 <input name="costo_id[]" type="hidden" value="{{$costo->id}}">
-                                                                                <input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="{{$costo->precio_costo}}">
+                                                                                <input name="costo_val[]" type="number" class="form-control form-control-sm my-2" value="{{$costo->precio_costo}}">
                                                                             </div>
-                                                                            <div class="col-lg-3">
-                                                                                <button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('{{$servicio->id}}','{{$costo->id}}','{{$costo->proveedor->id}}','{{$costo->proveedor->nombre_comercial}}')">
-                                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                            <div class="col-3">
+                                                                                <button type="button" class="btn btn-danger btn-sm" onclick="eliminar_proveedor_comprobando('{{$servicio->id}}','{{$costo->id}}','{{$costo->proveedor->id}}','{{$costo->proveedor->nombre_comercial}}')">
+                                                                                    <i class="fas fa-trash" aria-hidden="true"></i>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
                                                                     @endforeach
                                                                 </div>
                                                             </div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -1640,8 +1686,8 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->localizacion}}','{{$servicio->id}}','{{$servicio->nombre}}')">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="eliminar_servicio('{{$servicio->localizacion}}','{{$servicio->id}}','{{$servicio->nombre}}')">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
                     </button>
                 </td>
             </tr>
@@ -1649,10 +1695,10 @@
     @elseif($filtro=='Movilidad-ruta-tipo')
         @foreach ($sericios->where('ruta_salida',$ruta[0])->where('ruta_llegada',$ruta[1])->where('tipoServicio',$tipo) as $servicio)
             <tr class="{{$servicio->localizacion}}" id="lista_services_{{$servicio->id}}">
-                <td class="text-green-goto">{{$servicio->localizacion}}</td>
-                <td class="text-green-goto">{{$servicio->codigo}}</td>
+                <td class="text-g-green">{{ucwords(strtolower($servicio->localizacion))}}</td>
+                <td class="text-g-green">{{$servicio->codigo}}</td>
                 @if($destino[1] == 'MOVILID')
-                    <td class="text-green-goto">{{$servicio->ruta_salida}}-{{$servicio->ruta_llegada}}
+                    <td class="text-g-green">{{ucwords(strtolower($servicio->ruta_salida))}}-{{ucwords(strtolower($servicio->ruta_llegada))}}
                 @endif
                 <td id="tipo_{{$servicio->id}}">{{$servicio->tipoServicio}}
                     @if ($destino[1] == 'MOVILID')
@@ -1661,12 +1707,12 @@
                 </td>
                 <td id="nombre_{{$servicio->id}}">{{$servicio->nombre}}</td>
                 @if ($destino[1] == 'TRAINS')
-                    <td id="horario_{{$servicio->id}}">{{$servicio->salida}} - {{$servicio->llegada}}</td>
+                    <td id="horario_{{$servicio->id}}">{{ucwords(strtolower($servicio->salida))}} - {{ucwords(strtolower($servicio->llegada))}}</td>
                 @endif
                 <td id="precio_{{$servicio->id}}">${{$servicio->precio_venta}}</td>
                 <td>
-                    <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modal_edit_producto{{$servicio->id}}">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <button type="button" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#modal_edit_producto{{$servicio->id}}">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </button>
                     <div class="modal fade bd-example-modal-lg" id="modal_edit_producto{{$servicio->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -1680,23 +1726,23 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row margin-top-10">
-                                            <div class="col-lg-5">
-                                                <div class="caja-contenedora clearfix">
+                                            <div class="col-lg-5 d-flex">
+                                                <div class="card p-2 w-100">
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             @if($destino[1]!='HOTELS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_codigo">Codigo</label>
+                                                                        <label for="txt_codigo" class="text-secondary font-weight-bold">Codigo</label>
                                                                         <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" value="{{$servicio->codigo}}" readonly>
                                                                     </div>
                                                                 </div>
                                                             @endif
                                                             @if($destino[1]!='TRAINS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
                                                                         @if($destino[1]=='MOVILID')
-                                                                            <label for="txt_codigo">Punto de inicio</label>
+                                                                            <label for="txt_codigo" class="text-secondary font-weight-bold">Punto de inicio</label>
                                                                             <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}" onchange="nuevos_proveedores_movilidad_ruta_edit('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
                                                                                 @foreach ($destinations as $destination)
                                                                                     <option value="{{$destination->destino}}"
@@ -1707,7 +1753,7 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         @else
-                                                                            <label for="txt_codigo">Location</label>
+                                                                            <label for="txt_codigo" class="text-secondary font-weight-bold">Location</label>
                                                                             <select class="form-control" id="txt_localizacion_{{$servicio->id}}" name="txt_localizacion_{{$servicio->id}}"  onchange="nuevos_proveedores('{{$servicio->id}}','{{$destino[0]}}','{{$destino[1]}}')">
                                                                                 @foreach ($destinations as $destination)
                                                                                     <option value="{{$destination->destino}}"
@@ -1743,9 +1789,9 @@
                                                                     @php
                                                                         $array_pro = $array_pro . substr(0, strlen($array_pro) - 1);
                                                                     @endphp
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-6">
                                                                         <div class="form-group">
-                                                                            <label for="txt_codigo">Empresa</label>
+                                                                            <label for="txt_codigo" class="text-secondary font-weight-bold">Empresa</label>
                                                                             <select class="form-control" id="txt_provider_{{$servicio->id}}" name="txt_provider_{{$servicio->id}}" onchange="mostrar_class($('#txt_provider_{{$servicio->id}}').val(),'{{$array_pro}}','{{$destino[1]}}','{{$servicio->id}}','{{$destino[0]}}')">
                                                                                 <option value="0">Escoja una empresa</option>';
                                                                                 @foreach ($proveedores->where('grupo', 'TRAINS') as $provider)
@@ -1766,9 +1812,9 @@
                                                                     @php
                                                                         $vision++;
                                                                     @endphp
-                                                                    <div id="proveedor_{{$provider->id}}" class="col-md-6
+                                                                    <div id="proveedor_{{$provider->id}}" class="col-6
                                                             @if($proveedor_id1!=$provider->id)
-                                                                    {{' hide'}}
+                                                                    {{' d-none'}}
                                                                     @endif
                                                                             ">
                                                                         <div class="form-group">
@@ -1787,9 +1833,9 @@
                                                                 @endforeach
                                                             @endif
                                                             @if($destino[1] == 'ENTRANCES')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_type" > Clase</label >
+                                                                        <label for="txt_type" class="text-secondary font-weight-bold"> Clase</label >
                                                                         <select class="form-control" id = "txt_clase_{{$servicio->id}}" name = "txt_clase_{{$servicio->id}}">
                                                                             <option value = "OTROS"
                                                                             @if ($servicio->clase == "OTROS")
@@ -1822,9 +1868,9 @@
                                                                 </div>
                                                             @endif
                                                             @if ($destino[1] == 'MOVILID')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_type" > Clase</label >
+                                                                        <label for="txt_type" class="text-secondary font-weight-bold"> Clase</label >
                                                                         <select class="form-control" id = "txt_clase_{{$servicio->id}}" name = "txt_clase_{{$servicio->id}}">
                                                                             <option value = "DEFAULT"
                                                                             @if ($servicio->clase == "DEFAULT")
@@ -1842,8 +1888,8 @@
                                                             @endif
 
                                                             @if ($destino[1] == 'TOURS')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "GROUP"
                                                                             @if ($servicio->tipoServicio == "GROUP")
@@ -1860,8 +1906,8 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'MOVILID')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "AUTO"
                                                                             @if ($servicio->tipoServicio == "AUTO")
@@ -1899,8 +1945,8 @@
                                                             @endif
 
                                                             @if ($servicio->grupo == 'REPRESENT')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "GUIDE"
                                                                             @if ($servicio->tipoServicio == "GUIDE") {{'selected'}}@endif
@@ -1916,8 +1962,8 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'ENTRANCES')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "EXTRANJERO"
                                                                             @if ($servicio->tipoServicio == "EXTRANJERO") {{'selected '}}@endif
@@ -1930,8 +1976,8 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'FOOD')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group"><label for="txt_type" > Type</label >
+                                                                <div class="col-6">
+                                                                    <div class="form-group"><label for="txt_type" class="text-secondary font-weight-bold"> Type</label >
                                                                         <select class="form-control" id = "txt_type_{{$servicio->id}}" name = "txt_type_{{$servicio->id}}" >
                                                                             <option value = "LUNCH"
                                                                             @if ($servicio->tipoServicio == "LUNCH") {{'selected'}}@endif
@@ -1948,7 +1994,7 @@
                                                             @endif
 
                                                             @if($servicio->grupo == 'FLIGHTS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group"><label for="txt_type">Type</label>
                                                                         <select class="form-control" id="txt_type_{{$servicio->id}}" name="txt_type_{{$servicio->id}}">
                                                                             <option value="NATIONAL"
@@ -1962,30 +2008,30 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'OTHERS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group"><label for="txt_type">Type</label>
                                                                         <input type="text" class="form-control" id="txt_type_{{$servicio->id}}" name="txt_type_{{$servicio->id}}" placeholder="Type" value="{{$servicio->tipoServicio}}">
                                                                     </div>
                                                                 </div>
                                                             @endif
-                                                            <div class="col-md-6">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
                                                                     @if ($servicio->grupo == 'TRAINS')
-                                                                        <label for="txt_product">Tren</label>
+                                                                        <label for="txt_product" class="text-secondary font-weight-bold">Tren</label>
                                                                     @elseif($servicio->grupo == 'FLIGHTS')
-                                                                        <label for="txt_product">Ruta</label>
+                                                                        <label for="txt_product" class="text-secondary font-weight-bold">Ruta</label>
                                                                     @else
-                                                                        <label for="txt_product">Product</label>
+                                                                        <label for="txt_product" class="text-secondary font-weight-bold">Product</label>
                                                                     @endif
                                                                     <input type="text" class="form-control" id="txt_product_{{$servicio->id}}" name="txt_product_{{$servicio->id}}" placeholder="Product" value="{{$servicio->nombre}}">
                                                                 </div>
                                                             </div>
 
                                                             @if($destino[1]=='MOVILID')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
                                                                         <div id="rutas_{{$servicio->id}}">
-                                                                            <label for="txt_price">Ruta</label>
+                                                                            <label for="txt_price" class="font-weight-bold text-secondary">Ruta</label>
                                                                             <select class="form-control" id="txt_ruta_salida_{{$servicio->id}}" name="txt_ruta_salida_{{$servicio->id}}" required="required">
                                                                                 <option value="ESCOJA UNA RUTA-ESCOJA UNA RUTA">ESCOJA UNA RUTA</option>
                                                                                 <option value="CUSCO-AIRPORT">CUSCO-AIRPORT</option>
@@ -2000,9 +2046,9 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'TRAINS' || $servicio->grupo == 'FLIGHTS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_price">Ruta de salida</label>
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary">Ruta de salida</label>
                                                                         <select class="form-control" id="txt_ruta_salida_{{$servicio->id}}" name="txt_ruta_salida_{{$servicio->id}}">
                                                                             @if($servicio->ruta_salida=='POROY')
                                                                                 <option value="POROY" selected>POROY</option>
@@ -2022,15 +2068,15 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_price" > Hora</label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Hora</label >
                                                                         <input type = "text" class="form-control" id = "txt_salida_{{$servicio->id}}" name = "txt_salida_{{$servicio->id}}" placeholder="06:30" value = "{{$servicio->salida}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="txt_price">Ruta de llegada</label>
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary">Ruta de llegada</label>
                                                                         <select class="form-control" id="txt_ruta_llegada_{{$servicio->id}}" name="txt_ruta_llegada_{{$servicio->id}}">
                                                                             @if($servicio->ruta_llegada=='POROY')
                                                                                 <option value="POROY" selected>POROY</option>
@@ -2050,63 +2096,64 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6" >
+                                                                <div class="col-6" >
                                                                     <div class="form-group" >
-                                                                        <label for="txt_price" > Hora</label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Hora</label >
                                                                         <input type = "text" class="form-control" id = "txt_llegada_{{$servicio->id}}" name = "txt_llegada_{{$servicio->id}}" placeholder="06:30"  value = "{{$servicio->llegada}}" >
                                                                     </div>
                                                                 </div>
                                                             @endif
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
-                                                                    <label for="txt_price">Price</label>
+                                                                    <label for="txt_price" class="font-weight-bold text-secondary">Price</label>
                                                                     <input type="number" class="form-control" id="txt_price_{{$servicio->id}}" name="txt_price_{{$servicio->id}}" placeholder="Price"  value="{{$servicio->precio_venta}}" min="0">
                                                                 </div>
                                                             </div>
                                                             @if ($servicio->grupo == 'MOVILID')
-                                                                <div class="col-md-6" >
+                                                                <div class="col-6" >
                                                                     <div class="form-group" >
-                                                                        <label for="txt_price" > Min Personas </label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Min Personas </label >
                                                                         <input type = "number" class="form-control" id = "txt_min_personas_{{$servicio->id}}" name = "txt_min_personas_{{$servicio->id}}" placeholder = "Min" min = "0" value = "{{$servicio->min_personas}}">
                                                                     </div >
                                                                 </div >
-                                                                <div class="col-md-6" >
+                                                                <div class="col-6" >
                                                                     <div class="form-group" >
-                                                                        <label for="txt_price" > Max Personas </label >
+                                                                        <label for="txt_price" class="font-weight-bold text-secondary"> Max Personas </label >
                                                                         <input type = "number" class="form-control" id = "txt_max_personas_{{$servicio->id}}" name = "txt_max_personas_{{$servicio->id}}" placeholder = "Min" min = "0" value = "{{$servicio->max_personas}}" >
                                                                     </div >
                                                                 </div >
                                                             @endif
 
                                                             @if ($servicio->grupo == 'TOURS')
-                                                                <div class="col-md-6"><div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="row">
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                {{--<label class=" text-g-green" >--}}
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                {{--<label class=" text-g-green" >--}}
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -2116,30 +2163,30 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'MOVILID')
-                                                                <div class="col-md-6">
+                                                                <div class="col-12">
                                                                     <div class="row">
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Absoluto" checked="checked">
                                                                                     Precio es absoluto
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Individual">
                                                                                     Precio es individual
                                                                                 </label>
                                                                             </div>
                                                                         @else
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Absoluto">
                                                                                     Precio es absoluto
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <label class=" text-green-goto">
+                                                                            <div class="col-6">
+                                                                                <label class=" text-g-green">
                                                                                     <input type="radio" name="txt_tipo_grupo_{{$servicio->id}}" value="Individual" checked="checked">
                                                                                     Precio es individual
                                                                                 </label>
@@ -2149,34 +2196,34 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'REPRESENT')
-                                                                <div class="col-md-6">
+                                                                <div class="col-12">
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div>
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div>
                                                                         @else
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -2186,33 +2233,34 @@
                                                                 </div>
                                                             @endif
                                                             @if ($servicio->grupo == 'ENTRANCES')
-                                                                <div class="col-md-6"><div class="row" >
+                                                                <div class="col-12">
+                                                                    <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -2222,34 +2270,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'FOOD')
-                                                                <div class="col-md-6" >
+                                                                <div class="col-12" >
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -2259,33 +2307,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'TRAINS')
-                                                                <div class="col-md-6"><div class="row" >
+                                                                <div class="col-12">
+                                                                    <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -2295,34 +2344,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'FLIGHTS')
-                                                                <div class="col-md-6" >
+                                                                <div class="col-12" >
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6 hide" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6 d-none" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -2332,34 +2381,34 @@
                                                                 </div >
                                                             @endif
                                                             @if ($servicio->grupo == 'OTHERS')
-                                                                <div class="col-md-6">
+                                                                <div class="col-12">
                                                                     <div class="row" >
                                                                         @if ($servicio->precio_grupo == 1)
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" checked = "checked" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" >
                                                                                     Precio es individual
                                                                                 </label >
                                                                             </div >
                                                                         @else
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Absoluto" >
                                                                                     Precio es absoluto
                                                                                 </label >
                                                                             </div >
-                                                                            <div class="col-md-6" >
-                                                                                <label for="txt_price">Tipe price</label><br>
-                                                                                <label class=" text-green-goto" >
+                                                                            <div class="col-6" >
+                                                                                {{--<label for="txt_price" class="font-weight-bold text-secondary">Tipe price</label><br>--}}
+                                                                                <label class=" text-g-green" >
                                                                                     <input type = "radio" name = "txt_tipo_grupo_{{$servicio->id}}" value = "Individual" checked = "checked" >
                                                                                     Precio es individual
                                                                                 </label >
@@ -2375,48 +2424,56 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-7">
-                                                <div class="caja-contenedora clearfix">
+                                            <div class="col-lg-7 d-flex">
+                                                <div class="card p-2 w-100">
                                                     <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div id="lista_proveedores_{{$servicio->id}}_{{$destino[0]}}" class="col-lg-5" style="height: 400px; overflow-y: auto;">
-                                                                <p><b class="text-green-goto">Proveedores</b></p>
+                                                        <div class="col">
+                                                            <p><b class="text-g-green font-weight-bold">Proveedores</b></p>
+                                                        </div>
+                                                        <div class="col-1"></div>
+                                                        <div class="col-7">
+                                                            <p><b class="text-g-green">Proveedor/Costo</b></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                            <div id="lista_proveedores_{{$servicio->id}}_{{$destino[0]}}" class="col">
+                                                                <p><b class="text-g-green">Proveedores</b></p>
                                                                 @if($destino[1]!='TRAINS')
                                                                     @foreach ($proveedores->where('localizacion',$destino[2])->where('grupo',$destino[1]) as $proveedor)
                                                                         <div class="checkbox1">
                                                                             <label class="puntero">
                                                                                 <input class="proveedores_{{$servicio->id}}"  type="checkbox" aria-label="..." name="proveedores_[]" value="{{$proveedor->id}}_{{$proveedor->nombre_comercial}}">
-                                                                                {{$proveedor->nombre_comercial}}
+                                                                                {{ucwords(strtolower($proveedor->nombre_comercial))}}
                                                                             </label>
                                                                         </div>
                                                                     @endforeach
                                                                 @endif
                                                             </div>
-                                                            <div class="col-lg-1">
+                                                            <div class="col-1">
                                                                 <a href="#!" class="btn btn-primary" onclick="Pasar_pro('{{$categoria_id}}','{{$destino[1]}}','{{$servicio->id}}')">
                                                                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                                                 </a>
                                                             </div>
-                                                            <div class="col-lg-6" style="height: 400px; overflow-y: auto;">
-                                                                <p><b class="text-green-goto">Proveedor/Costo</b></p>
+                                                            <div class="col-7">
+                                                                <p><b class="text-g-green">Proveedor/Costo</b></p>
                                                                 <div id="lista_costos_{{$destino[1]}}_{{$id}}_{{$servicio->id}}">
                                                                     @foreach ($costos->where('m_servicios_id',$servicio->id)->where('grupo', $destino[1])->where('localizacion',$servicio->localizacion) as $costo)
-                                                                        <div id="fila_p_{{$servicio->id}}_{{$costo->id}}_{{$costo->proveedor->id}}" class="row">
-                                                                            <div class="col-lg-6">{{$costo->proveedor->nombre_comercial}}</div>
-                                                                            <div class="col-lg-3">
+                                                                        <div id="fila_p_{{$servicio->id}}_{{$costo->id}}_{{$costo->proveedor->id}}" class="row align-items-center">
+                                                                            <div class="col-5">{{$costo->proveedor->nombre_comercial}}</div>
+                                                                            <div class="col">
                                                                                 <input name="costo_id[]" type="hidden" value="{{$costo->id}}">
-                                                                                <input name="costo_val[]" type="number" class="form-control" style="width: 85px" value="{{$costo->precio_costo}}">
+                                                                                <input name="costo_val[]" type="number" class="form-control form-control-sm my-2" value="{{$costo->precio_costo}}">
                                                                             </div>
-                                                                            <div class="col-lg-3">
-                                                                                <button type="button" class="btn btn-danger" onclick="eliminar_proveedor_comprobando('{{$servicio->id}}','{{$costo->id}}','{{$costo->proveedor->id}}','{{$costo->proveedor->nombre_comercial}}')">
-                                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                            <div class="col-3">
+                                                                                <button type="button" class="btn btn-danger btn-sm" onclick="eliminar_proveedor_comprobando('{{$servicio->id}}','{{$costo->id}}','{{$costo->proveedor->id}}','{{$costo->proveedor->nombre_comercial}}')">
+                                                                                    <i class="fas fa-trash" aria-hidden="true"></i>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
                                                                     @endforeach
                                                                 </div>
                                                             </div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -2435,8 +2492,8 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger" onclick="eliminar_servicio('{{$servicio->localizacion}}','{{$servicio->id}}','{{$servicio->nombre}}')">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="eliminar_servicio('{{$servicio->localizacion}}','{{$servicio->id}}','{{$servicio->nombre}}')">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
                     </button>
                 </td>
             </tr>

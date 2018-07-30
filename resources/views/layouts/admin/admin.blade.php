@@ -38,7 +38,7 @@
         <div class="col-2">
             @include('layouts.admin.nav')
         </div>
-        <div class="col">
+        <div class="col-10">
             @yield('content')
         </div>
     </div>
@@ -56,9 +56,7 @@
         mousewheel: true,
     });
 
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+
 
 
     var jumboHeight = $('.jumbotron').outerHeight();
@@ -84,6 +82,15 @@
         html: true
     })
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            html: true
+        })
+    })
 
 </script>
 

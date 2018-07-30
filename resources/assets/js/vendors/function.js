@@ -3341,6 +3341,7 @@ function pagar_entrada_pagos(id,valor){
     })
 }
 
+
 function Pasar_pro(id,grupo,idservicio){
     // $('#lista_costos_'+id).append('iti_temp');
     var pro='proveedores_'+idservicio;
@@ -3351,15 +3352,15 @@ function Pasar_pro(id,grupo,idservicio){
             if (!existe_proveedor(proveedor[1],id)) {
                 var iti_temp1='';
                 console.log('no existe este proveedor');
-                iti_temp1='<div id="fila_'+grupo+'_'+id+'_'+idservicio+'_'+proveedor[0]+'" class="row">'+
-                            '<div class="col-lg-8 fila_proveedores_'+id+'">'+proveedor[1]+'</div>'+
-                            '<div class="col-lg-2">'+
+                iti_temp1='<div id="fila_'+grupo+'_'+id+'_'+idservicio+'_'+proveedor[0]+'" class="row align-items-center">'+
+                            '<div class="col-5 fila_proveedores_'+id+' text-capitalize"><i class="fas fa-check text-success"></i> '+proveedor[1].toLowerCase()+'</div>'+
+                            '<div class="col">'+
                                 '<input type="hidden" name="pro_id[]" value="'+proveedor[0]+'"></td>'+
-                                '<input type="number" name="pro_val[]" class="form-control" style="width: 80px" value="0.00" min="0" step="0.01"></td>'+
+                                '<input type="number" name="pro_val[]" class="form-control form-control-sm my-2" value="0.00" min="0" step="0.01"></td>'+
                             '</div>'+
-                            '<div class="col-lg-2">'+
-                                '<button type="button" class="btn btn-danger" onclick="eliminar_proveedor('+id+','+grupo+','+idservicio+','+proveedor[0]+',\''+proveedor[1]+'\')">'+
-                                    '<i class="fa fa-trash-o" aria-hidden="true"></i>'+
+                            '<div class="col-3">'+
+                                '<button type="button" class="btn btn-danger btn-sm" onclick="eliminar_proveedor('+id+','+grupo+','+idservicio+','+proveedor[0]+',\''+proveedor[1]+'\')">'+
+                                    '<i class="fas fa-trash"></i>'+
                                 '</button>'+
                             '</div>'+
                           '</div>';
@@ -3895,15 +3896,15 @@ function escojer_servicio(){
                 total_serv++;
                 iti_temp = '<div id="elto_'+itinerario[2]+'" class="col-lg-11 elemento_sort">'+
                     '<div class="row">'+
-                '<div class="col-lg-1 text-11 puntero"><span class="text-unset"><i class="fa fa-arrows-alt" aria-hidden="true"></i></span></div>'+
+                '<div class="col-lg-1 text-11 puntero"><span class="text-unset"><i class="fas fa-arrows-alt" aria-hidden="true"></i></span></div>'+
                 '<div class="col-lg-1 pos text-10">'+total_serv+'</div>'+
                 '<div class="col-lg-9 text-12">';
                 if($grupo=='TOURS')
-                    iti_temp +='<i class="fa fa-map-o text-info" aria-hidden="true"></i>';
+                    iti_temp +='<i class="fas fa-map text-info" aria-hidden="true"></i> ';
                 else if($grupo == 'MOVILID'){
                     var $clase=itinerario[6];
                     if ($clase == 'BOLETO')
-                        iti_temp +='<i class= "fa fa-ticket text-warning" aria-hidden="true"></i>';
+                        iti_temp +='<i class= "fas fa-ticket-alt text-warning" aria-hidden="true"></i>';
                     else
                         iti_temp += '<i class= "fa fa-bus text-warning" aria-hidden="true"></i>';
 
@@ -3911,7 +3912,7 @@ function escojer_servicio(){
                 else if($grupo == 'REPRESENT')
                     iti_temp += '<i class = "fa fa-users text-success" aria-hidden="true"></i>';
                 else if($grupo == 'ENTRANCES')
-                    iti_temp += '<i class= "fa fa-ticket text-success" aria-hidden="true"></i>';
+                    iti_temp += '<i class= "fas fa-ticket-alt text-success" aria-hidden="true"></i>';
                 else if($grupo == 'FOOD')
                     iti_temp += '<i class = "fa fa-cutlery text-danger" aria-hidden="true"></i>';
                 else if($grupo == 'TRAINS')
@@ -3922,7 +3923,7 @@ function escojer_servicio(){
                     iti_temp += '<i class = "fa fa-question text-success" aria-hidden="true"></i>';
 
                 iti_temp += itinerario[4]+'<span class="text-warning"> ('+destino_escoj_titulo+')</span><input type="hidden" name="servicios_esc[]" value="'+itinerario[2]+'"><input type="hidden" name="destinos_esc[]" value="'+destino_escoj+'"></div>'+
-            '<div class="col-lg-1 text-13 puntero"><span class="text-danger" onclick="borrar_servicios_esc(\''+itinerario[2]+'\',\''+itinerario[4]+'\')"><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>'+
+            '<div class="col-lg-1 text-13 puntero"><span class="text-danger" onclick="borrar_servicios_esc(\''+itinerario[2]+'\',\''+itinerario[4]+'\')"><i class="fas fa-trash" aria-hidden="true"></i></span></div>'+
                 '</div>'+
                 '</div>';
 
