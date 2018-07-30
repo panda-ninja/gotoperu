@@ -154,6 +154,9 @@
                                         <label for="txt_travel_date">Destino oficial</label>
                                         <select class="form-control" name="txt_destino_foco" id="txt_destino_foco">
                                             <option value="0">Escoja un destino</option>
+                                            @foreach($destinations as $destino)
+                                                <option value="{{$destino}}">{{$destino->destino}}</option>
+                                            @endforeach
                                         </select>
                                         <input type="hidden" name="foco" id="foco" value="0">
                                     </div>
@@ -164,6 +167,9 @@
                                         <select class="form-control" name="txt_destino_duerme" id="txt_destino_duerme">
                                             <option value="0">Escoja un destino</option>
                                             <option value="-1">NO DUERME</option>
+                                            @foreach($destinations as $destino)
+                                                <option value="{{$destino}}">{{$destino->destino}}</option>
+                                            @endforeach
                                         </select>
                                         <input type="hidden" name="duerme" id="duerme" value="0">
                                     </div>

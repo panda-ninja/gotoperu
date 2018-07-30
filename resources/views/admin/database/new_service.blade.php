@@ -111,8 +111,8 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         @else
-                                                                            <label for="txt_codigo">Location</label>
-                                                                            <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}" onchange="nuevos_proveedores('{{$pos}}',{{$categoria->id}},'{{$categoria->nombre}}')">
+                                                                            <label for="txt_codigo">Location a</label>
+                                                                            <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}" onchange="nuevos_proveedores_new('{{$pos}}',{{$categoria->id}},'{{$categoria->nombre}}')">
                                                                                 @foreach($destinations as $destination)
                                                                                     <option value="{{$destination->destino}}">{{$destination->destino}}</option>
                                                                                 @endforeach
@@ -169,25 +169,7 @@
                                                                     </div>
                                                                 </div>
                                                             @endif
-                                                            @if($categoria->nombre=='HOTELS')
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="txt_codigo">Location</label>
-                                                                        {{--<input type="text" class="form-control" id="txt_localizacion_0" name="txt_localizacion_0" placeholder="Location">--}}
-                                                                        <select class="form-control" id="txt_localizacion_{{$pos}}" name="txt_localizacion_{{$pos}}">
-                                                                            <option value="0">Escoja el destino</option>
-                                                                            @foreach($destinations as $destination)
-                                                                                @if(!in_array($destination->destino,$destinos_usados))
-                                                                                    <option value="{{$destination->destino}}">{{$destination->destino}}</option>
-                                                                                @else
-                                                                                    <option value="{{$destination->destino}}" disabled="disabled">{{$destination->destino}}</option>
-                                                                                @endif
-                                                                            @endforeach
-                                                                        </select>
-                                                                        <input type="hidden" name="tipoServicio_{{$pos}}" id="tipoServicio_{{$pos}}" value="{{$categoria->nombre}}">
-                                                                    </div>
-                                                                </div>
-                                                            @endif
+
                                                             @if($categoria->nombre=='MOVILID')
                                                                 <div class="col-md-6">
                                                                     <label for="txt_type">Clase</label>
@@ -640,7 +622,7 @@
                                                 <div class="caja-contenedora clearfix">
                                                     <div class="row ">
                                                         <div class="col-lg-12">
-                                                            <div id="lista_proveedores_{{$categoria->id}}" class="col-lg-5" style="height: 400px; overflow-y: auto;">
+                                                            <div id="lista_proveedores_{{$pos}}_{{$categoria->id}}" class="col-lg-5" style="height: 400px; overflow-y: auto;">
                                                                 <p><b class="text-green-goto">Proveedores</b></p>
                                                                 @if($categoria->nombre!='TRAINS')
                                                                     @foreach($proveedores->where('grupo',$categoria->nombre)->where('localizacion','CUSCO') as $proveedor)

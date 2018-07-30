@@ -4308,6 +4308,26 @@ function nuevos_proveedores(pos,categoria,grupo) {
         }
     })
 }
+function nuevos_proveedores_new(pos,categoria,grupo) {
+    var localizacion=$('#txt_localizacion_'+pos).val();
+    console.log('localizacion:'+localizacion+'_grupo:'+grupo);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '../../../admin/ventas/service/listar-proveedores',
+        data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            console.log(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
+        }
+    })
+}
 function guardarPrecio_Ticket(valor,id,fecha,pax){
     console.log('valor:'+valor+',id:'+id+',fecha:'+fecha);
     swal({
@@ -4785,14 +4805,14 @@ function escojer_servicio(){
     });
     $('#nroServicios').val(total_serv);
 
-    if(!existe_destino('#txt_destino_foco option',destino_escoj)) {
-        var destino_foco = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
-        $('#txt_destino_foco').append(destino_foco);
-    }
-    if(!existe_destino('#txt_destino_duerme option',destino_escoj)) {
-        var destino_duerme = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
-        $('#txt_destino_duerme').append(destino_duerme);
-    }
+    // if(!existe_destino('#txt_destino_foco option',destino_escoj)) {
+    //     var destino_foco = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
+    //     $('#txt_destino_foco').append(destino_foco);
+    // }
+    // if(!existe_destino('#txt_destino_duerme option',destino_escoj)) {
+    //     var destino_duerme = '<option value="' + destino_escoj + '">' + destino_escoj_titulo + '</option>';
+    //     $('#txt_destino_duerme').append(destino_duerme);
+    // }
 }
 function existe_destino(cb,clave){
     var existe=false;
@@ -5138,7 +5158,7 @@ function nuevos_proveedores_movilidad_ruta(pos,categoria,grupo) {
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             console.log(data);
-            $('#lista_proveedores_'+categoria).html(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
         }
     })
     $.ajaxSetup({
@@ -5265,6 +5285,16 @@ function nuevos_proveedores_trains_ruta(pos,categoria,grupo) {
         // Mostramos un mensaje con la respuesta de PHP
         success: function(data) {
             $('#ruta_llegada_'+pos).html(data);
+        }
+    })
+    $.ajax({
+        type: 'POST',
+        url: '../../../admin/ventas/service/listar-proveedores',
+        data: 'localizacion='+localizacion+'&grupo='+grupo+'&categoria='+categoria,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            console.log(data);
+            $('#lista_proveedores_'+pos+'_'+categoria).html(data);
         }
     })
 }

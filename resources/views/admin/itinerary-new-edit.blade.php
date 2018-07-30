@@ -228,12 +228,14 @@
                                         <label for="txt_travel_date">Destino oficial</label>
                                         <select class="form-control" name="txt_destino_foco" id="txt_destino_foco">
                                             <option value="0">Escoja un destino</option>
-                                            @foreach($array_destinos as $destins)
-                                                @php
-                                                    $destins_=explode('_',$destins);
-                                                @endphp
-                                                <option value="{{$destins_[0]}}" @if($itinerarios->destino_foco==$destins_[0]){{'selected'}}@endif>{{$destins_[1]}}</option>
+                                            @foreach($destinations as $destino)
+                                                <option value="{{$destino->id}}" @if($itinerarios->destino_foco==$destino->id){{'selected'}}@endif>{{$destino->destino}}</option>
                                             @endforeach
+                                            {{--@foreach($array_destinos as $destins)--}}
+                                                {{--@php--}}
+                                                    {{--$destins_=explode('_',$destins);--}}
+                                                {{--@endphp--}}
+                                            {{--@endforeach--}}
                                         </select>
                                     </div>
                                 </div>
@@ -243,13 +245,16 @@
                                         <select class="form-control" name="txt_destino_duerme" id="txt_destino_duerme">
                                             <option value="0">Escoja un destino</option>
                                             <option value="-1" @if($itinerarios->destino_duerme=='-1'){{'selected'}}@endif>NO DUERME</option>
-                                            @foreach($array_destinos as $destins)
-                                                @php
-                                                    $destins_=explode('_',$destins);
-                                                @endphp
-                                                <option value="{{$destins_[0]}}" @if($itinerarios->destino_duerme==$destins_[0]){{'selected'}}@endif>{{$destins_[1]}}</option>
+                                            @foreach($destinations as $destino)
+                                                <option value="{{$destino->id}}" @if($itinerarios->destino_duerme==$destino->id){{'selected'}}@endif>{{$destino->destino}}</option>
                                             @endforeach
-                                        </select>
+                                        {{--@foreach($array_destinos as $destins)--}}
+                                                {{--@php--}}
+                                                    {{--$destins_=explode('_',$destins);--}}
+                                                {{--@endphp--}}
+                                                {{--<option value="{{$destins_[0]}}" @if($itinerarios->destino_duerme==$destins_[0]){{'selected'}}@endif>{{$destins_[1]}}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
                                     </div>
                                 </div>
                             </div>
