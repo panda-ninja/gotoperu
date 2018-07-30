@@ -593,7 +593,6 @@
                                                                                                                     $precio_book=$producto->precio_costo*$cotizacion->nropersonas;
                                                                                                                 @endphp
                                                                                                             @endif
-
                                                                                                             <div class="row">
                                                                                                             <div class="col">
                                                                                                                 <div class="checkbox11 text-left">
@@ -824,6 +823,7 @@
                                                                                                                                 {{ucwords(strtolower($m_servicio->nombre))}}
                                                                                                                             </label>
                                                                                                                             <label> -> <sup>$</sup>{{$m_servicio->precio_venta}}</label>
+
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                 @endif
@@ -856,6 +856,7 @@
                                                                                                                                 {{$m_servicio->nombre}}
                                                                                                                             </label>
                                                                                                                             <label> -> <sup>$</sup>{{$m_servicio->precio_venta}}</label>
+
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                 @endif
@@ -873,6 +874,7 @@
                                                                                                                                 {{$m_servicio->nombre}}
                                                                                                                             </label>
                                                                                                                             <label> -> <sup>$</sup>{{$m_servicio->precio_venta}}</label>
+
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                 @endif
@@ -1241,6 +1243,7 @@
                                                                                                         </ul>
                                                                                                         <div class="tab-content">
                                                                                                             <div id="others_{{$servicios->id}}" class="tab-pane fade show active">
+
                                                                                                                 @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
                                                                                                                     <div class="col-lg-4 no-padding">
                                                                                                                         <div class="estilo_form clearfix small">
@@ -1771,6 +1774,7 @@
                             </div>
                             <div class="panel panel-default d-none">
                                 <div class="panel-body">
+
                                     <ul class="nav nav-tabs nav-justified">
                                         <li class="active"><a data-toggle="tab" href="#detalle">Detalle</a></li>
                                         <li><a data-toggle="tab" href="#resumen">Resumen</a></li>
@@ -1778,7 +1782,6 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div id="detalle" class="tab-pane fade show active">
-
                                         </div>
                                         <div id="resumen" class="tab-pane fade ">
                                             {{--<table class="table table-bordered tb table-striped table-responsive table-hover">--}}
