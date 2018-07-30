@@ -431,6 +431,7 @@ class PackageController extends Controller
         $paquete_precio5->hotel_id=$hotel_id_5;
         $paquete_precio5->save();
         $dia=0;
+
         foreach ($itinerarios_ as $itinerario_id){
             $dia_=$dia+1;
             $m_itineario=M_Itinerario::FindOrFail($itinerario_id);
