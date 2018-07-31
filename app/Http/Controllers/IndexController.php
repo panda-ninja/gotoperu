@@ -72,10 +72,16 @@ class IndexController extends Controller
 //            ->responsive(true)
 //            ->height(250)
 //            ->width(0);
+//        session()->put('menu', 'ventas');
+//        return view('admin.index');
+
+        $page='gotoperu.com';
+        $cotizacion=Cotizacion::where('web', $page)->get();
+//        session()->put('menu-lateral', 'quotes/current');
         session()->put('menu', 'ventas');
-        return view('admin.index');
-//        return view('admin.index',['chart' => $chart,'chart1' => $chart1,'chart2' => $chart2,'chart3' => $chart3,'chart4' => $chart4]);
-    }
+        return view('admin.index',['cotizacion'=>$cotizacion, 'page'=>$page]);
+//        return view('admin.index');
+  }
 
 public function inicio()
 {
