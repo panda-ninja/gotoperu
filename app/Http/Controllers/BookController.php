@@ -34,6 +34,7 @@ class BookController extends Controller
      */
     public function index()
     {
+        
         $paquete_cotizacion = PaqueteCotizaciones::where('estado', 2)->get();
         $cot_cliente = CotizacionesCliente::with('cliente')->where('estado', 1)->get();
         $cliente = Cliente::get();
