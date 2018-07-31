@@ -35,66 +35,21 @@
             <a href="{{route('liquidaciones_hechas_path')}}">Liquidaciones hechas</a>
 
         </li>
-        {{--<li>--}}
-            {{--<a href="#">Sales</a>--}}
-        {{--</li>--}}
 
-        {{--<ul class="nav nav-sidebar margin-bottom-0">--}}
-            {{--<li class="padding-side-20 bg-green-goto text-white text-20">Menu</li>--}}
-            {{--<li class="divider"></li>--}}
-            {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>--}}
-            {{--<li class="divider"></li>--}}
-            {{--<li ><a href="{{route('crear_liquidacion_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Crear Liquidacion</a></li>--}}
-            {{--<li class="divider"></li>--}}
-            {{--<li ><a href="{{route('liquidaciones_hechas_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>--}}
-            {{--<li class="divider"></li>--}}
-        {{--</ul>--}}
-
-        {{--<div class="menu-titulo text-center"><a href="!#"  class="link text-grey-goto">BOOK</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">January</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">February</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">March</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">April</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">May</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">Jane</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">July</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">August</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">September</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">October</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">November</a></div>--}}
-        {{--<div class="menu-lista text-center"><a href="#!" class="link text-grey-goto">December</a></div>--}}
     @endif
 
     @if(session()->get('menu')=='contabilidad')
-        <ul class="nav nav-sidebar margin-bottom-0">
-            <li class="padding-side-20 bg-green-goto text-white text-20">Contabilidad</li>
-            <li class="divider"></li>
-            <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Operaciones</b></li>
-            <li class="divider"></li>
-            <li ><a href="{{route('pagos_pendientes_rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Pagos pendientes</a></li>
-            <li ><a href="#!"><i class="fa fa-angle-right" aria-hidden="true"></i> Pagados</a></li>
-            <li class="divider"></li>
-            <li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Administrativo</b></li>
-            <li class="divider"></li>
-            <li ><a href="{{route('pagos_pendientes_rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Planillas</a></li>
-            <li ><a href="#!"><i class="fa fa-angle-right" aria-hidden="true"></i> Servicios</a></li>
-            <li class="divider"></li>
-            {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Servicios</b></li>--}}
-            {{--<li class="divider"></li>--}}
-            {{--<li ><a href="{{route('rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por fechas</a></li>--}}
-            {{--<li class="divider"></li>--}}
-            {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Hoteles</b></li>--}}
-            {{--<li class="divider"></li>--}}
-            {{--<li ><a href="{{route('rango_fecha_hotel_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Listar por fechas</a></li>--}}
-            {{--<li class="padding-side-20 bg-sub-title-aside"><b class="text-green-goto text-16">Liquidacion</b></li>--}}
-            {{--<li class="divider"></li>--}}
-            {{--<li ><a href="{{route('liquidaciones_hechas_conta_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Liquidaciones hechas</a></li>--}}
-            {{--<li class="divider"></li>--}}
-        </ul>
-        <ul class="nav nav-sidebar">
-            <li class="padding-side-20 bg-green-goto text-white text-20">Database</li>
-           <li><a href="{{route('costs_index_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Costs</a></li>
-        </ul>
+            <li><b class="">Operaciones</b></li>
+            <li><a href="{{route('pagos_pendientes_rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Pagos pendientes</a></li>
+            <li><a href="#!"><i class="fa fa-angle-right" aria-hidden="true"></i> Pagados</a></li>
+
+            <li><b class="">Administrativo</b></li>
+            <li><a href="{{route('pagos_pendientes_rango_fecha_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Planillas</a></li>
+            <li><a href="#!"><i class="fa fa-angle-right" aria-hidden="true"></i> Servicios</a></li>
+
+            <li class=""><b>Database</b></li>
+            <li><a href="{{route('costs_index_path')}}"><i class="fa fa-angle-right" aria-hidden="true"></i> Costs</a></li>
+
     @endif
     @if(session()->get('menu')=='operaciones')
         <div class="menu-titulo text-center"><a href="#!"  class="link text-grey-goto">QUOTES</a></div>
