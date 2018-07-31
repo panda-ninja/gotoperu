@@ -1,14 +1,14 @@
 @php
     use Carbon\Carbon;
-        $arra_iconos['HOTELS']='<i class="fa fa-building text-unset" aria-hidden="true"></i>';
-        $arra_iconos['TOURS']='<i class="fa fa-map-o text-info" aria-hidden="true"></i>';
-        $arra_iconos['MOVILID']='<i class="fa fa-bus text-warning" aria-hidden="true"></i>';
-        $arra_iconos['REPRESENT']='<i class="fa fa-users text-success" aria-hidden="true"></i>';
-        $arra_iconos['ENTRANCES']='<i class="fa fa-ticket text-warning" aria-hidden="true"></i>';
-        $arra_iconos['FOOD']='<i class="fa fa-cutlery text-danger" aria-hidden="true"></i>';
-        $arra_iconos['TRAINS']='<i class="fa fa-train text-info" aria-hidden="true"></i>';
-        $arra_iconos['FLIGHTS']='<i class="fa fa-plane text-primary" aria-hidden="true"></i>';
-        $arra_iconos['OTHERS']='<i class="fa fa-question text-success" aria-hidden="true"></i>';
+        $arra_iconos['HOTELS']='<i class="fa fa-building text-unset"></i>';
+        $arra_iconos['TOURS']='<i class="fas fa-map text-info"></i>';
+        $arra_iconos['MOVILID']='<i class="fa fa-bus text-warning"></i>';
+        $arra_iconos['REPRESENT']='<i class="fa fa-users text-success"></i>';
+        $arra_iconos['ENTRANCES']='<i class="fas fa-ticket-alt text-warning"></i>';
+        $arra_iconos['FOOD']='<i class="fas fa-utensils text-danger"></i>';
+        $arra_iconos['TRAINS']='<i class="fa fa-train text-info"></i>';
+        $arra_iconos['FLIGHTS']='<i class="fa fa-plane text-primary"></i>';
+        $arra_iconos['OTHERS']='<i class="fa fa-question text-success"></i>';
             function fecha_letra($fecha){
                 if(strlen($fecha)>0){
                 $fecha=explode('-',$fecha);
@@ -189,15 +189,15 @@
                             <table class="table table-sm table-bordered mt-3 table-hover">
                                 <thead>
                                 <tr>
-                                    <th class="text-g-green text-center">SERVICIOS</th>
-                                    <th class="text-g-green text-center">CALCULO</th>
-                                    <th class="text-g-green text-center">COTIZADO</th>
-                                    <th class="text-g-green text-center">RESERVADO</th>
-                                    <th class="text-g-green text-center">CONFIRMADO</th>
-                                    <th class="text-g-green text-center">FECHA A PAGAR</th>
-                                    <th class="text-g-green text-center">PAGADO</th>
-                                    <th class="text-g-green text-center d-none">Pagado</th>
-                                    <th class="text-g-green text-center d-none">Por pagar</th>
+                                    <th class="text-g-dark text-center">SERVICIOS</th>
+                                    <th class="text-g-dark text-center">CALCULO</th>
+                                    <th class="text-g-dark text-center">COTIZADO</th>
+                                    <th class="text-g-dark text-center">RESERVADO</th>
+                                    <th class="text-g-dark text-center">CONFIRMADO</th>
+                                    <th class="text-g-dark text-center">FECHA A PAGAR</th>
+                                    <th class="text-g-dark text-center">PAGADO</th>
+                                    <th class="text-g-dark text-center d-none">Pagado</th>
+                                    <th class="text-g-dark text-center d-none">Por pagar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -228,7 +228,7 @@
                                         @endphp
                                         @foreach($paquetes->itinerario_cotizaciones as $itinerario)
                                             <tr>
-                                                <td class=" bg-info" colspan="9">
+                                                <td class="bg-dark" colspan="9">
                                                     <b class="text-primary">Dia {{$itinerario->dias}}: {{fecha_letra($itinerario->fecha)}}</b>
                                                 </td>
                                             </tr>
@@ -236,17 +236,17 @@
                                                 <tr>
                                                     <td>
                                                         <div class="row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col">
                                                                 <b>{!! $arra_iconos[$servicios->servicio->grupo] !!}</b>
                                                                 {{ucwords(strtolower($servicios->nombre))}}
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                            <div class="col">
                                                                 @if($servicios->proveedor_id)
                                                                     @foreach($proveedores->where('id',$servicios->proveedor_id) as $provider)
-                                                                        <span class="text-11 text-primary">proveedor ({{$plazo=$provider->nombre_comercial}})</span>
+                                                                        <span class="small text-primary">proveedor ({{$plazo=$provider->nombre_comercial}})</span>
                                                                     @endforeach
                                                                 @else
-                                                                    <span class="text-11 text-danger">No se reservo este servicio</span>
+                                                                    <span class="small text-danger">No se reservo este servicio</span>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -257,7 +257,7 @@
                                                                 {{$servicios->precio}}
                                                                 <sup><small>$usd</small></sup></td>
                                                     @else
-                                                        <td class="text-right col-sm-2">
+                                                        <td class="text-right">
                                                                 {{$cotizacion->nropersonas}} X  {{$servicios->precio}}
                                                         </td>
                                                         <td class="text-right">
@@ -268,23 +268,23 @@
                                                     <td class="text-right">
 
                                                             @if($servicios->precio_c>0)
-                                                                <div class="col-lg-12 ">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="text" id="precio_c_{{$servicios->id}}" name="precio_c_{{$servicios->id}}" value="{{$servicios->precio_c}}">
                                                                         <span class="input-group-btn">
                                                                         <button type="submit" onclick="Enviar_precio_c('{{$servicios->id}}',$('#precio_c_{{$servicios->id}}').val())" id="btn_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                     </span>
                                                                     </div>
-                                                                </div>
+
                                                             @else
-                                                                <div class="col-lg-12 ">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="text" id="precio_c_{{$servicios->id}}" name="precio_c_{{$servicios->id}}" value="{{$servicios->precio_proveedor}}">
                                                                         <span class="input-group-btn">
                                                                         <button type="submit" onclick="Enviar_precio_c('{{$servicios->id}}',$('#precio_c_{{$servicios->id}}').val())" id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                     </span>
                                                                     </div>
-                                                                </div>
+
                                                             @endif
                                                     </td>
                                                     <td class="text-right">
@@ -295,14 +295,14 @@
                                                                         $array_proveedores[]=$servicios->proveedor_id;
                                                                     @endphp
                                                                     @if($servicios->fecha_venc)
-                                                                        <div class="col-lg-12 ">
+
                                                                             <div class="input-group">
                                                                                 <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$servicios->fecha_venc}}">
                                                                                 <span class="input-group-btn">
                                                                                     <button type="submit" onclick="actualizar_fecha('{{$servicios->id}}',$('#fecha_venc_{{$servicios->id}}').val(),'{{$servicios->proveedor_id}}','{{$paquetes->id}}')" id="btn_fecha_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                                 </span>
                                                                             </div>
-                                                                        </div>
+
                                                                     @else
                                                                         @php
                                                                             $plazo=0;
@@ -329,25 +329,25 @@
                                                                         @php
                                                                             $fecha=$fecha->toDateString();
                                                                         @endphp
-                                                                        <div class="col-lg-12 ">
+
                                                                             <div class="input-group">
                                                                                 <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$fecha}}">
                                                                                 <span class="input-group-btn">
                                                                                     <button type="submit" onclick="actualizar_fecha('{{$servicios->id}}',$('#fecha_venc_{{$servicios->id}}').val(),'{{$servicios->proveedor_id}}','{{$paquetes->id}}')" id="btn_fecha_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                                 </span>
                                                                             </div>
-                                                                        </div>
+
                                                                     @endif
                                                                 @else
                                                                     @if($servicios->fecha_venc)
-                                                                        <div class="col-lg-12 ">
+
                                                                             <div class="input-group">
                                                                                 <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$servicios->fecha_venc}}" readonly>
                                                                                 <span class="input-group-btn">
                                                                                 <button type="submit"  id="btn_{{$servicios->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                             </span>
                                                                             </div>
-                                                                        </div>
+
                                                                     @else
                                                                         @php
                                                                             $plazo=0;
@@ -374,14 +374,14 @@
                                                                         @php
                                                                             $fecha=$fecha->toDateString();
                                                                         @endphp
-                                                                        <div class="col-lg-12">
+
                                                                             <div class="input-group">
                                                                                 <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$fecha}}" readonly>
                                                                                 <span class="input-group-btn">
                                                                                 <button type="submit"  id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                             </span>
                                                                             </div>
-                                                                        </div>
+
                                                                     @endif
                                                                 @endif
                                                             @else
@@ -389,14 +389,14 @@
                                                                     $today=\Carbon\Carbon::now();
                                                                     $today=$today->addHours(5);
                                                                 @endphp
-                                                                <div class="col-lg-12">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="date" id="fecha_venc_{{$servicios->id}}" name="fecha_venc_{{$servicios->id}}" value="{{$today->toDateString()}}" readonly>
                                                                         <span class="input-group-btn">
                                                                             <button type="submit"  id="btn_{{$servicios->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                         </span>
                                                                     </div>
-                                                                </div>
+
                                                             @endif
                                                     </td>
                                                     <td class="col-lg-2 d-none">
@@ -528,7 +528,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-6">
                                                                 <b>
                                                                     @if($hotel->personas_s>0)
                                                                         <p>{{$hotel->personas_s}} <i class="fa fa-bed fa-2x" aria-hidden="true"></i></p>
@@ -544,13 +544,13 @@
                                                                     @endif
                                                                 </b>
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                            <div class="col-6">
                                                                 @if($hotel->proveedor_id)
                                                                     @foreach($proveedores->where('id',$hotel->proveedor_id) as $provider)
-                                                                        <span class="text-11 text-primary">proveedor ({{$provider->nombre_comercial}})</span>
+                                                                        <span class="small text-primary">proveedor ({{$provider->nombre_comercial}})</span>
                                                                     @endforeach
                                                                 @else
-                                                                    <span class="text-11 text-danger">No se reservo este hotel</span>
+                                                                    <span class="small text-danger">No se reservo este hotel</span>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -672,86 +672,84 @@
                                                     <td class="text-center">
                                                         @if($hotel->personas_s>0)
                                                             @if($hotel->precio_s_c>0)
-                                                                <div class="col-lg-12 ">
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="text" id="precio_c_h_s_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_s_c}}">
                                                                         <span class="input-group-btn">
-                                                                    <button type="submit" onclick="Enviar_precio_c_h('update','s','{{$hotel->id}}',$('#precio_c_h_s_{{$hotel->id}}').val())" id="btn_h_s_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
-                                                                </span>
+                                                                            <button type="submit" onclick="Enviar_precio_c_h('update','s','{{$hotel->id}}',$('#precio_c_h_s_{{$hotel->id}}').val())" id="btn_h_s_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
                                                                     </div>
-                                                                </div>
                                                             @else
-                                                                <div class="col-lg-12 ">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="text" id="precio_c_h_s_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_s_r}}">
                                                                         <span class="input-group-btn">
-                                                                    <button type="submit" onclick="Enviar_precio_c_h('nuevo','s','{{$hotel->id}}',$('#precio_c_h_s_{{$hotel->id}}').val())" id="btn_h_s_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
-                                                                </span>
+                                                                            <button type="submit" onclick="Enviar_precio_c_h('nuevo','s','{{$hotel->id}}',$('#precio_c_h_s_{{$hotel->id}}').val())" id="btn_h_s_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
                                                                     </div>
-                                                                </div>
+
                                                             @endif
                                                         @endif
                                                         @if($hotel->personas_d>0)
                                                             @if($hotel->precio_d_c>0)
-                                                                <div class="col-lg-12 ">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="text" id="precio_c_h_d_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_d_c}}">
                                                                         <span class="input-group-btn">
-                                                                        <button type="submit" onclick="Enviar_precio_c_h('update','d','{{$hotel->id}}',$('#precio_c_h_d_{{$hotel->id}}').val())" id="btn_h_d_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
-                                                                    </span>
+                                                                            <button type="submit" onclick="Enviar_precio_c_h('update','d','{{$hotel->id}}',$('#precio_c_h_d_{{$hotel->id}}').val())" id="btn_h_d_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                        </span>
                                                                     </div>
-                                                                </div>
+
                                                                 @else
-                                                                    <div class="col-lg-12 ">
+
                                                                         <div class="input-group">
                                                                             <input class="form-control" type="text" id="precio_c_h_d_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_d_r}}">
                                                                             <span class="input-group-btn">
-                                                                        <button type="submit" onclick="Enviar_precio_c_h('nuevo','d','{{$hotel->id}}',$('#precio_c_h_d_{{$hotel->id}}').val())" id="btn_h_d_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
-                                                                        </span>
+                                                                                <button type="submit" onclick="Enviar_precio_c_h('nuevo','d','{{$hotel->id}}',$('#precio_c_h_d_{{$hotel->id}}').val())" id="btn_h_d_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
+                                                                            </span>
                                                                         </div>
-                                                                    </div>
+
                                                             @endif
                                                         @endif
                                                             @if($hotel->personas_m>0)
                                                                 @if($hotel->precio_m_c>0)
-                                                                    <div class="col-lg-12 ">
+
                                                                         <div class="input-group">
                                                                             <input class="form-control" type="text" id="precio_c_h_m_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_m_c}}">
                                                                             <span class="input-group-btn">
                                                                                 <button type="submit" onclick="Enviar_precio_c_h('update','m','{{$hotel->id}}',$('#precio_c_h_m_{{$hotel->id}}').val())" id="btn_h_m_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                             </span>
                                                                         </div>
-                                                                    </div>
+
                                                                     @else
-                                                                    <div class="col-lg-12 ">
+
                                                                         <div class="input-group">
                                                                             <input class="form-control" type="text" id="precio_c_h_m_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_m_r}}">
                                                                             <span class="input-group-btn">
                                                                                 <button type="submit" onclick="Enviar_precio_c_h('nuevo','m','{{$hotel->id}}',$('#precio_c_h_m_{{$hotel->id}}').val())" id="btn_h_m_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                             </span>
                                                                         </div>
-                                                                    </div>
+
                                                                 @endif
                                                             @endif
                                                             @if($hotel->personas_t>0)
                                                                 @if($hotel->precio_t_c>0)
-                                                                    <div class="col-lg-12 ">
+
                                                                         <div class="input-group">
                                                                             <input class="form-control" type="text" id="precio_c_h_t_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_t_c}}">
                                                                             <span class="input-group-btn">
                                                                                 <button type="submit" onclick="Enviar_precio_c_h('update','t','{{$hotel->id}}',$('#precio_c_h_t_{{$hotel->id}}').val())" id="btn_h_t_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                             </span>
                                                                         </div>
-                                                                    </div>
+
                                                                     @else
-                                                                    <div class="col-lg-12 ">
+
                                                                         <div class="input-group">
                                                                             <input class="form-control" type="text" id="precio_c_h_t_{{$hotel->id}}" name="precio_c_h_{{$hotel->id}}" value="{{$hotel->precio_t_r}}">
                                                                             <span class="input-group-btn">
                                                                                 <button type="submit" onclick="Enviar_precio_c_h('nuevo','t','{{$hotel->id}}',$('#precio_c_h_t_{{$hotel->id}}').val())" id="btn_h_t_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                             </span>
                                                                         </div>
-                                                                    </div>
+
                                                                 @endif
                                                             @endif
                                                     </td>
@@ -762,14 +760,14 @@
                                                                 $array_proveedores_h[]=$hotel->proveedor_id;
                                                             @endphp
                                                             @if($hotel->fecha_venc)
-                                                                <div class="col-lg-12 ">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="date" id="fecha_venc_h_{{$hotel->id}}" name="fecha_venc_h_{{$hotel->id}}" value="{{$hotel->fecha_venc}}">
                                                                         <span class="input-group-btn">
                                                                                 <button type="submit" onclick="actualizar_fecha_h('{{$hotel->id}}',$('#fecha_venc_h_{{$hotel->id}}').val(),'{{$hotel->proveedor_id}}','{{$paquetes->id}}')" id="btn_fecha_h_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                             </span>
                                                                     </div>
-                                                                </div>
+
                                                             @else
                                                                 @php
                                                                     $plazo=0;
@@ -797,25 +795,25 @@
                                                                 @php
                                                                     $fechah=$fechah->toDateString();
                                                                 @endphp
-                                                                <div class="col-lg-12 ">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="date" id="fecha_venc_h_{{$hotel->id}}" name="fecha_venc_h_{{$hotel->id}}" value="{{$fechah}}">
                                                                         <span class="input-group-btn">
                                                                             <button type="submit" onclick="actualizar_fecha_h('{{$hotel->id}}',$('#fecha_venc_h_{{$hotel->id}}').val(),'{{$hotel->proveedor_id}}','{{$paquetes->id}}')" id="btn_fecha_h_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                         </span>
                                                                     </div>
-                                                                </div>
+
                                                             @endif
                                                         @else
                                                             @if($hotel->fecha_venc)
-                                                                <div class="col-lg-12 ">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="date" id="fecha_venc_{{$hotel->id}}" name="fecha_venc_{{$hotel->id}}" value="{{$hotel->fecha_venc}}" readonly>
                                                                         <span class="input-group-btn">
                                                                             <button type="submit"  id="btn_{{$hotel->id}}" class="btn btn-warning"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                         </span>
                                                                     </div>
-                                                                </div>
+
                                                             @else
                                                                 @php
                                                                     $plazo=0;
@@ -842,14 +840,14 @@
                                                                 @php
                                                                     $fechah=$fechah->toDateString();
                                                                 @endphp
-                                                                <div class="col-lg-12">
+
                                                                     <div class="input-group">
                                                                         <input class="form-control" type="date" id="fecha_venc_{{$hotel->id}}" name="fecha_venc_{{$hotel->id}}" value="{{$fechah}}" readonly>
                                                                         <span class="input-group-btn">
                                                                             <button type="submit"  id="btn_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                         </span>
                                                                     </div>
-                                                                </div>
+
                                                             @endif
                                                         @endif
                                                     @else
@@ -857,14 +855,14 @@
                                                                 $today=\Carbon\Carbon::now();
                                                                 $today=$today->addHours(5);
                                                             @endphp
-                                                            <div class="col-lg-12">
+
                                                                 <div class="input-group">
                                                                     <input class="form-control" type="date" id="fecha_venc_h_{{$hotel->id}}" name="fecha_venc_h_{{$hotel->id}}" value="{{$today->toDateString()}}" readonly>
                                                                     <span class="input-group-btn">
                                                                             <button type="submit"  id="btn_{{$hotel->id}}" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
                                                                         </span>
                                                                 </div>
-                                                            </div>
+
                                                     @endif
                                                     </td>
                                                     <td class="text-right">
@@ -1049,28 +1047,28 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-none">
-                        <span class="pull-left pax-nav">
-                            <b>Travel date: no se</b>
-                        </span>
-                                    <span class="pull-right">
-                            {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>--}}
-                                        {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>--}}
-                                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                        </span>
+                                    <span class="pull-left pax-nav">
+                                        <b>Travel date: no se</b>
+                                    </span>
+                                                <span class="pull-right">
+                                        {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>--}}
+                                                    {{--<a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>--}}
+                                                    <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
+                                    </span>
                                 </div>
                             </div>
-                            <table class="table table-bordered tb table-striped table-responsive table-hover">
+                            <table class="table table-bordered table-sm table-hover">
                                 <thead>
-                                <tr>
-                                    <th width="85px">GRUPO</th>
-                                    <th width="85px">DESTINO</th>
-                                    <th width="85px">SERVICIO</th>
+                                <tr class="small">
+                                    <th>GRUPO</th>
+                                    <th>DESTINO</th>
+                                    <th>SERVICIO</th>
                                     <th>NOMBRE COMERCIAL</th>
-                                    <th width="450px">FECHA DE SERV.</th>
-                                    <th width="50px">FECHA PAGO</th>
-                                    <th width="30px">RESERVADO</th>
-                                    <th width="90px">PAGADO</th>
-                                    <th width="60px">BALAN.</th>
+                                    <th>FECHA DE SERV.</th>
+                                    <th>FECHA PAGO</th>
+                                    <th>RESERVADO</th>
+                                    <th>PAGADO</th>
+                                    <th>BALAN.</th>
                                     <th>OPER.</th>
                                     <th>CERRAR</th>
 
@@ -1078,11 +1076,10 @@
                                 </thead>
                                 <tbody>
 
-{{--                                @if(count($ItinerarioHotleesAcumPagos)>0)--}}
                                     @foreach($ItinerarioHotleesAcumPagos->whereIn('estado',[-2,-1]) as $ItinerarioHotleesAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     @if($ItinerarioHotleesAcumPago->grupo!='')
                                                         {!! $arra_iconos['HOTELS']!!}
                                                     @endif
@@ -1094,29 +1091,29 @@
                                                 @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->hotel->where('proveedor_id',$ItinerarioHotleesAcumPago->proveedor_id) as $itinerario_servicio)
-                                                            <li><span class="text-10">{{$itinerario_servicio->localizacion}}</span></li>
+                                                            <li><span class="small">{{$itinerario_servicio->localizacion}}</span></li>
                                                             @endforeach
                                                     @endforeach
                                                 @endforeach
                                                 </ul>
                                             </td>
                                             <td>
-                                                <ul>
+                                                <ul class="m-0">
                                                 @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->hotel->where('proveedor_id',$ItinerarioHotleesAcumPago->proveedor_id) as $hotelito)
                                                                 <li>
                                                                     @if($hotelito->personas_s>0)
-                                                                        <span class="text-10">Single Room</span><br>
+                                                                        <span class="small">Single Room</span><br>
                                                                     @endif
                                                                     @if($hotelito->personas_d>0)
-                                                                        <span class="text-10">Double Room</span><br>
+                                                                        <span class="small">Double Room</span><br>
                                                                     @endif
                                                                     @if($hotelito->personas_m>0)
-                                                                        <span class="text-10">Matrimonial Room</span><br>
+                                                                        <span class="small">Matrimonial Room</span><br>
                                                                     @endif
                                                                     @if($hotelito->personas_t>0)
-                                                                        <span class="text-10">Triple Room</span>
+                                                                        <span class="small">Triple Room</span>
                                                                     @endif
                                                                 </li>
                                                         @endforeach
@@ -1125,19 +1122,19 @@
                                                 </ul>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioHotleesAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioHotleesAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -1146,7 +1143,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <input class="form-control" type="date" name="fecha_a_pagar" id="fecha_a_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" value="{{$ItinerarioHotleesAcumPago->fecha_a_pagar}}" @if($ItinerarioHotleesAcumPago->estado==-1){{'readonly'}}@endif>
+                                                <input class="form-control form-control-sm" type="date" name="fecha_a_pagar" id="fecha_a_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" value="{{$ItinerarioHotleesAcumPago->fecha_a_pagar}}" @if($ItinerarioHotleesAcumPago->estado==-1){{'readonly'}}@endif>
                                             </td>
                                             <td>
                                                 @php
@@ -1176,7 +1173,7 @@
 
                                                 {{--@elseif($ItinerarioHotleesAcumPago->estado==-1)--}}
                                                     {{--@if($ItinerarioHotleesAcumPago->a_cuenta==$pagado_Hotel)--}}
-                                                        {{--<i class="fa fa-check-square-o text-success fa-2x"></i>--}}
+                                                        {{--<i class="fas fa-check text-success fa-2x"></i>--}}
                                                     {{--@elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)--}}
                                                         {{--<a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-success  btn-sm" >Pagar</a>--}}
                                                     {{--@endif--}}
@@ -1186,19 +1183,19 @@
                                                 @if($ItinerarioHotleesAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioHotleesAcumPago->estado==-2)
-                                                        <button id="btn_save_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio_h($('#total_h_{{$ItinerarioHotleesAcumPago->id}}').val(),'{{$ItinerarioHotleesAcumPago->id}}',$('#fecha_a_pagar_h_{{$ItinerarioHotleesAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio_h($('#total_h_{{$ItinerarioHotleesAcumPago->id}}').val(),'{{$ItinerarioHotleesAcumPago->id}}',$('#fecha_a_pagar_h_{{$ItinerarioHotleesAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                         <a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioHotleesAcumPago->estado==-1)
                                                         @if($ItinerarioHotleesAcumPago->a_cuenta==$pagado_Hotel)
-                                                            <i id="check_h_{{$ItinerarioHotleesAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_h_{{$ItinerarioHotleesAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
-                                                            <i id="check_h_{{$ItinerarioHotleesAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_h_{{$ItinerarioHotleesAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioHotleesAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioHotleesAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_hotels_conta_pagos_path',[$cotizacion->id,$ItinerarioHotleesAcumPago->id,$ItinerarioHotleesAcumPago->proveedor_id])}}" id="btn_pagar_h_{{$ItinerarioHotleesAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -1216,8 +1213,8 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioHotleesAcumPago->a_cuenta-$pagado_Hotel}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
@@ -1240,7 +1237,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','TOURS')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                 {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                 @endif
@@ -1251,7 +1248,7 @@
                                                 @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                            <span class="text-10">{{$itinerario_servicio->servicio->localizacion}}</span><br>
+                                                            <span class="small">{{$itinerario_servicio->servicio->localizacion}}</span><br>
                                                         @endforeach
                                                     @endforeach
                                                 @endforeach
@@ -1260,25 +1257,25 @@
                                                 @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                            <span class="text-10">{{$itinerario_servicio->nombre}}</span><br>
+                                                            <span class="small">{{$itinerario_servicio->nombre}}</span><br>
                                                         @endforeach
                                                     @endforeach
                                                 @endforeach
                                             </td>
                                             <td >
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                     {{$proveedor->razon_social}}
                                                 @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             {{--<td class="d-none">--}}
-                                                {{--<span class="text-11">--}}
+                                                {{--<span class="small">--}}
                                                 {{--@if($cotizacion->categorizado=='C')--}}
                                                     {{--{{'Con factura'}}--}}
                                                 {{--@elseif($cotizacion->categorizado=='S')--}}
@@ -1312,19 +1309,19 @@
                                                 @if($ItinerarioServiciosAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -1342,8 +1339,8 @@
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                     <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
@@ -1365,7 +1362,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','MOVILID')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                         {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                     @endif
@@ -1376,7 +1373,7 @@
                                                 @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                            <span class="text-10">{{$itinerario_servicio->servicio->localizacion}}</span><br>
+                                                            <span class="small">{{$itinerario_servicio->servicio->localizacion}}</span><br>
                                                         @endforeach
                                                     @endforeach
                                                 @endforeach
@@ -1385,25 +1382,25 @@
                                                 @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                            <span class="text-10">{{$itinerario_servicio->nombre}}</span><br>
+                                                            <span class="small">{{$itinerario_servicio->nombre}}</span><br>
                                                         @endforeach
                                                     @endforeach
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -1437,19 +1434,20 @@
                                                 @if($ItinerarioServiciosAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i>
+                                                        </button>
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -1467,8 +1465,8 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
@@ -1490,7 +1488,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','REPRESENT')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                         {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                     @endif
@@ -1503,7 +1501,7 @@
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
                                                             <li>
-                                                                <span class="text-10">{{$itinerario_servicio->servicio->localizacion}}</span>
+                                                                <span class="small">{{$itinerario_servicio->servicio->localizacion}}</span>
                                                             </li>
                                                         @endforeach
                                                     @endforeach
@@ -1515,26 +1513,26 @@
                                                 @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                     @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                         @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                           <li><span class="text-10">{{$itinerario_servicio->nombre}}</span></li>
+                                                           <li><span class="small">{{$itinerario_servicio->nombre}}</span></li>
                                                             @endforeach
                                                     @endforeach
                                                 @endforeach
                                                 </ul>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -1568,19 +1566,19 @@
                                                 @if($ItinerarioServiciosAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -1598,8 +1596,8 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
@@ -1633,34 +1631,34 @@
                                                 @if($servicio->servicio->grupo=='ENTRANCES'||($servicio->servicio->grupo=='MOVILID' && $servicio->servicio->clase=='BOLETO'))
                                                     <tr>
                                                         <td>
-                                                            <span class="text-11">
+                                                            <span class="small">
                                                                     {!! $arra_iconos['ENTRANCES']!!}
                                                                 ENTRANCES
                                                             </span><br>
-                                                            <b class="text-11 text-green-goto padding-15">
+                                                            <b class="small text-green-goto padding-15">
                                                                 {{$servicio->servicio->clase}}
                                                             </b>
                                                         </td>
                                                         <td>
-                                                            <span class="text-10">{{$servicio->servicio->localizacion}}</span>
+                                                            <span class="small">{{$servicio->servicio->localizacion}}</span>
                                                         </td>
                                                         <td>
-                                                            <span class="text-10">{{$servicio->servicio->nombre}}</span>
+                                                            <span class="small">{{$servicio->servicio->nombre}}</span>
                                                         </td>
                                                         <td>
-                                                            <span class="text-11">
+                                                            <span class="small">
                                                                 @foreach($proveedores->where('id',$servicio->proveedor_id) as $proveedor)
                                                                     {{$proveedor->razon_social}}
                                                                 @endforeach
                                                             </span>
                                                         </td>
                                                         <td>
-                                                            <span class="text-11">
+                                                            <span class="small">
                                                                 {{$iti->fecha}}
                                                             </span>
                                                         </td>
                                                         <td class="d-none">
-                                                            <span class="text-11">
+                                                            <span class="small">
                                                             @if($cotizacion->categorizado=='C')
                                                                     {{'Con factura'}}
                                                                 @elseif($cotizacion->categorizado=='S')
@@ -1717,14 +1715,14 @@
                                                         </td>
                                                         <td class="text-center">
                                                             @if($servicio->liquidacion==1)
-                                                                <button id="btn_save_ticket_{{$servicio->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio_Ticket($('#total_ticket_{{$servicio->id}}').val(),'{{$servicio->id}}',$('#fecha_a_pagar_ticket_{{$servicio->id}}').val())">Guardar</button>
+                                                                <button id="btn_save_ticket_{{$servicio->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio_Ticket($('#total_ticket_{{$servicio->id}}').val(),'{{$servicio->id}}',$('#fecha_a_pagar_ticket_{{$servicio->id}}').val())"><i class="fas fa-save"></i></button>
                                                                 <button id="btn_pagar_ticket_{{$servicio->id}}" class="btn btn-primary d-none" onclick="pagar_entrada_pagos('{{$servicio->id}}','{{$servicio->precio_proveedor}}')">Pagar</button>
-                                                                <i id="check_{{$servicio->id}}" class="fa fa-check-square-o text-success fa-2x d-none"></i>
+                                                                <i id="check_{{$servicio->id}}" class="fas fa-check text-success fa-2x d-none"></i>
                                                             @elseif($servicio->liquidacion==3)
                                                                 <button id="btn_pagar_ticket_{{$servicio->id}}" class="btn btn-primary" onclick="pagar_entrada_pagos('{{$servicio->id}}','{{$servicio->precio_proveedor}}')">Pagar</button>
-                                                                <i id="check_{{$servicio->id}}" class="fa fa-check-square-o text-success fa-2x d-none"></i>
+                                                                <i id="check_{{$servicio->id}}" class="fas fa-check text-success fa-2x d-none"></i>
                                                             @elseif($servicio->liquidacion==2)
-                                                                <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                                <i class="fas fa-check text-success fa-2x"></i>
                                                             @endif
                                                         </td>
                                                         <td></td>
@@ -1739,7 +1737,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','ENTRANCES')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr class="d-none">
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                         {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                     @endif
@@ -1747,26 +1745,26 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->r_nombres}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -1796,11 +1794,11 @@
                                             <td class="text-center">
                                                 {{csrf_field()}}
                                                 @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                    <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                 @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                     @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                        <i class="fa fa-check-square-o text-success fa-2x"></i>
+                                                        <i class="fas fa-check text-success fa-2x"></i>
                                                     @elseif($ItinerarioHotleesAcumPago->a_cuenta>=$pagado_Hotel)
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                     @endif
@@ -1811,7 +1809,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','FOOD')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                         {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                     @endif
@@ -1824,7 +1822,7 @@
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
                                                                 <li>
-                                                                    <span class="text-10">{{$itinerario_servicio->servicio->localizacion}}</span>
+                                                                    <span class="small">{{$itinerario_servicio->servicio->localizacion}}</span>
                                                                 </li>
                                                             @endforeach
                                                         @endforeach
@@ -1836,26 +1834,26 @@
                                                     @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                                <li><span class="text-10">{{$itinerario_servicio->nombre}}</span></li>
+                                                                <li><span class="small">{{$itinerario_servicio->nombre}}</span></li>
                                                             @endforeach
                                                         @endforeach
                                                     @endforeach
                                                 </ul>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -1889,19 +1887,19 @@
                                                 @if($ItinerarioServiciosAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -1919,8 +1917,8 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
@@ -1942,7 +1940,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','TRAINS')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                         {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                     @endif
@@ -1955,7 +1953,7 @@
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
                                                                 <li>
-                                                                    <span class="text-10">{{$itinerario_servicio->servicio->localizacion}}</span>
+                                                                    <span class="small">{{$itinerario_servicio->servicio->localizacion}}</span>
                                                                 </li>
                                                             @endforeach
                                                         @endforeach
@@ -1967,26 +1965,26 @@
                                                     @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                                <li><span class="text-10">{{$itinerario_servicio->nombre}}</span></li>
+                                                                <li><span class="small">{{$itinerario_servicio->nombre}}</span></li>
                                                             @endforeach
                                                         @endforeach
                                                     @endforeach
                                                 </ul>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -2020,19 +2018,19 @@
                                                 @if($ItinerarioServiciosAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -2050,8 +2048,8 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
@@ -2073,7 +2071,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','FLIGHTS')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                         {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                     @endif
@@ -2086,7 +2084,7 @@
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
                                                                 <li>
-                                                                    <span class="text-10">{{$itinerario_servicio->servicio->localizacion}}</span>
+                                                                    <span class="small">{{$itinerario_servicio->servicio->localizacion}}</span>
                                                                 </li>
                                                             @endforeach
                                                         @endforeach
@@ -2098,26 +2096,26 @@
                                                     @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                                <li><span class="text-10">{{$itinerario_servicio->nombre}}</span></li>
+                                                                <li><span class="small">{{$itinerario_servicio->nombre}}</span></li>
                                                             @endforeach
                                                         @endforeach
                                                     @endforeach
                                                 </ul>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -2151,19 +2149,19 @@
                                                 @if($ItinerarioServiciosAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -2181,8 +2179,8 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
@@ -2204,7 +2202,7 @@
                                     @foreach($ItinerarioServiciosAcumPagos->where('grupo','OTHERS')->whereIn('estado',[-2,-1]) as $ItinerarioServiciosAcumPago)
                                         <tr>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($ItinerarioServiciosAcumPago->grupo!='')
                                                         {!! $arra_iconos[$ItinerarioServiciosAcumPago->grupo]!!}
                                                     @endif
@@ -2217,7 +2215,7 @@
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
                                                                 <li>
-                                                                    <span class="text-10">{{$itinerario_servicio->servicio->localizacion}}</span>
+                                                                    <span class="small">{{$itinerario_servicio->servicio->localizacion}}</span>
                                                                 </li>
                                                             @endforeach
                                                         @endforeach
@@ -2229,26 +2227,26 @@
                                                     @foreach($pqt_coti->take(1) as $pqt_coti_)
                                                         @foreach($pqt_coti_->itinerario_cotizaciones as $itinerario_cotizacion)
                                                             @foreach($itinerario_cotizacion->itinerario_servicios->where('proveedor_id',$ItinerarioServiciosAcumPago->proveedor_id) as $itinerario_servicio)
-                                                                <li><span class="text-10">{{$itinerario_servicio->nombre}}</span></li>
+                                                                <li><span class="small">{{$itinerario_servicio->nombre}}</span></li>
                                                             @endforeach
                                                         @endforeach
                                                     @endforeach
                                                 </ul>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @foreach($proveedores->where('id',$ItinerarioServiciosAcumPago->proveedor_id) as $proveedor)
                                                         {{$proveedor->razon_social}}
                                                     @endforeach
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="text-11">
+                                                <span class="small">
                                                     {{fecha_letra($ItinerarioServiciosAcumPago->fecha_servicio)}}
                                                 </span>
                                             </td>
                                             <td class="d-none">
-                                                <span class="text-11">
+                                                <span class="small">
                                                 @if($cotizacion->categorizado=='C')
                                                         {{'Con factura'}}
                                                     @elseif($cotizacion->categorizado=='S')
@@ -2282,19 +2280,19 @@
                                                 @if($ItinerarioServiciosAcumPago->balance==0)
                                                     {{csrf_field()}}
                                                     @if($ItinerarioServiciosAcumPago->estado==-2)
-                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())">Guardar</button>
+                                                        <button id="btn_save_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-warning  btn-sm" onclick="guardarPrecio($('#total_{{$ItinerarioServiciosAcumPago->id}}').val(),'{{$ItinerarioServiciosAcumPago->id}}',$('#fecha_a_pagar_{{$ItinerarioServiciosAcumPago->id}}').val())"><i class="fas fa-save"></i></button>
                                                         <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm d-none">Pagar</a>
                                                     @elseif($ItinerarioServiciosAcumPago->estado==-1)
                                                         @if($ItinerarioServiciosAcumPago->a_cuenta==$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
                                                         @elseif($ItinerarioServiciosAcumPago->a_cuenta>=$pagado_Serv)
-                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fa fa-check-square-o text-success fa-2x"></i>
+                                                            <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="d-none fas fa-check text-success fa-2x"></i>
                                                             <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="btn btn-success btn-sm" >Pagar</a>
                                                         @endif
                                                     @endif
                                                 @else
-                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fa fa-check-square-o text-success fa-2x"></i>
+                                                    <i id="check_{{$ItinerarioServiciosAcumPago->id}}" class="fas fa-check text-success fa-2x"></i>
                                                     <a href="{{route('pagar_servicios_conta_pagos_path',[$cotizacion->id,$ItinerarioServiciosAcumPago->id,$ItinerarioServiciosAcumPago->proveedor_id])}}" id="btn_pagar_{{$ItinerarioServiciosAcumPago->id}}" class="d-none btn btn-success btn-sm" >Pagar</a>
 
                                                 @endif
@@ -2312,8 +2310,8 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel">Motivo por la cual se esta cerrando con un balance de ${{$ItinerarioServiciosAcumPago->a_cuenta-$pagado_Serv}}</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
