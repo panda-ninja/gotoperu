@@ -31,7 +31,7 @@
                         $activo='active';
                     @endphp
                     @foreach($destinations as $destino)
-                        <li class="nav-item active">
+                            <li class="nav-item active">
                             <a href="#{{$destino->id}}" class="nav-link show small p-2 {{$activo}} rounded-0" aria-controls="home" role="tab" data-toggle="tab">{{$destino->codigo}}</a>
                         </li>
                         @if($activo=='active')
