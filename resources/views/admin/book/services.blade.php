@@ -59,7 +59,7 @@
                     <div class="tab-content mt-3">
                         <div id="itinerario" class="tab-pane fade show active">
                             <div class="row">
-                                <div class="col-12 d-noncole">
+                                <div class="col-12 d-none">
                                     <i class="fa fa-check d-none text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hidalgo esta activo"></i>
                                     <b class="text-success text-25">@if($cotizacion->categorizado=='C'){{'Con factura'}}@elseif($cotizacion->categorizado=='S'){{'Sin factura'}}@else{{'No esta filtrado'}}@endif</b>
                                     <div class="dropdown pull-right d-none">
@@ -593,7 +593,6 @@
                                                                                                                     $precio_book=$producto->precio_costo*$cotizacion->nropersonas;
                                                                                                                 @endphp
                                                                                                             @endif
-
                                                                                                             <div class="row">
                                                                                                             <div class="col">
                                                                                                                 <div class="checkbox11 text-left">
@@ -1079,6 +1078,7 @@
                                                                                                         <div class="tab-content mt-3">
                                                                                                             <div id="lunch_{{$servicios->id}}" class="tab-pane fade show active">
                                                                                                                 <div class="row">
+
                                                                                                                 @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
                                                                                                                     @if($m_servicio->tipoServicio=='LUNCH')
                                                                                                                         <div class="col-6">
@@ -1133,6 +1133,7 @@
                                                                                                 <!-- PARA TRAINS -->
                                                                                                     @if($grupo=='TRAINS')
                                                                                                         <ul class="nav nav-tabs nav-justified">
+
                                                                                                             <li class="nav-item active">
                                                                                                                 <a class="nav-link show small active" href="#expedition_{{$servicios->id}}" data-toggle="tab">EXPEDITION</a>
                                                                                                             </li>
@@ -1155,6 +1156,7 @@
                                                                                                         <div class="tab-content mt-3">
                                                                                                             <div id="expedition_{{$servicios->id}}" class="tab-pane fade show active">
                                                                                                                 <div class="row">
+
                                                                                                                 @foreach($m_servicios->where('localizacion',$localizacion)->where('grupo',$grupo) as $m_servicio)
                                                                                                                     @if($m_servicio->tipoServicio=='EXPEDITION')
                                                                                                                         <div class="col-6">
@@ -1856,7 +1858,6 @@
                                     </ul>
                                     <div class="tab-content mt-3">
                                         <div id="detalle" class="tab-pane fade show active">
-
                                         </div>
                                         <div id="resumen" class="tab-pane fade ">
                                             {{--<table class="table table-bordered tb table-striped table-responsive table-hover">--}}
