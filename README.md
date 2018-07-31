@@ -1,2 +1,0 @@
-# gotoperu
-Pagina en desarrollo
