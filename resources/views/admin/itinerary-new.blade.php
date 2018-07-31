@@ -154,7 +154,7 @@
                                     {{--<div class="col-lg-9">Contenido de la fila 1</div>--}}
                                     {{--<div class="col-lg-1"><span class="text-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>--}}
                                     {{--</div>--}}
-                                    {{--</div>--}}
+                                    {{--</div>--}} 
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
